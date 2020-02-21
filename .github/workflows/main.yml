@@ -21,5 +21,5 @@ jobs:
       
     - name: move build file script
       run: |
-        mv ../build/* ../
+        mv ./build/* ../
         
