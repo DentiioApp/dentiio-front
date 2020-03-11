@@ -1,0 +1,20 @@
+
+name: Deploy on Heroku
+on:
+  push:
+    branches:
+      - master
+  pull_request:
+    branches:
+      - master
+
+
+jobs:
+  deploy:
+    name: Deployement
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v1
+      - uses: actions/setup-ruby@v1
+      - run: gem install dpl
+      - run: dpl --provider=heroku --app=dentiio-front --api-key=${{ secrets.API_KEY_HEROKU }}
