@@ -1,10 +1,11 @@
 import React from 'react';
+import './titleHeader.scss'
 import Icon from "../../../images/titleHeader.svg";
 
 function titleHeader() {
   return (
     <>
-      <img src={Icon}/>
+      <img className='titleHeader' src={Icon}/>
     </>
   );
 }
