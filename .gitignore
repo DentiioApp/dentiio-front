@@ -4,3 +4,4 @@ node_modules
 .nbproject
 .gitignore
 yarn-error.log
+build
