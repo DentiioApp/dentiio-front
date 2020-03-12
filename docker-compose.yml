@@ -1,0 +1,13 @@
+version: '3.6'
+services:
+    node:
+        image: 'node:13.10'
+        working_dir: /home/node/app
+        command:
+            - /bin/sh
+            - '-c'
+            - 'yarn && yarn start'
+        ports:
+            - '3000:3000'
+        volumes:
+            - './:/home/node/app'

@@ -3,4 +3,4 @@ node_modules
 .vscode
 .nbproject
 .gitignore
-
+yarn-error.log
