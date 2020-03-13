@@ -1,13 +1,13 @@
-import React from 'react';
+import React from 'react'
 import './titleHeader.scss'
-import Icon from "../../../images/titleHeader.svg";
+import Icon from '../../../images/titleHeader.svg'
 
-function titleHeader() {
+function titleHeader () {
   return (
     <>
-      <img className='titleHeader' src={Icon}/>
+      <img className='titleHeader' alt='' src={Icon} />
     </>
-  );
+  )
 }
 
-export default titleHeader;
+export default titleHeader

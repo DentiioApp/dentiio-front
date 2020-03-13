@@ -1,15 +1,13 @@
-import React from 'react';
-import './Home.scss';
-import SectionDesktop from "../../App/sectionDesktop/Section-desktop";
+import React from 'react'
 
+import Screen1 from '../../App/screen/Screen'
 
-function Body() {
-    return (
-        <>
-            <SectionDesktop/>
-
-        </>
-    );
+function Body () {
+  return (
+    <>
+      <Screen1 />
+    </>
+  )
 }
 
-export default Body;
+export default Body

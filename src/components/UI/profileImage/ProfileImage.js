@@ -1,12 +1,12 @@
-import React from 'react';
-import Icon from "../../../images/profile.svg";
+import React from 'react'
+import Icon from '../../../images/profile.svg'
 
-function profileImage() {
+function profileImage () {
   return (
     <>
-      <img src={Icon}/>
+      <img src={Icon} />
     </>
-  );
+  )
 }
 
-export default profileImage;
+export default profileImage
