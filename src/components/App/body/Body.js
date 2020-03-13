@@ -1,11 +1,11 @@
 import React from 'react'
 
-import SectionDesktop from '../../App/sectionDesktop/Section-desktop'
+import Screen1 from '../../App/screen/Screen'
 
 function Body () {
   return (
     <>
-      <SectionDesktop />
+      <Screen1 />
     </>
   )
 }

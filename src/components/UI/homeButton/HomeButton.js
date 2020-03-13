@@ -5,7 +5,7 @@ import Icon from '../../../images/signUpButton.svg'
 function HomeButton (props) {
   return (
     <>
-      <img src={Icon} />
+      <img alt='' src={Icon} />
     </>
   )
 }

@@ -1,15 +1,15 @@
 import React from 'react'
 
-import desktopImg_home from '../../UI/desktopImg_home/DesktopImgHome'
-import mainTitle_home from '../../UI/mainTitle_home/MainTitle_home'
-
-function SectionDesktop () {
+function Screen () {
   return (
     <>
-      <desktopImg_home />
-      <mainTitle_home />
+      <h1>Title</h1>
+      <p>
+        Description
+      </p>
+      <img src='' alt='jhon doe'/>
     </>
   )
 }
 
-export default SectionDesktop
+export default Screen

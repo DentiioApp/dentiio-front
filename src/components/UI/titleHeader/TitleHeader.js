@@ -5,7 +5,7 @@ import Icon from '../../../images/titleHeader.svg'
 function titleHeader () {
   return (
     <>
-      <img className='titleHeader' src={Icon} />
+      <img className='titleHeader' alt='' src={Icon} />
     </>
   )
 }
