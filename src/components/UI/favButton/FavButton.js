@@ -1,12 +1,12 @@
-import React from 'react';
-import Icon from "../../../images/favButton.svg";
+import React from 'react'
+import Icon from '../../../images/favButton.svg'
 
-function favButton() {
+function favButton () {
   return (
     <>
-      <img src={Icon}/>
+      <img src={Icon} />
     </>
-  );
+  )
 }
 
-export default favButton;
+export default favButton

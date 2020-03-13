@@ -1,13 +1,13 @@
-import React from 'react';
-//import './HomeButton.scss';
-import Icon from '../../../images/signUpButton.svg';
+import React from 'react'
+// import './HomeButton.scss';
+import Icon from '../../../images/signUpButton.svg'
 
-function HomeButton(props) {
+function HomeButton (props) {
   return (
     <>
-      <img src={Icon}/>
+      <img src={Icon} />
     </>
-  );
+  )
 }
 
-export default HomeButton;
+export default HomeButton

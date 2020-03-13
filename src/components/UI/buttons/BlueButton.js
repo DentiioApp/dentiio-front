@@ -1,12 +1,12 @@
-import React from 'react';
+import React from 'react'
 import './BlueButton.scss'
 
-function blueButton(props) {
-    return (
-        <>
-            <button className={'blue'}>{props.content}</button>
-        </>
-    );
+function blueButton (props) {
+  return (
+    <>
+      <button className='blue'>{props.content}</button>
+    </>
+  )
 }
 
-export default blueButton;
+export default blueButton
