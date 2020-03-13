@@ -6,6 +6,8 @@ services:
         command:
             - /bin/sh
             - '-c'
+            - 'npm install standard --global'
+            - 'standard'
             - 'yarn && yarn start'
         ports:
             - '3000:3000'
