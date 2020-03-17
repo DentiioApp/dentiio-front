@@ -3,7 +3,7 @@ import './header.scss'
 
 import HomeButton from '../../UI/homeButton/HomeButton'
 import TitleHeader from '../../UI/titleHeader/TitleHeader'
-//import WhiteButton from '../../UI/buttons/WhiteButton'
+// import WhiteButton from '../../UI/buttons/WhiteButton'
 import BlueButton from '../../UI/buttons/BlueButton'
 
 function Header () {
