@@ -1,11 +1,11 @@
 import React from 'react'
 
-import Screen1 from '../../App/screen/Screen'
+import Auth from '../../../containers/Auth/Auth'
 
 function Body () {
   return (
     <>
-      <Screen1 />
+      <Auth />
     </>
   )
 }
