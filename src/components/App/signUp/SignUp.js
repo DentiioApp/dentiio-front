@@ -51,8 +51,6 @@ const SignUp = () => {
     event.preventDefault()
   }
 
-  // const [currency, setCurrency] = React.useState('CD');
-
   return (
     <>
       <form className={classes.root} noValidate autoComplete='off' variant='outlined'>
