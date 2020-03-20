@@ -81,10 +81,12 @@ a{
   .rsbloc{
     order: 0!important;
   }
+}
+
+@media screen and (max-width: 600px){
   h1{
     font-size: 1.2rem!important;
     font-family: 'Lato', sans-serif;
-
   }
 }
 
