@@ -17,7 +17,7 @@ function Home () {
                 <img className='illus' src={Illus}/>
             </div>
             <div className='item'>
-                <h1>Cas Cliniques & Diagnostics Dentaire</h1>
+                <h1>Cas Cliniques & Diagnostics Dentaires</h1>
                 <ul className="block1_text_list">
                     <li className="block1_text_list">La plateforme dédiée au partage de connaissances bucco-dentaires</li>
                     <li className="block1_text_list">Découvrez, partagez et commentez des cas cliniques</li>
