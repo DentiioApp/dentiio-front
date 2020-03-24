@@ -18,7 +18,7 @@ help:
 		| expand -t14
 
 ##
-## Project setup & day to day shortcuts
+##Project setup & day to day shortcuts commands
 ##---------------------------------------------------------------------------
 
 .PHONY: run ## Build & run the project
@@ -26,14 +26,27 @@ run:
 	$(D) build -t $(T) .
 	$(D) run -p 3000:3000 -d --name $(N) $(T)
 
-.PHONY: start ## start the project
+.PHONY: start ## Start the project
 start:
 	$(D) start $(N)
 
-.PHONY: restart ## restart the project
+.PHONY: restart ## Restart the project
 restart:
 	$(D) restart $(N)
 
-.PHONY: stop ## stop the project
+.PHONY: exec ## Run bash in the node container
+exec:
+	$(D) exec -ti $(N) /bin/bash
+
+.PHONY: stop ## Stop the project
 stop:
 	$(D) stop $(N)
+
+.PHONY: logs ## Fetch the logs on this project
+logs:
+	$(D) logs --details $(N)
+
+.PHONY: delete ## Remove one or more images on this project
+delete: stop
+	$(D) rmi -f $(T)
+	$(D) rm -f $(N)
