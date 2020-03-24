@@ -1,10 +1,10 @@
 # dentiio-front
-contributor : 
-[Lory] [L]
-[Branis] [B]
-[Arthur] [A]
-[Romain] [R]
-[Mounia] [M]
+Contributors :  
+[Lory][L] 
+,[Branis][B] 
+,[Arthur][A] 
+,[Romain][R] 
+& [Mounia][M]
 
 [L]:https://github.com/loryleticee
 [B]:https://github.com/branisanz1

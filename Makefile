@@ -2,23 +2,9 @@
 # Source author : Cyrille Grandval
 # Edited by Arthur Djikpo
 
-DC=docker-compose
 D=docker
 T=dentiio/front
-HAS_DOCKER:=$(shell command -v $(DC) 2> /dev/null)
-
-ifdef HAS_DOCKER
-	ifdef NODE_ENV
-		EXECROOT=$(DC) exec -e NODE_ENV=$(NODE_ENV) node
-		EXEC=$(DC) exec -e NODE_ENV=$(NODE_ENV) node
-	else
-		EXECROOT=$(DC) exec node
-		EXEC=$(DC) exec node
-	endif
-else
-	EXECROOT=
-	EXEC=
-endif
+N=front
 
 .DEFAULT_GOAL := help
 
@@ -35,11 +21,19 @@ help:
 ## Project setup & day to day shortcuts
 ##---------------------------------------------------------------------------
 
-.PHONY: start ## Start the project (Build & run)
-start:
+.PHONY: run ## Build & run the project
+run:
 	$(D) build -t $(T) .
-	$(D) run -p 3000:3000 -d $(T)
+	$(D) run -p 3000:3000 -d --name $(N) $(T)
+
+.PHONY: start ## start the project
+start:
+	$(D) start $(N)
+
+.PHONY: restart ## restart the project
+restart:
+	$(D) restart $(N)
 
 .PHONY: stop ## stop the project
 stop:
-	$(D) stop $(T)
+	$(D) stop $(N)
