@@ -60,12 +60,12 @@ function LandingPage () {
         </div>
         <div className='container'>
             <div className='item50 illusbloc'>
-                <img className='illus' alt="Dentiio view desktop and mobile" src={IllusOrdi}/>
+                <img className='illus illusordi' alt="Dentiio view desktop and mobile" src={IllusOrdi}/>
             </div>
             <div className='item50'>
                 <div className='pad3'>
                     <div className='pad-l3 pad-t5'>
-                        <h1 className='text-left title'>Prochainement accessible sur web & mobile</h1>
+                        <h1 className='text-left title title2'>Prochainement accessible sur web & mobile</h1>
                         <p className='subtitle'>Dentiio vous accompagne pour être au plus proche de vos patients.</p>
                     </div>
                     <div className='text-left pad-l3 rs-bloc'>

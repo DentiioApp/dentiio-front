@@ -89,6 +89,13 @@ a{
   position: relative;
 }
 
+.title2{
+  padding-top: 16%;
+  font-size: 3.5vw;
+  width: 100%;
+  position: relative;
+}
+
 .commingsoon{
   font-size: 2vw;
   color: #000;
@@ -112,6 +119,9 @@ a{
   width: 100%;
   height: auto;
   text-align: center;
+}
+.illusordi{
+  margin: 15% 0;
 }
 .illusbloc{
   order: 0;
@@ -214,6 +224,9 @@ a{
   }
   .footer{
     text-align: center;
+  }
+  .title2{
+    padding-top: 0;
   }
 
 }
