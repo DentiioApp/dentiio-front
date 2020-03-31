@@ -69,7 +69,7 @@ function LandingPage () {
                         <p className='subtitle'>Dentiio vous accompagne pour être au plus proche de vos patients.</p>
                     </div>
                     <div className='text-left pad-l3 rs-bloc'>
-                        <h3 className='quest '>Aidez-nous à répondre au mieux à vos besoins en répondant à notre questionnaire en cliquant sur l'icône si dessous</h3>
+                        <h3 className='quest '>Aidez-nous à répondre au mieux à vos besoins en répondant à notre questionnaire en cliquant sur l'icône ci-dessous</h3>
                     </div>
                     <div className='text-center'>
                         <a href='https://docs.google.com/forms/d/e/1FAIpQLSfS_jq9N_vC1eYy48ZX8I3hqyO7R4be91k5Vi_2BUymXkM-eg/viewform?usp=sf_link' target='_blank' rel="noopener noreferrer"><img alt='google form icon' src={GgformIcon} className='ggform-icon'/></a>
