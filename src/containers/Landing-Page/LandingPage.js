@@ -23,8 +23,8 @@ function LandingPage () {
                         <img src={Logo} alt="logo dentiio" className='logo'/>
                     </div>
                     <div>
-                        <h1 className='text-left title'>La référence du diagnostic pour les chirurgiens-dentistes</h1>
-                        <p className='subtitle'>Découvrez, partagez et commentez des cas cliniques</p>
+                        <h1 className='text-res title'>La référence du diagnostic pour les chirurgiens-dentistes</h1>
+                        <p className='subtitle text-res'>Découvrez, partagez et commentez des cas cliniques</p>
                     </div>
                     <div className='text-center rs-bloc'>
                         <h3 className='commingsoon'>Dentiio sera bientôt disponible.</h3>
@@ -65,10 +65,11 @@ function LandingPage () {
             <div className='item50'>
                 <div className='pad3'>
                     <div className='pad-l3 pad-t5'>
-                        <h1 className='text-left title title2'>Prochainement accessible sur web & mobile</h1>
-                        <p className='subtitle'>Dentiio vous accompagne pour être au plus proche de vos patients.</p>
+                        <h1 className='text-res title title2'>Prochainement accessible sur web & mobile</h1>
+                        <p className='text-res subtitle'>Dentiio vous accompagne pour être au plus proche de vos patients.</p>
                     </div>
-                    <div className='text-left pad-l3 rs-bloc'>
+                    <div className='text-res pad-l3 rs-bloc'>
+                        <hr className='picto-hr hr2'/>
                         <h3 className='quest '>Aidez-nous à répondre au mieux à vos besoins en répondant à notre questionnaire en cliquant sur l'icône ci-dessous</h3>
                     </div>
                     <div className='text-center'>

@@ -40,6 +40,9 @@ a{
 .text-left{
   text-align: left;
 }
+.text-res{
+  text-align: left;
+}
 
 .rs-bloc{
   padding-top: 10%;
@@ -141,8 +144,19 @@ a{
   width: 50%;
 }
 
+.hr2{
+  width: 20%!important;
+}
+
 .footer{
   background-color: #03B6F0;
+}
+.dot {
+  display: none;
+  height: 20px;
+  width: 20px;
+  background-color: #02B5F0;
+  border-radius: 50%;
 }
 
 .title-footer{
@@ -184,6 +198,9 @@ a{
 @media screen and (max-width: 640px){
   .item50{
     width: 100%!important;
+  }
+  .text-res{
+    text-align: center;
   }
   .illusbloc{
     order: 1!important;
@@ -227,6 +244,10 @@ a{
   }
   .title2{
     padding-top: 0;
+    font-size: 6vw!important;
+  }
+  .dot {
+    display: inline-block;
   }
 
 }
