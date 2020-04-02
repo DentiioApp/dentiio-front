@@ -1,14 +1,22 @@
-import './Home.scss'
+import './Home.scss';
 
-import React from 'react'
-import Header from '../../components/App/header/Header'
-import Body from '../../components/App/body/Body'
+import React from 'react';
+import Auth from '../../components/App/Auth/auth';
+import Header from '../../components/App/Header/header';
 
-function Home () {
+
+var auth ;
+//Ici nous allons tester si l'utilisateur est connecté
+if(true){
+  auth = <Auth />;
+}
+
+const Home = () => {
   return (
     <div className='App'>
       <Header />
-      <Body />
+      {auth}
+      
     </div>
   )
 }

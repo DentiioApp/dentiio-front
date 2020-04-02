@@ -6,7 +6,7 @@ import TitleHeader from '../../UI/titleHeader/TitleHeader'
 // import WhiteButton from '../../UI/buttons/WhiteButton'
 import BlueButton from '../../UI/buttons/BlueButton'
 
-function Header () {
+const Header = () => {
   return (
     <div className='App'>
       <header className='App-header'>
