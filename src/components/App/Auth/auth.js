@@ -1,19 +1,22 @@
 import './auth.scss'
 
 import React from 'react'
+import { useSelector } from 'react-redux'
 import Register from '../Register/register'
 import SignIn from '../SignIn/signIn'
 import img from '../../../images/auth.svg'
 
-var form;
-//Ici nous allons tester si l'utilisateur est connecté
-if(true){
-  form = <Register />;
-}else{
-  form = <SignIn />;
-}
+const Auth = () => {
+  const username = useSelector(state => state.username)
 
-function Auth () {
+  var form
+  // Ici nous allons tester si l'utilisateur est connecté
+  if (!username) {
+    form = <Register />
+  } else {
+    form = <SignIn />
+  }
+
   return (
     <>
       <div className='auth'>
