@@ -4,7 +4,7 @@ import './header.scss'
 import { useSelector } from 'react-redux'
 import { Redirect } from "react-router-dom";
 
-import BlueButton from '../../UI/buttons/BlueButton'
+import BlueButton from '../../UI/buttons/blueButton'
 import HomeButton from '../../UI/homeButton/HomeButton'
 import TitleHeader from '../../UI/titleHeader/TitleHeader'
 import WhiteButton from '../../UI/buttons/whiteButton'

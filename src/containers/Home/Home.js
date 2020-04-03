@@ -30,7 +30,7 @@ const Home = (props) => {
   if (action === 'connexion') {
     auth = <SignIn />
   } 
-
+console.log('zzkojiy', user);
   if (user !== '') {
     return (<Redirect to="/account" />)
   }
