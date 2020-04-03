@@ -10,7 +10,7 @@ import TitleHeader from '../../UI/titleHeader/TitleHeader'
 import WhiteButton from '../../UI/buttons/whiteButton'
 
 const Header = (props) => {
-  const username = useSelector(state => state.username);
+  const user = useSelector(state => state.user);
   let auth;
   let button;
 
@@ -22,8 +22,8 @@ const Header = (props) => {
     button  = <BlueButton content={auth} />
   }
 
-  if (username !== '') {
-    return <Redirect to="/profile" />
+  if (user !== '') {
+    return <Redirect to="/account" />
   }
 
   return (

@@ -2,6 +2,7 @@ import React from 'react'
 import ReactDOM from 'react-dom'
 import './index.css'
 import Home from './containers/Home/Home'
+import Account from './containers/Account/account'
 import * as serviceWorker from './serviceWorker'
 // import "bootstrap/dist/css/bootstrap.min.css";
 import { applyMiddleware, compose, createStore } from 'redux'
@@ -46,7 +47,7 @@ ReactDOM.render(
 
         <Switch>
           <Route exact path='/' component={Home} />
-          {/* <Route exact path="/chat" component={Chat} /> */}
+          <Route exact path="/account" component={Account} />}
         </Switch>
       </div>
     </Router>

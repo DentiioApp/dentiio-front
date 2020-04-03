@@ -3,7 +3,7 @@ import {sha256} from 'js-sha256'
 
 const INIT_STATE = ''
 
-export const userName = (state = INIT_STATE, action) => {
+export const User = (state = INIT_STATE, action) => {
   switch (action.type) {
     case LOG_USER :
       return  {

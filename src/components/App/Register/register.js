@@ -38,7 +38,7 @@ const SignUp = () => {
   const classes = useStyles()
   const dispatch = useDispatch()
 
-  const username = useSelector(state => state.username);
+  const user = useSelector(state => state.user);
 
   const initValues = { 
     pseudo  : '',
@@ -78,7 +78,7 @@ const SignUp = () => {
 
   const checkPassword= (password) => {
     //speial chars , upper letter , lower letter, number more than 7 chars
-    return (/^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#.$%^&*])(?=.{8,})/.test(password));
+    return (/^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#.$%^&*])(?=.{8,})+$/.test(password));
   }
 
   const handleChange = prop => event => {
@@ -90,7 +90,7 @@ const SignUp = () => {
 
     if(prop === 'password') {
       if(checkPassword(event.target.value) === false){ 
-          setErrPassword(event.target.value )      
+          setErrPassword(event.target.value);
       }
     }
 
@@ -105,7 +105,7 @@ const SignUp = () => {
     event.preventDefault()
   }
 
-  if (username !== '' ){
+  if (user !== '' ){
     return <Redirect to="/profile" />
   };
   
@@ -181,7 +181,7 @@ const SignUp = () => {
               name='submit_button'
               onClick={catchSubmit}
             >
-            S'enregistrer
+            S'inscrice
             </Button>
 
           </form>

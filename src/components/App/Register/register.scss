@@ -1,20 +1,19 @@
-form{
-  display: flex;
-  justify-content: space-between;
-  flex-direction: column;
-  margin-top: 8rem;
-  margin-left: 8rem;
-}
-
 .register{
-    width: 100vh;
-    height: 80vh;
-    display: flex;
-    margin-left: 2rem;
+  width: 100vh;
+  height: 80vh;
+  display: flex;
     
-    img{
-        width: 50rem;
-    }
+  img{
+      width: 50rem;
+  }
+
+  form{
+    display: flex;
+    justify-content: space-between;
+    flex-direction: column;
+    margin-top: 8rem;
+    margin-left: 8rem;
+  }
 }
 
 

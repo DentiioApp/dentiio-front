@@ -28,7 +28,7 @@ const useStyles = makeStyles(theme => ({
 const SignUp = () => {
   const classes = useStyles()
   const dispatch = useDispatch()
-  const username = useSelector(state => state.username)
+  const user = useSelector(state => state.user)
   
   const initValues = { 
     pseudo  : '',
@@ -67,7 +67,7 @@ const SignUp = () => {
     event.preventDefault()
   }
 
-  if (username !== '' ){
+  if (user !== '' ){
     return <Redirect to="/profile" />
   };
 

@@ -4,19 +4,11 @@ import React from 'react'
 import { useSelector } from 'react-redux'
 
 const Account = () => {
-  const username = useSelector(state => state.username)
-    console.log('OBJECT : ',username);
-  var auth
-/*
-  if (username === '') {
-    auth = <Auth />
-  } else {
-    auth = <Account />
-  }
-*/
+  const user = useSelector(state => state.user)
+ 
   return (
     <>
-        {auth}
+        {user.username}
     </>
   )
 }
