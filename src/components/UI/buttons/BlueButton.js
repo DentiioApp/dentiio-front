@@ -1,12 +1,20 @@
 import React from 'react'
-import './BlueButton.scss'
+import './blueButton.scss'
 
-function blueButton (props) {
+import { useHistory } from "react-router-dom";
+
+const BlueButton = (props) => {
+  let history = useHistory();
+
+  const catchClick = () => {
+    history.push('/', { content: props.content})
+  }
+
   return (
     <>
-      <button className='blue'>{props.content}</button>
+      <button onClick={catchClick} className='blue'>{props.content}</button>
     </>
   )
 }
 
-export default blueButton
+export default BlueButton

@@ -1,24 +1,20 @@
 import './signIn.scss'
 
-import React from 'react'
-import MenuItem from '@material-ui/core/MenuItem'
+import React, {useState} from 'react'
 import { makeStyles } from '@material-ui/core/styles'
 import TextField from '@material-ui/core/TextField'
 import Visibility from '@material-ui/icons/Visibility'
 import VisibilityOff from '@material-ui/icons/VisibilityOff'
 import IconButton from '@material-ui/core/IconButton'
+import Button from '@material-ui/core/Button'
 import OutlinedInput from '@material-ui/core/OutlinedInput'
 import InputLabel from '@material-ui/core/InputLabel'
 import InputAdornment from '@material-ui/core/InputAdornment'
+import { Redirect } from "react-router-dom";
 import FormControl from '@material-ui/core/FormControl'
-import FormHelperText from '@material-ui/core/FormHelperText'
-
-const currencies = [
-  {
-    value: 'CD',
-    label: 'Chirurgien Dentiste'
-  }
-]
+import { logUser } from '../../../store/actions'
+import { useDispatch, useSelector } from 'react-redux'
+import img from '../../../images/auth.svg'
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -31,13 +27,33 @@ const useStyles = makeStyles(theme => ({
 
 const SignUp = () => {
   const classes = useStyles()
-
-  const [values, setValues] = React.useState({
+  const dispatch = useDispatch()
+  const username = useSelector(state => state.username)
+  
+  const initValues = { 
+    pseudo  : '',
     password: '',
-    currency: 'CD',
-
     showPassword: false
-  })
+  };
+
+  const [values, setValues] = useState(initValues)
+
+  const catchSubmit = (e) => {
+    e.preventDefault()
+   
+    if (values.password && values.pseudo) { 
+      const signin = {
+        pseudo  : values.pseudo,
+        password: values.password,
+      }
+
+      dispatch(logUser(signin))
+    } else {
+      return false;
+    }
+
+    setValues(initValues);
+  }
 
   const handleChange = prop => event => {
     setValues({ ...values, [prop]: event.target.value })
@@ -51,52 +67,53 @@ const SignUp = () => {
     event.preventDefault()
   }
 
+  if (username !== '' ){
+    return <Redirect to="/profile" />
+  };
+
   return (
     <>
-      <form className={classes.root} noValidate autoComplete='off' variant='outlined'>
-        <TextField id='pseudo-basic' required id='pseudo-required' label='Pseudo' value={values.pseudo} />
-        <TextField id='email-basic' required id='email-required' label='Email' value={values.email} />
-        <FormHelperText id='my-helper-text'>We'll never share your email.</FormHelperText>
+      <div className='register'>
+        <img src={img} alt='alternative texte' />
+        <div style={{ width: '20rem' }}>
+          <form className={classes.root} noValidate autoComplete='off' variant='outlined'>
+            <TextField id='pseudo-basic' required  label='Pseudo' value={values.pseudo} />
 
-        <TextField
-          id='filled-select-currency'
-          select
-          label='Vous êtes ...'
-          value={values.currency}
-          onChange={handleChange}
-          helperText='Please select your function'
-          variant='outlined'
-        >
-          {currencies.map(option => (
-            <MenuItem key={option.value} value={option.value}>
-              {option.label}
-            </MenuItem>
-          ))}
-        </TextField>
-
-        <FormControl variant='outlined'>
-          <InputLabel htmlFor='outlined-adornment-password'>Password</InputLabel>
-          <OutlinedInput
-            id='outlined-adornment-password'
-            type={values.showPassword ? 'text' : 'password'}
-            value={values.password}
-            onChange={handleChange('password')}
-            endAdornment={
-              <InputAdornment position='end'>
-                <IconButton
-                  aria-label='toggle password visibility'
-                  onClick={handleClickShowPassword}
-                  onMouseDown={handleMouseDownPassword}
-                  edge='end'
-                >
-                  {values.showPassword ? <Visibility /> : <VisibilityOff />}
-                </IconButton>
-              </InputAdornment>
-            }
-            labelWidth={70}
-          />
-        </FormControl>
-      </form>
+            <FormControl variant='outlined'>
+              <InputLabel htmlFor='outlined-adornment-password'>Password</InputLabel>
+              <OutlinedInput
+                id='outlined-adornment-password'
+                type={values.showPassword ? 'text' : 'password'}
+                value={values.password}
+                onChange={handleChange('password')}
+                autoComplete="on"
+                endAdornment={
+                  <InputAdornment position='end'>
+                    <IconButton
+                      aria-label='toggle password visibility'
+                      onClick={handleClickShowPassword}
+                      onMouseDown={handleMouseDownPassword}
+                      edge='end'
+                    >
+                      {values.showPassword ? <Visibility /> : <VisibilityOff />}
+                    </IconButton>
+                  </InputAdornment>
+                }
+                labelWidth={70}
+              />
+            </FormControl>
+            <Button
+              variant='contained' color='primary'
+              type='submit'
+              className='{}'
+              name='submit_button'
+              onClick={catchSubmit}
+            >
+            Se connecter
+            </Button>
+          </form>
+        </div>
+      </div>
     </>
   )
 }

@@ -16,6 +16,7 @@ import FormHelperText from '@material-ui/core/FormHelperText'
 import { useDispatch, useSelector } from 'react-redux'
 import { Redirect } from "react-router-dom";
 import { logUser } from '../../../store/actions'
+import img from '../../../images/auth.svg'
 
 const currencies = [
   {
@@ -49,7 +50,7 @@ const SignUp = () => {
 
   const [values, setValues] = useState(initValues)
   const [errEmail, setErrEmail] = useState('Dupont@dupont.fr')
-  const [errPassword, setErrPassword] = useState('vscscsccs')
+  const [errPassword, setErrPassword] = useState('my-password')
 
   const catchSubmit = (e) => {
     e.preventDefault()
@@ -72,12 +73,12 @@ const SignUp = () => {
 
   // Check Valid email
   const checkEmail = (email) => {
-    return (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(email));
+    return (/^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/.test(email));
   }
 
   const checkPassword= (password) => {
     //speial chars , upper letter , lower letter, number more than 7 chars
-    return (/^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#.\$%\^&\*])(?=.{8,})/.test(password));
+    return (/^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#.$%^&*])(?=.{8,})/.test(password));
   }
 
   const handleChange = prop => event => {
@@ -110,76 +111,82 @@ const SignUp = () => {
   
   return (
     <>
-      <form className={classes.root} noValidate autoComplete='off'>
-        <TextField 
-          id='pseudo-basic' required  label='Pseudo' 
-          value={values.pseudo}  
-          onChange={handleChange('pseudo')} 
-          variant='outlined' 
-        />
-      
-        <TextField 
-          id='email-basic' required  label='Email' 
-          value={values.email}
-          error={errEmail === ""}
-          onChange={handleChange('email')}
-          placeholder='Dupont@dupont.fr'
-          variant='outlined' 
-          helperText={values.email !== '' ? (checkEmail(values.email) === false ? 'Email invalide!' : ' ') :''}
-        />
-        <FormHelperText id='my-helper-text'>On ne partagera jamais votre email.</FormHelperText>
-        
-        <TextField
-          id='filled-select-currency'
-          select
-          label='Vous êtes ...'
-          value={values.currency}
-          onChange={handleChange}
-          helperText='Selectionnez votre fonction'
-          variant='outlined'
-        >
-          {currencies.map(option => (
-            <MenuItem key={option.value} value={option.value}>
-              {option.label}
-            </MenuItem>
-          ))}
-        </TextField>
+      <div className='register'>
+        <img src={img} alt='alternative texte' />
+        <div style={{ width: '20rem' }}>
+          <form className={classes.root} noValidate autoComplete='off'>
+            <TextField 
+              id='pseudo-basic' required  label='Pseudo' 
+              value={values.pseudo}  
+              onChange={handleChange('pseudo')} 
+              variant='outlined' 
+            />
+          
+            <TextField 
+              id='email-basic' required  label='Email' 
+              value={values.email}
+              error={errEmail === ""}
+              onChange={handleChange('email')}
+              placeholder='Dupont@dupont.fr'
+              variant='outlined' 
+              helperText={values.email !== '' ? (checkEmail(values.email) === false ? 'Email invalide!' : ' ') :''}
+            />
+            <FormHelperText id='my-helper-text'>On ne partagera jamais votre email.</FormHelperText>
+            
+            <TextField
+              id='filled-select-currency'
+              select
+              label='Vous êtes ...'
+              value={values.currency}
+              onChange={handleChange}
+              helperText='Selectionnez votre fonction'
+              variant='outlined'
+            >
+              {currencies.map(option => (
+                <MenuItem key={option.value} value={option.value}>
+                  {option.label}
+                </MenuItem>
+              ))}
+            </TextField>
 
-        <FormControl variant='outlined'>
-          <InputLabel htmlFor='outlined-adornment-password'>Password</InputLabel>
-          <OutlinedInput
-            id='outlined-adornment-password'
-            type={values.showPassword ? 'text' : 'password'}
-            value={values.password}
-            error={errPassword === ""}
-            onChange={handleChange('password')}
-            endAdornment={
-              <InputAdornment position='end'>
-                <IconButton
-                  aria-label='toggle password visibility'
-                  onClick={handleClickShowPassword}
-                  onMouseDown={handleMouseDownPassword}
-                  edge='end'
-                >
-                  {values.showPassword ? <Visibility /> : <VisibilityOff />}
-                </IconButton>
-              </InputAdornment>
-            }
-            labelWidth={70}
-          />
-        </FormControl>
+            <FormControl variant='outlined'>
+              <InputLabel htmlFor='outlined-adornment-password'>Password</InputLabel>
+              <OutlinedInput
+                id='outlined-adornment-password'
+                type={values.showPassword ? 'text' : 'password'}
+                value={values.password}
+                error={errPassword === ""}
+                onChange={handleChange('password')}
+                autoComplete="on"
+                endAdornment={
+                  <InputAdornment position='end'>
+                    <IconButton
+                      aria-label='toggle password visibility'
+                      onClick={handleClickShowPassword}
+                      onMouseDown={handleMouseDownPassword}
+                      edge='end'
+                    >
+                      {values.showPassword ? <Visibility /> : <VisibilityOff />}
+                    </IconButton>
+                  </InputAdornment>
+                }
+                labelWidth={70}
+              />
+            </FormControl>
 
-        <Button
-          variant='contained' color='primary'
-          type='submit'
-          className='{}'
-          name='submit_button'
-          onClick={catchSubmit}
-        >
-        S'enregistrer
-        </Button>
+            <Button
+              variant='contained' color='primary'
+              type='submit'
+              className='{}'
+              name='submit_button'
+              onClick={catchSubmit}
+            >
+            S'enregistrer
+            </Button>
 
-      </form>
+          </form>
+        </div>
+      </div>
     </>
   )
 }
