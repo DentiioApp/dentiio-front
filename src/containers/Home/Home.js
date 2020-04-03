@@ -1,16 +1,16 @@
 import './Home.scss'
 
 import React from 'react'
-//import Account from '../Account/account'
-import SignIn from '../../components/App/SignIn/signIn'
-import Register from '../../components/App/Register/register'
-import Header from '../../components/App/Header/header'
 import { useSelector } from 'react-redux'
 import { Redirect } from "react-router-dom";
 
+import Header from '../../components/App/Header/header'
+import Register from '../../components/App/Register/register'
+import SignIn from '../../components/App/SignIn/signIn'
+
 const Home = (props) => {
   const username = useSelector(state => state.username)
-
+  console.log('USERNAME: ',username)
   var auth
   var action = '';
   

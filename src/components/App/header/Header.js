@@ -1,17 +1,18 @@
 import React from 'react'
 import './header.scss'
 
-import HomeButton from '../../UI/homeButton/HomeButton'
-import TitleHeader from '../../UI/titleHeader/TitleHeader'
-import WhiteButton from '../../UI/buttons/whiteButton'
-import BlueButton from '../../UI/buttons/blueButton'
 import { useSelector } from 'react-redux'
 import { Redirect } from "react-router-dom";
 
+import BlueButton from '../../UI/buttons/blueButton'
+import HomeButton from '../../UI/homeButton/HomeButton'
+import TitleHeader from '../../UI/titleHeader/TitleHeader'
+import WhiteButton from '../../UI/buttons/whiteButton'
+
 const Header = (props) => {
   const username = useSelector(state => state.username);
-  var auth;
-  var button;
+  let auth;
+  let button;
 
   if (props.content === 'connexion') {
     auth    = 'inscription'

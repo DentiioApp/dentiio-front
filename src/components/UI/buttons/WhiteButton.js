@@ -1,25 +1,18 @@
-import React, {useState} from 'react'
 import './whiteButton.scss'
 
-import { Redirect } from "react-router-dom";
+import React from 'react'
+import { useHistory } from "react-router-dom";
 
 const WhiteButton = (props) => {
-  const [value, setValue] = useState('');
-  
+  let history = useHistory();
+
   const catchClick = () => {
-    setValue('redirect')
-  }
-  var action = '';
-
-  (props.content === 'signin' ? action = 'register' : action = 'signin');
-
-  if(value === 'redirect' ){
-    return <Redirect to={{ pathname:"/", state: { do: action } }} />
+    history.push('/', { content: props.content})
   }
 
   return (
     <>
-      <button onClick={catchClick} className='white' >{props.content}</button>
+      <button onClick={catchClick} className='white'>{props.content}</button>
     </>
   )
 }
