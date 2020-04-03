@@ -10,7 +10,6 @@ import SignIn from '../../components/App/SignIn/signIn'
 
 const Home = (props) => {
   const user = useSelector(state => state.user)
-  console.log('USER-DETAILS: ',user)
   var auth
   var action = '';
   
