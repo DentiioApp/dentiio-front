@@ -7,7 +7,7 @@ export const User = (state = INIT_STATE, action) => {
   switch (action.type) {
     case LOG_USER :
       return  {
-        username: action.username,
+        username    : action.username,
         email       : action.email,
         password    : sha256(action.password),
         currency    : action.currency,

@@ -16,11 +16,11 @@ const Home = (props) => {
   if (props.location.state === undefined){
     action ='inscription';
   } else{
-      if(props.location.state.content === "connexion"){
-        action = 'connexion';
-      } else{
-        action ='inscription'
-      }
+    if(props.location.state.content === "connexion"){
+      action = 'connexion';
+    } else{
+      action ='inscription'
+    }
   }
 
   if (action === 'inscription') {
@@ -30,8 +30,8 @@ const Home = (props) => {
   if (action === 'connexion') {
     auth = <SignIn />
   } 
-console.log('zzkojiy', user);
-  if (user !== '') {
+
+  if (user.username !== undefined) {
     return (<Redirect to="/account" />)
   }
 

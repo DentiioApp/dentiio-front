@@ -55,7 +55,7 @@ const SignUp = () => {
   const catchSubmit = (e) => {
     e.preventDefault()
    
-    if (values.password && values.currency && values.pseudo && checkEmail(values.email) !== false) { 
+    if (values.password && values.currency && values.pseudo && checkEmail(values.email) !== false && checkPassword(values.password) !== false) { 
       const register = {
         pseudo  : values.pseudo,
         email   : values.email,
@@ -78,7 +78,7 @@ const SignUp = () => {
 
   const checkPassword= (password) => {
     //speial chars , upper letter , lower letter, number more than 7 chars
-    return (/^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#.$%^&*])(?=.{8,})+$/.test(password));
+    return (/^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#'<>"#?¨áàâäãåçéèêëíìîïñóòôöõúùûüýÿæœÁÀÂÄÃÅÇÉÈÊËÍÌÎÏÑÓÒÔÖÕÚÙÛÜÝŸÆŒ()),$%^+=\-_°\\:/&.;|*])(?=.{8,})/.test(password));
   }
 
   const handleChange = prop => event => {
@@ -89,6 +89,7 @@ const SignUp = () => {
     }
 
     if(prop === 'password') {
+      console.log('VALID PASS: ',checkPassword(event.target.value))
       if(checkPassword(event.target.value) === false){ 
           setErrPassword(event.target.value);
       }
@@ -105,8 +106,8 @@ const SignUp = () => {
     event.preventDefault()
   }
 
-  if (user !== '' ){
-    return <Redirect to="/profile" />
+  if (user.username !== undefined){
+    return <Redirect to="/account" />
   };
   
   return (
@@ -172,6 +173,7 @@ const SignUp = () => {
                 }
                 labelWidth={70}
               />
+            <FormHelperText id='my-helper-text'>{values.password !== '' ? (checkPassword(values.password) === false ? 'Password invalide!' : ' ') :''}</FormHelperText>
             </FormControl>
 
             <Button
