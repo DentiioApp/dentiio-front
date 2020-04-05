@@ -55,20 +55,17 @@ const SignUp = () => {
   const catchSubmit = (e) => {
     e.preventDefault()
    
-    if (values.password && values.currency && values.pseudo && checkEmail(values.email) !== false && checkPassword(values.password) !== false) { 
-      const register = {
-        pseudo  : values.pseudo,
-        email   : values.email,
-        password: values.password,
-        currency: values.currency
-      }
+    if (values.password === '' && values.currency === '' && values.pseudo ==='' ) { return false }
+    if(checkEmail(values.email) === false) { return false }
+    if(checkPassword(values.password) === false) { return false }
+    if(existEmail(values.email) === true) {return false }
 
-      dispatch(logUser(register))
-    } else {
-      return false;
-    }
-
-    setValues(initValues);
+    dispatch(logUser({
+      pseudo  : values.pseudo,
+      email   : values.email,
+      password: values.password,
+      currency: values.currency
+    }))
   }
 
   // Check Valid email
@@ -76,25 +73,28 @@ const SignUp = () => {
     return (/^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/.test(email));
   }
 
+  // Check Valid email
+  const existEmail = (email) => {
+    const emails = ['loryleticee@gmail.com', 'lory@lory.com', 'lo@lo.fr',]
+    return emails.includes(email);
+  }
+  
+  // Check Valid password
   const checkPassword= (password) => {
     //speial chars , upper letter , lower letter, number more than 7 chars
     return (/^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#'<>"#?¨áàâäãåçéèêëíìîïñóòôöõúùûüýÿæœÁÀÂÄÃÅÇÉÈÊËÍÌÎÏÑÓÒÔÖÕÚÙÛÜÝŸÆŒ()),$%^+=\-_°\\:/&.;|*])(?=.{8,})/.test(password));
   }
-
   const handleChange = prop => event => {
     if(prop === 'email') {
-      if(checkEmail(event.target.value) === false){ 
-          setErrEmail(event.target.value )      
+      if(checkEmail(event.target.value) === false || existEmail(event.target.value) === true){ 
+          setErrEmail(event.target.value)      
       }
     }
-
     if(prop === 'password') {
-      console.log('VALID PASS: ',checkPassword(event.target.value))
       if(checkPassword(event.target.value) === false){ 
           setErrPassword(event.target.value);
       }
     }
-
     setValues({ ...values, [prop]: event.target.value })
   }
 
