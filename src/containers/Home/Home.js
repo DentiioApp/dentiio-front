@@ -8,7 +8,7 @@ import Register from '../../components/App/Register/register'
 import SignIn from '../../components/App/SignIn/signIn'
 
 const Home = (props) => {
-console.log('TEST§HOME 1 :', props)
+//console.log('TEST§HOME 1 :', props)
   const user = useSelector(state => state.user)
   var auth
   var action = '';
@@ -32,9 +32,8 @@ console.log('TEST§HOME 1 :', props)
   } 
 
   if (user.username !== undefined){
-    if(user.connected === 'false'){
-      console.log('TEST-HOME :', user.connected)
-      return <Redirect to={{ pathname: '/', state: { content: 'connexion'} }} />
+    if(user.connected === false){
+      auth = <SignIn />
     }else{
       return <Redirect to="/account" />
     }

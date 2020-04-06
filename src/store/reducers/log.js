@@ -11,7 +11,7 @@ export const User = (state = INIT_STATE, action) => {
       return  {
         username    : action.username,
         password    : sha256(action.password),
-        connected   : 'true',
+        connected   : true,
       }
 
     case REGISTER_USER :
@@ -20,7 +20,7 @@ export const User = (state = INIT_STATE, action) => {
         email       : action.email,
         password    : sha256(action.password),
         function    : action.function,
-        connected   : 'false',
+        connected   : false,
       }
 
     default :

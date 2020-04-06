@@ -21,6 +21,7 @@ import { Redirect } from "react-router-dom";
 import { registerUser } from '../../../store/actions'
 import img from '../../../images/auth.svg'
 
+//API DATAS
 const currencies = [
   {
     value: 'CD',
@@ -35,13 +36,11 @@ const currencies = [
 const useStyles = makeStyles(theme => ({
   root: {
     '& .MuiTextField-root': {
-      margin: theme.spacing(1),
-      width: 200
-    }
+      margin: theme.spacing(1.5),
+      width: 250
+    },
   }
 }))
-
-
 
 const SignUp = () => {
   let history = useHistory();
@@ -152,9 +151,11 @@ const SignUp = () => {
                 helperText={values.email !== '' ? (checkEmail(values.email) === false ? 'Email invalide!' : ' ') :''}
               />
               <FormHelperText id='my-helper-text'>On ne partageras jamais votre email.</FormHelperText>
+              <br/>
             </FormControl>
 
-            <FormControl variant='outlined'>
+            <FormControl variant='outlined' className={classes.formControl}>
+              <InputLabel id="filled-select-function-label">Fonction</InputLabel>
               <Select
                 id='filled-select-function'
                 value={values.function}
@@ -168,6 +169,7 @@ const SignUp = () => {
                   </MenuItem>
                 ))}
               </Select>
+              <br/>
             </FormControl>
 
             <FormControl variant='outlined'>
@@ -193,7 +195,7 @@ const SignUp = () => {
                 }
                 labelWidth={70}
               />
-            <FormHelperText id='my-helper-text'>{values.password !== '' ? (checkPassword(values.password) === false ? 'Password invalide!' : ' ') :''}</FormHelperText>
+              <FormHelperText id='my-helper-text'>{values.password !== '' ? (checkPassword(values.password) === false ? 'Password invalide!' : ' ') :''}</FormHelperText>
             </FormControl>
 
             <Button
