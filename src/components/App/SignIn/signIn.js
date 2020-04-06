@@ -67,7 +67,7 @@ const SignUp = () => {
     event.preventDefault()
   }
 
-  if (user.username !== undefined){
+  if (user.username !== undefined && user.connected === true){
     return <Redirect to="/account" />
   };
 
@@ -77,7 +77,15 @@ const SignUp = () => {
         <img src={img} alt='alternative texte' />
         <div style={{ width: '20rem' }}>
           <form className={classes.root} noValidate autoComplete='off' variant='outlined'>
-            <TextField id='pseudo-basic' required  label='Pseudo' value={values.pseudo} />
+            <FormControl variant='outlined'>
+              <TextField 
+                id='pseudo-basic' required  
+                label='Pseudo' 
+                value={values.pseudo}
+                onChange={handleChange('pseudo')}
+                variant='outlined'
+              />
+            </FormControl>
 
             <FormControl variant='outlined'>
               <InputLabel htmlFor='outlined-adornment-password'>Password</InputLabel>
@@ -102,6 +110,7 @@ const SignUp = () => {
                 labelWidth={70}
               />
             </FormControl>
+
             <Button
               variant='contained' color='primary'
               type='submit'

@@ -1,6 +1,8 @@
 import './register.scss'
 
 import React, {useState} from 'react'
+import { useHistory } from "react-router-dom";
+
 import MenuItem from '@material-ui/core/MenuItem'
 import { makeStyles } from '@material-ui/core/styles'
 import TextField from '@material-ui/core/TextField'
@@ -12,17 +14,22 @@ import InputLabel from '@material-ui/core/InputLabel'
 import InputAdornment from '@material-ui/core/InputAdornment'
 import FormControl from '@material-ui/core/FormControl'
 import Button from '@material-ui/core/Button'
+import Select from '@material-ui/core/Select';
 import FormHelperText from '@material-ui/core/FormHelperText'
 import { useDispatch, useSelector } from 'react-redux'
 import { Redirect } from "react-router-dom";
-import { logUser } from '../../../store/actions'
+import { registerUser } from '../../../store/actions'
 import img from '../../../images/auth.svg'
 
 const currencies = [
   {
     value: 'CD',
     label: 'Chirurgien Dentiste'
-  }
+  },
+  {
+    value: 'DI',
+    label: 'Dentiste Interne'
+  },
 ]
 
 const useStyles = makeStyles(theme => ({
@@ -34,7 +41,10 @@ const useStyles = makeStyles(theme => ({
   }
 }))
 
+
+
 const SignUp = () => {
+  let history = useHistory();
   const classes = useStyles()
   const dispatch = useDispatch()
 
@@ -44,7 +54,7 @@ const SignUp = () => {
     pseudo  : '',
     email   : '',
     password: '',
-    currency: 'CD',
+    function: '',
     showPassword: false
   };
 
@@ -55,16 +65,16 @@ const SignUp = () => {
   const catchSubmit = (e) => {
     e.preventDefault()
    
-    if (values.password === '' && values.currency === '' && values.pseudo ==='' ) { return false }
+    if (values.password === '' && values.function === '' && values.pseudo ==='' ) { return false }
     if(checkEmail(values.email) === false) { return false }
     if(checkPassword(values.password) === false) { return false }
     if(existEmail(values.email) === true) {return false }
 
-    dispatch(logUser({
+    dispatch(registerUser({
       pseudo  : values.pseudo,
       email   : values.email,
       password: values.password,
-      currency: values.currency
+      function: values.function
     }))
   }
 
@@ -95,6 +105,7 @@ const SignUp = () => {
           setErrPassword(event.target.value);
       }
     }
+    
     setValues({ ...values, [prop]: event.target.value })
   }
 
@@ -107,48 +118,57 @@ const SignUp = () => {
   }
 
   if (user.username !== undefined){
-    return <Redirect to="/account" />
+    if(user.connected === false){
+      history.push('/', { content: 'connexion'})
+    }else{
+      return <Redirect to="/account" />
+    }
   };
   
   return (
     <>
       <div className='register'>
         <img src={img} alt='alternative texte' />
-        <div style={{ width: '20rem' }}>
-          <form className={classes.root} noValidate autoComplete='off'>
-            <TextField 
-              id='pseudo-basic' required  label='Pseudo' 
-              value={values.pseudo}  
-              onChange={handleChange('pseudo')} 
-              variant='outlined' 
-            />
-          
-            <TextField 
-              id='email-basic' required  label='Email' 
-              value={values.email}
-              error={errEmail === ""}
-              onChange={handleChange('email')}
-              placeholder='Dupont@dupont.fr'
-              variant='outlined' 
-              helperText={values.email !== '' ? (checkEmail(values.email) === false ? 'Email invalide!' : ' ') :''}
-            />
-            <FormHelperText id='my-helper-text'>On ne partagera jamais votre email.</FormHelperText>
-            
-            <TextField
-              id='filled-select-currency'
-              select
-              label='Vous êtes ...'
-              value={values.currency}
-              onChange={handleChange}
-              helperText='Selectionnez votre fonction'
-              variant='outlined'
-            >
-              {currencies.map(option => (
-                <MenuItem key={option.value} value={option.value}>
-                  {option.label}
-                </MenuItem>
-              ))}
-            </TextField>
+        <form className={classes.root} noValidate autoComplete='off'>
+          <div>
+            <FormControl>
+              <TextField 
+                id='pseudo-basic' required  label='Pseudo' 
+                value={values.pseudo}  
+                onChange={handleChange('pseudo')} 
+                placeholder='pseudo'
+                variant='outlined' 
+              />
+            </FormControl>
+
+            <FormControl>
+              <TextField 
+                id='email-basic' required  label='Email' 
+                value={values.email}
+                error={errEmail === ""}
+                onChange={handleChange('email')}
+                placeholder='email'
+                variant='outlined' 
+                helperText={values.email !== '' ? (checkEmail(values.email) === false ? 'Email invalide!' : ' ') :''}
+              />
+              <FormHelperText id='my-helper-text'>On ne partageras jamais votre email.</FormHelperText>
+            </FormControl>
+
+            <FormControl variant='outlined'>
+              <Select
+                id='filled-select-function'
+                value={values.function}
+                label='Vous êtes ...'
+                onChange={handleChange('function')}
+                variant='outlined'
+              >
+                {currencies.map(option => (
+                  <MenuItem key={option.value} value={option.value}>
+                    {option.label}
+                  </MenuItem>
+                ))}
+              </Select>
+            </FormControl>
 
             <FormControl variant='outlined'>
               <InputLabel htmlFor='outlined-adornment-password'>Password</InputLabel>
@@ -185,9 +205,8 @@ const SignUp = () => {
             >
             S'inscrice
             </Button>
-
-          </form>
-        </div>
+          </div>
+        </form>
       </div>
     </>
   )

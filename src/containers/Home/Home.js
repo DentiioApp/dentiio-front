@@ -3,12 +3,12 @@ import './Home.scss'
 import React from 'react'
 import { useSelector } from 'react-redux'
 import { Redirect } from "react-router-dom";
-
 import Header from '../../components/App/Header/header'
 import Register from '../../components/App/Register/register'
 import SignIn from '../../components/App/SignIn/signIn'
 
 const Home = (props) => {
+console.log('TEST§HOME 1 :', props)
   const user = useSelector(state => state.user)
   var auth
   var action = '';
@@ -31,9 +31,14 @@ const Home = (props) => {
     auth = <SignIn />
   } 
 
-  if (user.username !== undefined) {
-    return (<Redirect to="/account" />)
-  }
+  if (user.username !== undefined){
+    if(user.connected === 'false'){
+      console.log('TEST-HOME :', user.connected)
+      return <Redirect to={{ pathname: '/', state: { content: 'connexion'} }} />
+    }else{
+      return <Redirect to="/account" />
+    }
+  };
 
   return (
     <div className='App'>
