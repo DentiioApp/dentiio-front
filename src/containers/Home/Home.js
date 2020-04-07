@@ -8,7 +8,6 @@ import Register from '../../components/App/Register/register'
 import SignIn from '../../components/App/SignIn/signIn'
 
 const Home = (props) => {
-//console.log('TEST§HOME 1 :', props)
   const user = useSelector(state => state.user)
   var auth
   var action = '';

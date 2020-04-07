@@ -48,7 +48,7 @@ const SignUp = () => {
   const dispatch = useDispatch()
 
   const user = useSelector(state => state.user);
-
+  
   const initValues = { 
     pseudo  : '',
     email   : '',
