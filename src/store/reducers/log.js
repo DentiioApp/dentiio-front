@@ -1,10 +1,10 @@
 import { LOG_USER } from '../actions'
 import { REGISTER_USER } from '../actions'
-import {sha256} from 'js-sha256'
+import { sha256 } from 'js-sha256'
 
 const suffix = '17e5a8ceda3289148f0ee33ccf78f888edd0a51cecdd584be8b697cb5814c6cc17e5a8ceda328'+
 '9148f0ee33ccf78f888edd0a51cecdd584be8b697cb5814c6cc17e5a8ceda3289148f0ee33ccf78f888edd0a51cecdd584be8b697cb581'+
-'4c6cc17e5a8ceda3289148f0ee33ccf78f888edd0a51cecdd584be8b697cb5814c6cc'
+'4c6cc17e5a8ceda3289148f0ee33ccf78f888edd0a51cecdd584be8b697cb5814c6cc';
 
 const DATABASE = [
   {
@@ -15,7 +15,7 @@ const DATABASE = [
   {
     email   :'lo@lo.com',
     pseudo  :'lo',
-    password: '17e5a8ceda3289148f0ee33ccf78f888edd0a51cecdd584be8b697cb5814c6cc'+suffix,
+    password:'17e5a8ceda3289148f0ee33ccf78f888edd0a51cecdd584be8b697cb5814c6cc'+suffix,
   },
 ];
 
@@ -29,7 +29,7 @@ export const User = (state = INIT_STATE, action) => {
           && sha256(action.password)+suffix === element.password
         ){
           return true 
-        }else{
+        }else {
           return false
         }
       }
@@ -37,18 +37,18 @@ export const User = (state = INIT_STATE, action) => {
       let valid = DATABASE.some(check);
 
       if (valid === true) {
-        return  {
+        return {
           username    : action.username === '' ? action.pseudo : action.username ,
           connected   : true,
         }
-      }else{
+      }else {
         return {
           connected   : false,
         }
       }
 
     case REGISTER_USER :
-      return  {
+      return {
         username    : action.username,
         email       : action.email,
         password    : sha256(action.password+suffix),
