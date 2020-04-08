@@ -74,7 +74,7 @@ const SignUp = () => {
   return (
     <>
       <div className='register'>
-        <img src={img} alt='alternative texte' />
+        {/*<img src={img} alt='alternative texte' />*/}
         <div style={{ width: '20rem' }}>
           <form className={classes.root} noValidate autoComplete='off' variant='outlined'>
             <TextField id='pseudo-basic' required  label='Pseudo' value={values.pseudo} />
