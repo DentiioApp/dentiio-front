@@ -11,7 +11,7 @@ const Home = (props) => {
   const user = useSelector(state => state.user)
   var auth
   var action = '';
-  
+  //console.log('TEST :',user )
   if (props.location.state === undefined){
     action ='inscription';
   } else{

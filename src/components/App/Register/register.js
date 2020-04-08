@@ -198,6 +198,8 @@ const SignUp = () => {
               <FormHelperText id='my-helper-text'>{values.password !== '' ? (checkPassword(values.password) === false ? 'Password invalide!' : ' ') :''}</FormHelperText>
             </FormControl>
 
+            <checkbox></checkbox>
+
             <Button
               variant='contained' color='primary'
               type='submit'
