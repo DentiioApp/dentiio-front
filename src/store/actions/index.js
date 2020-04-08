@@ -8,33 +8,32 @@ export const CASES_LIST = 'CASES_LIST'
 
 export const logUser = (logger) => {
   const action = {
-    type        : LOG_USER,
-    username    : logger.pseudo,
-    password    : logger.password,
-  };
+    type: LOG_USER,
+    username: logger.pseudo,
+    password: logger.password
+  }
 
-  return action;
-};
+  return action
+}
 
 export const registerUser = (register) => {
   const action = {
-    type        : REGISTER_USER,
-    username    : register.pseudo,
-    email       : register.email,
-    password    : register.password,
-    function    : register.function
-  };
+    type: REGISTER_USER,
+    username: register.pseudo,
+    email: register.email,
+    password: register.password,
+    function: register.function
+  }
 
-  return action;
-};
+  return action
+}
 
 export const getCases = () => {
   return (dispatch) => {
     return axios.get(CLINICAL_CASES)
-        .then(res => {
-            dispatch({type: CASES_LIST, cases: res})
-        })
-        .catch(err => err)
-  } 
-};
-
+      .then(res => {
+        dispatch({ type: CASES_LIST, cases: res })
+      })
+      .catch(err => err)
+  }
+}

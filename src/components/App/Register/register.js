@@ -1,7 +1,7 @@
 import './register.scss'
 
-import React, {useState} from 'react'
-import { useHistory } from "react-router-dom";
+import React, { useState } from 'react'
+import { useHistory, Redirect } from 'react-router-dom'
 
 import MenuItem from '@material-ui/core/MenuItem'
 import { makeStyles } from '@material-ui/core/styles'
@@ -14,14 +14,14 @@ import InputLabel from '@material-ui/core/InputLabel'
 import InputAdornment from '@material-ui/core/InputAdornment'
 import FormControl from '@material-ui/core/FormControl'
 import Button from '@material-ui/core/Button'
-import Select from '@material-ui/core/Select';
+import Select from '@material-ui/core/Select'
 import FormHelperText from '@material-ui/core/FormHelperText'
 import { useDispatch, useSelector } from 'react-redux'
-import { Redirect } from "react-router-dom";
+
 import { registerUser } from '../../../store/actions'
 import img from '../../../images/auth.svg'
 
-//API DATAS
+// API DATAS
 const currencies = [
   {
     value: 'CD',
@@ -30,7 +30,7 @@ const currencies = [
   {
     value: 'DI',
     label: 'Dentiste Interne'
-  },
+  }
 ]
 
 const useStyles = makeStyles(theme => ({
@@ -38,24 +38,24 @@ const useStyles = makeStyles(theme => ({
     '& .MuiTextField-root': {
       margin: theme.spacing(1.5),
       width: 250
-    },
+    }
   }
 }))
 
 const SignUp = () => {
-  let history = useHistory();
+  const history = useHistory()
   const classes = useStyles()
   const dispatch = useDispatch()
 
-  const user = useSelector(state => state.user);
-  
-  const initValues = { 
-    pseudo  : '',
-    email   : '',
+  const user = useSelector(state => state.user)
+
+  const initValues = {
+    pseudo: '',
+    email: '',
     password: '',
     function: '',
     showPassword: false
-  };
+  }
 
   const [values, setValues] = useState(initValues)
   const [errEmail, setErrEmail] = useState('Dupont@dupont.fr')
@@ -63,15 +63,15 @@ const SignUp = () => {
 
   const catchSubmit = (e) => {
     e.preventDefault()
-   
-    if (values.password === '' && values.function === '' && values.pseudo ==='' ) { return false }
-    if(checkEmail(values.email) === false) { return false }
-    if(checkPassword(values.password) === false) { return false }
-    if(existEmail(values.email) === true) {return false }
+
+    if (values.password === '' && values.function === '' && values.pseudo === '') { return false }
+    if (checkEmail(values.email) === false) { return false }
+    if (checkPassword(values.password) === false) { return false }
+    if (existEmail(values.email) === true) { return false }
 
     dispatch(registerUser({
-      pseudo  : values.pseudo,
-      email   : values.email,
+      pseudo: values.pseudo,
+      email: values.email,
       password: values.password,
       function: values.function
     }))
@@ -79,32 +79,32 @@ const SignUp = () => {
 
   // Check Valid email
   const checkEmail = (email) => {
-    return (/^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/.test(email));
+    return (/^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/.test(email))
   }
 
   // Check Valid email
   const existEmail = (email) => {
-    const emails = ['loryleticee@gmail.com', 'lory@lory.com', 'lo@lo.fr',]
-    return emails.includes(email);
+    const emails = ['loryleticee@gmail.com', 'lory@lory.com', 'lo@lo.fr']
+    return emails.includes(email)
   }
-  
+
   // Check Valid password
-  const checkPassword= (password) => {
-    //speial chars , upper letter , lower letter, number more than 7 chars
-    return (/^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#'<>"#?¨áàâäãåçéèêëíìîïñóòôöõúùûüýÿæœÁÀÂÄÃÅÇÉÈÊËÍÌÎÏÑÓÒÔÖÕÚÙÛÜÝŸÆŒ()),$%^+=\-_°\\:/&.;|*])(?=.{8,})/.test(password));
+  const checkPassword = (password) => {
+    // speial chars , upper letter , lower letter, number more than 7 chars
+    return (/^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#'<>"#?¨áàâäãåçéèêëíìîïñóòôöõúùûüýÿæœÁÀÂÄÃÅÇÉÈÊËÍÌÎÏÑÓÒÔÖÕÚÙÛÜÝŸÆŒ()),$%^+=\-_°\\:/&.;|*])(?=.{8,})/.test(password))
   }
   const handleChange = prop => event => {
-    if(prop === 'email') {
-      if(checkEmail(event.target.value) === false || existEmail(event.target.value) === true){ 
-          setErrEmail(event.target.value)      
+    if (prop === 'email') {
+      if (checkEmail(event.target.value) === false || existEmail(event.target.value) === true) {
+        setErrEmail(event.target.value)
       }
     }
-    if(prop === 'password') {
-      if(checkPassword(event.target.value) === false){ 
-          setErrPassword(event.target.value);
+    if (prop === 'password') {
+      if (checkPassword(event.target.value) === false) {
+        setErrPassword(event.target.value)
       }
     }
-    
+
     setValues({ ...values, [prop]: event.target.value })
   }
 
@@ -116,14 +116,14 @@ const SignUp = () => {
     event.preventDefault()
   }
 
-  if (user.username !== undefined){
-    if(user.connected === false){
-      history.push('/', { content: 'connexion'})
-    }else{
-      return <Redirect to="/account" />
+  if (user.username !== undefined) {
+    if (user.connected === false) {
+      history.push('/', { content: 'connexion' })
+    } else {
+      return <Redirect to='/account' />
     }
   };
-  
+
   return (
     <>
       <div className='register'>
@@ -131,31 +131,31 @@ const SignUp = () => {
         <form className={classes.root} noValidate autoComplete='off'>
           <div>
             <FormControl>
-              <TextField 
-                id='pseudo-basic' required  label='Pseudo' 
-                value={values.pseudo}  
-                onChange={handleChange('pseudo')} 
+              <TextField
+                id='pseudo-basic' required label='Pseudo'
+                value={values.pseudo}
+                onChange={handleChange('pseudo')}
                 placeholder='pseudo'
-                variant='outlined' 
+                variant='outlined'
               />
             </FormControl>
 
             <FormControl>
-              <TextField 
-                id='email-basic' required  label='Email' 
+              <TextField
+                id='email-basic' required label='Email'
                 value={values.email}
-                error={errEmail === ""}
+                error={errEmail === ''}
                 onChange={handleChange('email')}
                 placeholder='email'
-                variant='outlined' 
-                helperText={values.email !== '' ? (checkEmail(values.email) === false ? 'Email invalide!' : ' ') :''}
+                variant='outlined'
+                helperText={values.email !== '' ? (checkEmail(values.email) === false ? 'Email invalide!' : ' ') : ''}
               />
               <FormHelperText id='my-helper-text'>On ne partageras jamais votre email.</FormHelperText>
-              <br/>
+              <br />
             </FormControl>
 
             <FormControl variant='outlined' className={classes.formControl}>
-              <InputLabel id="filled-select-function-label">Fonction</InputLabel>
+              <InputLabel id='filled-select-function-label'>Fonction</InputLabel>
               <Select
                 id='filled-select-function'
                 value={values.function}
@@ -169,7 +169,7 @@ const SignUp = () => {
                   </MenuItem>
                 ))}
               </Select>
-              <br/>
+              <br />
             </FormControl>
 
             <FormControl variant='outlined'>
@@ -178,9 +178,9 @@ const SignUp = () => {
                 id='outlined-adornment-password'
                 type={values.showPassword ? 'text' : 'password'}
                 value={values.password}
-                error={errPassword === ""}
+                error={errPassword === ''}
                 onChange={handleChange('password')}
-                autoComplete="on"
+                autoComplete='on'
                 endAdornment={
                   <InputAdornment position='end'>
                     <IconButton
@@ -195,10 +195,10 @@ const SignUp = () => {
                 }
                 labelWidth={70}
               />
-              <FormHelperText id='my-helper-text'>{values.password !== '' ? (checkPassword(values.password) === false ? 'Password invalide!' : ' ') :''}</FormHelperText>
+              <FormHelperText id='my-helper-text'>{values.password !== '' ? (checkPassword(values.password) === false ? 'Password invalide!' : ' ') : ''}</FormHelperText>
             </FormControl>
 
-            <checkbox></checkbox>
+            <checkbox />
 
             <Button
               variant='contained' color='primary'
