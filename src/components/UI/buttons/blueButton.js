@@ -1,13 +1,13 @@
 import './BlueButton.scss'
 
 import React from 'react'
-import { useHistory } from "react-router-dom";
+import { useHistory } from 'react-router-dom'
 
 const BlueButton = (props) => {
-  let history = useHistory();
+  const history = useHistory()
 
   const catchClick = () => {
-    history.push('/', { content: props.content})
+    history.push('/', { content: props.content })
   }
 
   return (

@@ -47,7 +47,7 @@ ReactDOM.render(
 
         <Switch>
           <Route exact path='/' component={Home} />
-          <Route exact path="/account" component={Account} />}
+          <Route exact path='/account' component={Account} />
         </Switch>
       </div>
     </Router>

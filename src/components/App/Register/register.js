@@ -1,59 +1,64 @@
 import './register.scss'
 
-import React, {useState} from 'react'
+import React, { useState } from 'react'
+import { useHistory, Redirect } from 'react-router-dom'
+
 import MenuItem from '@material-ui/core/MenuItem'
 import { makeStyles } from '@material-ui/core/styles'
 import TextField from '@material-ui/core/TextField'
 import Visibility from '@material-ui/icons/Visibility'
 import VisibilityOff from '@material-ui/icons/VisibilityOff'
+import Checkbox from '@material-ui/core/Checkbox';
 import IconButton from '@material-ui/core/IconButton'
-import OutlinedInput from '@material-ui/core/OutlinedInput'
 import InputLabel from '@material-ui/core/InputLabel'
 import InputAdornment from '@material-ui/core/InputAdornment'
-import FormControl from '@material-ui/core/FormControl'
 import Button from '@material-ui/core/Button'
 import FormHelperText from '@material-ui/core/FormHelperText'
 import { useDispatch, useSelector } from 'react-redux'
-import { Redirect } from "react-router-dom";
-import { logUser } from '../../../store/actions'
+
+import { registerUser } from '../../../store/actions'
 import img from '../../../images/auth.svg'
 import Grid from '@material-ui/core/Grid';
-import Card from '@material-ui/core/Card';
 import CardHeader from '@material-ui/core/CardHeader';
 import CardContent from '@material-ui/core/CardContent';
-import CardActions from '@material-ui/core/CardActions';
 import ResponsiveCard from "../../ResponsiveDesign/responsiveCard";
 import ResponsiveContainerGrid from "../../ResponsiveDesign/responsiveContainerGrid";
 
+// API DATAS
 const currencies = [
   {
     value: 'CD',
     label: 'Chirurgien Dentiste'
+  },
+  {
+    value: 'DI',
+    label: 'Dentiste Interne'
   }
 ]
 
 const useStyles = makeStyles(theme => ({
   root: {
     '& .MuiTextField-root': {
-      margin: theme.spacing(1),
-      width: 200
+      margin: theme.spacing(1.5),
+      width: 250
     }
   }
 }))
 
 const SignUp = () => {
+  const history = useHistory()
   const classes = useStyles()
   const dispatch = useDispatch()
 
-  const user = useSelector(state => state.user);
+  const user = useSelector(state => state.user)
 
-  const initValues = { 
-    pseudo  : '',
-    email   : '',
+  const initValues = {
+    pseudo: '',
+    email: '',
     password: '',
-    currency: 'CD',
+    function: '',
     showPassword: false
-  };
+  }
 
   const [values, setValues] = useState(initValues)
   const [errEmail, setErrEmail] = useState('Dupont@dupont.fr')
@@ -61,43 +66,45 @@ const SignUp = () => {
 
   const catchSubmit = (e) => {
     e.preventDefault()
-   
-    if (values.password && values.currency && values.pseudo && checkEmail(values.email) !== false) { 
-      const register = {
-        pseudo  : values.pseudo,
-        email   : values.email,
-        password: values.password,
-        currency: values.currency
-      }
 
-      dispatch(logUser(register))
-    } else {
-      return false;
-    }
+    if (values.password === '' && values.function === '' && values.pseudo === '') { return false }
+    if (checkEmail(values.email) === false) { return false }
+    if (checkPassword(values.password) === false) { return false }
+    if (existEmail(values.email) === true) { return false }
 
-    setValues(initValues);
+    dispatch(registerUser({
+      pseudo: values.pseudo,
+      email: values.email,
+      password: values.password,
+      function: values.function
+    }))
   }
 
   // Check Valid email
   const checkEmail = (email) => {
-    return (/^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/.test(email));
+    return (/^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/.test(email))
   }
 
-  const checkPassword= (password) => {
-    //speial chars , upper letter , lower letter, number more than 7 chars
-    return (/^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#.$%^&*])(?=.{8,})+$/.test(password));
+  // Check Valid email
+  const existEmail = (email) => {
+    const emails = ['loryleticee@gmail.com', 'lory@lory.com', 'lo@lo.fr']
+    return emails.includes(email)
   }
 
+  // Check Valid password
+  const checkPassword = (password) => {
+    // speial chars , upper letter , lower letter, number more than 7 chars
+    return (/^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#'<>"#?¨áàâäãåçéèêëíìîïñóòôöõúùûüýÿæœÁÀÂÄÃÅÇÉÈÊËÍÌÎÏÑÓÒÔÖÕÚÙÛÜÝŸÆŒ()),$%^+=\-_°\\:/&.;|*])(?=.{8,})/.test(password))
+  }
   const handleChange = prop => event => {
-    if(prop === 'email') {
-      if(checkEmail(event.target.value) === false){ 
-          setErrEmail(event.target.value )      
+    if (prop === 'email') {
+      if (checkEmail(event.target.value) === false || existEmail(event.target.value) === true) {
+        setErrEmail(event.target.value)
       }
     }
-
-    if(prop === 'password') {
-      if(checkPassword(event.target.value) === false){ 
-          setErrPassword(event.target.value);
+    if (prop === 'password') {
+      if (checkPassword(event.target.value) === false) {
+        setErrPassword(event.target.value)
       }
     }
 
@@ -112,10 +119,14 @@ const SignUp = () => {
     event.preventDefault()
   }
 
-  if (user !== '' ){
-    return <Redirect to="/profile" />
+  if (user.username !== undefined) {
+    if (user.connected === false) {
+      history.push('/', { content: 'connexion' })
+    } else {
+      return <Redirect to='/account' />
+    }
   };
-  
+
   return (
     <>
       <div className='register'>

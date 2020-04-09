@@ -2,26 +2,24 @@ import './Home.scss'
 
 import React from 'react'
 import { useSelector } from 'react-redux'
-import { Redirect } from "react-router-dom";
-
+import { Redirect } from 'react-router-dom'
 import Header from '../../components/App/Header/header'
 import Register from '../../components/App/Register/register'
 import SignIn from '../../components/App/SignIn/signIn'
 
 const Home = (props) => {
   const user = useSelector(state => state.user)
-  console.log('USER-DETAILS: ',user)
   var auth
-  var action = '';
-  
-  if (props.location.state === undefined){
-    action ='inscription';
-  } else{
-      if(props.location.state.content === "connexion"){
-        action = 'connexion';
-      } else{
-        action ='inscription'
-      }
+  var action = ''
+  console.log('TEST :', user)
+  if (props.location.state === undefined) {
+    action = 'inscription'
+  } else {
+    if (props.location.state.content === 'connexion') {
+      action = 'connexion'
+    } else {
+      action = 'inscription'
+    }
   }
 
   if (action === 'inscription') {
@@ -30,15 +28,19 @@ const Home = (props) => {
 
   if (action === 'connexion') {
     auth = <SignIn />
-  } 
-
-  if (user !== '') {
-    return (<Redirect to="/account" />)
   }
+
+  if (user.username !== undefined) {
+    if (user.connected === false) {
+      auth = <SignIn />
+    } else {
+      return <Redirect to='/account' />
+    }
+  };
 
   return (
     <div className='App'>
-      <Header  content={action} />
+      <Header content={action} />
       {auth}
 
     </div>

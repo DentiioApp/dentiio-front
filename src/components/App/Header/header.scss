@@ -1,28 +1,9 @@
 .App-header{
-  //display: flex;
-  //justify-content: space-between;
-  //width: auto;
-  //height: 4rem;
-  //background-color: #4CB3EB;
-  //padding: 10px;
-  //box-shadow: 0 2px 3px 1px rgba(0, 0, 0, 0.15);
-}
-
-.logoHorizontallyCenter{
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  transform: translate(-50%, -50%);
-}
-
-.makeStyles-logo-3{
   display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.MuiToolbar-root.MuiToolbar-regular.MuiToolbar-gutters{
-  background: #4CB3EB;
-  box-shadow: 0 2px 3px 1px rgba(0, 0, 0, 0.15);
+  justify-content: space-between;
+  width: auto;
   height: 4rem;
+  background-color: #03B6F0;
+  padding: 10px;
+  box-shadow: 0 2px 3px 1px rgba(0, 0, 0, 0.15);
 }
