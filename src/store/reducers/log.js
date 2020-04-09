@@ -1,5 +1,5 @@
 import { LOG_USER, REGISTER_USER } from '../actions'
-
+import { getCases } from '../actions'
 import axios from 'axios'
 // import jwt_decode from 'jwt-decode'
 
@@ -14,9 +14,10 @@ export const User = (state = INIT_STATE, action) => {
 
       if (tokenUser !== '') {
         axios.defaults.headers.Authorization = Bearer + tokenUser
+        getCases()
         return {
           // username    : action.username === '' ? action.pseudo : action.username ,
-          username: action.email,
+          username: action.pseudo,
           connected: true
         }
       } else {

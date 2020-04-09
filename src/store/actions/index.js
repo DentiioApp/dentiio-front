@@ -9,7 +9,7 @@ export const CASES_LIST = 'CASES_LIST'
 export const logUser = (logger) => {
   const action = {
     type: LOG_USER,
-    username: logger.pseudo,
+    pseudo: logger.pseudo,
     password: logger.password
   }
 
@@ -30,9 +30,10 @@ export const registerUser = (register) => {
 
 export const getCases = () => {
   return (dispatch) => {
+console.log('CASEAPI: ','res');
     return axios.get(CLINICAL_CASES)
-      .then(res => {
-        dispatch({ type: CASES_LIST, cases: res })
+      .then(res => { console.log('CASEAPI: ',res)
+        //dispatch({ type: CASES_LIST, cases: res })
       })
       .catch(err => err)
   }
