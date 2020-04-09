@@ -10,17 +10,19 @@ import Visibility from '@material-ui/icons/Visibility'
 import VisibilityOff from '@material-ui/icons/VisibilityOff'
 import Checkbox from '@material-ui/core/Checkbox';
 import IconButton from '@material-ui/core/IconButton'
-import OutlinedInput from '@material-ui/core/OutlinedInput'
 import InputLabel from '@material-ui/core/InputLabel'
 import InputAdornment from '@material-ui/core/InputAdornment'
-import FormControl from '@material-ui/core/FormControl'
 import Button from '@material-ui/core/Button'
-import Select from '@material-ui/core/Select'
 import FormHelperText from '@material-ui/core/FormHelperText'
 import { useDispatch, useSelector } from 'react-redux'
 
 import { registerUser } from '../../../store/actions'
 import img from '../../../images/auth.svg'
+import Grid from '@material-ui/core/Grid';
+import CardHeader from '@material-ui/core/CardHeader';
+import CardContent from '@material-ui/core/CardContent';
+import ResponsiveCard from "../../ResponsiveDesign/responsiveCard";
+import ResponsiveContainerGrid from "../../ResponsiveDesign/responsiveContainerGrid";
 
 // API DATAS
 const currencies = [
@@ -128,90 +130,124 @@ const SignUp = () => {
   return (
     <>
       <div className='register'>
-        <img src={img} alt='alternative texte' />
-        <form className={classes.root} noValidate autoComplete='off'>
-          <div>
-            <FormControl>
-              <TextField
-                id='pseudo-basic' required label='Pseudo'
-                value={values.pseudo}
-                onChange={handleChange('pseudo')}
-                placeholder='pseudo'
-                variant='outlined'
-              />
-            </FormControl>
+        <ResponsiveContainerGrid>
+          <Grid container >
 
-            <FormControl>
-              <TextField
-                id='email-basic' required label='Email'
-                value={values.email}
-                error={errEmail === ''}
-                onChange={handleChange('email')}
-                placeholder='email'
-                variant='outlined'
-                helperText={values.email !== '' ? (checkEmail(values.email) === false ? 'Email invalide!' : ' ') : ''}
-              />
-              <FormHelperText id='my-helper-text'>On ne partageras jamais votre email.</FormHelperText>
-              <br />
-            </FormControl>
 
-            <FormControl variant='outlined' className={classes.formControl}>
-              <InputLabel id='filled-select-function-label'>Fonction</InputLabel>
-              <Select
-                id='filled-select-function'
-                value={values.function}
-                label='Vous êtes ...'
-                onChange={handleChange('function')}
-                variant='outlined'
-              >
-                {currencies.map(option => (
-                  <MenuItem key={option.value} value={option.value}>
-                    {option.label}
-                  </MenuItem>
-                ))}
-              </Select>
-              <br />
-            </FormControl>
+            <Grid item xs={0} sm={6} lg={6} xl={6}>
+              <div className='home-bg'>
+                <img src={img} alt=""/>
+              </div>
+            </Grid>
 
-            <FormControl variant='outlined'>
-              <InputLabel htmlFor='outlined-adornment-password'>Password</InputLabel>
-              <OutlinedInput
-                id='outlined-adornment-password'
-                type={values.showPassword ? 'text' : 'password'}
-                value={values.password}
-                error={errPassword === ''}
-                onChange={handleChange('password')}
-                autoComplete='on'
-                endAdornment={
-                  <InputAdornment position='end'>
-                    <IconButton
-                      aria-label='toggle password visibility'
-                      onClick={handleClickShowPassword}
-                      onMouseDown={handleMouseDownPassword}
-                      edge='end'
-                    >
-                      {values.showPassword ? <Visibility /> : <VisibilityOff />}
-                    </IconButton>
-                  </InputAdornment>
-                }
-                labelWidth={70}
-              />
-              <FormHelperText id='my-helper-text'>{values.password !== '' ? (checkPassword(values.password) === false ? 'Password invalide!' : ' ') : ''}</FormHelperText>
-            </FormControl>
 
-            <Checkbox/>
 
-            <Button
-              variant='contained' color='primary'
-              type='submit'
-              className='{}'
-              name='submit_button'
-              onClick={catchSubmit}
-            >
-            S'inscrice
-            </Button>
-          </div>
-        </form>
+            <Grid item xs={12} sm={6} lg={6} xl={6} className='form'>
+              <div className='form'>
+                <ResponsiveCard>
+
+
+
+                  <form className={classes.root} noValidate autoComplete='off'>
+
+
+
+                    <CardHeader title="Sign in" subheader="to continue to kTPWC" />
+                    <CardContent>
+                      <InputLabel className='inputLabel'>
+                        Pszeudo* :
+                      </InputLabel>
+                      <TextField
+                          className='textField'
+                          id='pseudo-basic' required
+                          value={values.pseudo}
+                          onChange={handleChange('pseudo')}
+                          variant={'outlined'}
+                      />
+                      <br/>
+
+                      <InputLabel className='inputLabel'>
+                        Email* :
+                      </InputLabel>
+                      <TextField
+                        className='textField'
+                        id='email-basic' required
+                        value={values.email}
+                        error={errEmail === ""}
+                        onChange={handleChange('email')}
+                        placeholder='Dupont@dupont.fr'
+                        variant={'outlined'}
+                        helperText={values.email !== '' ? (checkEmail(values.email) === false ? 'Email invalide!' : ' ') :''}
+                      />
+                      <FormHelperText id='my-helper-text'>On ne partagera jamais votre email.</FormHelperText>
+                      <br/>
+
+                      <InputLabel className='inputLabel'>
+                        Vous êtes* :
+                      </InputLabel>
+                      <TextField
+                        className='textField'
+                        id='filled-select-currency'
+                        select
+                        value={values.currency}
+                        onChange={handleChange}
+                        helperText='Selectionnez votre fonction'
+                        variant='outlined'
+                      >
+                        {currencies.map(option => (
+                          <MenuItem key={option.value} value={option.value}>
+                            {option.label}
+                          </MenuItem>
+                        ))}
+                      </TextField>
+
+                      <InputLabel className='inputLabel'>
+                        Mot de passe* :
+                      </InputLabel>
+                      <TextField
+                          className='textField'
+                          id='outlined-adornment-password'
+                          type={values.showPassword ? 'text' : 'password'}
+                          value={values.password}
+                          variant='outlined'
+                          error={errPassword === ""}
+                          onChange={handleChange('password')}
+                          autoComplete="on"
+                          endAdornment={
+                            <InputAdornment position='start'>
+                              <IconButton
+                                  aria-label='toggle password visibility'
+                                  onClick={handleClickShowPassword}
+                                  onMouseDown={handleMouseDownPassword}
+                                  edge='end'
+                              >
+                                {values.showPassword ? <Visibility /> : <VisibilityOff />}
+                              </IconButton>
+                            </InputAdornment>
+                          }
+                          labelWidth={20}
+                      />
+                    </CardContent>
+
+                      <Button
+                          variant="contained"
+                          size="large"
+                          color="primary"
+                          //className={classes.margin}>
+                          onClick={catchSubmit}
+                          name='submit_button'
+                          >
+                        S'inscrire
+                      </Button>
+
+                  </form>
+                </ResponsiveCard>
+              </div>
+           </Grid>
+
+
+          </Grid>
+        </ResponsiveContainerGrid>
       </div>
     </>
   )
