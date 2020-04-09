@@ -1,4 +1,4 @@
-import './WhiteButton.scss'
+import './whiteButton.scss'
 
 import React from 'react'
 import { useHistory } from 'react-router-dom'

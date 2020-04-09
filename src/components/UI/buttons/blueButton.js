@@ -1,4 +1,4 @@
-import './BlueButton.scss'
+import './blueButton.scss'
 
 import React from 'react'
 import { useHistory } from 'react-router-dom'
