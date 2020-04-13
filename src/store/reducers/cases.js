@@ -2,15 +2,14 @@ import { CASES_LIST } from '../actions'
 
 const INIT_STATE = ''
 
-export const casesList = (state = INIT_STATE, action) => {
+export const CasesList = (state = INIT_STATE, action) => {
   switch (action.type) {
     case CASES_LIST :
-      var newData = (aCase, index) => (
-        state.concat(aCase)
-      )
-      action.cases.forEach(newData)
+      let data = {
+        cases : action.datas
+      }
 
-      return state
+      return data
 
     default :
       return state

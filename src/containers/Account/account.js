@@ -6,18 +6,19 @@ import { getCases } from '../../store/actions'
 
 const Account = () => {
   const user = useSelector(state => state.user)
-  const cases = useSelector(state => state.casesList)
-  const dispatch = useDispatch()
+  const cases = useSelector(state => state.caseslist)
 
+  const dispatch = useDispatch()
+  
   useEffect(() => {
     dispatch(getCases())
   }, [dispatch])
 
   return (
-    <>
+    <>{/*
       {user.username}
       {cases.map((aCase, index) => (
-        <span key={index}>{aCase}</span>))}
+        <span key={index}>{aCase}</span>))}*/}
     </>
   )
 }
