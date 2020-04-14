@@ -22,7 +22,7 @@ const Header = (props) => {
     button = <BlueButton content={auth} />
   }
 
-  if (user.username !== undefined) {
+  if (user.details !== undefined) {
     if (user.connected !== false) {
       return <Redirect to='/account' />
     }

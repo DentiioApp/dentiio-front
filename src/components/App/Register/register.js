@@ -119,7 +119,7 @@ const SignUp = () => {
     event.preventDefault()
   }
 
-  if (user.username !== undefined) {
+  if (user.details !== undefined) {
     if (user.connected === false) {
       history.push('/', { content: 'connexion' })
     } else {

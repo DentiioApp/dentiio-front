@@ -67,7 +67,7 @@ const SignUp = () => {
     event.preventDefault()
   }
 
-  if (user.username !== undefined && user.connected === true) {
+  if (user.details !== undefined && user.connected === true) {
     return <Redirect to='/account' />
   };
 

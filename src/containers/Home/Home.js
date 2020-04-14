@@ -3,15 +3,19 @@ import './Home.scss'
 import React from 'react'
 import { useSelector } from 'react-redux'
 import { Redirect } from 'react-router-dom'
+import { setup } from '../../services/LoginCheck'
 import Header from '../../components/App/Header/header'
 import Register from '../../components/App/Register/register'
 import SignIn from '../../components/App/SignIn/signIn'
 
 const Home = (props) => {
   const user = useSelector(state => state.user)
+console.log('TEST :', user)
   var auth
   var action = ''
-  console.log('TEST :', user)
+  //
+  var isSetup = setup();
+
   if (props.location.state === undefined) {
     action = 'inscription'
   } else {
@@ -30,7 +34,7 @@ const Home = (props) => {
     auth = <SignIn />
   }
 
-  if (user.username !== undefined) {
+  if (user.details !== undefined) {
     if (user.connected === false) {
       auth = <SignIn />
     } else {
