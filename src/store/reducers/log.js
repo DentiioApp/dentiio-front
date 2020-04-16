@@ -7,17 +7,16 @@ const INIT_STATE = ''
 export const User = (state = INIT_STATE, action) => {
   switch (action.type) {
     case LOG_USER :
-      var tokenUser  = loginCheck(action.pseudo, action.password)
-     
+      var tokenUser = loginCheck(action.pseudo, action.password)
+
       if (tokenUser !== '') {
         var details = jwt_decode(tokenUser)
 
         return {
-          'details' :details,
-          connected : true
+          details: details,
+          connected: true
         }
       } else {
-
         return {
           connected: false
         }

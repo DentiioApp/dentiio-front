@@ -5,8 +5,8 @@ const INIT_STATE = ''
 export const CasesList = (state = INIT_STATE, action) => {
   switch (action.type) {
     case CASES_LIST :
-      let data = {
-        cases : action.datas
+      const data = {
+        cases: action.datas
       }
 
       return data

@@ -31,8 +31,8 @@ export const registerUser = (register) => {
 export const getCases = () => {
   return (dispatch) => {
     return axios.get(CLINICAL_CASES)
-      .then(res => { 
-        dispatch({ type: CASES_LIST, datas: res.data["hydra:member"] })
+      .then(res => {
+        dispatch({ type: CASES_LIST, datas: res.data['hydra:member'] })
       })
       .catch(err => err)
   }

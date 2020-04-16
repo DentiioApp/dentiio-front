@@ -14,7 +14,7 @@ import { Redirect } from 'react-router-dom'
 import FormControl from '@material-ui/core/FormControl'
 import { logUser } from '../../../store/actions'
 import { useDispatch, useSelector } from 'react-redux'
-//import img from '../../../images/auth.svg'
+// import img from '../../../images/auth.svg'
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -74,7 +74,7 @@ const Register = () => {
   return (
     <>
       <div className='register'>
-        {/*<img src={img} alt='alternative texte' />*/}
+        {/* <img src={img} alt='alternative texte' /> */}
         <div style={{ width: '20rem' }}>
           <form className={classes.root} noValidate autoComplete='off' variant='outlined'>
             <FormControl variant='outlined'>

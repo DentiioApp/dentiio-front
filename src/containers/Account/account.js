@@ -9,7 +9,7 @@ const Cases = () => {
   const cases = useSelector(state => state.caseslist)
 
   const dispatch = useDispatch()
-  
+
   useEffect(() => {
     dispatch(getCases())
   }, [dispatch])
@@ -18,8 +18,7 @@ const Cases = () => {
     <>
       {user.details.username}
       {cases.map((aCase, index) => (
-        <span key={index}>{aCase}</span>))
-      }
+        <span key={index}>{aCase}</span>))}
     </>
   )
 }

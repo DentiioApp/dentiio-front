@@ -1,1 +1,1 @@
-export default { mobileBreakpoint: 'sm' };
+export default { mobileBreakpoint: 'sm' }
