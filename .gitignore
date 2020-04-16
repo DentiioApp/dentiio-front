@@ -6,4 +6,4 @@ node_modules
 yarn-error.log
 build
 .idea
-yarn.lock
+package-lock.json
