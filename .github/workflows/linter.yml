@@ -4,10 +4,10 @@ on: [push]
 
 jobs:
   eslint:
-    name: Run EsLint
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v1
-      - uses: hallee/eslint-action@master
+      - uses: stefanoeb/eslint-action@1.0.2
         with:
+          files: src/
           repo-token: ${{secrets.GITHUB_TOKEN}}
