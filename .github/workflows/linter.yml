@@ -10,4 +10,3 @@ jobs:
       - uses: stefanoeb/eslint-action@1.0.2
         with:
           files: src/
-          repo-token: ${{secrets.GITHUB_TOKEN}}
