@@ -57,35 +57,41 @@ const SignUp = () => {
     email: '',
     password: '',
     function: '',
-    showPassword: false
+    showPassword: false,
+    cgu: false,
   }
 
   const [values, setValues] = useState(initValues)
   const [errEmail, setErrEmail] = useState('Dupont@dupont.fr')
-  const [errPassword, setErrPassword] = useState('my-password')
+  const [errPassword, setErrPassword] = useState(false)
+  const [errPseudo, setErrPseudo] = useState(false)
+  const [errCgu, setErrCgu ]= useState(false)
 
   const catchSubmit = (e) => {
     e.preventDefault()
 
     if (values.password === '' && values.function === '' && values.pseudo === '') { return false }
-    if (checkEmail(values.email) === false) { return false }
-    if (checkPassword(values.password) === false) { return false }
-    if (existEmail(values.email) === true) { return false }
+    if (checkEmail(values.email) === false) { setErrEmail(true) ; return false; }
+    if (checkPassword(values.password) === false) { setErrPassword(true) ; return false }
+    if (existEmail(values.email) === true) { setErrEmail(true) ; return false }
+    if (values.cgu === false) {setErrCgu(true) ; return false }
 
     dispatch(registerUser({
       pseudo: values.pseudo,
       email: values.email,
       password: values.password,
-      function: values.function
+      function: values.function,
+      cgu: values.cgu,
     }))
   }
+
 
   // Check Valid email
   const checkEmail = (email) => {
     return (/^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/.test(email))
   }
 
-  // Check Valid email
+  // Exist  email
   const existEmail = (email) => {
     const emails = ['loryleticee@gmail.com', 'lory@lory.com', 'lo@lo.fr']
     return emails.includes(email)
@@ -96,7 +102,15 @@ const SignUp = () => {
     // speial chars , upper letter , lower letter, number more than 7 chars
     return (/^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#'<>"#?¨áàâäãåçéèêëíìîïñóòôöõúùûüýÿæœÁÀÂÄÃÅÇÉÈÊËÍÌÎÏÑÓÒÔÖÕÚÙÛÜÝŸÆŒ()),$%^+=\-_°\\:/&.;|*])(?=.{8,})/.test(password))
   }
+
   const handleChange = prop => event => {
+    if (prop === 'pseudo') {
+      if (event.target.value === false || event.target.value === '') {
+        setErrPseudo(true)
+      }else{
+        setErrPseudo(false)
+      }
+    }
     if (prop === 'email') {
       if (checkEmail(event.target.value) === false || existEmail(event.target.value) === true) {
         setErrEmail(event.target.value)
@@ -107,14 +121,26 @@ const SignUp = () => {
         setErrPassword(event.target.value)
       }
     }
-
+    if (prop === 'cgu') {
+      if (event.target.value === false) {
+        setErrCgu(true)
+      } else{
+        setErrCgu(false)
+      }
+    }
+    
     setValues({ ...values, [prop]: event.target.value })
   }
 
   const handleClickShowPassword = () => {
     setValues({ ...values, showPassword: !values.showPassword })
   }
-
+  const handleClickCgu = () => {
+    setValues({ ...values, cgu: !values.cgu })
+  }
+  const handleMouseDownCgu = event => {
+    event.preventDefault()
+  }
   const handleMouseDownPassword = event => {
     event.preventDefault()
   }
@@ -139,9 +165,6 @@ const SignUp = () => {
                 <img src={img} alt=""/>
               </div>
             </Grid>
-
-
-
             <Grid item xs={12} sm={6} lg={6} xl={6} className='form'>
               <div className='form'>
                 <ResponsiveCard>
@@ -149,13 +172,10 @@ const SignUp = () => {
 
 
                   <form className={classes.root} noValidate autoComplete='off'>
-
-
-
                     <CardHeader title="Sign in" subheader="to continue to kTPWC" />
                     <CardContent>
                       <InputLabel className='inputLabel'>
-                        Pszeudo* :
+                        Pseudo* :
                       </InputLabel>
                       <TextField
                           className='textField'
@@ -163,6 +183,7 @@ const SignUp = () => {
                           value={values.pseudo}
                           onChange={handleChange('pseudo')}
                           variant={'outlined'}
+                          error={errPseudo}
                       />
                       <br/>
 
@@ -229,23 +250,28 @@ const SignUp = () => {
                       />
                     </CardContent>
 
-                      <Button
-                          variant="contained"
-                          size="large"
-                          color="primary"
-                          //className={classes.margin}>
-                          onClick={catchSubmit}
-                          name='submit_button'
-                          >
-                        S'inscrire
-                      </Button>
+                    <Button
+                      variant="contained"
+                      size="large"
+                      color="primary"
+                      onClick={catchSubmit}
+                      name='submit_button'
+                    >
+                      S'inscrire
+                    </Button>
 
+                    <Checkbox 
+                      required
+                      checked ={values.cgu}
+                      onClick={handleClickCgu}
+                      onMouseDown={handleMouseDownCgu}
+                      error={errCgu}
+                    />
                   </form>
+
                 </ResponsiveCard>
               </div>
            </Grid>
-
-
           </Grid>
         </ResponsiveContainerGrid>
       </div>

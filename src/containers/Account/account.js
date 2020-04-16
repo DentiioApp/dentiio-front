@@ -1,10 +1,10 @@
-// import './Account.scss'
+// import './Cases.scss'
 
 import React, { useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { getCases } from '../../store/actions'
 
-const Account = () => {
+const Cases = () => {
   const user = useSelector(state => state.user)
   const cases = useSelector(state => state.caseslist)
 
@@ -15,12 +15,13 @@ const Account = () => {
   }, [dispatch])
 
   return (
-    <>{/*
-      {user.username}
+    <>
+      {user.details.username}
       {cases.map((aCase, index) => (
-        <span key={index}>{aCase}</span>))}*/}
+        <span key={index}>{aCase}</span>))
+      }
     </>
   )
 }
 
-export default Account
+export default Cases

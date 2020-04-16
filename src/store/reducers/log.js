@@ -29,6 +29,7 @@ export const User = (state = INIT_STATE, action) => {
         email: action.email,
         password: action.password,
         function: action.function,
+        cgu: action.cgu,
         connected: false
       }
 

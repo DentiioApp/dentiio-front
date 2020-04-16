@@ -10,11 +10,12 @@ import SignIn from '../../components/App/SignIn/signIn'
 
 const Home = (props) => {
   const user = useSelector(state => state.user)
-console.log('TEST :', user)
+
   var auth
   var action = ''
   //
   var isSetup = setup();
+  console.log('isSetup :', isSetup)
 
   if (props.location.state === undefined) {
     action = 'inscription'
