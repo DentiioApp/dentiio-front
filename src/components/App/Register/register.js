@@ -10,6 +10,7 @@ import {
   Paper,
   Typography,
 } from "@material-ui/core/"
+
 import Checkbox from "@material-ui/core/Checkbox"
 import Grid from "@material-ui/core/Grid"
 import { makeStyles } from "@material-ui/core/styles"
@@ -101,7 +102,9 @@ const Register = () => {
   const catchSubmit = (e) => {
     e.preventDefault();
 
-    if (values.password === '' && values.function === '' && values.pseudo === '') { return false }
+    if (values.password === '' && values.function === '' && values.pseudo === '') {
+       return false 
+    }
     if (checkEmail(values.email) === false) { setErrEmail(true) ; return false; }
     if (checkPassword(values.password) === false) { setErrPassword(true) ; return false }
     if (existEmail(values.email) === true) { setErrEmail(true) ; return false }
@@ -117,7 +120,7 @@ const Register = () => {
   };
 
   // Check Valid email
-  const checkEmail = (email) => {
+  const checkEmail = (email) => {console.log('TEST :', 'fzfzfzf')
     return (/^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/.test(email))
   }
 
@@ -143,12 +146,12 @@ const Register = () => {
     }
     if (prop === 'email') {
       if (checkEmail(event.target.value) === false || existEmail(event.target.value) === true) {
-        setErrEmail(event.target.value)
+        setErrEmail(true)
       }
     }
     if (prop === 'password') {
-      if (checkPassword(event.target.value) === false) {
-        setErrPassword(event.target.value)
+      if (checkPassword(event.target.value) === false ) {
+        setErrPassword(true)
       }
     }
     if (prop === 'cgu') {
@@ -182,7 +185,7 @@ const Register = () => {
       return <Redirect to='/account' />
     }
   };
-console.log('TEST :', values.function)
+
   return (
     <Grid container component="main" className={classes.root}>
       <CssBaseline />
