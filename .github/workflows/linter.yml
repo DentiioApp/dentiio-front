@@ -3,16 +3,6 @@ name: Linter React
 on: [push]
 
 jobs:
-  lint:
-    runs-on: ubuntu-latest
-    name: Run eslint
-    steps:
-      - uses: actions/checkout@v1
-      - uses: actions/setup-node@v1
-        with:
-          node-version: '13.x'
-      - run: npm install --only=dev
-      - run: eslint src
   eslint:
     runs-on: ubuntu-latest
     steps:
