@@ -25,7 +25,7 @@ const useStyles = makeStyles(theme => ({
   }
 }))
 
-const SignUp = () => {
+const Register = () => {
   const classes = useStyles()
   const dispatch = useDispatch()
   const user = useSelector(state => state.user)
@@ -127,4 +127,4 @@ const SignUp = () => {
   )
 }
 
-export default SignUp
+export default Register
