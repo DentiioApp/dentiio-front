@@ -3,13 +3,21 @@ name: Linter React
 on: [push]
 
 jobs:
-  lint:
+  build:
+    name: Run ESLint
     runs-on: ubuntu-latest
-    name: Run eslint
     steps:
+
+      # Check out the repository
       - uses: actions/checkout@v1
+
+      # Install Node.js
       - uses: actions/setup-node@v1
         with:
-          node-version: '13.x'
-      - run: npm install
-      - run: eslint src
+          node-version: 12
+
+      # Install your dependencies
+      - run: npm ci
+
+      # Run ESLint
+      - uses: eslint/github-action@v0
