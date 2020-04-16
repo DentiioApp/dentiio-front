@@ -14,7 +14,7 @@ import { Redirect } from 'react-router-dom'
 import FormControl from '@material-ui/core/FormControl'
 import { logUser } from '../../../store/actions'
 import { useDispatch, useSelector } from 'react-redux'
-import img from '../../../images/auth.svg'
+//import img from '../../../images/auth.svg'
 
 const useStyles = makeStyles(theme => ({
   root: {

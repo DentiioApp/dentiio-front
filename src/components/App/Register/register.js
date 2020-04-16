@@ -87,7 +87,7 @@ const Register = () => {
     pseudo: "",
     email: "",
     password: "",
-    function: "",
+    function: "CD",
     showPassword: false,
     cgu: false,
   };
@@ -115,7 +115,7 @@ const Register = () => {
       cgu: values.cgu,
     }))
   };
-console.log('TEST :', values.cgu)
+
   // Check Valid email
   const checkEmail = (email) => {
     return (/^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/.test(email))
@@ -182,7 +182,7 @@ console.log('TEST :', values.cgu)
       return <Redirect to='/account' />
     }
   };
-
+console.log('TEST :', values.function)
   return (
     <Grid container component="main" className={classes.root}>
       <CssBaseline />
@@ -221,26 +221,27 @@ console.log('TEST :', values.cgu)
               error={errEmail === ""}
               helperText={values.email !== '' ? (checkEmail(values.email) === false ? 'Email invalide!' : ' ') :''}
             />
-             <FormHelperText id='my-helper-text'>On ne partagera jamais votre email.</FormHelperText>
+            <FormHelperText id='my-helper-text'>On ne partagera jamais votre email.</FormHelperText>
             
             <InputLabel className='inputLabel'>
-                        Vous êtes* :
-                      </InputLabel>
-                      <TextField
-                        className='textField'
-                        id='filled-select-currency'
-                        select
-                        value={values.currency}
-                        onChange={handleChange}
-                        helperText='Selectionnez votre fonction'
-                        variant='outlined'
-                      >
-                        {currencies.map(option => (
-                          <MenuItem key={option.value} value={option.value}>
-                            {option.label}
-                          </MenuItem>
-                        ))}
-                      </TextField>
+              Vous êtes* :
+            </InputLabel>
+            <TextField
+              className='textField'
+              id='filled-select-currency'
+              select
+              value={values.function}
+              onChange={handleChange('function')}
+              helperText='Selectionnez votre fonction'
+              variant='outlined'
+            >
+              {currencies.map(option => (
+                <MenuItem key={option.value} value={option.value}>
+                  {option.label}
+                </MenuItem>
+              ))}
+            </TextField>
+
             <TextField
               variant="outlined"
               margin="normal"
@@ -248,9 +249,10 @@ console.log('TEST :', values.cgu)
               fullWidth
               name="password"
               label="Password"
-              type="password"
-              id="password"
-              autoComplete="current-password"
+              type={values.showPassword ? 'text' : 'password'}
+              value={values.password}
+              id="outlined-adornment-password"
+              autoComplete="on"
               error={errPassword === ""}
               onChange={handleChange('password')}
               endAdornment={
@@ -265,6 +267,7 @@ console.log('TEST :', values.cgu)
                   </IconButton>
                 </InputAdornment>
               }
+              labelWidth={20}
             />
             <FormControlLabel
               control={
