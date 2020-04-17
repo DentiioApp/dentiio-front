@@ -1,7 +1,7 @@
 import axios from 'axios'
 import jwt_decode from 'jwt-decode'
 
-const LOGIN_CHECK = 'http://localhost:8080/api/login_check'
+const LOGIN_CHECK = 'http://localhost/api/login_check'
 const token = localStorage.getItem('authToken')
 
 export const loginCheck = (ident, pswd) => {

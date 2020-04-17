@@ -2,6 +2,7 @@ import React from 'react'
 import { useSelector } from 'react-redux'
 import { Redirect } from 'react-router-dom'
 import Register from '../../components/App/Register/register'
+import Header from '../../components/App/Header/header'
 import SignIn from '../../components/App/SignIn/signIn'
 import { setup } from '../../services/LoginCheck'
 import './Home.scss'
@@ -43,7 +44,7 @@ const Home = (props) => {
 
   return (
     <div className='App'>
-      {/* <Header content={action} /> */}
+      <Header content={action} /> 
       {auth}
     </div>
   )

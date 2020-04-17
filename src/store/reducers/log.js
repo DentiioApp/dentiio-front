@@ -8,7 +8,7 @@ export const User = (state = INIT_STATE, action) => {
   switch (action.type) {
     case LOG_USER :
       var tokenUser = loginCheck(action.pseudo, action.password)
-
+console.log('TEST :', tokenUser)
       if (tokenUser !== '') {
         var details = jwt_decode(tokenUser)
 

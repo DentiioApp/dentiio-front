@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-const CLINICAL_CASES = 'http://localhost:8080/api/clinical_cases'
+const CLINICAL_CASES = 'http://localhost/api/clinical_cases'
 
 export const LOG_USER = 'LOG_USER'
 export const REGISTER_USER = 'REGISTER_USER'
