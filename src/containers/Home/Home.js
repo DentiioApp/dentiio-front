@@ -1,51 +1,27 @@
-import React from 'react'
-import { useSelector } from 'react-redux'
+import React, { useState ,useEffect } from 'react'
+import { useSelector, useDispatch} from 'react-redux'
 import { Redirect } from 'react-router-dom'
-import Register from '../../components/App/Register/register'
-import Header from '../../components/App/Header/header'
-import SignIn from '../../components/App/SignIn/signIn'
-import { setup } from '../../services/LoginCheck'
+import CardForm from '../../components/App/CardForm/cardForm'
 import './Home.scss'
+import { cardCheck } from '../../store/actions'
 
 const Home = (props) => {
-  const user = useSelector((state) => state.user)
+  //const user = useSelector((state) => state.user)
+  const dispatch = useDispatch() 
+  const [cardState, setCardState] = useState('inscription')
 
-  var auth
-  var action = ''
-  //
-  var isSetup = setup()
-  console.log('isSetup :', isSetup)
 
-  if (props.location.state === undefined) {
-    action = 'inscription'
-  } else {
-    if (props.location.state.content === 'connexion') {
-      action = 'connexion'
-    } else {
-      action = 'inscription'
-    }
-  }
-
-  if (action === 'inscription') {
-    auth = <Register />
-  }
-
-  if (action === 'connexion') {
-    auth = <SignIn />
-  }
-
-  if (user.details !== undefined) {
-    if (user.connected === false) {
-      auth = <SignIn />
-    } else {
-      return <Redirect to='/account' />
-    }
-  }
+  dispatch(
+    cardCheck(
+      {
+        status: cardState
+      }
+    )
+  )
 
   return (
     <div className='App'>
-      <Header content={action} /> 
-      {auth}
+      <CardForm content={cardState} /> 
     </div>
   )
 }

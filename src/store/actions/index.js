@@ -6,6 +6,17 @@ export const LOG_USER = 'LOG_USER'
 export const REGISTER_USER = 'REGISTER_USER'
 export const CASES_LIST = 'CASES_LIST'
 
+export const CARD_STATE = 'CARD_STATE'
+
+export const cardCheck = (card) => {
+  const action = {
+    type: CARD_STATE,
+    cardstate: card.status,
+  }
+
+  return action
+}
+
 export const logUser = (logger) => {
   const action = {
     type: LOG_USER,
