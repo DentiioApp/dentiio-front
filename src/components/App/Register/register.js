@@ -29,6 +29,7 @@ import InputAdornment from '@material-ui/core/InputAdornment'
 import OutlinedInput from '@material-ui/core/OutlinedInput'
 import oStyle from '../../../services/Css/css'
 import { checkPseudo, checkEmail, checkPassword, existEmail } from '../../../utils/Auth'
+
 // API DATAS
 const functions = [
   {
@@ -185,7 +186,9 @@ const Register = () => {
               error={errEmail}
               helperText={values.email !== '' ? (checkEmail(values.email) === false ? 'Email invalide!' : ' ') : ''}
             />
-            <FormHelperText id='my-helper-text'>On ne partagera jamais votre email.</FormHelperText>
+            <FormHelperText id='my-helper-text'>{/* On ne partagera jamais votre email. */}</FormHelperText>
+
+            <br />
 
             <InputLabel className='inputLabel'>
               Vous êtes* :
@@ -196,7 +199,6 @@ const Register = () => {
               select
               value={values.function}
               onChange={handleChange('function')}
-              helperText='Selectionnez votre fonction'
               variant='outlined'
             >
               {functions.map(option => (
@@ -205,6 +207,8 @@ const Register = () => {
                 </MenuItem>
               ))}
             </TextField>
+
+            <br /> <br />
 
             <OutlinedInput
               variant='outlined'
@@ -216,6 +220,7 @@ const Register = () => {
               value={values.password}
               id='outlined-adornment-password'
               autoComplete='on'
+              placeholder='Password'
               error={errPassword}
               onChange={handleChange('password')}
               endAdornment={
@@ -230,8 +235,10 @@ const Register = () => {
                   </IconButton>
                 </InputAdornment>
               }
-              // labelWidth={20}
             />
+
+            <br />  <br />
+
             <FormControlLabel
               control={
                 <Checkbox
