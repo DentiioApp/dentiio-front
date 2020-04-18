@@ -18,13 +18,14 @@ import TextField from '@material-ui/core/TextField'
 import FormHelperText from '@material-ui/core/FormHelperText'
 import img from '../../../images/auth.svg'
 import { registerUser, cardCheck } from '../../../store/actions'
-//import GradientBtn from '../../UI/buttons/GradientBtn'
+// import GradientBtn from '../../UI/buttons/GradientBtn'
 import IconButton from '@material-ui/core/IconButton'
 import Visibility from '@material-ui/icons/Visibility'
 import MenuItem from '@material-ui/core/MenuItem'
 import InputLabel from '@material-ui/core/InputLabel'
 import VisibilityOff from '@material-ui/icons/VisibilityOff'
 import InputAdornment from '@material-ui/core/InputAdornment'
+import OutlinedInput from '@material-ui/core/OutlinedInput'
 
 // API DATAS
 const functions = [
@@ -83,8 +84,8 @@ const Register = () => {
   const dispatch = useDispatch()
 
   const user = useSelector((state) => state.user)
-  //const cardstate = useSelector((state) => state.cardstate)
-  //console.log('OOOOO :', cardstate)
+  // const cardstate = useSelector((state) => state.cardstate)
+  // console.log('OOOOO :', cardstate)
 
   const initValues = {
     pseudo: '',
@@ -104,13 +105,13 @@ const Register = () => {
   const catchSubmit = (e) => {
     e.preventDefault()
 
-    if (values.password === '' && values.function === '' && values.pseudo === '') {
+    if (values.password === '' || values.function === '' || values.pseudo === '') {
       return false
     }
     if (checkEmail(values.email) === false) { setErrEmail(true); return false }
     if (checkPassword(values.password) === false) { setErrPassword(true); return false }
     if (existEmail(values.email) === true) { setErrEmail(true); return false }
-    //if (values.cgu === false) { setErrCgu(true); return false }
+    if (values.cgu === false) { setErrCgu(true); return false }
 
     dispatch(registerUser({
       pseudo: values.pseudo,
@@ -170,7 +171,7 @@ const Register = () => {
   const connect = (e) => {
     dispatch(
       cardCheck(
-        {status: 'connexion'}
+        { status: 'connexion' }
       )
     )
   }
@@ -255,9 +256,8 @@ const Register = () => {
               ))}
             </TextField>
 
-            <TextField
+            <OutlinedInput
               variant='outlined'
-              margin='normal'
               required
               fullWidth
               name='password'
@@ -280,7 +280,7 @@ const Register = () => {
                   </IconButton>
                 </InputAdornment>
               }
-              labelWidth={20}
+              // labelWidth={20}
             />
             <FormControlLabel
               control={
@@ -295,19 +295,20 @@ const Register = () => {
               label="J'accepte les conditions générales de d'utilisation"
             />
             <br /> <br /> <br />
-            {/*<GradientBtn
+            {/* <GradientBtn
               variant='contained'
               type='submit'
               className='GradientBtn'
               onClick={catchSubmit}
-            />*/}
+            /> */}
             <button
               variant='contained'
               type='submit'
               className='GradientBtn'
               onClick={catchSubmit}
-            > sinscricre</button>
-              <span> Déjà un compte <a onClick={connect} href=""> Connectez vous ? </a> </span>
+            > sinscricre
+            </button>
+            <span> Déjà un compte <button onClick={connect} href=''> Connectez vous ? </button> </span>
           </form>
         </div>
       </Grid>

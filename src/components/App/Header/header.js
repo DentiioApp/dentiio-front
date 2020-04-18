@@ -27,7 +27,7 @@ const Header = (props) => {
       return <Redirect to='/account' />
     }
   };
-console.log('Props :', props)
+  console.log('Props :', props)
   return (
     <div className='App'>
       <header className='App-header'>

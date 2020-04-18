@@ -1,5 +1,5 @@
 import axios from 'axios'
-import jwt_decode from 'jwt-decode'
+import jwtDecode from 'jwt-decode'
 
 const LOGIN_CHECK = 'http://localhost/api/login_check'
 const token = localStorage.getItem('authToken')
@@ -37,7 +37,7 @@ export const setup = () => {
   const token = window.localStorage.getItem('authToken')
 
   if (token) {
-    const jwtData = jwt_decode(token)
+    const jwtData = jwtDecode(token)
     if (jwtData.exp * 1000 > new Date().getTime()) {
       axios.defaults.headers.Authorization = token
     } else {
