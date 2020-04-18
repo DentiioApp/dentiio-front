@@ -8,7 +8,8 @@ import {
   CssBaseline,
   FormControlLabel,
   Paper,
-  Typography
+  Typography,
+  Link
 } from '@material-ui/core/'
 
 import Checkbox from '@material-ui/core/Checkbox'
@@ -18,7 +19,7 @@ import TextField from '@material-ui/core/TextField'
 import FormHelperText from '@material-ui/core/FormHelperText'
 import img from '../../../images/auth.svg'
 import { registerUser, cardCheck } from '../../../store/actions'
-// import GradientBtn from '../../UI/buttons/GradientBtn'
+import GradientBtn from '../../UI/buttons/GradientBtn'
 import IconButton from '@material-ui/core/IconButton'
 import Visibility from '@material-ui/icons/Visibility'
 import MenuItem from '@material-ui/core/MenuItem'
@@ -294,21 +295,20 @@ const Register = () => {
               }
               label="J'accepte les conditions générales de d'utilisation"
             />
+                        
             <br /> <br /> <br />
-            {/* <GradientBtn
-              variant='contained'
-              type='submit'
-              className='GradientBtn'
-              onClick={catchSubmit}
-            /> */}
-            <button
-              variant='contained'
-              type='submit'
-              className='GradientBtn'
-              onClick={catchSubmit}
-            > sinscricre
-            </button>
-            <span> Déjà un compte <button onClick={connect} href=''> Connectez vous ? </button> </span>
+
+            <div onClick={catchSubmit}>
+              <GradientBtn
+                variant='contained'
+                type='submit'
+                className='GradientBtn'
+              />
+            </div>
+
+            <br />
+
+            <Typography ><span> Déjà un compte <Link  onClick={connect} color='primary'> Connectez vous ? </Link> </span></Typography>
           </form>
         </div>
       </Grid>

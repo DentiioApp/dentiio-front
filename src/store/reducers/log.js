@@ -26,14 +26,14 @@ export const User = (state = INIT_STATE, action) => {
       var aUser = registerCheck(
         {
           email: action.email,
-          nom: action.pseudo,
-          prenom: 'Branis',
+          nom: 'Branis',
+          prenom: action.pseudo,
           password: action.password,
           isEnabled: true
         }
       )
 
-      console.log('TEST :', aUser)
+      //console.log('TEST :', aUser)
 
       if (aUser) {
 
