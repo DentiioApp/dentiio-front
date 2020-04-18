@@ -33,7 +33,7 @@ export const User = (state = INIT_STATE, action) => {
         }
       )
 
-      //console.log('TEST :', aUser)
+      // console.log('TEST :', aUser)
 
       if (aUser) {
 

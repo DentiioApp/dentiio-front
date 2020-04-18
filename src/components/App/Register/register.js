@@ -28,6 +28,7 @@ import VisibilityOff from '@material-ui/icons/VisibilityOff'
 import InputAdornment from '@material-ui/core/InputAdornment'
 import OutlinedInput from '@material-ui/core/OutlinedInput'
 
+import { checkPseudo, checkEmail, checkPassword, existEmail } from '../../../utils/Auth'
 // API DATAS
 const functions = [
   {
@@ -98,46 +99,31 @@ const Register = () => {
   }
 
   const [values, setValues] = useState(initValues)
-  const [errEmail, setErrEmail] = useState('Dupont@dupont.fr')
-  const [errPassword, setErrPassword] = useState(false)
   const [errPseudo, setErrPseudo] = useState(false)
+  const [errEmail, setErrEmail] = useState(false)
+  const [errPassword, setErrPassword] = useState(false)
   const [errCgu, setErrCgu] = useState(false)
 
   const catchSubmit = (e) => {
     e.preventDefault()
 
-    if (values.password === '' || values.function === '' || values.pseudo === '') {
+    if (checkPseudo(values.pseudo) === false) { setErrPseudo(true) }
+    if (checkEmail(values.email) === false) { setErrEmail(true) }
+    if (checkPassword(values.password) === false) { setErrPassword(true) }
+    if (existEmail(values.email) === true) { setErrEmail(true) }
+    if (values.cgu === false) { setErrCgu(true) }
+
+    if ((errPseudo || errEmail || errPassword || errCgu) === false) {
       return false
+    } else {
+      dispatch(registerUser({
+        pseudo: values.pseudo,
+        email: values.email,
+        password: values.password,
+        function: values.function,
+        cgu: values.cgu
+      }))
     }
-    if (checkEmail(values.email) === false) { setErrEmail(true); return false }
-    if (checkPassword(values.password) === false) { setErrPassword(true); return false }
-    if (existEmail(values.email) === true) { setErrEmail(true); return false }
-    if (values.cgu === false) { setErrCgu(true); return false }
-
-    dispatch(registerUser({
-      pseudo: values.pseudo,
-      email: values.email,
-      password: values.password,
-      function: values.function,
-      cgu: values.cgu
-    }))
-  }
-
-  // Check Valid email
-  const checkEmail = (email) => {
-    return (/^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/.test(email))
-  }
-
-  // Exist  email
-  const existEmail = (email) => {
-    const emails = ['loryleticee@gmail.com', 'lory@lory.com', 'lo@lo.fr']
-    return emails.includes(email)
-  }
-
-  // Check Valid password
-  const checkPassword = (password) => {
-    // speial chars , upper letter , lower letter, number more than 7 chars
-    return (/^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#'<>"#?¨áàâäãåçéèêëíìîïñóòôöõúùûüýÿæœÁÀÂÄÃÅÇÉÈÊËÍÌÎÏÑÓÒÔÖÕÚÙÛÜÝŸÆŒ()),$%^+=\-_°\\:/&.;|*])(?=.{8,})/.test(password))
   }
 
   const handleChange = prop => event => {
@@ -233,7 +219,7 @@ const Register = () => {
               autoComplete='email'
               autoFocus
               onChange={handleChange('email')}
-              error={errEmail === ''}
+              error={errEmail}
               helperText={values.email !== '' ? (checkEmail(values.email) === false ? 'Email invalide!' : ' ') : ''}
             />
             <FormHelperText id='my-helper-text'>On ne partagera jamais votre email.</FormHelperText>
@@ -267,7 +253,7 @@ const Register = () => {
               value={values.password}
               id='outlined-adornment-password'
               autoComplete='on'
-              error={errPassword === ''}
+              error={errPassword}
               onChange={handleChange('password')}
               endAdornment={
                 <InputAdornment position='start'>
@@ -295,7 +281,7 @@ const Register = () => {
               }
               label="J'accepte les conditions générales de d'utilisation"
             />
-                        
+
             <br /> <br /> <br />
 
             <div onClick={catchSubmit}>
@@ -308,7 +294,7 @@ const Register = () => {
 
             <br />
 
-            <Typography ><span> Déjà un compte <Link  onClick={connect} color='primary'> Connectez vous ? </Link> </span></Typography>
+            <Typography><span> Déjà un compte <Link onClick={connect} color='primary'> Connectez vous ? </Link> </span></Typography>
           </form>
         </div>
       </Grid>

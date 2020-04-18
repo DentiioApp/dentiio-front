@@ -2,7 +2,7 @@ import React from 'react'
 import ReactDOM from 'react-dom'
 import './index.css'
 import Home from './containers/Home/Home'
-import Account from './containers/Account/account'
+import Account from './containers/Cases/cases'
 import * as serviceWorker from './serviceWorker'
 // import "bootstrap/dist/css/bootstrap.min.css";
 import { applyMiddleware, compose, createStore } from 'redux'
@@ -32,16 +32,16 @@ ReactDOM.render(
     <Router>
       <div>
         {/* <nav>
-                    <ul>
-                        <li>
-                            <Link to="/chat">Chat</Link>
-                        </li>
-                        <li>
-                            <Link to="/">
-                                Login
-                            </Link>
-                        </li>
-                    </ul>
+              <ul>
+                  <li>
+                      <Link to="/chat">Chat</Link>
+                  </li>
+                  <li>
+                      <Link to="/">
+                          Login
+                      </Link>
+                  </li>
+              </ul>
                </nav>
                */}
 
