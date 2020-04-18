@@ -27,7 +27,7 @@ import VisibilityOff from '@material-ui/icons/VisibilityOff'
 import InputAdornment from '@material-ui/core/InputAdornment'
 
 // API DATAS
-const currencies = [
+const functions = [
   {
     value: 'CD',
     label: 'Chirurgien Dentiste'
@@ -248,7 +248,7 @@ const Register = () => {
               helperText='Selectionnez votre fonction'
               variant='outlined'
             >
-              {currencies.map(option => (
+              {functions.map(option => (
                 <MenuItem key={option.value} value={option.value}>
                   {option.label}
                 </MenuItem>

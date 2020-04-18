@@ -23,35 +23,18 @@ export const User = (state = INIT_STATE, action) => {
       }
 
     case REGISTER_USER :
-      var aUser = {
-        email: action.email,
-        nom: "string",
-        prenom: "string",
-        "roles": [
-          action.function
-        ],
-        password: action.password,
-        "licenceDoc": "string",
-        "clinicalCase": [
-          "string"
-        ],
-        "notations": [
-          "string"
-        ],
-        "commentaires": [
-          "string"
-        ],
-        "isEnabled": true
-      }
+      var aUser = registerCheck({
+	      "email" : action.email,
+        "nom"   : action.pseudo,
+        "prenom": "Branis",
+        "password": action.password,
+        "isEnabled" : true
+      })
 
-      return {
-        username: action.username,
-        email: action.email,
-        password: action.password,
-        function: action.function,
-        cgu: action.cgu,
-        connected: false
+      if(aUser) {
+      
       }
+      return (state)
 
     default :
       return state
