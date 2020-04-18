@@ -1,4 +1,4 @@
-import REGISTER_USER from '.'
+export const REGISTER_USER = 'REGISTER_USER'
 
 export const registerUser = (register) => {
   const action = {

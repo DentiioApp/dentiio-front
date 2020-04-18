@@ -1,4 +1,4 @@
-import LOG_USER from '.'
+export const LOG_USER = 'LOG_USER'
 
 export const logUser = (logger) => {
   const action = {

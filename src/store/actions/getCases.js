@@ -1,6 +1,7 @@
 import axios from 'axios'
-import CASES_LIST from '.'
-const CLINICAL_CASES = 'http://localhost/api/clinical_cases'
+export const CASES_LIST = 'CASES_LIST'
+
+export const CLINICAL_CASES = 'http://localhost/api/clinical_cases'
 
 export const getCases = () => {
   return (dispatch) => {

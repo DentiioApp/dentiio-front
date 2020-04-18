@@ -18,7 +18,7 @@ const Home = (props) => {
 
   return (
     <div className='App'>
-      {/*<CardForm content={cardState} /> */}
+      <CardForm content={cardState} />
     </div>
   )
 }
