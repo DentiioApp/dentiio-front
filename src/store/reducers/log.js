@@ -16,10 +16,10 @@ export const User = (state = INIT_STATE, action) => {
           details: details,
           connected: true
         }
-      } else {
-        return {
-          connected: false
-        }
+      }
+
+      return {
+        connected: false
       }
 
     case REGISTER_USER :
@@ -36,10 +36,18 @@ export const User = (state = INIT_STATE, action) => {
       if (aUser.status === 201) {
         return {
           subscribe: true,
+          message: 'Bienvenue dans l\'univers Dentiio',
           connected: false
         }
       }
-      return (state)
+
+      window.localStorage.removeItem('authSubscribe')
+
+      return {
+        subscribe: false,
+        message: 'Une erreur est survenu lors de l\'inscription',
+        connected: false
+      }
 
     default :
       return state

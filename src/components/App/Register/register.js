@@ -101,14 +101,14 @@ const Register = () => {
     if (prop === 'email') {
       if (checkEmail(event.target.value) === false || existEmail(event.target.value) === true) {
         setErrEmail(true)
-      }else{
+      } else {
         setErrEmail(false)
       }
     }
     if (prop === 'password') {
       if (checkPassword(event.target.value) === false) {
         setErrPassword(true)
-      }else{
+      } else {
         setErrPassword(false)
       }
     }
