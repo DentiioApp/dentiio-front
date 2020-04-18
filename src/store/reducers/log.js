@@ -27,16 +27,17 @@ export const User = (state = INIT_STATE, action) => {
         {
           email: action.email,
           nom: 'Branis',
-          prenom: action.pseudo,
+          prenom: action.username,
           password: action.password,
           isEnabled: true
         }
       )
 
-      // console.log('TEST :', aUser)
-
-      if (aUser) {
-
+      if (aUser.status === 201) {
+        return {
+          subscribe: true,
+          connected: false
+        }
       }
       return (state)
 

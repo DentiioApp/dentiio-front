@@ -59,7 +59,7 @@ const Register = () => {
     password: '',
     function: 'CD',
     showPassword: false,
-    cgu: false
+    cgu: true
   }
 
   const [values, setValues] = useState(initValues)
@@ -77,7 +77,7 @@ const Register = () => {
     if (existEmail(values.email) === true) { setErrEmail(true) }
     if (values.cgu === false) { setErrCgu(true) }
 
-    if ((errPseudo || errEmail || errPassword || errCgu) === true) {
+    if ((errPseudo || errEmail || errPassword || !errCgu) === true) {
       return false
     } else {
       dispatch(registerUser({
@@ -101,11 +101,15 @@ const Register = () => {
     if (prop === 'email') {
       if (checkEmail(event.target.value) === false || existEmail(event.target.value) === true) {
         setErrEmail(true)
+      }else{
+        setErrEmail(false)
       }
     }
     if (prop === 'password') {
       if (checkPassword(event.target.value) === false) {
         setErrPassword(true)
+      }else{
+        setErrPassword(false)
       }
     }
     if (prop === 'cgu') {
@@ -119,7 +123,7 @@ const Register = () => {
     setValues({ ...values, [prop]: event.target.value })
   }
 
-  const connect = (e) => {
+  const switchToLogin = (e) => {
     dispatch(
       cardCheck(
         { status: 'connexion' }
@@ -243,7 +247,7 @@ const Register = () => {
               control={
                 <Checkbox
                   color='primary'
-                  checked={values.cgu}
+                  checked={!values.cgu}
                   onClick={handleClickCgu}
                   onMouseDown={handleMouseDownCgu}
                   error={errCgu.toString()}
@@ -264,7 +268,7 @@ const Register = () => {
 
             <br />
 
-            <Typography><span> Déjà un compte <Link onClick={connect} color='primary'> Connectez vous ? </Link> </span></Typography>
+            <Typography><span> Déjà un compte <Link onClick={switchToLogin} color='primary'> Connectez vous ? </Link> </span></Typography>
           </form>
         </div>
       </Grid>
