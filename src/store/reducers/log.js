@@ -11,7 +11,6 @@ export const User = (state = INIT_STATE, action) => {
       var tokenUser = loginCheck(action.pseudo, action.password)
       if (tokenUser !== '') {
         var details = jwtDecode(tokenUser)
-
         return {
           details: details,
           connected: true
@@ -41,7 +40,7 @@ export const User = (state = INIT_STATE, action) => {
           message: 'Bienvenue dans l\'univers Dentiio',
           connected: false
         }
-      } else{
+      } else {
         return {
           subscribe: false,
           message: 'Un probleme est survenue lors de l\'inscription',

@@ -6,8 +6,8 @@ const response = localStorage.getItem('authSubscribe')
 export const registerCheck = (user) => {
   axios.post(REGISTER_CHECK, user)
     .then(res => localStorage.setItem('authSubscribe', res.status))
- 
- return response
+
+  return response
 }
 
 export default registerCheck

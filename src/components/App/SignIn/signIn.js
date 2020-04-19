@@ -6,26 +6,25 @@ import TextField from '@material-ui/core/TextField'
 import Visibility from '@material-ui/icons/Visibility'
 import VisibilityOff from '@material-ui/icons/VisibilityOff'
 import IconButton from '@material-ui/core/IconButton'
-import Button from '@material-ui/core/Button'
 import OutlinedInput from '@material-ui/core/OutlinedInput'
-import InputLabel from '@material-ui/core/InputLabel'
+import Grid from '@material-ui/core/Grid'
+import GradientBtn from '../../UI/buttons/GradientBtn'
 import InputAdornment from '@material-ui/core/InputAdornment'
 import { Redirect } from 'react-router-dom'
 import FormControl from '@material-ui/core/FormControl'
 import { logUser } from '../../../store/actions'
 import { useDispatch, useSelector } from 'react-redux'
-// import img from '../../../images/auth.svg'
+import oStyle from '../../../services/Css/css'
+import img from '../../../images/auth.svg'
+import {
+  CssBaseline,
+  Paper
+} from '@material-ui/core/'
+import { checkEmail, checkPassword, existEmail } from '../../../utils/Auth'
 
-const useStyles = makeStyles(theme => ({
-  root: {
-    '& .MuiTextField-root': {
-      margin: theme.spacing(1),
-      width: 250
-    }
-  }
-}))
+const useStyles = makeStyles((theme) => (oStyle(theme, img)))
 
-const Register = () => {
+const SignIn = () => {
   const classes = useStyles()
   const dispatch = useDispatch()
   const user = useSelector(state => state.user)
@@ -37,6 +36,8 @@ const Register = () => {
   }
 
   const [values, setValues] = useState(initValues)
+  const [errEmail, setErrEmail] = useState(false)
+  const [errPassword, setErrPassword] = useState(false)
 
   const catchSubmit = (e) => {
     e.preventDefault()
@@ -49,6 +50,8 @@ const Register = () => {
 
       dispatch(logUser(signin))
     } else {
+      setErrEmail(true)
+      setErrPassword(true)
       return false
     }
 
@@ -56,6 +59,20 @@ const Register = () => {
   }
 
   const handleChange = prop => event => {
+    if (prop === 'email') {
+      if (checkEmail(event.target.value) === false || existEmail(event.target.value) === true) {
+        setErrEmail(true)
+      } else {
+        setErrEmail(false)
+      }
+    }
+    if (prop === 'password') {
+      if (checkPassword(event.target.value) === false) {
+        setErrPassword(true)
+      } else {
+        setErrPassword(false)
+      }
+    }
     setValues({ ...values, [prop]: event.target.value })
   }
 
@@ -68,35 +85,43 @@ const Register = () => {
   }
 
   if (user.details !== undefined && user.connected === true) {
-    return <Redirect to='/account' />
+    return <Redirect to='/cases' />
   };
 
   return (
     <>
-      <div className='register'>
-        {/* <img src={img} alt='alternative texte' /> */}
-        <div style={{ width: '20rem' }}>
-          <form className={classes.root} noValidate autoComplete='off' variant='outlined'>
-            <FormControl variant='outlined'>
-              <TextField
-                id='pseudo-basic' required
-                label='Pseudo'
-                value={values.pseudo}
-                onChange={handleChange('pseudo')}
-                variant='outlined'
-              />
-            </FormControl>
+      <Grid container component='main' className={classes.root}>
+        <CssBaseline />
+        <Grid item xs={false} sm={4} md={7} className={classes.image} />
+        <Grid item xs={12} sm={8} md={5} component={Paper} elevation={6} square>
+          <div className={classes.paper}>
+            <form className={classes.form} noValidate>
+              <FormControl variant='outlined'>
+                <TextField
+                  id='pseudo-basic' required
+                  label='Pseudo'
+                  value={values.pseudo}
+                  onChange={handleChange('pseudo')}
+                  variant='outlined'
+                  error={errEmail}
+                />
+              </FormControl>
 
-            <FormControl variant='outlined'>
-              <InputLabel htmlFor='outlined-adornment-password'>Password</InputLabel>
               <OutlinedInput
-                id='outlined-adornment-password'
+                variant='outlined'
+                required
+                fullWidth
+                name='password'
+                label='Password'
                 type={values.showPassword ? 'text' : 'password'}
                 value={values.password}
-                onChange={handleChange('password')}
+                id='outlined-adornment-password'
                 autoComplete='on'
+                placeholder='Password'
+                error={errPassword}
+                onChange={handleChange('password')}
                 endAdornment={
-                  <InputAdornment position='end'>
+                  <InputAdornment position='start'>
                     <IconButton
                       aria-label='toggle password visibility'
                       onClick={handleClickShowPassword}
@@ -107,24 +132,23 @@ const Register = () => {
                     </IconButton>
                   </InputAdornment>
                 }
-                labelWidth={70}
               />
-            </FormControl>
 
-            <Button
-              variant='contained' color='primary'
-              type='submit'
-              className='{}'
-              name='submit_button'
-              onClick={catchSubmit}
-            >
-            Se connecter
-            </Button>
-          </form>
-        </div>
-      </div>
+              <br />  <br />
+
+              <div onClick={catchSubmit}>
+                <GradientBtn
+                  variant='contained'
+                  type='submit'
+                  className='GradientBtn'
+                />
+              </div>
+            </form>
+          </div>
+        </Grid>
+      </Grid>
     </>
   )
 }
 
-export default Register
+export default SignIn

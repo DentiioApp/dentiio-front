@@ -148,7 +148,7 @@ const Register = () => {
     if (user.connected === false) {
       history.push('/', { content: 'connexion' })
     } else {
-      return <Redirect to='/account' />
+      return <Redirect to='/cases' />
     }
   };
 
@@ -270,7 +270,7 @@ const Register = () => {
 
             <Typography><span> Déjà un compte <Link onClick={switchToLogin} color='primary'> Connectez vous ? </Link> </span></Typography>
           </form>
-          <span >{user.message}</span>
+          <span>{user.message}</span>
         </div>
       </Grid>
     </Grid>

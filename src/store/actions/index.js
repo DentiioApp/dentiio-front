@@ -1,4 +1,4 @@
-import { CASES_LIST, getCases } from './getCases'
+import { CASES_LIST, GetCases } from './getCases'
 import { REGISTER_USER, registerUser } from './registerUser'
 import { CARD_STATE, cardCheck } from './cardCheck'
 import { LOG_USER, logUser } from './logUser'
@@ -9,6 +9,6 @@ export { CARD_STATE }
 export { LOG_USER }
 
 export { cardCheck }
-export { getCases }
+export { GetCases }
 export { logUser }
 export { registerUser }

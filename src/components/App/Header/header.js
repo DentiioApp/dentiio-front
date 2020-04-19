@@ -24,7 +24,7 @@ const Header = (props) => {
 
   if (user.details !== undefined) {
     if (user.connected !== false) {
-      return <Redirect to='/account' />
+      return <Redirect to='/cases' />
     }
   };
   console.log('Props :', props)
