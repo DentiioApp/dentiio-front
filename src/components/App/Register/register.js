@@ -270,6 +270,7 @@ const Register = () => {
 
             <Typography><span> Déjà un compte <Link onClick={switchToLogin} color='primary'> Connectez vous ? </Link> </span></Typography>
           </form>
+          <span >{user.message}</span>
         </div>
       </Grid>
     </Grid>

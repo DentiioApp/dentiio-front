@@ -5,14 +5,9 @@ const response = localStorage.getItem('authSubscribe')
 
 export const registerCheck = (user) => {
   axios.post(REGISTER_CHECK, user)
-    .then(res => {
-      if (res === 404) {
-        return 'Une erreur est survenu à l\'inscription'
-      } else {
-        localStorage.setItem('authSubscribe', res.status)
-      }
-    })
-  return response
+    .then(res => localStorage.setItem('authSubscribe', res.status))
+ 
+ return response
 }
 
 export default registerCheck

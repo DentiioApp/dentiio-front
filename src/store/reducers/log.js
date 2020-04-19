@@ -23,7 +23,7 @@ export const User = (state = INIT_STATE, action) => {
       }
 
     case REGISTER_USER :
-      var aUser = registerCheck(
+      var response = registerCheck(
         {
           email: action.email,
           nom: 'Branis',
@@ -33,20 +33,20 @@ export const User = (state = INIT_STATE, action) => {
         }
       )
 
-      if (aUser.status === 201) {
+      window.localStorage.removeItem('authSubscribe')
+
+      if (response !== null) {
         return {
           subscribe: true,
           message: 'Bienvenue dans l\'univers Dentiio',
           connected: false
         }
-      }
-
-      window.localStorage.removeItem('authSubscribe')
-
-      return {
-        subscribe: false,
-        message: 'Une erreur est survenu lors de l\'inscription',
-        connected: false
+      } else{
+        return {
+          subscribe: false,
+          message: 'Un probleme est survenue lors de l\'inscription',
+          connected: false
+        }
       }
 
     default :
