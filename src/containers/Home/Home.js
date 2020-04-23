@@ -1,14 +1,24 @@
+import React from 'react'
+import { useDispatch } from 'react-redux'
+import CardForm from '../../components/App/CardForm/cardForm'
+import { cardCheck } from '../../store/actions'
 import './Home.scss'
 
-import React from 'react'
-import Header from '../../components/App/header/Header'
-import Body from '../../components/App/body/Body'
+const Home = (props) => {
+  const dispatch = useDispatch()
+  const cardState = 'inscription'
 
-function Home () {
+  dispatch(
+    cardCheck(
+      {
+        status: cardState
+      }
+    )
+  )
+
   return (
     <div className='App'>
-      <Header />
-      <Body />
+      <CardForm content={cardState} />
     </div>
   )
 }
