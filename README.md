@@ -1,4 +1,7 @@
 # dentiio-front
+[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=loryleticee_dentiio-front&metric=alert_status)](https://sonarcloud.io/dashboard?id=loryleticee_dentiio-front)
+
+
 Contributors :  
 [Lory][L] 
 ,[Branis][B] 
