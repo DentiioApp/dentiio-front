@@ -3,6 +3,7 @@ on:
   # a pull request. 
   push:
     branches:
+      - dev
       - master
   pull_request:
       types: [opened, synchronize, reopened]
@@ -12,7 +13,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
-    - name: SonarCloud Scan
+    - name: SonarCloud Test
       uses: sonarsource/sonarcloud-github-action@master
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
