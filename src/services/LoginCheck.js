@@ -2,11 +2,10 @@ import axios from 'axios'
 import jwtDecode from 'jwt-decode'
 
 const LOGIN_CHECK = 'http://localhost/api/login_check'
+const BEARER = 'Bearer '
 const token = localStorage.getItem('authToken')
 
 export const loginCheck = (ident, pswd) => {
-  var Bearer = 'Bearer '
-
   axios.post(LOGIN_CHECK, { username: ident, password: pswd }, {
     headers: {
       'Content-Type': 'application/json'
@@ -18,7 +17,7 @@ export const loginCheck = (ident, pswd) => {
     .catch(err => err.message)
 
   if (token !== undefined) {
-    axios.defaults.headers.Authorization = Bearer + token
+    axios.defaults.headers.Authorization = BEARER + token
 
     return token
   } else {
@@ -39,7 +38,7 @@ export const setup = () => {
   if (token) {
     const jwtData = jwtDecode(token)
     if (jwtData.exp * 1000 > new Date().getTime()) {
-      axios.defaults.headers.Authorization = token
+      axios.defaults.headers.Authorization = BEARER + token
     } else {
       logout()
     }
