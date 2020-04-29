@@ -1,8 +1,13 @@
-# dentiio-front
-[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=loryleticee_dentiio-front&metric=alert_status)](https://sonarcloud.io/dashboard?id=loryleticee_dentiio-front)
+![Dentiio Front](https://www.dentiio.com/img/logoblue.png)
 
+[![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0) [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=loryleticee_dentiio-front&metric=alert_status)](https://sonarcloud.io/dashboard?id=loryleticee_dentiio-front) ![Functionnals Test](https://github.com/loryleticee/dentiio-front/workflows/Functionnals%20Test/badge.svg) ![Linter React](https://github.com/loryleticee/dentiio-front/workflows/Linter%20React/badge.svg)
 
-Contributors :  
+---------------
+[Dentiio](https://www.dentiio.com/) Front is a [React app](https://github.com/facebook/react)
+
+----------------
+
+### Principal contributors : 
 [Lory][L] 
 ,[Branis][B] 
 ,[Arthur][A] 
@@ -18,19 +23,21 @@ Contributors :
 ## Contents
 - [Requirements](#-requirements)
 - [Building your app](#-building-your-app)
-- [Documentation](#-documentation)
-- [Launch the tests](#-launch-the-tests)
-- [License](#-license)
+
 
 ## 📋 Requirements
-🛠Make
-⚛️ React >= 16.12
-🐳Docker
+- 🛠Make
+- ⚛️ React >= 16.12
+- NodeJS >= 13.10
+- 🐳Docker
 
 ## 🎉 Building your app
 
-## 📖 Documentation
+### with docker
+0. Launch the command  `make help` or `make` generate list of targets with descriptions
+1. `make run` for build the app
+2. `make start` for start the app
 
-## ⚙️ Launch the tests
-
-## 📄 License
+### without docker
+0. `yarn add standard --global` or `npm add standard --global`
+1. `yarn start` or `npm start`
