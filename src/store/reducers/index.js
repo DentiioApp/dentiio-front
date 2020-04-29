@@ -1,8 +1,10 @@
 import { combineReducers } from 'redux'
-// import {cases} from "";
-import { userName } from './log'
+import { CasesList } from './cases'
+import { CardState } from './cardform'
+import { User } from './log'
 
 export const adminReducer = combineReducers({
-  // caseList : caseList,
-  username: userName
+  caseslist: CasesList,
+  user: User,
+  cardstate: CardState
 })
