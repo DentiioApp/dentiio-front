@@ -2,7 +2,7 @@ import { useState } from 'react'
 import axios from 'axios'
 export const CASES_LIST = 'CASES_LIST'
 
-export const CLINICAL_CASES = 'http://localhost/api/clinical_cases'
+export const CLINICAL_CASES = process.env.REACT_APP_CLINICAL_CASES
 
 export const GetCases = () => {
   const [cases, setCases] = useState('')

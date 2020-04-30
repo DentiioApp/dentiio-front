@@ -9,12 +9,16 @@ import { applyMiddleware, compose, createStore } from 'redux'
 import { adminReducer } from './store/reducers'
 import { Provider } from 'react-redux'
 import ReduxThunk from 'redux-thunk'
+import dotenv from 'dotenv'
+
 import {
   BrowserRouter as Router,
   Switch,
   Route
   // Link,
 } from 'react-router-dom'
+
+dotenv.config()
 
 // MIDDLEWARE
 const middleWare = store => next => action => {

@@ -1,6 +1,7 @@
 import axios from 'axios'
 
-const REGISTER_CHECK = 'http://localhost/api/users'
+const REGISTER_CHECK = process.env.REACT_APP_REGISTER_CHECK
+
 const response = localStorage.getItem('authSubscribe')
 
 export const registerCheck = (user) => {
