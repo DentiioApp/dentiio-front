@@ -1,7 +1,8 @@
 import axios from 'axios'
 import jwtDecode from 'jwt-decode'
 
-const LOGIN_CHECK = 'http://localhost/api/login_check'
+const LOGIN_CHECK = process.env.REACT_APP_LOGIN_CHECK
+
 const BEARER = 'Bearer '
 const token = localStorage.getItem('authToken')
 
