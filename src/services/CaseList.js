@@ -5,8 +5,8 @@ export const CLINICAL_CASES = process.env.REACT_APP_BACK_API_URL + process.env.R
 
 export const casesServices = { fetchCases }
 
-function fetchCases (){
+function fetchCases () {
   return axios.get(CLINICAL_CASES)
-  .then(res => res || {})
-  .catch(console.warning)
+    .then(res => res || {})
+    .catch(console.warning)
 }
