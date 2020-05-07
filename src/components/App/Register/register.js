@@ -17,7 +17,7 @@ import Grid from '@material-ui/core/Grid'
 import { makeStyles } from '@material-ui/core/styles'
 import TextField from '@material-ui/core/TextField'
 import FormHelperText from '@material-ui/core/FormHelperText'
-import img from '../../../images/auth.svg'
+import img from '../../../images/illus.png'
 import { registerUser, cardCheck } from '../../../store/actions'
 import GradientBtn from '../../UI/buttons/GradientBtn'
 import IconButton from '@material-ui/core/IconButton'
@@ -153,128 +153,142 @@ const Register = () => {
   };
 
   return (
-    <Grid container component='main' className={classes.root}>
+    <Grid container component="main" className={classes.root}>
       <CssBaseline />
-      <Grid item xs={false} sm={4} md={7} className={classes.image} />
-      <Grid item xs={12} sm={8} md={5} component={Paper} elevation={6} square>
-        <div className={classes.paper}>
-          <Avatar className={classes.avatar} />
-          <Typography component='h1' variant='h5'>
-            Inscription
-          </Typography>
-          <form className={classes.form} noValidate>
-            <TextField
-              variant='outlined'
-              margin='normal'
-              required
-              fullWidth
-              name='password'
-              label='Pseudo'
-              type='text'
-              id='pseudo'
-              autoComplete='current-password'
-              onChange={handleChange('pseudo')}
-              error={errPseudo}
-            />
-            <TextField
-              variant='outlined'
-              margin='normal'
-              required
-              fullWidth
-              id='email'
-              label='Email Address'
-              name='email'
-              autoComplete='email'
-              autoFocus
-              onChange={handleChange('email')}
-              error={errEmail}
-              helperText={values.email !== '' ? (checkEmail(values.email) === false ? 'Email invalide!' : ' ') : ''}
-            />
-            <FormHelperText id='my-helper-text'>{/* On ne partagera jamais votre email. */}</FormHelperText>
-
-            <br />
-
-            <InputLabel className='inputLabel'>
-              Vous êtes* :
-            </InputLabel>
-            <TextField
-              className='textField'
-              id='filled-select-currency'
-              select
-              value={values.function}
-              onChange={handleChange('function')}
-              variant='outlined'
-            >
-              {functions.map(option => (
-                <MenuItem key={option.value} value={option.value}>
-                  {option.label}
-                </MenuItem>
-              ))}
-            </TextField>
-
-            <br /> <br />
-
-            <OutlinedInput
-              variant='outlined'
-              required
-              fullWidth
-              name='password'
-              label='Password'
-              type={values.showPassword ? 'text' : 'password'}
-              value={values.password}
-              id='outlined-adornment-password'
-              autoComplete='on'
-              placeholder='Password'
-              error={errPassword}
-              onChange={handleChange('password')}
-              endAdornment={
-                <InputAdornment position='start'>
-                  <IconButton
-                    aria-label='toggle password visibility'
-                    onClick={handleClickShowPassword}
-                    onMouseDown={handleMouseDownPassword}
-                    edge='end'
-                  >
-                    {values.showPassword ? <Visibility /> : <VisibilityOff />}
-                  </IconButton>
-                </InputAdornment>
-              }
-            />
-
-            <br />  <br />
-
-            <FormControlLabel
-              control={
-                <Checkbox
-                  color='primary'
-                  checked={!values.cgu}
-                  onClick={handleClickCgu}
-                  onMouseDown={handleMouseDownCgu}
-                  error={errCgu.toString()}
-                />
-              }
-              label="J'accepte les conditions générales de d'utilisation"
-            />
-
-            <br /> <br /> <br />
-
-            <div onClick={catchSubmit}>
-              <GradientBtn
-                variant='contained'
-                type='submit'
-                className='GradientBtn'
+      <div className={classes.test}>
+        <Grid
+          item
+          xs={12}
+          sm={12}
+          md={12}
+          component={Paper}
+          elevation={6}
+          square
+        >
+          <div className={classes.paper}>
+            <Avatar className={classes.avatar} />
+            <Typography component="h1" variant="h5">
+              Inscription
+            </Typography>
+            <form className={classes.form} noValidate>
+              <TextField
+                variant="outlined"
+                margin="normal"
+                required
+                fullWidth
+                name="password"
+                label="Pseudo"
+                type="text"
+                id="pseudo"
+                autoComplete="current-password"
+                onChange={handleChange("pseudo")}
+                error={errPseudo}
               />
-            </div>
-
-            <br />
-
-            <Typography><span> Déjà un compte <Link onClick={switchToLogin} color='primary'> Connectez vous ? </Link> </span></Typography>
-          </form>
-          <span>{user.message}</span>
-        </div>
-      </Grid>
+              <TextField
+                variant="outlined"
+                margin="normal"
+                required
+                fullWidth
+                id="email"
+                label="Email Address"
+                name="email"
+                autoComplete="email"
+                autoFocus
+                onChange={handleChange("email")}
+                error={errEmail}
+                helperText={
+                  values.email !== ""
+                    ? checkEmail(values.email) === false
+                      ? "Email invalide!"
+                      : " "
+                    : ""
+                }
+              />
+              <FormHelperText id="my-helper-text">
+                {/* On ne partagera jamais votre email. */}
+              </FormHelperText>
+              <br />
+              <InputLabel className="inputLabel">Vous êtes* :</InputLabel>
+              <TextField
+                className="textField"
+                id="filled-select-currency"
+                select
+                value={values.function}
+                onChange={handleChange("function")}
+                variant="outlined"
+              >
+                {functions.map((option) => (
+                  <MenuItem key={option.value} value={option.value}>
+                    {option.label}
+                  </MenuItem>
+                ))}
+              </TextField>
+              <br /> <br />
+              <OutlinedInput
+                variant="outlined"
+                required
+                fullWidth
+                name="password"
+                label="Password"
+                type={values.showPassword ? "text" : "password"}
+                value={values.password}
+                id="outlined-adornment-password"
+                autoComplete="on"
+                placeholder="Password"
+                error={errPassword}
+                onChange={handleChange("password")}
+                endAdornment={
+                  <InputAdornment position="start">
+                    <IconButton
+                      aria-label="toggle password visibility"
+                      onClick={handleClickShowPassword}
+                      onMouseDown={handleMouseDownPassword}
+                      edge="end"
+                    >
+                      {values.showPassword ? <Visibility /> : <VisibilityOff />}
+                    </IconButton>
+                  </InputAdornment>
+                }
+              />
+              <br /> <br />
+              <FormControlLabel
+                control={
+                  <Checkbox
+                    color="primary"
+                    checked={!values.cgu}
+                    onClick={handleClickCgu}
+                    onMouseDown={handleMouseDownCgu}
+                    error={errCgu.toString()}
+                  />
+                }
+                label="J'accepte les conditions générales de d'utilisation"
+              />
+              <br /> <br /> <br />
+              <div onClick={catchSubmit}>
+                <GradientBtn
+                  variant="contained"
+                  type="submit"
+                  className="GradientBtn"
+                />
+              </div>
+              <br />
+              <Typography>
+                <span>
+                  {" "}
+                  Déjà un compte{" "}
+                  <Link onClick={switchToLogin} color="primary">
+                    {" "}
+                    Connectez vous ?{" "}
+                  </Link>{" "}
+                </span>
+              </Typography>
+            </form>
+            <span>{user.message}</span>
+          </div>
+        </Grid>
+      </div>
     </Grid>
-  )
+  );
 }
 
 export default Register
