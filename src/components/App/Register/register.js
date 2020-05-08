@@ -26,7 +26,7 @@ import Visibility from '@material-ui/icons/Visibility'
 import VisibilityOff from '@material-ui/icons/VisibilityOff'
 
 import img from '../../../images/auth.svg'
-import {setup} from '../../../services/Auth'
+import { setup } from '../../../services/Auth'
 import oStyle from '../../../services/Css/css'
 import { registerUser, cardCheck } from '../../../store/actions'
 import GradientBtn from '../../UI/buttons/GradientBtn'

@@ -8,14 +8,14 @@ const INIT_STATE = ''
 export const User = (state = INIT_STATE, action) => {
   switch (action.type) {
     case LOG_USER :
-        var details = jwtDecode(action.datas.token)
+      var details = jwtDecode(action.datas.token)
 
-        login(action.datas.token)
+      login(action.datas.token)
 
-        return {
-          username: details.username,
-          connected: true
-        }
+      return {
+        username: details.username,
+        connected: true
+      }
 
     case REGISTER_USER :
       var response = registerCheck(

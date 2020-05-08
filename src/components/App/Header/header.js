@@ -9,14 +9,11 @@ import TitleHeader from '../../UI/titleHeader/TitleHeader'
 import { setup } from '../../../services/Auth'
 
 const Header = (props) => {
-  let auth
-  let button
+  const auth = 'Ajouter un cas'
+  const button = <BlueButton content={auth} />
 
-  auth = 'Ajouter un cas '
-  button = <BlueButton content={auth} />
-  
   if (setup() === false) {
-      return <Redirect to='/' />
+    return <Redirect to='/' />
   };
 
   return (

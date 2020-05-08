@@ -1,7 +1,7 @@
 import './signIn.scss'
 
 import React, { useState, useEffect } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
+import { useDispatch } from 'react-redux'
 import { Redirect } from 'react-router-dom'
 
 import {
@@ -32,7 +32,6 @@ const useStyles = makeStyles((theme) => (oStyle(theme, img)))
 const SignIn = () => {
   const classes = useStyles()
   const dispatch = useDispatch()
-  const user = useSelector(state => state.user)
 
   const initValues = {
     pseudo: '',
@@ -45,22 +44,20 @@ const SignIn = () => {
   const [errEmail, setErrEmail] = useState(false)
   const [errPassword, setErrPassword] = useState(false)
 
-  useEffect(()=>{
-    if(datas !== ''){
+  useEffect(() => {
+    if (datas !== '') {
       dispatch(logUser(datas))
     }
-  },[datas])
-
+  }, [datas])
 
   const catchSubmit = (e) => {
     e.preventDefault()
 
     if (values.password && values.pseudo) {
       const getToken = loginCheck(values.pseudo, values.password)
-      getToken.then((res)=>{
+      getToken.then((res) => {
         setDatas(res)
       })
-
     } else {
       setErrEmail(true)
       setErrPassword(true)

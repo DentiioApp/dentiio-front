@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react'
-import { useSelector} from 'react-redux'
+import { useSelector } from 'react-redux'
 import { Redirect } from 'react-router-dom'
 
 import Header from '../../components/App/Header/header'
-import {setup} from '../../services/Auth'
-import {fetchCases} from '../../services/CaseList'
+import { setup } from '../../services/Auth'
+import { fetchCases } from '../../services/CaseList'
 
 const Cases = () => {
   const [cases, setCases] = useState('')
