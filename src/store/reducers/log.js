@@ -1,16 +1,17 @@
 import { LOG_USER, REGISTER_USER } from '../actions'
 import { registerCheck } from '../../services/RegisterCheck'
 import jwtDecode from 'jwt-decode'
-import axios from 'axios'
+import { login } from '../../services/Auth'
 
-const BEARER = 'Bearer '
 const INIT_STATE = ''
 
 export const User = (state = INIT_STATE, action) => {
   switch (action.type) {
     case LOG_USER :
         var details = jwtDecode(action.datas.token)
-        axios.defaults.headers.Authorization = BEARER + action.datas.token
+
+        login(action.datas.token)
+
         return {
           username: details.username,
           connected: true

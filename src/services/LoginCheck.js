@@ -7,8 +7,8 @@ export const loginCheck = (ident, pswd) => {
     return await axios.post(LOGIN_CHECK, { username: ident, password: pswd })
     .then(res => res)
   }
-return main()
 
+  return main()
 }
 
 export default loginCheck

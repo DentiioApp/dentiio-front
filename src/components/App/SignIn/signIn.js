@@ -1,27 +1,31 @@
 import './signIn.scss'
 
 import React, { useState, useEffect } from 'react'
-import { makeStyles } from '@material-ui/core/styles'
-import TextField from '@material-ui/core/TextField'
-import Visibility from '@material-ui/icons/Visibility'
-import VisibilityOff from '@material-ui/icons/VisibilityOff'
-import IconButton from '@material-ui/core/IconButton'
-import OutlinedInput from '@material-ui/core/OutlinedInput'
-import Grid from '@material-ui/core/Grid'
-import GradientBtn from '../../UI/buttons/GradientBtn'
-import InputAdornment from '@material-ui/core/InputAdornment'
-import { Redirect } from 'react-router-dom'
-import FormControl from '@material-ui/core/FormControl'
-import { logUser } from '../../../store/actions'
 import { useDispatch, useSelector } from 'react-redux'
-import oStyle from '../../../services/Css/css'
-import img from '../../../images/auth.svg'
+import { Redirect } from 'react-router-dom'
+
 import {
   CssBaseline,
   Paper
 } from '@material-ui/core/'
+import FormControl from '@material-ui/core/FormControl'
+import Grid from '@material-ui/core/Grid'
+import IconButton from '@material-ui/core/IconButton'
+import InputAdornment from '@material-ui/core/InputAdornment'
+import OutlinedInput from '@material-ui/core/OutlinedInput'
+import { makeStyles } from '@material-ui/core/styles'
+import TextField from '@material-ui/core/TextField'
+import Visibility from '@material-ui/icons/Visibility'
+import VisibilityOff from '@material-ui/icons/VisibilityOff'
+
+import GradientBtn from '../../UI/buttons/GradientBtn'
+import oStyle from '../../../services/Css/css'
+import { logUser } from '../../../store/actions'
+import img from '../../../images/auth.svg'
+
 import { checkEmail, checkPassword, existEmail } from '../../../utils/Auth'
 import loginCheck from '../../../services/LoginCheck'
+import { setup } from '../../../services/Auth'
 
 const useStyles = makeStyles((theme) => (oStyle(theme, img)))
 
@@ -35,6 +39,7 @@ const SignIn = () => {
     password: '',
     showPassword: false
   }
+
   const [datas, setDatas] = useState('')
   const [values, setValues] = useState(initValues)
   const [errEmail, setErrEmail] = useState(false)
@@ -91,7 +96,7 @@ const SignIn = () => {
     event.preventDefault()
   }
 
-  if (user.username !== undefined && user.connected === true) {
+  if (setup() === true) {
     return <Redirect to='/cases' />
   };
 

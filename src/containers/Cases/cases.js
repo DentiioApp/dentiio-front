@@ -1,39 +1,37 @@
-// import './Cases.scss'
-
 import React, { useEffect, useState } from 'react'
 import { useSelector} from 'react-redux'
-import { Redirect, useHistory } from 'react-router-dom'
-import {fetchCases} from '../../services/CaseList'
+import { Redirect } from 'react-router-dom'
+
 import Header from '../../components/App/Header/header'
+import {setup} from '../../services/Auth'
+import {fetchCases} from '../../services/CaseList'
 
 const Cases = () => {
-  const user = useSelector(state => state.user)
-  const history = useHistory()
   const [cases, setCases] = useState('')
+  const user = useSelector(state => state.user)
 
   useEffect(() => {
-    /*const getCases = fetchCases(signal)
-    getCases.then(res=>setCases(getCases))
-      console.log('TEST :', cases)
-    */
-      
+    const getCases = fetchCases()
+    getCases.then((res) => setCases(getCases || {}))
+
+    console.log('Cas que remonte L\'api :', cases)
   }, [cases])
 
-  
-  if (user.username !== undefined) {
-    if (user.connected === false) {
-      history.push('/')
-    } else {
-      return <Redirect to='/' />
-    }
+  if (setup() === false) {
+    return <Redirect to='/' />
   }
 
   return (
-    <>{/*
-      {user.username}
-      {cases.map((aCase, index) => (
-        <span key={index}>{aCase.evolution}</span>))}*/}
+    <>
+      {/*
+        cases.map(
+          (aCase, index) => (
+            <span key={index}>{aCase.evolution}</span>
+          )
+        )
+      */}
       <Header />
+      {user.username}
     </>
   )
 }

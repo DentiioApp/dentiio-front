@@ -1,7 +1,8 @@
+import './register.scss'
+
 import React, { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { Redirect, useHistory } from 'react-router-dom'
-import './register.scss'
+import { Redirect } from 'react-router-dom'
 
 import {
   Avatar,
@@ -11,23 +12,24 @@ import {
   Typography,
   Link
 } from '@material-ui/core/'
-
 import Checkbox from '@material-ui/core/Checkbox'
+import FormHelperText from '@material-ui/core/FormHelperText'
 import Grid from '@material-ui/core/Grid'
+import IconButton from '@material-ui/core/IconButton'
+import InputAdornment from '@material-ui/core/InputAdornment'
+import InputLabel from '@material-ui/core/InputLabel'
+import MenuItem from '@material-ui/core/MenuItem'
+import OutlinedInput from '@material-ui/core/OutlinedInput'
 import { makeStyles } from '@material-ui/core/styles'
 import TextField from '@material-ui/core/TextField'
-import FormHelperText from '@material-ui/core/FormHelperText'
+import Visibility from '@material-ui/icons/Visibility'
+import VisibilityOff from '@material-ui/icons/VisibilityOff'
+
 import img from '../../../images/auth.svg'
+import {setup} from '../../../services/Auth'
+import oStyle from '../../../services/Css/css'
 import { registerUser, cardCheck } from '../../../store/actions'
 import GradientBtn from '../../UI/buttons/GradientBtn'
-import IconButton from '@material-ui/core/IconButton'
-import Visibility from '@material-ui/icons/Visibility'
-import MenuItem from '@material-ui/core/MenuItem'
-import InputLabel from '@material-ui/core/InputLabel'
-import VisibilityOff from '@material-ui/icons/VisibilityOff'
-import InputAdornment from '@material-ui/core/InputAdornment'
-import OutlinedInput from '@material-ui/core/OutlinedInput'
-import oStyle from '../../../services/Css/css'
 import { checkPseudo, checkEmail, checkPassword, existEmail } from '../../../utils/Auth'
 
 // API DATAS
@@ -45,7 +47,6 @@ const functions = [
 const useStyles = makeStyles((theme) => (oStyle(theme, img)))
 
 const Register = () => {
-  const history = useHistory()
   const classes = useStyles()
   const dispatch = useDispatch()
 
@@ -144,13 +145,9 @@ const Register = () => {
     event.preventDefault()
   }
 
-  if (user.details !== undefined) {
-    if (user.connected === false) {
-      history.push('/', { content: 'connexion' })
-    } else {
-      return <Redirect to='/cases' />
-    }
-  };
+  if (setup() === true) {
+    return <Redirect to='/cases' />
+  }
 
   return (
     <Grid container component='main' className={classes.root}>
