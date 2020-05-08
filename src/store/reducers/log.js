@@ -1,25 +1,20 @@
 import { LOG_USER, REGISTER_USER } from '../actions'
-import { loginCheck } from '../../services/LoginCheck'
 import { registerCheck } from '../../services/RegisterCheck'
 import jwtDecode from 'jwt-decode'
+import axios from 'axios'
 
+const BEARER = 'Bearer '
 const INIT_STATE = ''
 
 export const User = (state = INIT_STATE, action) => {
   switch (action.type) {
     case LOG_USER :
-      var tokenUser = loginCheck(action.pseudo, action.password)
-      if (tokenUser !== '') {
-        var details = jwtDecode(tokenUser)
+        var details = jwtDecode(action.datas.token)
+        axios.defaults.headers.Authorization = BEARER + action.datas.token
         return {
-          details: details,
+          username: details.username,
           connected: true
         }
-      }
-
-      return {
-        connected: false
-      }
 
     case REGISTER_USER :
       var response = registerCheck(
@@ -31,8 +26,6 @@ export const User = (state = INIT_STATE, action) => {
           isEnabled: true
         }
       )
-
-      window.localStorage.removeItem('authSubscribe')
 
       if (response !== null) {
         return {

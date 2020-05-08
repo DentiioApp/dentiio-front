@@ -1,6 +1,6 @@
 import './signIn.scss'
 
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { makeStyles } from '@material-ui/core/styles'
 import TextField from '@material-ui/core/TextField'
 import Visibility from '@material-ui/icons/Visibility'
@@ -21,6 +21,7 @@ import {
   Paper
 } from '@material-ui/core/'
 import { checkEmail, checkPassword, existEmail } from '../../../utils/Auth'
+import loginCheck from '../../../services/LoginCheck'
 
 const useStyles = makeStyles((theme) => (oStyle(theme, img)))
 
@@ -34,21 +35,27 @@ const SignIn = () => {
     password: '',
     showPassword: false
   }
-
+  const [datas, setDatas] = useState('')
   const [values, setValues] = useState(initValues)
   const [errEmail, setErrEmail] = useState(false)
   const [errPassword, setErrPassword] = useState(false)
+
+  useEffect(()=>{
+    if(datas !== ''){
+      dispatch(logUser(datas))
+    }
+  },[datas])
+
 
   const catchSubmit = (e) => {
     e.preventDefault()
 
     if (values.password && values.pseudo) {
-      const signin = {
-        pseudo: values.pseudo,
-        password: values.password
-      }
+      const getToken = loginCheck(values.pseudo, values.password)
+      getToken.then((res)=>{
+        setDatas(res)
+      })
 
-      dispatch(logUser(signin))
     } else {
       setErrEmail(true)
       setErrPassword(true)
@@ -84,7 +91,7 @@ const SignIn = () => {
     event.preventDefault()
   }
 
-  if (user.details !== undefined && user.connected === true) {
+  if (user.username !== undefined && user.connected === true) {
     return <Redirect to='/cases' />
   };
 
