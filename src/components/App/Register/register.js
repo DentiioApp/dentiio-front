@@ -17,7 +17,8 @@ import Grid from '@material-ui/core/Grid'
 import { makeStyles } from '@material-ui/core/styles'
 import TextField from '@material-ui/core/TextField'
 import FormHelperText from '@material-ui/core/FormHelperText'
-import img from '../../../images/illus.png'
+import imgDesktop from "../../../images/illus.png";
+import imgMobile from "../../../images/mobile-bg.svg";
 import { registerUser, cardCheck } from '../../../store/actions'
 import GradientBtn from '../../UI/buttons/GradientBtn'
 import IconButton from '@material-ui/core/IconButton'
@@ -42,7 +43,7 @@ const functions = [
   }
 ]
 
-const useStyles = makeStyles((theme) => (oStyle(theme, img)))
+const useStyles = makeStyles((theme) => oStyle(theme, imgDesktop, imgMobile));
 
 const Register = () => {
   const history = useHistory()
@@ -155,10 +156,10 @@ const Register = () => {
   return (
     <Grid container component="main" className={classes.root}>
       <CssBaseline />
-      <div className={classes.test}>
+      <div className={classes.formContainer}>
         <Grid
           item
-          xs={12}
+          xs={10}
           sm={12}
           md={12}
           component={Paper}
