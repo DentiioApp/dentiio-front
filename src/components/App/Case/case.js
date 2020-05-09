@@ -10,7 +10,7 @@ import Collapse from '@material-ui/core/Collapse';
 import Avatar from '@material-ui/core/Avatar';
 import IconButton from '@material-ui/core/IconButton';
 import Typography from '@material-ui/core/Typography';
-import { red } from '@material-ui/core/colors';
+import { blue } from '@material-ui/core/colors';
 import FavoriteIcon from '@material-ui/icons/Favorite';
 import ShareIcon from '@material-ui/icons/Share';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
@@ -37,13 +37,22 @@ const useStyles = makeStyles((theme) => ({
     transform: 'rotate(180deg)',
   },
   avatar: {
-    backgroundColor: red[500],
+    backgroundColor: blue[200],
   },
 }));
 
 const Case = (props) => {
   const classes = useStyles();
   const [expanded, setExpanded] = React.useState(false);
+console.log('kkkkk :', props.item.commentaires.length)
+  const avgNotes = (notes) => {
+    var sum = 0
+    notes.map((value, index)=>(
+      sum = value.note + sum
+    ))
+
+    return sum/notes.length
+  }
 
   const handleExpandClick = () => {
     setExpanded(!expanded);
@@ -77,7 +86,13 @@ const Case = (props) => {
         <small>  {'function'}</small>
         {/*<TeethButton>*/} 
 
-        {/*</TeethButton>*/} 
+        {/*</TeethButton>*/}
+        {/*<CommentButton aria-label="comments">*/}
+           coms: {props.item.commentaires.length}
+        {/*</CommentButton>*/}
+        {/*<NoteButton aria-label="comments">*/}
+           notes: {avgNotes(props.item.notations)}
+        {/*</NoteButton>*/}
         <IconButton
           className={clsx(classes.expand, {
             [classes.expandOpen]: expanded,
