@@ -48,7 +48,7 @@ const SignIn = () => {
     if (datas !== '') {
       dispatch(logUser(datas))
     }
-  }, [datas])
+  })
 
   const catchSubmit = (e) => {
     e.preventDefault()
@@ -61,6 +61,7 @@ const SignIn = () => {
     } else {
       setErrEmail(true)
       setErrPassword(true)
+
       return false
     }
 
