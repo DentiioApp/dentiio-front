@@ -5,17 +5,26 @@ import { Redirect } from 'react-router-dom'
 import Header from '../../components/App/Header/header'
 import { setup } from '../../services/Auth'
 import { fetchCases } from '../../services/CaseList'
+import SlideCases from '../../components/App/SlideCases/slideCases'
 
 const Cases = () => {
-  const [cases, setCases] = useState('')
+  const [cases, setCases] = useState([])
+  const [count, setCount] = useState(0)
   const user = useSelector(state => state.user)
 
   useEffect(() => {
-    const getCases = fetchCases()
-    getCases.then((res) => setCases(getCases || {}))
+      if(count < 1) {
+        const getCases = fetchCases()
+        getCases.then((res) => setCases(res || {}))
+      }
 
-    console.log('Cas que remonte L\'api :', cases)
+      setCount(count+1)
+
   }, [cases])
+
+console.log('cases :', cases)
+
+console.log('TEST :', cases.description)
 
   if (setup() === false) {
     return <Redirect to='/' />
@@ -23,15 +32,9 @@ const Cases = () => {
 
   return (
     <>
-      {/*
-        cases.map(
-          (aCase, index) => (
-            <span key={index}>{aCase.evolution}</span>
-          )
-        )
-      */}
       <Header />
       {user.username}
+      <SlideCases content={cases} />
     </>
   )
 }
