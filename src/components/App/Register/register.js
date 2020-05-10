@@ -165,6 +165,7 @@ const Register = () => {
           component={Paper}
           elevation={6}
           square
+          className="login"
         >
           <div className={classes.paper}>
             <Avatar className={classes.avatar} />

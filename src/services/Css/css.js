@@ -48,7 +48,18 @@ export const oStyle = (theme, imgDesktop ,imgMobile) => {
         justifyContent: "center",
       },
     },
+    
+    login: {
+      borderRadius: "10%",
+      backgroundColor: "red",
+    }
+    
+    
+    
   };
+  
+
+
 }
 
 export default oStyle
