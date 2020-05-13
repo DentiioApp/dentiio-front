@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom'
 import './index.css'
 import Home from './containers/Home/Home'
 import Cases from './containers/Cases/cases'
+import Favorites from './containers/Favorites/favorites'
 import * as serviceWorker from './serviceWorker'
 // import "bootstrap/dist/css/bootstrap.min.css";
 import { applyMiddleware, compose, createStore } from 'redux'
@@ -10,6 +11,8 @@ import { adminReducer } from './store/reducers'
 import { Provider } from 'react-redux'
 import ReduxThunk from 'redux-thunk'
 import dotenv from 'dotenv'
+import { ThemeProvider } from '@material-ui/core/styles';
+import colorTheme from './components/UI/colorTheme/colorTheme';
 
 import {
   BrowserRouter as Router,
@@ -32,30 +35,19 @@ export const store = createStore(adminReducer,
 )
 
 ReactDOM.render(
-  <Provider store={store}>
-    <Router>
-      <div>
-        {/* <nav>
-              <ul>
-                  <li>
-                      <Link to="/chat">Chat</Link>
-                  </li>
-                  <li>
-                      <Link to="/">
-                          Login
-                      </Link>
-                  </li>
-              </ul>
-               </nav>
-               */}
-
-        <Switch>
-          <Route exact path='/' component={Home} />
-          <Route exact path='/cases' component={Cases} />
-        </Switch>
-      </div>
-    </Router>
-  </Provider>
+    <ThemeProvider theme={colorTheme}>
+      <Provider store={store}>
+      <Router>
+        <div>
+          <Switch>
+            <Route exact path='/' component={Home} />
+            <Route exact path='/cases' component={Cases} />
+            <Route exact path='/favorites' component={Favorites} />
+          </Switch>
+        </div>
+      </Router>
+    </Provider>
+  </ThemeProvider>
   , document.getElementById('root')
 )
 
