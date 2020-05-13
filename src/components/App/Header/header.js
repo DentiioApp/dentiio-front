@@ -18,6 +18,9 @@ import MoreIcon from '@material-ui/icons/MoreVert';
 import HomeIcon from '@material-ui/icons/Home';
 import HomeOutlinedIcon from '@material-ui/icons/HomeOutlined';
 import TitleHeader from '../../UI/titleHeader/TitleHeader'
+import { Redirect } from 'react-router-dom'
+import { setup } from '../../../services/Auth'
+
 
 const useStyles = makeStyles((theme) => ({
   grow: {
@@ -129,6 +132,9 @@ export const Header = (props) => {
         <HomeOutlinedIcon fontSize={"large"} style={{fill: "white"}} />
     )
   }
+  if (setup() === false) {
+    return <Redirect to='/'/>
+  };
 
   const menuId = 'primary-search-account-menu';
   const renderMenu = (

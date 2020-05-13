@@ -1,10 +1,9 @@
 export const LOG_USER = 'LOG_USER'
 
-export const logUser = (logger) => {
+export const logUser = (datas) => {
   const action = {
     type: LOG_USER,
-    pseudo: logger.pseudo,
-    password: logger.password
+    datas: datas.data
   }
 
   return action

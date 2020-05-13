@@ -1,24 +1,20 @@
 import { LOG_USER, REGISTER_USER } from '../actions'
-import { loginCheck } from '../../services/LoginCheck'
 import { registerCheck } from '../../services/RegisterCheck'
 import jwtDecode from 'jwt-decode'
+import { login } from '../../services/Auth'
 
 const INIT_STATE = ''
 
 export const User = (state = INIT_STATE, action) => {
   switch (action.type) {
     case LOG_USER :
-      var tokenUser = loginCheck(action.pseudo, action.password)
-      if (tokenUser !== '') {
-        var details = jwtDecode(tokenUser)
-        return {
-          details: details,
-          connected: true
-        }
-      }
+      var details = jwtDecode(action.datas.token)
+
+      login(action.datas.token)
 
       return {
-        connected: false
+        username: details.username,
+        connected: true
       }
 
     case REGISTER_USER :
@@ -31,8 +27,6 @@ export const User = (state = INIT_STATE, action) => {
           isEnabled: true
         }
       )
-
-      window.localStorage.removeItem('authSubscribe')
 
       if (response !== null) {
         return {
