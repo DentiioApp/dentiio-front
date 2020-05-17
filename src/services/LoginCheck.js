@@ -4,9 +4,9 @@ const LOGIN_CHECK = process.env.REACT_APP_BACK_API_URL + process.env.REACT_APP_L
 
 export const loginCheck = (ident, pswd) => {
   async function main () {
-    return await  axios.post(
-                    LOGIN_CHECK,{ username: ident, password: pswd }
-                  ).then(res => res)
+    return await axios.post(
+      LOGIN_CHECK, { username: ident, password: pswd }
+    ).then(res => res)
   }
 
   return main()

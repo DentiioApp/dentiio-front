@@ -30,7 +30,7 @@ import { setup } from '../../../services/Auth'
 import oStyle from '../../../services/Css/css'
 import { registerUser, cardCheck } from '../../../store/actions'
 import GradientBtn from '../../UI/buttons/GradientBtn'
-import { checkPseudo, checkEmail, checkPassword, existEmail } from '../../../utils/Auth'
+import { checkPseudo, checkEmail, checkPassword } from '../../../utils'
 
 // API DATAS
 const functions = [
@@ -75,7 +75,6 @@ const Register = () => {
     if (checkPseudo(values.pseudo) === false) { setErrPseudo(true) }
     if (checkEmail(values.email) === false) { setErrEmail(true) }
     if (checkPassword(values.password) === false) { setErrPassword(true) }
-    if (existEmail(values.email) === true) { setErrEmail(true) }
     if (values.cgu === false) { setErrCgu(true) }
 
     if ((errPseudo || errEmail || errPassword || !errCgu) === true) {
@@ -100,7 +99,7 @@ const Register = () => {
       }
     }
     if (prop === 'email') {
-      if (checkEmail(event.target.value) === false || existEmail(event.target.value) === true) {
+      if (checkEmail(event.target.value) === false) {
         setErrEmail(true)
       } else {
         setErrEmail(false)
@@ -259,6 +258,7 @@ const Register = () => {
               <GradientBtn
                 variant='contained'
                 type='submit'
+                description={'S\'inscrire'}
                 className='GradientBtn'
               />
             </div>
