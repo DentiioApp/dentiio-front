@@ -20,7 +20,7 @@ export const setup = (subscribe = undefined) => {
   const isSubscribing = subscribe
   var connect = false
 
-  if(isSubscribing) {
+  if (isSubscribing) {
     //
   } else {
     if (token) {

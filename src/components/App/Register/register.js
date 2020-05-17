@@ -87,7 +87,6 @@ const Register = () => {
         function: values.function,
         cgu: values.cgu
       }))
-
     }
   }
 

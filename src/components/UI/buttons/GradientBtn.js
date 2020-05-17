@@ -29,7 +29,7 @@ const GradientBtn = (props) => {
         label: classes.label
       }}
     >
-        {props.description}
+      {props.description}
     </Button>
   )
 }
