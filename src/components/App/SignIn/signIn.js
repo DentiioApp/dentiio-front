@@ -1,7 +1,7 @@
 import './signIn.scss'
 
 import React, { useState, useEffect } from 'react'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { Redirect } from 'react-router-dom'
 
 import {
@@ -23,7 +23,7 @@ import oStyle from '../../../services/Css/css'
 import { logUser } from '../../../store/actions'
 import img from '../../../images/auth.svg'
 
-import { checkEmail, checkPassword, existEmail } from '../../../utils/Auth'
+import { checkEmail, checkPassword } from '../../../utils'
 import loginCheck from '../../../services/LoginCheck'
 import { setup } from '../../../services/Auth'
 
@@ -32,6 +32,8 @@ const useStyles = makeStyles((theme) => (oStyle(theme, img)))
 const SignIn = () => {
   const classes = useStyles()
   const dispatch = useDispatch()
+  const subscribeMsg = localStorage.getItem('authSubscribeMsg')
+  const user = useSelector((state) => state.user)
 
   const initValues = {
     pseudo: '',
@@ -70,7 +72,7 @@ const SignIn = () => {
 
   const handleChange = prop => event => {
     if (prop === 'email') {
-      if (checkEmail(event.target.value) === false || existEmail(event.target.value) === true) {
+      if (checkEmail(event.target.value) === false) {
         setErrEmail(true)
       } else {
         setErrEmail(false)
@@ -94,7 +96,7 @@ const SignIn = () => {
     event.preventDefault()
   }
 
-  if (setup() === true) {
+  if (setup(user.subscribe) === true) {
     return <Redirect to='/cases' />
   };
 
@@ -150,11 +152,13 @@ const SignIn = () => {
                 <GradientBtn
                   variant='contained'
                   type='submit'
+                  description='Se connecter'
                   className='GradientBtn'
                 />
               </div>
             </form>
           </div>
+          {subscribeMsg}
         </Grid>
       </Grid>
     </>
