@@ -22,10 +22,6 @@ const Cases = () => {
 
   }, [cases])
 
-console.log('cases :', cases)
-
-console.log('TEST :', cases.description)
-
   if (setup() === false) {
     return <Redirect to='/' />
   }

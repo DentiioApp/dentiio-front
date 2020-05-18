@@ -1,4 +1,5 @@
 import React from 'react';
+
 import { makeStyles } from '@material-ui/core/styles';
 import clsx from 'clsx';
 import Card from '@material-ui/core/Card';
@@ -15,8 +16,11 @@ import FavoriteIcon from '@material-ui/icons/Favorite';
 import ShareIcon from '@material-ui/icons/Share';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
+
 import fav from '../../../images/maquette/fav.svg'
 import vin from '../../../images/maquette/vin.svg'
+
+import{ avgNotes } from '../../../utils' 
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -44,15 +48,6 @@ const useStyles = makeStyles((theme) => ({
 const Case = (props) => {
   const classes = useStyles();
   const [expanded, setExpanded] = React.useState(false);
-console.log('kkkkk :', props.item.commentaires.length)
-  const avgNotes = (notes) => {
-    var sum = 0
-    notes.map((value, index)=>(
-      sum = value.note + sum
-    ))
-
-    return sum/notes.length
-  }
 
   const handleExpandClick = () => {
     setExpanded(!expanded);
