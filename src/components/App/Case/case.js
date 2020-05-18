@@ -25,6 +25,7 @@ import{ avgNotes } from '../../../utils'
 const useStyles = makeStyles((theme) => ({
   root: {
     maxWidth: 345,
+    border:"solid 1px #90caf9"
   },
   media: {
     height: 0,
@@ -43,6 +44,7 @@ const useStyles = makeStyles((theme) => ({
   avatar: {
     backgroundColor: blue[200],
   },
+  
 }));
 
 const Case = (props) => {

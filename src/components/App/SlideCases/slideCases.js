@@ -4,6 +4,7 @@ import Container from '@material-ui/core/Container';
 import { makeStyles } from '@material-ui/core/styles';
 
 import Case from '../Case/case'
+import titleSvg from '../../../images/maquette/c-case-title.svg'
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -22,7 +23,7 @@ const SlideCases = (props) => {
 return (
     <>
       <Container maxWidth="lg">
-        <center>{'CAS CLINIQUES'}</center>
+        <center><img src={titleSvg} alt='Cas Cliniques' /></center>
         <div className={classes.root}>
           {
             oCases.map((oCase, index) => (
