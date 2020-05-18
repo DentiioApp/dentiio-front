@@ -12,13 +12,9 @@ import Avatar from '@material-ui/core/Avatar';
 import IconButton from '@material-ui/core/IconButton';
 import Typography from '@material-ui/core/Typography';
 import { blue } from '@material-ui/core/colors';
-import FavoriteIcon from '@material-ui/icons/Favorite';
-import ShareIcon from '@material-ui/icons/Share';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
-import MoreVertIcon from '@material-ui/icons/MoreVert';
 
 import fav from '../../../images/maquette/fav.svg'
-import vin from '../../../images/maquette/vin.svg'
 
 import{ avgNotes } from '../../../utils' 
 
@@ -57,13 +53,7 @@ const Case = (props) => {
 
   return (
     <Card className={classes.root}>
-      <CardHeader
-        action={
-          <IconButton aria-label="settings">
-            <img src={fav} alt="favorite"/>
-          </IconButton>
-        }
-      />
+        <img Style='float:right' src={fav} alt="favorite"/>
       <CardMedia
         className={classes.media}
         image={'https://upload.wikimedia.org/wikipedia/commons/1/17/Yin_yang.svg'}
