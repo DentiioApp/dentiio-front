@@ -17,8 +17,8 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const SlideCases = (props) => {
-  const classes = useStyles();
-  const oCases = props.content.slice(0, 3)
+const classes = useStyles();
+const oCases = props.content.slice(0, 3)
   
 return (
     <>

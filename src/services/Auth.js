@@ -25,8 +25,11 @@ export const setup = (subscribe = undefined) => {
   } else {
     if (token) {
       axios.defaults.headers.Authorization = BEARER + token
+
       window.localStorage.removeItem('authSubscribeMsg')
+
       const jwtData = jwtDecode(token)
+
       if (jwtData.exp * 1000 > new Date().getTime()) {
         connect = true
       } else {
