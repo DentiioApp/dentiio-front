@@ -5,6 +5,8 @@ import { Redirect } from 'react-router-dom'
 import Container from '@material-ui/core/Container';
 import { makeStyles } from '@material-ui/core/styles';
 
+import RequestStatus from '../../components/App/RequestStatus/requestStatus';
+
 import Header from '../../components/App/Header/header'
 import { setup } from '../../services/Auth'
 import { fetchCases } from '../../services/CaseList'
@@ -46,6 +48,7 @@ const Cases = () => {
       <Header />
       <Container  className={classes.root}>
         <center>
+          <RequestStatus />
           <br />
           <br />
           <img src={searchBar} alt='' />
@@ -62,6 +65,7 @@ const Cases = () => {
         <br />
         <br />
       <SlideCases content={cases} />
+      
     </>
   )
 }

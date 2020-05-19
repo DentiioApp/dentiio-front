@@ -17,10 +17,10 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const SlideCases = (props) => {
-const classes = useStyles();
-const oCases = props.content.slice(0, 3)
-  
-return (
+  const classes = useStyles();
+  const oCases = props.content.slice(0, 3)
+    
+  return (
     <>
       <Container maxWidth="lg">
         <center><img src={titleSvg} alt='Cas Cliniques' /></center>
