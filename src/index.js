@@ -4,6 +4,7 @@ import './index.css'
 import Home from './containers/Home/Home'
 import Cases from './containers/Cases/cases'
 import Favorites from './containers/Favorites/favorites'
+import Profile from './containers/Profile/profile'
 import * as serviceWorker from './serviceWorker'
 // import "bootstrap/dist/css/bootstrap.min.css";
 import { applyMiddleware, compose, createStore } from 'redux'
@@ -43,6 +44,7 @@ ReactDOM.render(
             <Route exact path='/' component={Home} />
             <Route exact path='/cases' component={Cases} />
             <Route exact path='/favorites' component={Favorites} />
+            <Route exact path='/profile' component={Profile} />
           </Switch>
         </div>
       </Router>

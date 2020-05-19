@@ -1,6 +1,5 @@
 import React from 'react';
 import { fade, makeStyles } from '@material-ui/core/styles';
-import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import IconButton from '@material-ui/core/IconButton';
@@ -8,18 +7,15 @@ import Badge from '@material-ui/core/Badge';
 import MenuItem from '@material-ui/core/MenuItem';
 import Menu from '@material-ui/core/Menu';
 import AccountCircle from '@material-ui/icons/AccountCircle';
-import PermIdentityIcon from '@material-ui/icons/PermIdentity';
-import StarBorderIcon from '@material-ui/icons/StarBorder';
-import StarIcon from '@material-ui/icons/Star';
 import MailIcon from '@material-ui/icons/Mail';
-import NotificationsIcon from '@material-ui/icons/Notifications';
-import NotificationsOutlinedIcon from '@material-ui/icons/NotificationsOutlined';
 import MoreIcon from '@material-ui/icons/MoreVert';
-import HomeIcon from '@material-ui/icons/Home';
-import HomeOutlinedIcon from '@material-ui/icons/HomeOutlined';
 import TitleHeader from '../../UI/titleHeader/TitleHeader'
 import { Redirect } from 'react-router-dom'
 import { setup } from '../../../services/Auth'
+import home from "../../Icon/Header/home";
+import favorites from "../../Icon/Header/favorites";
+import notification from "../../Icon/Header/notification";
+import profile from "../../Icon/Header/profile";
 
 
 const useStyles = makeStyles((theme) => ({
@@ -74,13 +70,19 @@ const useStyles = makeStyles((theme) => ({
   },
   sectionDesktop: {
     display: 'none',
-    [theme.breakpoints.up('md')]: {
+    [theme.breakpoints.up('sm')]: {
       display: 'flex',
     },
   },
-  sectionMobile: {
+  sectionMobileTop: {
     display: 'flex',
-    [theme.breakpoints.up('md')]: {
+    [theme.breakpoints.up('sm')]: {
+      display: 'none',
+    },
+  },
+  sectionMobileBottom: {
+    display: 'flex',
+    [theme.breakpoints.up('sm')]: {
       display: 'none',
     },
   },
@@ -111,27 +113,6 @@ export const Header = (props) => {
     setMobileMoreAnchorEl(event.currentTarget);
   };
 
-  const iconFavorites = () => {
-    if (props.props ===  "favorites"){
-      return (
-          <StarIcon fontSize={"large"} style={{fill: "white"}}/>
-      )
-    }
-    return (
-        <StarBorderIcon fontSize={"large"} style={{fill: "white"}}/>
-    )
-  }
-
-  const iconHome = () => {
-    if (props.props === "home"){
-      return (
-          <HomeIcon fontSize={"large"} style={{fill: "white"}}/>
-      )
-    }
-    return (
-        <HomeOutlinedIcon fontSize={"large"} style={{fill: "white"}} />
-    )
-  }
   if (setup() === false) {
     return <Redirect to='/'/>
   };
@@ -173,9 +154,7 @@ export const Header = (props) => {
         </MenuItem>
         <MenuItem>
           <IconButton aria-label="show 11 new notifications" color="inherit">
-            <Badge badgeContent={11} color="secondary">
-              <NotificationsIcon />
-            </Badge>
+            {notification()}
           </IconButton>
           <p>Notifications</p>
         </MenuItem>
@@ -194,32 +173,23 @@ export const Header = (props) => {
   );
   return (
       <div className={classes.grow}>
-        <AppBar position="static" color="primary" >
+        <AppBar position="static" className={classes.sectionDesktop} color="primary" >
           <Toolbar>
             <TitleHeader style={{align: 'center'}}/>
             <div className={classes.grow} style={{align: 'right'}}/>
-            <div className={classes.sectionDesktop} style={{align: 'right'}}>
-              <IconButton color="inherit" aria-label="menu">
-                {iconHome()}
-              </IconButton>
-              <IconButton aria-label="favorite of current user" color="inherit">
-                {iconFavorites()}
-              </IconButton>
-              <IconButton aria-label="show 17 new notifications" color="inherit">
-                <Badge badgeContent={17} color="secondary">
-                  <NotificationsOutlinedIcon fontSize={"large"} style={{fill: "white"}}/>
-                </Badge>
-              </IconButton>
-              <IconButton
-                  aria-label="account of current user"
-                  aria-controls={menuId}
-                  aria-haspopup="true"
-                  color="inherit"
-              >
-                <PermIdentityIcon fontSize={"large"} style={{fill: "white"}}/>
-              </IconButton>
+            <div style={{align: 'right'}}>
+                {home(props.props)}
+                {favorites(props.props)}
+                {notification()}
+                {profile()}
             </div>
-            <div className={classes.sectionMobile}>
+          </Toolbar>
+        </AppBar>
+        <AppBar position="static" className={classes.sectionMobileTop} color="white" >
+          <Toolbar>
+            <TitleHeader style={{align: 'center'}}/>
+            <div className={classes.grow} style={{align: 'right'}}/>
+            <div>
               <IconButton
                   aria-label="show more"
                   aria-controls={mobileMenuId}
