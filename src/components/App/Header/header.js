@@ -181,7 +181,7 @@ export const Header = (props) => {
                 {home(props.props)}
                 {favorites(props.props)}
                 {notification()}
-                {profile()}
+                {profile(props.props)}
             </div>
           </Toolbar>
         </AppBar>
