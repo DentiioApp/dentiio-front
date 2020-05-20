@@ -42,7 +42,7 @@ const Cases = () => {
 
   return (
     <>
-      <Header props={"home"}/>
+      <Header target={"home"} />
       <Container  className={classes.root}>
         <center>
           {/** statusForm */}

@@ -178,10 +178,10 @@ export const Header = (props) => {
             <TitleHeader style={{align: 'center'}}/>
             <div className={classes.grow} style={{align: 'right'}}/>
             <div style={{align: 'right'}}>
-                {home(props.props)}
-                {favorites(props.props)}
+                {home(props.target)}
+                {favorites(props.target)}
                 {notification()}
-                {profile(props.props)}
+                {profile(props.target)}
             </div>
           </Toolbar>
         </AppBar>

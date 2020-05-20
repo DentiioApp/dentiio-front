@@ -9,17 +9,20 @@ const home = (props) => {
     // eslint-disable-next-line react-hooks/rules-of-hooks
     let history = useHistory();
 
+    if (props.) {
+        return <Redirect to='/cases' />
+    };
+
     if (props === "home"){
         return (
-            <IconButton color="inherit" aria-label="menu">
-                <HomeIcon fontSize={"large"} style={{fill: "white"}}/>
-            </IconButton>
+            <HomeIcon fontSize={"large"} style={{fill: "white"}}/>
         )
     }
+
     return (
-        <IconButton onClick={() => history.push("/cases")} color="inherit" aria-label="menu">
-            <HomeOutlinedIcon fontSize={"large"} style={{fill: "white"}} />
-        </IconButton>
+        
+            <HomeOutlinedIcon onClick={() => history.push("/cases")} fontSize={"large"} style={{fill: "white"}} />
+        
     )
 }
 
