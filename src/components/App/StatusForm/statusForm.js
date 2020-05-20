@@ -82,6 +82,13 @@ const StatusForm = () => {
         setErrCard(false)
       }
     }
+    if (prop === 'studyCard') {
+      if (checkFiles(event).response === false) {
+        setErrCard(checkFiles(event).message)
+      } else {
+        setErrCard(false)
+      }
+    }
 
     setValues({ ...values, [prop]: event.target.value })
   }
@@ -145,6 +152,23 @@ const StatusForm = () => {
             </Button>
             <FormHelperText id='my-helper-text'>{errCard ? errCard : '' }</FormHelperText>
             <br /> <br />
+            <Button
+              variant="contained"
+              component="label"
+            >
+              Ma carte Etudiante
+              <input
+                type="file"
+                style={{ display: "none" }}
+                onChange={handleChange('studyCard')}
+                name="studyCard"
+                id="studyCard"
+              />
+            </Button>
+            <FormHelperText id='my-helper-text'>{errCard ? errCard : '' }</FormHelperText>
+            <br /> <br />
+
+            <br /> <br /> <br />
 
             <br /> <br /> <br />
 
