@@ -19,7 +19,7 @@ import Visibility from '@material-ui/icons/Visibility'
 import VisibilityOff from '@material-ui/icons/VisibilityOff'
 
 import GradientBtn from '../../UI/buttons/GradientBtn'
-import oStyle from '../../../services/Css/css'
+import oStyle from '../../../services/css/registerStyle'
 import { logUser } from '../../../store/actions'
 import img from '../../../images/auth.svg'
 
