@@ -39,5 +39,6 @@
 2. `make start` for start the app
 
 ### without docker
-0. `yarn add standard --global` or `npm add standard --global`
-1. `yarn start` or `npm start`
+1. `yarn install` or `yarn`
+2. `yarn start`
+- For run in production mode  `yarn build'
