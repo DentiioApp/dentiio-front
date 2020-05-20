@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react'
-import { useSelector } from 'react-redux'
 import { Redirect } from 'react-router-dom'
 
 import Container from '@material-ui/core/Container';
@@ -21,7 +20,6 @@ const Cases = () => {
 
   const [cases, setCases] = useState([])
   const [count, setCount] = useState(0)
-  const user = useSelector(state => state.user)
 
   useEffect(() => {
       if(count < 1) {

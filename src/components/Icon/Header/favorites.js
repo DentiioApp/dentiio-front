@@ -10,13 +10,13 @@ const favorites = (props) => {
     if (props.target ===  "favorites"){
         return (
                 <IconButton  aria-label="favorite of current user" color="inherit">
-                    <StarIcon fontSize={"large"} color={props.color} style={{fill: props.color}}/>
+                    <StarIcon fontSize={"large"} htmlColor={props.color}/>
                 </IconButton>
         )
     }
     return (
             <IconButton onClick={() => history.push("/favorites")} aria-label="favorite of current user" color="inherit">
-                <StarBorderIcon fontSize={"large"} color={props.color} style={{fill: props.color}}/>
+                <StarBorderIcon fontSize={"large"} htmlColor={props.color}/>
             </IconButton>
     )
 }

@@ -1,5 +1,5 @@
 import React from 'react'
-import NotificationsIcon from '@material-ui/icons/Notifications';
+//import NotificationsIcon from '@material-ui/icons/Notifications';
 import NotificationsOutlinedIcon from '@material-ui/icons/NotificationsOutlined';
 import Badge from "@material-ui/core/Badge";
 import IconButton from "@material-ui/core/IconButton";
@@ -46,7 +46,7 @@ const notification = (props) => {
                 aria-label="show new notifications"
                 color="inherit">
                 <Badge badgeContent={17} color="secondary">
-                    <NotificationsOutlinedIcon fontSize={"large"} color={props.color} style={{fill: props.color}}/>
+                    <NotificationsOutlinedIcon fontSize={"large"} htmlColor={props.color}/>
                 </Badge>
             </IconButton>
     {renderMenu}
