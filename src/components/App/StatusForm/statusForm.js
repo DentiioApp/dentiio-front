@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
+import {Progress} from 'reactstrap';
 
 import {
   Avatar,
@@ -39,6 +40,7 @@ const StatusForm = () => {
   const [errNom, setErrNom] = useState(false)
   const [errPrenom, setErrPrenom] = useState(false)
   const [errCard, setErrCard] = useState(false)
+  const [load, setLoad] = useState(false)
 
   const catchSubmit = (e) => {
     e.preventDefault()
@@ -182,7 +184,9 @@ const StatusForm = () => {
             </div>
 
             <br />
-
+            <div class="form-group">
+              <Progress max="100" color="success" value={load} >{Math.round(load,2) }%</Progress>
+            </div>
           </form>
           <span>{user.message || ''}</span>
         </div>
