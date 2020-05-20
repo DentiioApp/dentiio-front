@@ -1,6 +1,12 @@
 .titleHeader{
-  max-width: 300px;
+   max-width: 300px;
+   height: auto;
+   width: 200px;
+   text-align: center;
+ }
+.titleHeaderMobile{
+  max-width: 150px;
   height: auto;
-  width: 200px;
+  width: 100px;
   text-align: center;
 }

@@ -3,7 +3,7 @@ import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import clsx from 'clsx';
 import Card from '@material-ui/core/Card';
-import CardHeader from '@material-ui/core/CardHeader';
+//import CardHeader from '@material-ui/core/CardHeader';
 import CardMedia from '@material-ui/core/CardMedia';
 import CardContent from '@material-ui/core/CardContent';
 import CardActions from '@material-ui/core/CardActions';
@@ -40,6 +40,9 @@ const useStyles = makeStyles((theme) => ({
   avatar: {
     backgroundColor: blue[200],
   },
+    flright: {
+      float: "right",
+    }
   
 }));
 
@@ -53,7 +56,7 @@ const Case = (props) => {
 
   return (
     <Card className={classes.root}>
-        <img Style='float:right' src={fav} alt="favorite"/>
+        <img className={classes.flright} src={fav} alt="favorite"/>
       <CardMedia
         className={classes.media}
         image={'https://upload.wikimedia.org/wikipedia/commons/1/17/Yin_yang.svg'}
