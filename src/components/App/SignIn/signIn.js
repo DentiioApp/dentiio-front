@@ -18,7 +18,7 @@ import TextField from '@material-ui/core/TextField'
 import Visibility from '@material-ui/icons/Visibility'
 import VisibilityOff from '@material-ui/icons/VisibilityOff'
 
-import RequestStatus from '../RequestStatus/requestStatus';
+import RequestStatus from '../RequestStatus/requestStatus'
 import GradientBtn from '../../UI/buttons/GradientBtn'
 import oStyle from '../../../services/Css/css'
 import { logUser } from '../../../store/actions'
@@ -98,8 +98,8 @@ const SignIn = () => {
   }
 
   var statusForm = undefined
-  if(user.subscribe === true){
-     statusForm = <RequestStatus />
+  if (user.subscribe === true) {
+    statusForm = <RequestStatus />
   }
 
   if (setup() === true) {

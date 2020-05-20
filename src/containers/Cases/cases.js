@@ -2,8 +2,8 @@ import React, { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
 import { Redirect } from 'react-router-dom'
 
-import Container from '@material-ui/core/Container';
-import { makeStyles } from '@material-ui/core/styles';
+import Container from '@material-ui/core/Container'
+import { makeStyles } from '@material-ui/core/styles'
 
 import Header from '../../components/App/Header/header'
 import { setup } from '../../services/Auth'
@@ -15,26 +15,25 @@ import chatObject from '../../images/maquette/chat-subject.svg'
 import cOTitle from '../../images/maquette/c-chat-sub-title.svg'
 
 const useStyles = makeStyles((theme) => ({
-    root: {
-      height: 260,
-    },
-  }));
+  root: {
+    height: 260
+  }
+}))
 
 const Cases = () => {
-  const classes = useStyles();
+  const classes = useStyles()
 
   const [cases, setCases] = useState([])
   const [count, setCount] = useState(0)
   const user = useSelector(state => state.user)
 
   useEffect(() => {
-      if(count < 1) {
-        const getCases = fetchCases()
-        getCases.then((res) => setCases(res || {}))
-      }
+    if (count < 1) {
+      const getCases = fetchCases()
+      getCases.then((res) => setCases(res || {}))
+    }
 
-      setCount(count+1)
-
+    setCount(count + 1)
   }, [cases])
 
   if (setup() === false) {
@@ -44,9 +43,9 @@ const Cases = () => {
   return (
     <>
       <Header />
-      <Container  className={classes.root}>
+      <Container className={classes.root}>
         <center>
-          {/**statusForm*/}
+          {/** statusForm */}
           <br />
           <br />
           <img src={searchBar} alt='' />
@@ -57,10 +56,10 @@ const Cases = () => {
           <img src={chatObject} alt='' />
         </center>
       </Container>
-        <br />
-        <br />
-        <br />
-        <br />
+      <br />
+      <br />
+      <br />
+      <br />
       <SlideCases content={cases} />
     </>
   )

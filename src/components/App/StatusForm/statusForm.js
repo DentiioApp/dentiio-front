@@ -5,7 +5,7 @@ import {
   Avatar,
   CssBaseline,
   Paper,
-  Typography,
+  Typography
 } from '@material-ui/core/'
 
 import FormHelperText from '@material-ui/core/FormHelperText'
@@ -32,31 +32,31 @@ const StatusForm = () => {
   const initValues = {
     nom: '',
     prenom: '',
-    card: '',
+    card: ''
   }
 
   const [values, setValues] = useState(initValues)
   const [errNom, setErrNom] = useState(false)
   const [errPrenom, setErrPrenom] = useState(false)
   const [errCard, setErrCard] = useState(false)
-  
+
   const catchSubmit = (e) => {
     e.preventDefault()
 
     if (checkPseudo(values.nom) === false) { setErrNom(true) }
     if (checkPseudo(values.prenom) === false) { setErrPrenom(true) }
     if (checkFiles(values.card) === false) { setErrCard(true) }
-   
+
     if ((errNom || errPrenom || errCard) === true) {
       return false
     } else {
       dispatch(
-      {
-        type: VALID_STATUS,
-        nom: values.nom,
-        prenom: values.prenom,
-        cpsCard: values.cpsCard,
-      })
+        {
+          type: VALID_STATUS,
+          nom: values.nom,
+          prenom: values.prenom,
+          cpsCard: values.cpsCard
+        })
     }
   }
 
@@ -138,34 +138,34 @@ const StatusForm = () => {
             <br />
 
             <Button
-              variant="contained"
-              component="label"
+              variant='contained'
+              component='label'
             >
               Ma carte CPS
               <input
-                type="file"
-                style={{ display: "none" }}
+                type='file'
+                style={{ display: 'none' }}
                 onChange={handleChange('cpsCard')}
-                name="cps"
-                id="cps"
+                name='cps'
+                id='cps'
               />
             </Button>
-            <FormHelperText id='my-helper-text'>{errCard ? errCard : '' }</FormHelperText>
+            <FormHelperText id='my-helper-text'>{errCard || ''}</FormHelperText>
             <br /> <br />
             <Button
-              variant="contained"
-              component="label"
+              variant='contained'
+              component='label'
             >
               Ma carte Etudiante
               <input
-                type="file"
-                style={{ display: "none" }}
+                type='file'
+                style={{ display: 'none' }}
                 onChange={handleChange('studyCard')}
-                name="studyCard"
-                id="studyCard"
+                name='studyCard'
+                id='studyCard'
               />
             </Button>
-            <FormHelperText id='my-helper-text'>{errCard ? errCard : '' }</FormHelperText>
+            <FormHelperText id='my-helper-text'>{errCard || ''}</FormHelperText>
             <br /> <br />
 
             <br /> <br /> <br />
@@ -176,7 +176,7 @@ const StatusForm = () => {
               <GradientBtn
                 variant='contained'
                 type='submit'
-                description={'Reclamer mon statut'}
+                description='Reclamer mon statut'
                 className='GradientBtn'
               />
             </div>
@@ -188,7 +188,7 @@ const StatusForm = () => {
         </div>
       </Grid>
       <Typography component='h1' variant='h5'>
-        { user.message || ''}
+        {user.message || ''}
       </Typography>
     </Grid>
   )

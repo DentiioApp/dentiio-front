@@ -2,7 +2,7 @@ export const checkInputs = () => {
 /**
     if (prop === 'pseudo') {
         if (event.target.value === false || event.target.value === '') {
-           
+
         } else {
             setErrPseudo(false)
         }
@@ -30,5 +30,5 @@ export const checkInputs = () => {
         }
 
 */
-    return {a:1 , b:2, c:3, d:4}
+  return { a: 1, b: 2, c: 3, d: 4 }
 }
