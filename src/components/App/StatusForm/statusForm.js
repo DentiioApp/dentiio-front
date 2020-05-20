@@ -76,8 +76,8 @@ const StatusForm = () => {
       }
     }
     if (prop === 'cpsCard') {
-      if (checkFiles(event.target.files) === false) {
-        setErrCard(true)
+      if (checkFiles(event).response === false) {
+        setErrCard(checkFiles(event).message)
       } else {
         setErrCard(false)
       }
@@ -143,7 +143,7 @@ const StatusForm = () => {
                 id="cps"
               />
             </Button>
-
+            <FormHelperText id='my-helper-text'>{errCard ? errCard : '' }</FormHelperText>
             <br /> <br />
 
             <br /> <br /> <br />
