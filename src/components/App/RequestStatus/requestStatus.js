@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Modal from '@material-ui/core/Modal';
 import Backdrop from '@material-ui/core/Backdrop';
@@ -23,6 +23,13 @@ const RequestStatus = () => {
   const classes = useStyles();
   const [open, setOpen] = React.useState(false);
 
+  useEffect(() => {
+    if(!open){
+      handleOpen()
+      setOpen(true);
+    }
+  },[])
+
   const handleOpen = () => {
     setOpen(true);
   };
@@ -30,12 +37,14 @@ const RequestStatus = () => {
   const handleClose = () => {
     setOpen(false);
   };
-
+  
   return (
     <div>
-      <button type="button" onClick={handleOpen}>
-       Je suis un professionnel
-      </button>
+      {/**
+        <button type="button" >
+          Je suis un professionnel
+        </button>
+      */}
       <Modal
         aria-labelledby="transition-modal-title"
         aria-describedby="transition-modal-description"

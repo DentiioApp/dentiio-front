@@ -1,5 +1,3 @@
-import './register.scss'
-
 import React, { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { Redirect } from 'react-router-dom'
@@ -16,10 +14,10 @@ import Grid from '@material-ui/core/Grid'
 import { makeStyles } from '@material-ui/core/styles'
 import TextField from '@material-ui/core/TextField'
 
+import { VALID_STATUS } from '../../../store/actions'
 import img from '../../../images/auth.svg'
 import { setup } from '../../../services/Auth'
 import oStyle from '../../../services/Css/css'
-import { cardCheck } from '../../../store/actions'
 import GradientBtn from '../../UI/buttons/GradientBtn'
 import { checkPseudo, checkFiles } from '../../../utils'
 
@@ -56,10 +54,11 @@ const StatusForm = () => {
       return false
     } else {
       dispatch(
-      {type:'ACTION',
+      {
+        type: VALID_STATUS,
         nom: values.nom,
         prenom: values.prenom,
-        card: values.card,
+        cpsCard: values.cpsCard,
       })
     }
   }
@@ -79,8 +78,8 @@ const StatusForm = () => {
         setErrNom(false)
       }
     }
-    if (prop === 'card') {
-      if (checkFiles(event.target.value) === false) {
+    if (prop === 'cpsCard') {
+      if (checkFiles(event.target.files) === false) {
         setErrCard(true)
       } else {
         setErrCard(false)
@@ -138,10 +137,13 @@ const StatusForm = () => {
               variant="contained"
               component="label"
             >
-              Upload File
+              Ma carte CPS
               <input
                 type="file"
                 style={{ display: "none" }}
+                onChange={handleChange('cpsCard')}
+                name="cps"
+                id="cps"
               />
             </Button>
 
@@ -153,7 +155,7 @@ const StatusForm = () => {
               <GradientBtn
                 variant='contained'
                 type='submit'
-                description={'S\'inscrire'}
+                description={'Reclamer mon statut'}
                 className='GradientBtn'
               />
             </div>

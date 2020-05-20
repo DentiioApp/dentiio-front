@@ -91,7 +91,7 @@ const Case = (props) => {
           <ExpandMoreIcon />
         </IconButton>
       </CardActions>
-      <Collapse in={expanded} timeout="auto" unmountOnExit>
+      <Collapse in={expanded} timeout="auto" unmountOnExit key={1}>
         <CardContent>
           <Typography paragraph>Presentation:</Typography>
            <Typography paragraph>{props.item.observation}</Typography>

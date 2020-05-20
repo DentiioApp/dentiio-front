@@ -12,3 +12,5 @@ export { cardCheck }
 export { GetCases }
 export { logUser }
 export { registerUser }
+
+export const VALID_STATUS = 'VALID_STATUS'
