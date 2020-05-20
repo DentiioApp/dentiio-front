@@ -40,5 +40,5 @@
 
 ### without docker
 1. `yarn install` or `yarn`
-2. `yarn start`
 - For run in production mode  `yarn build'
+2. `yarn start`
