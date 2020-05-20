@@ -9,7 +9,7 @@ import StarIcon from "@material-ui/core/SvgIcon/SvgIcon";
 const profile = (props) => {
     // eslint-disable-next-line react-hooks/rules-of-hooks
     let history = useHistory();
-    if (props ===  "profile") {
+    if (props.target ===  "profile") {
         return (
             <IconButton
                 onClick={() => history.push("/profile")}
@@ -17,7 +17,7 @@ const profile = (props) => {
                 aria-haspopup="true"
                 color="inherit"
             >
-                <PersonIcon fontSize={"large"} style={{fill: "white"}}/>
+                <PersonIcon fontSize={"large"} color={props.color} style={{fill: props.color}}/>
             </IconButton>
         )
     }
@@ -28,7 +28,7 @@ const profile = (props) => {
             aria-haspopup="true"
             color="inherit"
         >
-            <PermIdentityIcon fontSize={"large"} style={{fill: "white"}}/>
+            <PermIdentityIcon fontSize={"large"} color={props.color} style={{fill: props.color}}/>
         </IconButton>
 
     )

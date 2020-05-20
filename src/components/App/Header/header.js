@@ -13,10 +13,10 @@ import TitleHeader from '../../UI/titleHeader/TitleHeader'
 import TitleHeaderMobile from '../../UI/titleHeader/titleHeaderMobile'
 import { Redirect } from 'react-router-dom'
 import { setup } from '../../../services/Auth'
-import home from "../../Icon/Header/home";
-import favorites from "../../Icon/Header/favorites";
-import notification from "../../Icon/Header/notification";
-import profile from "../../Icon/Header/profile";
+import HomeIcon from "../../Icon/Header/home";
+import FavoritesIcon from "../../Icon/Header/favorites";
+import NotificationIcon from "../../Icon/Header/notification";
+import ProfileIcon from "../../Icon/Header/profile";
 
 
 const useStyles = makeStyles((theme) => ({
@@ -77,12 +77,18 @@ const useStyles = makeStyles((theme) => ({
   },
   sectionMobileTop: {
     display: 'flex',
+    position: 'fixed',
+    top: 0,
     [theme.breakpoints.up('sm')]: {
       display: 'none',
     },
   },
   sectionMobileBottom: {
     display: 'flex',
+    position: 'fixed',
+    top: "auto",
+    bottom: 0,
+    height: 50,
     [theme.breakpoints.up('sm')]: {
       display: 'none',
     },
@@ -97,7 +103,7 @@ export const Header = (props) => {
   const isMenuOpen = Boolean(anchorEl);
   const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
 
-  const handleProfileMenuOpen = (event) => {
+  const handleProfileIconMenuOpen = (event) => {
     setAnchorEl(event.currentTarget);
   };
 
@@ -129,7 +135,7 @@ export const Header = (props) => {
           open={isMenuOpen}
           onClose={handleMenuClose}
       >
-        <MenuItem onClick={handleMenuClose}>Profile</MenuItem>
+        <MenuItem onClick={handleMenuClose}>ProfileIcon</MenuItem>
         <MenuItem onClick={handleMenuClose}>My account</MenuItem>
       </Menu>
   );
@@ -154,12 +160,10 @@ export const Header = (props) => {
           <p>Messages</p>
         </MenuItem>
         <MenuItem>
-          <IconButton aria-label="show 11 new notifications" color="inherit">
-            {notification()}
-          </IconButton>
+            <NotificationIcon color={"primary"}/>
           <p>Notifications</p>
         </MenuItem>
-        <MenuItem onClick={handleProfileMenuOpen}>
+        <MenuItem onClick={handleProfileIconMenuOpen}>
           <IconButton
               aria-label="account of current user"
               aria-controls="primary-search-account-menu"
@@ -168,7 +172,7 @@ export const Header = (props) => {
           >
             <AccountCircle />
           </IconButton>
-          <p>Profile</p>
+          <p>ProfileIcon</p>
         </MenuItem>
       </Menu>
   );
@@ -179,10 +183,10 @@ export const Header = (props) => {
             <TitleHeader style={{align: 'center'}}/>
             <div className={classes.grow} style={{align: 'right'}}/>
             <div style={{align: 'right'}}>
-                {home(props.props)}
-                {favorites(props.props)}
-                {notification()}
-                {profile(props.props)}
+              <HomeIcon target={props.target} color={"white"}/>
+                <FavoritesIcon target={props.target} color={"white"}/>
+                <NotificationIcon color={"white"}/>
+              <ProfileIcon target={props.target} color={"white"}/>
             </div>
           </Toolbar>
         </AppBar>
@@ -191,16 +195,17 @@ export const Header = (props) => {
             <TitleHeaderMobile style={{align: 'center'}}/>
             <div className={classes.grow} style={{align: 'right'}}/>
             <div>
-              <IconButton
-                  aria-label="show more"
-                  aria-controls={mobileMenuId}
-                  aria-haspopup="true"
-                  onClick={handleMobileMenuOpen}
-                  color="inherit"
-              >
-                <MoreIcon />
-              </IconButton>
+              <NotificationIcon color={"primary"}/>
             </div>
+          </Toolbar>
+        </AppBar>
+        <AppBar className={classes.sectionMobileBottom} color="white" >
+          <Toolbar>
+            <HomeIcon target={props.target} color={"primary"}/>
+            <div className={classes.grow} style={{align: 'right'}}/>
+            <FavoritesIcon target={props.target} color={"primary"}/>
+            <div className={classes.grow} style={{align: 'right'}}/>
+            <ProfileIcon target={props.target} color={"primary"}/>
           </Toolbar>
         </AppBar>
         {renderMobileMenu}

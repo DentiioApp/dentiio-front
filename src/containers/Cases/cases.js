@@ -10,10 +10,6 @@ import { setup } from '../../services/Auth'
 import { fetchCases } from '../../services/CaseList'
 import SlideCases from '../../components/App/SlideCases/slideCases'
 
-import searchBar from '../../images/maquette/search-bar.svg'
-import chatObject from '../../images/maquette/chat-subject.svg'
-import cOTitle from '../../images/maquette/c-chat-sub-title.svg'
-
 const useStyles = makeStyles((theme) => ({
     root: {
       height: 260,
@@ -45,24 +41,9 @@ const Cases = () => {
 
   return (
     <>
-      <Header props={"home"}/>
+      <Header target={"home"}/>
       <Container  className={classes.root}>
-        <center>
-          <br />
-          <br />
-          <img src={searchBar} alt='' />
-          <br />
-          <br />
-          <img src={cOTitle} alt='' />
-          <br />
-          <img src={chatObject} alt='' />
-          
-        </center>
       </Container>
-        <br />
-        <br />
-        <br />
-        <br />
       <SlideCases content={cases} />
     </>
   )
