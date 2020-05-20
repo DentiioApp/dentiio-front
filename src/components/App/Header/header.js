@@ -10,6 +10,7 @@ import AccountCircle from '@material-ui/icons/AccountCircle';
 import MailIcon from '@material-ui/icons/Mail';
 import MoreIcon from '@material-ui/icons/MoreVert';
 import TitleHeader from '../../UI/titleHeader/TitleHeader'
+import TitleHeaderMobile from '../../UI/titleHeader/titleHeaderMobile'
 import { Redirect } from 'react-router-dom'
 import { setup } from '../../../services/Auth'
 import home from "../../Icon/Header/home";
@@ -187,7 +188,7 @@ export const Header = (props) => {
         </AppBar>
         <AppBar position="static" className={classes.sectionMobileTop} color="white" >
           <Toolbar>
-            <TitleHeader style={{align: 'center'}}/>
+            <TitleHeaderMobile style={{align: 'center'}}/>
             <div className={classes.grow} style={{align: 'right'}}/>
             <div>
               <IconButton
