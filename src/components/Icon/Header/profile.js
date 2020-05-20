@@ -3,13 +3,11 @@ import PermIdentityIcon from '@material-ui/icons/PermIdentity';
 import PersonIcon from '@material-ui/icons/Person';
 import IconButton from "@material-ui/core/IconButton";
 import { useHistory } from 'react-router-dom';
-import StarIcon from "@material-ui/core/SvgIcon/SvgIcon";
-
 
 const profile = (props) => {
     // eslint-disable-next-line react-hooks/rules-of-hooks
     let history = useHistory();
-    if (props ===  "profile") {
+    if (props.target ===  "profile") {
         return (
             <IconButton
                 onClick={() => history.push("/profile")}
@@ -17,7 +15,7 @@ const profile = (props) => {
                 aria-haspopup="true"
                 color="inherit"
             >
-                <PersonIcon fontSize={"large"} style={{fill: "white"}}/>
+                <PersonIcon fontSize={"large"} htmlColor={props.color}/>
             </IconButton>
         )
     }
@@ -28,7 +26,7 @@ const profile = (props) => {
             aria-haspopup="true"
             color="inherit"
         >
-            <PermIdentityIcon fontSize={"large"} style={{fill: "white"}}/>
+            <PermIdentityIcon fontSize={"large"} htmlColor={props.color}/>
         </IconButton>
 
     )

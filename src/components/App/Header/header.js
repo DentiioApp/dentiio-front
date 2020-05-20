@@ -2,20 +2,15 @@ import React from 'react';
 import { fade, makeStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
-import IconButton from '@material-ui/core/IconButton';
-import Badge from '@material-ui/core/Badge';
-import MenuItem from '@material-ui/core/MenuItem';
-import Menu from '@material-ui/core/Menu';
-import AccountCircle from '@material-ui/icons/AccountCircle';
-import MailIcon from '@material-ui/icons/Mail';
-import MoreIcon from '@material-ui/icons/MoreVert';
+import palette from "../../UI/colorTheme/palette";
 import TitleHeader from '../../UI/titleHeader/TitleHeader'
+import TitleHeaderMobile from '../../UI/titleHeader/titleHeaderMobile'
 import { Redirect } from 'react-router-dom'
 import { setup } from '../../../services/Auth'
-import home from "../../Icon/Header/home";
-import favorites from "../../Icon/Header/favorites";
-import notification from "../../Icon/Header/notification";
-import profile from "../../Icon/Header/profile";
+import HomeIcon from "../../Icon/Header/home";
+import FavoritesIcon from "../../Icon/Header/favorites";
+import NotificationIcon from "../../Icon/Header/notification";
+import ProfileIcon from "../../Icon/Header/profile";
 
 
 const useStyles = makeStyles((theme) => ({
@@ -76,12 +71,18 @@ const useStyles = makeStyles((theme) => ({
   },
   sectionMobileTop: {
     display: 'flex',
+    position: 'fixed',
+    top: 0,
     [theme.breakpoints.up('sm')]: {
       display: 'none',
     },
   },
   sectionMobileBottom: {
     display: 'flex',
+    position: 'fixed',
+    top: "auto",
+    bottom: 0,
+    height: 50,
     [theme.breakpoints.up('sm')]: {
       display: 'none',
     },
@@ -90,120 +91,43 @@ const useStyles = makeStyles((theme) => ({
 
 export const Header = (props) => {
   const classes = useStyles();
-  const [anchorEl, setAnchorEl] = React.useState(null);
-  const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
-
-  const isMenuOpen = Boolean(anchorEl);
-  const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
-
-  const handleProfileMenuOpen = (event) => {
-    setAnchorEl(event.currentTarget);
-  };
-
-  const handleMobileMenuClose = () => {
-    setMobileMoreAnchorEl(null);
-  };
-
-  const handleMenuClose = () => {
-    setAnchorEl(null);
-    handleMobileMenuClose();
-  };
-
-  const handleMobileMenuOpen = (event) => {
-    setMobileMoreAnchorEl(event.currentTarget);
-  };
 
   if (setup() === false) {
     return <Redirect to='/'/>
   };
 
-  const menuId = 'primary-search-account-menu';
-  const renderMenu = (
-      <Menu
-          anchorEl={anchorEl}
-          anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
-          id={menuId}
-          keepMounted
-          transformOrigin={{ vertical: 'top', horizontal: 'right' }}
-          open={isMenuOpen}
-          onClose={handleMenuClose}
-      >
-        <MenuItem onClick={handleMenuClose}>Profile</MenuItem>
-        <MenuItem onClick={handleMenuClose}>My account</MenuItem>
-      </Menu>
-  );
-
-  const mobileMenuId = 'primary-search-account-menu-mobile';
-  const renderMobileMenu = (
-      <Menu
-          anchorEl={mobileMoreAnchorEl}
-          anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
-          id={mobileMenuId}
-          keepMounted
-          transformOrigin={{ vertical: 'top', horizontal: 'right' }}
-          open={isMobileMenuOpen}
-          onClose={handleMobileMenuClose}
-      >
-        <MenuItem>
-          <IconButton aria-label="show 4 new mails" color="inherit">
-            <Badge badgeContent={4} color="secondary">
-              <MailIcon />
-            </Badge>
-          </IconButton>
-          <p>Messages</p>
-        </MenuItem>
-        <MenuItem>
-          <IconButton aria-label="show 11 new notifications" color="inherit">
-            {notification()}
-          </IconButton>
-          <p>Notifications</p>
-        </MenuItem>
-        <MenuItem onClick={handleProfileMenuOpen}>
-          <IconButton
-              aria-label="account of current user"
-              aria-controls="primary-search-account-menu"
-              aria-haspopup="true"
-              color="inherit"
-          >
-            <AccountCircle />
-          </IconButton>
-          <p>Profile</p>
-        </MenuItem>
-      </Menu>
-  );
   return (
       <div className={classes.grow}>
-        <AppBar position="static" className={classes.sectionDesktop} color="primary" >
+        <AppBar position="static" className={classes.sectionDesktop} color={"primary"} >
           <Toolbar>
             <TitleHeader style={{align: 'center'}}/>
             <div className={classes.grow} style={{align: 'right'}}/>
             <div style={{align: 'right'}}>
-                {home(props.props)}
-                {favorites(props.props)}
-                {notification()}
-                {profile(props.props)}
+              <HomeIcon target={props.target} color={palette.white}/>
+                <FavoritesIcon target={props.target} color={palette.white}/>
+                <NotificationIcon color={palette.white}/>
+              <ProfileIcon target={props.target} color={palette.white}/>
             </div>
           </Toolbar>
         </AppBar>
-        <AppBar position="static" className={classes.sectionMobileTop} color="white" >
+        <AppBar position="static" className={classes.sectionMobileTop} color="inherit" >
           <Toolbar>
-            <TitleHeader style={{align: 'center'}}/>
+            <TitleHeaderMobile style={{align: 'center'}}/>
             <div className={classes.grow} style={{align: 'right'}}/>
             <div>
-              <IconButton
-                  aria-label="show more"
-                  aria-controls={mobileMenuId}
-                  aria-haspopup="true"
-                  onClick={handleMobileMenuOpen}
-                  color="inherit"
-              >
-                <MoreIcon />
-              </IconButton>
+              <NotificationIcon color={palette.primary}/>
             </div>
           </Toolbar>
         </AppBar>
-        {renderMobileMenu}
-        {renderMenu}
+        <AppBar className={classes.sectionMobileBottom} color="inherit" >
+          <Toolbar>
+            <HomeIcon target={props.target} color={palette.primary}/>
+            <div className={classes.grow} style={{align: 'right'}}/>
+            <FavoritesIcon target={props.target} color={palette.primary}/>
+            <div className={classes.grow} style={{align: 'right'}}/>
+            <ProfileIcon target={props.target} color={palette.primary}/>
+          </Toolbar>
+        </AppBar>
       </div>
   );
 }
