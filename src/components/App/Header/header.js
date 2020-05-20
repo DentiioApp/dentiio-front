@@ -12,10 +12,10 @@ import MoreIcon from '@material-ui/icons/MoreVert';
 import TitleHeader from '../../UI/titleHeader/TitleHeader'
 import { Redirect } from 'react-router-dom'
 import { setup } from '../../../services/Auth'
-import home from "../../Icon/Header/home";
-import favorites from "../../Icon/Header/favorites";
-import notification from "../../Icon/Header/notification";
-import profile from "../../Icon/Header/profile";
+import HomeIcon from "../../Icon/Header/home";
+import FavoritesIcon from "../../Icon/Header/favorites";
+import NotificationIcon from "../../Icon/Header/notification";
+import ProfileIcon from "../../Icon/Header/profile";
 
 
 const useStyles = makeStyles((theme) => ({
@@ -153,9 +153,7 @@ export const Header = (props) => {
           <p>Messages</p>
         </MenuItem>
         <MenuItem>
-          <IconButton aria-label="show 11 new notifications" color="inherit">
-            {notification()}
-          </IconButton>
+            <NotificationIcon />
           <p>Notifications</p>
         </MenuItem>
         <MenuItem onClick={handleProfileMenuOpen}>
@@ -178,10 +176,10 @@ export const Header = (props) => {
             <TitleHeader style={{align: 'center'}}/>
             <div className={classes.grow} style={{align: 'right'}}/>
             <div style={{align: 'right'}}>
-                {home(props.target)}
-                {favorites(props.target)}
-                {notification()}
-                {profile(props.target)}
+                <HomeIcon props.target />
+                <FavoritesIcon props.target/>
+                <NotificationIcon />
+                <Profile props.target />
             </div>
           </Toolbar>
         </AppBar>
