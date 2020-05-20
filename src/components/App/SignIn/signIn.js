@@ -102,7 +102,7 @@ const SignIn = () => {
      statusForm = <RequestStatus />
   }
 
-  if (setup(user.subscribe) === true) {
+  if (setup() === true) {
     return <Redirect to='/cases' />
   };
 

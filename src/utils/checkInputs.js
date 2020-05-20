@@ -1,4 +1,5 @@
-checkInputs = () => {
+export const checkInputs = () => {
+/**
     if (prop === 'pseudo') {
         if (event.target.value === false || event.target.value === '') {
            
@@ -27,6 +28,7 @@ checkInputs = () => {
             setErrCgu(false)
         }
         }
-return {}
 
+*/
+    return {a:1 , b:2, c:3, d:4}
 }

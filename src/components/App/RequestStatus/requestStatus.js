@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Modal from '@material-ui/core/Modal';
 import Backdrop from '@material-ui/core/Backdrop';
@@ -22,22 +22,22 @@ const useStyles = makeStyles((theme) => ({
 const RequestStatus = () => {
   const classes = useStyles();
   const [open, setOpen] = React.useState(false);
-
-  useEffect(() => {
-    if(!open){
-      handleOpen()
-      setOpen(true);
-    }
-  },[])
+  const [isOpen, setIsOpen] = React.useState(false);
 
   const handleOpen = () => {
     setOpen(true);
+    setIsOpen(true)
   };
 
-  const handleClose = () => {
+  const handleClose = (e) => {
     setOpen(false);
+    setIsOpen(true)   
   };
-  
+
+  if(!isOpen) {
+    handleOpen()
+  }
+
   return (
     <div>
       {/**

@@ -1,6 +1,5 @@
 import React, { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { Redirect } from 'react-router-dom'
 
 import {
   Avatar,
@@ -8,6 +7,7 @@ import {
   Paper,
   Typography,
 } from '@material-ui/core/'
+
 import FormHelperText from '@material-ui/core/FormHelperText'
 import Button from '@material-ui/core/Button'
 import Grid from '@material-ui/core/Grid'
@@ -21,7 +21,6 @@ import oStyle from '../../../services/Css/css'
 import GradientBtn from '../../UI/buttons/GradientBtn'
 import { checkPseudo, checkFiles } from '../../../utils'
 
-
 const useStyles = makeStyles((theme) => (oStyle(theme, img)))
 
 const StatusForm = () => {
@@ -29,8 +28,6 @@ const StatusForm = () => {
   const dispatch = useDispatch()
 
   const user = useSelector((state) => state.user)
-  // const cardstate = useSelector((state) => state.cardstate)
-  // console.log('OOOOO :', cardstate)
 
   const initValues = {
     nom: '',
@@ -163,9 +160,12 @@ const StatusForm = () => {
             <br />
 
           </form>
-          <span>{user.message}</span>
+          <span>{user.message || ''}</span>
         </div>
       </Grid>
+      <Typography component='h1' variant='h5'>
+        { user.message || ''}
+      </Typography>
     </Grid>
   )
 }
