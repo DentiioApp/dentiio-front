@@ -1,51 +1,37 @@
 import { LOG_USER, REGISTER_USER } from '../actions'
-import { loginCheck } from '../../services/LoginCheck'
 import { registerCheck } from '../../services/RegisterCheck'
 import jwtDecode from 'jwt-decode'
+import { login } from '../../services/Auth'
 
 const INIT_STATE = ''
 
 export const User = (state = INIT_STATE, action) => {
   switch (action.type) {
     case LOG_USER :
-      var tokenUser = loginCheck(action.pseudo, action.password)
-      if (tokenUser !== '') {
-        var details = jwtDecode(tokenUser)
-        return {
-          details: details,
-          connected: true
-        }
-      }
+      var details = jwtDecode(action.datas.token)
+
+      login(action.datas.token)
 
       return {
-        connected: false
+        username: details.username,
+        connected: true
       }
 
     case REGISTER_USER :
-      var response = registerCheck(
+      registerCheck(
         {
           email: action.email,
-          nom: 'Branis',
+          nom: action.username,
           prenom: action.username,
+          pseudo: action.email,
           password: action.password,
           isEnabled: true
         }
       )
 
-      window.localStorage.removeItem('authSubscribe')
-
-      if (response !== null) {
-        return {
-          subscribe: true,
-          message: 'Bienvenue dans l\'univers Dentiio',
-          connected: false
-        }
-      } else {
-        return {
-          subscribe: false,
-          message: 'Un probleme est survenue lors de l\'inscription',
-          connected: false
-        }
+      return {
+        subscribe: true,
+        message: localStorage.getItem('authSubscribeMsg')
       }
 
     default :

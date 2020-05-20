@@ -1,33 +1,48 @@
-// import './Cases.scss'
+import React, { useEffect, useState } from 'react'
+import { Redirect } from 'react-router-dom'
 
-import React, { useEffect } from 'react'
-import { useSelector, useDispatch } from 'react-redux'
-import { GetCases } from '../../store/actions'
-import { Redirect, useHistory } from 'react-router-dom'
+import Container from '@material-ui/core/Container';
+import { makeStyles } from '@material-ui/core/styles';
+
+import Header from '../../components/App/Header/header'
+import { setup } from '../../services/Auth'
+import { fetchCases } from '../../services/CaseList'
+import SlideCases from '../../components/App/SlideCases/slideCases'
+
+const useStyles = makeStyles((theme) => ({
+    root: {
+      height: 260,
+    },
+  }));
 
 const Cases = () => {
-  const user = useSelector(state => state.user)
-  const cases = useSelector(state => state.caseslist)
-  const dispatch = useDispatch()
-  const history = useHistory()
+  const classes = useStyles();
+
+  const [cases, setCases] = useState([])
+  const [count, setCount] = useState(0)
 
   useEffect(() => {
-    dispatch(GetCases())
-  }, [dispatch])
+      if(count < 1) {
+        const getCases = fetchCases()
+        getCases.then((res) => setCases(res || {}))
+      }
 
-  dispatch(GetCases())
-  if (user.details !== undefined) {
-    if (user.connected === false) {
-      history.push('/')
-    } else {
-      return <Redirect to='/' />
-    }
-  };
+      setCount(count+1)
+
+  }, [cases])
+
+  
+
+  if (setup() === false) {
+    return <Redirect to='/' />
+  }
+
   return (
     <>
-      {user.details.username}
-      {cases.map((aCase, index) => (
-        <span key={index}>{aCase}</span>))}
+      <Header target={"home"}/>
+      <Container  className={classes.root}>
+      </Container>
+      <SlideCases content={cases} />
     </>
   )
 }

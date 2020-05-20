@@ -4,7 +4,7 @@ import Icon from '../../../images/favButton.svg'
 function favButton () {
   return (
     <>
-      <img src={Icon} />
+      <img src={Icon} alt='Dentiio' />
     </>
   )
 }

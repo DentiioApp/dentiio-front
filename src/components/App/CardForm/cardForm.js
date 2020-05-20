@@ -5,11 +5,11 @@ import SignIn from '../SignIn/signIn'
 
 const CardForm = (props) => {
   const cardstate = useSelector((state) => state.cardstate)
-  const user = useSelector((state) => state.user) 
+  const user = useSelector((state) => state.user)
 
   var auth = <Register />
 
-  if (cardstate.card === 'connexion' || user.subscribe === true ) {
+  if (cardstate.card === 'connexion' || user.subscribe === true) {
     auth = <SignIn />
   }
 

@@ -1,6 +1,6 @@
 ![Dentiio Front](https://www.dentiio.com/img/logoblue.png)
 
-[![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0) [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=loryleticee_dentiio-front&metric=alert_status)](https://sonarcloud.io/dashboard?id=loryleticee_dentiio-front) ![Functionnals Test](https://github.com/loryleticee/dentiio-front/workflows/Functionnals%20Test/badge.svg) ![Linter React](https://github.com/loryleticee/dentiio-front/workflows/Linter%20React/badge.svg)
+[![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0) [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=DentiioApp_dentiio-front&metric=alert_status)](https://sonarcloud.io/dashboard?id=DentiioApp_dentiio-front) ![Functionnals Test](https://github.com/loryleticee/dentiio-front/workflows/Functionnals%20Test/badge.svg) ![Linter React](https://github.com/loryleticee/dentiio-front/workflows/Linter%20React/badge.svg)
 
 ---------------
 [Dentiio](https://www.dentiio.com/) Front is a [React app](https://github.com/facebook/react)
@@ -39,5 +39,6 @@
 2. `make start` for start the app
 
 ### without docker
-0. `yarn add standard --global` or `npm add standard --global`
-1. `yarn start` or `npm start`
+1. `yarn install` or `yarn`
+- For run in production mode  `yarn build'
+2. `yarn start`

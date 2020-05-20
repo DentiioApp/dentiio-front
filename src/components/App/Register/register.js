@@ -1,35 +1,37 @@
+import './register.scss'
+
 import React, { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { Redirect, useHistory } from 'react-router-dom'
-import './register.scss'
+import { Redirect } from 'react-router-dom'
 
 import {
   Avatar,
-  CssBaseline,
   FormControlLabel,
   Paper,
   Typography,
   Link
 } from '@material-ui/core/'
-
 import Checkbox from '@material-ui/core/Checkbox'
+import FormHelperText from '@material-ui/core/FormHelperText'
 import Grid from '@material-ui/core/Grid'
+import IconButton from '@material-ui/core/IconButton'
+import InputAdornment from '@material-ui/core/InputAdornment'
+import InputLabel from '@material-ui/core/InputLabel'
+import MenuItem from '@material-ui/core/MenuItem'
+import OutlinedInput from '@material-ui/core/OutlinedInput'
 import { makeStyles } from '@material-ui/core/styles'
 import TextField from '@material-ui/core/TextField'
-import FormHelperText from '@material-ui/core/FormHelperText'
 import imgDesktop from "../../../images/illus.png";
 import imgMobile from "../../../images/mobile-bg.svg";
+import Visibility from '@material-ui/icons/Visibility'
+import VisibilityOff from '@material-ui/icons/VisibilityOff'
+
+import img from '../../../images/auth.svg'
+import { setup } from '../../../services/Auth'
+import oStyle from '../../../components/App/Register/registerStyle'
 import { registerUser, cardCheck } from '../../../store/actions'
 import GradientBtn from '../../UI/buttons/GradientBtn'
-import IconButton from '@material-ui/core/IconButton'
-import Visibility from '@material-ui/icons/Visibility'
-import MenuItem from '@material-ui/core/MenuItem'
-import InputLabel from '@material-ui/core/InputLabel'
-import VisibilityOff from '@material-ui/icons/VisibilityOff'
-import InputAdornment from '@material-ui/core/InputAdornment'
-import OutlinedInput from '@material-ui/core/OutlinedInput'
-import oStyle from '../../../services/Css/css'
-import { checkPseudo, checkEmail, checkPassword, existEmail } from '../../../utils/Auth'
+import { checkPseudo, checkEmail, checkPassword } from '../../../utils'
 
 // API DATAS
 const functions = [
@@ -46,7 +48,6 @@ const functions = [
 const useStyles = makeStyles((theme) => oStyle(theme, imgDesktop, imgMobile));
 
 const Register = () => {
-  const history = useHistory()
   const classes = useStyles()
   const dispatch = useDispatch()
 
@@ -75,7 +76,6 @@ const Register = () => {
     if (checkPseudo(values.pseudo) === false) { setErrPseudo(true) }
     if (checkEmail(values.email) === false) { setErrEmail(true) }
     if (checkPassword(values.password) === false) { setErrPassword(true) }
-    if (existEmail(values.email) === true) { setErrEmail(true) }
     if (values.cgu === false) { setErrCgu(true) }
 
     if ((errPseudo || errEmail || errPassword || !errCgu) === true) {
@@ -100,7 +100,7 @@ const Register = () => {
       }
     }
     if (prop === 'email') {
-      if (checkEmail(event.target.value) === false || existEmail(event.target.value) === true) {
+      if (checkEmail(event.target.value) === false) {
         setErrEmail(true)
       } else {
         setErrEmail(false)
@@ -145,17 +145,12 @@ const Register = () => {
     event.preventDefault()
   }
 
-  if (user.details !== undefined) {
-    if (user.connected === false) {
-      history.push('/', { content: 'connexion' })
-    } else {
-      return <Redirect to='/cases' />
-    }
-  };
+  if (setup() === true) {
+    return <Redirect to='/cases' />
+  }
 
   return (
     <Grid container component="main" className={classes.root}>
-      <CssBaseline />
       <div className={classes.formContainer}>
         <Grid
           item
@@ -185,93 +180,98 @@ const Register = () => {
                 autoComplete="current-password"
                 onChange={handleChange("pseudo")}
                 error={errPseudo}
-              />
-              <TextField
-                variant="outlined"
-                margin="normal"
-                required
-                fullWidth
-                id="email"
-                label="Email Address"
-                name="email"
-                autoComplete="email"
-                autoFocus
-                onChange={handleChange("email")}
-                error={errEmail}
-                helperText={
-                  values.email !== ""
-                    ? checkEmail(values.email) === false
-                      ? "Email invalide!"
-                      : " "
-                    : ""
-                }
-              />
-              <FormHelperText id="my-helper-text">
-                {/* On ne partagera jamais votre email. */}
-              </FormHelperText>
-              <br />
-              <InputLabel className="inputLabel">Vous êtes* :</InputLabel>
-              <TextField
-                className="textField"
-                id="filled-select-currency"
-                select
-                value={values.function}
-                onChange={handleChange("function")}
-                variant="outlined"
-              >
-                {functions.map((option) => (
-                  <MenuItem key={option.value} value={option.value}>
-                    {option.label}
-                  </MenuItem>
-                ))}
-              </TextField>
-              <br /> <br />
-              <OutlinedInput
-                variant="outlined"
-                required
-                fullWidth
-                name="password"
-                label="Password"
-                type={values.showPassword ? "text" : "password"}
-                value={values.password}
-                id="outlined-adornment-password"
-                autoComplete="on"
-                placeholder="Password"
-                error={errPassword}
-                onChange={handleChange("password")}
-                endAdornment={
-                  <InputAdornment position="start">
-                    <IconButton
-                      aria-label="toggle password visibility"
-                      onClick={handleClickShowPassword}
-                      onMouseDown={handleMouseDownPassword}
-                      edge="end"
-                    >
-                      {values.showPassword ? <Visibility /> : <VisibilityOff />}
-                    </IconButton>
-                  </InputAdornment>
-                }
-              />
-              <br /> <br />
-              <FormControlLabel
-                control={
-                  <Checkbox
-                    color="primary"
-                    checked={!values.cgu}
-                    onClick={handleClickCgu}
-                    onMouseDown={handleMouseDownCgu}
-                    error={errCgu.toString()}
-                  />
-                }
-                label="J'accepte les conditions générales de d'utilisation"
-              />
-              <br /> <br /> <br />
-              <div onClick={catchSubmit}>
-                <GradientBtn
-                  variant="contained"
-                  type="submit"
-                  className="GradientBtn"
+
+            />
+            <TextField
+              variant='outlined'
+              margin='normal'
+              required
+              fullWidth
+              id='email'
+              label='Email Address'
+              name='email'
+              autoComplete='email'
+              autoFocus
+              onChange={handleChange('email')}
+              error={errEmail}
+              helperText={values.email !== '' ? (checkEmail(values.email) === false ? 'Email invalide!' : ' ') : ''}
+            />
+            <FormHelperText id='my-helper-text'>{/* On ne partagera jamais votre email. */}</FormHelperText>
+
+            <br />
+
+            <InputLabel className='inputLabel'>
+              Vous êtes* :
+            </InputLabel>
+            <TextField
+              className='textField'
+              id='filled-select-currency'
+              select
+              value={values.function}
+              onChange={handleChange('function')}
+              variant='outlined'
+            >
+              {functions.map(option => (
+                <MenuItem key={option.value} value={option.value}>
+                  {option.label}
+                </MenuItem>
+              ))}
+            </TextField>
+
+            <br /> <br />
+
+            <OutlinedInput
+              variant='outlined'
+              required
+              fullWidth
+              name='password'
+              label='Password'
+              type={values.showPassword ? 'text' : 'password'}
+              value={values.password}
+              id='outlined-adornment-password'
+              autoComplete='on'
+              placeholder='Password'
+              error={errPassword}
+              onChange={handleChange('password')}
+              endAdornment={
+                <InputAdornment position='start'>
+                  <IconButton
+                    aria-label='toggle password visibility'
+                    onClick={handleClickShowPassword}
+                    onMouseDown={handleMouseDownPassword}
+                    edge='end'
+                  >
+                    {values.showPassword ? <Visibility /> : <VisibilityOff />}
+                  </IconButton>
+                </InputAdornment>
+              }
+            />
+
+            <br />  <br />
+
+            <FormControlLabel
+              control={
+                <Checkbox
+                  color='primary'
+                  checked={!values.cgu}
+                  onClick={handleClickCgu}
+                  onMouseDown={handleMouseDownCgu}
+                  error={errCgu.toString()}
                 />
+              }
+              label="J'accepte les conditions générales de d'utilisation"
+            />
+
+            <br /> <br /> <br />
+
+            <div onClick={catchSubmit}>
+              <GradientBtn
+                variant='contained'
+                type='submit'
+                description={'S\'inscrire'}
+                className='GradientBtn'
+              />
+
               </div>
               <br />
               <Typography>
@@ -284,6 +284,7 @@ const Register = () => {
                   </Link>{" "}
                 </span>
               </Typography>
+
             </form>
             <span>{user.message}</span>
           </div>
