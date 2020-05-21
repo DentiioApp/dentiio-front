@@ -6,7 +6,6 @@ import { Redirect } from 'react-router-dom'
 
 import {
   Avatar,
-  CssBaseline,
   FormControlLabel,
   Paper,
   Typography,
@@ -22,12 +21,14 @@ import MenuItem from '@material-ui/core/MenuItem'
 import OutlinedInput from '@material-ui/core/OutlinedInput'
 import { makeStyles } from '@material-ui/core/styles'
 import TextField from '@material-ui/core/TextField'
+import imgDesktop from "../../../images/illus.png";
+import imgMobile from "../../../images/mobile-bg.svg";
 import Visibility from '@material-ui/icons/Visibility'
 import VisibilityOff from '@material-ui/icons/VisibilityOff'
 
 import img from '../../../images/auth.svg'
 import { setup } from '../../../services/Auth'
-import oStyle from '../../../services/Css/css'
+import oStyle from '../../../services/css/registerStyle'
 import { registerUser, cardCheck } from '../../../store/actions'
 import GradientBtn from '../../UI/buttons/GradientBtn'
 import { checkPseudo, checkEmail, checkPassword } from '../../../utils'
@@ -44,7 +45,7 @@ const functions = [
   }
 ]
 
-const useStyles = makeStyles((theme) => (oStyle(theme, img)))
+const useStyles = makeStyles((theme) => oStyle(theme, imgDesktop, imgMobile));
 
 const Register = () => {
   const classes = useStyles()
@@ -149,28 +150,37 @@ const Register = () => {
   }
 
   return (
-    <Grid container component='main' className={classes.root}>
-      <CssBaseline />
-      <Grid item xs={false} sm={4} md={7} className={classes.image} />
-      <Grid item xs={12} sm={8} md={5} component={Paper} elevation={6} square>
-        <div className={classes.paper}>
-          <Avatar className={classes.avatar} />
-          <Typography component='h1' variant='h5'>
-            Inscription
-          </Typography>
-          <form className={classes.form} noValidate>
-            <TextField
-              variant='outlined'
-              margin='normal'
-              required
-              fullWidth
-              name='password'
-              label='Pseudo'
-              type='text'
-              id='pseudo'
-              autoComplete='current-password'
-              onChange={handleChange('pseudo')}
-              error={errPseudo}
+    <Grid container component="main" className={classes.root}>
+      <div className={classes.formContainer}>
+        <Grid
+          item
+          xs={10}
+          sm={12}
+          md={12}
+          component={Paper}
+          elevation={6}
+          square
+          className="login"
+        >
+          <div className={classes.paper}>
+            <Avatar className={classes.avatar} />
+            <Typography component="h1" variant="h5">
+              Inscription
+            </Typography>
+            <form className={classes.form} noValidate>
+              <TextField
+                variant="outlined"
+                margin="normal"
+                required
+                fullWidth
+                name="password"
+                label="Pseudo"
+                type="text"
+                id="pseudo"
+                autoComplete="current-password"
+                onChange={handleChange("pseudo")}
+                error={errPseudo}
+
             />
             <TextField
               variant='outlined'
@@ -261,17 +271,27 @@ const Register = () => {
                 description={'S\'inscrire'}
                 className='GradientBtn'
               />
-            </div>
 
-            <br />
+              </div>
+              <br />
+              <Typography>
+                <span>
+                  {" "}
+                  Déjà un compte{" "}
+                  <Link onClick={switchToLogin} color="primary">
+                    {" "}
+                    Connectez vous ?{" "}
+                  </Link>{" "}
+                </span>
+              </Typography>
 
-            <Typography><span> Déjà un compte <Link onClick={switchToLogin} color='primary'> Connectez vous ? </Link> </span></Typography>
-          </form>
-          <span>{user.message}</span>
-        </div>
-      </Grid>
+            </form>
+            <span>{user.message}</span>
+          </div>
+        </Grid>
+      </div>
     </Grid>
-  )
+  );
 }
 
 export default Register
