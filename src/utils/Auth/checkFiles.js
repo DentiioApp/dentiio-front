@@ -5,7 +5,9 @@ const OVERSIZE = 'Fichiers trops volumineux'
 
 export const checkFiles = (event) => {
   /** ~ 3Mo */
-  if (event.target.files[0].size < 3060342) { maxSelectFile(event) }
+  if (event.target.files[0].size < 3060342) { 
+    maxSelectFile(event) 
+  }
   return { response: false, message: OVERSIZE }
 }
 
@@ -27,7 +29,7 @@ export const checkMimeType = (event, msg) => {
   // define message container
   let err = ''
   // list allow mime type
-  const types = ['image/png', 'image/jpeg', 'image/gif']
+  const types = ['image/png', 'image/jpeg', 'image/jpg']
   // loop access array
   for (var x = 0; x < files.length; x++) {
     // compare file type find doesn't matach
