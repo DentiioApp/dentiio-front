@@ -36,9 +36,8 @@ const Cases = () => {
 
   return (
     <>
-      <Header target={"home"}/>
-      <Container  className={classes.root}>
-      </Container>
+      <Header target='home' />
+      <Container className={classes.root} />
       <SlideCases content={cases} />
     </>
   )

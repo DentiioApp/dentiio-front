@@ -12,8 +12,8 @@ import { adminReducer } from './store/reducers'
 import { Provider } from 'react-redux'
 import ReduxThunk from 'redux-thunk'
 import dotenv from 'dotenv'
-import { ThemeProvider } from '@material-ui/core/styles';
-import colorTheme from './components/UI/colorTheme/colorTheme';
+import { ThemeProvider } from '@material-ui/core/styles'
+import colorTheme from './components/UI/colorTheme/colorTheme'
 
 import {
   BrowserRouter as Router,
@@ -36,8 +36,8 @@ export const store = createStore(adminReducer,
 )
 
 ReactDOM.render(
-    <ThemeProvider theme={colorTheme}>
-      <Provider store={store}>
+  <ThemeProvider theme={colorTheme}>
+    <Provider store={store}>
       <Router>
         <div>
           <Switch>

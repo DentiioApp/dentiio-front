@@ -1,19 +1,18 @@
 import React from 'react'
 
-
-import { makeStyles } from '@material-ui/core/styles';
-import clsx from 'clsx';
-import Card from '@material-ui/core/Card';
-//import CardHeader from '@material-ui/core/CardHeader';
-import CardMedia from '@material-ui/core/CardMedia';
-import CardContent from '@material-ui/core/CardContent';
-import CardActions from '@material-ui/core/CardActions';
-import Collapse from '@material-ui/core/Collapse';
-import Avatar from '@material-ui/core/Avatar';
-import IconButton from '@material-ui/core/IconButton';
-import Typography from '@material-ui/core/Typography';
-import { blue } from '@material-ui/core/colors';
-import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
+import { makeStyles } from '@material-ui/core/styles'
+import clsx from 'clsx'
+import Card from '@material-ui/core/Card'
+// import CardHeader from '@material-ui/core/CardHeader';
+import CardMedia from '@material-ui/core/CardMedia'
+import CardContent from '@material-ui/core/CardContent'
+import CardActions from '@material-ui/core/CardActions'
+import Collapse from '@material-ui/core/Collapse'
+import Avatar from '@material-ui/core/Avatar'
+import IconButton from '@material-ui/core/IconButton'
+import Typography from '@material-ui/core/Typography'
+import { blue } from '@material-ui/core/colors'
+import ExpandMoreIcon from '@material-ui/icons/ExpandMore'
 
 import fav from '../../../images/maquette/fav.svg'
 
@@ -39,13 +38,13 @@ const useStyles = makeStyles((theme) => ({
     transform: 'rotate(180deg)'
   },
   avatar: {
-    backgroundColor: blue[200],
+    backgroundColor: blue[200]
   },
-    flright: {
-      float: "right",
-    }
-  
-}));
+  flright: {
+    float: 'right'
+  }
+
+}))
 
 const Case = (props) => {
   const classes = useStyles()
@@ -57,7 +56,7 @@ const Case = (props) => {
 
   return (
     <Card className={classes.root}>
-        <img className={classes.flright} src={fav} alt="favorite"/>
+      <img className={classes.flright} src={fav} alt='favorite' />
       <CardMedia
         className={classes.media}
         image='https://upload.wikimedia.org/wikipedia/commons/1/17/Yin_yang.svg'

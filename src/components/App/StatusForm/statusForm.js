@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import {Progress} from 'reactstrap';
+import { Progress } from 'reactstrap'
 
 import {
   Avatar,
@@ -18,9 +18,9 @@ import TextField from '@material-ui/core/TextField'
 import { VALID_STATUS } from '../../../store/actions'
 import img from '../../../images/auth.svg'
 import { setup } from '../../../services/Auth'
-import oStyle from '../../../services/Css/css'
+import oStyle from '../../../services/css/registerStyle'
 import GradientBtn from '../../UI/buttons/GradientBtn'
-import { checkPseudo, checkFiles } from '../../../utils'
+import { checkText, checkFiles } from '../../../utils'
 
 const useStyles = makeStyles((theme) => (oStyle(theme, img)))
 
@@ -45,8 +45,8 @@ const StatusForm = () => {
   const catchSubmit = (e) => {
     e.preventDefault()
 
-    if (checkPseudo(values.nom) === false) { setErrNom(true) }
-    if (checkPseudo(values.prenom) === false) { setErrPrenom(true) }
+    if (checkText(values.nom) === false) { setErrNom(true) }
+    if (checkText(values.prenom) === false) { setErrPrenom(true) }
     if (checkFiles(values.card) === false) { setErrCard(true) }
 
     if ((errNom || errPrenom || errCard) === true) {
@@ -55,23 +55,23 @@ const StatusForm = () => {
       dispatch(
         {
           type: VALID_STATUS,
-          nom: values.nom,
-          prenom: values.prenom,
-          cpsCard: values.cpsCard
+          nom: values.name,
+          size: values.size,
+          url: values.url
         })
     }
   }
 
   const handleChange = prop => event => {
     if (prop === 'prenom') {
-      if (checkPseudo(event.target.value) === false) {
+      if (checkText(event.target.value) === false) {
         setErrPrenom(true)
       } else {
         setErrPrenom(false)
       }
     }
     if (prop === 'nom') {
-      if (checkPseudo(event.target.value) === false) {
+      if (checkText(event.target.value) === false) {
         setErrNom(true)
       } else {
         setErrNom(false)
@@ -133,7 +133,7 @@ const StatusForm = () => {
               autoFocus
               onChange={handleChange('prenom')}
               error={errPrenom}
-              helperText={values.prenom !== '' ? (checkPseudo(values.prenom) === false ? 'Prenom inccorect!' : ' ') : ''}
+              helperText={values.prenom !== '' ? (checkText(values.prenom) === false ? 'Prenom inccorect!' : ' ') : ''}
             />
             <FormHelperText id='my-helper-text'>{/* On ne partagera jamais votre identitée. */}</FormHelperText>
 
@@ -146,10 +146,11 @@ const StatusForm = () => {
               Ma carte CPS
               <input
                 type='file'
-                style={{ display: 'none' }}
+                Style={{ display: 'none' }}
                 onChange={handleChange('cpsCard')}
                 name='cps'
                 id='cps'
+                multiple
               />
             </Button>
             <FormHelperText id='my-helper-text'>{errCard || ''}</FormHelperText>
@@ -161,10 +162,11 @@ const StatusForm = () => {
               Ma carte Etudiante
               <input
                 type='file'
-                style={{ display: 'none' }}
+                Style={{ display: 'none' }}
                 onChange={handleChange('studyCard')}
                 name='studyCard'
                 id='studyCard'
+                multiple
               />
             </Button>
             <FormHelperText id='my-helper-text'>{errCard || ''}</FormHelperText>
@@ -184,8 +186,8 @@ const StatusForm = () => {
             </div>
 
             <br />
-            <div class="form-group">
-              <Progress max="100" color="success" value={load} >{Math.round(load,2) }%</Progress>
+            <div className='form-group'>
+              <Progress max='100' color='success' value={load}>{Math.round(load, 2)}%</Progress>
             </div>
           </form>
           <span>{user.message || ''}</span>

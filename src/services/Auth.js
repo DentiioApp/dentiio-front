@@ -15,30 +15,25 @@ export const logout = () => {
 }
 
 // Verifie si un token existe dans le localStorage
-export const setup = (subscribe = undefined) => {
+export const setup = () => {
   const token = window.localStorage.getItem('authToken')
-  const isSubscribing = subscribe
   var connect = false
 
-  if (isSubscribing) {
-    //
-  } else {
-    if (token) {
-      axios.defaults.headers.Authorization = BEARER + token
+  if (token) {
+    axios.defaults.headers.Authorization = BEARER + token
 
-      window.localStorage.removeItem('authSubscribeMsg')
+    window.localStorage.removeItem('authSubscribeMsg')
 
-      const jwtData = jwtDecode(token)
+    const jwtData = jwtDecode(token)
 
-      if (jwtData.exp * 1000 > new Date().getTime()) {
-        connect = true
-      } else {
-        logout()
-      }
+    if (jwtData.exp * 1000 > new Date().getTime()) {
+      connect = true
     } else {
       logout()
     }
-
-    return connect
+  } else {
+    logout()
   }
+
+  return connect
 }

@@ -1,12 +1,11 @@
-import { checkPseudo } from './Auth/checkPseudo'
-import { checkEmail } from './Auth/checkEmail'
-import { checkFiles, maxSelectFile } from './Auth/checkFiles'
-import { checkPassword } from './Auth/checkPassword'
+import { checkText } from './fields/checkText'
+import { checkEmail } from './fields/checkEmail'
+import { checkFiles } from './fields/checkFiles'
+import { checkPassword } from './fields/checkPassword'
 import { avgNotes } from './cases/notes'
 
 export { avgNotes }
-export { checkPseudo }
+export { checkText }
 export { checkEmail }
 export { checkFiles }
 export { checkPassword }
-export { maxSelectFile }
