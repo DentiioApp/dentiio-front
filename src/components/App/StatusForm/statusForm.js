@@ -43,7 +43,7 @@ const StatusForm = () => {
 
   const catchSubmit = (e) => {
     e.preventDefault()
-
+console.log('TEST :', "sss")
     if (checkText(values.nom) === false) { setErrNom(true) }
     if (checkText(values.prenom) === false) { setErrPrenom(true) }
 
@@ -112,6 +112,7 @@ const StatusForm = () => {
               type='text'
               id='nom'
               autoComplete='current-password'
+              onKeyDown={(e)=> e.keyCode !== 13 ? null : catchSubmit}
               onChange={handleChange('nom')}
               error={errNom}
             />
@@ -125,6 +126,7 @@ const StatusForm = () => {
               name='prenom'
               autoComplete='prenom'
               autoFocus
+              onKeyDown={(e)=> e.keyCode !== 13 ? null : catchSubmit}
               onChange={handleChange('prenom')}
               error={errPrenom}
               helperText={values.prenom !== '' ? (checkText(values.prenom) === false ? 'Prenom inccorect!' : ' ') : ''}
@@ -140,7 +142,7 @@ const StatusForm = () => {
               Ma carte CPS
               <input
                 type='file'
-
+                onKeyDown={(e)=> e.keyCode !== 13 ? null : catchSubmit}
                 onChange={handleChange('cpsCard')}
                 name='cps'
                 id='cps'
@@ -156,7 +158,7 @@ const StatusForm = () => {
               Ma carte Etudiante
               <input
                 type='file'
-
+                onKeyDown={(e)=> e.keyCode !== 13 ? null : catchSubmit}
                 onChange={handleChange('studyCard')}
                 name='studyCard'
                 id='studyCard'
