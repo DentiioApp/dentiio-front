@@ -18,7 +18,7 @@ import TextField from '@material-ui/core/TextField'
 import Visibility from '@material-ui/icons/Visibility'
 import VisibilityOff from '@material-ui/icons/VisibilityOff'
 
-import RequestStatus from '../RequestStatus/requestStatus'
+import StatusModal from '../StatusModal/statusModal'
 import GradientBtn from '../../UI/buttons/GradientBtn'
 import oStyle from '../../../services/css/registerStyle'
 import { logUser } from '../../../store/actions'
@@ -97,9 +97,9 @@ const SignIn = () => {
     event.preventDefault()
   }
 
-  var statusForm = undefined
+  var modal = undefined
   if (user.subscribe === true) {
-    statusForm = <RequestStatus />
+    modal = <StatusModal />
   }
 
   if (setup() === true) {
@@ -108,7 +108,7 @@ const SignIn = () => {
 
   return (
     <>
-      {statusForm}
+      {modal}
       <Grid container component='main' className={classes.root}>
         <CssBaseline />
         <Grid item xs={false} sm={4} md={7} className={classes.image} />

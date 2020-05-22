@@ -19,7 +19,7 @@ const useStyles = makeStyles((theme) => ({
   }
 }))
 
-const RequestStatus = () => {
+const StatusModal = () => {
   const classes = useStyles()
   const [open, setOpen] = React.useState(false)
   const [isOpen, setIsOpen] = React.useState(false)
@@ -68,4 +68,4 @@ const RequestStatus = () => {
   )
 }
 
-export default RequestStatus
+export default StatusModal

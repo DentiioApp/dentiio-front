@@ -7,7 +7,7 @@ import { makeStyles } from '@material-ui/core/styles'
 import Header from '../../components/App/Header/header'
 import { setup } from '../../services/Auth'
 import { fetchCases } from '../../services/CaseList'
-import SlideCases from '../../components/App/SlideCases/slideCases'
+import CasesList from '../../components/App/CasesList/casesList'
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -38,7 +38,7 @@ const Cases = () => {
     <>
       <Header target='home' />
       <Container className={classes.root} />
-      <SlideCases content={cases} />
+      <CasesList content={cases} />
     </>
   )
 }

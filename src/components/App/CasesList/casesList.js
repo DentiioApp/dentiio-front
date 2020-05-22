@@ -16,7 +16,7 @@ const useStyles = makeStyles((theme) => ({
   }
 }))
 
-const SlideCases = (props) => {
+const CasesList = (props) => {
   const classes = useStyles()
   const oCases = props.content.slice(0, 3)
 
@@ -27,8 +27,8 @@ const SlideCases = (props) => {
         <div className={classes.root}>
           {
             oCases.map((oCase, index) => (
-              <Case key={index} item={oCase} />
-            )
+                <Case key={index} item={oCase} />
+              )
             )
           }
         </div>
@@ -37,4 +37,4 @@ const SlideCases = (props) => {
   )
 }
 
-export default SlideCases
+export default CasesList
