@@ -7,10 +7,10 @@ import TitleHeader from '../../UI/titleHeader/TitleHeader'
 import TitleHeaderMobile from '../../UI/titleHeader/titleHeaderMobile'
 import { Redirect } from 'react-router-dom'
 import { setup } from '../../../services/Auth'
-import HomeIcon from '../../Icon/Header/home'
-import FavoritesIcon from '../../UI/Header/favorites'
-import NotificationIcon from '../../UI/Header/notification'
-import ProfileIcon from '../../Icon/Header/profile'
+import HomeIcon from '../../UI/Icon/Header/home'
+import FavoritesIcon from '../../UI/Icon/Header/favorites'
+import NotificationIcon from '../../UI/Icon/Header/notification'
+import ProfileIcon from '../../UI/Icon/Header/profile'
 
 const useStyles = makeStyles((theme) => ({
   grow: {

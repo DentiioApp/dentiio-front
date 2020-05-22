@@ -24,7 +24,7 @@ import oStyle from '../../../services/css/registerStyle'
 import { logUser } from '../../../store/actions'
 import img from '../../../images/auth.svg'
 
-import { checkEmail, checkPassword } from '../../../utils'
+import { checkEmail } from '../../../utils'
 import loginCheck from '../../../services/LoginCheck'
 import { setup } from '../../../services/Auth'
 
@@ -79,13 +79,7 @@ const SignIn = () => {
         setErrEmail(false)
       }
     }
-    if (prop === 'password') {
-      if (checkPassword(event.target.value) === false) {
-        setErrPassword(true)
-      } else {
-        setErrPassword(false)
-      }
-    }
+  
     setValues({ ...values, [prop]: event.target.value })
   }
 

@@ -23,7 +23,7 @@ export const User = (state = INIT_STATE, action) => {
           email: action.email,
           nom: action.username,
           prenom: action.username,
-          username: action.email,
+          pseudo: action.email,
           password: action.password,
           isEnabled: true
         }

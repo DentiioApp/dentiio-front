@@ -40,11 +40,6 @@ const StatusModal = () => {
 
   return (
     <div>
-      {
-        <button type='button'>
-          Je suis un professionnel
-        </button>
-      }
       <Modal
         aria-labelledby='transition-modal-title'
         aria-describedby='transition-modal-description'
