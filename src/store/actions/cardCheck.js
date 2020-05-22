@@ -1,4 +1,4 @@
-export const CARD_STATE = 'CARD_STATE'
+import {CARD_STATE} from '.'
 
 export const cardCheck = (card) => {
   const action = {

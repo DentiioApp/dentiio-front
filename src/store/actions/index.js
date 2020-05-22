@@ -1,16 +1,15 @@
-import { CASES_LIST, GetCases } from './getCases'
-import { REGISTER_USER, registerUser } from './registerUser'
-import { CARD_STATE, cardCheck } from './cardCheck'
-import { LOG_USER, logUser } from './logUser'
+import { GetCases } from './getCases'
+import { registerUser } from './registerUser'
+import { cardCheck } from './cardCheck'
+import { logUser } from './logUser'
 
-export { CASES_LIST }
-export { REGISTER_USER }
-export { CARD_STATE }
-export { LOG_USER }
+export const CASES_LIST = 'CASES_LIST'
+export const REGISTER_USER = 'REGISTER_USER'
+export const CARD_STATE = 'CARD_STATE'
+export const LOG_USER = 'LOG_USER'
+export const VALID_STATUS = 'VALID_STATUS'
 
 export { cardCheck }
 export { GetCases }
 export { logUser }
 export { registerUser }
-
-export const VALID_STATUS = 'VALID_STATUS'
