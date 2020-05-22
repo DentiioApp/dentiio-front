@@ -1,4 +1,4 @@
-import {LOG_USER} from '.'
+import { LOG_USER } from '.'
 
 export const logUser = (datas) => {
   const action = {

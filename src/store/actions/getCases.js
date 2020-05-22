@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import axios from 'axios'
 
-import {CASES_LIST} from '.'
+import { CASES_LIST } from '.'
 
 export const CLINICAL_CASES = process.env.REACT_APP_BACK_API_URL + process.env.REACT_APP_CLINICAL_CASES
 

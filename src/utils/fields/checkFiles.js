@@ -1,7 +1,4 @@
-const SUCCESS = 'Vos fichiers on bien étés sauvergardés'
-const OVERCOUNT = 'Uniquement 2 images à la fois'
-const OVERSIZE = 'Fichiers trops volumineux'
-const SIZE_AVAILABLE = 3060342
+import { SUCCESS, OVERCOUNT, OVERSIZE, SIZE_AVAILABLE } from '../'
 
 const resetInput = (event) => {
   event.target.value = null // discard selected file
@@ -9,8 +6,8 @@ const resetInput = (event) => {
 
 const checkMimeType = (file, event) => {
   let err = ''
-  const types_available = ['image/png', 'image/jpeg', 'image/jpg']
-  if (types_available.every(goodType => file.type !== goodType)) {
+  const typesAvailable = ['image/png', 'image/jpeg', 'image/jpg']
+  if (typesAvailable.every(goodType => file.type !== goodType)) {
     err += 'les fichiers au format ' + file.type + ' ne sont pas supportés\n'
   }
 
@@ -25,12 +22,13 @@ const checkMimeType = (file, event) => {
 
 export const checkFiles = (event) => {
   const files = event.target.files // create file object
+  const filesNumber = files.length
   let message = SUCCESS
   let existErr = false
 
   // if max upload files selected not accross
-  if (files.length < 3) {
-    for (var i = 0; i < 2; i++) {
+  if (filesNumber < 3) {
+    for (var i = 0; i < filesNumber; i++) {
       if (files[i].size <= SIZE_AVAILABLE) {
         const checkType = checkMimeType(files[i], event)
         if (checkType.error !== '') {

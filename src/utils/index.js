@@ -9,3 +9,8 @@ export { checkText }
 export { checkEmail }
 export { checkFiles }
 export { checkPassword }
+
+export const SUCCESS = 'Vos fichiers on bien étés sauvergardés'
+export const OVERCOUNT = 'Uniquement 2 images à la fois'
+export const OVERSIZE = 'Fichiers trops volumineux'
+export const SIZE_AVAILABLE = 3060342

@@ -1,4 +1,4 @@
-import {CARD_STATE} from '.'
+import { CARD_STATE } from '.'
 
 export const cardCheck = (card) => {
   const action = {

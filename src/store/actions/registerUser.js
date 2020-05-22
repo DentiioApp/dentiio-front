@@ -1,4 +1,4 @@
-import {REGISTER_USER} from '../actions'
+import { REGISTER_USER } from '../actions'
 
 export const registerUser = (register) => {
   const action = {

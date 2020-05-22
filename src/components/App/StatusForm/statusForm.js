@@ -62,7 +62,7 @@ const StatusForm = () => {
 
   const handleChange = prop => event => {
     let checkedFile = ''
-    if(prop === 'cpsCard' || prop === 'studyCard') {
+    if (prop === 'cpsCard' || prop === 'studyCard') {
       checkedFile = checkFiles(event)
       if (checkedFile.error === true) {
         setErrCard(checkedFile.message)

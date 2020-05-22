@@ -1,4 +1,4 @@
-import axios from 'axios';
+import axios from 'axios'
 
 export const USERS = process.env.REACT_APP_BACK_API_URL + process.env.REACT_APP_USERS
 
