@@ -61,6 +61,16 @@ const StatusForm = () => {
   }
 
   const handleChange = prop => event => {
+    let checkedFile = ''
+    if(prop === 'cpsCard' || prop === 'studyCard') {
+      checkedFile = checkFiles(event)
+      if (checkedFile.error === true) {
+        setErrCard(checkedFile.message)
+      } else {
+        setErrCard(false)
+      }
+    }
+
     if (prop === 'prenom') {
       if (checkText(event.target.value) === false) {
         setErrPrenom(true)
@@ -73,22 +83,6 @@ const StatusForm = () => {
         setErrNom(true)
       } else {
         setErrNom(false)
-      }
-    }
-    const checkedFile = checkFiles(event)
-
-    if (prop === 'cpsCard') {
-      if (checkedFile.error === true) {
-        setErrCard(checkedFile.message)
-      } else {
-        setErrCard(false)
-      }
-    }
-    if (prop === 'studyCard') {
-      if (checkedFile.error === true) {
-        setErrCard(checkedFile.message)
-      } else {
-        setErrCard(false)
       }
     }
 
