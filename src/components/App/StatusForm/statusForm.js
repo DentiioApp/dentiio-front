@@ -33,7 +33,7 @@ const StatusForm = () => {
     nom: '',
     prenom: '',
     cpsCard: '',
-    studyCard:'',
+    studyCard: ''
   }
 
   const [values, setValues] = useState(initValues)
