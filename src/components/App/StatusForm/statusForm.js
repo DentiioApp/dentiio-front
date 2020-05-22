@@ -32,7 +32,8 @@ const StatusForm = () => {
   const initValues = {
     nom: '',
     prenom: '',
-    card: ''
+    cpsCard: '',
+    studyCard:'',
   }
 
   const [values, setValues] = useState(initValues)
@@ -45,9 +46,8 @@ const StatusForm = () => {
 
     if (checkText(values.nom) === false) { setErrNom(true) }
     if (checkText(values.prenom) === false) { setErrPrenom(true) }
-    if (checkFiles(values.card) === false) { setErrCard(true) }
 
-    if ((errNom || errPrenom || errCard) === true) {
+    if ((errNom || errPrenom || !errCard) === true) {
       return false
     } else {
       dispatch(
