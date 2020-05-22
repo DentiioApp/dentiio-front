@@ -27,8 +27,8 @@ const CasesList = (props) => {
         <div className={classes.root}>
           {
             oCases.map((oCase, index) => (
-                <Case key={index} item={oCase} />
-              )
+              <Case key={index} item={oCase} />
+            )
             )
           }
         </div>
