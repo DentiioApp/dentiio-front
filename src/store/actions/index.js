@@ -2,6 +2,7 @@ import { GetCases } from './getCases'
 import { registerUser } from './registerUser'
 import { cardCheck } from './cardCheck'
 import { logUser } from './logUser'
+import { cardSave } from './cardSave'
 
 export const CASES_LIST = 'CASES_LIST'
 export const REGISTER_USER = 'REGISTER_USER'
@@ -13,3 +14,4 @@ export { cardCheck }
 export { GetCases }
 export { logUser }
 export { registerUser }
+export { cardSave }

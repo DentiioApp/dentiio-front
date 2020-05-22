@@ -14,7 +14,7 @@ import Grid from '@material-ui/core/Grid'
 import { makeStyles } from '@material-ui/core/styles'
 import TextField from '@material-ui/core/TextField'
 
-import { VALID_STATUS } from '../../../store/actions'
+import { cardSave } from '../../../store/actions'
 import img from '../../../images/auth.svg'
 import { setup } from '../../../services/Auth'
 import oStyle from '../../../services/css/registerStyle'
@@ -51,12 +51,12 @@ const StatusForm = () => {
       return false
     } else {
       dispatch(
-        {
-          type: VALID_STATUS,
+        cardSave({
           nom: values.name,
           size: values.size,
           url: values.url
         })
+      )
     }
   }
 
