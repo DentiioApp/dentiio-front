@@ -1,4 +1,4 @@
-export const REGISTER_USER = 'REGISTER_USER'
+import { REGISTER_USER } from '../actions'
 
 export const registerUser = (register) => {
   const action = {

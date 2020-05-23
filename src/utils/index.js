@@ -1,11 +1,16 @@
-import { checkPseudo } from './Auth/checkPseudo'
-import { checkEmail } from './Auth/checkEmail'
-import { checkPassword } from './Auth/checkPassword'
+import { checkText } from './fields/checkText'
+import { checkEmail } from './fields/checkEmail'
+import { checkFiles } from './fields/checkFiles'
+import { checkPassword } from './fields/checkPassword'
 import { avgNotes } from './cases/notes'
 
 export { avgNotes }
-export { checkPseudo }
+export { checkText }
 export { checkEmail }
+export { checkFiles }
 export { checkPassword }
 
-
+export const SUCCESS = 'Vos fichiers on bien étés sauvergardés'
+export const OVERCOUNT = 'Uniquement 2 images à la fois'
+export const OVERSIZE = 'Fichiers trops volumineux'
+export const SIZE_AVAILABLE = 3060342

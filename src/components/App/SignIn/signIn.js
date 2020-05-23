@@ -18,12 +18,13 @@ import TextField from '@material-ui/core/TextField'
 import Visibility from '@material-ui/icons/Visibility'
 import VisibilityOff from '@material-ui/icons/VisibilityOff'
 
+import StatusModal from '../StatusModal/statusModal'
 import GradientBtn from '../../UI/buttons/GradientBtn'
 import oStyle from '../../../services/css/registerStyle'
 import { logUser } from '../../../store/actions'
 import img from '../../../images/auth.svg'
 
-import { checkEmail, checkPassword } from '../../../utils'
+import { checkEmail } from '../../../utils'
 import loginCheck from '../../../services/LoginCheck'
 import { setup } from '../../../services/Auth'
 
@@ -78,13 +79,7 @@ const SignIn = () => {
         setErrEmail(false)
       }
     }
-    if (prop === 'password') {
-      if (checkPassword(event.target.value) === false) {
-        setErrPassword(true)
-      } else {
-        setErrPassword(false)
-      }
-    }
+
     setValues({ ...values, [prop]: event.target.value })
   }
 
@@ -96,12 +91,18 @@ const SignIn = () => {
     event.preventDefault()
   }
 
-  if (setup(user.subscribe) === true) {
+  var modal = undefined
+  if (user.subscribe === true) {
+    modal = <StatusModal />
+  }
+
+  if (setup() === true) {
     return <Redirect to='/cases' />
   };
 
   return (
     <>
+      {modal}
       <Grid container component='main' className={classes.root}>
         <CssBaseline />
         <Grid item xs={false} sm={4} md={7} className={classes.image} />

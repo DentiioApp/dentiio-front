@@ -1,37 +1,34 @@
 import React, { useEffect, useState } from 'react'
 import { Redirect } from 'react-router-dom'
 
-import Container from '@material-ui/core/Container';
-import { makeStyles } from '@material-ui/core/styles';
+import Container from '@material-ui/core/Container'
+import { makeStyles } from '@material-ui/core/styles'
 
 import Header from '../../components/App/Header/header'
 import { setup } from '../../services/Auth'
 import { fetchCases } from '../../services/CaseList'
-import SlideCases from '../../components/App/SlideCases/slideCases'
+import CasesList from '../../components/App/CasesList/casesList'
 
 const useStyles = makeStyles((theme) => ({
-    root: {
-      height: 260,
-    },
-  }));
+  root: {
+    height: 260
+  }
+}))
 
 const Cases = () => {
-  const classes = useStyles();
+  const classes = useStyles()
 
   const [cases, setCases] = useState([])
   const [count, setCount] = useState(0)
 
   useEffect(() => {
-      if(count < 1) {
-        const getCases = fetchCases()
-        getCases.then((res) => setCases(res || {}))
-      }
+    if (count < 1) {
+      const getCases = fetchCases()
+      getCases.then((res) => setCases(res || {}))
+    }
 
-      setCount(count+1)
-
+    setCount(count + 1)
   }, [cases])
-
-  
 
   if (setup() === false) {
     return <Redirect to='/' />
@@ -39,10 +36,9 @@ const Cases = () => {
 
   return (
     <>
-      <Header target={"home"}/>
-      <Container  className={classes.root}>
-      </Container>
-      <SlideCases content={cases} />
+      <Header target='home' />
+      <Container className={classes.root} />
+      <CasesList content={cases} />
     </>
   )
 }
