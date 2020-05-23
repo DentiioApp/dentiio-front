@@ -3,6 +3,7 @@ import { fade, makeStyles } from '@material-ui/core/styles'
 import AppBar from '@material-ui/core/AppBar'
 import Toolbar from '@material-ui/core/Toolbar'
 import palette from '../../UI/colorTheme/palette'
+import { Link } from 'react-router-dom';
 import TitleHeader from '../../UI/titleHeader/TitleHeader'
 import TitleHeaderMobile from '../../UI/titleHeader/titleHeaderMobile'
 import { Redirect } from 'react-router-dom'
@@ -102,10 +103,16 @@ export const Header = (props) => {
           <TitleHeader style={{ align: 'center' }} />
           <div className={classes.grow} style={{ align: 'right' }} />
           <div style={{ align: 'right' }}>
-            <HomeIcon target={props.target} color={palette.white} />
+            <Link to="/cases">
+              <HomeIcon target={props.target} color={palette.white} />
+            </Link>
+            <Link to="/favorites">
             <FavoritesIcon target={props.target} color={palette.white} />
+            </Link>
             <NotificationIcon color={palette.white} />
+            <Link to="/profile">
             <ProfileIcon target={props.target} color={palette.white} />
+            </Link>
           </div>
         </Toolbar>
       </AppBar>
