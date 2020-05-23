@@ -30,6 +30,8 @@ export const User = (state = INIT_STATE, action) => {
       )
 
       return {
+        email: action.email,
+        password: action.password,
         subscribe: true,
         message: localStorage.getItem('authSubscribeMsg')
       }

@@ -40,22 +40,25 @@ const StatusForm = () => {
   const [errNom, setErrNom] = useState(false)
   const [errPrenom, setErrPrenom] = useState(false)
   const [errCard, setErrCard] = useState(false)
-
+  
   const catchSubmit = (e) => {
     e.preventDefault()
-console.log('TEST :', "sss")
+
     if (checkText(values.nom) === false) { setErrNom(true) }
     if (checkText(values.prenom) === false) { setErrPrenom(true) }
 
-    if ((errNom || errPrenom || !errCard) === true) {
+    if ((errNom || errPrenom || errCard) === true) {
       return false
     } else {
       dispatch(
-        cardSave({
-          nom: values.name,
-          size: values.size,
-          url: values.url
-        })
+        cardSave(
+          {
+            lastname: values.nom,
+            firstname: values.prenom,
+            cpsCard: values.cpsCard,
+            studyCard: values.studyCard,
+          },{ email:user.email, password:user.password}
+        )
       )
     }
   }
@@ -64,23 +67,29 @@ console.log('TEST :', "sss")
     let checkedFile = ''
     if (prop === 'cpsCard' || prop === 'studyCard') {
       checkedFile = checkFiles(event)
+
       if (checkedFile.error === true) {
         setErrCard(checkedFile.message)
+        return false
       } else {
         setErrCard(false)
       }
+
     }
 
     if (prop === 'prenom') {
       if (checkText(event.target.value) === false) {
         setErrPrenom(true)
+        return false
       } else {
         setErrPrenom(false)
       }
     }
+
     if (prop === 'nom') {
       if (checkText(event.target.value) === false) {
         setErrNom(true)
+        return false
       } else {
         setErrNom(false)
       }
