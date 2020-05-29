@@ -14,6 +14,7 @@ import ReduxThunk from 'redux-thunk'
 import dotenv from 'dotenv'
 import { ThemeProvider } from '@material-ui/core/styles'
 import colorTheme from './components/UI/colorTheme/colorTheme'
+import detailCase from "./containers/DetailCase/detailCase";
 
 import {
   BrowserRouter as Router,
@@ -43,6 +44,7 @@ ReactDOM.render(
           <Switch>
             <Route exact path='/' component={Home} />
             <Route exact path='/cases' component={Cases} />
+            <Route path='/case/:id' component={detailCase} />
             <Route exact path='/favorites' component={Favorites} />
             <Route exact path='/profile' component={Profile} />
           </Switch>
