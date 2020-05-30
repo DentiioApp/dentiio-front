@@ -8,17 +8,13 @@ import Table from '@material-ui/core/Table';
 import TableRow from '@material-ui/core/TableRow';
 import TableCell from '@material-ui/core/TableCell';
 import TableBody from '@material-ui/core/TableBody';
-import List from '@material-ui/core/List';
-import ListItem from '@material-ui/core/ListItem';
-import ListItemIcon from '@material-ui/core/ListItemIcon';
-import ListItemText from '@material-ui/core/ListItemText'
 import Divider from "@material-ui/core/Divider";
 
 const useStyles = makeStyles({
     root: {
         minWidth: 200,
         width: "90%",
-        margin: "50px 15px",
+        marginTop: 50,
         background: '#ffffff',
     },
     content: {
@@ -30,6 +26,7 @@ const useStyles = makeStyles({
     },
     pos: {
         marginBottom: 12,
+        marginTop: 12,
     },
 });
 
@@ -81,42 +78,21 @@ export default function patientDetail() {
                     </TableBody>
                 </Table>
                 <Typography variant="body2" component="span">
-                    Traitement en cours :
-                </Typography>
-                <Typography className={classes.pos} variant="body2" component="span">
+                    Traitement en cours :<br/>
                     Tramadol tous les soirs
                 </Typography>
+
                 <Divider className={classes.pos}/>
-                <Typography className={classes.pos} variant="body2" component="span">
-                    Antécédents médicaux :
-                    <List component="nav" aria-label="secondary mailbox folders">
-                        <ListItem>
-                            <ListItemText primary="Fibromialgie il y a 5 ans" />
-                        </ListItem>
-                        <ListItem>
-                            <ListItemText primary="Cholesterol" />
-                        </ListItem>
-                        <ListItem>
-                            <ListItemText primary="Diabète controlé" />
-                        </ListItem>
-                    </List>
-                </Typography>
-                <Divider className={classes.pos}/>
-                <Typography className={classes.pos} variant="body2" component="span">
-                    Antécédents médicaux :
-                    <ul>
-                        <li>
-                            . Fibromialgie il y a 5 ans
-                        </li>
-                        <li>
-                            . Cholesterol
-                        </li>
-                        <li>
-                            . Diabète controlé
-                        </li>
-                    </ul>
+                <Typography variant="body2" component="span">
+                    Antécédents médicaux :<br/>
+                    Fibromialgie il y a 5 ans , Cholesterol  et Diabète controlé
                 </Typography>
 
+                <Divider className={classes.pos}/>
+                <Typography variant="body2" component="span">
+                    Alergies :<br/>
+                    Pollen et codéine
+                </Typography>
             </CardContent>
             <CardActions>
             </CardActions>

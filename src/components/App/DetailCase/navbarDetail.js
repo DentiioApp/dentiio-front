@@ -20,7 +20,7 @@ const useStyles = makeStyles((theme) => ({
             },
     },
     detailnav:{
-        textdecoration: 'none'
+        textDecoration: 'none'
     }
 }))
 
@@ -37,33 +37,33 @@ export const navbarDetail = () => {
                         <ArrowBackIcon color={"primary"}/>
                     </IconButton>
                     <div style={{ align: 'left' }}>
-                        <Link to="#examen">
-                            <Button className={classes.detailnav}>
-                                <span className={classes.detailnav}>Examen</span>
+                        <Link to="#examen" className={classes.detailnav}>
+                            <Button>
+                                <span>Examen</span>
                             </Button>
                         </Link>
-                        <Link to="#diagnostic">
-                            <Button className={classes.detailnav}>
+                        <Link to="#diagnostic" className={classes.detailnav}>
+                            <Button>
                                 <span>Diagnostic</span>
                             </Button>
                         </Link>
-                        <Link to="#charge">
-                            <Button className={classes.detailnav}>
+                        <Link to="#charge" className={classes.detailnav}>
+                            <Button>
                                 <span>Prise en charge</span>
                             </Button>
                         </Link>
-                        <Link to="#result">
-                            <Button className={classes.detailnav}>
+                        <Link to="#result" className={classes.detailnav}>
+                            <Button>
                                 <span>Résultat</span>
                             </Button>
                         </Link>
-                        <Link to="#discussion">
-                            <Button className={classes.detailnav}>
+                        <Link to="#discussion" className={classes.detailnav}>
+                            <Button>
                                 <span>Discussion</span>
                             </Button>
                         </Link>
-                        <Link to="#conclusion">
-                            <Button className={classes.detailnav}>
+                        <Link to="#conclusion" className={classes.detailnav}>
+                            <Button>
                                 <span>Conclusion</span>
                             </Button>
                         </Link>

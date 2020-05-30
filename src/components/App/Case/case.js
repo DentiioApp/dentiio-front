@@ -49,12 +49,7 @@ const useStyles = makeStyles((theme) => ({
 
 const Case = (props) => {
   const classes = useStyles()
-  const [expanded, setExpanded] = React.useState(false)
-
-  const handleExpandClick = () => {
-    setExpanded(!expanded)
-  }
-
+  console.log(props.item)
   return (
     <Link to={`/case/${props.item.id}`} style={{ textDecoration: 'none' }}>
       <Card className={classes.root}>
@@ -84,32 +79,7 @@ const Case = (props) => {
           {/* <NoteButton aria-label="comments"> */}
              notes: {avgNotes(props.item.notations)}
           {/* </NoteButton> */}
-          <IconButton
-            className={clsx(classes.expand, {
-              [classes.expandOpen]: expanded
-            })}
-            onClick={handleExpandClick}
-            aria-expanded={expanded}
-            aria-label='show more'
-          >
-            <ExpandMoreIcon />
-          </IconButton>
         </CardActions>
-        <Collapse in={expanded} timeout='auto' unmountOnExit key={1}>
-          <CardContent>
-            <Typography paragraph>Presentation:</Typography>
-            <Typography paragraph>{props.item.observation}</Typography>
-            <Typography paragraph>Observation:</Typography>
-            <Typography paragraph>{props.item.observation}</Typography>
-            <Typography paragraph>Plan de traitement:</Typography>
-            <Typography paragraph>{props.item.treatmentPlan}</Typography>
-            <Typography paragraph color='blue'>Evolution:</Typography>
-            <Typography paragraph>{props.item.evolution}</Typography>
-            <Typography>
-              {props.item.conclusion}
-            </Typography>
-          </CardContent>
-        </Collapse>
       </Card>
     </Link>
   )
