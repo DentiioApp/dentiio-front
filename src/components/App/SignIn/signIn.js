@@ -56,7 +56,7 @@ const SignIn = () => {
 
   const catchSubmit = (e) => {
     e.preventDefault()
-    console.log('TEST :', values.password, values.pseudo)
+
     if (values.password !== '' && values.pseudo !== '') {
       const getToken = loginCheck(values.pseudo, values.password)
       getToken.then((res) => {
