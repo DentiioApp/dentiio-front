@@ -56,9 +56,8 @@ const SignIn = () => {
 
   const catchSubmit = (e) => {
     e.preventDefault()
-console.log('TEST :',values.password, values.pseudo )
+    console.log('TEST :', values.password, values.pseudo)
     if (values.password !== '' && values.pseudo !== '') {
-
       const getToken = loginCheck(values.pseudo, values.password)
       getToken.then((res) => {
         setDatas(res)
@@ -74,14 +73,14 @@ console.log('TEST :',values.password, values.pseudo )
   }
 
   const handleChange = prop => event => {
-   //if (prop === 'email') {
-      //console.log('TEST :', checkEmail(event.target.value) === false)
-      //if (checkEmail(event.target.value) === true) {
-        //setErrEmail(true)
-      //} else {
-       // setErrEmail(false)
-      //}
-    //}
+    // if (prop === 'email') {
+    // console.log('TEST :', checkEmail(event.target.value) === false)
+    // if (checkEmail(event.target.value) === true) {
+    // setErrEmail(true)
+    // } else {
+    // setErrEmail(false)
+    // }
+    // }
 
     setValues({ ...values, [prop]: event.target.value })
   }
