@@ -37,22 +37,26 @@ export const oStyle = (theme, imgDesktop ,imgMobile) => {
             margin: theme.spacing(3, 0, 2),
         },
 
-        formContainer: {
-            marginLeft: "60%",
-            marginRight: "6%",
+        test: {
 
-            ["@media (max-width:768px)"]: {
+           /* ["@media (max-width:768px)"]: {
                 margin: "auto",
                 display: "flex",
                 alignItems: "center",
                 justifyContent: "center",
-            },
+            },*/
         },
 
         login: {
-            borderRadius: "10%",
-            backgroundColor: "red",
-        }
+            width: "500px",
+            height: "775px",
+            position: "absolute",
+            top: "10%",
+            bottom: "0",
+            right: "0",
+            borderRadius: "8%",
+            marginRight: "10%",
+        },
 
 
 

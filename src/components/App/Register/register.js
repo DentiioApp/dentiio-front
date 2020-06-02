@@ -151,7 +151,7 @@ const Register = () => {
 
   return (
     <Grid container component="main" className={classes.root}>
-      <div className={classes.formContainer}>
+      <div className={classes.test}>
         <Grid
           item
           xs={10}
@@ -160,7 +160,7 @@ const Register = () => {
           component={Paper}
           elevation={6}
           square
-          className="login"
+          className={classes.login}
         >
           <div className={classes.paper}>
             <Avatar className={classes.avatar} />
