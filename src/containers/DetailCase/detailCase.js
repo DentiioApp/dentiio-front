@@ -1,4 +1,5 @@
 import React from 'react'
+import "./gallery.css";
 import Header from '../../components/App/Header/header'
 import NavbarDetail from "../../components/App/DetailCase/navbarDetail";
 import PatientDetail from "../../components/App/DetailCase/patientDetail";
@@ -11,6 +12,7 @@ import IconProfile from "../../components/UI/Icon/Profile/iconProfile";
 import ShareIcon from '@material-ui/icons/Share';
 import palette from "../../components/UI/colorTheme/palette";
 import Keyword from "../../components/UI/Keywords/keywords";
+import Gallery from "../../components/UI/Gallery/gallery"
 
 const useStyles = makeStyles({
     root: {
@@ -21,7 +23,7 @@ const useStyles = makeStyles({
     },
     subtitle:{
         fontSize: "0.8em",
-        color: "grey",
+        color: palette.grey,
         paddingTop: 10,
     },
     icon: {
@@ -110,9 +112,11 @@ const detailCase = (props) => {
                         <p>
                             Les dents infero-anterieur ont une légère mobilité et sont douloureuses depuis quelques jours.
                         </p>
+
                         <Typography component={"h3"} variant={"h5"} className={classes.h3}>
                             Examen clinique
                         </Typography>
+                        <Gallery/>
                         <p>
                             Les dents infero-anterieur ont une légère mobilité et sont douloureuses depuis quelques jours.
                         </p>

@@ -16,11 +16,11 @@ const images = [
     },
 ];
 
-const gallery = (props) => {
+const Gallery = () => {
 
     return (
         <ImageGallery items={images} />
     )
 }
 
-export default gallery()
+export default Gallery
