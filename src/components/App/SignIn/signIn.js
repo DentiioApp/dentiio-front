@@ -129,10 +129,9 @@ const SignIn = () => {
                   name='pseudo'
                   label='pseudo'
                   type='text'
-                  id='pseudo' required
+                  id='pseudo'
                   autoComplete='current-pseudo'
                   onChange={handleChange('pseudo')}
-                  variant='outlined'
                   error={errEmail}
                 />
 
