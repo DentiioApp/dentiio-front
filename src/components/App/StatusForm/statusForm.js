@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 
 import {
@@ -17,6 +17,7 @@ import TextField from '@material-ui/core/TextField'
 import { cardSave } from '../../../store/actions'
 import img from '../../../images/auth.svg'
 import { setup } from '../../../services/Auth'
+import {loginCheck} from '../../../services/LoginCheck'
 import oStyle from '../../../services/css/registerStyle'
 import GradientBtn from '../../UI/buttons/GradientBtn'
 import { checkText, checkFiles } from '../../../utils'
@@ -40,7 +41,24 @@ const StatusForm = () => {
   const [errNom, setErrNom] = useState(false)
   const [errPrenom, setErrPrenom] = useState(false)
   const [errCard, setErrCard] = useState(false)
-  
+  const [datas, setDatas] = useState('')
+
+  useEffect(()=>{
+    if(datas!=='') {
+      dispatch(
+        cardSave(
+          {
+            lastname: values.nom,
+            firstname: values.prenom,
+            cpsCard: values.cpsCard,
+            studyCard: values.studyCard,
+          },{ token:datas.data.token, email:user.email, password:user.password}
+        )
+      )
+      setDatas('')
+    }
+  },[])
+
   const catchSubmit = (e) => {
     e.preventDefault()
 
@@ -50,16 +68,10 @@ const StatusForm = () => {
     if ((errNom || errPrenom || errCard) === true) {
       return false
     } else {
-      dispatch(
-        cardSave(
-          {
-            lastname: values.nom,
-            firstname: values.prenom,
-            cpsCard: values.cpsCard,
-            studyCard: values.studyCard,
-          },{ email:user.email, password:user.password}
-        )
-      )
+      let ResponseLog = loginCheck(user.email, user.password)
+       ResponseLog.then((res) => {
+        setDatas(res)
+      })
     }
   }
 
@@ -99,7 +111,7 @@ const StatusForm = () => {
   }
 
   setup()
-
+console.log('User :', user)
   return (
     <Grid container component='main' className={classes.root}>
       <CssBaseline />

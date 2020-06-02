@@ -37,10 +37,11 @@ export const User = (state = INIT_STATE, action) => {
       }
 
     case VALID_STATUS :
-      return state.concat({
-        isValidStatus: true,
+      return {
+        isValidStatus: action.saved,
+        subscribe: true,
         message: localStorage.getItem('pendingStatus')
-      })
+      }
 
     default :
       return state
