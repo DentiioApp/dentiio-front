@@ -5,9 +5,9 @@ import { useDispatch, useSelector } from 'react-redux'
 import { Redirect } from 'react-router-dom'
 
 import {
- Avatar,
+  Avatar,
   Paper,
-Typography,
+  Typography
 } from '@material-ui/core/'
 import Grid from '@material-ui/core/Grid'
 import IconButton from '@material-ui/core/IconButton'
@@ -115,69 +115,69 @@ const SignIn = () => {
             square
             className='login'
           >
-          <div className={classes.paper}>
-           <Avatar className={classes.avatar} />
-            <Typography component='h1' variant='h5'>
+            <div className={classes.paper}>
+              <Avatar className={classes.avatar} />
+              <Typography component='h1' variant='h5'>
               Connexion
-            </Typography>
-            <form className={classes.form} noValidate>
-              <TextField
-                variant='outlined'
-                margin='normal'
-                required
-                fullWidth
-                name='pseudo'
-                label='pseudo'
-                type='text'
-                id='pseudo' required
-                autoComplete='current-pseudo'
-                onChange={handleChange('pseudo')}
-                variant='outlined'
-                error={errEmail}
-              />
-
-              <OutlinedInput
-                variant='outlined'
-                required
-                fullWidth
-                name='password'
-                label='Password'
-                type={values.showPassword ? 'text' : 'password'}
-                value={values.password}
-                id='outlined-adornment-password'
-                autoComplete='on'
-                placeholder='Password'
-                error={errPassword}
-                onChange={handleChange('password')}
-                endAdornment={
-                  <InputAdornment position='start'>
-                    <IconButton
-                      aria-label='toggle password visibility'
-                      onClick={handleClickShowPassword}
-                      onMouseDown={handleMouseDownPassword}
-                      edge='end'
-                    >
-                      {values.showPassword ? <Visibility /> : <VisibilityOff />}
-                    </IconButton>
-                  </InputAdornment>
-                }
-              />
-
-              <br />  <br />
-
-              <div onClick={catchSubmit}>
-                <GradientBtn
-                  variant='contained'
-                  type='submit'
-                  description='Se connecter'
-                  className='GradientBtn'
+              </Typography>
+              <form className={classes.form} noValidate>
+                <TextField
+                  variant='outlined'
+                  margin='normal'
+                  required
+                  fullWidth
+                  name='pseudo'
+                  label='pseudo'
+                  type='text'
+                  id='pseudo' required
+                  autoComplete='current-pseudo'
+                  onChange={handleChange('pseudo')}
+                  variant='outlined'
+                  error={errEmail}
                 />
-              </div>
-            </form>
-          </div>
-          {subscribeMsg}
-        </Grid>
-      </div>
+
+                <OutlinedInput
+                  variant='outlined'
+                  required
+                  fullWidth
+                  name='password'
+                  label='Password'
+                  type={values.showPassword ? 'text' : 'password'}
+                  value={values.password}
+                  id='outlined-adornment-password'
+                  autoComplete='on'
+                  placeholder='Password'
+                  error={errPassword}
+                  onChange={handleChange('password')}
+                  endAdornment={
+                    <InputAdornment position='start'>
+                      <IconButton
+                        aria-label='toggle password visibility'
+                        onClick={handleClickShowPassword}
+                        onMouseDown={handleMouseDownPassword}
+                        edge='end'
+                      >
+                        {values.showPassword ? <Visibility /> : <VisibilityOff />}
+                      </IconButton>
+                    </InputAdornment>
+                  }
+                />
+
+                <br />  <br />
+
+                <div onClick={catchSubmit}>
+                  <GradientBtn
+                    variant='contained'
+                    type='submit'
+                    description='Se connecter'
+                    className='GradientBtn'
+                  />
+                </div>
+              </form>
+            </div>
+            {subscribeMsg}
+          </Grid>
+        </div>
       </Grid>
     </>
   )
