@@ -56,8 +56,9 @@ const SignIn = () => {
 
   const catchSubmit = (e) => {
     e.preventDefault()
+console.log('TEST :',values.password, values.pseudo )
+    if (values.password !== '' && values.pseudo !== '') {
 
-    if (values.password && values.pseudo) {
       const getToken = loginCheck(values.pseudo, values.password)
       getToken.then((res) => {
         setDatas(res)
@@ -73,13 +74,14 @@ const SignIn = () => {
   }
 
   const handleChange = prop => event => {
-    if (prop === 'email') {
-      if (checkEmail(event.target.value) === false) {
-        setErrEmail(true)
-      } else {
-        setErrEmail(false)
-      }
-    }
+   //if (prop === 'email') {
+      //console.log('TEST :', checkEmail(event.target.value) === false)
+      //if (checkEmail(event.target.value) === true) {
+        //setErrEmail(true)
+      //} else {
+       // setErrEmail(false)
+      //}
+    //}
 
     setValues({ ...values, [prop]: event.target.value })
   }
@@ -132,7 +134,7 @@ const SignIn = () => {
                   type='text'
                   id='pseudo'
                   autoComplete='current-pseudo'
-                  onChange={handleChange('email')}
+                  onChange={handleChange('pseudo')}
                   error={errEmail}
                 />
 
