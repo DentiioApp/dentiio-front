@@ -21,17 +21,16 @@ import MenuItem from '@material-ui/core/MenuItem'
 import OutlinedInput from '@material-ui/core/OutlinedInput'
 import { makeStyles } from '@material-ui/core/styles'
 import TextField from '@material-ui/core/TextField'
-import imgDesktop from "../../../images/illus.png";
-import imgMobile from "../../../images/mobile-bg.svg";
+import imgDesktop from '../../../images/illus.png'
+import imgMobile from '../../../images/mobile-bg.svg'
 import Visibility from '@material-ui/icons/Visibility'
 import VisibilityOff from '@material-ui/icons/VisibilityOff'
 
-import img from '../../../images/auth.svg'
 import { setup } from '../../../services/Auth'
 import oStyle from '../../../services/css/registerStyle'
 import { registerUser, cardCheck } from '../../../store/actions'
 import GradientBtn from '../../UI/buttons/GradientBtn'
-import { checkPseudo, checkEmail, checkPassword } from '../../../utils'
+import { checkText, checkEmail, checkPassword } from '../../../utils'
 
 // API DATAS
 const functions = [
@@ -42,18 +41,20 @@ const functions = [
   {
     value: 'DI',
     label: 'Dentiste Interne'
+  },
+  {
+    value: 'ST',
+    label: 'Étudiant Dentiste'
   }
 ]
 
-const useStyles = makeStyles((theme) => oStyle(theme, imgDesktop, imgMobile));
+const useStyles = makeStyles((theme) => oStyle(theme, imgDesktop, imgMobile))
 
 const Register = () => {
   const classes = useStyles()
   const dispatch = useDispatch()
 
   const user = useSelector((state) => state.user)
-  // const cardstate = useSelector((state) => state.cardstate)
-  // console.log('OOOOO :', cardstate)
 
   const initValues = {
     pseudo: '',
@@ -73,7 +74,7 @@ const Register = () => {
   const catchSubmit = (e) => {
     e.preventDefault()
 
-    if (checkPseudo(values.pseudo) === false) { setErrPseudo(true) }
+    if (checkText(values.pseudo) === false) { setErrPseudo(true) }
     if (checkEmail(values.email) === false) { setErrEmail(true) }
     if (checkPassword(values.password) === false) { setErrPassword(true) }
     if (values.cgu === false) { setErrCgu(true) }
@@ -150,8 +151,8 @@ const Register = () => {
   }
 
   return (
-    <Grid container component="main" className={classes.root}>
-      <div className={classes.test}>
+    <Grid container component='main' className={classes.root}>
+      <div className={classes.formContainer}>
         <Grid
           item
           xs={10}
@@ -161,137 +162,138 @@ const Register = () => {
           elevation={6}
           square
           className={classes.login}
-        >
+          >
           <div className={classes.paper}>
             <Avatar className={classes.avatar} />
-            <Typography component="h1" variant="h5">
+            <Typography component='h1' variant='h5'>
               Inscription
             </Typography>
             <form className={classes.form} noValidate>
               <TextField
-                variant="outlined"
-                margin="normal"
+                variant='outlined'
+                margin='normal'
                 required
                 fullWidth
-                name="password"
-                label="Pseudo"
-                type="text"
-                id="pseudo"
-                autoComplete="current-password"
-                onChange={handleChange("pseudo")}
+                name='pseudo'
+                label='Pseudo'
+                type='text'
+                id='pseudo'
+                autoComplete='current-password'
+                onChange={handleChange('pseudo')}
                 error={errPseudo}
-
-            />
-            <TextField
-              variant='outlined'
-              margin='normal'
-              required
-              fullWidth
-              id='email'
-              label='Email Address'
-              name='email'
-              autoComplete='email'
-              autoFocus
-              onChange={handleChange('email')}
-              error={errEmail}
-              helperText={values.email !== '' ? (checkEmail(values.email) === false ? 'Email invalide!' : ' ') : ''}
-            />
-            <FormHelperText id='my-helper-text'>{/* On ne partagera jamais votre email. */}</FormHelperText>
-
-            <br />
-
-            <InputLabel className='inputLabel'>
-              Vous êtes* :
-            </InputLabel>
-            <TextField
-              className='textField'
-              id='filled-select-currency'
-              select
-              value={values.function}
-              onChange={handleChange('function')}
-              variant='outlined'
-            >
-              {functions.map(option => (
-                <MenuItem key={option.value} value={option.value}>
-                  {option.label}
-                </MenuItem>
-              ))}
-            </TextField>
-
-            <br /> <br />
-
-            <OutlinedInput
-              variant='outlined'
-              required
-              fullWidth
-              name='password'
-              label='Password'
-              type={values.showPassword ? 'text' : 'password'}
-              value={values.password}
-              id='outlined-adornment-password'
-              autoComplete='on'
-              placeholder='Password'
-              error={errPassword}
-              onChange={handleChange('password')}
-              endAdornment={
-                <InputAdornment position='start'>
-                  <IconButton
-                    aria-label='toggle password visibility'
-                    onClick={handleClickShowPassword}
-                    onMouseDown={handleMouseDownPassword}
-                    edge='end'
-                  >
-                    {values.showPassword ? <Visibility /> : <VisibilityOff />}
-                  </IconButton>
-                </InputAdornment>
-              }
-            />
-
-            <br />  <br />
-
-            <FormControlLabel
-              control={
-                <Checkbox
-                  color='primary'
-                  checked={!values.cgu}
-                  onClick={handleClickCgu}
-                  onMouseDown={handleMouseDownCgu}
-                  error={errCgu.toString()}
-                />
-              }
-              label="J'accepte les conditions générales de d'utilisation"
-            />
-
-            <br /> <br /> <br />
-
-            <div onClick={catchSubmit}>
-              <GradientBtn
-                variant='contained'
-                type='submit'
-                description={'S\'inscrire'}
-                className='GradientBtn'
               />
+              <TextField
+                variant='outlined'
+                margin='normal'
+                required
+                fullWidth
+                id='email'
+                label='Email Address'
+                name='email'
+                autoComplete='email'
+                autoFocus
+                onChange={handleChange('email')}
+                error={errEmail}
+                helperText={values.email !== '' ? (checkEmail(values.email) === false ? 'Email invalide!' : ' ') : ''}
+              />
+              <FormHelperText id='my-helper-text'>{/* On ne partagera jamais votre email. */}</FormHelperText>
+
+              <br />
+
+              <InputLabel className='inputLabel'>
+              Vous êtes* :
+              </InputLabel>
+              <TextField
+                className='textField'
+                id='filled-select-currency'
+                select
+                value={values.function}
+                onChange={handleChange('function')}
+                variant='outlined'
+              >
+                {functions.map(option => (
+                  <MenuItem key={option.value} value={option.value}>
+                    {option.label}
+                  </MenuItem>
+                ))}
+              </TextField>
+
+              <br /> <br />
+
+              <OutlinedInput
+                variant='outlined'
+                required
+                fullWidth
+                name='password'
+                label='Password'
+                type={values.showPassword ? 'text' : 'password'}
+                value={values.password}
+                id='outlined-adornment-password'
+                autoComplete='on'
+                placeholder='Password'
+                error={errPassword}
+                onChange={handleChange('password')}
+                endAdornment={
+                  <InputAdornment position='start'>
+                    <IconButton
+                      aria-label='toggle password visibility'
+                      onClick={handleClickShowPassword}
+                      onMouseDown={handleMouseDownPassword}
+                      edge='end'
+                    >
+                      {values.showPassword ? <Visibility /> : <VisibilityOff />}
+                    </IconButton>
+                  </InputAdornment>
+                }
+              />
+
+              <br />  <br />
+
+              <FormControlLabel
+                control={
+                  <Checkbox
+                    color='primary'
+                    checked={!values.cgu}
+                    onClick={handleClickCgu}
+                    onMouseDown={handleMouseDownCgu}
+                    error={errCgu.toString()}
+                  />
+                }
+                label="J'accepte les conditions générales de d'utilisation"
+              />
+
+              <br /> <br /> <br />
+
+              <div onClick={catchSubmit}>
+                <GradientBtn
+                  variant='contained'
+                  type='submit'
+                  description={'S\'inscrire'}
+                  className='GradientBtn'
+                />
 
               </div>
               <br />
               <Typography>
                 <span>
-                  {" "}
-                  Déjà un compte{" "}
-                  <Link onClick={switchToLogin} color="primary">
-                    {" "}
-                    Connectez vous ?{" "}
-                  </Link>{" "}
+                  {' '}
+                  Déjà un compte{' '}
+                  <Link onClick={switchToLogin} color='primary'>
+                    {' '}
+                    Connectez vous ?{' '}
+                  </Link>{' '}
                 </span>
               </Typography>
 
             </form>
             <span>{user.message}</span>
           </div>
+
         </Grid>
       </div>
     </Grid>
-  );
+  )
 }
+
 
 export default Register

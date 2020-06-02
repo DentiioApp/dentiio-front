@@ -1,4 +1,4 @@
-import { LOG_USER, REGISTER_USER } from '../actions'
+import { LOG_USER, REGISTER_USER, VALID_STATUS } from '../actions'
 import { registerCheck } from '../../services/RegisterCheck'
 import jwtDecode from 'jwt-decode'
 import { login } from '../../services/Auth'
@@ -33,6 +33,12 @@ export const User = (state = INIT_STATE, action) => {
         subscribe: true,
         message: localStorage.getItem('authSubscribeMsg')
       }
+
+    case VALID_STATUS :
+      return state.concat({
+        isValidStatus: true,
+        message: localStorage.getItem('pendingStatus')
+      })
 
     default :
       return state

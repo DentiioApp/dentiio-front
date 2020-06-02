@@ -5,29 +5,31 @@ import { useDispatch, useSelector } from 'react-redux'
 import { Redirect } from 'react-router-dom'
 
 import {
-  CssBaseline,
-  Paper
+  Avatar,
+  Paper,
+  Typography
 } from '@material-ui/core/'
-import FormControl from '@material-ui/core/FormControl'
 import Grid from '@material-ui/core/Grid'
 import IconButton from '@material-ui/core/IconButton'
 import InputAdornment from '@material-ui/core/InputAdornment'
 import OutlinedInput from '@material-ui/core/OutlinedInput'
 import { makeStyles } from '@material-ui/core/styles'
 import TextField from '@material-ui/core/TextField'
+import imgDesktop from '../../../images/illus.png'
+import imgMobile from '../../../images/mobile-bg.svg'
 import Visibility from '@material-ui/icons/Visibility'
 import VisibilityOff from '@material-ui/icons/VisibilityOff'
 
+import StatusModal from '../StatusModal/statusModal'
 import GradientBtn from '../../UI/buttons/GradientBtn'
 import oStyle from '../../../services/css/registerStyle'
 import { logUser } from '../../../store/actions'
-import img from '../../../images/auth.svg'
 
-import { checkEmail, checkPassword } from '../../../utils'
+import { checkEmail } from '../../../utils'
 import loginCheck from '../../../services/LoginCheck'
 import { setup } from '../../../services/Auth'
 
-const useStyles = makeStyles((theme) => (oStyle(theme, img)))
+const useStyles = makeStyles((theme) => (oStyle(theme, imgDesktop, imgMobile)))
 
 const SignIn = () => {
   const classes = useStyles()
@@ -55,7 +57,7 @@ const SignIn = () => {
   const catchSubmit = (e) => {
     e.preventDefault()
 
-    if (values.password && values.pseudo) {
+    if (values.password !== '' && values.pseudo !== '') {
       const getToken = loginCheck(values.pseudo, values.password)
       getToken.then((res) => {
         setDatas(res)
@@ -71,20 +73,15 @@ const SignIn = () => {
   }
 
   const handleChange = prop => event => {
-    if (prop === 'email') {
-      if (checkEmail(event.target.value) === false) {
-        setErrEmail(true)
-      } else {
-        setErrEmail(false)
-      }
-    }
-    if (prop === 'password') {
-      if (checkPassword(event.target.value) === false) {
-        setErrPassword(true)
-      } else {
-        setErrPassword(false)
-      }
-    }
+    // if (prop === 'email') {
+    // console.log('TEST :', checkEmail(event.target.value) === false)
+    // if (checkEmail(event.target.value) === true) {
+    // setErrEmail(true)
+    // } else {
+    // setErrEmail(false)
+    // }
+    // }
+
     setValues({ ...values, [prop]: event.target.value })
   }
 
@@ -96,70 +93,92 @@ const SignIn = () => {
     event.preventDefault()
   }
 
-  if (setup(user.subscribe) === true) {
+  var modal = undefined
+  if (user.subscribe === true) {
+    modal = <StatusModal />
+  }
+
+  if (setup() === true) {
     return <Redirect to='/cases' />
   };
 
   return (
     <>
+      {modal}
       <Grid container component='main' className={classes.root}>
-        <CssBaseline />
-        <Grid item xs={false} sm={4} md={7} className={classes.image} />
-        <Grid item xs={12} sm={8} md={5} component={Paper} elevation={6} square>
-          <div className={classes.paper}>
-            <form className={classes.form} noValidate>
-              <FormControl variant='outlined'>
+        <div className={classes.formContainer}>
+          <Grid
+            item
+            xs={10}
+            sm={12}
+            md={12}
+            component={Paper}
+            elevation={6}
+            square
+            className='login'
+          >
+            <div className={classes.paper}>
+              <Avatar className={classes.avatar} />
+              <Typography component='h1' variant='h5'>
+              Connexion
+              </Typography>
+              <form className={classes.form} noValidate>
                 <TextField
-                  id='pseudo-basic' required
-                  label='Pseudo'
-                  value={values.pseudo}
-                  onChange={handleChange('pseudo')}
                   variant='outlined'
+                  margin='normal'
+                  required
+                  fullWidth
+                  name='pseudo'
+                  label='pseudo'
+                  type='text'
+                  id='pseudo'
+                  autoComplete='current-pseudo'
+                  onChange={handleChange('pseudo')}
                   error={errEmail}
                 />
-              </FormControl>
 
-              <OutlinedInput
-                variant='outlined'
-                required
-                fullWidth
-                name='password'
-                label='Password'
-                type={values.showPassword ? 'text' : 'password'}
-                value={values.password}
-                id='outlined-adornment-password'
-                autoComplete='on'
-                placeholder='Password'
-                error={errPassword}
-                onChange={handleChange('password')}
-                endAdornment={
-                  <InputAdornment position='start'>
-                    <IconButton
-                      aria-label='toggle password visibility'
-                      onClick={handleClickShowPassword}
-                      onMouseDown={handleMouseDownPassword}
-                      edge='end'
-                    >
-                      {values.showPassword ? <Visibility /> : <VisibilityOff />}
-                    </IconButton>
-                  </InputAdornment>
-                }
-              />
-
-              <br />  <br />
-
-              <div onClick={catchSubmit}>
-                <GradientBtn
-                  variant='contained'
-                  type='submit'
-                  description='Se connecter'
-                  className='GradientBtn'
+                <OutlinedInput
+                  variant='outlined'
+                  required
+                  fullWidth
+                  name='password'
+                  label='Password'
+                  type={values.showPassword ? 'text' : 'password'}
+                  value={values.password}
+                  id='outlined-adornment-password'
+                  autoComplete='on'
+                  placeholder='Password'
+                  error={errPassword}
+                  onChange={handleChange('password')}
+                  endAdornment={
+                    <InputAdornment position='start'>
+                      <IconButton
+                        aria-label='toggle password visibility'
+                        onClick={handleClickShowPassword}
+                        onMouseDown={handleMouseDownPassword}
+                        edge='end'
+                      >
+                        {values.showPassword ? <Visibility /> : <VisibilityOff />}
+                      </IconButton>
+                    </InputAdornment>
+                  }
                 />
-              </div>
-            </form>
-          </div>
-          {subscribeMsg}
-        </Grid>
+
+                <br />  <br />
+
+                <div onClick={catchSubmit}>
+                  <GradientBtn
+                    variant='contained'
+                    type='submit'
+                    description='Se connecter'
+                    className='GradientBtn'
+                  />
+                </div>
+              </form>
+            </div>
+            {subscribeMsg}
+          </Grid>
+        </div>
       </Grid>
     </>
   )

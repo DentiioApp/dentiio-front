@@ -39,12 +39,12 @@ export const oStyle = (theme, imgDesktop ,imgMobile) => {
 
         test: {
 
-           /* ["@media (max-width:768px)"]: {
-                margin: "auto",
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-            },*/
+            /* ["@media (max-width:768px)"]: {
+                 margin: "auto",
+                 display: "flex",
+                 alignItems: "center",
+                 justifyContent: "center",
+             },*/
         },
 
         login: {
@@ -59,11 +59,8 @@ export const oStyle = (theme, imgDesktop ,imgMobile) => {
         },
 
 
-
     };
-
-
-
 }
+
 
 export default oStyle
