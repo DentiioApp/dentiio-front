@@ -5,10 +5,10 @@ import { useDispatch, useSelector } from 'react-redux'
 import { Redirect } from 'react-router-dom'
 
 import {
-  CssBaseline,
-  Paper
+ Avatar,
+  Paper,
+Typography,
 } from '@material-ui/core/'
-import FormControl from '@material-ui/core/FormControl'
 import Grid from '@material-ui/core/Grid'
 import IconButton from '@material-ui/core/IconButton'
 import InputAdornment from '@material-ui/core/InputAdornment'
@@ -104,21 +104,37 @@ const SignIn = () => {
     <>
       {modal}
       <Grid container component='main' className={classes.root}>
-        <CssBaseline />
-        <Grid item xs={false} sm={4} md={7} className={classes.image} />
-        <Grid item xs={12} sm={8} md={5} component={Paper} elevation={6} square>
+        <div className={classes.formContainer}>
+          <Grid
+            item
+            xs={10}
+            sm={12}
+            md={12}
+            component={Paper}
+            elevation={6}
+            square
+            className='login'
+          >
           <div className={classes.paper}>
+           <Avatar className={classes.avatar} />
+            <Typography component='h1' variant='h5'>
+              Connexion
+            </Typography>
             <form className={classes.form} noValidate>
-              <FormControl variant='outlined'>
-                <TextField
-                  id='pseudo-basic' required
-                  label='Pseudo'
-                  value={values.pseudo}
-                  onChange={handleChange('pseudo')}
-                  variant='outlined'
-                  error={errEmail}
-                />
-              </FormControl>
+              <TextField
+                variant='outlined'
+                margin='normal'
+                required
+                fullWidth
+                name='pseudo'
+                label='pseudo'
+                type='text'
+                id='pseudo' required
+                autoComplete='current-pseudo'
+                onChange={handleChange('pseudo')}
+                variant='outlined'
+                error={errEmail}
+              />
 
               <OutlinedInput
                 variant='outlined'
@@ -161,6 +177,7 @@ const SignIn = () => {
           </div>
           {subscribeMsg}
         </Grid>
+      </div>
       </Grid>
     </>
   )

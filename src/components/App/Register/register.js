@@ -56,7 +56,7 @@ const Register = () => {
   const dispatch = useDispatch()
 
   const user = useSelector((state) => state.user)
-
+  
   const initValues = {
     pseudo: '',
     email: '',
@@ -175,7 +175,7 @@ const Register = () => {
                 margin='normal'
                 required
                 fullWidth
-                name='password'
+                name='pseudo'
                 label='Pseudo'
                 type='text'
                 id='pseudo'
