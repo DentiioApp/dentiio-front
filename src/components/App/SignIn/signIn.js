@@ -15,6 +15,8 @@ import InputAdornment from '@material-ui/core/InputAdornment'
 import OutlinedInput from '@material-ui/core/OutlinedInput'
 import { makeStyles } from '@material-ui/core/styles'
 import TextField from '@material-ui/core/TextField'
+import imgDesktop from '../../../images/illus.png'
+import imgMobile from '../../../images/mobile-bg.svg'
 import Visibility from '@material-ui/icons/Visibility'
 import VisibilityOff from '@material-ui/icons/VisibilityOff'
 
@@ -22,13 +24,12 @@ import StatusModal from '../StatusModal/statusModal'
 import GradientBtn from '../../UI/buttons/GradientBtn'
 import oStyle from '../../../services/css/registerStyle'
 import { logUser } from '../../../store/actions'
-import img from '../../../images/auth.svg'
 
 import { checkEmail } from '../../../utils'
 import loginCheck from '../../../services/LoginCheck'
 import { setup } from '../../../services/Auth'
 
-const useStyles = makeStyles((theme) => (oStyle(theme, img)))
+const useStyles = makeStyles((theme) => (oStyle(theme, imgDesktop, imgMobile)))
 
 const SignIn = () => {
   const classes = useStyles()
@@ -131,7 +132,7 @@ const SignIn = () => {
                   type='text'
                   id='pseudo'
                   autoComplete='current-pseudo'
-                  onChange={handleChange('pseudo')}
+                  onChange={handleChange('email')}
                   error={errEmail}
                 />
 

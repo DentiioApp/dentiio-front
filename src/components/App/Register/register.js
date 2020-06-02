@@ -26,7 +26,6 @@ import imgMobile from '../../../images/mobile-bg.svg'
 import Visibility from '@material-ui/icons/Visibility'
 import VisibilityOff from '@material-ui/icons/VisibilityOff'
 
-import img from '../../../images/auth.svg'
 import { setup } from '../../../services/Auth'
 import oStyle from '../../../services/css/registerStyle'
 import { registerUser, cardCheck } from '../../../store/actions'
