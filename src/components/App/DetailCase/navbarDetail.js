@@ -1,13 +1,14 @@
-import React from 'react'
+import React, {useRef} from 'react'
 import { makeStyles } from '@material-ui/core/styles'
 import AppBar from '@material-ui/core/AppBar'
 import Toolbar from '@material-ui/core/Toolbar'
 import './navbarDetail.scss'
-import { Link } from 'react-router-dom'
+//import { Link } from 'react-router-dom'
 import { useHistory } from 'react-router-dom'
 import IconButton from '@material-ui/core/IconButton'
 import ArrowBackIcon from '@material-ui/icons/ArrowBack'
 import Button from "@material-ui/core/Button";
+import { Link, animateScroll as scroll } from "react-scroll";
 
 const useStyles = makeStyles((theme) => ({
     grow: {
@@ -21,6 +22,11 @@ const useStyles = makeStyles((theme) => ({
     },
     detailnav:{
         textDecoration: 'none'
+    },
+    fixed: {
+    position: "sticky",
+    top: 0,
+    width: "100%",
     }
 }))
 
@@ -31,13 +37,20 @@ export const navbarDetail = () => {
     let history = useHistory()
 
     return (
-            <AppBar position='static' wrap="nowrap"  color={"inherit"}>
+            <AppBar position='static' wrap="nowrap"  color={"inherit"} className={classes.fixed}>
                 <Toolbar>
                     <IconButton onClick={() => history.goBack()}>
                         <ArrowBackIcon color={"primary"}/>
                     </IconButton>
                     <div style={{ align: 'left' }}>
-                        <Link to="#examen" className={classes.detailnav}>
+                        <Link to="examen"
+                              className={classes.detailnav}
+                              activeClass="active"
+                              spy={true}
+                              smooth={true}
+                              offset={-70}
+                              duration={500}
+                        >
                             <Button>
                                 <span>Examen</span>
                             </Button>

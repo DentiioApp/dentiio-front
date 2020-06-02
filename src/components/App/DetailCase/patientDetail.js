@@ -14,6 +14,7 @@ const useStyles = makeStyles({
     root: {
         minWidth: 200,
         width: "90%",
+        height: "fit-content",
         marginTop: 50,
         background: '#ffffff',
     },

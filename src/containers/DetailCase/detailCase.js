@@ -13,6 +13,7 @@ import ShareIcon from '@material-ui/icons/Share';
 import palette from "../../components/UI/colorTheme/palette";
 import Keyword from "../../components/UI/Keywords/keywords";
 import Gallery from "../../components/UI/Gallery/gallery"
+import { Link, animateScroll as scroll } from "react-scroll";
 
 const useStyles = makeStyles({
     root: {
@@ -49,6 +50,9 @@ const useStyles = makeStyles({
         padding: "5px",
         backgroundColor: palette.primary,
         color: "white"
+    },
+    fixed:{
+        position: "fixed"
     }
 });
 
@@ -62,19 +66,21 @@ const detailCase = (props) => {
             <div className={classes.root}>
             <Grid container spacing={1}>
                 <Grid container item md={3} spacing={1}>
-                   <PatientDetail/>
+                    <div>
+                     <PatientDetail/>
+                    </div>
                 </Grid>
                 <Grid container item md={7} spacing={1}>
                     <div>
                         <Typography component={"h1"} variant={"h4"}>
                             Traitement des racines internes
                         </Typography>
-                        <Typography component={"p"} variant={"p"} className={classes.subtitle}>
+                        <Typography component={"p"} variant={"body2"} className={classes.subtitle}>
                             <span style={{paddingRight: 20}}>Implotologie</span>
                                     <img src={iconTeethFull} width={"12px"} className={classes.icon}/>
                                     4,7 (32 notes)
                         </Typography>
-                        <Typography component={"p"} variant={"p"} className={classes.subtitle}>
+                        <Typography component={"p"} variant={"body2"} className={classes.subtitle}>
                             Publié il y a 2 jours
                         </Typography>
 
@@ -91,7 +97,7 @@ const detailCase = (props) => {
                                     </p>
                                 </div>
                             </Grid>
-                            <Grid container item md={9} spacing={1} justify="left">
+                            <Grid container item md={9} spacing={1}>
                                 <p>
                                     L’améloblastome est la tumeur odontogène la plus fréquente dans les pays en voie de développement et occupe la 2ème place après lves odontomes dans les pays développés. Elle a été classée cliniquement en 3 groupes par l’OMS en 2017. La prise en charge de l’améloblastome est compliquée par le taux de récidive important associé à un traitement conservateur.
                                 </p>
@@ -120,15 +126,19 @@ const detailCase = (props) => {
                         <p>
                             Les dents infero-anterieur ont une légère mobilité et sont douloureuses depuis quelques jours.
                         </p>
+                        <Typography component={"h3"} variant={"h5"} className={classes.h3} id={"examen"}>
+                            Examen complementaire
+                        </Typography>
+                        <p>
+                            Les dents infero-anterieur ont une légère mobilité et sont douloureuses depuis quelques jours.
+                        </p>
                     </div>
                 </Grid>
                 <Grid container className={classes.alignRight} item  md={2} spacing={1}>
                     <div>
                         <Button
                             href=""
-                            className={classes.navLink + " " + classes.navLinkActive}
                             onClick={e => e.preventDefault()}
-                            color="transparent"
                         >
                             <ShareIcon/> Partager
                         </Button>
