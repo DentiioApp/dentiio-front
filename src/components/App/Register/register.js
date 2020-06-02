@@ -161,8 +161,8 @@ const Register = () => {
           component={Paper}
           elevation={6}
           square
-          className='login'
-        >
+          className={classes.login}
+          >
           <div className={classes.paper}>
             <Avatar className={classes.avatar} />
             <Typography component='h1' variant='h5'>
@@ -288,10 +288,12 @@ const Register = () => {
             </form>
             <span>{user.message}</span>
           </div>
+
         </Grid>
       </div>
     </Grid>
   )
 }
+
 
 export default Register
