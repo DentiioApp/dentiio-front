@@ -12,8 +12,8 @@ import IconProfile from "../../components/UI/Icon/Profile/iconProfile";
 import ShareIcon from '@material-ui/icons/Share';
 import palette from "../../components/UI/colorTheme/palette";
 import Keyword from "../../components/UI/Keywords/keywords";
-import Gallery from "../../components/UI/Gallery/gallery"
-import { Link, animateScroll as scroll } from "react-scroll";
+import Gallery from "../../components/UI/Gallery/gallery";
+import Lightbox from "../../components/UI/Gallery/lightbox";
 
 const useStyles = makeStyles({
     root: {
@@ -53,12 +53,16 @@ const useStyles = makeStyles({
     },
     fixed:{
         position: "fixed"
+    },
+    titleExam:{
+        margin: "30px 0 15px 0",
     }
 });
 
-const detailCase = (props) => {
+const detailCase = () => {
     // eslint-disable-next-line react-hooks/rules-of-hooks
     const classes = useStyles();
+
     return (
         <>
             <Header target='' />
@@ -119,16 +123,29 @@ const detailCase = (props) => {
                             Les dents infero-anterieur ont une légère mobilité et sont douloureuses depuis quelques jours.
                         </p>
 
-                        <Typography component={"h3"} variant={"h5"} className={classes.h3}>
+                        <Typography component={"h3"} variant={"h5"} className={classes.h3} id={"examen"}>
                             Examen clinique
                         </Typography>
-                        <Gallery/>
+                        <Gallery images="/*item.images*/"/>
                         <p>
                             Les dents infero-anterieur ont une légère mobilité et sont douloureuses depuis quelques jours.
                         </p>
-                        <Typography component={"h3"} variant={"h5"} className={classes.h3} id={"examen"}>
+                        <Typography component={"h3"} variant={"h5"} className={classes.h3}>
                             Examen complementaire
                         </Typography>
+                        {/*si il y a scanner*/}
+                        <Typography component={"h3"} variant={"h5"} className={classes.titleExam} >
+                            Scanner
+                        </Typography>
+                        <Gallery images="/*item.images*/"/>
+                        <p>
+                            Les dents infero-anterieur ont une légère mobilité et sont douloureuses depuis quelques jours.
+                        </p>
+                        {/*si il y a biopsy*/}
+                        <Typography component={"h3"} variant={"h5"} className={classes.titleExam} >
+                            Biopsy
+                        </Typography>
+                        <Lightbox/>
                         <p>
                             Les dents infero-anterieur ont une légère mobilité et sont douloureuses depuis quelques jours.
                         </p>
