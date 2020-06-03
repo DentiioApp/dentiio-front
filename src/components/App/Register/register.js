@@ -45,7 +45,7 @@ const Register = () => {
     pseudo: '',
     email: '',
     password: '',
-    job: 'CD',
+    job: 4,
     showPassword: false,
     cgu: true
   }
@@ -79,7 +79,7 @@ const Register = () => {
 
   const handleChange = prop => event => {
     if (prop === 'pseudo') {
-      if (event.target.value === false || event.target.value === '') {
+      if (checkText(event.target.value) === false || event.target.value === '') {
         setErrPseudo(true)
       } else {
         setErrPseudo(false)
@@ -163,7 +163,7 @@ const Register = () => {
                 label='Pseudo'
                 type='text'
                 id='pseudo'
-                autoComplete='current-password'
+                autoComplete='current-pseudo'
                 onChange={handleChange('pseudo')}
                 error={errPseudo}
               />
@@ -197,7 +197,7 @@ const Register = () => {
                 variant='outlined'
               >
                 {jobs.map(option => (
-                  <MenuItem key={option.id} value={option.ident}>
+                  <MenuItem key={option.ident} value={option.id}>
                     {option.name}
                   </MenuItem>
                 ))}
