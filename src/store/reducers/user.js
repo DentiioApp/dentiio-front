@@ -25,7 +25,8 @@ export const User = (state = INIT_STATE, action) => {
           prenom: action.username,
           pseudo: action.email,
           password: action.password,
-          isEnabled: true
+          isEnabled: true,
+          job: '/api/jobs/' + action.job
         }
       )
 

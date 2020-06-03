@@ -32,35 +32,20 @@ import { registerUser, cardCheck } from '../../../store/actions'
 import GradientBtn from '../../UI/buttons/GradientBtn'
 import { checkText, checkEmail, checkPassword } from '../../../utils'
 
-// API DATAS
-const functions = [
-  {
-    value: 'CD',
-    label: 'Chirurgien Dentiste'
-  },
-  {
-    value: 'DI',
-    label: 'Dentiste Interne'
-  },
-  {
-    value: 'ST',
-    label: 'Étudiant Dentiste'
-  }
-]
-
 const useStyles = makeStyles((theme) => oStyle(theme, imgDesktop, imgMobile))
 
 const Register = () => {
   const classes = useStyles()
   const dispatch = useDispatch()
 
+  const jobs = useSelector((state) => state.home.jobs)
   const user = useSelector((state) => state.user)
 
   const initValues = {
     pseudo: '',
     email: '',
     password: '',
-    function: 'CD',
+    job: 4,
     showPassword: false,
     cgu: true
   }
@@ -86,7 +71,7 @@ const Register = () => {
         pseudo: values.pseudo,
         email: values.email,
         password: values.password,
-        function: values.function,
+        job: values.job,
         cgu: values.cgu
       }))
     }
@@ -94,7 +79,7 @@ const Register = () => {
 
   const handleChange = prop => event => {
     if (prop === 'pseudo') {
-      if (event.target.value === false || event.target.value === '') {
+      if (checkText(event.target.value) === false || event.target.value === '') {
         setErrPseudo(true)
       } else {
         setErrPseudo(false)
@@ -178,7 +163,7 @@ const Register = () => {
                 label='Pseudo'
                 type='text'
                 id='pseudo'
-                autoComplete='current-password'
+                autoComplete='current-pseudo'
                 onChange={handleChange('pseudo')}
                 error={errPseudo}
               />
@@ -207,13 +192,13 @@ const Register = () => {
                 className='textField'
                 id='filled-select-currency'
                 select
-                value={values.function}
-                onChange={handleChange('function')}
+                value={values.job}
+                onChange={handleChange('job')}
                 variant='outlined'
               >
-                {functions.map(option => (
-                  <MenuItem key={option.value} value={option.value}>
-                    {option.label}
+                {jobs.map(option => (
+                  <MenuItem key={option.ident} value={option.id}>
+                    {option.name}
                   </MenuItem>
                 ))}
               </TextField>

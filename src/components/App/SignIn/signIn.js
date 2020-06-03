@@ -25,7 +25,6 @@ import GradientBtn from '../../UI/buttons/GradientBtn'
 import oStyle from '../../../services/css/registerStyle'
 import { logUser } from '../../../store/actions'
 
-import { checkEmail } from '../../../utils'
 import loginCheck from '../../../services/LoginCheck'
 import { setup } from '../../../services/Auth'
 
@@ -73,15 +72,6 @@ const SignIn = () => {
   }
 
   const handleChange = prop => event => {
-    // if (prop === 'email') {
-    // console.log('TEST :', checkEmail(event.target.value) === false)
-    // if (checkEmail(event.target.value) === true) {
-    // setErrEmail(true)
-    // } else {
-    // setErrEmail(false)
-    // }
-    // }
-
     setValues({ ...values, [prop]: event.target.value })
   }
 
