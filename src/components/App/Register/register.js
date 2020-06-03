@@ -164,6 +164,7 @@ const Register = () => {
                 type='text'
                 id='pseudo'
                 autoComplete='current-pseudo'
+                onKeyDown={(e) => e.keyCode !== 13 ? null : catchSubmit(e)}
                 onChange={handleChange('pseudo')}
                 error={errPseudo}
               />
@@ -177,6 +178,7 @@ const Register = () => {
                 name='email'
                 autoComplete='email'
                 autoFocus
+                onKeyDown={(e) => e.keyCode !== 13 ? null : catchSubmit(e)}
                 onChange={handleChange('email')}
                 error={errEmail}
                 helperText={values.email !== '' ? (checkEmail(values.email) === false ? 'Email invalide!' : ' ') : ''}
@@ -217,6 +219,7 @@ const Register = () => {
                 autoComplete='on'
                 placeholder='Password'
                 error={errPassword}
+                onKeyDown={(e) => e.keyCode !== 13 ? null : catchSubmit(e)}
                 onChange={handleChange('password')}
                 endAdornment={
                   <InputAdornment position='start'>
@@ -239,6 +242,7 @@ const Register = () => {
                   <Checkbox
                     color='primary'
                     checked={!values.cgu}
+                    onKeyDown={(e) => e.keyCode !== 13 ? null : catchSubmit(e)}
                     onClick={handleClickCgu}
                     onMouseDown={handleMouseDownCgu}
                     error={errCgu.toString()}
@@ -256,7 +260,6 @@ const Register = () => {
                   description={'S\'inscrire'}
                   className='GradientBtn'
                 />
-
               </div>
               <br />
               <Typography>
