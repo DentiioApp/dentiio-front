@@ -27,6 +27,7 @@ const useStyles = makeStyles((theme) => ({
     position: "sticky",
     top: 0,
     width: "100%",
+    zIndex: 10,
     }
 }))
 
@@ -55,29 +56,63 @@ export const navbarDetail = () => {
                                 <span>Examen</span>
                             </Button>
                         </Link>
-                        <Link to="#diagnostic" className={classes.detailnav}>
+                        <Link to="diagnostic"
+                              className={classes.detailnav}
+                              activeClass="active"
+                              spy={true}
+                              smooth={true}
+                              offset={-70}
+                              duration={500}
+                        >
                             <Button>
                                 <span>Diagnostic</span>
                             </Button>
                         </Link>
-                        <Link to="#charge" className={classes.detailnav}>
+                        <Link to="plan"
+                              className={classes.detailnav}
+                              activeClass="active"
+                              spy={true}
+                              smooth={true}
+                              offset={-70}
+                              duration={500}
+                        >
                             <Button>
-                                <span>Prise en charge</span>
+                                <span>Plan de traitement</span>
                             </Button>
                         </Link>
-                        <Link to="#result" className={classes.detailnav}>
+                        <Link to="evolution"
+                              className={classes.detailnav}
+                              activeClass="active"
+                              spy={true}
+                              smooth={true}
+                              offset={-70}
+                              duration={500}
+                        >
                             <Button>
-                                <span>Résultat</span>
+                                <span>Evolution</span>
                             </Button>
                         </Link>
-                        <Link to="#discussion" className={classes.detailnav}>
-                            <Button>
-                                <span>Discussion</span>
-                            </Button>
-                        </Link>
-                        <Link to="#conclusion" className={classes.detailnav}>
+                        <Link to="conclusion"
+                              className={classes.detailnav}
+                              activeClass="active"
+                              spy={true}
+                              smooth={true}
+                              offset={-70}
+                              duration={500}
+                        >
                             <Button>
                                 <span>Conclusion</span>
+                            </Button>
+                        </Link>
+                        <Link to="discussion"
+                              className={classes.detailnav}
+                              activeClass="active"
+                              spy={true}
+                              smooth={true}
+                              offset={-70}
+                              duration={500}>
+                            <Button>
+                                <span>Discussion</span>
                             </Button>
                         </Link>
                     </div>

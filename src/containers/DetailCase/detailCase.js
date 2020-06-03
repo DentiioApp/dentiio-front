@@ -13,7 +13,7 @@ import ShareIcon from '@material-ui/icons/Share';
 import palette from "../../components/UI/colorTheme/palette";
 import Keyword from "../../components/UI/Keywords/keywords";
 import Gallery from "../../components/UI/Gallery/gallery";
-import Lightbox from "../../components/UI/Gallery/lightbox";
+import LightboxButton from "../../components/UI/Gallery/lightboxButton";
 
 const useStyles = makeStyles({
     root: {
@@ -139,16 +139,36 @@ const detailCase = () => {
                         </Typography>
                         <Gallery images="/*item.images*/"/>
                         <p>
-                            Les dents infero-anterieur ont une légère mobilité et sont douloureuses depuis quelques jours.
+                            Scanner incroyable
                         </p>
                         {/*si il y a biopsy*/}
-                        <Typography component={"h3"} variant={"h5"} className={classes.titleExam} >
+                        <Typography component={"h3"} variant={"h5"} className={classes.titleExam}>
                             Biopsy
                         </Typography>
-                        <Lightbox/>
                         <p>
-                            Les dents infero-anterieur ont une légère mobilité et sont douloureuses depuis quelques jours.
+                            La biopsy indique que nanani
                         </p>
+                        <LightboxButton/>
+                        <Typography component={"h3"} variant={"h5"} className={classes.h3} id={"diagnostic"}>
+                            Diagnostic
+                        </Typography>
+                        <p>
+                            Le diagnostic est nanananan
+                        </p>
+                        <Typography component={"h4"} variant={"h5"} className={classes.titleExam}>
+                            Pathologie
+                        </Typography>
+                        <ul>
+                            <li>
+                                Carie
+                            </li>
+                        </ul>
+                        <Typography component={"h3"} variant={"h5"} className={classes.h3} id={"plan"}>
+                            Plan de traitement
+                        </Typography>
+                        <Typography component={"h3"} variant={"h5"} className={classes.h3} id={"evolution"}>
+                            Evolution
+                        </Typography>
                     </div>
                 </Grid>
                 <Grid container className={classes.alignRight} item  md={2} spacing={1}>
