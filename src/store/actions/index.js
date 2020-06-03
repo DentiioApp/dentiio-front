@@ -9,6 +9,7 @@ export const REGISTER_USER = 'REGISTER_USER'
 export const CARD_STATE = 'CARD_STATE'
 export const LOG_USER = 'LOG_USER'
 export const VALID_STATUS = 'VALID_STATUS'
+export const JOB_LIST = 'JOB_LIST'
 
 export { cardCheck }
 export { GetCases }

@@ -26,28 +26,11 @@ import imgMobile from '../../../images/mobile-bg.svg'
 import Visibility from '@material-ui/icons/Visibility'
 import VisibilityOff from '@material-ui/icons/VisibilityOff'
 
-import img from '../../../images/auth.svg'
 import { setup } from '../../../services/Auth'
 import oStyle from '../../../services/css/registerStyle'
 import { registerUser, cardCheck } from '../../../store/actions'
 import GradientBtn from '../../UI/buttons/GradientBtn'
 import { checkText, checkEmail, checkPassword } from '../../../utils'
-
-// API DATAS
-const functions = [
-  {
-    value: 'CD',
-    label: 'Chirurgien Dentiste'
-  },
-  {
-    value: 'DI',
-    label: 'Dentiste Interne'
-  },
-  {
-    value: 'ST',
-    label: 'Étudiant Dentiste'
-  }
-]
 
 const useStyles = makeStyles((theme) => oStyle(theme, imgDesktop, imgMobile))
 
@@ -55,13 +38,14 @@ const Register = () => {
   const classes = useStyles()
   const dispatch = useDispatch()
 
+  const jobs = useSelector((state) => state.home.jobs)
   const user = useSelector((state) => state.user)
 
   const initValues = {
     pseudo: '',
     email: '',
     password: '',
-    function: 'CD',
+    job: 4,
     showPassword: false,
     cgu: true
   }
@@ -87,7 +71,7 @@ const Register = () => {
         pseudo: values.pseudo,
         email: values.email,
         password: values.password,
-        function: values.function,
+        job: values.job,
         cgu: values.cgu
       }))
     }
@@ -95,7 +79,7 @@ const Register = () => {
 
   const handleChange = prop => event => {
     if (prop === 'pseudo') {
-      if (event.target.value === false || event.target.value === '') {
+      if (checkText(event.target.value) === false || event.target.value === '') {
         setErrPseudo(true)
       } else {
         setErrPseudo(false)
@@ -162,8 +146,8 @@ const Register = () => {
           component={Paper}
           elevation={6}
           square
-          className='login'
-        >
+          className={classes.login}
+          >
           <div className={classes.paper}>
             <Avatar className={classes.avatar} />
             <Typography component='h1' variant='h5'>
@@ -175,11 +159,11 @@ const Register = () => {
                 margin='normal'
                 required
                 fullWidth
-                name='password'
+                name='pseudo'
                 label='Pseudo'
                 type='text'
                 id='pseudo'
-                autoComplete='current-password'
+                autoComplete='current-pseudo'
                 onChange={handleChange('pseudo')}
                 error={errPseudo}
               />
@@ -208,13 +192,13 @@ const Register = () => {
                 className='textField'
                 id='filled-select-currency'
                 select
-                value={values.function}
-                onChange={handleChange('function')}
+                value={values.job}
+                onChange={handleChange('job')}
                 variant='outlined'
               >
-                {functions.map(option => (
-                  <MenuItem key={option.value} value={option.value}>
-                    {option.label}
+                {jobs.map(option => (
+                  <MenuItem key={option.ident} value={option.id}>
+                    {option.name}
                   </MenuItem>
                 ))}
               </TextField>
@@ -289,10 +273,12 @@ const Register = () => {
             </form>
             <span>{user.message}</span>
           </div>
+
         </Grid>
       </div>
     </Grid>
   )
 }
+
 
 export default Register

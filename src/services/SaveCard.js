@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-export const USERS = process.env.REACT_APP_BACK_API_URL + process.env.REACT_APP_USERS
+const USERS = process.env.REACT_APP_BACK_API_URL + process.env.REACT_APP_USERS
 
 export const SaveCard = (userData) => {
   return axios.put(USERS, userData)

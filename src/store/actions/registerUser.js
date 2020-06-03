@@ -6,7 +6,7 @@ export const registerUser = (register) => {
     username: register.pseudo,
     email: register.email,
     password: register.password,
-    function: register.function
+    job: register.job
   }
 
   return action
