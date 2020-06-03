@@ -1,20 +1,24 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { useDispatch } from 'react-redux'
 import CardForm from '../../components/App/CardForm/cardForm'
-import { cardCheck } from '../../store/actions'
+import { cardCheck, JOB_LIST } from '../../store/actions'
+
+import { fetchJobs } from '../../services/JobList'
 import './Home.scss'
 
 const Home = () => {
   const dispatch = useDispatch()
   const homeState = 'inscription'
+  // const wait=ms=>new Promise(resolve => setTimeout(resolve, ms));
+  const [jobs, setJobs] = useState([])
 
-  dispatch(
-    cardCheck(
-      {
-        status: homeState
-      }
-    )
-  )
+  const getJobs = fetchJobs()
+  getJobs.then((res) => setJobs(res || {}))
+
+  // wait(40*1000).then(() => {
+  dispatch(cardCheck({ status: homeState }))
+  dispatch({ type: JOB_LIST, data: jobs })
+  // })
 
   return (
     <div className='App'>

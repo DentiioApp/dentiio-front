@@ -32,35 +32,20 @@ import { registerUser, cardCheck } from '../../../store/actions'
 import GradientBtn from '../../UI/buttons/GradientBtn'
 import { checkText, checkEmail, checkPassword } from '../../../utils'
 
-// API DATAS
-const functions = [
-  {
-    value: 'CD',
-    label: 'Chirurgien Dentiste'
-  },
-  {
-    value: 'DI',
-    label: 'Dentiste Interne'
-  },
-  {
-    value: 'ST',
-    label: 'Étudiant Dentiste'
-  }
-]
-
 const useStyles = makeStyles((theme) => oStyle(theme, imgDesktop, imgMobile))
 
 const Register = () => {
   const classes = useStyles()
   const dispatch = useDispatch()
 
+  const djobs = useSelector((state) => state.home.djobs)
   const user = useSelector((state) => state.user)
 
   const initValues = {
     pseudo: '',
     email: '',
     password: '',
-    function: 'CD',
+    function: 4,
     showPassword: false,
     cgu: true
   }
@@ -211,9 +196,9 @@ const Register = () => {
                 onChange={handleChange('function')}
                 variant='outlined'
               >
-                {functions.map(option => (
-                  <MenuItem key={option.value} value={option.value}>
-                    {option.label}
+                {djobs.map(option => (
+                  <MenuItem key={option.ident} value={option.id}>
+                    {option.name}
                   </MenuItem>
                 ))}
               </TextField>

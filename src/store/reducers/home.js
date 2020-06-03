@@ -7,6 +7,12 @@ export const Home = (state = INIT_STATE, action) => {
         status: action.homeState
       }
 
+    case 'JOB_LIST' :
+      return {
+        ...state,
+        djobs: action.data
+      }
+
     default :
       return state
   }
