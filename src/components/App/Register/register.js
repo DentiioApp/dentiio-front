@@ -38,14 +38,14 @@ const Register = () => {
   const classes = useStyles()
   const dispatch = useDispatch()
 
-  const djobs = useSelector((state) => state.home.djobs)
+  const jobs = useSelector((state) => state.home.jobs)
   const user = useSelector((state) => state.user)
 
   const initValues = {
     pseudo: '',
     email: '',
     password: '',
-    function: 4,
+    job: 'CD',
     showPassword: false,
     cgu: true
   }
@@ -71,7 +71,7 @@ const Register = () => {
         pseudo: values.pseudo,
         email: values.email,
         password: values.password,
-        function: values.function,
+        job: values.job,
         cgu: values.cgu
       }))
     }
@@ -192,12 +192,12 @@ const Register = () => {
                 className='textField'
                 id='filled-select-currency'
                 select
-                value={values.function}
-                onChange={handleChange('function')}
+                value={values.job}
+                onChange={handleChange('job')}
                 variant='outlined'
               >
-                {djobs.map(option => (
-                  <MenuItem key={option.ident} value={option.id}>
+                {jobs.map(option => (
+                  <MenuItem key={option.id} value={option.ident}>
                     {option.name}
                   </MenuItem>
                 ))}

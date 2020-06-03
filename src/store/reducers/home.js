@@ -10,7 +10,7 @@ export const Home = (state = INIT_STATE, action) => {
     case 'JOB_LIST' :
       return {
         ...state,
-        djobs: action.data
+        jobs: action.data
       }
 
     default :
