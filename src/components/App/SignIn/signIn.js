@@ -123,6 +123,7 @@ const SignIn = () => {
                   type='text'
                   id='pseudo'
                   autoComplete='current-pseudo'
+                  onKeyDown={(e) => e.keyCode !== 13 ? null : catchSubmit(e)}
                   onChange={handleChange('pseudo')}
                   error={errEmail}
                 />
@@ -139,6 +140,7 @@ const SignIn = () => {
                   autoComplete='on'
                   placeholder='Password'
                   error={errPassword}
+                  onKeyDown={(e) => e.keyCode !== 13 ? null : catchSubmit(e)}
                   onChange={handleChange('password')}
                   endAdornment={
                     <InputAdornment position='start'>
