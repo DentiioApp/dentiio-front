@@ -1,5 +1,3 @@
-import { red } from "@material-ui/core/colors";
-
 export const oStyle = (theme, imgDesktop ,imgMobile) => {
     return {
         root: {
@@ -13,10 +11,10 @@ export const oStyle = (theme, imgDesktop ,imgMobile) => {
             backgroundSize: "contain",
             overflow: "hidden",
 
-            ["@media (max-width:768px)"]: {
+            /*["@media (max-width:768px)"]: {
                 backgroundImage: `url(${imgMobile})`,
                 backgroundSize: "cover",
-            },
+            },*/
         },
 
         paper: {

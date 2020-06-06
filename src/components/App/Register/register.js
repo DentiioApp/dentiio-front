@@ -45,7 +45,7 @@ const Register = () => {
     pseudo: '',
     email: '',
     password: '',
-    job: 4,
+    job: '',
     showPassword: false,
     cgu: true
   }
@@ -192,7 +192,7 @@ const Register = () => {
               </InputLabel>
               <TextField
                 className='textField'
-                id='filled-select-currency'
+                id='job'
                 select
                 value={values.job}
                 onChange={handleChange('job')}

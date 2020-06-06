@@ -44,8 +44,6 @@ const SignIn = () => {
 
   const [datas, setDatas] = useState('')
   const [values, setValues] = useState(initValues)
-  const [errEmail, setErrEmail] = useState(false)
-  const [errPassword, setErrPassword] = useState(false)
 
   useEffect(() => {
     if (datas !== '') {
@@ -61,12 +59,7 @@ const SignIn = () => {
       getToken.then((res) => {
         setDatas(res)
       })
-    } else {
-      setErrEmail(true)
-      setErrPassword(true)
-
-      return false
-    }
+    } 
 
     setValues(initValues)
   }
@@ -125,7 +118,7 @@ const SignIn = () => {
                   autoComplete='current-pseudo'
                   onKeyDown={(e) => e.keyCode !== 13 ? null : catchSubmit(e)}
                   onChange={handleChange('pseudo')}
-                  error={errEmail}
+                  //error={''}
                 />
 
                 <OutlinedInput
@@ -139,7 +132,7 @@ const SignIn = () => {
                   id='outlined-adornment-password'
                   autoComplete='on'
                   placeholder='Password'
-                  error={errPassword}
+                  //error={''}
                   onKeyDown={(e) => e.keyCode !== 13 ? null : catchSubmit(e)}
                   onChange={handleChange('password')}
                   endAdornment={

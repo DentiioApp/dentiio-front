@@ -11,16 +11,12 @@ const Home = () => {
   const homeState = 'inscription'
   // const wait=ms=>new Promise(resolve => setTimeout(resolve, ms));
   const [jobs, setJobs] = useState([])
-  const [count, setCount] = useState(0)
+  var count=0
 
   useEffect(() => {
-    if (count < 1) {
-      const getJobs = fetchJobs()
-      getJobs.then((res) => setJobs(res || {}))
-    }
-
-    setCount(count + 1)
-  }, [jobs])
+    const getJobs = fetchJobs()
+    getJobs.then((res) => setJobs(res || {}))
+  },[count])
 
   // wait(40*1000).then(() => {
   dispatch(cardCheck({ status: homeState }))
