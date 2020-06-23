@@ -7,7 +7,7 @@ import { fetchJobs } from '../../services/JobList'
 import './Home.scss'
 
 const Home = () => {
-  const dispatch = useDispatch()
+  const dispatch = useDispatch({type:"CARD_STATE", })
   const homeState = 'inscription'
 
   // const wait=ms=>new Promise(resolve => setTimeout(resolve, ms));

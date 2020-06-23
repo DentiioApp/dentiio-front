@@ -63,7 +63,7 @@ const Case = (props) => {
         title='Paella dish'
       />
       <CardContent>
-        <Typography variant='body2' color='textSecondary' component='p'>
+        <Typography variant='body2' color='textSecondary' component='p' >
           {props.item.presentation}
         </Typography>
       </CardContent>
