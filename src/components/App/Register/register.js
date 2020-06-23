@@ -23,14 +23,18 @@ import { makeStyles } from '@material-ui/core/styles'
 import TextField from '@material-ui/core/TextField'
 import imgDesktop from '../../../images/illus.png'
 import imgMobile from '../../../images/mobile-bg.svg'
+import avatar from '../../../images/logoteeth_blue.png'
+import logo from '../../../images/logo.svg'
 import Visibility from '@material-ui/icons/Visibility'
 import VisibilityOff from '@material-ui/icons/VisibilityOff'
 
 import { setup } from '../../../services/Auth'
-import oStyle from '../../../services/css/registerStyle'
+import oStyle from '../Register/registerStyle'
 import { registerUser, cardCheck } from '../../../store/actions'
 import GradientBtn from '../../UI/buttons/GradientBtn'
 import { checkText, checkEmail, checkPassword } from '../../../utils'
+import blueGrey from "@material-ui/core/colors/blueGrey";
+import Icon from "../../../images/titleHeaderMobile.svg";
 
 const useStyles = makeStyles((theme) => oStyle(theme, imgDesktop, imgMobile))
 
@@ -136,20 +140,21 @@ const Register = () => {
   }
 
   return (
-    <Grid container component='main' className={classes.root}>
-      <div className={classes.formContainer}>
+      <Grid container component='main' className={classes.root}>
+        <img className={classes.logo} alt='' src={logo} />
+
         <Grid
           item
-          xs={10}
-          sm={12}
-          md={12}
+          xs={11}
+          sm={7}
+          md={7}
           component={Paper}
           elevation={6}
           square
           className={classes.login}
           >
           <div className={classes.paper}>
-            <Avatar className={classes.avatar} />
+            <img className={classes.avatar} alt='' src={avatar} />
             <Typography component='h1' variant='h5'>
               Inscription
             </Typography>
@@ -233,7 +238,12 @@ const Register = () => {
                     </IconButton>
                   </InputAdornment>
                 }
+
               />
+              <br />
+              <Typography component='p' color="textPrimary">
+                8 caractères minimum, un caractère spécial, une majuscule
+              </Typography>
 
               <br />  <br />
 
@@ -278,8 +288,9 @@ const Register = () => {
           </div>
 
         </Grid>
-      </div>
-    </Grid>
+      </Grid>
+
+
   )
 }
 

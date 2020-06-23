@@ -1,3 +1,5 @@
+import { red } from "@material-ui/core/colors";
+
 export const oStyle = (theme, imgDesktop ,imgMobile) => {
     return {
         root: {
@@ -11,21 +13,26 @@ export const oStyle = (theme, imgDesktop ,imgMobile) => {
             backgroundSize: "contain",
             overflow: "hidden",
 
-            /*["@media (max-width:768px)"]: {
-                backgroundImage: `url(${imgMobile})`,
+            ["@media (max-width:1025px)"]: {
                 backgroundSize: "cover",
-            },*/
+
+                ["@media (max-width:767px)"]: {
+                    backgroundImage: `url(${imgMobile})`,
+                    backgroundSize: "cover",
+
+                },
+            },
         },
 
         paper: {
-            margin: theme.spacing(8, 4),
+            margin: theme.spacing(6, 4),
             display: "flex",
             flexDirection: "column",
             alignItems: "center",
         },
         avatar: {
             margin: theme.spacing(1),
-            backgroundColor: theme.palette.secondary.main,
+            width: "15%",
         },
         form: {
             width: "100%", // Fix IE 11 issue.
@@ -35,29 +42,32 @@ export const oStyle = (theme, imgDesktop ,imgMobile) => {
             margin: theme.spacing(3, 0, 2),
         },
 
-        test: {
-
-            /* ["@media (max-width:768px)"]: {
-                 margin: "auto",
-                 display: "flex",
-                 alignItems: "center",
-                 justifyContent: "center",
-             },*/
+        logo: {
+            position: "absolute",
+            margin: "13px 23px 0px 32px",
         },
 
         login: {
-            width: "500px",
-            height: "775px",
+            // width: "500px",
+            height: "fit-content",
             position: "absolute",
-            top: "10%",
+            top: "8%",
             bottom: "0",
             right: "0",
-            borderRadius: "8%",
-            marginRight: "10%",
-        },
+            borderRadius: "20px",
+            margin: theme.spacing(7, 15),
+            // margin: "auto",
 
 
-    };
+            ["@media (max-width:1024px)"]: {
+                margin: "auto",
+                position: "inherit",
+
+                },
+
+
+            }
+        }
 }
 
 

@@ -9,7 +9,13 @@ const colorTheme = createMuiTheme({
     secondary: {
       main: '#f50057'
     }
-  }
+  },
+  overrides: {
+    MuiTypography: {
+      colorTextPrimary: {color : "grey", fontSize : "12px"}
+
+    }
+  },
 })
 
 export default colorTheme
