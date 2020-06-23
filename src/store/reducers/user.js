@@ -12,7 +12,7 @@ export const User = (state = INIT_STATE, action) => {
 
       login(action.datas.token)
 
-      return {
+      return {...state,
         username: details.username,
         connected: true
       }
@@ -30,16 +30,16 @@ export const User = (state = INIT_STATE, action) => {
         }
       )
 
-      return {
+      return {...state,
         subscribe: true,
         message: localStorage.getItem('authSubscribeMsg')
       }
 
     case VALID_STATUS :
-      return state.concat({
+      return {...state,
         isValidStatus: true,
         message: localStorage.getItem('pendingStatus')
-      })
+      }
 
     default :
       return state

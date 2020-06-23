@@ -15,6 +15,7 @@ export const logout = () => {
 }
 
 // Verifie si un token existe dans le localStorage
+
 export const setup = () => {
   const token = window.localStorage.getItem('authToken')
   var connect = false

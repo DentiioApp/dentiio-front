@@ -44,6 +44,7 @@ const SignIn = () => {
 
   const [datas, setDatas] = useState('')
   const [values, setValues] = useState(initValues)
+  const [errMsg, setErrMsg] = useState('')
 
   useEffect(() => {
     if (datas !== '') {
@@ -55,13 +56,21 @@ const SignIn = () => {
     e.preventDefault()
 
     if (values.password !== '' && values.pseudo !== '') {
-      const getToken = loginCheck(values.pseudo, values.password)
-      getToken.then((res) => {
-        setDatas(res)
-      })
+      async function getToken () { await loginCheck(values.pseudo, values.password)}
+
+      if(getToken().isResolved) {
+        setErrMsg('Connexion en cours')
+        getToken.then((res) => {
+          setDatas(res)
+        })
+      }else{
+        setErrMsg('Vos identifiants de connexion ne sont pas valide ! ')
+      }
+
+      
     } 
 
-    setValues(initValues)
+    setValues(values)
   }
 
   const handleChange = prop => event => {
@@ -110,6 +119,7 @@ const SignIn = () => {
                   variant='outlined'
                   margin='normal'
                   required
+                  autoFocus
                   fullWidth
                   name='pseudo'
                   label='pseudo'
@@ -161,7 +171,10 @@ const SignIn = () => {
                 </div>
               </form>
             </div>
-            {subscribeMsg}
+            <Typography component='p' variant='h6'>
+              {subscribeMsg}
+              {errMsg}
+            </Typography>
           </Grid>
         </div>
       </Grid>

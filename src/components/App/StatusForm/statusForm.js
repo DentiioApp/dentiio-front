@@ -43,7 +43,7 @@ const StatusForm = () => {
 
   const catchSubmit = (e) => {
     e.preventDefault()
-    console.log('TEST :', 'sss')
+
     if (checkText(values.nom) === false) { setErrNom(true) }
     if (checkText(values.prenom) === false) { setErrPrenom(true) }
 
