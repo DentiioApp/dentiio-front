@@ -49,7 +49,6 @@ const useStyles = makeStyles((theme) => ({
 
 const Case = (props) => {
   const classes = useStyles()
-  console.log(props.item)
   return (
     <Link to={`/case/${props.item.id}`} style={{ textDecoration: 'none' }}>
       <Card className={classes.root}>
