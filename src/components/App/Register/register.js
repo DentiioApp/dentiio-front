@@ -23,30 +23,18 @@ import { makeStyles } from '@material-ui/core/styles'
 import TextField from '@material-ui/core/TextField'
 import imgDesktop from '../../../images/illus.png'
 import imgMobile from '../../../images/mobile-bg.svg'
+import avatar from '../../../images/logoteeth_blue.png'
+import logo from '../../../images/logo.svg'
 import Visibility from '@material-ui/icons/Visibility'
 import VisibilityOff from '@material-ui/icons/VisibilityOff'
 
 import { setup } from '../../../services/Auth'
-import oStyle from '../../../services/css/registerStyle'
+import oStyle from '../Register/registerStyle'
 import { registerUser, cardCheck } from '../../../store/actions'
 import GradientBtn from '../../UI/buttons/GradientBtn'
 import { checkText, checkEmail, checkPassword } from '../../../utils'
-
-// API DATAS
-const functions = [
-  {
-    value: 'CD',
-    label: 'Chirurgien Dentiste'
-  },
-  {
-    value: 'DI',
-    label: 'Dentiste Interne'
-  },
-  {
-    value: 'ST',
-    label: 'Étudiant Dentiste'
-  }
-]
+import blueGrey from "@material-ui/core/colors/blueGrey";
+import Icon from "../../../images/titleHeaderMobile.svg";
 
 const useStyles = makeStyles((theme) => oStyle(theme, imgDesktop, imgMobile))
 
@@ -54,13 +42,14 @@ const Register = () => {
   const classes = useStyles()
   const dispatch = useDispatch()
 
+  const jobs = useSelector((state) => state.home.jobs)
   const user = useSelector((state) => state.user)
 
   const initValues = {
     pseudo: '',
     email: '',
     password: '',
-    function: 'CD',
+    job: 4,
     showPassword: false,
     cgu: true
   }
@@ -86,7 +75,7 @@ const Register = () => {
         pseudo: values.pseudo,
         email: values.email,
         password: values.password,
-        function: values.function,
+        job: values.job,
         cgu: values.cgu
       }))
     }
@@ -94,7 +83,7 @@ const Register = () => {
 
   const handleChange = prop => event => {
     if (prop === 'pseudo') {
-      if (event.target.value === false || event.target.value === '') {
+      if (checkText(event.target.value) === false || event.target.value === '') {
         setErrPseudo(true)
       } else {
         setErrPseudo(false)
@@ -151,20 +140,21 @@ const Register = () => {
   }
 
   return (
-    <Grid container component='main' className={classes.root}>
-      <div className={classes.formContainer}>
+      <Grid container component='main' className={classes.root}>
+        <img className={classes.logo} alt='' src={logo} />
+
         <Grid
           item
-          xs={10}
-          sm={12}
-          md={12}
+          xs={11}
+          sm={7}
+          md={7}
           component={Paper}
           elevation={6}
           square
           className={classes.login}
           >
           <div className={classes.paper}>
-            <Avatar className={classes.avatar} />
+            <img className={classes.avatar} alt='' src={avatar} />
             <Typography component='h1' variant='h5'>
               Inscription
             </Typography>
@@ -178,7 +168,8 @@ const Register = () => {
                 label='Pseudo'
                 type='text'
                 id='pseudo'
-                autoComplete='current-password'
+                autoComplete='current-pseudo'
+                onKeyDown={(e) => e.keyCode !== 13 ? null : catchSubmit(e)}
                 onChange={handleChange('pseudo')}
                 error={errPseudo}
               />
@@ -192,6 +183,7 @@ const Register = () => {
                 name='email'
                 autoComplete='email'
                 autoFocus
+                onKeyDown={(e) => e.keyCode !== 13 ? null : catchSubmit(e)}
                 onChange={handleChange('email')}
                 error={errEmail}
                 helperText={values.email !== '' ? (checkEmail(values.email) === false ? 'Email invalide!' : ' ') : ''}
@@ -207,13 +199,13 @@ const Register = () => {
                 className='textField'
                 id='filled-select-currency'
                 select
-                value={values.function}
-                onChange={handleChange('function')}
+                value={values.job}
+                onChange={handleChange('job')}
                 variant='outlined'
               >
-                {functions.map(option => (
-                  <MenuItem key={option.value} value={option.value}>
-                    {option.label}
+                {jobs.map(option => (
+                  <MenuItem key={option.ident} value={option.id}>
+                    {option.name}
                   </MenuItem>
                 ))}
               </TextField>
@@ -232,6 +224,7 @@ const Register = () => {
                 autoComplete='on'
                 placeholder='Password'
                 error={errPassword}
+                onKeyDown={(e) => e.keyCode !== 13 ? null : catchSubmit(e)}
                 onChange={handleChange('password')}
                 endAdornment={
                   <InputAdornment position='start'>
@@ -245,7 +238,12 @@ const Register = () => {
                     </IconButton>
                   </InputAdornment>
                 }
+
               />
+              <br />
+              <Typography component='p' color="textPrimary">
+                8 caractères minimum, un caractère spécial, une majuscule
+              </Typography>
 
               <br />  <br />
 
@@ -254,6 +252,7 @@ const Register = () => {
                   <Checkbox
                     color='primary'
                     checked={!values.cgu}
+                    onKeyDown={(e) => e.keyCode !== 13 ? null : catchSubmit(e)}
                     onClick={handleClickCgu}
                     onMouseDown={handleMouseDownCgu}
                     error={errCgu.toString()}
@@ -271,7 +270,6 @@ const Register = () => {
                   description={'S\'inscrire'}
                   className='GradientBtn'
                 />
-
               </div>
               <br />
               <Typography>
@@ -290,8 +288,9 @@ const Register = () => {
           </div>
 
         </Grid>
-      </div>
-    </Grid>
+      </Grid>
+
+
   )
 }
 

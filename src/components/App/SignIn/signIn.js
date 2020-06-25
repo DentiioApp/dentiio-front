@@ -22,12 +22,14 @@ import VisibilityOff from '@material-ui/icons/VisibilityOff'
 
 import StatusModal from '../StatusModal/statusModal'
 import GradientBtn from '../../UI/buttons/GradientBtn'
-import oStyle from '../../../services/css/registerStyle'
+import oStyle from '../SignIn/signinStyle'
 import { logUser } from '../../../store/actions'
 
-import { checkEmail } from '../../../utils'
 import loginCheck from '../../../services/LoginCheck'
 import { setup } from '../../../services/Auth'
+import {Link} from "../Register/register";
+import logo from "../../../images/logo.svg";
+import avatar from "../../../images/logoteeth_blue.png";
 
 const useStyles = makeStyles((theme) => (oStyle(theme, imgDesktop, imgMobile)))
 
@@ -73,15 +75,6 @@ const SignIn = () => {
   }
 
   const handleChange = prop => event => {
-    // if (prop === 'email') {
-    // console.log('TEST :', checkEmail(event.target.value) === false)
-    // if (checkEmail(event.target.value) === true) {
-    // setErrEmail(true)
-    // } else {
-    // setErrEmail(false)
-    // }
-    // }
-
     setValues({ ...values, [prop]: event.target.value })
   }
 
@@ -106,19 +99,20 @@ const SignIn = () => {
     <>
       {modal}
       <Grid container component='main' className={classes.root}>
-        <div className={classes.formContainer}>
+        <img className={classes.logo} alt='' src={logo} />
           <Grid
             item
             xs={10}
-            sm={12}
-            md={12}
+            sm={8}
+            md={8}
+            lg={5}
             component={Paper}
             elevation={6}
             square
-            className='login'
+            className={classes.login}
           >
             <div className={classes.paper}>
-              <Avatar className={classes.avatar} />
+              <img className={classes.avatar} alt='' src={avatar} />
               <Typography component='h1' variant='h5'>
               Connexion
               </Typography>
@@ -133,6 +127,7 @@ const SignIn = () => {
                   type='text'
                   id='pseudo'
                   autoComplete='current-pseudo'
+                  onKeyDown={(e) => e.keyCode !== 13 ? null : catchSubmit(e)}
                   onChange={handleChange('pseudo')}
                   error={errEmail}
                 />
@@ -149,6 +144,7 @@ const SignIn = () => {
                   autoComplete='on'
                   placeholder='Password'
                   error={errPassword}
+                  onKeyDown={(e) => e.keyCode !== 13 ? null : catchSubmit(e)}
                   onChange={handleChange('password')}
                   endAdornment={
                     <InputAdornment position='start'>
@@ -178,7 +174,6 @@ const SignIn = () => {
             </div>
             {subscribeMsg}
           </Grid>
-        </div>
       </Grid>
     </>
   )
