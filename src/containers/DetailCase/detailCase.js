@@ -48,8 +48,9 @@ const useStyles = makeStyles({
         marginTop: "50px",
         marginBottom: "20px",
         padding: "5px",
-        backgroundColor: palette.primary,
-        color: "white"
+        color: palette.primary,
+        borderBottom: "1px solid",
+        borderColor: palette.primary
     },
     fixed:{
         position: "fixed"
