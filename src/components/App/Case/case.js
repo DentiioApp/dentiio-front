@@ -1,6 +1,7 @@
 import React from 'react'
 
 import { makeStyles } from '@material-ui/core/styles'
+import { Link } from 'react-router-dom';
 import clsx from 'clsx'
 import Card from '@material-ui/core/Card'
 // import CardHeader from '@material-ui/core/CardHeader';
@@ -21,7 +22,7 @@ import { avgNotes } from '../../../utils'
 const useStyles = makeStyles((theme) => ({
   root: {
     maxWidth: 345,
-    border: 'solid 1px #90caf9'
+    border: 'solid 1px #90caf9',
   },
   media: {
     height: 0,
@@ -42,73 +43,45 @@ const useStyles = makeStyles((theme) => ({
   },
   flright: {
     float: 'right'
-  }
+  },
 
 }))
 
 const Case = (props) => {
   const classes = useStyles()
-  const [expanded, setExpanded] = React.useState(false)
-
-  const handleExpandClick = () => {
-    setExpanded(!expanded)
-  }
-
   return (
-    <Card className={classes.root}>
-      <img className={classes.flright} src={fav} alt='favorite' />
-      <CardMedia
-        className={classes.media}
-        image='https://upload.wikimedia.org/wikipedia/commons/1/17/Yin_yang.svg'
-        title='Paella dish'
-      />
-      <CardContent>
-        <Typography variant='body2' color='textSecondary' component='p' >
-          {props.item.presentation}
-        </Typography>
-      </CardContent>
-      <CardActions disableSpacing>
-        <Avatar aria-label='recipe' className={classes.avatar}>
-          {'Av'}
-        </Avatar>
-        <small>{'pseudo'} </small>
-        <small>  {'function'}</small>
-        {/* <TeethButton> */}
+    <Link to={`/case/${props.item.id}`} style={{ textDecoration: 'none' }}>
+      <Card className={classes.root}>
+        <img className={classes.flright} src={fav} alt='favorite' />
+        <CardMedia
+          className={classes.media}
+          image='https://upload.wikimedia.org/wikipedia/commons/1/17/Yin_yang.svg'
+          title='Paella dish'
+        />
 
-        {/* </TeethButton> */}
-        {/* <CommentButton aria-label="comments"> */}
-           coms: {props.item.commentaires.length}
-        {/* </CommentButton> */}
-        {/* <NoteButton aria-label="comments"> */}
-           notes: {avgNotes(props.item.notations)}
-        {/* </NoteButton> */}
-        <IconButton
-          className={clsx(classes.expand, {
-            [classes.expandOpen]: expanded
-          })}
-          onClick={handleExpandClick}
-          aria-expanded={expanded}
-          aria-label='show more'
-        >
-          <ExpandMoreIcon />
-        </IconButton>
-      </CardActions>
-      <Collapse in={expanded} timeout='auto' unmountOnExit key={1}>
         <CardContent>
-          <Typography paragraph>Presentation:</Typography>
-          <Typography paragraph>{props.item.observation}</Typography>
-          <Typography paragraph>Observation:</Typography>
-          <Typography paragraph>{props.item.observation}</Typography>
-          <Typography paragraph>Plan de traitement:</Typography>
-          <Typography paragraph>{props.item.treatmentPlan}</Typography>
-          <Typography paragraph color='blue'>Evolution:</Typography>
-          <Typography paragraph>{props.item.evolution}</Typography>
-          <Typography>
-            {props.item.conclusion}
+          <Typography variant='body2' color='textSecondary' component='p'>
+            {props.item.presentation}
           </Typography>
         </CardContent>
-      </Collapse>
-    </Card>
+        <CardActions disableSpacing>
+          <Avatar aria-label='recipe' className={classes.avatar}>
+            {'Av'}
+          </Avatar>
+          <small>{'pseudo'} </small>
+          <small>  {'function'}</small>
+          {/* <TeethButton> */}
+
+          {/* </TeethButton> */}
+          {/* <CommentButton aria-label="comments"> */}
+             coms: {props.item.commentaires.length}
+          {/* </CommentButton> */}
+          {/* <NoteButton aria-label="comments"> */}
+             notes: {avgNotes(props.item.notations)}
+          {/* </NoteButton> */}
+        </CardActions>
+      </Card>
+    </Link>
   )
 }
 
