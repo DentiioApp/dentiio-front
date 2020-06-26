@@ -1,16 +1,16 @@
 import React, { useState, useEffect } from 'react'
-import { useDispatch } from 'react-redux'
-import CardForm from '../../components/App/CardForm/cardForm'
-import { cardCheck, JOB_LIST } from '../../store/actions'
-
+import { useDispatch, useSelector} from 'react-redux'
+import  {Register }from '../../Components/App/Register/register'
+import SignIn from '../../Components/App/SignIn/signIn'
+import {JOB_LIST} from '../../store/actions'
 import { fetchJobs } from '../../services/JobList'
-import './Home.scss'
+import './Home.scss' 
 
 const Home = () => {
   const dispatch = useDispatch({type:"CARD_STATE", })
-  const homeState = 'inscription'
+  const home = useSelector((state) => state.home)
+  const user = useSelector((state) => state.user)
 
-  // const wait=ms=>new Promise(resolve => setTimeout(resolve, ms));
   const [jobs, setJobs] = useState([])
   var count=0
 
@@ -19,13 +19,18 @@ const Home = () => {
     getJobs.then((res) => setJobs(res || {}))
   },[count])
 
-  dispatch(cardCheck({ status: homeState }))
   dispatch({ type: JOB_LIST, data: jobs })
  
+  var auth = <Register />
+
+  if (home.status === 'connexion' || user.subscribe === true) {
+    auth = <SignIn />
+  }
+
   return (
-    <div className='App'>
-      <CardForm />
-    </div>
+    <>
+      {auth}
+    </>
   )
 }
 

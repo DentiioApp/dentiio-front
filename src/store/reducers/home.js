@@ -11,6 +11,7 @@ const INIT_STATE = {
   user: {},
   
   cases: [],
+  status:'inscription'
 }
 
 export const Home = (state = INIT_STATE, action) => {

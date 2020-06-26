@@ -3,9 +3,10 @@ import './signIn.scss'
 import React, { useState, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { Redirect } from 'react-router-dom'
+import ReactNotification, { store } from 'react-notifications-component'
+import 'react-notifications-component/dist/theme.css'
 
 import {
-  Avatar,
   Paper,
   Typography
 } from '@material-ui/core/'
@@ -48,6 +49,7 @@ const SignIn = () => {
   const [datas, setDatas] = useState('')
   const [values, setValues] = useState(initValues)
   const [errMsg, setErrMsg] = useState('')
+  const [v, setV] = useState(false)
 
   useEffect(() => {
     if (datas !== '') {
@@ -59,19 +61,19 @@ const SignIn = () => {
     e.preventDefault()
 
     if (values.password !== '' && values.pseudo !== '') {
-      async function getToken () { await loginCheck(values.pseudo, values.password)}
 
-      if(getToken().isResolved) {
-        setErrMsg('Connexion en cours')
+      const getToken = loginCheck(values.pseudo, values.password)
+
+      //if(getToken().isResolved) {
+       // setErrMsg('Connexion en cours')
         getToken.then((res) => {
           setDatas(res)
         })
-      }else{
-        setErrMsg('Vos identifiants de connexion ne sont pas valide ! ')
-      }
-
-      
+      //}else{
+      //  setErrMsg('Vos identifiants de connexion ne sont pas valide ! ')
+      //}
     } 
+    setV(true)
 
     setValues(values)
   }
@@ -165,7 +167,21 @@ const SignIn = () => {
 
                 <br />  <br />
 
-                <div onClick={catchSubmit}>
+                <div onClick={() =>(catchSubmit)}>
+                { v && store.addNotification({
+                    title: "Wonderful!",
+                    message: "Connexion en cours",
+                    type: "success",
+                    insert: "top",
+                    container: "top-right",
+                    animationIn: ["animated", "fadeIn"],
+                    animationOut: ["animated", "fadeOut"],
+                    dismiss: {
+                      duration: 5000,
+                      onScreen: true
+                    }
+                  })
+                } 
                   <GradientBtn
                     variant='contained'
                     type='submit'
