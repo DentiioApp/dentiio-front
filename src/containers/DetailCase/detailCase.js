@@ -14,6 +14,9 @@ import palette from "../../components/UI/colorTheme/palette";
 import Keyword from "../../components/UI/Keywords/keywords";
 import Gallery from "../../components/UI/Gallery/gallery";
 import LightboxButton from "../../components/UI/Gallery/lightboxButton";
+import CardPlanTreatment from "../../components/App/DetailCase/cardPlanTreatment";
+import plan1 from "../../images/fixtures/plan1.jpg"
+import plan2 from "../../images/fixtures/plan2.jpg"
 
 const useStyles = makeStyles({
     root: {
@@ -59,6 +62,21 @@ const useStyles = makeStyles({
         margin: "30px 0 15px 0",
     }
 });
+
+const images = [
+    {
+        original: 'https://dr-demonchaux-thierry.chirurgiens-dentistes.fr/wp-content/uploads/Encombrement-anterieur-Avant-Cas-Clinique.jpg',
+        thumbnail: 'https://dr-demonchaux-thierry.chirurgiens-dentistes.fr/wp-content/uploads/Encombrement-anterieur-Avant-Cas-Clinique.jpg',
+    },
+    {
+        original: 'https://picsum.photos/id/1015/250/150/',
+        thumbnail: 'https://picsum.photos/id/1015/250/150/',
+    },
+    {
+        original: 'https://picsum.photos/id/1019/1000/600/',
+        thumbnail: 'https://picsum.photos/id/1019/250/150/',
+    },
+];
 
 const detailCase = () => {
     // eslint-disable-next-line react-hooks/rules-of-hooks
@@ -127,7 +145,7 @@ const detailCase = () => {
                         <Typography component={"h3"} variant={"h5"} className={classes.h3} id={"examen"}>
                             Examen clinique
                         </Typography>
-                        <Gallery images="/*item.images*/"/>
+                        <Gallery images={images} />
                         <p>
                             Les dents infero-anterieur ont une légère mobilité et sont douloureuses depuis quelques jours.
                         </p>
@@ -138,7 +156,7 @@ const detailCase = () => {
                         <Typography component={"h3"} variant={"h5"} className={classes.titleExam} >
                             Scanner
                         </Typography>
-                        <Gallery images="/*item.images*/"/>
+                        <Gallery images={images}/>
                         <p>
                             Scanner incroyable
                         </p>
@@ -167,6 +185,20 @@ const detailCase = () => {
                         <Typography component={"h3"} variant={"h5"} className={classes.h3} id={"plan"}>
                             Plan de traitement
                         </Typography>
+                        <Grid container spacing={1} className={classes.resume}>
+                            <Grid container item md={4} justify="center">
+                               <CardPlanTreatment title={"Extraction"} description={"On a enlevé la dent"} image={plan1}/>
+                            </Grid>
+                            <Grid container item md={4}  justify="center">
+                                <CardPlanTreatment title={"Polissage"} description={"On a polit la gencive"} image={plan2}/>
+
+                            </Grid>
+                            <Grid container item md={4}  justify="center">
+                                <CardPlanTreatment title={"Fermer la plaie"} description={"On a fermé la plaie"}
+                                                   image={"https://lh3.googleusercontent.com/proxy/5VeKp24sBihw8l_wMn2PKQj2tIvmFLrsotoUSJh0mZBtOEF5H0QRw4XteaTcWYkRsxzY0YWzP2ZQNGd7XiCuVv4yh_GozOK6BjULz3F-afBTBHRJvaAGws5Kr13j9mpmHvluBjI8LMPFOeY"}/>
+                            </Grid>
+                        </Grid>
+
                         <Typography component={"h3"} variant={"h5"} className={classes.h3} id={"evolution"}>
                             Evolution
                         </Typography>
