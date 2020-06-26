@@ -49,7 +49,7 @@ const Register = () => {
     pseudo: '',
     email: '',
     password: '',
-    job: 4,
+    job: '',
     showPassword: false,
     cgu: true
   }
@@ -115,6 +115,7 @@ const Register = () => {
   }
 
   const switchToLogin = (e) => {
+
     dispatch(
       cardCheck(
         { status: 'connexion' }
@@ -163,6 +164,7 @@ const Register = () => {
                 variant='outlined'
                 margin='normal'
                 required
+                autoFocus
                 fullWidth
                 name='pseudo'
                 label='Pseudo'
@@ -197,7 +199,7 @@ const Register = () => {
               </InputLabel>
               <TextField
                 className='textField'
-                id='filled-select-currency'
+                id='job'
                 select
                 value={values.job}
                 onChange={handleChange('job')}
@@ -276,7 +278,7 @@ const Register = () => {
                 <span>
                   {' '}
                   Déjà un compte{' '}
-                  <Link onClick={switchToLogin} color='primary'>
+                  <Link onClick={(e) => switchToLogin(e)} color='primary'>
                     {' '}
                     Connectez vous ?{' '}
                   </Link>{' '}

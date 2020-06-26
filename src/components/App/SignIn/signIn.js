@@ -3,6 +3,8 @@ import './signIn.scss'
 import React, { useState, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { Redirect } from 'react-router-dom'
+import ReactNotification, { store } from 'react-notifications-component'
+import 'react-notifications-component/dist/theme.css'
 
 import {
   Avatar,
@@ -27,9 +29,9 @@ import { logUser } from '../../../store/actions'
 
 import loginCheck from '../../../services/LoginCheck'
 import { setup } from '../../../services/Auth'
-import {Link} from "../Register/register";
 import logo from "../../../images/logo.svg";
 import avatar from "../../../images/logoteeth_blue.png";
+
 
 const useStyles = makeStyles((theme) => (oStyle(theme, imgDesktop, imgMobile)))
 
@@ -49,7 +51,7 @@ const SignIn = () => {
   const [values, setValues] = useState(initValues)
   const [errEmail, setErrEmail] = useState(false)
   const [errPassword, setErrPassword] = useState(false)
-
+    const [notif, setNotif] = useState(false)
   useEffect(() => {
     if (datas !== '') {
       dispatch(logUser(datas))
@@ -122,6 +124,7 @@ const SignIn = () => {
                   margin='normal'
                   required
                   fullWidth
+                  autoFocus
                   name='pseudo'
                   label='pseudo'
                   type='text'
@@ -163,6 +166,20 @@ const SignIn = () => {
                 <br />  <br />
 
                 <div onClick={catchSubmit}>
+                  { notif && store.addNotification({
+                     title: "Wonderful!",
+                     message: "Connexion en cours",
+                     type: "success",
+                     insert: "top",
+                     container: "top-right",
+                     animationIn: ["animated", "fadeIn"],
+                     animationOut: ["animated", "fadeOut"],
+                     dismiss: {
+                       duration: 5000,
+                       onScreen: true
+                     }
+                   })
+                 } 
                   <GradientBtn
                     variant='contained'
                     type='submit'

@@ -17,18 +17,13 @@ const useStyles = makeStyles((theme) => ({
 
 const Cases = () => {
   const classes = useStyles()
-
   const [cases, setCases] = useState([])
-  const [count, setCount] = useState(0)
 
+  var count = 0 
   useEffect(() => {
-    if (count < 1) {
-      const getCases = fetchCases()
-      getCases.then((res) => setCases(res || {}))
-    }
-
-    setCount(count + 1)
-  }, [cases])
+    const getCases = fetchCases()
+    getCases.then((res) => setCases(res || {}))		   
+  }, [count])
 
   if (setup() === false) {
     return <Redirect to='/' />
