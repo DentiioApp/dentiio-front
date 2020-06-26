@@ -36,6 +36,7 @@ const useStyles = makeStyles((theme) => ({
     display: 'flex',
     position: 'fixed',
     top: 0,
+    zIndex: 11,
     [theme.breakpoints.up('sm')]: {
       display: 'none'
     }
@@ -46,6 +47,7 @@ const useStyles = makeStyles((theme) => ({
     top: 'auto',
     bottom: 0,
     height: 50,
+    zIndex: 11,
     [theme.breakpoints.up('sm')]: {
       display: 'none'
     }
