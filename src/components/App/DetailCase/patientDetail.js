@@ -13,7 +13,7 @@ import Divider from "@material-ui/core/Divider";
 const useStyles = makeStyles((theme) => ({
     root: {
         minWidth: 200,
-        width: "20%",
+        width: "23%",
         height: "fit-content",
         marginTop: 50,
         background: '#ffffff',
@@ -21,7 +21,7 @@ const useStyles = makeStyles((theme) => ({
         [theme.breakpoints.down('sm')]: {
             width: "100%",
             position: "static",
-            marginTop: "100px"
+            marginTop: "0px"
         }
     },
     content: {

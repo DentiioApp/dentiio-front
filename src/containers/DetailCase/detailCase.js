@@ -17,10 +17,12 @@ import LightboxButton from "../../components/UI/Gallery/lightboxButton";
 import CardPlanTreatment from "../../components/App/DetailCase/cardPlanTreatment";
 import plan1 from "../../images/fixtures/plan1.jpg"
 import plan2 from "../../images/fixtures/plan2.jpg"
+import radio1 from "../../images/fixtures/radio.jpg"
+import radio2 from "../../images/fixtures/radio2.jpg"
 
-const useStyles = makeStyles({
+const useStyles = makeStyles((theme) => ({
     root: {
-        margin: 30
+        margin: "30px 10px 50px 10px"
     },
     alignRight: {
         textAlign: 'right'
@@ -60,22 +62,51 @@ const useStyles = makeStyles({
     },
     titleExam:{
         margin: "30px 0 15px 0",
+    },
+    patientDesktop:{
+        display: 'none',
+        [theme.breakpoints.up('sm')]: {
+            display: 'block',
+        }
+    },
+    patientMobile:{
+        display: 'block',
+        [theme.breakpoints.up('sm')]: {
+            display: 'none',
+        }
+    },
+    paddigTopTitle:{
+        paddingTop: '100px',
+        [theme.breakpoints.up('sm')]: {
+            paddingTop: '0',
+        }
     }
-});
+}));
 
-const images = [
+const imagesExamen = [
     {
         original: 'https://dr-demonchaux-thierry.chirurgiens-dentistes.fr/wp-content/uploads/Encombrement-anterieur-Avant-Cas-Clinique.jpg',
         thumbnail: 'https://dr-demonchaux-thierry.chirurgiens-dentistes.fr/wp-content/uploads/Encombrement-anterieur-Avant-Cas-Clinique.jpg',
     },
     {
-        original: 'https://picsum.photos/id/1015/250/150/',
-        thumbnail: 'https://picsum.photos/id/1015/250/150/',
+        original: plan1,
+        thumbnail: plan1,
     },
     {
-        original: 'https://picsum.photos/id/1019/1000/600/',
-        thumbnail: 'https://picsum.photos/id/1019/250/150/',
+        original: plan2,
+        thumbnail: plan2,
     },
+];
+
+const imagesScanner = [
+    {
+        original: radio1,
+        thumbnail: radio1,
+    },
+    {
+        original: radio2,
+        thumbnail: radio2,
+    }
 ];
 
 const detailCase = () => {
@@ -89,12 +120,12 @@ const detailCase = () => {
             <div className={classes.root}>
             <Grid container spacing={1}>
                 <Grid container item md={3} spacing={1}>
-                    <div>
+                    <div className={classes.patientDesktop}>
                      <PatientDetail/>
                     </div>
                 </Grid>
                 <Grid container item md={7} spacing={1}>
-                    <div>
+                    <div className={classes.paddigTopTitle}>
                         <Typography component={"h1"} variant={"h4"}>
                             Traitement des racines internes
                         </Typography>
@@ -125,13 +156,13 @@ const detailCase = () => {
                                     L’améloblastome est la tumeur odontogène la plus fréquente dans les pays en voie de développement et occupe la 2ème place après lves odontomes dans les pays développés. Elle a été classée cliniquement en 3 groupes par l’OMS en 2017. La prise en charge de l’améloblastome est compliquée par le taux de récidive important associé à un traitement conservateur.
                                 </p>
                                 <div className={classes.keywords}>
-                                <Keyword keyword={"Fumeur"} />
+                                    <Keyword keyword={"Fumeur"} />
                                 </div>
                                 <div className={classes.keywords}>
-                                <Keyword keyword={"Racines internes"} />
+                                    <Keyword keyword={"Racines internes"} />
                                 </div>
                                 <div className={classes.keywords}>
-                                <Keyword keyword={"Pollen"} />
+                                    <Keyword keyword={"Pollen"} />
                                 </div>
                             </Grid>
                         </Grid>
@@ -141,11 +172,13 @@ const detailCase = () => {
                         <p>
                             Les dents infero-anterieur ont une légère mobilité et sont douloureuses depuis quelques jours.
                         </p>
-
+                        <div className={classes.patientMobile}>
+                            <PatientDetail/>
+                        </div>
                         <Typography component={"h3"} variant={"h5"} className={classes.h3} id={"examen"}>
                             Examen clinique
                         </Typography>
-                        <Gallery images={images} />
+                        <Gallery images={imagesExamen} />
                         <p>
                             Les dents infero-anterieur ont une légère mobilité et sont douloureuses depuis quelques jours.
                         </p>
@@ -156,7 +189,7 @@ const detailCase = () => {
                         <Typography component={"h3"} variant={"h5"} className={classes.titleExam} >
                             Scanner
                         </Typography>
-                        <Gallery images={images}/>
+                        <Gallery images={imagesScanner}/>
                         <p>
                             Scanner incroyable
                         </p>
@@ -174,27 +207,29 @@ const detailCase = () => {
                         <p>
                             Le diagnostic est nanananan
                         </p>
-                        <Typography component={"h4"} variant={"h5"} className={classes.titleExam}>
-                            Pathologie
-                        </Typography>
-                        <ul>
-                            <li>
-                                Carie
-                            </li>
-                        </ul>
+                        <Grid container item md={12} spacing={1}>
+                            <div className={classes.keywords}>
+                                <Keyword keyword={"Cancer"} />
+                            </div>
+                            <div className={classes.keywords}>
+                                <Keyword keyword={"Fracture"} />
+                            </div>
+                            <div className={classes.keywords}>
+                                <Keyword keyword={"Caillot"} />
+                            </div>
+                        </Grid>
                         <Typography component={"h3"} variant={"h5"} className={classes.h3} id={"plan"}>
                             Plan de traitement
                         </Typography>
                         <Grid container spacing={1} className={classes.resume}>
-                            <Grid container item md={4} justify="center">
-                               <CardPlanTreatment title={"Extraction"} description={"On a enlevé la dent"} image={plan1}/>
+                            <Grid container item md={6} justify="center">
+                               <CardPlanTreatment title={"1. Extraction"} description={"On a enlevé la dent"} image={plan1}/>
                             </Grid>
-                            <Grid container item md={4}  justify="center">
-                                <CardPlanTreatment title={"Polissage"} description={"On a polit la gencive"} image={plan2}/>
-
+                            <Grid container item md={6}  justify="center">
+                                <CardPlanTreatment title={"2. Polissage"} description={"On a polit la gencive"} />
                             </Grid>
-                            <Grid container item md={4}  justify="center">
-                                <CardPlanTreatment title={"Fermer la plaie"} description={"On a fermé la plaie"}
+                            <Grid container item md={6}  justify="center">
+                                <CardPlanTreatment title={"3. Fermer la plaie"} description={"On a fermé la plaie cisdlhcosidh vcsdivhsdvhsdivhsd vosdihvisdovhsdoiv hodivhsovhovhoduhvcosdhvcsdou chsdocuhsdvuhsfuhvsoduhvosu"}
                                                    image={"https://lh3.googleusercontent.com/proxy/5VeKp24sBihw8l_wMn2PKQj2tIvmFLrsotoUSJh0mZBtOEF5H0QRw4XteaTcWYkRsxzY0YWzP2ZQNGd7XiCuVv4yh_GozOK6BjULz3F-afBTBHRJvaAGws5Kr13j9mpmHvluBjI8LMPFOeY"}/>
                             </Grid>
                         </Grid>
@@ -202,7 +237,18 @@ const detailCase = () => {
                         <Typography component={"h3"} variant={"h5"} className={classes.h3} id={"evolution"}>
                             Evolution
                         </Typography>
+                        <p>
+                            Aprèe deux mois voila le resultat
+                        </p>
+                        <Gallery images={imagesExamen}/>
+                        <Typography component={"h3"} variant={"h5"} className={classes.h3} id={"conclusion"}>
+                            Conclusion
+                        </Typography>
+                        <p>
+                            C'était super
+                        </p>
                     </div>
+
                 </Grid>
                 <Grid container className={classes.alignRight} item  md={2} spacing={1}>
                     <div>

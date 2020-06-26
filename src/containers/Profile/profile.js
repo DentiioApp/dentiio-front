@@ -1,11 +1,22 @@
 import React from 'react'
 import Header from '../../components/App/Header/header'
 
-const Profile = () => {
 
+function logout(){
+    localStorage.clear();
+    window.location.href = '/';
+}
+
+
+
+const Profile = () => {
   return (
     <>
-      <Header target='profile' />
+        <Header target='profile' />
+        <button onClick={logout}>
+            Se déconnecter
+        </button>
+
     </>
   )
 }
