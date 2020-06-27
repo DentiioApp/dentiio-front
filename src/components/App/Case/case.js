@@ -1,7 +1,7 @@
 import React from 'react'
 
 import { makeStyles } from '@material-ui/core/styles'
-import { Link } from 'react-router-dom';
+import { Link } from 'react-router-dom'
 import clsx from 'clsx'
 import Card from '@material-ui/core/Card'
 // import CardHeader from '@material-ui/core/CardHeader';
@@ -22,7 +22,7 @@ import { avgNotes } from '../../../utils'
 const useStyles = makeStyles((theme) => ({
   root: {
     maxWidth: 345,
-    border: 'solid 1px #90caf9',
+    border: 'solid 1px #90caf9'
   },
   media: {
     height: 0,
@@ -43,7 +43,7 @@ const useStyles = makeStyles((theme) => ({
   },
   flright: {
     float: 'right'
-  },
+  }
 
 }))
 

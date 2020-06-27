@@ -12,10 +12,10 @@ const colorTheme = createMuiTheme({
   },
   overrides: {
     MuiTypography: {
-      colorTextPrimary: {color : "grey", fontSize : "12px"}
+      colorTextPrimary: { color: 'grey', fontSize: '12px' }
 
     }
-  },
+  }
 })
 
 export default colorTheme

@@ -19,10 +19,10 @@ const Cases = () => {
   const classes = useStyles()
   const [cases, setCases] = useState([])
 
-  var count = 0 
+  var count = 0
   useEffect(() => {
     const getCases = fetchCases()
-    getCases.then((res) => setCases(res || {}))		   
+    getCases.then((res) => setCases(res || {}))
   }, [count])
 
   if (setup() === false) {

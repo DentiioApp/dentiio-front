@@ -15,8 +15,8 @@ import dotenv from 'dotenv'
 import { ToastProvider } from 'react-toast-notifications'
 import { ThemeProvider } from '@material-ui/core/styles'
 import colorTheme from './components/UI/colorTheme/colorTheme'
-import detailCase from "./containers/DetailCase/detailCase";
-import config from "./config"
+import detailCase from './containers/DetailCase/detailCase'
+import config from './config'
 
 import {
   BrowserRouter as Router,
@@ -41,7 +41,7 @@ export const store = createStore(adminReducer,
 ReactDOM.render(
   <ThemeProvider theme={colorTheme}>
     <Provider store={store}>
-      <ToastProvider autoDismissTimeout= {config.messages.auth.timeOut} >
+      <ToastProvider autoDismissTimeout={config.messages.auth.timeOut}>
         <Router>
           <div>
             <Switch>

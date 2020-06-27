@@ -27,19 +27,18 @@ import avatar from '../../../images/logoteeth_blue.png'
 import logo from '../../../images/logo.svg'
 import Visibility from '@material-ui/icons/Visibility'
 import VisibilityOff from '@material-ui/icons/VisibilityOff'
-import {useToasts} from 'react-toast-notifications'
+import { useToasts } from 'react-toast-notifications'
 
 import { setup } from '../../../services/Auth'
 import oStyle from '../Register/registerStyle'
 import { registerUser, LOGIN_FORM } from '../../../store/actions'
 import GradientBtn from '../../UI/buttons/GradientBtn'
 import { checkText, checkEmail, checkPassword } from '../../../utils'
-import blueGrey from "@material-ui/core/colors/blueGrey";
-import Icon from "../../../images/titleHeaderMobile.svg";
-import config from "../../../config"
+import blueGrey from '@material-ui/core/colors/blueGrey'
+import Icon from '../../../images/titleHeaderMobile.svg'
+import config from '../../../config'
 
 const useStyles = makeStyles((theme) => oStyle(theme, imgDesktop, imgMobile))
-
 
 const Register = (props) => {
   const classes = useStyles()
@@ -73,9 +72,9 @@ const Register = (props) => {
     if (values.cgu === false) { setErrCgu(true) }
 
     if ((errPseudo || errEmail || errPassword || !errCgu) === true) {
-      addToast(conf.register.error, { appearance: 'error', autoDismissTimeout: conf.timeOut }) ;return false
+      addToast(conf.register.error, { appearance: 'error', autoDismissTimeout: conf.timeOut }); return false
     } else {
-      addToast(conf.register.success, { appearance: 'success', autoDismissTimeout: conf.timeOut})
+      addToast(conf.register.success, { appearance: 'success', autoDismissTimeout: conf.timeOut })
       dispatch(registerUser({
         pseudo: values.pseudo,
         email: values.email,
@@ -121,7 +120,7 @@ const Register = (props) => {
 
   const switchToLogin = (e) => {
     e.preventDefault()
-    dispatch({ type : LOGIN_FORM })
+    dispatch({ type: LOGIN_FORM })
   }
 
   const handleClickShowPassword = () => {
@@ -142,160 +141,158 @@ const Register = (props) => {
   }
 
   return (
-      <Grid container component='main' className={classes.root}>
-        <img className={classes.logo} alt='' src={logo} />
+    <Grid container component='main' className={classes.root}>
+      <img className={classes.logo} alt='' src={logo} />
 
-        <Grid
-          item
-          xs={11}
-          sm={7}
-          md={7}
-          component={Paper}
-          elevation={6}
-          square
-          className={classes.login}
-          >
-          <div className={classes.paper}>
-            <img className={classes.avatar} alt='' src={avatar} />
-            <Typography component='h1' variant='h5'>
+      <Grid
+        item
+        xs={11}
+        sm={7}
+        md={7}
+        component={Paper}
+        elevation={6}
+        square
+        className={classes.login}
+      >
+        <div className={classes.paper}>
+          <img className={classes.avatar} alt='' src={avatar} />
+          <Typography component='h1' variant='h5'>
               Inscription
-            </Typography>
-            <form className={classes.form} noValidate>
-              <TextField
-                variant='outlined'
-                margin='normal'
-                required
-                autoFocus
-                fullWidth
-                name='pseudo'
-                label='Pseudo'
-                type='text'
-                id='pseudo'
-                autoComplete='current-pseudo'
-                onKeyDown={(e) => e.keyCode !== 13 ? null : catchSubmit(e)}
-                onChange={handleChange('pseudo')}
-                error={errPseudo}
-              />
-              <TextField
-                variant='outlined'
-                margin='normal'
-                required
-                fullWidth
-                id='email'
-                label='Email Address'
-                name='email'
-                autoComplete='email'
-                autoFocus
-                onKeyDown={(e) => e.keyCode !== 13 ? null : catchSubmit(e)}
-                onChange={handleChange('email')}
-                error={errEmail}
-                helperText={values.email !== '' ? (checkEmail(values.email) === false ? 'Email invalide!' : ' ') : ''}
-              />
-              <FormHelperText id='my-helper-text'>{/* On ne partagera jamais votre email. */}</FormHelperText>
+          </Typography>
+          <form className={classes.form} noValidate>
+            <TextField
+              variant='outlined'
+              margin='normal'
+              required
+              autoFocus
+              fullWidth
+              name='pseudo'
+              label='Pseudo'
+              type='text'
+              id='pseudo'
+              autoComplete='current-pseudo'
+              onKeyDown={(e) => e.keyCode !== 13 ? null : catchSubmit(e)}
+              onChange={handleChange('pseudo')}
+              error={errPseudo}
+            />
+            <TextField
+              variant='outlined'
+              margin='normal'
+              required
+              fullWidth
+              id='email'
+              label='Email Address'
+              name='email'
+              autoComplete='email'
+              autoFocus
+              onKeyDown={(e) => e.keyCode !== 13 ? null : catchSubmit(e)}
+              onChange={handleChange('email')}
+              error={errEmail}
+              helperText={values.email !== '' ? (checkEmail(values.email) === false ? 'Email invalide!' : ' ') : ''}
+            />
+            <FormHelperText id='my-helper-text'>{/* On ne partagera jamais votre email. */}</FormHelperText>
 
-              <br />
+            <br />
 
-              <InputLabel className='inputLabel'>
+            <InputLabel className='inputLabel'>
               Vous êtes* :
-              </InputLabel>
-              <TextField
-                className='textField'
-                id='job'
-                select
-                value={values.job}
-                onChange={handleChange('job')}
-                variant='outlined'
-              >
-                {jobs.map(option => (
-                  <MenuItem key={option.ident} value={option.id}>
-                    {option.name}
-                  </MenuItem>
-                ))}
-              </TextField>
+            </InputLabel>
+            <TextField
+              className='textField'
+              id='job'
+              select
+              value={values.job}
+              onChange={handleChange('job')}
+              variant='outlined'
+            >
+              {jobs.map(option => (
+                <MenuItem key={option.ident} value={option.id}>
+                  {option.name}
+                </MenuItem>
+              ))}
+            </TextField>
 
-              <br /> <br />
+            <br /> <br />
 
-              <OutlinedInput
-                variant='outlined'
-                required
-                fullWidth
-                name='password'
-                label='Password'
-                type={values.showPassword ? 'text' : 'password'}
-                value={values.password}
-                id='outlined-adornment-password'
-                autoComplete='on'
-                placeholder='Password'
-                error={errPassword}
-                onKeyDown={(e) => e.keyCode !== 13 ? null : catchSubmit(e)}
-                onChange={handleChange('password')}
-                endAdornment={
-                  <InputAdornment position='start'>
-                    <IconButton
-                      aria-label='toggle password visibility'
-                      onClick={handleClickShowPassword}
-                      onMouseDown={handleMouseDownPassword}
-                      edge='end'
-                    >
-                      {values.showPassword ? <Visibility /> : <VisibilityOff />}
-                    </IconButton>
-                  </InputAdornment>
-                }
+            <OutlinedInput
+              variant='outlined'
+              required
+              fullWidth
+              name='password'
+              label='Password'
+              type={values.showPassword ? 'text' : 'password'}
+              value={values.password}
+              id='outlined-adornment-password'
+              autoComplete='on'
+              placeholder='Password'
+              error={errPassword}
+              onKeyDown={(e) => e.keyCode !== 13 ? null : catchSubmit(e)}
+              onChange={handleChange('password')}
+              endAdornment={
+                <InputAdornment position='start'>
+                  <IconButton
+                    aria-label='toggle password visibility'
+                    onClick={handleClickShowPassword}
+                    onMouseDown={handleMouseDownPassword}
+                    edge='end'
+                  >
+                    {values.showPassword ? <Visibility /> : <VisibilityOff />}
+                  </IconButton>
+                </InputAdornment>
+              }
 
-              />
-              <br />
-              <Typography component='p' color="textPrimary">
+            />
+            <br />
+            <Typography component='p' color='textPrimary'>
                 8 caractères minimum, un caractère spécial, une majuscule
-              </Typography>
+            </Typography>
 
-              <br />  <br />
+            <br />  <br />
 
-              <FormControlLabel
-                control={
-                  <Checkbox
-                    color='primary'
-                    checked={!values.cgu}
-                    onKeyDown={(e) => e.keyCode !== 13 ? null : catchSubmit(e)}
-                    onClick={handleClickCgu}
-                    onMouseDown={handleMouseDownCgu}
-                    error={errCgu.toString()}
-                  />
-                }
-                label="J'accepte les conditions générales de d'utilisation"
-              />
-
-              <br /> <br /> <br />
-
-              <div onClick={catchSubmit}>
-                <GradientBtn
-                  variant='contained'
-                  type='submit'
-                  description={'S\'inscrire'}
-                  className='GradientBtn'
+            <FormControlLabel
+              control={
+                <Checkbox
+                  color='primary'
+                  checked={!values.cgu}
+                  onKeyDown={(e) => e.keyCode !== 13 ? null : catchSubmit(e)}
+                  onClick={handleClickCgu}
+                  onMouseDown={handleMouseDownCgu}
+                  error={errCgu.toString()}
                 />
-              </div>
-              <br />
-              <Typography>
-                <span>
-                  {' '}
+              }
+              label="J'accepte les conditions générales de d'utilisation"
+            />
+
+            <br /> <br /> <br />
+
+            <div onClick={catchSubmit}>
+              <GradientBtn
+                variant='contained'
+                type='submit'
+                description={'S\'inscrire'}
+                className='GradientBtn'
+              />
+            </div>
+            <br />
+            <Typography>
+              <span>
+                {' '}
                   Déjà un compte{' '}
-                  <Link onClick={(e) => switchToLogin(e)} color='primary'>
-                    {' '}
+                <Link onClick={(e) => switchToLogin(e)} color='primary'>
+                  {' '}
                     Connectez vous ?{' '}
-                  </Link>{' '}
-                </span>
-              </Typography>
+                </Link>{' '}
+              </span>
+            </Typography>
 
-            </form>
-            <span>{user.message}</span>
-          </div>
+          </form>
+          <span>{user.message}</span>
+        </div>
 
-        </Grid>
       </Grid>
-
+    </Grid>
 
   )
 }
-
 
 export default Register
