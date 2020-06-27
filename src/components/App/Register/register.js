@@ -73,17 +73,16 @@ const Register = (props) => {
     if (values.cgu === false) { setErrCgu(true) }
 
     if ((errPseudo || errEmail || errPassword || !errCgu) === true) {
-      addToast(conf.register.error, { appearance: 'error'}); return false
-
-    } else { 
-       dispatch(registerUser({
+      addToast(conf.register.error, { appearance: 'error' }); return false
+    } else {
+      dispatch(registerUser({
         pseudo: values.pseudo,
         email: values.email,
         password: values.password,
         job: values.job,
         cgu: values.cgu
       }))
-      addToast(conf.register.success, { appearance: 'success'})
+      addToast(conf.register.success, { appearance: 'success' })
     }
   }
 
