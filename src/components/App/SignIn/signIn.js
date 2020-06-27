@@ -3,8 +3,7 @@ import './signIn.scss'
 import React, { useState, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { Redirect } from 'react-router-dom'
-import ReactNotification, { store } from 'react-notifications-component'
-import 'react-notifications-component/dist/theme.css'
+import {useToasts} from 'react-toast-notifications'
 
 import {
   Avatar,
@@ -31,7 +30,7 @@ import loginCheck from '../../../services/LoginCheck'
 import { setup } from '../../../services/Auth'
 import logo from "../../../images/logo.svg";
 import avatar from "../../../images/logoteeth_blue.png";
-
+import config from "../../../config"
 
 const useStyles = makeStyles((theme) => (oStyle(theme, imgDesktop, imgMobile)))
 
@@ -40,6 +39,8 @@ const SignIn = () => {
   const dispatch = useDispatch()
   const subscribeMsg = localStorage.getItem('authSubscribeMsg')
   const user = useSelector((state) => state.user)
+  const { addToast } = useToasts()
+  const conf = config.messages.auth
 
   const initValues = {
     pseudo: '',
@@ -51,14 +52,14 @@ const SignIn = () => {
   const [values, setValues] = useState(initValues)
   const [errEmail, setErrEmail] = useState(false)
   const [errPassword, setErrPassword] = useState(false)
-    const [notif, setNotif] = useState(false)
+
   useEffect(() => {
     if (datas !== '') {
       dispatch(logUser(datas))
     }
   })
 
-  const catchSubmit = (e) => {
+  const catchSubmit = async (e) => {
     e.preventDefault()
 
     if (values.password !== '' && values.pseudo !== '') {
@@ -66,10 +67,13 @@ const SignIn = () => {
       getToken.then((res) => {
         setDatas(res)
       })
+
+      addToast(conf.signin.success, { appearance: 'success' })
     } else {
       setErrEmail(true)
       setErrPassword(true)
 
+      addToast(conf.signin.error, { appearance: 'error' })
       return false
     }
 
@@ -166,20 +170,6 @@ const SignIn = () => {
                 <br />  <br />
 
                 <div onClick={catchSubmit}>
-                  { notif && store.addNotification({
-                     title: "Wonderful!",
-                     message: "Connexion en cours",
-                     type: "success",
-                     insert: "top",
-                     container: "top-right",
-                     animationIn: ["animated", "fadeIn"],
-                     animationOut: ["animated", "fadeOut"],
-                     dismiss: {
-                       duration: 5000,
-                       onScreen: true
-                     }
-                   })
-                 } 
                   <GradientBtn
                     variant='contained'
                     type='submit'
