@@ -1,3 +1,5 @@
+import CASES_LIST from '../.'
+
 const INIT_STATE = {
   navBarOpen: '',
 
@@ -15,6 +17,9 @@ export const Home = (state = INIT_STATE, action) => {
 
     case 'JOB_LIST':
       return { ...state, jobs: action.data, jobsLoaded: true }
+
+    case CASES_LIST :
+      return { ...state, cases: action.datas }
 
     default:
       return state

@@ -23,7 +23,7 @@ const Cases = () => {
   const dispatch = useDispatch()
   const home = useSelector((state) => state.home)
   const cases = useSelector((state) => state.home.cases)
-
+  
   const isLoaded = home.casesLoaded
 
   useEffect(() => {

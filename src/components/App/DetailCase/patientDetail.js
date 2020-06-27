@@ -37,7 +37,7 @@ const useStyles = makeStyles((theme) => ({
   }
 }))
 
-export default function patientDetail () {
+export default function PatientDetail () {
   // eslint-disable-next-line react-hooks/rules-of-hooks
   const classes = useStyles()
 
