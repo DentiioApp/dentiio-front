@@ -31,7 +31,7 @@ import {useToasts} from 'react-toast-notifications'
 
 import { setup } from '../../../services/Auth'
 import oStyle from '../Register/registerStyle'
-import { registerUser, cardCheck } from '../../../store/actions'
+import { registerUser, LOGIN_FORM } from '../../../store/actions'
 import GradientBtn from '../../UI/buttons/GradientBtn'
 import { checkText, checkEmail, checkPassword } from '../../../utils'
 import blueGrey from "@material-ui/core/colors/blueGrey";
@@ -121,11 +121,7 @@ const Register = (props) => {
 
   const switchToLogin = (e) => {
     e.preventDefault()
-    dispatch(
-      cardCheck(
-        { status: 'connexion' }
-      )
-    )
+    dispatch({ type : LOGIN_FORM })
   }
 
   const handleClickShowPassword = () => {

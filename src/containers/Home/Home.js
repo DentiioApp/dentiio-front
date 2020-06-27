@@ -1,30 +1,31 @@
 import React, { useState, useEffect } from 'react'
-import { useDispatch } from 'react-redux'
-import CardForm from '../../components/App/CardForm/cardForm'
-import { cardCheck, JOB_LIST } from '../../store/actions'
+import { useDispatch ,useSelector} from 'react-redux'
+import { JOB_LIST } from '../../store/actions'
+import Register from '../../components/App/Register/register'
+import SignIn from '../../components/App/SignIn/signIn'
 
 import { fetchJobs } from '../../services/JobList'
 import './Home.scss'
 
 const Home = () => {
   const dispatch = useDispatch()
-  const homeState = 'inscription'
-  // const wait=ms=>new Promise(resolve => setTimeout(resolve, ms));
+  const home = useSelector((state) => state.home)
+
+  const form = home.login ? <Register /> : <SignIn />
+
   const [jobs, setJobs] = useState([])
-   var count = 0 ;
-   useEffect(() => {		 
+  var count = 0 ;
+
+  useEffect((count) => {		 
     const getJobs = fetchJobs()	
     getJobs.then((res) => setJobs(res || {}))
-   },[count])
+  },[count])
 
-  // wait(40*1000).then(() => {
-  dispatch(cardCheck({ status: homeState }))
-  dispatch({ type: JOB_LIST, data: jobs })
-  // })
+ // dispatch({ type: JOB_LIST, data: jobs })
 
   return (
     <div className='App'>
-      <CardForm />
+      {form}
     </div>
   )
 }

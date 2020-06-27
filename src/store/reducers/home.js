@@ -11,13 +11,13 @@ const INIT_STATE = {
   user: {},
 
   cases: [],
-  status: "inscription",
+  login: false,
 };
 
 export const Home = (state = INIT_STATE, action) => {
   switch (action.type) {
-  case "CARD_STATE":
-      return { ...state, status: action.homeState };
+  case "LOGIN_FORM":
+      return { ...state, login: true };
 
     case "JOB_LIST":
       return { ...state, jobs: action.data };
