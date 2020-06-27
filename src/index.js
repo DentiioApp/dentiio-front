@@ -15,7 +15,7 @@ import dotenv from 'dotenv'
 import { ToastProvider } from 'react-toast-notifications'
 import { ThemeProvider } from '@material-ui/core/styles'
 import colorTheme from './components/UI/colorTheme/colorTheme'
-import detailCase from './containers/DetailCase/DetailCase'
+import DetailCase from './containers/DetailCase/DetailCase'
 import config from './config'
 
 import {
@@ -47,7 +47,7 @@ ReactDOM.render(
             <Switch>
               <Route exact path='/' component={Home} />
               <Route exact path='/cases' component={Cases} />
-              <Route path='/case/:id' component={detailCase} />
+              <Route path='/case/:id' component={DetailCase} />
               <Route exact path='/favorites' component={Favorites} />
               <Route exact path='/profile' component={Profile} />
             </Switch>

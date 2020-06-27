@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect } from 'react'
 import { Redirect } from 'react-router-dom'
 
 import Container from '@material-ui/core/Container'
@@ -24,10 +24,10 @@ const Cases = () => {
   const home = useSelector((state) => state.home)
   const cases = useSelector((state) => state.home.cases)
   
-  const isLoaded = home.casesLoaded
+  const areLoaded = home.casesLoaded
 
   useEffect(() => {
-    if (!isLoaded) {
+    if (!areLoaded) {
       const getCases = fetchCases()
       const disp = getCases.then((resp) => ({ type: CASES_LIST, data: resp }))
 
