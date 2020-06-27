@@ -21,7 +21,7 @@ import imgMobile from '../../../images/mobile-bg.svg'
 import Visibility from '@material-ui/icons/Visibility'
 import VisibilityOff from '@material-ui/icons/VisibilityOff'
 
-import StatusModal from '../StatusModal/statusModal'
+import StatusModal from '../StatusModal/StatusModal'
 import GradientBtn from '../../UI/buttons/GradientBtn'
 import oStyle from '../../ResponsiveDesign/authStyle'
 import { logUser } from '../../../store/actions'

@@ -1,20 +1,10 @@
 const INIT_STATE = {
   navBarOpen: '',
-  loadingJobs: false,
-  jobsLoaded: false,
-  jobs: [],
 
-  // ALL USERS
-  loadingUsers: false,
-  usersLoaded: false,
-  users: [],
-
-  // AN USERS
-  loadingUser: false,
-  userLoaded: false,
-  user: {},
-
-  cases: [],
+  loadingJobs: false, jobsLoaded: false, jobs: [],
+  loadingUsers: false, usersLoaded: false, users: [],
+  loadingCases: false, casesLoaded: false, cases: [],
+  
   login: false
 }
 

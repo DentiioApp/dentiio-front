@@ -4,10 +4,12 @@ import { Redirect } from 'react-router-dom'
 import Container from '@material-ui/core/Container'
 import { makeStyles } from '@material-ui/core/styles'
 
-import Header from '../../components/App/Header/header'
+import Header from '../../components/App/Header/Header'
 import { setup } from '../../services/Auth'
 import { fetchCases } from '../../services/CaseList'
-import CasesList from '../../components/App/CasesList/casesList'
+import { CASES_LIST } from '../../store/actions'
+import CasesList from '../../components/App/CasesList/CasesList'
+import { useSelector, useDispatch } from 'react-redux'
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -17,13 +19,22 @@ const useStyles = makeStyles((theme) => ({
 
 const Cases = () => {
   const classes = useStyles()
-  const [cases, setCases] = useState([])
 
-  var count = 0
+  const dispatch = useDispatch()
+  const home = useSelector((state) => state.home)
+  const cases = useSelector((state) => state.home.cases)
+
+  const isLoaded = home.casesLoaded
+
   useEffect(() => {
-    const getCases = fetchCases()
-    getCases.then((res) => setCases(res || {}))
-  }, [count])
+    if (!isLoaded) {
+      const getCases = fetchCases()
+      const disp = getCases.then((resp) => ({ type: CASES_LIST, data: resp }))
+
+      disp.then((action) => { dispatch(action) })
+    }
+  })
+
 
   if (setup() === false) {
     return <Redirect to='/' />

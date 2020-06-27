@@ -1,8 +1,8 @@
 import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { JOB_LIST } from '../../store/actions'
-import Register from '../../components/App/Register/register'
-import SignIn from '../../components/App/SignIn/signIn'
+import Register from '../../components/App/Register/Register'
+import SignIn from '../../components/App/SignIn/SignIn'
 
 import { fetchJobs } from '../../services/JobList'
 import './Home.scss'
