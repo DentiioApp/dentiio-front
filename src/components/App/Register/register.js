@@ -27,6 +27,7 @@ import avatar from '../../../images/logoteeth_blue.png'
 import logo from '../../../images/logo.svg'
 import Visibility from '@material-ui/icons/Visibility'
 import VisibilityOff from '@material-ui/icons/VisibilityOff'
+import {useToasts} from 'react-toast-notifications'
 
 import { setup } from '../../../services/Auth'
 import oStyle from '../Register/registerStyle'
@@ -35,13 +36,16 @@ import GradientBtn from '../../UI/buttons/GradientBtn'
 import { checkText, checkEmail, checkPassword } from '../../../utils'
 import blueGrey from "@material-ui/core/colors/blueGrey";
 import Icon from "../../../images/titleHeaderMobile.svg";
+import config from "../../../config"
 
 const useStyles = makeStyles((theme) => oStyle(theme, imgDesktop, imgMobile))
 
-const Register = () => {
+
+const Register = (props) => {
   const classes = useStyles()
   const dispatch = useDispatch()
-
+  const { addToast } = useToasts()
+  const conf = config.messages.auth
   const jobs = useSelector((state) => state.home.jobs)
   const user = useSelector((state) => state.user)
 
@@ -49,7 +53,7 @@ const Register = () => {
     pseudo: '',
     email: '',
     password: '',
-    job: 4,
+    job: '',
     showPassword: false,
     cgu: true
   }
@@ -60,7 +64,7 @@ const Register = () => {
   const [errPassword, setErrPassword] = useState(false)
   const [errCgu, setErrCgu] = useState(true)
 
-  const catchSubmit = (e) => {
+  const catchSubmit = async (e) => {
     e.preventDefault()
 
     if (checkText(values.pseudo) === false) { setErrPseudo(true) }
@@ -69,8 +73,9 @@ const Register = () => {
     if (values.cgu === false) { setErrCgu(true) }
 
     if ((errPseudo || errEmail || errPassword || !errCgu) === true) {
-      return false
+      addToast(conf.register.error, { appearance: 'error', autoDismissTimeout: conf.timeOut }) ;return false
     } else {
+      addToast(conf.register.success, { appearance: 'success', autoDismissTimeout: conf.timeOut})
       dispatch(registerUser({
         pseudo: values.pseudo,
         email: values.email,
@@ -115,6 +120,7 @@ const Register = () => {
   }
 
   const switchToLogin = (e) => {
+    e.preventDefault()
     dispatch(
       cardCheck(
         { status: 'connexion' }
@@ -163,6 +169,7 @@ const Register = () => {
                 variant='outlined'
                 margin='normal'
                 required
+                autoFocus
                 fullWidth
                 name='pseudo'
                 label='Pseudo'
@@ -197,7 +204,7 @@ const Register = () => {
               </InputLabel>
               <TextField
                 className='textField'
-                id='filled-select-currency'
+                id='job'
                 select
                 value={values.job}
                 onChange={handleChange('job')}
@@ -276,7 +283,7 @@ const Register = () => {
                 <span>
                   {' '}
                   Déjà un compte{' '}
-                  <Link onClick={switchToLogin} color='primary'>
+                  <Link onClick={(e) => switchToLogin(e)} color='primary'>
                     {' '}
                     Connectez vous ?{' '}
                   </Link>{' '}

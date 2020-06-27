@@ -3,6 +3,7 @@ import './signIn.scss'
 import React, { useState, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { Redirect } from 'react-router-dom'
+import {useToasts} from 'react-toast-notifications'
 
 import {
   Avatar,
@@ -27,9 +28,9 @@ import { logUser } from '../../../store/actions'
 
 import loginCheck from '../../../services/LoginCheck'
 import { setup } from '../../../services/Auth'
-import {Link} from "../Register/register";
 import logo from "../../../images/logo.svg";
 import avatar from "../../../images/logoteeth_blue.png";
+import config from "../../../config"
 
 const useStyles = makeStyles((theme) => (oStyle(theme, imgDesktop, imgMobile)))
 
@@ -38,6 +39,8 @@ const SignIn = () => {
   const dispatch = useDispatch()
   const subscribeMsg = localStorage.getItem('authSubscribeMsg')
   const user = useSelector((state) => state.user)
+  const { addToast } = useToasts()
+  const conf = config.messages.auth
 
   const initValues = {
     pseudo: '',
@@ -56,7 +59,7 @@ const SignIn = () => {
     }
   })
 
-  const catchSubmit = (e) => {
+  const catchSubmit = async (e) => {
     e.preventDefault()
 
     if (values.password !== '' && values.pseudo !== '') {
@@ -64,10 +67,13 @@ const SignIn = () => {
       getToken.then((res) => {
         setDatas(res)
       })
+
+      addToast(conf.signin.success, { appearance: 'success' })
     } else {
       setErrEmail(true)
       setErrPassword(true)
 
+      addToast(conf.signin.error, { appearance: 'error' })
       return false
     }
 
@@ -122,6 +128,7 @@ const SignIn = () => {
                   margin='normal'
                   required
                   fullWidth
+                  autoFocus
                   name='pseudo'
                   label='pseudo'
                   type='text'
