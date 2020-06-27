@@ -30,7 +30,7 @@ import VisibilityOff from '@material-ui/icons/VisibilityOff'
 import { useToasts } from 'react-toast-notifications'
 
 import { setup } from '../../../services/Auth'
-import oStyle from '../Register/registerStyle'
+import oStyle from '../../ResponsiveDesign/authStyle'
 import { registerUser, LOGIN_FORM } from '../../../store/actions'
 import GradientBtn from '../../UI/buttons/GradientBtn'
 import { checkText, checkEmail, checkPassword } from '../../../utils'
@@ -63,25 +63,27 @@ const Register = (props) => {
   const [errPassword, setErrPassword] = useState(false)
   const [errCgu, setErrCgu] = useState(true)
 
-  const catchSubmit = async (e) => {
+  const catchSubmit = (e) => {
     e.preventDefault()
 
     if (checkText(values.pseudo) === false) { setErrPseudo(true) }
     if (checkEmail(values.email) === false) { setErrEmail(true) }
     if (checkPassword(values.password) === false) { setErrPassword(true) }
+
     if (values.cgu === false) { setErrCgu(true) }
 
     if ((errPseudo || errEmail || errPassword || !errCgu) === true) {
-      addToast(conf.register.error, { appearance: 'error', autoDismissTimeout: conf.timeOut }); return false
-    } else {
-      addToast(conf.register.success, { appearance: 'success', autoDismissTimeout: conf.timeOut })
-      dispatch(registerUser({
+      addToast(conf.register.error, { appearance: 'error'}); return false
+
+    } else { 
+       dispatch(registerUser({
         pseudo: values.pseudo,
         email: values.email,
         password: values.password,
         job: values.job,
         cgu: values.cgu
       }))
+      addToast(conf.register.success, { appearance: 'success'})
     }
   }
 

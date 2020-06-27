@@ -17,7 +17,7 @@ import TextField from '@material-ui/core/TextField'
 import { cardSave } from '../../../store/actions'
 import img from '../../../images/auth.svg'
 import { setup } from '../../../services/Auth'
-import oStyle from '../Register/registerStyle'
+import oStyle from '../../ResponsiveDesign/authStyle'
 import GradientBtn from '../../UI/buttons/GradientBtn'
 import { checkText, checkFiles } from '../../../utils'
 
