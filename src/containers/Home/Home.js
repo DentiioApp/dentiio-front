@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useEffect } from 'react'
 import { useDispatch ,useSelector} from 'react-redux'
 import { JOB_LIST } from '../../store/actions'
 import Register from '../../components/App/Register/register'
@@ -10,18 +10,16 @@ import './Home.scss'
 const Home = () => {
   const dispatch = useDispatch()
   const home = useSelector((state) => state.home)
+  const isLoaded = home.jobsLoaded
+  const form = home.login ? <SignIn /> : <Register />
 
-  const form = home.login ? <Register /> : <SignIn />
-
-  const [jobs, setJobs] = useState([])
-  var count = 0 ;
-
-  useEffect((count) => {		 
-    const getJobs = fetchJobs()	
-    getJobs.then((res) => setJobs(res || {}))
-  },[count])
-
- // dispatch({ type: JOB_LIST, data: jobs })
+  useEffect(() => {
+    if(!isLoaded){
+      const getJobs =  fetchJobs();
+      const disp = getJobs.then((res) =>  ({ type: JOB_LIST, data: res }))
+      disp.then((e)=>{dispatch(e)})
+    } 
+  })
 
   return (
     <div className='App'>
