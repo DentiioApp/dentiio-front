@@ -10,13 +10,19 @@ import TableCell from '@material-ui/core/TableCell';
 import TableBody from '@material-ui/core/TableBody';
 import Divider from "@material-ui/core/Divider";
 
-const useStyles = makeStyles({
+const useStyles = makeStyles((theme) => ({
     root: {
         minWidth: 200,
-        width: "90%",
+        width: "23%",
         height: "fit-content",
         marginTop: 50,
         background: '#ffffff',
+        position: "fixed",
+        [theme.breakpoints.down('sm')]: {
+            width: "100%",
+            position: "static",
+            marginTop: "0px"
+        }
     },
     content: {
         textAlign: 'left',
@@ -29,7 +35,7 @@ const useStyles = makeStyles({
         marginBottom: 12,
         marginTop: 12,
     },
-});
+}));
 
 export default function patientDetail() {
 
