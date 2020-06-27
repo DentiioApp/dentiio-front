@@ -1,5 +1,3 @@
-import { red } from '@material-ui/core/colors'
-
 export const oStyle = (theme, imgDesktop, imgMobile) => {
   return {
     root: {

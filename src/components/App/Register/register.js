@@ -55,6 +55,7 @@ const Register = (props) => {
     job: '',
     showPassword: false,
     cgu: true
+
   }
 
   const [values, setValues] = useState(initValues)
@@ -66,7 +67,7 @@ const Register = (props) => {
   const catchSubmit = (e) => {
     e.preventDefault()
 
-    if (checkText(values.pseudo) === false) { setErrPseudo(true) }
+    if (checkText(values.pseudo) === false) { setErrPseudo(true)}
     if (checkEmail(values.email) === false) { setErrEmail(true) }
     if (checkPassword(values.password) === false) { setErrPassword(true) }
 
