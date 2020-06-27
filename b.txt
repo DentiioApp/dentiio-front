@@ -1,7 +1,0 @@
-  dev
-* fix-conflict
-  
-  lory-form-errors
-  lory-send-card-api
-  master
-
