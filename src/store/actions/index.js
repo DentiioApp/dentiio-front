@@ -1,6 +1,5 @@
 import { GetCases } from './getCases'
 import { registerUser } from './registerUser'
-import { cardCheck } from './cardCheck'
 import { logUser } from './logUser'
 import { cardSave } from './cardSave'
 
@@ -10,8 +9,8 @@ export const CARD_STATE = 'CARD_STATE'
 export const LOG_USER = 'LOG_USER'
 export const VALID_STATUS = 'VALID_STATUS'
 export const JOB_LIST = 'JOB_LIST'
+export const LOGIN_FORM = "LOGIN_FORM"
 
-export { cardCheck }
 export { GetCases }
 export { logUser }
 export { registerUser }
