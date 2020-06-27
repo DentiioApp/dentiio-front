@@ -8,23 +8,18 @@ import './Home.scss'
 
 const Home = () => {
   const dispatch = useDispatch()
-  const homeState = 'inscription'
-  // const wait=ms=>new Promise(resolve => setTimeout(resolve, ms));
-  const [jobs, setJobs] = useState([])
+ 
+ const [jobs, setJobs] = useState([])
    var count = 0 ;
-   useEffect(() => {		 
+   useEffect((count) => {		 
     const getJobs = fetchJobs()	
     getJobs.then((res) => setJobs(res || {}))
    },[count])
 
-  // wait(40*1000).then(() => {
-  dispatch(cardCheck({ status: homeState }))
   dispatch({ type: JOB_LIST, data: jobs })
-  // })
 
   return (
     <div className='App'>
-      <CardForm />
     </div>
   )
 }

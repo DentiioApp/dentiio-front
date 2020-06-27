@@ -1,6 +1,7 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 import './index.css'
+<<<<<<< HEAD
 import Home from './containers/Home/Home'
 import Cases from './containers/Cases/cases'
 import Favorites from './containers/Favorites/favorites'
@@ -58,8 +59,11 @@ ReactDOM.render(
   </ThemeProvider>
   , document.getElementById('root')
 )
+=======
+import * as serviceWorker from './serviceWorker'
+import LandingPage from "./containers/Landing-Page/LandingPage";
 
-// If you want your app to work offline and load faster, you can change
-// unregister() to register() below. Note this comes with some pitfalls.
-// Learn more about service workers: https://bit.ly/CRA-PWA
-serviceWorker.unregister()
+ReactDOM.render(<LandingPage />, document.getElementById('root'));
+>>>>>>> 8e65fae770512726a579d161abcee433e10a4b27
+
+serviceWorker.unregister();
