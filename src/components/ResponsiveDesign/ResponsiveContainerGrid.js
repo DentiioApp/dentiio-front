@@ -2,7 +2,7 @@ import React from 'react'
 import { withStyles } from '@material-ui/core/styles'
 import Grid from '@material-ui/core/Grid'
 
-import ResponsiveConstants from '../../components/ResponsiveDesign/responsiveConstants'
+import ResponsiveConstants from './ResponsiveConstants'
 
 const styleSheet = theme => ({
   root: {

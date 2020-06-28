@@ -23,7 +23,7 @@ import VisibilityOff from '@material-ui/icons/VisibilityOff'
 
 import StatusModal from '../StatusModal/StatusModal'
 import GradientBtn from '../../UI/buttons/GradientBtn'
-import oStyle from '../../ResponsiveDesign/authStyle'
+import oStyle from '../../ResponsiveDesign/AuthStyle'
 import { logUser } from '../../../store/actions'
 
 import loginCheck from '../../../services/LoginCheck'
