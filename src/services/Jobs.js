@@ -14,7 +14,9 @@ export const tryJobs = () => {
   let pJobs = fetchJobs()
 
 if (pJobs.status === 200) {
-console.log('TESpJobs.isResolvedT :', pJobs.isResolved)
+
+  console.log('TESpJobs.isResolvedT :', pJobs.isResolved)
+
   return pJobs.isResolved;
 }
 
