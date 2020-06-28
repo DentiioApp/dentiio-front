@@ -27,10 +27,10 @@ export const User = (state = INIT_STATE, action) => {
         }
       )
 
-      return { ...state, subscribe: true, message: localStorage.getItem('authSubscribeMsg')}
+      return { ...state, subscribe: true, message: localStorage.getItem('authSubscribeMsg') }
 
     case VALID_STATUS :
-      return { ...state, isValidStatus: true, message: localStorage.getItem('pendingStatus')}
+      return { ...state, isValidStatus: true, message: localStorage.getItem('pendingStatus') }
 
     default :
       return state

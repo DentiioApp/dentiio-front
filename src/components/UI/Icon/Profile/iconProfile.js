@@ -4,7 +4,6 @@ import PersonIcon from '@material-ui/icons/Person'
 import IconButton from '@material-ui/core/IconButton'
 
 const iconProfile = (props) => {
-
   if (props.target === 'profile') {
     return (
       <IconButton

@@ -1,10 +1,10 @@
-import { CASES_LIST } from '../actions'
+import { CASE_ITEM } from '../actions'
 
 const INIT_STATE = ''
 
-export const CasesList = (state = INIT_STATE, action) => {
+export const Cases = (state = INIT_STATE, action) => {
   switch (action.type) {
-    case CASES_LIST :
+    case CASE_ITEM :
       var data = {
         cases: action.datas
       }

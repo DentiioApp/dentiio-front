@@ -3,7 +3,6 @@ import StarBorderIcon from '@material-ui/icons/StarBorder'
 import StarIcon from '@material-ui/icons/Star'
 import IconButton from '@material-ui/core/IconButton'
 const favorites = (props) => {
-
   if (props.target === 'favorites') {
     return (
       <IconButton aria-label='favorite of current user' color='inherit'>
