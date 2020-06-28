@@ -42,7 +42,7 @@ const useStyles = makeStyles((theme) => ({
 
 }))
 
-const Cases = (props) => {
+const CasesItem = (props) => {
   const classes = useStyles()
   return (
     <Link to={`/case/${props.item.id}`} style={{ textDecoration: 'none' }}>
@@ -79,4 +79,4 @@ const Cases = (props) => {
   )
 }
 
-export default Cases
+export default CasesItem

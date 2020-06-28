@@ -1,9 +1,10 @@
 import React from 'react'
+import { useSelector } from 'react-redux'
 
 import Container from '@material-ui/core/Container'
 import { makeStyles } from '@material-ui/core/styles'
 
-import Cases from '../Cases/Cases'
+import CasesItem from '../CaseItem/CaseItem'
 import titleSvg from '../../../images/maquette/c-case-title.svg'
 
 const useStyles = makeStyles((theme) => ({
@@ -16,18 +17,18 @@ const useStyles = makeStyles((theme) => ({
   }
 }))
 
-const CasesList = (props) => {
+const CasesList = () => {
   const classes = useStyles()
-  const oCases = props.content.slice(0, 3)
-
+  const cases = useSelector((state) => state.home.cases)
+  console.log('TEST :', cases)
   return (
     <>
       <Container maxWidth='lg'>
         <center><img src={titleSvg} alt='Cas Cliniques' /></center>
         <div className={classes.root}>
           {
-            oCases.map((oCase, index) => (
-              <Cases key={index} item={oCase} />
+            cases.map((oCase, index) => (
+              <CasesItem key={index} item={oCase} />
             )
             )
           }

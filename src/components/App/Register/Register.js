@@ -46,7 +46,7 @@ const Register = () => {
 
   const { jobs, config } = useSelector((state) => state.home)
   const user = useSelector((state) => state.user)
-
+  console.log('TEjobsST :', jobs)
   const messages = config.conf.messages.auth
 
   const initValues = {
@@ -68,7 +68,7 @@ const Register = () => {
   const catchSubmit = (e) => {
     e.preventDefault()
 
-    if (checkText(values.pseudo) === false) { setErrPseudo(true) }
+    if (checkText(values.pseudo) === false || values.pseudo === '') { setErrPseudo(true) }
     if (checkEmail(values.email) === false) { setErrEmail(true) }
     if (checkPassword(values.password) === false) { setErrPassword(true) }
 
