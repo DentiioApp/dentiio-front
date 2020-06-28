@@ -2,11 +2,11 @@ import React from 'react'
 import { fade, makeStyles } from '@material-ui/core/styles'
 import AppBar from '@material-ui/core/AppBar'
 import Toolbar from '@material-ui/core/Toolbar'
-import palette from '../../UI/colorTheme/palette'
-import { Link } from 'react-router-dom';
+import palette from '../../UI/ColorTheme/Palette'
+import { Link, Redirect } from 'react-router-dom'
 import TitleHeader from '../../UI/titleHeader/TitleHeader'
 import TitleHeaderMobile from '../../UI/titleHeader/titleHeaderMobile'
-import { Redirect } from 'react-router-dom'
+
 import { setup } from '../../../services/Auth'
 import HomeIcon from '../../UI/Icon/Header/home'
 import FavoritesIcon from '../../UI/Icon/Header/favorites'
@@ -68,15 +68,15 @@ export const Header = (props) => {
           <TitleHeader style={{ align: 'center' }} />
           <div className={classes.grow} style={{ align: 'right' }} />
           <div style={{ align: 'right' }}>
-            <Link to="/cases">
+            <Link to='/cases'>
               <HomeIcon target={props.target} color={palette.white} />
             </Link>
-            <Link to="/favorites">
-            <FavoritesIcon target={props.target} color={palette.white} />
+            <Link to='/favorites'>
+              <FavoritesIcon target={props.target} color={palette.white} />
             </Link>
             <NotificationIcon color={palette.white} />
-            <Link to="/profile">
-            <ProfileIcon target={props.target} color={palette.white} />
+            <Link to='/profile'>
+              <ProfileIcon target={props.target} color={palette.white} />
             </Link>
           </div>
         </Toolbar>
@@ -92,15 +92,15 @@ export const Header = (props) => {
       </AppBar>
       <AppBar className={classes.sectionMobileBottom} color='inherit'>
         <Toolbar>
-          <Link to="/cases">
+          <Link to='/cases'>
             <HomeIcon target={props.target} color={palette.primary} />
           </Link>
           <div className={classes.grow} style={{ align: 'right' }} />
-          <Link to="/favorites">
+          <Link to='/favorites'>
             <FavoritesIcon target={props.target} color={palette.primary} />
           </Link>
           <div className={classes.grow} style={{ align: 'right' }} />
-          <Link to="/profile">
+          <Link to='/profile'>
             <ProfileIcon target={props.target} color={palette.primary} />
           </Link>
         </Toolbar>

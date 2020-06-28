@@ -3,9 +3,9 @@ import ReactDOM from 'react-dom'
 import './index.css'
 <<<<<<< HEAD
 import Home from './containers/Home/Home'
-import Cases from './containers/Cases/cases'
-import Favorites from './containers/Favorites/favorites'
-import Profile from './containers/Profile/profile'
+import Cases from './containers/Cases/Cases'
+import Favorites from './containers/Favorites/Favorites'
+import Profile from './containers/Profile/Profile'
 import * as serviceWorker from './serviceWorker'
 // import "bootstrap/dist/css/bootstrap.min.css";
 import { applyMiddleware, compose, createStore } from 'redux'
@@ -15,9 +15,9 @@ import ReduxThunk from 'redux-thunk'
 import dotenv from 'dotenv'
 import { ToastProvider } from 'react-toast-notifications'
 import { ThemeProvider } from '@material-ui/core/styles'
-import colorTheme from './components/UI/colorTheme/colorTheme'
-import detailCase from "./containers/DetailCase/detailCase";
-import config from "./config"
+import colorTheme from './components/UI/ColorTheme/ColorTheme'
+import DetailCase from './containers/DetailCase/DetailCase'
+import config from './config'
 
 import {
   BrowserRouter as Router,
@@ -42,13 +42,13 @@ export const store = createStore(adminReducer,
 ReactDOM.render(
   <ThemeProvider theme={colorTheme}>
     <Provider store={store}>
-      <ToastProvider autoDismissTimeout= {config.messages.auth.timeOut} >
+      <ToastProvider autoDismissTimeout={config.messages.auth.timeOut}>
         <Router>
           <div>
             <Switch>
               <Route exact path='/' component={Home} />
               <Route exact path='/cases' component={Cases} />
-              <Route path='/case/:id' component={detailCase} />
+              <Route path='/case/:id' component={DetailCase} />
               <Route exact path='/favorites' component={Favorites} />
               <Route exact path='/profile' component={Profile} />
             </Switch>

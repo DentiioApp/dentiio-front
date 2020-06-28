@@ -1,30 +1,30 @@
 const config = {
   app: {
-      
+
   },
 
   season: {
-  
+
   },
 
   url: {
-      netski: process.env.REACT_APP_ || 'http://localhost',
-      auth: process.env.REACT_APP_ || 'http://localhost',
-      catalog: process.env.REACT_APP_ || 'http://localhost',
-      config: process.env.REACT_APP_|| 'http://localhost',
-      booking: process.env.REACT_APP_ || 'http://localhost',
-      pts: process.env.REACT_APP_ || 'http://localhost',
-      static: process.env.REACT_APP_|| 'http://localhost',
-      staticNetski: process.env.REACT_APP_|| 'http://localhost',
-      apiGateway: process.env.REACT_APP_|| 'http://localhost',
+    netski: process.env.REACT_APP_ || 'http://localhost',
+    auth: process.env.REACT_APP_ || 'http://localhost',
+    catalog: process.env.REACT_APP_ || 'http://localhost',
+    config: process.env.REACT_APP_ || 'http://localhost',
+    booking: process.env.REACT_APP_ || 'http://localhost',
+    pts: process.env.REACT_APP_ || 'http://localhost',
+    static: process.env.REACT_APP_ || 'http://localhost',
+    staticNetski: process.env.REACT_APP_ || 'http://localhost',
+    apiGateway: process.env.REACT_APP_ || 'http://localhost'
   },
 
   cache: {
-      //
+    jobs: []
   },
 
   i18n: {
-  
+
   },
 
   zendesk: {
@@ -32,43 +32,41 @@ const config = {
   },
 
   analytics: {
-      id: 'UA-?-?',
+    id: 'UA-?-?'
   },
 
   googleTagManager: {
-      id: 'GTM-?????'
+    id: 'GTM-?????'
   },
 
-  
-
   payment: {
-      // adyen/stripe/????: {
-      //   environment: process.env.REACT_APP_ || 'test',
-      //   originKey: process.env.REACT_APP_,
-      // }
+    // adyen/stripe/????: {
+    //   environment: process.env.REACT_APP_ || 'test',
+    //   originKey: process.env.REACT_APP_,
+    // }
   },
 
   messages: {
     timeOut: 200,
     Cases: {
       error: "Une erreur s'\est produite",
-      success: "Inscription réussie",
+      success: 'Inscription réussie'
     },
     Profile: {
       error: "Une erreur s'\est produite",
-      success: "Inscription réussie",
+      success: 'Inscription réussie'
     },
     auth: {
-      register:{
+      register: {
         error: "Une erreur s'\est produite , validez les données du formulaire",
-        success: "Inscription réussie, Bonjour ! ",
+        success: 'Inscription réussie, Bonjour ! '
       },
-      signin:{
-        error: "Connexion échoué, vérifier votre saisie",
-        success: "Connexion approuvé,  Bonjour ! ",
+      signin: {
+        error: 'Connexion échoué, vérifier votre saisie',
+        success: 'Connexion approuvé,  Bonjour ! '
       }
     }
   }
 }
-  
-export default config;
+
+export default config

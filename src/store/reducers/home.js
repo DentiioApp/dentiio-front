@@ -1,28 +1,35 @@
+
+import conf from '../../config'
+
 const INIT_STATE = {
-  navBarOpen: "",
-  //ALL USERS
+  navBarOpen: '',
+
+  loadingJobs: false,
+  jobsLoaded: false,
+  jobs: [],
   loadingUsers: false,
   usersLoaded: false,
   users: [],
-
-  //AN USERS
-  loadingUser: false,
-  userLoaded: false,
-  user: {},
-
+  loadingCases: false,
+  casesLoaded: false,
   cases: [],
-  status: "inscription",
-};
+
+  login: false,
+  config: { conf }
+}
 
 export const Home = (state = INIT_STATE, action) => {
   switch (action.type) {
-  case "CARD_STATE":
-      return { ...state, status: action.homeState };
+    case 'LOGIN_FORM':
+      return { ...state, login: true }
 
-    case "JOB_LIST":
-      return { ...state, jobs: action.data };
+    case 'JOB_LIST':
+      return { ...state, jobs: action.data, jobsLoaded: true }
+
+    case 'CASES_LIST' :
+      return { ...state, cases: action.datas, casesLoaded: true }
 
     default:
-      return state;
+      return state
   }
-};
+}
