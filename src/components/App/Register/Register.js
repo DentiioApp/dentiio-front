@@ -68,7 +68,7 @@ const Register = () => {
   const catchSubmit = (e) => {
     e.preventDefault()
 
-    if (checkText(values.pseudo) === false) { setErrPseudo(true) }
+    if (checkText(values.pseudo) === false || values.pseudo === '') { setErrPseudo(true) }
     if (checkEmail(values.email) === false) { setErrEmail(true) }
     if (checkPassword(values.password) === false) { setErrPassword(true) }
 
@@ -76,6 +76,7 @@ const Register = () => {
 
     if ((errPseudo || errEmail || errPassword || !errCgu) === true) {
       addToast(messages.register.error, { appearance: 'error' }); return false
+
     } else {
       dispatch(registerUser({
         pseudo: values.pseudo,
