@@ -28,14 +28,11 @@ import logo from '../../../images/logo.svg'
 import Visibility from '@material-ui/icons/Visibility'
 import VisibilityOff from '@material-ui/icons/VisibilityOff'
 import { useToasts } from 'react-toast-notifications'
-
 import { setup } from '../../../services/Auth'
-import oStyle from '../../ResponsiveDesign/authStyle'
+import oStyle from '../../ResponsiveDesign/AuthStyle'
 import { registerUser, LOGIN_FORM } from '../../../store/actions'
 import GradientBtn from '../../UI/buttons/GradientBtn'
 import { checkText, checkEmail, checkPassword } from '../../../utils'
-import blueGrey from '@material-ui/core/colors/blueGrey'
-import Icon from '../../../images/titleHeaderMobile.svg'
 import config from '../../../config'
 
 const useStyles = makeStyles((theme) => oStyle(theme, imgDesktop, imgMobile))

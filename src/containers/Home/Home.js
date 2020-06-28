@@ -16,22 +16,18 @@ const Home = () => {
   useEffect(() => {
     if (!isLoaded) {
       const getJobs = tryJobs();
-
-      console.log('TgetJobsEST :', getJobs)
-
       const disp = getJobs.then((res) => ({ type: JOB_LIST, data: res }));
       disp.then((action) => {
-        dispatch(action);
-      });
+        dispatch(action)
+      })
     }
-
-  })
+  });
 
   return (
     <div className="App">
       {form}
     </div>
-  );
-}
+  )
+};
 
 export default Home;
