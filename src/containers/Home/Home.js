@@ -16,7 +16,8 @@ const Home = () => {
   useEffect(() => {
     if (!isLoaded) {
       const getJobs = tryJobs()
-      getJobs.then((res) => (dispatch({ type: JOB_LIST, data: res.datas, notif: res.message })))
+      const disp = getJobs.then((res) => ({ type: JOB_LIST, data: res.datas, notif: res.message }))
+      disp.then((act) => { dispatch(act) })
     }
   })
 

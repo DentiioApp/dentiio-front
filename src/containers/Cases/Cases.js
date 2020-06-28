@@ -22,7 +22,6 @@ const Cases = () => {
 
   const dispatch = useDispatch()
   const home = useSelector((state) => state.home)
-  const cases = useSelector((state) => state.home.cases)
 
   const areLoaded = home.casesLoaded
 
@@ -41,7 +40,7 @@ const Cases = () => {
     <>
       <Header target='home' />
       <Container className={classes.root} />
-      <CasesList content={cases} />
+      <CasesList />
     </>
   )
 }
