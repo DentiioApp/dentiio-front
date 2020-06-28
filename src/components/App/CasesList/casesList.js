@@ -3,7 +3,7 @@ import React from 'react'
 import Container from '@material-ui/core/Container'
 import { makeStyles } from '@material-ui/core/styles'
 
-import Case from '../Case/case'
+import Case from '../Case/Case'
 import titleSvg from '../../../images/maquette/c-case-title.svg'
 
 const useStyles = makeStyles((theme) => ({
