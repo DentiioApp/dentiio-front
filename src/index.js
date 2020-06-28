@@ -1,7 +1,6 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 import './index.css'
-<<<<<<< HEAD
 import Home from './containers/Home/Home'
 import Cases from './containers/Cases/Cases'
 import Favorites from './containers/Favorites/Favorites'
@@ -59,11 +58,5 @@ ReactDOM.render(
   </ThemeProvider>
   , document.getElementById('root')
 )
-=======
-import * as serviceWorker from './serviceWorker'
-import LandingPage from "./containers/Landing-Page/LandingPage";
-
-ReactDOM.render(<LandingPage />, document.getElementById('root'));
->>>>>>> 8e65fae770512726a579d161abcee433e10a4b27
 
 serviceWorker.unregister();
