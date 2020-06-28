@@ -1,31 +1,37 @@
-import React, { useEffect } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
-import { JOB_LIST } from '../../store/actions'
-import Register from '../../components/App/Register/Register'
-import SignIn from '../../components/App/SignIn/SignIn'
+import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { JOB_LIST} from "../../store/actions";
+import Register from "../../components/App/Register/Register";
+import SignIn from "../../components/App/SignIn/SignIn";
 
-import { fetchJobs } from '../../services/JobList'
-import './Home.scss'
+import { tryJobs } from "../../services/JobList";
+import "./Home.scss";
 
 const Home = () => {
-  const dispatch = useDispatch()
-  const home = useSelector((state) => state.home)
-  const isLoaded = home.jobsLoaded
-  const form = home.login ? <SignIn /> : <Register />
+  const dispatch = useDispatch();
+  const home = useSelector((state) => state.home);
+  const isLoaded = home.jobsLoaded;
+  const form = home.login ? <SignIn /> : <Register />;
 
   useEffect(() => {
     if (!isLoaded) {
-      const getJobs = fetchJobs()
-      const disp = getJobs.then((res) => ({ type: JOB_LIST, data: res }))
-      disp.then((e) => { dispatch(e) })
+      const getJobs = tryJobs();
+
+      console.log('TgetJobsEST :', getJobs)
+
+      const disp = getJobs.then((res) => ({ type: JOB_LIST, data: res }));
+      disp.then((action) => {
+        dispatch(action);
+      });
     }
+
   })
 
   return (
-    <div className='App'>
+    <div className="App">
       {form}
     </div>
-  )
+  );
 }
 
-export default Home
+export default Home;
