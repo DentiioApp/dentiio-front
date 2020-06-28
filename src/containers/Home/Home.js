@@ -4,7 +4,7 @@ import { JOB_LIST} from "../../store/actions";
 import Register from "../../components/App/Register/Register";
 import SignIn from "../../components/App/SignIn/SignIn";
 
-import { tryJobs } from "../../services/JobList";
+import { tryJobs } from "../../services/Jobs";
 import "./Home.scss";
 
 const Home = () => {
@@ -13,13 +13,10 @@ const Home = () => {
   const isLoaded = home.jobsLoaded;
   const form = home.login ? <SignIn /> : <Register />;
 
-  useEffect(() => {
+  useEffect(() => { 
     if (!isLoaded) {
       const getJobs = tryJobs();
-      const disp = getJobs.then((res) => ({ type: JOB_LIST, data: res }));
-      disp.then((action) => {
-        dispatch(action)
-      })
+      getJobs.then((res) => (dispatch({ type: JOB_LIST, data: res.datas ,notif: res.message})));
     }
   });
 

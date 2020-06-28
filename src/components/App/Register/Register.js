@@ -30,20 +30,24 @@ import VisibilityOff from '@material-ui/icons/VisibilityOff'
 import { useToasts } from 'react-toast-notifications'
 import { setup } from '../../../services/Auth'
 import oStyle from '../../ResponsiveDesign/AuthStyle'
+
 import { registerUser, LOGIN_FORM } from '../../../store/actions'
 import GradientBtn from '../../UI/buttons/GradientBtn'
 import { checkText, checkEmail, checkPassword } from '../../../utils'
-import config from '../../../config'
 
 const useStyles = makeStyles((theme) => oStyle(theme, imgDesktop, imgMobile))
 
-const Register = (props) => {
+const Register = () => {
   const classes = useStyles()
+
   const dispatch = useDispatch()
+
   const { addToast } = useToasts()
-  const conf = config.messages.auth
-  const jobs = useSelector((state) => state.home.jobs)
+
+  const {jobs, config} = useSelector((state) => state.home)
   const user = useSelector((state) => state.user)
+
+  const messages = config.conf.messages.auth
 
   const initValues = {
     pseudo: '',
@@ -71,7 +75,7 @@ const Register = (props) => {
     if (values.cgu === false) { setErrCgu(true) }
 
     if ((errPseudo || errEmail || errPassword || !errCgu) === true) {
-      addToast(conf.register.error, { appearance: 'error' }); return false
+      addToast(messages.register.error, { appearance: 'error' }); return false
     } else {
       dispatch(registerUser({
         pseudo: values.pseudo,
@@ -80,7 +84,7 @@ const Register = (props) => {
         job: values.job,
         cgu: values.cgu
       }))
-      addToast(conf.register.success, { appearance: 'success' })
+      addToast(messages.register.success, { appearance: 'success' })
     }
   }
 
@@ -200,10 +204,14 @@ const Register = (props) => {
               className='textField'
               id='job'
               select
-              value={values.job}
+              value={values.job === '' ? 'none' : values.job}
               onChange={handleChange('job')}
               variant='outlined'
             >
+               <MenuItem key={'none'} value={'none'} disabled>
+                  {'Indiquez votre profession'}
+                </MenuItem>
+
               {jobs.map(option => (
                 <MenuItem key={option.ident} value={option.id}>
                   {option.name}
