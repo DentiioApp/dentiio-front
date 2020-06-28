@@ -76,7 +76,6 @@ const Register = () => {
 
     if ((errPseudo || errEmail || errPassword || !errCgu) === true) {
       addToast(messages.register.error, { appearance: 'error' }); return false
-
     } else {
       dispatch(registerUser({
         pseudo: values.pseudo,

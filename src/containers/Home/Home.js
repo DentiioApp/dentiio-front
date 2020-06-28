@@ -9,7 +9,7 @@ import './Home.scss'
 
 const Home = () => {
   const dispatch = useDispatch()
- 
+
   const [jobs, setJobs] = useState([])
   const home = useSelector((state) => state.home)
   const isLoaded = home.jobsLoaded
