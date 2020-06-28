@@ -26,7 +26,7 @@ import GradientBtn from '../../UI/buttons/GradientBtn'
 import oStyle from '../../ResponsiveDesign/AuthStyle'
 import { logUser } from '../../../store/actions'
 
-import loginCheck from '../../../services/LoginCheck'
+import {loginCheck} from '../../../services/Users'
 import { setup } from '../../../services/Auth'
 import logo from '../../../images/logo.svg'
 import avatar from '../../../images/logoteeth_blue.png'

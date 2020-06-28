@@ -1,5 +1,5 @@
 import { LOG_USER, REGISTER_USER, VALID_STATUS } from '../actions'
-import { registerCheck } from '../../services/RegisterCheck'
+import { registerCheck } from '../../services/Users'
 import jwtDecode from 'jwt-decode'
 import { login } from '../../services/Auth'
 
