@@ -20,13 +20,13 @@ const useStyles = makeStyles((theme) => ({
 const CasesList = () => {
   const classes = useStyles()
   const cases = useSelector((state) => state.home.cases)
-  console.log('TEST :', cases)
+  
   return (
     <>
       <Container maxWidth='lg'>
         <center><img src={titleSvg} alt='Cas Cliniques' /></center>
         <div className={classes.root}>
-          {
+          { cases && 
             cases.map((oCase, index) => (
               <CasesItem key={index} item={oCase} />
             )
