@@ -20,7 +20,7 @@ const config = {
   },
 
   cache: {
-    jobs:[]
+    jobs: []
   },
 
   i18n: {

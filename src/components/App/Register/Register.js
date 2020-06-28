@@ -44,7 +44,7 @@ const Register = () => {
 
   const { addToast } = useToasts()
 
-  const {jobs, config} = useSelector((state) => state.home)
+  const { jobs, config } = useSelector((state) => state.home)
   const user = useSelector((state) => state.user)
 
   const messages = config.conf.messages.auth
@@ -68,7 +68,7 @@ const Register = () => {
   const catchSubmit = (e) => {
     e.preventDefault()
 
-    if (checkText(values.pseudo) === false) { setErrPseudo(true)}
+    if (checkText(values.pseudo) === false) { setErrPseudo(true) }
     if (checkEmail(values.email) === false) { setErrEmail(true) }
     if (checkPassword(values.password) === false) { setErrPassword(true) }
 
@@ -208,9 +208,9 @@ const Register = () => {
               onChange={handleChange('job')}
               variant='outlined'
             >
-               <MenuItem key={'none'} value={'none'} disabled>
-                  {'Indiquez votre profession'}
-                </MenuItem>
+              <MenuItem key='none' value='none' disabled>
+                {'Indiquez votre profession'}
+              </MenuItem>
 
               {jobs.map(option => (
                 <MenuItem key={option.ident} value={option.id}>

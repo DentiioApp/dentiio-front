@@ -4,12 +4,18 @@ import conf from '../../config'
 const INIT_STATE = {
   navBarOpen: '',
 
-  loadingJobs: false, jobsLoaded: false, jobs: [],
-  loadingUsers: false, usersLoaded: false, users: [],
-  loadingCases: false, casesLoaded: false, cases: [],
-  
+  loadingJobs: false,
+  jobsLoaded: false,
+  jobs: [],
+  loadingUsers: false,
+  usersLoaded: false,
+  users: [],
+  loadingCases: false,
+  casesLoaded: false,
+  cases: [],
+
   login: false,
-  config:{conf}
+  config: { conf }
 }
 
 export const Home = (state = INIT_STATE, action) => {
