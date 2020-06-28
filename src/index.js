@@ -41,7 +41,7 @@ export const store = createStore(adminReducer,
 ReactDOM.render(
   <ThemeProvider theme={colorTheme}>
     <Provider store={store}>
-      <ToastProvider autoDismissTimeout={config.messages.auth.timeOut}>
+      <ToastProvider autoDismissTimeout={'2000'}>
         <Router>
           <div>
             <Switch>

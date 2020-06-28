@@ -7,15 +7,17 @@ const INIT_STATE = {
   loadingJobs: false,
   jobsLoaded: false,
   jobs: [],
+
   loadingUsers: false,
   usersLoaded: false,
   users: [],
+
   loadingCases: false,
-  casesLoaded: false,
+  casesLoaded: false, 
   cases: [],
 
   login: false,
-  config: { conf }
+  config: { conf },
 }
 
 export const Home = (state = INIT_STATE, action) => {
@@ -27,7 +29,9 @@ export const Home = (state = INIT_STATE, action) => {
       return { ...state, jobs: action.data, jobsLoaded: true }
 
     case 'CASES_LIST' :
-      return { ...state, cases: action.datas, casesLoaded: true }
+      return { ...state, cases: action.datas, casesLoaded: true}
+
+    case 'HOME_RESET': return { ...state, usersLoaded: false, casesLoaded: false, jobsLoaded: false };
 
     default:
       return state

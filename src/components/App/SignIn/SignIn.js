@@ -68,12 +68,12 @@ const SignIn = () => {
         setDatas(res)
       })
 
-      addToast(conf.signin.success, { appearance: 'success' })
+      addToast(conf.signin.success, { appearance: 'success' , autoDismissTimeout:1000})
     } else {
       setErrEmail(true)
       setErrPassword(true)
 
-      addToast(conf.signin.error, { appearance: 'error' })
+      addToast(conf.signin.error, { appearance: 'error' , autoDismissTimeout:1000})
       return false
     }
 
