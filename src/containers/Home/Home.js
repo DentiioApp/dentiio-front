@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { JOB_LIST } from '../../store/actions'
 import Register from '../../components/App/Register/Register'
@@ -9,6 +9,8 @@ import './Home.scss'
 
 const Home = () => {
   const dispatch = useDispatch()
+ 
+  const [jobs, setJobs] = useState([])
   const home = useSelector((state) => state.home)
   const isLoaded = home.jobsLoaded
   const form = home.login ? <SignIn /> : <Register />
