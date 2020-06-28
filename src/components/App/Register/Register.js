@@ -46,7 +46,7 @@ const Register = () => {
 
   const { jobs, config } = useSelector((state) => state.home)
   const user = useSelector((state) => state.user)
-  console.log('TEjobsST :', jobs)
+  
   const messages = config.conf.messages.auth
 
   const initValues = {
