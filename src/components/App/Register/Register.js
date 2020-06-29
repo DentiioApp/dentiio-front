@@ -80,26 +80,26 @@ const Register = () => {
       addToast(messages.register.error, { appearance: 'error' }); return false
     } else {
         sendRequest()
-
-      addToast(notif, { appearance: 'success' })
+        addToast(notif.msg, { appearance: 'success' })
+      
     }
   }
 
   const sendRequest = async () => {
     const registered = tryRegister({
-        nom: values.pseudo, pseudo: values.pseudo, prenom: values.pseudo,
-        email: values.email, password: values.password,job: '/api/jobs/'+ values.job,
-        isEnabled: true,
-      })
+      nom: values.pseudo, pseudo: values.pseudo, prenom: values.pseudo,
+      email: values.email, password: values.password, job: '/api/jobs/'+ values.job,
+      isEnabled: true,
+    })
 
-      await registered.then(async(response) => { 
-        if(response.message === 'Network error') {
-          setNotif(messages.register.error)
-        } else{
-            dispatch({type : REGISTER_USER})
-          setNotif(messages.register.success)
-        }
-      })
+    await registered.then((response) => { 
+      if(response.message === 'Network error') {
+        setNotif({msg: messages.register.error, apparence: 'error'})
+      }else{
+        dispatch({type : REGISTER_USER})
+        setNotif({msg:messages.register.success, apparence : 'success'})
+      }
+    })
   }
 
   const handleChange = prop => event => {
