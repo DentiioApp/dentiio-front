@@ -79,23 +79,27 @@ const Register = () => {
     if ((errPseudo || errEmail || errPassword || values.pseudo === '' ) === true) {
       addToast(messages.register.error, { appearance: 'error' }); return false
     } else {
-        const registered = tryRegister({
-          nom: values.pseudo, pseudo: values.pseudo, prenom: values.pseudo,
-          email: values.email, password: values.password,job: '/api/jobs/' + values.job,
-          isEnabled: true,
-        })
-
-        registered.then((response) => { 
-          if(response.message === 'Network error') {
-            setNotif(messages.register.error)
-          } else{
-            dispatch({type : REGISTER_USER})
-            setNotif(messages.register.success)
-          }
-        })
+        sendRequest()
 
       addToast(notif, { appearance: 'success' })
     }
+  }
+
+  const sendRequest = async () => {
+    const registered = tryRegister({
+        nom: values.pseudo, pseudo: values.pseudo, prenom: values.pseudo,
+        email: values.email, password: values.password,job: '/api/jobs/'+ values.job,
+        isEnabled: true,
+      })
+
+      await registered.then(async(response) => { 
+        if(response.message === 'Network error') {
+          setNotif(messages.register.error)
+        } else{
+            dispatch({type : REGISTER_USER})
+          setNotif(messages.register.success)
+        }
+      })
   }
 
   const handleChange = prop => event => {
@@ -222,7 +226,7 @@ const Register = () => {
                 {'Indiquez votre profession'}
               </MenuItem>
 
-              {jobs.map(option => (
+              {jobs && jobs.map(option => (
                 <MenuItem key={option.ident} value={option.id}>
                   {option.name}
                 </MenuItem>
