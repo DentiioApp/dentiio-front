@@ -34,7 +34,7 @@ const CasesList = () => {
         if(response.message === 'Network error') {
 
         }else{
-          dispatch({ type: CASES_LIST, data: response.datas})
+          dispatch({ type: CASES_LIST, datas: response.datas})
         }
       })
     }

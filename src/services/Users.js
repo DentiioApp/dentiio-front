@@ -14,7 +14,7 @@ export const loginCheck = (ident, pswd) => {
 
 export const tryLogin = (ident, pswd) => {
   const fetchDatas = loginCheck(ident, pswd);
-console.log('TEST :', fetchDatas)
+
   if (fetchDatas.datas === undefined) {
     fetchDatas.datas = [];
   }

@@ -26,7 +26,7 @@ import GradientBtn from '../../UI/buttons/GradientBtn'
 import oStyle from '../../ResponsiveDesign/AuthStyle'
 import { logUser } from '../../../store/actions'
 
-import { loginCheck } from '../../../services/Users'
+import { tryLogin } from '../../../services/Users'
 import { setup } from '../../../services/Auth'
 import logo from '../../../images/logo.svg'
 import avatar from '../../../images/logoteeth_blue.png'
@@ -40,7 +40,7 @@ const SignIn = () => {
   const subscribeMsg = localStorage.getItem('authSubscribeMsg')
   const user = useSelector((state) => state.user)
   const { addToast } = useToasts()
-  const conf = config.messages.auth
+  const messages = config.messages.auth
 
   const initValues = {
     pseudo: '',
@@ -63,21 +63,31 @@ const SignIn = () => {
     e.preventDefault()
 
     if (values.password !== '' && values.pseudo !== '') {
-      const getToken = loginCheck(values.pseudo, values.password)
-      getToken.then((res) => {
-        setDatas(res)
+      const respo =  sendRequest()
+      respo.then((res)=>{
+        addToast(res.message, { appearance: res.appearance})
       })
-
-      addToast(conf.signin.success, { appearance: 'success' , autoDismissTimeout:1000})
+      
     } else {
       setErrEmail(true)
       setErrPassword(true)
-
-      addToast(conf.signin.error, { appearance: 'error' , autoDismissTimeout:1000})
       return false
     }
 
     setValues(initValues)
+  }
+
+  const sendRequest = async () => {
+    const datas = await tryLogin(values.pseudo, values.password)
+    const regex2 = RegExp(/Error/); 
+
+    if (regex2.test(datas)) {
+      return {message : messages.signin.error, appearance: 'error'}
+    } else {
+      setDatas(datas)
+
+      return {message : messages.signin.success, appearance: 'success'}
+    }
   }
 
   const handleChange = prop => event => {

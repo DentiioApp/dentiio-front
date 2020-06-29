@@ -17,11 +17,8 @@ const Home = () => {
     if (!isLoaded) {
       const getJobs = tryJobs()
       getJobs.then(response =>{ 
-        if(response.message === 'Network error') {
-          console.warn('jobs unsets from')
-        }else{
-          const disp = getJobs.then((res) => ({ type: JOB_LIST, data: res.datas, notif: res.message }))
-          disp.then((act) => { dispatch(act) })
+        if(!response.message === 'Network error') {
+          getJobs.then((res) => (dispatch({ type: JOB_LIST, data: res.datas})))
         }
       })
     }
