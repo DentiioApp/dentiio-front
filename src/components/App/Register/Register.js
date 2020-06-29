@@ -65,7 +65,6 @@ const Register = () => {
   const [errEmail, setErrEmail] = useState(false)
   const [errPassword, setErrPassword] = useState(false)
   const [errCgu, setErrCgu] = useState(true)
-  const [notif, setNotif ]= useState('')
 
   const catchSubmit = (e) => {
     e.preventDefault()
@@ -79,27 +78,29 @@ const Register = () => {
     if ((errPseudo || errEmail || errPassword || values.pseudo === '' ) === true) {
       addToast(messages.register.error, { appearance: 'error' }); return false
     } else {
-        sendRequest()
-        addToast(notif.msg, { appearance: 'success' })
-      
+      const respo =  sendRequest()
+      respo.then((res)=>{
+        addToast(res.message, { appearance: res.appearance})
+      })
     }
   }
 
   const sendRequest = async () => {
-    const registered = tryRegister({
+    const response = await tryRegister({
       nom: values.pseudo, pseudo: values.pseudo, prenom: values.pseudo,
-      email: values.email, password: values.password, job: '/api/jobs/'+ values.job,
+      email: values.email, password: values.password, job: '/api/jobs/' + values.job,
       isEnabled: true,
     })
 
-    await registered.then((response) => { 
-      if(response.message === 'Network error') {
-        setNotif({msg: messages.register.error, apparence: 'error'})
-      }else{
-        dispatch({type : REGISTER_USER})
-        setNotif({msg:messages.register.success, apparence : 'success'})
-      }
-    })
+    const regex2 = RegExp(/Error/); 
+
+    if (regex2.test(response)) {
+      return {message : messages.register.error, appearance: 'error'}
+    } else {
+      dispatch({type : REGISTER_USER})
+
+      return {message : messages.register.success, appearance: 'success'}
+    }
   }
 
   const handleChange = prop => event => {
