@@ -1,13 +1,12 @@
 import { REGISTER_USER } from '../actions'
+import {tryCases} from '../../services/Cases'
 
 export const registerUser = (register) => {
-  const action = {
+  tryCases({
     type: REGISTER_USER,
     username: register.pseudo,
     email: register.email,
     password: register.password,
     job: register.job
-  }
-
-  return action
+  })
 }

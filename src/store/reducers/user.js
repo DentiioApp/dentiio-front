@@ -15,19 +15,7 @@ export const User = (state = INIT_STATE, action) => {
       return { username: details.username, connected: true }
 
     case REGISTER_USER :
-      registerCheck(
-        {
-          email: action.email,
-          nom: action.username,
-          prenom: action.username,
-          pseudo: action.email,
-          password: action.password,
-          isEnabled: true,
-          job: '/api/jobs/' + action.job
-        }
-      )
-
-      return { ...state, subscribe: true, message: localStorage.getItem('authSubscribeMsg') }
+      return { ...state, subscribe: true }
 
     case VALID_STATUS :
       return { ...state, isValidStatus: true, message: localStorage.getItem('pendingStatus') }

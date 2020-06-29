@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { JOB_LIST } from '../../store/actions'
 import Register from '../../components/App/Register/Register'
@@ -16,8 +16,14 @@ const Home = () => {
   useEffect(() => {
     if (!isLoaded) {
       const getJobs = tryJobs()
-      const disp = getJobs.then((res) => ({ type: JOB_LIST, data: res.datas, notif: res.message }))
-      disp.then((act) => { dispatch(act) })
+      getJobs.then(response =>{ 
+        if(response.message === 'Network error') {
+          console.warn('jobs unsets from')
+        }else{
+          const disp = getJobs.then((res) => ({ type: JOB_LIST, data: res.datas, notif: res.message }))
+          disp.then((act) => { dispatch(act) })
+        }
+      })
     }
   })
 

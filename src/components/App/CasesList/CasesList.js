@@ -4,7 +4,7 @@ import { useSelector, useDispatch } from 'react-redux'
 import Container from '@material-ui/core/Container'
 import { makeStyles } from '@material-ui/core/styles'
 
-import { fetchCases } from '../../../services/Cases'
+import { tryCases } from '../../../services/Cases'
 import { CASES_LIST } from '../../../store/actions'
 import CasesItem from '../CaseItem/CaseItem'
 import titleSvg from '../../../images/maquette/c-case-title.svg'
@@ -24,12 +24,19 @@ const CasesList = () => {
   const dispatch = useDispatch()
   const home = useSelector((state) => state.home)
   const cases = useSelector((state) => state.home.cases)
-
+  
   const areLoaded = home.casesLoaded
 
   useEffect(() => {
     if (!areLoaded) {
-      fetchCases().then((resp) => (dispatch({ type: CASES_LIST, datas: resp })))
+      const getCases = tryCases()
+      getCases.then(response => { 
+        if(response.message === 'Network error') {
+
+        }else{
+          dispatch({ type: CASES_LIST, data: response.datas})
+        }
+      })
     }
   })
 
@@ -38,7 +45,7 @@ const CasesList = () => {
       <Container maxWidth='lg'>
         <center><img src={titleSvg} alt='Cas Cliniques' /></center>
         <div className={classes.root}>
-          { cases && cases.map((oCase, index) => (
+          { cases.map((oCase, index) => (
               <CasesItem key={index} item={oCase} />
               )
             )

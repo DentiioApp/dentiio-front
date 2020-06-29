@@ -31,7 +31,8 @@ import { useToasts } from 'react-toast-notifications'
 import { setup } from '../../../services/Auth'
 import oStyle from '../../ResponsiveDesign/AuthStyle'
 
-import { registerUser, LOGIN_FORM } from '../../../store/actions'
+import {tryRegister} from '../../../services/Users'
+import { LOGIN_FORM, REGISTER_USER } from '../../../store/actions'
 import GradientBtn from '../../UI/buttons/GradientBtn'
 import { checkText, checkEmail, checkPassword } from '../../../utils'
 
@@ -64,6 +65,7 @@ const Register = () => {
   const [errEmail, setErrEmail] = useState(false)
   const [errPassword, setErrPassword] = useState(false)
   const [errCgu, setErrCgu] = useState(true)
+  const [notif, setNotif ]= useState('')
 
   const catchSubmit = (e) => {
     e.preventDefault()
@@ -74,17 +76,25 @@ const Register = () => {
 
     if (values.cgu === false) { setErrCgu(true) }
 
-    if ((errPseudo || errEmail || errPassword || !errCgu) === true) {
+    if ((errPseudo || errEmail || errPassword || values.pseudo === '' ) === true) {
       addToast(messages.register.error, { appearance: 'error' }); return false
     } else {
-      dispatch(registerUser({
-        pseudo: values.pseudo,
-        email: values.email,
-        password: values.password,
-        job: values.job,
-        cgu: values.cgu
-      }))
-      addToast(messages.register.success, { appearance: 'success' })
+        const registered = tryRegister({
+          nom: values.pseudo, pseudo: values.pseudo, prenom: values.pseudo,
+          email: values.email, password: values.password,job: '/api/jobs/' + values.job,
+          isEnabled: true,
+        })
+
+        registered.then((response) => { 
+          if(response.message === 'Network error') {
+            setNotif(messages.register.error)
+          } else{
+            dispatch({type : REGISTER_USER})
+            setNotif(messages.register.success)
+          }
+        })
+
+      addToast(notif, { appearance: 'success' })
     }
   }
 
