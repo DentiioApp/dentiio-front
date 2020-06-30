@@ -6,7 +6,6 @@ import { Redirect } from 'react-router-dom'
 import { useToasts } from 'react-toast-notifications'
 
 import {
-  Avatar,
   Paper,
   Typography
 } from '@material-ui/core/'

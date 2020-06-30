@@ -5,7 +5,6 @@ import { useDispatch, useSelector } from 'react-redux'
 import { Redirect } from 'react-router-dom'
 
 import {
-  Avatar,
   FormControlLabel,
   Paper,
   Typography,
