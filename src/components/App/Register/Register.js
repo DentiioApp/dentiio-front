@@ -201,7 +201,6 @@ const Register = () => {
               label='Email Address'
               name='email'
               autoComplete='email'
-              autoFocus
               onKeyDown={(e) => e.keyCode !== 13 ? null : catchSubmit(e)}
               onChange={handleChange('email')}
               error={errEmail}
