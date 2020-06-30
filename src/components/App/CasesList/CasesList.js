@@ -31,7 +31,7 @@ const CasesList = () => {
     if (!areLoaded) {
       const getCases = tryCases()
       getCases.then(response => { 
-        if(!response.message === 'Network error') {
+        if(response.message !== 'Network error') {
           dispatch({ type: CASES_LIST, datas: response.datas})
         }
       })
