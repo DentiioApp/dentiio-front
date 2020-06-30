@@ -17,7 +17,7 @@ const Home = () => {
     if (!isLoaded) {
       const getJobs = tryJobs()
       getJobs.then(response =>{ 
-        if(!response.message === 'Network error') {
+        if(response.message !== 'Network error') {
           getJobs.then((res) => (dispatch({ type: JOB_LIST, data: res.datas})))
         }
       })
