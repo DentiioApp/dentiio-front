@@ -1,4 +1,5 @@
 import React from 'react'
+import { useDispatch } from 'react-redux'
 
 import { makeStyles } from '@material-ui/core/styles'
 import { Link } from 'react-router-dom'
@@ -11,8 +12,9 @@ import Typography from '@material-ui/core/Typography'
 import { blue } from '@material-ui/core/colors'
 
 import fav from '../../../images/maquette/fav.svg'
-
+import {ADD_FAVORITE} from '../../../store/actions'
 import { avgNotes } from '../../../utils'
+
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -44,10 +46,17 @@ const useStyles = makeStyles((theme) => ({
 
 const CasesItem = (props) => {
   const classes = useStyles()
+  const dispatch = useDispatch()
+
+  const addFav = (item) => {
+    dispatch({type: ADD_FAVORITE, data: item})
+  }
+
+
   return (
     <Link to={`/case/${props.item.id}`} style={{ textDecoration: 'none' }}>
       <Card className={classes.root}>
-        <img className={classes.flright} src={fav} alt='favorite' />
+        <img className={classes.flright} src={fav} alt='favorite' onClick={addFav(props.item.id)}/>
         <CardMedia
           className={classes.media}
           image='https://upload.wikimedia.org/wikipedia/commons/1/17/Yin_yang.svg'

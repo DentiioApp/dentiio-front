@@ -1,15 +1,14 @@
-import { CASE_ITEM } from '../actions'
+import { CASE_ITEM, ADD_FAVORITE} from '../actions'
 
-const INIT_STATE = ''
+const INIT_STATE = {
+  cases : {},
+  favorites: {}
+}
 
 export const Cases = (state = INIT_STATE, action) => {
   switch (action.type) {
-    case CASE_ITEM :
-      var data = {
-        cases: action.datas
-      }
-
-      return data
+    case CASE_ITEM : return {... state, cases: action.datas }
+    case ADD_FAVORITE: return {... state, favorites: action.data }
 
     default :
       return state
