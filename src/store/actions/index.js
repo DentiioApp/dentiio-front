@@ -2,7 +2,7 @@
 import { registerUser } from './registerUser'
 import { logUser } from './logUser'
 import { cardSave } from './cardSave'
-// import { caseItem } from './getCase'
+ import { addFav } from './addFav'
 
 export const CASES_LIST = 'CASES_LIST'
 export const REGISTER_USER = 'REGISTER_USER'
@@ -18,3 +18,4 @@ export const ADD_FAVORITE = 'ADD_FAVORITE'
 export { logUser }
 export { registerUser }
 export { cardSave }
+export { addFav }

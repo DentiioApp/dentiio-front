@@ -41,9 +41,16 @@ const config = {
 
   messages: {
     timeOut: 200,
-    Cases: {
+    cases: {
       error: "Une erreur s'est produite",
-      success: 'Inscription réussie'
+      success: 'Inscription réussie',
+
+      favorite:{
+        add:{
+          error: "Cas clinique non ajouté aux favoris, veuillez reessayer plus tard",
+          success: 'Ce cas clicnique est maintenant dans vos favoris',
+        }
+      }
     },
     Profile: {
       error: "Une erreur s'est produite",

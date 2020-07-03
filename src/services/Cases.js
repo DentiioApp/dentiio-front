@@ -23,3 +23,16 @@ export const tryCases = () => {
 
   return fetchDatas;
 };
+
+
+
+export const addFavCase = (oItem) => {
+  const reponses = axios
+    .post(CLINICAL_CASES, { favorite: oItem })
+    .then((res) => ({
+      message: "OK",
+      datas: res.data["hydra:member"],
+    }))
+    .catch((e) => JSON.stringify(e));
+  return reponses;
+}
