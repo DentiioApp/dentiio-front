@@ -68,6 +68,7 @@ const SignIn = () => {
       })
       
     } else {
+      addToast(messages.signin.error, { appearance: 'error' })
       setErrEmail(true)
       setErrPassword(true)
       return false
