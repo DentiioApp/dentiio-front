@@ -24,15 +24,15 @@ const CasesList = () => {
   const dispatch = useDispatch()
   const home = useSelector((state) => state.home)
   const cases = useSelector((state) => state.home.cases)
-  
+
   const areLoaded = home.casesLoaded
 
   useEffect(() => {
     if (!areLoaded) {
       const getCases = tryCases()
-      getCases.then(response => { 
-        if(response.message !== 'Network error') {
-          dispatch({ type: CASES_LIST, datas: response.datas})
+      getCases.then(response => {
+        if (response.message !== 'Network error') {
+          dispatch({ type: CASES_LIST, datas: response.datas })
         }
       })
     }
@@ -43,11 +43,10 @@ const CasesList = () => {
       <Container maxWidth='lg'>
         <center><img src={titleSvg} alt='Cas Cliniques' /></center>
         <div className={classes.root}>
-          { cases && cases.map((oCase, index) => (
-              <CasesItem key={index} item={oCase} />
-              )
-            )
-          }
+          {cases && cases.map((oCase, index) => (
+            <CasesItem key={index} item={oCase} />
+          )
+          )}
         </div>
       </Container>
     </>

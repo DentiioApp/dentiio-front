@@ -30,7 +30,7 @@ import { useToasts } from 'react-toast-notifications'
 import { setup } from '../../../services/Auth'
 import oStyle from '../../ResponsiveDesign/AuthStyle'
 
-import {tryRegister} from '../../../services/Users'
+import { tryRegister } from '../../../services/Users'
 import { LOGIN_FORM, REGISTER_USER } from '../../../store/actions'
 import GradientBtn from '../../UI/buttons/GradientBtn'
 import { checkText, checkEmail, checkPassword } from '../../../utils'
@@ -46,7 +46,7 @@ const Register = () => {
 
   const { jobs, config } = useSelector((state) => state.home)
   const user = useSelector((state) => state.user)
-  
+
   const messages = config.conf.messages.auth
 
   const initValues = {
@@ -74,31 +74,35 @@ const Register = () => {
 
     if (values.cgu === false) { setErrCgu(true) }
 
-    if ((errPseudo || errEmail || errPassword || values.pseudo === '' ) === true) {
+    if ((errPseudo || errEmail || errPassword || values.pseudo === '') === true) {
       addToast(messages.register.error, { appearance: 'error' }); return false
     } else {
-      const respo =  sendRequest()
-      respo.then((res)=>{
-        addToast(res.message, { appearance: res.appearance})
+      const respo = sendRequest()
+      respo.then((res) => {
+        addToast(res.message, { appearance: res.appearance })
       })
     }
   }
 
   const sendRequest = async () => {
     const response = await tryRegister({
-      nom: values.pseudo, pseudo: values.pseudo, prenom: values.pseudo,
-      email: values.email, password: values.password, job: '/api/jobs/' + values.job,
-      isEnabled: true,
+      nom: values.pseudo,
+      pseudo: values.pseudo,
+      prenom: values.pseudo,
+      email: values.email,
+      password: values.password,
+      job: '/api/jobs/' + values.job,
+      isEnabled: true
     })
 
-    const regex2 = RegExp(/Error/); 
+    const regex2 = RegExp(/Error/)
 
     if (regex2.test(response)) {
-      return {message : messages.register.error, appearance: 'error'}
+      return { message: messages.register.error, appearance: 'error' }
     } else {
-      dispatch({type : REGISTER_USER})
+      dispatch({ type: REGISTER_USER })
 
-      return {message : messages.register.success, appearance: 'success'}
+      return { message: messages.register.success, appearance: 'success' }
     }
   }
 

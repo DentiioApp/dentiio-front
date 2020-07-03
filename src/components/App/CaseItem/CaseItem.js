@@ -12,10 +12,9 @@ import Typography from '@material-ui/core/Typography'
 import { blue } from '@material-ui/core/colors'
 
 import fav from '../../../images/maquette/fav.svg'
-import {ADD_FAVORITE, addFav} from '../../../store/actions'
+import { ADD_FAVORITE, addFav } from '../../../store/actions'
 import { avgNotes } from '../../../utils'
 import { useToasts } from 'react-toast-notifications'
-
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -55,24 +54,23 @@ const CasesItem = (props) => {
 
   const HandleFav = async (item) => {
     console.log('HandleFav :', item)
-    //chek item integrity
+    // chek item integrity
     const response = await addFav(item)
-    const regex2 = RegExp(/Error/); 
+    const regex2 = RegExp(/Error/)
 
     if (regex2.test(response)) {
-      addToast(messages.add.error, {appearance: 'error'})
+      addToast(messages.add.error, { appearance: 'error' })
     } else {
-      dispatch({type: ADD_FAVORITE, data: item})
+      dispatch({ type: ADD_FAVORITE, data: item })
 
-      addToast(messages.add.success,{appearance: 'success'})
-    } 
+      addToast(messages.add.success, { appearance: 'success' })
+    }
   }
 
-
   return (
-    
+
     <Card className={classes.root}>
-      <img className={classes.flright} src={fav} alt='favorite' onClick={(e) => (HandleFav(props.item.id))}/>
+      <img className={classes.flright} src={fav} alt='favorite' onClick={(e) => (HandleFav(props.item.id))} />
       <Link to={`/case/${props.item.id}`} style={{ textDecoration: 'none' }}>
         <CardMedia
           className={classes.media}

@@ -1,4 +1,4 @@
- import './Home.scss'
+import './Home.scss'
 
 import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
@@ -16,9 +16,9 @@ const Home = () => {
   useEffect(() => {
     if (!isLoaded) {
       const getJobs = tryJobs()
-      getJobs.then(response =>{ 
-        if(response.message !== 'Network error') {
-          getJobs.then((res) => (dispatch({ type: JOB_LIST, data: res.datas})))
+      getJobs.then(response => {
+        if (response.message !== 'Network error') {
+          getJobs.then((res) => (dispatch({ type: JOB_LIST, data: res.datas })))
         }
       })
     }

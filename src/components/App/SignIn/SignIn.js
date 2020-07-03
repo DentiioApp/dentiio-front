@@ -62,11 +62,10 @@ const SignIn = () => {
     e.preventDefault()
 
     if (values.password !== '' && values.pseudo !== '') {
-      const respo =  sendRequest()
-      respo.then((res)=>{
-        addToast(res.message, { appearance: res.appearance})
+      const respo = sendRequest()
+      respo.then((res) => {
+        addToast(res.message, { appearance: res.appearance })
       })
-      
     } else {
       addToast(messages.signin.error, { appearance: 'error' })
       setErrEmail(true)
@@ -79,14 +78,14 @@ const SignIn = () => {
 
   const sendRequest = async () => {
     const datas = await tryLogin(values.pseudo, values.password)
-    const regex2 = RegExp(/Error/); 
+    const regex2 = RegExp(/Error/)
 
     if (regex2.test(datas)) {
-      return {message : messages.signin.error, appearance: 'error'}
+      return { message: messages.signin.error, appearance: 'error' }
     } else {
       setDatas(datas)
 
-      return {message : messages.signin.success, appearance: 'success'}
+      return { message: messages.signin.success, appearance: 'success' }
     }
   }
 

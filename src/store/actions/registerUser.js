@@ -1,5 +1,5 @@
 import { REGISTER_USER } from '../actions'
-import {tryCases} from '../../services/Cases'
+import { tryCases } from '../../services/Cases'
 
 export const registerUser = (register) => {
   tryCases({

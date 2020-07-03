@@ -9,7 +9,6 @@ import { setup } from '../../services/Auth'
 
 import CasesList from '../../components/App/CasesList/CasesList'
 
-
 const useStyles = makeStyles((theme) => ({
   root: {
     height: 260
@@ -27,7 +26,7 @@ const Cases = () => {
     <>
       <Header target='home' />
       <Container className={classes.root} />
-      <CasesList/>
+      <CasesList />
     </>
   )
 }

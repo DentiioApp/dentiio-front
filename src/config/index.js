@@ -7,9 +7,9 @@ const config = {
 
   },
 
-//apis
+  // apis
   url: {
-    //apiGateway: process.env.REACT_APP_ || 'http://localhost'
+    // apiGateway: process.env.REACT_APP_ || 'http://localhost'
   },
 
   cache: {
@@ -45,10 +45,10 @@ const config = {
       error: "Une erreur s'est produite",
       success: 'Inscription réussie',
 
-      favorite:{
-        add:{
-          error: "Cas clinique non ajouté aux favoris, veuillez reessayer plus tard",
-          success: 'Ce cas clicnique est maintenant dans vos favoris',
+      favorite: {
+        add: {
+          error: 'Cas clinique non ajouté aux favoris, veuillez reessayer plus tard',
+          success: 'Ce cas clicnique est maintenant dans vos favoris'
         }
       }
     },
