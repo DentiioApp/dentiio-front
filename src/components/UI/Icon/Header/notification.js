@@ -5,6 +5,10 @@ import Badge from '@material-ui/core/Badge'
 import IconButton from '@material-ui/core/IconButton'
 import Menu from '@material-ui/core/Menu'
 import MenuItem from '@material-ui/core/MenuItem'
+import palette from "../../ColorTheme/Palette";
+import IconProfile from "../Profile/iconProfile";
+import Typography from "@material-ui/core/Typography";
+import IconNotifSubject from "../../Icon/iconNotifSubject/iconNotifSubject"
 
 const notification = (props) => {
   // eslint-disable-next-line react-hooks/rules-of-hooks
@@ -30,10 +34,33 @@ const notification = (props) => {
       open={isMenuOpen}
       onClose={handleMenuClose}
     >
-      <MenuItem onClick={handleMenuClose}>Notification 1</MenuItem>
-      <MenuItem onClick={handleMenuClose}>Notification 2</MenuItem>
-      <MenuItem onClick={handleMenuClose}>Notification 3</MenuItem>
-      <MenuItem onClick={handleMenuClose}>Notification 4</MenuItem>
+      <MenuItem onClick={handleMenuClose}>
+          <IconProfile color={palette.primary} profile={props.profileId} img={props.profileImg} />
+        <Typography component='p' variant='p'>
+          <strong>Nikita</strong>
+          <br/>
+          a commenté votre cas
+        </Typography>
+        <IconNotifSubject/>
+      </MenuItem>
+      <MenuItem onClick={handleMenuClose}>
+        <IconProfile color={palette.primary} profile={props.profileId} img={props.profileImg} />
+        <Typography component='p' variant='p'>
+          <strong>Nikita</strong>
+          <br/>
+          a commenté votre cas
+        </Typography>
+        <IconNotifSubject/>
+      </MenuItem>
+      <MenuItem onClick={handleMenuClose}>
+        <IconProfile color={palette.primary} profile={props.profileId} img={props.profileImg} />
+        <Typography component='p' variant='p'>
+          <strong>Nikita</strong>
+          <br/>
+          a commenté votre cas
+        </Typography>
+        <IconNotifSubject/>
+      </MenuItem>
     </Menu>
   )
 
