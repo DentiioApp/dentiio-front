@@ -11,11 +11,7 @@ import Typography from '@material-ui/core/Typography'
 import { blue } from '@material-ui/core/colors'
 import FavButton from '../../UI/buttons/favButton'
 import IconProfile from "../../UI/Icon/Profile/iconProfile";
-
-
-import { ADD_FAVORITE, addFav } from '../../../store/actions'
 import { avgNotes } from '../../../utils'
-import { useToasts } from 'react-toast-notifications'
 import Keyword from "../../UI/Keywords/keywords";
 
 const useStyles = makeStyles((theme) => ({
@@ -48,41 +44,11 @@ const useStyles = makeStyles((theme) => ({
 
 const CasesItem = (props) => {
   const classes = useStyles()
-  const dispatch = useDispatch()
-  const { config } = useSelector((state) => state.home)
-  const iUser = useSelector((state) => state.user.id)
-  const { addToast } = useToasts()
-
-  const messages = config.conf.messages.cases.favorite
-
-  const KeywordList = () => {
-    console.log(props.item.keyword)
-    for (let i = 0; i < 9; i++) {
-      str = str + i;
-    }
-    return(
-      <Keyword keyword='Fumeur'/>
-    )
-  }
-
-  const HandleFav = async (iItem) => {
-    // chek item integrity
-    const response = await addFav(iUser, iItem)
-    const regex2 = RegExp(/Error/)
-
-    if (regex2.test(response)) {
-      addToast(messages.add.error, { appearance: 'error' })
-    } else {
-      dispatch({ type: ADD_FAVORITE, data: iItem })
-
-      addToast(messages.add.success, { appearance: 'success' })
-    }
-  }
 
   return (
 
     <Card className={classes.root}>
-      <FavButton alt='favorite' onClick={(e) => (HandleFav(props.item.id))} /*bool={props.isFavorite}*//>
+      <FavButton alt='favorite' item={props.item} /*bool={props.isFavorite}*//>
       <Link to={`/case/${props.item.id}`} style={{ textDecoration: 'none' }}>
         <CardMedia
           className={classes.media}
@@ -91,7 +57,11 @@ const CasesItem = (props) => {
           title='Paella dish'
         />
         <div style={{marginTop: "-45px", marginLeft: "15px"}}>
-          <KeywordList/>
+          {props.item.keyword.map((keyword) => (
+              <Keyword keyword={keyword.name}/>
+          ))}
+
+
         </div>
         <CardContent>
           <Typography variant='h6' style={{color: "black"}} component='p'>
