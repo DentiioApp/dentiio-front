@@ -17,7 +17,8 @@ const INIT_STATE = {
   cases: [],
 
   login: false,
-  config: { conf }
+  config: { conf },
+  internet : false,
 }
 
 export const Home = (state = INIT_STATE, action) => {
@@ -32,7 +33,7 @@ export const Home = (state = INIT_STATE, action) => {
       return { ...state, cases: action.datas, casesLoaded: true }
 
     case 'HOME_RESET': return { ...state, usersLoaded: false, casesLoaded: false, jobsLoaded: false }
-
+    case 'LOAD_INTERNET': return { ...state, internet:navigator.onLine}
     default:
       return state
   }
