@@ -48,20 +48,20 @@ const CasesItem = (props) => {
   const classes = useStyles()
   const dispatch = useDispatch()
   const { config } = useSelector((state) => state.home)
+  const iUser = useSelector((state) => state.user.id)
   const { addToast } = useToasts()
 
   const messages = config.conf.messages.cases.favorite
 
-  const HandleFav = async (item) => {
-    console.log('HandleFav :', item)
+  const HandleFav = async (iItem) => {
     // chek item integrity
-    const response = await addFav(item)
+    const response = await addFav(iUser, iItem)
     const regex2 = RegExp(/Error/)
 
     if (regex2.test(response)) {
       addToast(messages.add.error, { appearance: 'error' })
     } else {
-      dispatch({ type: ADD_FAVORITE, data: item })
+      dispatch({ type: ADD_FAVORITE, data: iItem })
 
       addToast(messages.add.success, { appearance: 'success' })
     }

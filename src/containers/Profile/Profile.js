@@ -11,9 +11,8 @@ const Profile = () => {
     <>
       <Header target='profile' />
       <button onClick={logout}>
-            Se déconnecter
+        Se déconnecter
       </button>
-
     </>
   )
 }

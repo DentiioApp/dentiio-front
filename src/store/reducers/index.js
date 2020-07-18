@@ -7,5 +7,4 @@ export const adminReducer = combineReducers({
   cases: Cases,
   user: User,
   home: Home,
-  jobs: ''
 })
