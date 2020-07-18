@@ -9,7 +9,6 @@ export const oStyle = (theme, imgDesktop, imgMobile) => {
                   ? theme.palette.grey[50]
                   : theme.palette.grey[900],
       backgroundSize: 'contain',
-      overflow: 'hidden',
 
       '@media (max-width:1025px)': {
         backgroundSize: 'cover',
@@ -43,22 +42,23 @@ export const oStyle = (theme, imgDesktop, imgMobile) => {
 
     logo: {
       position: 'absolute',
-      margin: '13px 23px 0px 32px'
+      margin: '13px 23px 0px 50px'
     },
 
     login: {
       height: 'fit-content',
       position: 'absolute',
-      top: '8%',
-      bottom: '0',
+      marginTop: '6%',
+      bottom: '4%',
       right: '0',
       borderRadius: '20px',
       marginRight: '10%',
-
-      '@media (max-width:1025px)': {
-        margin: 'auto',
-        position: 'inherit'
-      }
+      [theme.breakpoints.down('sm')]: {
+        marginLeft: 'auto',
+        marginRight: 'auto',
+        position: 'inherit',
+        marginTop: '25%',
+      },
     }
   }
 }
