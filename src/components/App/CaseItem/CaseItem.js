@@ -7,16 +7,16 @@ import Card from '@material-ui/core/Card'
 import CardMedia from '@material-ui/core/CardMedia'
 import CardContent from '@material-ui/core/CardContent'
 import CardActions from '@material-ui/core/CardActions'
-import Avatar from '@material-ui/core/Avatar'
 import Typography from '@material-ui/core/Typography'
 import { blue } from '@material-ui/core/colors'
 import FavButton from '../../UI/buttons/favButton'
+import IconProfile from "../../UI/Icon/Profile/iconProfile";
 
-import fav from '../../../images/maquette/fav.svg'
+
 import { ADD_FAVORITE, addFav } from '../../../store/actions'
 import { avgNotes } from '../../../utils'
 import { useToasts } from 'react-toast-notifications'
-import palette from "../../UI/ColorTheme/Palette";
+import Keyword from "../../UI/Keywords/keywords";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -55,6 +55,16 @@ const CasesItem = (props) => {
 
   const messages = config.conf.messages.cases.favorite
 
+  const KeywordList = () => {
+    console.log(props.item.keyword)
+    for (let i = 0; i < 9; i++) {
+      str = str + i;
+    }
+    return(
+      <Keyword keyword='Fumeur'/>
+    )
+  }
+
   const HandleFav = async (iItem) => {
     // chek item integrity
     const response = await addFav(iUser, iItem)
@@ -77,8 +87,12 @@ const CasesItem = (props) => {
         <CardMedia
           className={classes.media}
           image='https://upload.wikimedia.org/wikipedia/commons/1/17/Yin_yang.svg'
+          /*image={process.env.REACT_APP_BACK_API_URL + "public/images/" + props.item.img}*/
           title='Paella dish'
         />
+        <div style={{marginTop: "-45px", marginLeft: "15px"}}>
+          <KeywordList/>
+        </div>
         <CardContent>
           <Typography variant='h6' style={{color: "black"}} component='p'>
             Title
@@ -88,11 +102,13 @@ const CasesItem = (props) => {
           </Typography>
         </CardContent>
         <CardActions disableSpacing>
-          <Avatar aria-label='recipe' className={classes.avatar}>
-            {'Av'}
-          </Avatar>
-          <small>{'pseudo'} </small>
-          <small>  {'function'}</small>
+            <IconProfile color={"primary"}/>
+          <Typography variant='body2' color='textSecondary' component='p'>
+            Pseudo
+
+            <br/>
+            Fonction
+          </Typography>
           {/* <TeethButton> */}
 
           {/* </TeethButton> */}

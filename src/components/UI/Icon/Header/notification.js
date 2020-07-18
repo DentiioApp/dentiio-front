@@ -43,6 +43,24 @@ const notification = (props) => {
         </Typography>
         <IconNotifSubject/>
       </MenuItem>
+      <MenuItem onClick={handleMenuClose}>
+        <IconProfile color={palette.primary} profile={props.profileId} img={props.profileImg} />
+        <Typography component='p' variant='p'>
+          <strong>Nikita</strong>
+          <br/>
+          a commenté votre cas
+        </Typography>
+        <IconNotifSubject/>
+      </MenuItem>
+      <MenuItem onClick={handleMenuClose}>
+        <IconProfile color={palette.primary} profile={props.profileId} img={props.profileImg} />
+        <Typography component='p' variant='p'>
+          <strong>Nikita</strong>
+          <br/>
+          a commenté votre cas
+        </Typography>
+        <IconNotifSubject/>
+      </MenuItem>
     </Menu>
   )
 
