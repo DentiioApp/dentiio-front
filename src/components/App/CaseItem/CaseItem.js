@@ -10,11 +10,13 @@ import CardActions from '@material-ui/core/CardActions'
 import Avatar from '@material-ui/core/Avatar'
 import Typography from '@material-ui/core/Typography'
 import { blue } from '@material-ui/core/colors'
+import FavButton from '../../UI/buttons/favButton'
 
 import fav from '../../../images/maquette/fav.svg'
 import { ADD_FAVORITE, addFav } from '../../../store/actions'
 import { avgNotes } from '../../../utils'
 import { useToasts } from 'react-toast-notifications'
+import palette from "../../UI/ColorTheme/Palette";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -70,7 +72,7 @@ const CasesItem = (props) => {
   return (
 
     <Card className={classes.root}>
-      <img className={classes.flright} src={fav} alt='favorite' onClick={(e) => (HandleFav(props.item.id))} />
+      <FavButton alt='favorite' onClick={(e) => (HandleFav(props.item.id))} /*bool={props.isFavorite}*//>
       <Link to={`/case/${props.item.id}`} style={{ textDecoration: 'none' }}>
         <CardMedia
           className={classes.media}
