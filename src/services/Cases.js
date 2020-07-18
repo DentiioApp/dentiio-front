@@ -2,6 +2,9 @@ import axios from 'axios'
 
 const CLINICAL_CASES =
   process.env.REACT_APP_BACK_API_URL + process.env.REACT_APP_CLINICAL_CASES
+const FAVORITES =
+  process.env.REACT_APP_BACK_API_URL + process.env.REACT_APP_FAVORITES
+
 
 export const fetchCases = (signal) => {
   const reponses = axios
@@ -24,9 +27,10 @@ export const tryCases = () => {
   return fetchDatas
 }
 
-export const addFavCase = (oItem) => {
+export const addFavCase = (iUser, iItem) => {
+console.log('FAV SERvice :', iUser, iItem)
   const reponses = axios
-    .post(CLINICAL_CASES, { favorite: oItem })
+    .post(FAVORITES, { userId: iUser, clinicalCaseId: iItem })
     .then((res) => ({
       message: 'OK',
       datas: res.data['hydra:member']
