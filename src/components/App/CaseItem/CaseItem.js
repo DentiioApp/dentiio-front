@@ -80,6 +80,9 @@ const CasesItem = (props) => {
           title='Paella dish'
         />
         <CardContent>
+          <Typography variant='h6' style={{color: "black"}} component='p'>
+            Title
+          </Typography>
           <Typography variant='body2' color='textSecondary' component='p'>
             {props.item.presentation}
           </Typography>

@@ -1,14 +1,12 @@
 import React from 'react'
-import PermIdentityIcon from '@material-ui/icons/PermIdentity'
-import PersonIcon from '@material-ui/icons/Person'
 import IconButton from '@material-ui/core/IconButton'
 
-const iconProfile = (props) => {
+const iconNotifSubject = (props) => {
 
   const Img = () => {
     if (props.profileImg === undefined){
       return(
-          <PermIdentityIcon fontSize='large' htmlColor={props.color} />
+          <></>
       )
     }
     return(
@@ -18,7 +16,7 @@ const iconProfile = (props) => {
 
   return (
     <IconButton
-      aria-label='account of current user'
+      aria-label='subject notif'
       aria-haspopup='true'
       color='inherit'
     >
@@ -27,4 +25,4 @@ const iconProfile = (props) => {
   )
 }
 
-export default iconProfile
+export default iconNotifSubject
