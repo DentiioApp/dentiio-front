@@ -2,7 +2,7 @@
 import { registerUser } from './registerUser'
 import { logUser } from './logUser'
 import { cardSave } from './cardSave'
-// import { caseItem } from './getCase'
+import { addFav } from './addFav'
 
 export const CASES_LIST = 'CASES_LIST'
 export const REGISTER_USER = 'REGISTER_USER'
@@ -12,8 +12,10 @@ export const VALID_STATUS = 'VALID_STATUS'
 export const JOB_LIST = 'JOB_LIST'
 export const LOGIN_FORM = 'LOGIN_FORM'
 export const CASE_ITEM = 'CASE_ITEM'
+export const ADD_FAVORITE = 'ADD_FAVORITE'
 
 // export { caseItem }
 export { logUser }
 export { registerUser }
 export { cardSave }
+export { addFav }

@@ -1,4 +1,5 @@
 import React from 'react'
+import { useDispatch, useSelector } from 'react-redux'
 
 import { makeStyles } from '@material-ui/core/styles'
 import { Link } from 'react-router-dom'
@@ -11,8 +12,9 @@ import Typography from '@material-ui/core/Typography'
 import { blue } from '@material-ui/core/colors'
 
 import fav from '../../../images/maquette/fav.svg'
-
+import { ADD_FAVORITE, addFav } from '../../../store/actions'
 import { avgNotes } from '../../../utils'
+import { useToasts } from 'react-toast-notifications'
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -44,10 +46,32 @@ const useStyles = makeStyles((theme) => ({
 
 const CasesItem = (props) => {
   const classes = useStyles()
+  const dispatch = useDispatch()
+  const { config } = useSelector((state) => state.home)
+  const { addToast } = useToasts()
+
+  const messages = config.conf.messages.cases.favorite
+
+  const HandleFav = async (item) => {
+    console.log('HandleFav :', item)
+    // chek item integrity
+    const response = await addFav(item)
+    const regex2 = RegExp(/Error/)
+
+    if (regex2.test(response)) {
+      addToast(messages.add.error, { appearance: 'error' })
+    } else {
+      dispatch({ type: ADD_FAVORITE, data: item })
+
+      addToast(messages.add.success, { appearance: 'success' })
+    }
+  }
+
   return (
-    <Link to={`/case/${props.item.id}`} style={{ textDecoration: 'none' }}>
-      <Card className={classes.root}>
-        <img className={classes.flright} src={fav} alt='favorite' />
+
+    <Card className={classes.root}>
+      <img className={classes.flright} src={fav} alt='favorite' onClick={(e) => (HandleFav(props.item.id))} />
+      <Link to={`/case/${props.item.id}`} style={{ textDecoration: 'none' }}>
         <CardMedia
           className={classes.media}
           image='https://upload.wikimedia.org/wikipedia/commons/1/17/Yin_yang.svg'
@@ -68,14 +92,14 @@ const CasesItem = (props) => {
 
           {/* </TeethButton> */}
           {/* <CommentButton aria-label="comments"> */}
-             coms: {props.item.commentaires.length}
+              coms: {props.item.commentaires.length}
           {/* </CommentButton> */}
           {/* <NoteButton aria-label="comments"> */}
-             notes: {avgNotes(props.item.notations)}
+              notes: {avgNotes(props.item.notations)}
           {/* </NoteButton> */}
         </CardActions>
-      </Card>
-    </Link>
+      </Link>
+    </Card>
   )
 }
 

@@ -4,20 +4,42 @@ const LOGIN_CHECK = process.env.REACT_APP_BACK_API_URL + process.env.REACT_APP_L
 const USERS = process.env.REACT_APP_BACK_API_URL + process.env.REACT_APP_USERS
 
 export const loginCheck = (ident, pswd) => {
-  async function main () {
-    return await axios.post(
-      LOGIN_CHECK, { username: ident, password: pswd }
-    ).then(res => res)
-  }
+  const reponses = axios.post(
+    LOGIN_CHECK, { username: ident, password: pswd }
+  ).then(res => res)
+    .catch((e) => JSON.stringify(e))
 
-  return main()
+  return reponses
 }
 
-const response = localStorage.getItem('authSubscribeMsg')
+export const tryLogin = (ident, pswd) => {
+  const fetchDatas = loginCheck(ident, pswd)
+
+  if (fetchDatas.datas === undefined) {
+    fetchDatas.datas = []
+  }
+
+  return fetchDatas
+}
 
 export const registerCheck = (user) => {
-  axios.post(USERS, user)
-    .then(res => localStorage.setItem('authSubscribeMsg', res.statusText))
+  const reponses = axios
+    .post(USERS, user)
+    .then((res) => {
+      localStorage.setItem('authSubscribeMsg', res.statusText)
+      return { message: 'OK', datas: res.statusText }
+    })
+    .catch((e) => JSON.stringify(e))
 
-  return response
+  return reponses
+}
+
+export const tryRegister = (user) => {
+  const fetchDatas = registerCheck(user)
+
+  if (fetchDatas.datas === undefined) {
+    fetchDatas.datas = []
+  }
+
+  return fetchDatas
 }
