@@ -131,7 +131,7 @@ const detailCase = () => {
               </Typography>
               <Typography component='p' variant='body2' className={classes.subtitle}>
                 <span style={{ paddingRight: 20 }}>Implotologie</span>
-                <img src={iconTeethFull} width='12px' className={classes.icon} />
+                <img alt='' src={iconTeethFull} width='12px' className={classes.icon} />
                                     4,7 (32 notes)
               </Typography>
               <Typography component='p' variant='body2' className={classes.subtitle}>

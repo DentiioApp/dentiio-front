@@ -1,11 +1,11 @@
-import React, { useEffect, useState } from 'react'
+import './Home.scss'
+
+import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { JOB_LIST } from '../../store/actions'
 import Register from '../../components/App/Register/Register'
 import SignIn from '../../components/App/SignIn/SignIn'
-
 import { tryJobs } from '../../services/Jobs'
-import './Home.scss'
 
 const Home = () => {
   const dispatch = useDispatch()
@@ -16,8 +16,11 @@ const Home = () => {
   useEffect(() => {
     if (!isLoaded) {
       const getJobs = tryJobs()
-      const disp = getJobs.then((res) => ({ type: JOB_LIST, data: res.datas, notif: res.message }))
-      disp.then((act) => { dispatch(act) })
+      getJobs.then(response => {
+        if (response.message !== 'Network error') {
+          getJobs.then((res) => (dispatch({ type: JOB_LIST, data: res.datas })))
+        }
+      })
     }
   })
 

@@ -7,16 +7,9 @@ const config = {
 
   },
 
+  // apis
   url: {
-    netski: process.env.REACT_APP_ || 'http://localhost',
-    auth: process.env.REACT_APP_ || 'http://localhost',
-    catalog: process.env.REACT_APP_ || 'http://localhost',
-    config: process.env.REACT_APP_ || 'http://localhost',
-    booking: process.env.REACT_APP_ || 'http://localhost',
-    pts: process.env.REACT_APP_ || 'http://localhost',
-    static: process.env.REACT_APP_ || 'http://localhost',
-    staticNetski: process.env.REACT_APP_ || 'http://localhost',
-    apiGateway: process.env.REACT_APP_ || 'http://localhost'
+    // apiGateway: process.env.REACT_APP_ || 'http://localhost'
   },
 
   cache: {
@@ -48,17 +41,24 @@ const config = {
 
   messages: {
     timeOut: 200,
-    Cases: {
-      error: "Une erreur s'\est produite",
-      success: 'Inscription réussie'
+    cases: {
+      error: "Une erreur s'est produite",
+      success: 'Inscription réussie',
+
+      favorite: {
+        add: {
+          error: 'Cas clinique non ajouté aux favoris, veuillez reessayer plus tard',
+          success: 'Ce cas clicnique est maintenant dans vos favoris'
+        }
+      }
     },
     Profile: {
-      error: "Une erreur s'\est produite",
+      error: "Une erreur s'est produite",
       success: 'Inscription réussie'
     },
     auth: {
       register: {
-        error: "Une erreur s'\est produite , validez les données du formulaire",
+        error: "Une erreur s'est produite , validez les données du formulaire",
         success: 'Inscription réussie, Bonjour ! '
       },
       signin: {

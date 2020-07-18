@@ -5,7 +5,6 @@ import { useDispatch, useSelector } from 'react-redux'
 import { Redirect } from 'react-router-dom'
 
 import {
-  Avatar,
   FormControlLabel,
   Paper,
   Typography,
@@ -31,7 +30,8 @@ import { useToasts } from 'react-toast-notifications'
 import { setup } from '../../../services/Auth'
 import oStyle from '../../ResponsiveDesign/AuthStyle'
 
-import { registerUser, LOGIN_FORM } from '../../../store/actions'
+import { tryRegister } from '../../../services/Users'
+import { LOGIN_FORM, REGISTER_USER } from '../../../store/actions'
 import GradientBtn from '../../UI/buttons/GradientBtn'
 import { checkText, checkEmail, checkPassword } from '../../../utils'
 
@@ -46,7 +46,7 @@ const Register = () => {
 
   const { jobs, config } = useSelector((state) => state.home)
   const user = useSelector((state) => state.user)
-  
+
   const messages = config.conf.messages.auth
 
   const initValues = {
@@ -74,17 +74,35 @@ const Register = () => {
 
     if (values.cgu === false) { setErrCgu(true) }
 
-    if ((errPseudo || errEmail || errPassword || !errCgu) === true) {
+    if ((errPseudo || errEmail || errPassword || values.pseudo === '') === true) {
       addToast(messages.register.error, { appearance: 'error' }); return false
     } else {
-      dispatch(registerUser({
-        pseudo: values.pseudo,
-        email: values.email,
-        password: values.password,
-        job: values.job,
-        cgu: values.cgu
-      }))
-      addToast(messages.register.success, { appearance: 'success' })
+      const respo = sendRequest()
+      respo.then((res) => {
+        addToast(res.message, { appearance: res.appearance })
+      })
+    }
+  }
+
+  const sendRequest = async () => {
+    const response = await tryRegister({
+      nom: values.pseudo,
+      pseudo: values.pseudo,
+      prenom: values.pseudo,
+      email: values.email,
+      password: values.password,
+      job: '/api/jobs/' + values.job,
+      isEnabled: true
+    })
+
+    const regex2 = RegExp(/Error/)
+
+    if (regex2.test(response)) {
+      return { message: messages.register.error, appearance: 'error' }
+    } else {
+      dispatch({ type: REGISTER_USER })
+
+      return { message: messages.register.success, appearance: 'success' }
     }
   }
 
@@ -187,7 +205,6 @@ const Register = () => {
               label='Email Address'
               name='email'
               autoComplete='email'
-              autoFocus
               onKeyDown={(e) => e.keyCode !== 13 ? null : catchSubmit(e)}
               onChange={handleChange('email')}
               error={errEmail}
@@ -212,7 +229,7 @@ const Register = () => {
                 {'Indiquez votre profession'}
               </MenuItem>
 
-              {jobs.map(option => (
+              {jobs && jobs.map(option => (
                 <MenuItem key={option.ident} value={option.id}>
                   {option.name}
                 </MenuItem>
