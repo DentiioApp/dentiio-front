@@ -55,8 +55,7 @@ const Register = () => {
     password: '',
     job: '',
     showPassword: false,
-    cgu: true
-
+    cgu: false,
   }
 
   const [values, setValues] = useState(initValues)
@@ -91,7 +90,7 @@ const Register = () => {
       prenom: values.pseudo,
       email: values.email,
       password: values.password,
-      job: '/api/jobs/' + values.job,
+      job: [{ident: values.job}],
       isEnabled: true
     })
 
@@ -156,6 +155,8 @@ const Register = () => {
   const handleMouseDownPassword = event => {
     event.preventDefault()
   }
+   
+ //console.log('TEST :', navigator.onLine)
 
   if (setup() === true) {
     return <Redirect to='/cases' />
@@ -230,7 +231,7 @@ const Register = () => {
               </MenuItem>
 
               {jobs && jobs.map(option => (
-                <MenuItem key={option.ident} value={option.id}>
+                <MenuItem key={option.ident} value={option.ident}>
                   {option.name}
                 </MenuItem>
               ))}
@@ -277,7 +278,7 @@ const Register = () => {
               control={
                 <Checkbox
                   color='primary'
-                  checked={!values.cgu}
+                  checked={values.cgu}
                   onKeyDown={(e) => e.keyCode !== 13 ? null : catchSubmit(e)}
                   onClick={handleClickCgu}
                   onMouseDown={handleMouseDownCgu}

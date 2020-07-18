@@ -35,6 +35,7 @@ export const registerCheck = (user) => {
 }
 
 export const tryRegister = (user) => {
+console.log('TESTueuue :', user)
   const fetchDatas = registerCheck(user)
 
   if (fetchDatas.datas === undefined) {
