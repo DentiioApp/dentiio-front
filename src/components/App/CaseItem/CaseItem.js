@@ -55,7 +55,7 @@ const CasesItem = (props) => {
 
   const HandleFav = async (iItem) => {
     // chek item integrity
-    const response = await addFav(iItem, iUser)
+    const response = await addFav(iUser, iItem)
     const regex2 = RegExp(/Error/)
 
     if (regex2.test(response)) {

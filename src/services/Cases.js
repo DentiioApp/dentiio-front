@@ -27,9 +27,10 @@ export const tryCases = () => {
   return fetchDatas
 }
 
-export const addFavCase = (iUser, oItem) => {
+export const addFavCase = (iUser, iItem) => {
+console.log('FAV SERvice :', iUser, iItem)
   const reponses = axios
-    .post(FAVORITES, { userId: iUser, clinicalCaseId: oItem })
+    .post(FAVORITES, { userId: iUser, clinicalCaseId: iItem })
     .then((res) => ({
       message: 'OK',
       datas: res.data['hydra:member']

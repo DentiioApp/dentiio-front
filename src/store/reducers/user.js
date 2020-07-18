@@ -17,7 +17,7 @@ export const User = (state = INIT_STATE, action) => {
       var details = jwtDecode(action.datas.token)
 
       login(action.datas.token)
-
+      //console.log('in reducer users, details :',details )
       return { id: details.id, username: details.username, connected: true }
 
     case REGISTER_USER :
