@@ -22,10 +22,10 @@ const Home = () => {
         if (response.message !== 'Network error' && response.message !== undefined) {
           getJobs.then((res) => (dispatch({ type: JOB_LIST, data: res.datas })))
         } else {
-            dispatch({ type: 'LOAD_INTERNET'})
-            if(!home.internet) {
-              addToast('Vous n\'avez pas accès à Internet', { appearance: 'error' });
-            }
+            //dispatch({ type: 'LOAD_INTERNET'})
+            //if(!home.internet) {
+            //  addToast('Vous n\'avez pas accès à Internet', { appearance: 'error' });
+            //}
         }
       })
     }
