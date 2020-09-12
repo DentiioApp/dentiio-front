@@ -40,6 +40,7 @@ const useStyles = makeStyles((theme) => ({
 export default function PatientDetail () {
   // eslint-disable-next-line react-hooks/rules-of-hooks
   const classes = useStyles()
+  const currentCase = useSelector((state) => state.cases.currentCase)
 
   return (
     <Card className={classes.root}>
@@ -54,6 +55,7 @@ export default function PatientDetail () {
                                 Age
               </TableCell>
               <TableCell align='left'>
+                                {currentCase.age}
                                 33 ans
               </TableCell>
             </TableRow>
@@ -62,6 +64,7 @@ export default function PatientDetail () {
                                 Sexe
               </TableCell>
               <TableCell align='left'>
+                                {currentCase.sexe}
                                 Homme
               </TableCell>
             </TableRow>
@@ -70,6 +73,7 @@ export default function PatientDetail () {
                                 Alcool
               </TableCell>
               <TableCell align='left'>
+                                {currentCase.drinker}
                                 Oui
               </TableCell>
             </TableRow>
@@ -78,6 +82,7 @@ export default function PatientDetail () {
                                 Fumeur
               </TableCell>
               <TableCell align='left'>
+                                {currentCase.smoker}
                                 Oui
               </TableCell>
             </TableRow>
@@ -85,18 +90,21 @@ export default function PatientDetail () {
         </Table>
         <Typography variant='body2' component='span'>
                     Traitement en cours :<br />
+                    {currentCase.currentTreatment}
                     Tramadol tous les soirs
         </Typography>
 
         <Divider className={classes.pos} />
         <Typography variant='body2' component='span'>
                     Antécédents médicaux :<br />
+                    {currentCase.oldAffect}
                     Fibromialgie il y a 5 ans , Cholesterol  et Diabète controlé
         </Typography>
 
         <Divider className={classes.pos} />
         <Typography variant='body2' component='span'>
                     Alergies :<br />
+                    {currentCase.allergen}
                     Pollen et codéine
         </Typography>
       </CardContent>

@@ -2,7 +2,17 @@ import { CASE_ITEM, ADD_FAVORITE } from '../actions'
 
 const INIT_STATE = {
   cases: {},
-  favorites: {}
+  favorites: {},
+
+  currentCase: {
+    age,
+    sexe,
+    drinker,
+    smoker,
+    currentTreatment,
+    oldAffect,
+    allergen
+  }
 }
 
 export const Cases = (state = INIT_STATE, action) => {
