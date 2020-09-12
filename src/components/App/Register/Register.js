@@ -31,7 +31,7 @@ import { setup } from '../../../services/Auth'
 import oStyle from '../../ResponsiveDesign/AuthStyle'
 
 import { tryRegister } from '../../../services/Users'
-import { LOGIN_FORM, REGISTER_USER } from '../../../store/actions'
+import { LOGIN_FORM } from '../../../store/actions'
 import GradientBtn from '../../UI/buttons/GradientBtn'
 import { checkText, checkEmail, checkPassword } from '../../../utils'
 

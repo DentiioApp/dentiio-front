@@ -1,6 +1,6 @@
 import React from 'react'
 import PermIdentityIcon from '@material-ui/icons/PermIdentity'
-import PersonIcon from '@material-ui/icons/Person'
+//import PersonIcon from '@material-ui/icons/Person'
 import IconButton from '@material-ui/core/IconButton'
 
 const iconProfile = (props) => {
@@ -12,7 +12,7 @@ const iconProfile = (props) => {
       )
     }
     return(
-        <img src={props.profileImg}/>
+        <img src={props.profileImg} alt='Icon profile'/>
     )
   }
 

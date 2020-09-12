@@ -5,13 +5,13 @@ const INIT_STATE = {
   favorites: {},
 
   currentCase: {
-    age,
-    sexe,
-    drinker,
-    smoker,
-    currentTreatment,
-    oldAffect,
-    allergen
+    age:18,
+    sexe:'F',
+    drinker:true,
+    smoker:true,
+    currentTreatment:'',
+    oldAffect:'',
+    allergen:''
   }
 }
 
