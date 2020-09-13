@@ -1,4 +1,5 @@
 import React from 'react'
+import { useDispatch } from 'react-redux'
 import { makeStyles } from '@material-ui/core/styles'
 import { Link } from 'react-router-dom'
 import Card from '@material-ui/core/Card'
@@ -11,6 +12,8 @@ import FavButton from '../../UI/buttons/favButton'
 import IconProfile from "../../UI/Icon/Profile/iconProfile";
 import { avgNotes } from '../../../utils'
 import Keyword from "../../UI/Keywords/keywords";
+
+import { INIT_CURRENT_CASE } from '../../../store/actions'
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -42,12 +45,18 @@ const useStyles = makeStyles((theme) => ({
 
 const CasesItem = (props) => {
   const classes = useStyles()
+  const dispatch = useDispatch()
+
+
+  const setCurrentCase = (e,item) => {
+    dispatch({type: INIT_CURRENT_CASE, item})
+  }
 
   return (
 
     <Card className={classes.root}>
       <FavButton alt='favorite' item={props.item} /*bool={props.isFavorite}*//>
-      <Link to={`/case/${props.item.id}`} style={{ textDecoration: 'none' }}>
+      <Link onClick={(e)=> setCurrentCase(e,props.item)} to={`/case/${props.item.id}`} style={{ textDecoration: 'none' }}>
         <CardMedia
           className={classes.media}
           image='https://upload.wikimedia.org/wikipedia/commons/1/17/Yin_yang.svg'
