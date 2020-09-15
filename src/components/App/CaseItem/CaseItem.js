@@ -49,9 +49,10 @@ const CasesItem = (props) => {
 
 
   const setCurrentCase = (e,item) => {
-    dispatch({type: INIT_CURRENT_CASE, item})
+    console.log('TEST :', item)
+    //dispatch({type: INIT_CURRENT_CASE, item})
   }
-
+  
   return (
 
     <Card className={classes.root}>

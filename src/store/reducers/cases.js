@@ -1,19 +1,10 @@
 import { CASE_ITEM, ADD_FAVORITE, INIT_CURRENT_CASE } from '../actions'
+import config from '../../config'
 
 const INIT_STATE = {
   cases: {},
   favorites: {},
-
-  currentCase: {
-    id:false,
-    age:0,
-    sexe:'F',
-    drinker:false,
-    smoker:false,
-    currentTreatment:'',
-    oldAffect:'',
-    allergen:''
-  }
+  currentCase: config.cache.currentCase,
 }
 /*
 const fullyfy=(state)=>{
