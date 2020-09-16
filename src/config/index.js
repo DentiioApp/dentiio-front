@@ -13,7 +13,28 @@ const config = {
   },
 
   cache: {
-    jobs: []
+    jobs: [],
+    currentCase: {
+      id: "none",
+      type: "none",
+      patient: {},
+      averageNote: 0,
+      commentaires:[{}],
+      conclusion: "none",
+      createdAt: "2000-01)à1T00/00/00+02:00",
+      evolution: "none",
+      //id:0,
+      isEnabled:'false',
+      keyword: [{}],
+      notations: [{}],
+      observation: 'none',
+      pathologie: [{}],
+      presentation:'none',
+      speciality: [{}],
+      symptome: [{}],
+      treatment: [],
+      treatmentPlan: "none",
+    }
   },
 
   i18n: {

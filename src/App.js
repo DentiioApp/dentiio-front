@@ -1,4 +1,5 @@
-import React from 'react'
+import React, { useEffect } from 'react'
+import ReactGA from 'react-ga';
 import logo from 'images/logo.svg'
 import './App.css'
 
