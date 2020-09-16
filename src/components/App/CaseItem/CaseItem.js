@@ -1,5 +1,4 @@
 import React from 'react'
-import { useDispatch, useSelector } from 'react-redux'
 
 import { makeStyles } from '@material-ui/core/styles'
 import { Link } from 'react-router-dom'
@@ -44,12 +43,18 @@ const useStyles = makeStyles((theme) => ({
 
 const CasesItem = (props) => {
   const classes = useStyles()
+  //const dispatch = useDispatch()
 
+
+  const setCurrentCase = (e,item) => {
+    //dispatch({type: INIT_CURRENT_CASE, item})
+  }
+  
   return (
 
     <Card className={classes.root}>
       <FavButton alt='favorite' item={props.item} /*bool={props.isFavorite}*//>
-      <Link to={`/case/${props.item.id}`} style={{ textDecoration: 'none' }}>
+      <Link onClick={(e)=> setCurrentCase(e,props.item)} to={`/case/${props.item.id}`} style={{ textDecoration: 'none' }}>
         <CardMedia
           className={classes.media}
           image='https://upload.wikimedia.org/wikipedia/commons/1/17/Yin_yang.svg'

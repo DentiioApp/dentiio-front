@@ -31,7 +31,7 @@ import { setup } from '../../../services/Auth'
 import oStyle from '../../ResponsiveDesign/AuthStyle'
 
 import { tryRegister } from '../../../services/Users'
-import { LOGIN_FORM, REGISTER_USER } from '../../../store/actions'
+import { LOGIN_FORM } from '../../../store/actions'
 import GradientBtn from '../../UI/buttons/GradientBtn'
 import { checkText, checkEmail, checkPassword } from '../../../utils'
 
@@ -90,7 +90,8 @@ const Register = () => {
       prenom: values.pseudo,
       email: values.email,
       password: values.password,
-      job: [{ident: values.job}],
+      job: '/api/jobs/'+ values.job,
+      createdAt: new Date().toISOString(),
       isEnabled: true
     })
 
@@ -99,7 +100,6 @@ const Register = () => {
     if (regex2.test(response)) {
       return { message: messages.register.error, appearance: 'error' }
     } else {
-      //dispatch({ type: REGISTER_USER })   card
       return { message: messages.register.success, appearance: 'success' }
     }
   }
@@ -230,7 +230,7 @@ const Register = () => {
               </MenuItem>
 
               {jobs && jobs.map(option => (
-                <MenuItem key={option.ident} value={option.ident}>
+                <MenuItem key={option.ident} value={option.id}>
                   {option.name}
                 </MenuItem>
               ))}
