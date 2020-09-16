@@ -1,5 +1,5 @@
 import React from 'react'
-//import { useDispatch } from 'react-redux'
+
 import { makeStyles } from '@material-ui/core/styles'
 import { Link } from 'react-router-dom'
 import Card from '@material-ui/core/Card'
@@ -12,8 +12,6 @@ import FavButton from '../../UI/buttons/favButton'
 import IconProfile from "../../UI/Icon/Profile/iconProfile";
 import { avgNotes } from '../../../utils'
 import Keyword from "../../UI/Keywords/keywords";
-
-import { INIT_CURRENT_CASE } from '../../../store/actions'
 
 const useStyles = makeStyles((theme) => ({
   root: {
