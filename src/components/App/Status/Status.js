@@ -108,6 +108,19 @@ const Status = () => {
               </Button>
               <FormHelperText id='my-helper-text'>{errCard || ''}</FormHelperText>
 
+              <Button variant='contained' component='label'>
+                Ma carte Étudiant
+                <input
+                  type='file'
+                  onKeyDown={(e) => e.keyCode !== 13 ? null : catchSubmit}
+                  onChange={handleChange('studyCard')}
+                  name='study'
+                  id='study'
+                  multiple
+                />
+              </Button>
+              <FormHelperText id='my-helper-text'>{errCard || ''}</FormHelperText>
+
               <div onClick={catchSubmit}>
                 <GradientBtn
                   variant='contained'
