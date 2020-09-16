@@ -1,5 +1,5 @@
 import React from 'react'
-import { useDispatch } from 'react-redux'
+//import { useDispatch } from 'react-redux'
 import { makeStyles } from '@material-ui/core/styles'
 import { Link } from 'react-router-dom'
 import Card from '@material-ui/core/Card'
@@ -45,11 +45,10 @@ const useStyles = makeStyles((theme) => ({
 
 const CasesItem = (props) => {
   const classes = useStyles()
-  const dispatch = useDispatch()
+  //const dispatch = useDispatch()
 
 
   const setCurrentCase = (e,item) => {
-    console.log('TEST :', item)
     //dispatch({type: INIT_CURRENT_CASE, item})
   }
   

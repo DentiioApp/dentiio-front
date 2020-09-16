@@ -100,7 +100,6 @@ const Register = () => {
     if (regex2.test(response)) {
       return { message: messages.register.error, appearance: 'error' }
     } else {
-      //dispatch({ type: REGISTER_USER })   card
       return { message: messages.register.success, appearance: 'success' }
     }
   }
