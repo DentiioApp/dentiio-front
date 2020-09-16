@@ -1,16 +1,26 @@
-import { CASES_LIST } from '../actions'
+import { CASE_ITEM, ADD_FAVORITE, INIT_CURRENT_CASE } from '../actions'
+import config from '../../config'
 
-const INIT_STATE = ''
-
-export const CasesList = (state = INIT_STATE, action) => {
+const INIT_STATE = {
+  cases: {},
+  favorites: {},
+  currentCase: config.cache.currentCase,
+}
+/*
+const fullyfy=(state)=>{
+  const currCase = currentCase.map((prop)=> prop = state.prop)
+  return {...state, currentCase: currCase} 
+}
+*/
+export const Cases = (state = INIT_STATE, action) => {
   switch (action.type) {
-    case CASES_LIST :
-      var data = {
-        cases: action.datas
-      }
+    case CASE_ITEM : return { ...state, cases: action.datas }
+    case ADD_FAVORITE: return { ...state, favorites: action.data }
 
-      return data
-
+    case INIT_CURRENT_CASE: 
+     // const {age, sexe, drinker, smoker, currentTreatment, oldAffect,allergen} = action.data;
+     return { ...state, age: action.datas.age, sexe: action.datas.sexe, drinker:action.datas.drinker, smoker: action.datas.smoker, currentTreatment:action.datas.currentCase, oldAffect:action.datas.oldAffect, allergen: action.datas.allergen }
+    
     default :
       return state
   }

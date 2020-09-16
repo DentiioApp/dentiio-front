@@ -1,35 +1,38 @@
-import React, { useState, useEffect } from 'react'
-import { useDispatch } from 'react-redux'
-import CardForm from '../../components/App/CardForm/cardForm'
-import { cardCheck, JOB_LIST } from '../../store/actions'
-
-import { fetchJobs } from '../../services/JobList'
 import './Home.scss'
+
+import React, { useEffect } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+import { JOB_LIST } from '../../store/actions'
+import Register from '../../components/App/Register/Register'
+import SignIn from '../../components/App/SignIn/SignIn'
+import Status from '../../components/App/Status/Status'
+import { tryJobs } from '../../services/Jobs'
 
 const Home = () => {
   const dispatch = useDispatch()
-  const homeState = 'inscription'
-  // const wait=ms=>new Promise(resolve => setTimeout(resolve, ms));
-  const [jobs, setJobs] = useState([])
-  const [count, setCount] = useState(0)
+  const home = useSelector((state) => state.home)
+  const user = useSelector((state) => state.user)
+  const isLoaded = home.jobsLoaded
+  var form = home.login ? <SignIn /> : <Register />
+
+  if(user.subscribe && !home.status) {
+    form = <Status />
+  }
 
   useEffect(() => {
-    if (count < 1) {
-      const getJobs = fetchJobs()
-      getJobs.then((res) => setJobs(res || {}))
+    if (!isLoaded) {
+      const getJobs = tryJobs()
+      getJobs.then(response => {
+        if (response.message !== 'Network error' && response.message !== undefined) {
+          getJobs.then((res) => (dispatch({ type: JOB_LIST, data: res.datas })))
+        } 
+      })
     }
-
-    setCount(count + 1)
-  }, [jobs])
-
-  // wait(40*1000).then(() => {
-  dispatch(cardCheck({ status: homeState }))
-  dispatch({ type: JOB_LIST, data: jobs })
-  // })
+  })
 
   return (
     <div className='App'>
-      <CardForm />
+      {form}
     </div>
   )
 }
