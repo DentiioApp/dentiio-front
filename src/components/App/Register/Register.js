@@ -90,7 +90,8 @@ const Register = () => {
       prenom: values.pseudo,
       email: values.email,
       password: values.password,
-      job: [{ident: values.job}],
+      job: '/api/jobs/'+ values.job,
+      createdAt: new Date().toISOString(),
       isEnabled: true
     })
 
@@ -230,7 +231,7 @@ const Register = () => {
               </MenuItem>
 
               {jobs && jobs.map(option => (
-                <MenuItem key={option.ident} value={option.ident}>
+                <MenuItem key={option.ident} value={option.id}>
                   {option.name}
                 </MenuItem>
               ))}
