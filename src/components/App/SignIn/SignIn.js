@@ -20,7 +20,6 @@ import imgMobile from '../../../images/mobile-bg.svg'
 import Visibility from '@material-ui/icons/Visibility'
 import VisibilityOff from '@material-ui/icons/VisibilityOff'
 
-import StatusModal from '../StatusModal/StatusModal'
 import GradientBtn from '../../UI/buttons/GradientBtn'
 import oStyle from '../../ResponsiveDesign/AuthStyle'
 import { logUser } from '../../../store/actions'
@@ -37,7 +36,6 @@ const SignIn = () => {
   const classes = useStyles()
   const dispatch = useDispatch()
   const subscribeMsg = localStorage.getItem('authSubscribeMsg')
-  const user = useSelector((state) => state.user)
   const { addToast } = useToasts()
   const messages = config.messages.auth
 
@@ -101,18 +99,12 @@ const SignIn = () => {
     event.preventDefault()
   }
 
-  var modal = undefined
-  if (user.subscribe === true) {
-    modal = <StatusModal />
-  }
-
   if (setup() === true) {
     return <Redirect to='/cases' />
   };
 
   return (
     <>
-      {modal}
       <Grid container component='main' className={classes.root}>
         <img className={classes.logo} alt='' src={logo} />
         <Grid
