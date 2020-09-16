@@ -5,27 +5,6 @@ import './App.css'
 import { useDispatch } from 'react-redux';
 
 function App () {
-
-const dispatch = useDispatch();
-  useEffect(() => {
-   
-    /// Only in production
-    env.executeOnlyIn(env.PRODUCTION, () => {
-      // Initialize Google Analytics
-      ReactGA.initialize(config.analytics.id);
-
-      // Load ZendDesk after 15s
-      // window.setTimeout(zendesk.addWidgetScript, 15000);
-    });
-
-    // Only in dev
-    env.executeIn(env.DEVELOPMENT, () => {
-      // ReactGA.initialize(config.analytics.id, { debug: false });
-    });
-  }, [dispatch]); // [] ensure this effect is only executed once
-
-
-
   return (
     <div className='App'>
       <header className='App-header'>
