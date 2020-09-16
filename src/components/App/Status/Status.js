@@ -1,7 +1,7 @@
 import './status.scss'
 
 import React, { useState } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
+import { useDispatch } from 'react-redux'
 //import { Redirect } from 'react-router-dom'
 //import { useToasts } from 'react-toast-notifications'
 
@@ -32,8 +32,6 @@ const useStyles = makeStyles((theme) => (oStyle(theme, imgDesktop, imgMobile)))
 const Status = () => {
   const classes = useStyles()
   const dispatch = useDispatch()
-
-  const user = useSelector((state) => state.user)
 
   const initValues = {
     cpsCard: '',
