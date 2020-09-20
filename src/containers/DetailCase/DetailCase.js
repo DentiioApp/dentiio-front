@@ -1,11 +1,11 @@
 import React from 'react'
 import './gallery.css'
+import Style from "./styleDetailCase";
 import Header from '../../components/App/Header/Header'
 import NavbarDetail from '../../components/App/DetailCase/NavbarDetail'
 import PatientDetail from '../../components/App/DetailCase/PatientDetail'
 import Grid from '@material-ui/core/Grid'
 import Typography from '@material-ui/core/Typography'
-import { makeStyles } from '@material-ui/core/styles'
 import iconTeethFull from '../../images/icon/iconTeethFull.svg'
 import Button from '@material-ui/core/Button'
 import IconProfile from '../../components/UI/Icon/Profile/iconProfile'
@@ -19,69 +19,6 @@ import plan1 from '../../images/fixtures/plan1.jpg'
 import plan2 from '../../images/fixtures/plan2.jpg'
 import radio1 from '../../images/fixtures/radio.jpg'
 import radio2 from '../../images/fixtures/radio2.jpg'
-
-const useStyles = makeStyles((theme) => ({
-  root: {
-    margin: '30px 10px 50px 10px'
-  },
-  alignRight: {
-    textAlign: 'right'
-  },
-  subtitle: {
-    fontSize: '0.8em',
-    color: palette.grey,
-    paddingTop: 10
-  },
-  icon: {
-    paddingRight: 10,
-    marginTop: 2
-  },
-  resume: {
-    paddingTop: 20
-  },
-  profileName: {
-    textAlign: 'center',
-    margin: 0
-  },
-  textCenter: {
-    textAlign: 'center'
-  },
-  keywords: {
-    margin: '0 2px'
-  },
-  h3: {
-    marginTop: '50px',
-    marginBottom: '20px',
-    padding: '5px',
-    color: palette.primary,
-    borderBottom: '1px solid',
-    borderColor: palette.primary
-  },
-  fixed: {
-    position: 'fixed'
-  },
-  titleExam: {
-    margin: '30px 0 15px 0'
-  },
-  patientDesktop: {
-    display: 'none',
-    [theme.breakpoints.up('sm')]: {
-      display: 'block'
-    }
-  },
-  patientMobile: {
-    display: 'block',
-    [theme.breakpoints.up('sm')]: {
-      display: 'none'
-    }
-  },
-  paddigTopTitle: {
-    paddingTop: '100px',
-    [theme.breakpoints.up('sm')]: {
-      paddingTop: '0'
-    }
-  }
-}))
 
 const imagesExamen = [
   {
@@ -109,9 +46,9 @@ const imagesScanner = [
   }
 ]
 
-const detailCase = (props) => {
-  // eslint-disable-next-line react-hooks/rules-of-hooks
-  const classes = useStyles()
+const DetailCase = (props) => {
+
+  const classes = Style()
 
   return (
     <>
@@ -268,4 +205,4 @@ const detailCase = (props) => {
   )
 }
 
-export default detailCase
+export default DetailCase

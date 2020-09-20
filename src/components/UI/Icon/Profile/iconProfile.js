@@ -1,9 +1,8 @@
 import React from 'react'
 import PermIdentityIcon from '@material-ui/icons/PermIdentity'
-import PersonIcon from '@material-ui/icons/Person'
 import IconButton from '@material-ui/core/IconButton'
 
-const iconProfile = (props) => {
+const IconProfile = (props) => {
 
   const Img = () => {
     if (props.profileImg === undefined){
@@ -27,4 +26,4 @@ const iconProfile = (props) => {
   )
 }
 
-export default iconProfile
+export default IconProfile

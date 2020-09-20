@@ -8,42 +8,15 @@ import CardMedia from '@material-ui/core/CardMedia'
 import CardContent from '@material-ui/core/CardContent'
 import CardActions from '@material-ui/core/CardActions'
 import Typography from '@material-ui/core/Typography'
-import { blue } from '@material-ui/core/colors'
 import FavButton from '../../UI/buttons/favButton'
 import IconProfile from "../../UI/Icon/Profile/iconProfile";
 import { avgNotes } from '../../../utils'
 import Keyword from "../../UI/Keywords/keywords";
+import style from "./style"
 
-const useStyles = makeStyles((theme) => ({
-  root: {
-    maxWidth: 345,
-    border: 'solid 1px #90caf9'
-  },
-  media: {
-    height: 0,
-    paddingTop: '56.25%' // 16:9
-  },
-  expand: {
-    transform: 'rotate(0deg)',
-    marginLeft: 'auto',
-    transition: theme.transitions.create('transform', {
-      duration: theme.transitions.duration.shortest
-    })
-  },
-  expandOpen: {
-    transform: 'rotate(180deg)'
-  },
-  avatar: {
-    backgroundColor: blue[200]
-  },
-  flright: {
-    float: 'right'
-  }
-
-}))
 
 const CasesItem = (props) => {
-  const classes = useStyles()
+  const classes = style()
 
   return (
 

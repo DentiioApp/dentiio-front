@@ -49,7 +49,6 @@ export const oStyle = (theme, imgDesktop, imgMobile) => {
       height: 'fit-content',
       position: 'absolute',
       marginTop: '6%',
-      bottom: '4%',
       right: '0',
       borderRadius: '20px',
       marginRight: '10%',
