@@ -1,11 +1,9 @@
 import React from 'react'
-// import NotificationsIcon from '@material-ui/icons/Notifications';
 import AddCircleOutlineIcon from '@material-ui/icons/AddCircleOutline';
 import HelpOutlineIcon from '@material-ui/icons/HelpOutline';
 import IconButton from '@material-ui/core/IconButton'
 import Menu from '@material-ui/core/Menu'
 import MenuItem from '@material-ui/core/MenuItem'
-import palette from "../../ColorTheme/Palette";
 import PostAddIcon from '@material-ui/icons/PostAdd';
 import Typography from "@material-ui/core/Typography";
 import IconNotifSubject from "../../Icon/iconNotifSubject/iconNotifSubject"
@@ -35,16 +33,16 @@ const add = (props) => {
       onClose={handleMenuClose}
     >
       <MenuItem onClick={handleMenuClose}>
-          <PostAddIcon color={palette.primary} profile={props.profileId} img={props.profileImg} />
-        <Typography component='p' variant='p'>
-          <strong>Poster</strong> votre cas clinique
+          <PostAddIcon color="primary" profile={props.profileId} fontSize="large" img={props.profileImg} />
+        <Typography component='p' variant='subtitle1'>
+          <strong> Publier</strong> un cas clinique
         </Typography>
         <IconNotifSubject/>
       </MenuItem>
       <MenuItem onClick={handleMenuClose}>
-        <HelpOutlineIcon color={palette.primary} profile={props.profileId} img={props.profileImg} />
-        <Typography component='p' variant='p'>
-          <strong>Poser</strong> votre question à la communauté
+        <HelpOutlineIcon color="primary" profile={props.profileId} fontSize="large" img={props.profileImg} />
+        <Typography component='p' variant='subtitle1'>
+          <strong> Poser</strong> votre question à la communauté
         </Typography>
         <IconNotifSubject/>
       </MenuItem>
