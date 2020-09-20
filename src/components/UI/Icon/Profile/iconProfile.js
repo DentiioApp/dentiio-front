@@ -11,7 +11,7 @@ const IconProfile = (props) => {
       )
     }
     return(
-        <img src={props.profileImg}/>
+        <img src={props.profileImg} alt='Icon profile'/>
     )
   }
 

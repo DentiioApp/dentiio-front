@@ -10,7 +10,7 @@ const iconNotifSubject = (props) => {
       )
     }
     return(
-        <img src={props.profileImg}/>
+        <img src={props.profileImg} alt=''/>
     )
   }
 
