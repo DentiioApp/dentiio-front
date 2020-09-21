@@ -12,6 +12,7 @@ import HomeIcon from '../../UI/Icon/Header/home'
 import FavoritesIcon from '../../UI/Icon/Header/favorites'
 import NotificationIcon from '../../UI/Icon/Header/notification'
 import ProfileIcon from '../../UI/Icon/Header/profile'
+import AddIcon from '../../UI/Icon/Header/add'
 
 const useStyles = makeStyles((theme) => ({
   grow: {
@@ -78,6 +79,7 @@ export const Header = (props) => {
             <Link to='/profile'>
               <ProfileIcon target={props.target} color={palette.white} />
             </Link>
+            <AddIcon color={palette.white} />
           </div>
         </Toolbar>
       </AppBar>
@@ -94,6 +96,8 @@ export const Header = (props) => {
       </AppBar>
       <AppBar className={classes.sectionMobileBottom} color='inherit'>
         <Toolbar>
+          <AddIcon color={palette.primary} />
+          <div className={classes.grow} style={{ align: 'right' }} />
           <Link to='/cases'>
             <HomeIcon target={props.target} color={palette.primary} />
           </Link>

@@ -28,7 +28,7 @@ const Search = (props) => {
     if (value.length > 0) {
       const regex = new RegExp(`^${value}`, "i");
       suggestions = items.sort().filter((v) => regex.test(v));
-      console.log(items);
+     
     }
     setValues({ ...values, text: value, suggestions: suggestions });
   };

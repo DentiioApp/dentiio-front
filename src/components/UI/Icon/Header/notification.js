@@ -36,7 +36,7 @@ const notification = (props) => {
     >
       <MenuItem onClick={handleMenuClose}>
           <IconProfile color={palette.primary} profile={props.profileId} img={props.profileImg} />
-        <Typography component='p' variant='p'>
+        <Typography component='p' variant='subtitle1'>
           <strong>Nikita</strong>
           <br/>
           a commenté votre cas
@@ -45,7 +45,7 @@ const notification = (props) => {
       </MenuItem>
       <MenuItem onClick={handleMenuClose}>
         <IconProfile color={palette.primary} profile={props.profileId} img={props.profileImg} />
-        <Typography component='p' variant='p'>
+        <Typography component='p' variant='subtitle1'>
           <strong>Nikita</strong>
           <br/>
           a commenté votre cas
@@ -54,7 +54,7 @@ const notification = (props) => {
       </MenuItem>
       <MenuItem onClick={handleMenuClose}>
         <IconProfile color={palette.primary} profile={props.profileId} img={props.profileImg} />
-        <Typography component='p' variant='p'>
+        <Typography component='p' variant='subtitle1'>
           <strong>Nikita</strong>
           <br/>
           a commenté votre cas
