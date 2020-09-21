@@ -23,6 +23,8 @@ import {
   Route
   // Link,
 } from 'react-router-dom'
+import CasePost from "./containers/CasePost/CasePost";
+import QuestionPost from "./containers/QuestionPost/QuestionPost";
 
 dotenv.config()
 
@@ -49,6 +51,8 @@ ReactDOM.render(
               <Route path='/case/:id' component={DetailCase} />
               <Route exact path='/favorites' component={Favorites} />
               <Route exact path='/profile' component={Profile} />
+              <Route exact path='/post-question' component={QuestionPost} />
+              <Route exact path='/post-case' component={CasePost} />
             </Switch>
           </div>
         </Router>

@@ -49,38 +49,37 @@ const CasesItem = (props) => {
   const setCurrentCase = (e,item) => {
     //dispatch({type: INIT_CURRENT_CASE, item})
   }
-  
+
   return (
 
-    <Card className={classes.root}>
+    <Card className={classes.root} key={props.item.id}>
       <FavButton alt='favorite' item={props.item} /*bool={props.isFavorite}*//>
-      <Link onClick={(e)=> setCurrentCase(e,props.item)} to={`/case/${props.item.id}`} style={{ textDecoration: 'none' }}>
+      <Link onClick={(e)=> setCurrentCase(e,props.item)} to={`/case/${props.item.id}`} /*to={`/case/${props.item.slug}`}*/ style={{ textDecoration: 'none' }}>
         <CardMedia
           className={classes.media}
           image='https://upload.wikimedia.org/wikipedia/commons/1/17/Yin_yang.svg'
           /*image={process.env.REACT_APP_BACK_API_URL + "public/images/" + props.item.img}*/
-          title='Paella dish'
+          title={props.item.title}
         />
         <div style={{marginTop: "-45px", marginLeft: "15px"}}>
-          {props.item.keyword.map((keyword) => (
-              <Keyword keyword={keyword.name}/>
+          {props.item.keyword.map((keyword, index) => (
+              <Keyword key={index} keyword={keyword.name}/>
           ))}
 
 
         </div>
         <CardContent>
           <Typography variant='h6' style={{color: "black"}} component='p'>
-            Title
+            {props.item.title}
           </Typography>
           <Typography variant='body2' color='textSecondary' component='p'>
             {props.item.presentation}
           </Typography>
         </CardContent>
         <CardActions disableSpacing>
-            <IconProfile color={"primary"}/>
+            <IconProfile color="primary"/>
           <Typography variant='body2' color='textSecondary' component='p'>
             Pseudo
-
             <br/>
             Fonction
           </Typography>
