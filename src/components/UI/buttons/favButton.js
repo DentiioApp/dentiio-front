@@ -46,7 +46,7 @@ const Favorites = (props) => {
         style={{ float:'right', backgroundColor: 'white'}}
         onClick={() => (HandleFav(props.item.id))}
     >
-        <StarBorderIcon fontSize={"medium"} color={"primary"}/>
+        <StarBorderIcon  color={"primary"}/>
     </Button>
   )
 }
