@@ -6,11 +6,11 @@ import Menu from '@material-ui/core/Menu'
 import MenuItem from '@material-ui/core/MenuItem'
 import PostAddIcon from '@material-ui/icons/PostAdd';
 import Typography from "@material-ui/core/Typography";
-import IconNotifSubject from "../../Icon/iconNotifSubject/iconNotifSubject"
+import { useHistory } from "react-router-dom";
 
-const add = (props) => {
-  // eslint-disable-next-line react-hooks/rules-of-hooks
+const Add = (props) => {
   const [anchorEl, setAnchorEl] = React.useState(null)
+  const history = useHistory();
   const isMenuOpen = Boolean(anchorEl)
 
   const handleProfileMenuOpen = (event) => {
@@ -19,6 +19,16 @@ const add = (props) => {
 
   const handleMenuClose = () => {
     setAnchorEl(null)
+  }
+
+  const goToPostCase  = () => {
+    setAnchorEl(null)
+    history.push("/post-case");
+  }
+
+  const goToPostQuestion  = () => {
+    setAnchorEl(null)
+    history.push("/post-question");
   }
 
   const menuId = 'primary-search-account-menu'
@@ -32,19 +42,17 @@ const add = (props) => {
       open={isMenuOpen}
       onClose={handleMenuClose}
     >
-      <MenuItem onClick={handleMenuClose}>
-          <PostAddIcon color="primary" profile={props.profileId} fontSize="large" img={props.profileImg} />
-        <Typography component='p' variant='subtitle1'>
-          <strong> Publier</strong> un cas clinique
-        </Typography>
-        <IconNotifSubject/>
-      </MenuItem>
-      <MenuItem onClick={handleMenuClose}>
+        <MenuItem onClick={goToPostCase}>
+            <PostAddIcon color="primary" profile={props.profileId} fontSize="large" img={props.profileImg} />
+            <Typography component='p' variant='subtitle1'>
+              <strong> Publier</strong> un cas clinique
+            </Typography>
+        </MenuItem>
+      <MenuItem onClick={goToPostQuestion}>
         <HelpOutlineIcon color="primary" profile={props.profileId} fontSize="large" img={props.profileImg} />
         <Typography component='p' variant='subtitle1'>
           <strong> Poser</strong> votre question à la communauté
         </Typography>
-        <IconNotifSubject/>
       </MenuItem>
     </Menu>
   )
@@ -65,4 +73,4 @@ const add = (props) => {
   )
 }
 
-export default add
+export default Add
