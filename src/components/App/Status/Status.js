@@ -17,7 +17,8 @@ import { makeStyles } from '@material-ui/core/styles'
 import imgDesktop from '../../../images/illus.png'
 import imgMobile from '../../../images/mobile-bg.svg'
 
-import { cardSave } from '../../../store/actions'
+//import { cardSave } from '../../../store/actions'
+import { SaveCard } from '../../../services/SaveCard'
 import GradientBtn from '../../UI/buttons/GradientBtn'
 import oStyle from '../../ResponsiveDesign/AuthStyle'
 import { checkFiles } from '../../../utils'
@@ -43,18 +44,26 @@ const Status = () => {
 
   const catchSubmit = (e) => {
     e.preventDefault()
-
-  
-    if (!errCard) {
+    
+    if (errCard) {
       return false
     } else {
-      dispatch(
-        cardSave({
-          nom: values.name,
-          size: values.size,
-          url: values.url
+        if (values.cpsCard || values.studyCard){
+          var loadCard = values.cpsCard ? values.cpsCard : values.studyCard
+        }
+        const formData = new FormData(); 
+            
+        formData.append( 
+          "satusCard", 
+          values.cpsCard, 
+          values.cpsCard.name 
+        ); 
+            
+      //dispatch(
+        SaveCard({
+          url: loadCard.files
         })
-      )
+      //)
     }
   }
 
