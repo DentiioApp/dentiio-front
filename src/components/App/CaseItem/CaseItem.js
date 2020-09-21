@@ -62,8 +62,8 @@ const CasesItem = (props) => {
           title={props.item.title}
         />
         <div style={{marginTop: "-45px", marginLeft: "15px"}}>
-          {props.item.keyword.map((keyword) => (
-              <Keyword keyword={keyword.name}/>
+          {props.item.keyword.map((keyword, index) => (
+              <Keyword key={index} keyword={keyword.name}/>
           ))}
 
 

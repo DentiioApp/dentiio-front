@@ -43,8 +43,8 @@ const CasesList = () => {
       <Container maxWidth='lg'>
         <center><img src={titleSvg} alt='Cas Cliniques' /></center>
         <div className={classes.root}>
-          {cases && cases.map((oCase) => (
-            <CasesItem key={oCase.id} item={oCase} />
+          {cases && cases.map((oCase, index) => (
+            <CasesItem key={index} item={oCase} />
           )
           )}
         </div>
