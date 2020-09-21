@@ -62,13 +62,13 @@ const CasesItem = (props) => {
           <Typography variant='h6' color='textSecondary' component='p'>
             {props.item.commentaires.length}
           </Typography>
-            <ChatIcon color={"primary"} fontSize={'medium'} className={"pr-15"}/>
+            <ChatIcon color={"primary"} fontSize={'default'} className={"pr-15"}/>
             {/* </CommentButton> */}
             {/* <NoteButton aria-label="comments"> */}
           <Typography variant='h6' color='textSecondary' component='p'>
           {avgNotes(props.item.notations)}
           </Typography>
-          <StarHalfIcon color={"primary"} fontSize={'medium'}/>
+          <StarHalfIcon color={"primary"} fontSize={'default'}/>
           {/* </NoteButton> */}
         </CardActions>
       </Link>
