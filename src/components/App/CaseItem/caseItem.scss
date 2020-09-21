@@ -1,0 +1,24 @@
+.root{
+  max-width: 345px;
+  border: solid 1px #90caf9;
+}
+.media{
+  height: 0;
+  padding-top: 56.25%;
+}
+.expand{
+  transform: rotate(0deg);
+  margin-left: auto;
+}
+.avatar{
+  background-color: #03B6F0;
+}
+.flright{
+  float: right;
+}
+.grow{
+  flex-grow: 1;
+}
+.pr-15{
+  padding-right: 15px;
+}
