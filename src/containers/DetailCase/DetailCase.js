@@ -1,5 +1,6 @@
 import React from 'react'
 import './gallery.css'
+import './detailCase.scss'
 import Header from '../../components/App/Header/Header'
 import NavbarDetail from '../../components/App/DetailCase/NavbarDetail'
 import PatientDetail from '../../components/App/DetailCase/PatientDetail'
@@ -21,47 +22,18 @@ import radio1 from '../../images/fixtures/radio.jpg'
 import radio2 from '../../images/fixtures/radio2.jpg'
 
 const useStyles = makeStyles((theme) => ({
-  root: {
-    margin: '30px 10px 50px 10px'
-  },
-  alignRight: {
-    textAlign: 'right'
-  },
   subtitle: {
-    fontSize: '0.8em',
     color: palette.grey,
+    fontSize: '0.8em',
     paddingTop: 10
   },
-  icon: {
-    paddingRight: 10,
-    marginTop: 2
-  },
-  resume: {
-    paddingTop: 20
-  },
-  profileName: {
-    textAlign: 'center',
-    margin: 0
-  },
-  textCenter: {
-    textAlign: 'center'
-  },
-  keywords: {
-    margin: '0 2px'
-  },
   h3: {
-    marginTop: '50px',
-    marginBottom: '20px',
-    padding: '5px',
     color: palette.primary,
-    borderBottom: '1px solid',
-    borderColor: palette.primary
-  },
-  fixed: {
-    position: 'fixed'
-  },
-  titleExam: {
-    margin: '30px 0 15px 0'
+    borderColor: palette.primary,
+    marginTop: 50,
+    marginBottom: 20,
+    padding: 5,
+    borderBottom: '1px solid'
   },
   patientDesktop: {
     display: 'none',
@@ -117,7 +89,7 @@ const detailCase = (props) => {
     <>
       <Header target='' />
       <NavbarDetail />
-      <div className={classes.root}>
+      <div className='root'>
         <Grid container spacing={1}>
           <Grid container item md={3} spacing={1}>
             <div className={classes.patientDesktop}>
@@ -131,18 +103,18 @@ const detailCase = (props) => {
               </Typography>
               <Typography component='p' variant='body2' className={classes.subtitle}>
                 <span style={{ paddingRight: 20 }}>Implotologie</span>
-                <img alt='' src={iconTeethFull} width='12px' className={classes.icon} />
+                <img alt='' src={iconTeethFull} width='12px' className="icon" />
                                     4,7 (32 notes)
               </Typography>
               <Typography component='p' variant='body2' className={classes.subtitle}>
                             Publié il y a 2 jours
               </Typography>
 
-              <Grid container spacing={1} className={classes.resume}>
+              <Grid container spacing={1} className="resume">
                 <Grid container item md={3} spacing={1} justify='center'>
-                  <div className={classes.textCenter}>
+                  <div className="textCenter">
                     <IconProfile color={palette.primary} profile={props.profileId} img={props.profileImg} />
-                    <p className={classes.profileName}>
+                    <p className="profileName">
                                         Nikita
                       <br />
                       <span className={classes.subtitle}>
@@ -153,16 +125,10 @@ const detailCase = (props) => {
                 </Grid>
                 <Grid container item md={9} spacing={1}>
                   <p>
-                                    L’améloblastome est la tumeur odontogène la plus fréquente dans les pays en voie de développement et occupe la 2ème place après lves odontomes dans les pays développés. Elle a été classée cliniquement en 3 groupes par l’OMS en 2017. La prise en charge de l’améloblastome est compliquée par le taux de récidive important associé à un traitement conservateur.
+                    L’améloblastome est la tumeur odontogène la plus fréquente dans les pays en voie de développement et occupe la 2ème place après lves odontomes dans les pays développés. Elle a été classée cliniquement en 3 groupes par l’OMS en 2017. La prise en charge de l’améloblastome est compliquée par le taux de récidive important associé à un traitement conservateur.
                   </p>
-                  <div className={classes.keywords}>
+                  <div className="keywords">
                     <Keyword keyword='Fumeur' />
-                  </div>
-                  <div className={classes.keywords}>
-                    <Keyword keyword='Racines internes' />
-                  </div>
-                  <div className={classes.keywords}>
-                    <Keyword keyword='Pollen' />
                   </div>
                 </Grid>
               </Grid>
@@ -186,7 +152,7 @@ const detailCase = (props) => {
                             Examen complementaire
               </Typography>
               {/* si il y a scanner */}
-              <Typography component='h3' variant='h5' className={classes.titleExam}>
+              <Typography component='h3' variant='h5' className="titleExam">
                             Scanner
               </Typography>
               <Gallery images={imagesScanner} />
@@ -194,7 +160,7 @@ const detailCase = (props) => {
                             Scanner incroyable
               </p>
               {/* si il y a biopsy */}
-              <Typography component='h3' variant='h5' className={classes.titleExam}>
+              <Typography component='h3' variant='h5' className="titleExam">
                             Biopsy
               </Typography>
               <p>
@@ -208,20 +174,14 @@ const detailCase = (props) => {
                             Le diagnostic est nanananan
               </p>
               <Grid container item md={12} spacing={1}>
-                <div className={classes.keywords}>
+                <div className="keywords">
                   <Keyword keyword='Cancer' />
-                </div>
-                <div className={classes.keywords}>
-                  <Keyword keyword='Fracture' />
-                </div>
-                <div className={classes.keywords}>
-                  <Keyword keyword='Caillot' />
                 </div>
               </Grid>
               <Typography component='h3' variant='h5' className={classes.h3} id='plan'>
                             Plan de traitement
               </Typography>
-              <Grid container spacing={1} className={classes.resume}>
+              <Grid container spacing={1} className="resume">
                 <Grid container item md={6} justify='center'>
                   <CardPlanTreatment title='1. Extraction' description='On a enlevé la dent' image={plan1} />
                 </Grid>
@@ -252,7 +212,7 @@ const detailCase = (props) => {
             </div>
 
           </Grid>
-          <Grid container className={classes.alignRight} item md={2} spacing={1}>
+          <Grid container className="alignRight" item md={2} spacing={1}>
             <div>
               <Button
                 href=''
