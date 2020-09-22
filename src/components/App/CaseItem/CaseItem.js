@@ -12,7 +12,6 @@ import Keyword from "../../UI/Keywords/keywords";
 import ChatIcon from '@material-ui/icons/Chat';
 import StarHalfIcon from '@material-ui/icons/StarHalf';
 import './caseItem.scss'
-import Toolbar from "@material-ui/core/Toolbar";
 
 
 const CasesItem = (props) => {
@@ -21,8 +20,6 @@ const CasesItem = (props) => {
   const setCurrentCase = (e,item) => {
     //dispatch({type: INIT_CURRENT_CASE, item})
   }
-  
-  console.log(props)
 
   return (
     <Card className='root' key={props.item.id}>
@@ -34,25 +31,25 @@ const CasesItem = (props) => {
           /*image={process.env.REACT_APP_BACK_API_URL + "public/images/" + props.item.img}*/
           title={props.item.title}
         />
-        <div style={{marginTop: "-45px", marginLeft: "15px"}}>
+        <div style={{marginTop: "-35px", marginLeft: "15px"}}>
           {props.item.keyword.map((keyword, index) => (
               <Keyword key={index} keyword={keyword.name}/>
           ))}
         </div>
         <CardContent>
-          <Typography variant='h6' style={{color: "black"}} component='p'>
-            {props.item.title}
-          </Typography>
-          <Typography variant='body2' color='textSecondary' component='p'>
-            {props.item.presentation}
-          </Typography>
+            <Typography variant='h6' style={{color: "black"}} component='p' className='title'>
+              {props.item.title}
+            </Typography>
+            <Typography variant='body2' color='textSecondary' component='p' className='presentation'>
+              {props.item.presentation}
+            </Typography>
         </CardContent>
         <CardActions disableSpacing>
             <IconProfile color="primary"/>
-          <Typography variant='body2' color='textSecondary' component='p'>
-            Pseudo
+          <Typography variant='body2' style={{color: "black", textTransform: "capitalize"}} component='p'>
+            {props.item.user.pseudo}
             <br/>
-            Fonction
+          {props.item.user.job}
           </Typography>
           <div className="grow" style={{ align: 'right' }} />
             {/* <TeethButton> */}

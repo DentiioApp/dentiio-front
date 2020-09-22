@@ -6,8 +6,9 @@ const useStyles = makeStyles({
   keyword: {
     color: 'white',
     borderRadius: 20,
-    fontSize: 14,
-    textTransform: 'capitalize'
+    fontSize: 11,
+    textTransform: 'capitalize',
+    marginLeft: '5px'
   }
 })
 
