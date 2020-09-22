@@ -1,5 +1,5 @@
 // import Icon from "../../../images/titleHeader.svg";
-import React from 'react'
+import React, { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import icon from '../../../images/logoteeth_transparent.png'
 import { tryKeywords } from '../../../services/Home'
@@ -7,16 +7,26 @@ import { KEYWORDS_LIST, FILTERED_CASES } from '../../../store/actions'
 import './Search.scss'
 import { TextField } from '@material-ui/core'
 import Autocomplete from '@material-ui/lab/Autocomplete'
+import config from '../../../config'
 
 const Search = (props) => {
-  const keywords = useSelector((state) => state.home.keywords)
+  const initValues = {
+    keywords: [],
+  }
+
   const items = useSelector((state) => state.home.cases)
-  const keywordsLoad = tryKeywords()
+  const [values, setValues] = useState(initValues)
   const dispatch = useDispatch()
 
-  if (keywordsLoad.length > 0) {
-    dispatch({ type: KEYWORDS_LIST, keywords: keywordsLoad })
+  const loadKeywords = async () => {
+    const keywordsLoad = await tryKeywords()
+    if (keywordsLoad.datas.length > 0) {
+        setValues({ ...values, keywords: keywordsLoad.datas })
+        dispatch({ type: KEYWORDS_LIST, keywords: values.keywords })
+    }
   }
+  //if no keywords in cache load keyword from api
+  if (config.cache.keywords.length < 1) { loadKeywords() }
 
   const onTextChanged = (e) => {
     const value = e.target.value
@@ -38,7 +48,7 @@ const Search = (props) => {
     dispatch({ type: FILTERED_CASES, data: newdata })
   }
 
-  const options = keywords.map((option) => {
+  const options = values.keywords.map((option) => {
     const firstLetter = option.name[0].toUpperCase()
     return {
       firstLetter: /[0-9]/.test(firstLetter) ? '0-9' : firstLetter,

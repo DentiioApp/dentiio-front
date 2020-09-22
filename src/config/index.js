@@ -34,7 +34,8 @@ const config = {
       symptome: [{}],
       treatment: [],
       treatmentPlan: 'none'
-    }
+    },
+    keywords:[]
   },
 
   i18n: {

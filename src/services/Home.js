@@ -3,9 +3,9 @@ import axios from 'axios'
 const KEYWORDS =
   process.env.REACT_APP_BACK_API_URL + process.env.REACT_APP_KEYWORDS
 
-const fetchKeywords = (signal) => {
+const fetchKeywords = () => {
   const reponses = axios
-    .get(KEYWORDS, { signal: signal })
+    .get(KEYWORDS)
     .then((res) => ({
       message: 'OK',
       datas: res.data['hydra:member']
