@@ -15,7 +15,6 @@ export const User = (state = INIT_STATE, action) => {
   switch (action.type) {
     case LOG_USER :
       var details = jwtDecode(action.datas.token)
-
       login(action.datas.token)
       return { id: details.id, username: details.username, connected: true }
 

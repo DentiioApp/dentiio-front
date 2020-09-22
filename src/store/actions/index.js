@@ -12,6 +12,8 @@ export const LOGIN_FORM = 'LOGIN_FORM'
 export const REGISTER_USER = 'REGISTER_USER'
 export const VALID_STATUS = 'VALID_STATUS'
 export const INIT_CURRENT_CASE = 'INIT_CURRENT_CASE'
+export const KEYWORDS_LIST = 'KEYWORDS_LIST'
+export const FILTERED_CASES = 'FILTERED_CASES'
 export const STATUS_FORM = 'STATUS_FORM'
 
 export { logUser, registerUser, cardSave, addFav }

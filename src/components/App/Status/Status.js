@@ -3,7 +3,6 @@ import './status.scss'
 import React, { useState } from 'react'
 import { useDispatch } from 'react-redux'
 import { useToasts } from 'react-toast-notifications'
-
 import {
   Paper,
   Typography
@@ -43,6 +42,7 @@ const Status = () => {
 
   const catchSubmit = (e) => {
     e.preventDefault()
+
     if (errCard) {
       return false
     } else {
