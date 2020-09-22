@@ -1,18 +1,17 @@
 import React from 'react'
 import PermIdentityIcon from '@material-ui/icons/PermIdentity'
-//import PersonIcon from '@material-ui/icons/Person'
+// import PersonIcon from '@material-ui/icons/Person'
 import IconButton from '@material-ui/core/IconButton'
 
 const iconProfile = (props) => {
-
   const Img = () => {
-    if (props.profileImg === undefined){
-      return(
-          <PermIdentityIcon fontSize='large' htmlColor={props.color} />
+    if (props.profileImg === undefined) {
+      return (
+        <PermIdentityIcon fontSize='large' htmlColor={props.color} />
       )
     }
-    return(
-        <img src={props.profileImg} alt='Icon profile'/>
+    return (
+      <img src={props.profileImg} alt='Icon profile' />
     )
   }
 
@@ -22,7 +21,7 @@ const iconProfile = (props) => {
       aria-haspopup='true'
       color='inherit'
     >
-      <Img/>
+      <Img />
     </IconButton>
   )
 }

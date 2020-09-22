@@ -25,7 +25,7 @@ const Cases = () => {
   return (
     <>
       <Header target='home' />
-        <Container className={classes.root}  children={""}/>
+      <Container className={classes.root} children='' />
       <CasesList />
     </>
   )

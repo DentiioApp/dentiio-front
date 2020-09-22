@@ -1,7 +1,7 @@
 import './signIn.scss'
 
 import React, { useState, useEffect } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
+import { useDispatch } from 'react-redux'
 import { Redirect } from 'react-router-dom'
 import { useToasts } from 'react-toast-notifications'
 
@@ -20,7 +20,6 @@ import imgMobile from '../../../images/mobile-bg.svg'
 import Visibility from '@material-ui/icons/Visibility'
 import VisibilityOff from '@material-ui/icons/VisibilityOff'
 
-import StatusModal from '../StatusModal/StatusModal'
 import GradientBtn from '../../UI/buttons/GradientBtn'
 import oStyle from '../../ResponsiveDesign/AuthStyle'
 import { logUser } from '../../../store/actions'
@@ -37,7 +36,6 @@ const SignIn = () => {
   const classes = useStyles()
   const dispatch = useDispatch()
   const subscribeMsg = localStorage.getItem('authSubscribeMsg')
-  const user = useSelector((state) => state.user)
   const { addToast } = useToasts()
   const messages = config.messages.auth
 
@@ -81,11 +79,11 @@ const SignIn = () => {
     const regex2 = RegExp(/Error/)
 
     if (regex2.test(datas)) {
-      return { message: messages.signin.error, appearance: 'error'}
+      return { message: messages.signin.error, appearance: 'error' }
     } else {
       setDatas(datas)
 
-      return { message: messages.signin.success, appearance: 'success'}
+      return { message: messages.signin.success, appearance: 'success' }
     }
   }
 
@@ -101,18 +99,12 @@ const SignIn = () => {
     event.preventDefault()
   }
 
-  var modal = undefined
-  if (user.subscribe === true) {
-    modal = <StatusModal />
-  }
-
   if (setup() === true) {
     return <Redirect to='/cases' />
   };
 
   return (
     <>
-      {modal}
       <Grid container component='main' className={classes.root}>
         <img className={classes.logo} alt='' src={logo} />
         <Grid

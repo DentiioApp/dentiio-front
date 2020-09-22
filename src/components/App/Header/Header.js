@@ -84,7 +84,7 @@ export const Header = (props) => {
         </Toolbar>
       </AppBar>
 
-      {/*Mobile header*/}
+      {/* Mobile header */}
       <AppBar position='static' className={classes.sectionMobileTop} color='inherit'>
         <Toolbar>
           <TitleHeaderMobile style={{ align: 'center' }} />
