@@ -38,7 +38,6 @@ export const addFavCase = (iUser, iItem) => {
 }
 
 export const postCase = (/*item*/) => {
-
   const item = {
     age: 0,
     smoking: true,
@@ -72,8 +71,7 @@ export const postCase = (/*item*/) => {
     keyword: ["/api/keywords/"+66]
   }
 
-
-    const reponses = axios
+  const reponses = axios
       .post(CLINICAL_CASES, item)
       .then((res) => ({
         message: 'OK',

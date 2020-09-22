@@ -1,7 +1,8 @@
-import './patient.scss'
+import './exam.scss'
 
 import React, { useState } from 'react'
-import { useDispatch } from 'react-redux'
+// import { useDispatch } from 'react-redux'
+// import { useToasts } from 'react-toast-notifications'
 
 import {
   Paper,
@@ -14,7 +15,7 @@ import { makeStyles } from '@material-ui/core/styles'
 import TextField from '@material-ui/core/TextField'
 import imgDesktop from '../../../images/illus.png'
 import imgMobile from '../../../images/mobile-bg.svg'
-
+import Button from '@material-ui/core/Button'
 import GradientBtn from '../../UI/buttons/GradientBtn'
 import oStyle from '../../ResponsiveDesign/AuthStyle'
 // import { logUser } from '../../../store/actions'
@@ -25,32 +26,33 @@ import { setup } from '../../../services/Auth'
 import logo from '../../../images/logo.svg'
 import avatar from '../../../images/logoteeth_blue.png'
 import config from '../../../config'
+import {postCase} from '../../../services/Cases'
+import {postPatient} from '../../../services/Patient'
 
 const useStyles = makeStyles((theme) => (oStyle(theme, imgDesktop, imgMobile)))
 
-const Patient = (setValues, values) => {
+const Exam = (setvalues, values) => {
   const classes = useStyles()
-  const dispatch = useDispatch()
   const messages = config.messages.auth
   const ages = config.ages
 
   const catchSubmit = async (event) => {
     event.preventDefault()
-    dispatch({type: '' , data: {
-      age: values.age,
-      gender: values.gender,
-      isSmoker: values.isSmoker,
-      is_medical_background: values.is_medical_background,
-      problem_health: values.problem_health,
-      in_treatment: values.in_treatment,
-    }})
+    const datas = await postPatient(values)
+    const regex2 = RegExp(/Error/)
+    if (regex2.test(datas)) {
+      return { message: messages.patient.error, appearance: 'error' }
+    } else {
+      return { message: messages.patient.success, appearance: 'success' }
+    }
   }
 
   const handleChange = prop => event => {
-    if (prop === 'isSmoker' || prop === 'is_medical_background') { setValues({ ...values, [prop]: event.target.checked }) } 
-    else { setValues({ ...values, [prop]: event.target.value }) }
+    if (prop === 'isSmoker' || prop === 'is_medical_background') { setvalues({ ...values, [prop]: event.target.checked }) } 
+    else { setvalues({ ...values, [prop]: event.target.value }) }
   }
 
+  postCase(/*item*/)
   setup()
 
   return (
@@ -71,25 +73,42 @@ const Patient = (setValues, values) => {
           <div className={classes.paper}>
             <img className={classes.avatar} alt='' src={avatar} />
             <Typography component='h1' variant='h5'>
-              Fiche Patient
+              Examen Clinique
             </Typography>
             <form className={classes.form} noValidate>
+              
+              <Button variant='contained' component='label'>
+                <InputLabel className='inputLabel'>
+                  Ajouter des Photos:
+                </InputLabel>
+                <input
+                  type='file'
+                  onChange={handleChange('cpsCard')}
+                  name='cps'
+                  id='cps'
+                  multiple
+                />
+              </Button>
 
-              <TextField
-                className='textField'
-                id='age'
-                select
-                onChange={handleChange('age')}
+              <TextareaAutosize
+                aria-label="minimum height" 
+                rowsMin={3} placeholder="Description intraorale et extraorale"
                 variant='outlined'
-              >
-                {ages && ages.map((value,index) => (
-                  <MenuItem key={index+1} value={value}>
-                    {value}
-                  </MenuItem>
-                ))}
-              </TextField>
+                margin='normal'
+                required
+                fullWidth
+                name='intra_extra_oral_desc'
+                type='textarea'
+                id='intra_extra_oral_desc'
+                autoComplete='current-intra_extra_oral_desc'
+                //onKeyDown={(e) => e.keyCode !== 13 ? null : catchSubmit(e)}
+                onChange={handleChange('intra_extra_oral_desc')}
+              />
 
-        
+              <Typography component='h1' variant='h5'>
+                Examen Complementaire
+              </Typography>
+
               <InputLabel className='inputLabel'>
               Genre :
               </InputLabel>
@@ -173,12 +192,13 @@ const Patient = (setValues, values) => {
                 onChange={handleChange('in_treatment')}
               />
                 
+              <hr/>
 
               <div onClick={catchSubmit}>
                 <GradientBtn
                   variant='contained'
                   type='submit'
-                  description='Suivant'
+                  description='SUIVANT'
                   className='GradientBtn'
                 />
               </div>
@@ -190,4 +210,4 @@ const Patient = (setValues, values) => {
   )
 }
 
-export default Patient
+export default Exam

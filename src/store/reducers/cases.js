@@ -6,12 +6,7 @@ const INIT_STATE = {
   favorites: {},
   currentCase: config.cache.currentCase
 }
-/*
-const fullyfy=(state)=>{
-  const currCase = currentCase.map((prop)=> prop = state.prop)
-  return {...state, currentCase: currCase}
-}
-*/
+
 export const Cases = (state = INIT_STATE, action) => {
   switch (action.type) {
     case CASE_ITEM:

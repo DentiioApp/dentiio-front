@@ -1,7 +1,8 @@
-import './patient.scss'
+import './evolution.scss'
 
 import React, { useState } from 'react'
-import { useDispatch } from 'react-redux'
+// import { useDispatch } from 'react-redux'
+// import { useToasts } from 'react-toast-notifications'
 
 import {
   Paper,
@@ -25,25 +26,29 @@ import { setup } from '../../../services/Auth'
 import logo from '../../../images/logo.svg'
 import avatar from '../../../images/logoteeth_blue.png'
 import config from '../../../config'
+import {postCase} from '../../../services/Cases'
+import {postPatient} from '../../../services/Patient'
 
 const useStyles = makeStyles((theme) => (oStyle(theme, imgDesktop, imgMobile)))
 
-const Patient = (setValues, values) => {
+const Evolution = (setValues, values) => {
   const classes = useStyles()
-  const dispatch = useDispatch()
+  // const dispatch = useDispatch()
+  // const { addToast } = useToasts()
   const messages = config.messages.auth
   const ages = config.ages
 
+  
+
   const catchSubmit = async (event) => {
     event.preventDefault()
-    dispatch({type: '' , data: {
-      age: values.age,
-      gender: values.gender,
-      isSmoker: values.isSmoker,
-      is_medical_background: values.is_medical_background,
-      problem_health: values.problem_health,
-      in_treatment: values.in_treatment,
-    }})
+    const datas = await postPatient(values)
+    const regex2 = RegExp(/Error/)
+    if (regex2.test(datas)) {
+      return { message: messages.patient.error, appearance: 'error' }
+    } else {
+      return { message: messages.patient.success, appearance: 'success' }
+    }
   }
 
   const handleChange = prop => event => {
@@ -51,6 +56,7 @@ const Patient = (setValues, values) => {
     else { setValues({ ...values, [prop]: event.target.value }) }
   }
 
+  postCase(/*item*/)
   setup()
 
   return (
@@ -178,7 +184,7 @@ const Patient = (setValues, values) => {
                 <GradientBtn
                   variant='contained'
                   type='submit'
-                  description='Suivant'
+                  description='Se connecter'
                   className='GradientBtn'
                 />
               </div>
@@ -190,4 +196,4 @@ const Patient = (setValues, values) => {
   )
 }
 
-export default Patient
+export default Evolution
