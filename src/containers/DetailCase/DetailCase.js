@@ -141,7 +141,7 @@ const detailCase = (props) => {
               <Grid container spacing={1} className={classes.resume}>
                 <Grid container item md={3} spacing={1} justify='center'>
                   <div className={classes.textCenter}>
-                    <IconProfile color={palette.primary} profile={props.profileId} img={props.profileImg}/>
+                    <IconProfile color={palette.primary} profile={props.profileId} img={props.profileImg} />
                     <p className={classes.profileName}>
                                         Nikita
                       <br />
