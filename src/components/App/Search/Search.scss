@@ -1,22 +1,11 @@
 @import "../../../variables";
-.wrap {
-  //   height: 15em;
-  //   position: relative;
-}
+
 
 .search {
   display: flex;
   align-items: center;
   justify-content: center;
   height: 16em;
-  //   width: 100%;
-  //   position: relative;
-  //   display: flex;
-  //   position: absolute;
-  //   top: 50%;
-  //   left: 50%;
-  //   margin-right: -50%;
-  //   transform: translate(-50%, -50%);
 }
 
 .searchTerm {
@@ -57,3 +46,5 @@
   border: none !important;
   background: transparent !important;
 }
+
+
