@@ -5,10 +5,10 @@ import Badge from '@material-ui/core/Badge'
 import IconButton from '@material-ui/core/IconButton'
 import Menu from '@material-ui/core/Menu'
 import MenuItem from '@material-ui/core/MenuItem'
-import palette from "../../ColorTheme/Palette";
-import IconProfile from "../Profile/iconProfile";
-import Typography from "@material-ui/core/Typography";
-import IconNotifSubject from "../../Icon/iconNotifSubject/iconNotifSubject"
+import palette from '../../ColorTheme/Palette'
+import IconProfile from '../Profile/iconProfile'
+import Typography from '@material-ui/core/Typography'
+import IconNotifSubject from '../../Icon/iconNotifSubject/iconNotifSubject'
 
 const notification = (props) => {
   // eslint-disable-next-line react-hooks/rules-of-hooks
@@ -35,31 +35,31 @@ const notification = (props) => {
       onClose={handleMenuClose}
     >
       <MenuItem onClick={handleMenuClose}>
-          <IconProfile color={palette.primary} profile={props.profileId} img={props.profileImg} />
+        <IconProfile color={palette.primary} profile={props.profileId} img={props.profileImg} />
         <Typography component='p' variant='subtitle1'>
           <strong>Nikita</strong>
-          <br/>
+          <br />
           a commenté votre cas
         </Typography>
-        <IconNotifSubject/>
+        <IconNotifSubject />
       </MenuItem>
       <MenuItem onClick={handleMenuClose}>
         <IconProfile color={palette.primary} profile={props.profileId} img={props.profileImg} />
         <Typography component='p' variant='subtitle1'>
           <strong>Nikita</strong>
-          <br/>
+          <br />
           a commenté votre cas
         </Typography>
-        <IconNotifSubject/>
+        <IconNotifSubject />
       </MenuItem>
       <MenuItem onClick={handleMenuClose}>
         <IconProfile color={palette.primary} profile={props.profileId} img={props.profileImg} />
         <Typography component='p' variant='subtitle1'>
           <strong>Nikita</strong>
-          <br/>
+          <br />
           a commenté votre cas
         </Typography>
-        <IconNotifSubject/>
+        <IconNotifSubject />
       </MenuItem>
     </Menu>
   )

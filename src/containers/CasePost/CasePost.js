@@ -15,6 +15,7 @@ const CasePost = () => {
       <Header/>
       <ModalGuidelinesPostCase/>
       {form}
+
     </>
   )
 }

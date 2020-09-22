@@ -57,8 +57,8 @@ export const oStyle = (theme, imgDesktop, imgMobile) => {
         marginLeft: 'auto',
         marginRight: 'auto',
         position: 'inherit',
-        marginTop: '25%',
-      },
+        marginTop: '25%'
+      }
     }
   }
 }

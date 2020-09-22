@@ -8,7 +8,7 @@ const INIT_STATE = {
   connected: false,
   isValidStatus: false,
   message: '',
-  subscribe: false,
+  subscribe: false
 }
 
 export const User = (state = INIT_STATE, action) => {
@@ -17,11 +17,9 @@ export const User = (state = INIT_STATE, action) => {
       var details = jwtDecode(action.datas.token)
 
       login(action.datas.token)
-      //console.log('in reducer users, details :',details )
       return { id: details.id, username: details.username, connected: true }
 
-    case REGISTER_USER :
-      return { ...state, subscribe: true }
+    case REGISTER_USER : return { ...state, subscribe: true }
 
     case VALID_STATUS :
       return { ...state, isValidStatus: true, message: localStorage.getItem('pendingStatus') }
