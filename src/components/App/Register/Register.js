@@ -155,8 +155,6 @@ const Register = () => {
     event.preventDefault()
   }
    
- //console.log('TEST :', navigator.onLine)
-
   if (setup() === true) {
     return <Redirect to='/cases' />
   }
