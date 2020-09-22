@@ -1,8 +1,8 @@
 import './patient.scss'
 
 import React, { useState } from 'react'
-import { useDispatch } from 'react-redux'
-import { useToasts } from 'react-toast-notifications'
+//import { useDispatch } from 'react-redux'
+//import { useToasts } from 'react-toast-notifications'
 
 import {
   Paper,
@@ -30,8 +30,8 @@ const useStyles = makeStyles((theme) => (oStyle(theme, imgDesktop, imgMobile)))
 
 const Patient = () => {
   const classes = useStyles()
-  const dispatch = useDispatch()
-  const { addToast } = useToasts()
+  //const dispatch = useDispatch()
+  //const { addToast } = useToasts()
   const messages = config.messages.auth
 
   const initValues = {
@@ -42,7 +42,6 @@ const Patient = () => {
     problem_health: 'none', 
     in_treatment: 'none',
   }
-  const boolean = { 0:'Oui', 1: 'Non'}
 
   const [values, setValues] = useState(initValues)
 
@@ -99,7 +98,7 @@ const Patient = () => {
                 onChange={handleChange('age')}
                 //error={}
               />
-              <InputLabel className='inputLabel' shrink ></InputLabel>
+              <InputLabel  shrink >count</InputLabel>
               <InputLabel className='inputLabel' >
               Genre* :
               </InputLabel>
@@ -133,10 +132,10 @@ const Patient = () => {
                 onChange={handleChange('isSmoker')}
                 variant='outlined'
               >
-                <MenuItem key='o' value='oui' disabled>
+                <MenuItem key='o' value={1} >
                   {'OUI'}
                 </MenuItem>
-                <MenuItem key='n' value='non' disabled>
+                <MenuItem key='n' value={0} >
                   {'NON'}
                 </MenuItem>
               </TextField>
@@ -154,10 +153,10 @@ const Patient = () => {
                 onChange={handleChange('is_medical_background')}
                 variant='outlined'
               >
-                <MenuItem key='o' value='oui' disabled>
+                <MenuItem key='o' value={1} >
                   {'OUI'}
                 </MenuItem>
-                <MenuItem key='n' value='non' disabled>
+                <MenuItem key='n' value={0}>
                   {'NON'}
                 </MenuItem>
               </TextField>
