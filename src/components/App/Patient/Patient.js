@@ -1,6 +1,6 @@
 import './patient.scss'
 
-import React, { useState } from 'react'
+import React  from 'react'
 import { useDispatch } from 'react-redux'
 
 import {
@@ -17,7 +17,7 @@ import imgMobile from '../../../images/mobile-bg.svg'
 
 import GradientBtn from '../../UI/buttons/GradientBtn'
 import oStyle from '../../ResponsiveDesign/AuthStyle'
-// import { logUser } from '../../../store/actions'
+import { UPDATE_LEVEL, INIT_PATIENT } from '../../../store/actions'
 import MenuItem from '@material-ui/core/MenuItem'
 import InputLabel from '@material-ui/core/InputLabel'
 
@@ -28,28 +28,25 @@ import config from '../../../config'
 
 const useStyles = makeStyles((theme) => (oStyle(theme, imgDesktop, imgMobile)))
 
-const Patient = (setValues, values) => {
+const Patient = (props) => {
   const classes = useStyles()
   const dispatch = useDispatch()
-  const messages = config.messages.auth
   const ages = config.ages
 
   const catchSubmit = async (event) => {
     event.preventDefault()
-    dispatch({type: '' , data: {
-      age: values.age,
-      gender: values.gender,
-      isSmoker: values.isSmoker,
-      is_medical_background: values.is_medical_background,
-      problem_health: values.problem_health,
-      in_treatment: values.in_treatment,
+    dispatch({type: INIT_PATIENT , data: {
+      age: props.values.age,
+      gender: props.values.gender,
+      isSmoker: props.values.isSmoker,
+      is_medical_background: props.values.is_medical_background,
+      problem_health: props.values.problem_health,
+      in_treatment: props.values.in_treatment,
     }})
+    dispatch({type: UPDATE_LEVEL, level:'exam'})
   }
 
-  const handleChange = prop => event => {
-    if (prop === 'isSmoker' || prop === 'is_medical_background') { setValues({ ...values, [prop]: event.target.checked }) } 
-    else { setValues({ ...values, [prop]: event.target.value }) }
-  }
+
 
   setup()
 
@@ -79,7 +76,7 @@ const Patient = (setValues, values) => {
                 className='textField'
                 id='age'
                 select
-                onChange={handleChange('age')}
+                onChange={props.onChange('age')}
                 variant='outlined'
               >
                 {ages && ages.map((value,index) => (
@@ -97,8 +94,8 @@ const Patient = (setValues, values) => {
                 className='textField'
                 id='gender'
                 select
-                value={values.gender === '' ? 'none' : values.gender}
-                onChange={handleChange('gender')}
+                value={props.values.gender === '' ? 'none' : props.values.gender}
+                onChange={props.onChange('gender')}
                 variant='outlined'
               >
                 <MenuItem key='Mr' value='Monsieur'>
@@ -116,8 +113,8 @@ const Patient = (setValues, values) => {
               Fumeur :
               </InputLabel>
               <Switch
-                checked={values.isSmoker}
-                onChange={handleChange('isSmoker')}
+                checked={props.values.isSmoker}
+                onChange={props.onChange('isSmoker')}
                 color='primary'
                 name='isSmoker'
                 inputProps={{ 'aria-label': 'primary checkbox' }}
@@ -129,8 +126,8 @@ const Patient = (setValues, values) => {
               Antécedant medical
               </InputLabel>
                <Switch
-                checked={values.is_medical_background}
-                onChange={handleChange('is_medical_background')}
+                checked={props.values.is_medical_background}
+                onChange={props.onChange('is_medical_background')}
                 color='primary'
                 name='is_medical_background'
                 inputProps={{ 'aria-label': 'primary checkbox' }}
@@ -152,7 +149,7 @@ const Patient = (setValues, values) => {
                 id='problem_health'
                 autoComplete='current-problem_health'
                 //onKeyDown={(e) => e.keyCode !== 13 ? null : catchSubmit(e)}
-                onChange={handleChange('problem_health')}
+                onChange={props.onChange('problem_health')}
               />
               
               <InputLabel className='inputLabel'>
@@ -170,7 +167,7 @@ const Patient = (setValues, values) => {
                 id='in_treatment'
                 autoComplete='current-in_treatment'
                 //onKeyDown={(e) => e.keyCode !== 13 ? null : catchSubmit(e)}
-                onChange={handleChange('in_treatment')}
+                onChange={props.onChange('in_treatment')}
               />
                 
 

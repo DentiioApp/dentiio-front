@@ -1,8 +1,7 @@
 import './exam.scss'
 
-import React, { useState } from 'react'
-// import { useDispatch } from 'react-redux'
-// import { useToasts } from 'react-toast-notifications'
+import React from 'react'
+import { useDispatch } from 'react-redux'
 
 import {
   Paper,
@@ -18,24 +17,19 @@ import imgMobile from '../../../images/mobile-bg.svg'
 import Button from '@material-ui/core/Button'
 import GradientBtn from '../../UI/buttons/GradientBtn'
 import oStyle from '../../ResponsiveDesign/AuthStyle'
-// import { logUser } from '../../../store/actions'
+import { UPDATE_LEVEL } from '../../../store/actions'
 import MenuItem from '@material-ui/core/MenuItem'
 import InputLabel from '@material-ui/core/InputLabel'
 
 import { setup } from '../../../services/Auth'
 import logo from '../../../images/logo.svg'
 import avatar from '../../../images/logoteeth_blue.png'
-import config from '../../../config'
-import {UPDATE_LEVEL} from '../../../store/actions'
-import {postCase} from '../../../services/Cases'
-import {postPatient} from '../../../services/Patient'
-import { useDispatch } from 'react-redux'
+
 
 const useStyles = makeStyles((theme) => (oStyle(theme, imgDesktop, imgMobile)))
 
-const Exam = (setvalues, values) => {
+const Exam = (props) => {
   const classes = useStyles()
-  const messages = config.messages.auth
   const dispatch = useDispatch()
 
   const catchSubmit = async (event) => {
@@ -43,12 +37,7 @@ const Exam = (setvalues, values) => {
     dispatch({type: UPDATE_LEVEL, level:'diagnostic'})
   }
 
-  const handleChange = prop => event => {
-    if (prop === 'isSmoker' || prop === 'is_medical_background') { setvalues({ ...values, [prop]: event.target.checked }) } 
-    else { setvalues({ ...values, [prop]: event.target.value }) }
-  }
 
-  postCase(/*item*/)
   setup()
 
   return (
@@ -79,7 +68,7 @@ const Exam = (setvalues, values) => {
                 </InputLabel>
                 <input
                   type='file'
-                  onChange={handleChange('cpsCard')}
+                  onChange={props.onChange('cpsCard')}
                   name='cps'
                   id='cps'
                   multiple
@@ -98,7 +87,7 @@ const Exam = (setvalues, values) => {
                 id='intra_extra_oral_desc'
                 autoComplete='current-intra_extra_oral_desc'
                 //onKeyDown={(e) => e.keyCode !== 13 ? null : catchSubmit(e)}
-                onChange={handleChange('intra_extra_oral_desc')}
+                onChange={props.onChange('intra_extra_oral_desc')}
               />
 
               <Typography component='h1' variant='h5'>
@@ -112,8 +101,8 @@ const Exam = (setvalues, values) => {
                 className='textField'
                 id='gender'
                 select
-                value={values.gender === '' ? 'none' : values.gender}
-                onChange={handleChange('gender')}
+                value={props.values.gender === '' ? 'none' : props.values.gender}
+                onChange={props.onChange('gender')}
                 variant='outlined'
               >
                 <MenuItem key='Mr' value='Monsieur'>
@@ -131,8 +120,8 @@ const Exam = (setvalues, values) => {
               Fumeur :
               </InputLabel>
               <Switch
-                checked={values.isSmoker}
-                onChange={handleChange('isSmoker')}
+                checked={props.values.isSmoker}
+                onChange={props.onChange('isSmoker')}
                 color='primary'
                 name='isSmoker'
                 inputProps={{ 'aria-label': 'primary checkbox' }}
@@ -144,8 +133,8 @@ const Exam = (setvalues, values) => {
               Antécedant medical
               </InputLabel>
                <Switch
-                checked={values.is_medical_background}
-                onChange={handleChange('is_medical_background')}
+                checked={props.values.is_medical_background}
+                onChange={props.onChange('is_medical_background')}
                 color='primary'
                 name='is_medical_background'
                 inputProps={{ 'aria-label': 'primary checkbox' }}
@@ -167,7 +156,7 @@ const Exam = (setvalues, values) => {
                 id='problem_health'
                 autoComplete='current-problem_health'
                 //onKeyDown={(e) => e.keyCode !== 13 ? null : catchSubmit(e)}
-                onChange={handleChange('problem_health')}
+                onChange={props.onChange('problem_health')}
               />
               
               <InputLabel className='inputLabel'>
@@ -185,7 +174,7 @@ const Exam = (setvalues, values) => {
                 id='in_treatment'
                 autoComplete='current-in_treatment'
                 //onKeyDown={(e) => e.keyCode !== 13 ? null : catchSubmit(e)}
-                onChange={handleChange('in_treatment')}
+                onChange={props.onChange('in_treatment')}
               />
                 
               <hr/>

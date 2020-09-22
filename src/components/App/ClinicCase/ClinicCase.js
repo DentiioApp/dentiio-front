@@ -2,7 +2,6 @@ import './clinicCase.scss'
 
 import React from 'react'
 import {  useSelector } from 'react-redux'
-import { useToasts } from 'react-toast-notifications'
 
 import {
   Paper,
@@ -26,10 +25,9 @@ import {postCase} from '../../../services/Cases'
 
 const useStyles = makeStyles((theme) => (oStyle(theme, imgDesktop, imgMobile)))
 
-const ClinicCase = (setvalues, values) => {
+const ClinicCase = (props) => {
   const classes = useStyles()
-  // const dispatch = useDispatch()
-  const { addToast } = useToasts()
+  //const dispatch = useDispatch()
   const messages = config.messages.auth
 
   const keywords = useSelector((state) => state.home.keywords)
@@ -37,17 +35,13 @@ const ClinicCase = (setvalues, values) => {
 
   const catchSubmit = async (event) => {
     event.preventDefault()
-    const datas = await postCase(values)
+    const datas = await postCase(props.values)
     const regex2 = RegExp(/Error/)
     if (regex2.test(datas)) {
       return { message: messages.postCase.error, appearance: 'error' }
     } else {
       return { message: messages.postCase.success, appearance: 'success' }
     }
-  }
-
-  const handleChange = prop => event => {
-    setvalues({ ...values, [prop]: event.target.value }) 
   }
 
   setup()
@@ -79,7 +73,7 @@ const ClinicCase = (setvalues, values) => {
                 className='textField'
                 id='keywords'
                 select
-                onChange={handleChange('keywords')}
+                onChange={props.onChange('keywords')}
                 variant='outlined'
               >
                 {keywords && keywords.map((value) => (
@@ -93,7 +87,7 @@ const ClinicCase = (setvalues, values) => {
                 className='textField'
                 id='specialities'
                 select
-                onChange={handleChange('specialities')}
+                onChange={props.onChange('specialities')}
                 variant='outlined'
               >
                 {specialities && specialities.map((value) => (

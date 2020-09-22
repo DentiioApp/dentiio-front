@@ -1,8 +1,7 @@
 import './diagnostic.scss'
 
-import React, { useState } from 'react'
-// import { useDispatch } from 'react-redux'
-// import { useToasts } from 'react-toast-notifications'
+import React from 'react'
+import { useDispatch } from 'react-redux'
 
 import {
   Paper,
@@ -18,7 +17,7 @@ import imgMobile from '../../../images/mobile-bg.svg'
 import Button from '@material-ui/core/Button'
 import GradientBtn from '../../UI/buttons/GradientBtn'
 import oStyle from '../../ResponsiveDesign/AuthStyle'
-// import { logUser } from '../../../store/actions'
+import { UPDATE_LEVEL } from '../../../store/actions'
 import MenuItem from '@material-ui/core/MenuItem'
 import InputLabel from '@material-ui/core/InputLabel'
 
@@ -26,20 +25,15 @@ import { setup } from '../../../services/Auth'
 import logo from '../../../images/logo.svg'
 import avatar from '../../../images/logoteeth_blue.png'
 import config from '../../../config'
-import {postCase} from '../../../services/Cases'
-import {postPatient} from '../../../services/Patient'
 
 const useStyles = makeStyles((theme) => (oStyle(theme, imgDesktop, imgMobile)))
 
-const Diagnostic = (setvalues, values) => {
+const Diagnostic = (props) => {
   const classes = useStyles()
-  const messages = config.messages.auth
-  const catchSubmit = async (event) => {
-    
-  }
+  const dispatch = useDispatch()
 
-  const handleChange = prop => event => {
-    setvalues({ ...values, [prop]: event.target.value }) 
+  const catchSubmit = async (event) => {
+    dispatch({type: UPDATE_LEVEL, level:'treatplan'})
   }
 
   setup()
@@ -78,7 +72,7 @@ const Diagnostic = (setvalues, values) => {
                 id='diagnostic'
                 autoComplete='current-diagnostic'
                 //onKeyDown={(e) => e.keyCode !== 13 ? null : catchSubmit(e)}
-                onChange={handleChange('diagnostic')}
+                onChange={props.onChange('diagnostic')}
               />
 
               <div onClick={catchSubmit}>

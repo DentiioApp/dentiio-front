@@ -17,9 +17,14 @@ const CasePost = () => {
     age: 0,
     gender: '',
     isSmoker: false,
+
     is_medical_background: false,
     problem_health: '',
+
     in_treatment: '',
+    global_desc: '',
+    medication_administered: [],
+    step: [],
 
     intra_extra_oral_desc: '',
 
@@ -37,29 +42,34 @@ const CasePost = () => {
 
   const [values, setValues] = useState(initValues)
 
-  let form
+  const handleChange = prop => event => {
+    if (prop === 'isSmoker' || prop === 'is_medical_background') { setValues({ ...values, [prop]: event.target.checked }) } 
+    else { setValues({ ...values, [prop]: event.target.value }) }
+  }
 
+  let form
+console.log('values :', values)
   switch (level) {
     case 'exam':
-      form = <Exam setvalue={setValues} values={values} />
+      form = <Exam onChange={handleChange} values={values} />
       break;
     case 'diagnostic':
-      form= <Diagnostic setvalue={setValues} values={values} />
+      form= <Diagnostic onChange={handleChange} values={values} />
       break;
     case 'treatplan':
-      form= <TreatPlan setvalue={setValues} values={values} />
+      form= <TreatPlan onChange={handleChange} values={values} />
       break;
     case 'evolution':
-      form= <Evolution setvalue={setValues} values={values} />
+      form= <Evolution onChange={handleChange} values={values} />
       break;
     case 'conclusion':
-      form= <Conclusion setvalue={setValues} values={values} />
+      form= <Conclusion onChange={handleChange} values={values} />
       break;
     case 'cliniccase':
-      form= <ClinicCase setvalue={setValues} values={values} />
+      form= <ClinicCase onChange={handleChange} values={values} />
       break;
     default:
-      form= <Patient setvalue={setValues} values={values} />
+      form= <Patient onChange={handleChange} values={values} />
   }
   
 
@@ -67,6 +77,7 @@ const CasePost = () => {
     <>
       <Header />
       <ModalGuidelinesPostCase />
+      
       {form}
 
     </>

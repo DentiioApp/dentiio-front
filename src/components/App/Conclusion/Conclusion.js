@@ -1,8 +1,7 @@
 import './conclusion.scss'
 
-import React, { useState } from 'react'
-// import { useDispatch } from 'react-redux'
-// import { useToasts } from 'react-toast-notifications'
+import React from 'react'
+import { useDispatch } from 'react-redux'
 
 import {
   Paper,
@@ -12,35 +11,28 @@ import {
 } from '@material-ui/core/'
 import Grid from '@material-ui/core/Grid'
 import { makeStyles } from '@material-ui/core/styles'
-import TextField from '@material-ui/core/TextField'
 import imgDesktop from '../../../images/illus.png'
 import imgMobile from '../../../images/mobile-bg.svg'
 import Button from '@material-ui/core/Button'
 import GradientBtn from '../../UI/buttons/GradientBtn'
 import oStyle from '../../ResponsiveDesign/AuthStyle'
-// import { logUser } from '../../../store/actions'
-import MenuItem from '@material-ui/core/MenuItem'
-import InputLabel from '@material-ui/core/InputLabel'
+import { UPDATE_LEVEL } from '../../../store/actions'
 
 import { setup } from '../../../services/Auth'
 import logo from '../../../images/logo.svg'
 import avatar from '../../../images/logoteeth_blue.png'
 import config from '../../../config'
-import {postCase} from '../../../services/Cases'
-import {postPatient} from '../../../services/Patient'
 
 const useStyles = makeStyles((theme) => (oStyle(theme, imgDesktop, imgMobile)))
 
-const Conclusion = (setvalues, values) => {
-  const classes = useStyles()
-  const messages = config.messages.auth
+const Conclusion = (props) => {
+  const classes = useStyles()  
+  const dispatch = useDispatch()
+
   const catchSubmit = async (event) => {
-    
+    dispatch({type: UPDATE_LEVEL, level:'cliniccase'})
   }
 
-  const handleChange = prop => event => {
-    setvalues({ ...values, [prop]: event.target.value }) 
-  }
 
   setup()
 
@@ -78,7 +70,7 @@ const Conclusion = (setvalues, values) => {
                 id='conclusion'
                 autoComplete='current-conclusion'
                 //onKeyDown={(e) => e.keyCode !== 13 ? null : catchSubmit(e)}
-                onChange={handleChange('conclusion')}
+                onChange={props.onChange('conclusion')}
               />
 
               <div onClick={catchSubmit}>

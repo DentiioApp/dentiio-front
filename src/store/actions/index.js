@@ -16,5 +16,6 @@ export const KEYWORDS_LIST = 'KEYWORDS_LIST'
 export const FILTERED_CASES = 'FILTERED_CASES'
 export const STATUS_FORM = 'STATUS_FORM'
 export const UPDATE_LEVEL = 'UPDATE_LEVEL'
+export const INIT_PATIENT = 'INIT_PATIENT'
 
 export { logUser, registerUser, cardSave, addFav }
