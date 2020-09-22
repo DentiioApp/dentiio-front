@@ -8,6 +8,7 @@ import Typography from '@material-ui/core/Typography'
 import FavButton from '../../UI/buttons/favButton'
 import IconProfile from '../../UI/Icon/Profile/iconProfile'
 import { avgNotes } from '../../../utils'
+
 import Keyword from '../../UI/Keywords/keywords'
 import ChatIcon from '@material-ui/icons/Chat'
 import StarHalfIcon from '@material-ui/icons/StarHalf'
@@ -19,6 +20,7 @@ const CasesItem = (props) => {
   }
 
   return (
+
     <Card className='root' key={props.item.id}>
       <FavButton alt='favorite' item={props.item} /* bool={props.isFavorite} *//>
       <Link onClick={(e) => setCurrentCase(e, props.item)} to={`/case/${props.item.id}`} style={{ textDecoration: 'none' }}>

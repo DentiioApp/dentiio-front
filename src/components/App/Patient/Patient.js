@@ -94,12 +94,8 @@ console.log('TEST :', ages)
                 onChange={handleChange('age')}
                 variant='outlined'
               >
-                <MenuItem key='0' value='0' disabled>
-                  {'Age'}
-                </MenuItem>
-
-                {ages && ages.map((value,index,j) => (
-                  <MenuItem key={index} value={value}>
+                {ages && ages.map((value,index) => (
+                  <MenuItem key={index+1} value={value}>
                     {value}
                   </MenuItem>
                 ))}
