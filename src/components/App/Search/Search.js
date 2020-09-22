@@ -26,7 +26,7 @@ const Search = (props) => {
     }
   }
   //if no keywords in cache load keyword from api
-  if (config.cache.keywords.length < 1) { loadKeywords() }
+  if (values.keywords.length < 1) { loadKeywords() }
 
   const onTextChanged = (e) => {
     const value = e.target.value
@@ -68,7 +68,7 @@ const Search = (props) => {
           getOptionLabel={(option) => option.name}
           style={{ width: 300 }}
           renderInput={(params) => (
-            <TextField {...params} onChange={(e) => onTextChanged(e)} label='With categories' variant='outlined' />
+            <TextField {...params} onSelect={(e) => onTextChanged(e)} onChange={(e) => onTextChanged(e)} label='With categories' variant='outlined' />
           )}
         />
         {/*
