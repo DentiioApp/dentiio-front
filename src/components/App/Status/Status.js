@@ -2,30 +2,29 @@ import './status.scss'
 
 import React, { useState } from 'react'
 import { useDispatch } from 'react-redux'
-//import { Redirect } from 'react-router-dom'
-//import { useToasts } from 'react-toast-notifications'
+import { useToasts } from 'react-toast-notifications'
 
 import {
   Paper,
   Typography
 } from '@material-ui/core/'
 import Grid from '@material-ui/core/Grid'
-//import IconButton from '@material-ui/core/IconButton'
 import Button from '@material-ui/core/Button'
 import FormHelperText from '@material-ui/core/FormHelperText'
 import { makeStyles } from '@material-ui/core/styles'
 import imgDesktop from '../../../images/illus.png'
 import imgMobile from '../../../images/mobile-bg.svg'
 
-//import { cardSave } from '../../../store/actions'
 import { SaveCard } from '../../../services/SaveCard'
 import GradientBtn from '../../UI/buttons/GradientBtn'
 import oStyle from '../../ResponsiveDesign/AuthStyle'
 import { checkFiles } from '../../../utils'
 
 import { setup } from '../../../services/Auth'
+import { LOGIN_FORM, STATUS_FORM } from '../../../store/actions'
 import logo from '../../../images/logo.svg'
 import avatar from '../../../images/logoteeth_blue.png'
+import config from '../../../config'
 
 
 const useStyles = makeStyles((theme) => (oStyle(theme, imgDesktop, imgMobile)))
@@ -33,10 +32,11 @@ const useStyles = makeStyles((theme) => (oStyle(theme, imgDesktop, imgMobile)))
 const Status = () => {
   const classes = useStyles()
   const dispatch = useDispatch()
+  const { addToast } = useToasts()
+  const messages = config.messages.auth
 
   const initValues = {
-    cpsCard: '',
-    studyCard: ''
+    card: '',
   }
 
   const [values, setValues] = useState(initValues)
@@ -44,41 +44,36 @@ const Status = () => {
 
   const catchSubmit = (e) => {
     e.preventDefault()
-    
     if (errCard) {
       return false
     } else {
-        if (values.cpsCard || values.studyCard){
-          var loadCard = values.cpsCard ? values.cpsCard : values.studyCard
-        }
         const formData = new FormData(); 
             
-        formData.append( 
-          "satusCard", 
-          values.cpsCard, 
-          values.cpsCard.name 
+        formData.append(
+          'card',
+          values.card.name 
         ); 
             
       //dispatch(
         SaveCard({
-          url: loadCard.files
+          url: values.card.files
         })
       //)
+      addToast(messages.card.success, { appearance: 'success' })
+      dispatch({ type: STATUS_FORM })
+      dispatch({ type: LOGIN_FORM })
     }
   }
 
   const handleChange = prop => event => {
-    let checkedFile = ''
-    if (prop === 'cpsCard' || prop === 'studyCard') {
-      checkedFile = checkFiles(event)
+    let checkedFile = checkFiles(event)
       if (checkedFile.error === true) {
         setErrCard(checkedFile.message)
       } else {
         setErrCard(false)
       }
-    }
 
-    setValues({ ...values, [prop]: event.target.value })
+    setValues({ ...values, card: event.target.value })
   }
 
   setup()
@@ -115,19 +110,7 @@ const Status = () => {
                   multiple
                 />
               </Button>
-              <FormHelperText id='my-helper-text'>{errCard || ''}</FormHelperText>
-
-              <Button variant='contained' component='label'>
-                Ma carte Étudiant
-                <input
-                  type='file'
-                  onKeyDown={(e) => e.keyCode !== 13 ? null : catchSubmit}
-                  onChange={handleChange('studyCard')}
-                  name='study'
-                  id='study'
-                  multiple
-                />
-              </Button>
+             
               <FormHelperText id='my-helper-text'>{errCard || ''}</FormHelperText>
 
               <div onClick={catchSubmit}>
