@@ -26,25 +26,21 @@ import { setup } from '../../../services/Auth'
 import logo from '../../../images/logo.svg'
 import avatar from '../../../images/logoteeth_blue.png'
 import config from '../../../config'
+import {UPDATE_LEVEL} from '../../../store/actions'
 import {postCase} from '../../../services/Cases'
 import {postPatient} from '../../../services/Patient'
+import { useDispatch } from 'react-redux'
 
 const useStyles = makeStyles((theme) => (oStyle(theme, imgDesktop, imgMobile)))
 
 const Exam = (setvalues, values) => {
   const classes = useStyles()
   const messages = config.messages.auth
-  const ages = config.ages
+  const dispatch = useDispatch()
 
   const catchSubmit = async (event) => {
     event.preventDefault()
-    const datas = await postPatient(values)
-    const regex2 = RegExp(/Error/)
-    if (regex2.test(datas)) {
-      return { message: messages.patient.error, appearance: 'error' }
-    } else {
-      return { message: messages.patient.success, appearance: 'success' }
-    }
+    dispatch({type: UPDATE_LEVEL, level:'diagnostic'})
   }
 
   const handleChange = prop => event => {
