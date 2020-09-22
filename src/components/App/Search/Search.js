@@ -71,6 +71,16 @@ const Search = (props) => {
             <TextField {...params} onChange={(e) => onTextChanged(e)} label='With categories' variant='outlined' />
           )}
         />
+        {/*
+        <input		
+           onChange={(e) => onTextChanged(e)}		
+           type="text"		
+           value={values.text}		
+           id="search-input"		
+           placeholder="search"		
+           className="searchTerm"		
+         />
+        */}
         <button className='searchButton'>
           <img alt='Search' src={icon} />
         </button>
