@@ -46,4 +46,15 @@ export const postCase = (item) => {
       }))
       .catch((e) => JSON.stringify(e))
     return reponses
-  } 
+  }
+
+export const getCaseById = (id) => {
+    const reponses = axios
+        .get(CLINICAL_CASES+"/"+id)
+        .then((res) => ({
+            message: 'OK',
+            datas: res.data
+        }))
+        .catch((e) => JSON.stringify(e))
+    return reponses
+}
