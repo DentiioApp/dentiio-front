@@ -35,7 +35,7 @@ const config = {
       treatment: [],
       treatmentPlan: 'none'
     },
-    keywords:[]
+    keywords: []
   },
 
   i18n: {

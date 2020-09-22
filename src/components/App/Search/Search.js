@@ -11,7 +11,7 @@ import config from '../../../config'
 
 const Search = (props) => {
   const initValues = {
-    keywords: [],
+    keywords: []
   }
 
   const items = useSelector((state) => state.home.cases)
@@ -21,11 +21,11 @@ const Search = (props) => {
   const loadKeywords = async () => {
     const keywordsLoad = await tryKeywords()
     if (keywordsLoad.datas.length > 0) {
-        setValues({ ...values, keywords: keywordsLoad.datas })
-        dispatch({ type: KEYWORDS_LIST, keywords: values.keywords })
+      setValues({ ...values, keywords: keywordsLoad.datas })
+      dispatch({ type: KEYWORDS_LIST, keywords: values.keywords })
     }
   }
-  //if no keywords in cache load keyword from api
+  // if no keywords in cache load keyword from api
   if (values.keywords.length < 1) { loadKeywords() }
 
   const onTextChanged = (e) => {
@@ -72,13 +72,13 @@ const Search = (props) => {
           )}
         />
         {/*
-        <input		
-           onChange={(e) => onTextChanged(e)}		
-           type="text"		
-           value={values.text}		
-           id="search-input"		
-           placeholder="search"		
-           className="searchTerm"		
+        <input
+           onChange={(e) => onTextChanged(e)}
+           type="text"
+           value={values.text}
+           id="search-input"
+           placeholder="search"
+           className="searchTerm"
          />
         */}
         <button className='searchButton'>

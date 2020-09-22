@@ -2,15 +2,15 @@ import './status.scss'
 
 import React, { useState } from 'react'
 import { useDispatch } from 'react-redux'
-//import { Redirect } from 'react-router-dom'
-//import { useToasts } from 'react-toast-notifications'
+// import { Redirect } from 'react-router-dom'
+// import { useToasts } from 'react-toast-notifications'
 
 import {
   Paper,
   Typography
 } from '@material-ui/core/'
 import Grid from '@material-ui/core/Grid'
-//import IconButton from '@material-ui/core/IconButton'
+// import IconButton from '@material-ui/core/IconButton'
 import Button from '@material-ui/core/Button'
 import FormHelperText from '@material-ui/core/FormHelperText'
 import { makeStyles } from '@material-ui/core/styles'
@@ -25,7 +25,6 @@ import { checkFiles } from '../../../utils'
 import { setup } from '../../../services/Auth'
 import logo from '../../../images/logo.svg'
 import avatar from '../../../images/logoteeth_blue.png'
-
 
 const useStyles = makeStyles((theme) => (oStyle(theme, imgDesktop, imgMobile)))
 
@@ -44,7 +43,6 @@ const Status = () => {
   const catchSubmit = (e) => {
     e.preventDefault()
 
-  
     if (!errCard) {
       return false
     } else {
