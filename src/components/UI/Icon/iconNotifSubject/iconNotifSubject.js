@@ -2,15 +2,14 @@ import React from 'react'
 import IconButton from '@material-ui/core/IconButton'
 
 const iconNotifSubject = (props) => {
-
   const Img = () => {
-    if (props.profileImg === undefined){
-      return(
-          <></>
+    if (props.profileImg === undefined) {
+      return (
+        <></>
       )
     }
-    return(
-        <img src={props.profileImg} alt=''/>
+    return (
+      <img src={props.profileImg} alt='' />
     )
   }
 
@@ -20,7 +19,7 @@ const iconNotifSubject = (props) => {
       aria-haspopup='true'
       color='inherit'
     >
-      <Img/>
+      <Img />
     </IconButton>
   )
 }

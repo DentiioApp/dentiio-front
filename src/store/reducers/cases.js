@@ -4,22 +4,22 @@ import config from '../../config'
 const INIT_STATE = {
   cases: {},
   favorites: {},
-  currentCase: config.cache.currentCase,
+  currentCase: config.cache.currentCase
 }
 /*
 const fullyfy=(state)=>{
   const currCase = currentCase.map((prop)=> prop = state.prop)
-  return {...state, currentCase: currCase} 
+  return {...state, currentCase: currCase}
 }
 */
 export const Cases = (state = INIT_STATE, action) => {
   switch (action.type) {
     case CASE_ITEM:
-      return { ...state, cases: action.datas };
+      return { ...state, cases: action.datas }
     case ADD_FAVORITE:
-      return { ...state, favorites: action.data };
+      return { ...state, favorites: action.data }
     case FILTERED_CASES:
-      return { ...state, cases: action.data };
+      return { ...state, cases: action.data }
     case INIT_CURRENT_CASE:
       // const {age, sexe, drinker, smoker, currentTreatment, oldAffect,allergen} = action.data;
       return {
@@ -30,10 +30,10 @@ export const Cases = (state = INIT_STATE, action) => {
         smoker: action.datas.smoker,
         currentTreatment: action.datas.currentCase,
         oldAffect: action.datas.oldAffect,
-        allergen: action.datas.allergen,
-      };
+        allergen: action.datas.allergen
+      }
 
     default:
-      return state;
+      return state
   }
 }

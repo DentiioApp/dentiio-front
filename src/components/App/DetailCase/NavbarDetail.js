@@ -33,10 +33,8 @@ const useStyles = makeStyles((theme) => ({
   }
 }))
 
-export const NavbarDetail = () => {
-  // eslint-disable-next-line react-hooks/rules-of-hooks
+const NavbarDetail = () => {
   const classes = useStyles()
-  // eslint-disable-next-line react-hooks/rules-of-hooks
   const history = useHistory()
 
   return (

@@ -1,5 +1,5 @@
 
-import { registerUser , logUser, cardSave} from './Auth'
+import { registerUser, logUser, cardSave } from './Auth'
 import { addFav } from './Cases'
 
 export const ADD_FAVORITE = 'ADD_FAVORITE'
@@ -13,6 +13,6 @@ export const REGISTER_USER = 'REGISTER_USER'
 export const VALID_STATUS = 'VALID_STATUS'
 export const INIT_CURRENT_CASE = 'INIT_CURRENT_CASE'
 export const KEYWORDS_LIST = 'KEYWORDS_LIST'
-export const FILTERED_CASES = "FILTERED_CASES";
+export const FILTERED_CASES = 'FILTERED_CASES'
 
 export { logUser, registerUser, cardSave, addFav }

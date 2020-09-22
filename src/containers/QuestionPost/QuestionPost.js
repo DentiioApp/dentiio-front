@@ -4,7 +4,7 @@ import Header from '../../components/App/Header/Header'
 const QuestionPost = () => {
   return (
     <>
-      <Header/>
+      <Header />
     </>
   )
 }

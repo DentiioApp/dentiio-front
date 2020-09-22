@@ -56,7 +56,7 @@ export default function PatientDetail () {
                                 Age
               </TableCell>
               <TableCell align='left'>
-                                {currentCase.age}
+                {currentCase.age}
                                 33 ans
               </TableCell>
             </TableRow>
@@ -65,7 +65,7 @@ export default function PatientDetail () {
                                 Sexe
               </TableCell>
               <TableCell align='left'>
-                                {currentCase.sexe}
+                {currentCase.sexe}
                                 Homme
               </TableCell>
             </TableRow>
@@ -74,7 +74,7 @@ export default function PatientDetail () {
                                 Alcool
               </TableCell>
               <TableCell align='left'>
-                                {currentCase.drinker}
+                {currentCase.drinker}
                                 Oui
               </TableCell>
             </TableRow>
@@ -83,7 +83,7 @@ export default function PatientDetail () {
                                 Fumeur
               </TableCell>
               <TableCell align='left'>
-                                {currentCase.smoker}
+                {currentCase.smoker}
                                 Oui
               </TableCell>
             </TableRow>
@@ -91,21 +91,21 @@ export default function PatientDetail () {
         </Table>
         <Typography variant='body2' component='span'>
                     Traitement en cours :<br />
-                    {currentCase.currentTreatment}
+          {currentCase.currentTreatment}
                     Tramadol tous les soirs
         </Typography>
 
         <Divider className={classes.pos} />
         <Typography variant='body2' component='span'>
                     Antécédents médicaux :<br />
-                    {currentCase.oldAffect}
+          {currentCase.oldAffect}
                     Fibromialgie il y a 5 ans , Cholesterol  et Diabète controlé
         </Typography>
 
         <Divider className={classes.pos} />
         <Typography variant='body2' component='span'>
                     Alergies :<br />
-                    {currentCase.allergen}
+          {currentCase.allergen}
                     Pollen et codéine
         </Typography>
       </CardContent>

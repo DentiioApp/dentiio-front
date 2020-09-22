@@ -9,9 +9,9 @@ import CardActions from '@material-ui/core/CardActions'
 import Typography from '@material-ui/core/Typography'
 import { blue } from '@material-ui/core/colors'
 import FavButton from '../../UI/buttons/favButton'
-import IconProfile from "../../UI/Icon/Profile/iconProfile";
+import IconProfile from '../../UI/Icon/Profile/iconProfile'
 import { avgNotes } from '../../../utils'
-import Keyword from "../../UI/Keywords/keywords";
+import Keyword from '../../UI/Keywords/keywords'
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -43,33 +43,31 @@ const useStyles = makeStyles((theme) => ({
 
 const CasesItem = (props) => {
   const classes = useStyles()
-  //const dispatch = useDispatch()
+  // const dispatch = useDispatch()
 
-
-  const setCurrentCase = (e,item) => {
-    //dispatch({type: INIT_CURRENT_CASE, item})
+  const setCurrentCase = (e, item) => {
+    // dispatch({type: INIT_CURRENT_CASE, item})
   }
 
   return (
 
     <Card className={classes.root} key={props.item.id}>
-      <FavButton alt='favorite' item={props.item} /*bool={props.isFavorite}*//>
-      <Link onClick={(e)=> setCurrentCase(e,props.item)} to={`/case/${props.item.id}`} /*to={`/case/${props.item.slug}`}*/ style={{ textDecoration: 'none' }}>
+      <FavButton alt='favorite' item={props.item} /* bool={props.isFavorite} *//>
+      <Link onClick={(e) => setCurrentCase(e, props.item)} to={`/case/${props.item.id}`} style={{ textDecoration: 'none' }}>
         <CardMedia
           className={classes.media}
           image='https://upload.wikimedia.org/wikipedia/commons/1/17/Yin_yang.svg'
-          /*image={process.env.REACT_APP_BACK_API_URL + "public/images/" + props.item.img}*/
+          /* image={process.env.REACT_APP_BACK_API_URL + "public/images/" + props.item.img} */
           title={props.item.title}
         />
-        <div style={{marginTop: "-45px", marginLeft: "15px"}}>
+        <div style={{ marginTop: '-45px', marginLeft: '15px' }}>
           {props.item.keyword.map((keyword, index) => (
-              <Keyword key={index} keyword={keyword.name}/>
+            <Keyword key={index} keyword={keyword.name} />
           ))}
-
 
         </div>
         <CardContent>
-          <Typography variant='h6' style={{color: "black"}} component='p'>
+          <Typography variant='h6' style={{ color: 'black' }} component='p'>
             {props.item.title}
           </Typography>
           <Typography variant='body2' color='textSecondary' component='p'>
@@ -77,10 +75,10 @@ const CasesItem = (props) => {
           </Typography>
         </CardContent>
         <CardActions disableSpacing>
-            <IconProfile color="primary"/>
+          <IconProfile color='primary' />
           <Typography variant='body2' color='textSecondary' component='p'>
             Pseudo
-            <br/>
+            <br />
             Fonction
           </Typography>
           {/* <TeethButton> */}

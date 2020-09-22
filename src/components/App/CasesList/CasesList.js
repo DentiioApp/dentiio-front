@@ -24,7 +24,7 @@ const CasesList = () => {
   const dispatch = useDispatch()
   const home = useSelector((state) => state.home)
   const homeCase = useSelector((state) => state.home.cases)
-  const filteredCase = useSelector((state) => state.cases.cases);
+  const filteredCase = useSelector((state) => state.cases.cases)
   const cases = filteredCase.length > 0 ? filteredCase : homeCase
 
   const areLoaded = home.casesLoaded

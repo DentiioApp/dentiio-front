@@ -23,8 +23,8 @@ import {
   Route
   // Link,
 } from 'react-router-dom'
-import CasePost from "./containers/CasePost/CasePost";
-import QuestionPost from "./containers/QuestionPost/QuestionPost";
+import CasePost from './containers/CasePost/CasePost'
+import QuestionPost from './containers/QuestionPost/QuestionPost'
 
 dotenv.config()
 
@@ -42,7 +42,7 @@ export const store = createStore(adminReducer,
 ReactDOM.render(
   <ThemeProvider theme={colorTheme}>
     <Provider store={store}>
-      <ToastProvider autoDismiss autoDismissTimeout={'1500'}>
+      <ToastProvider autoDismiss autoDismissTimeout='1500'>
         <Router>
           <div>
             <Switch>

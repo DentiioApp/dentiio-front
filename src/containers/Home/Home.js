@@ -19,7 +19,7 @@ const Home = () => {
       getJobs.then(response => {
         if (response.message !== 'Network error' && response.message !== undefined) {
           getJobs.then((res) => (dispatch({ type: JOB_LIST, data: res.datas })))
-        } 
+        }
       })
     }
   })

@@ -5,7 +5,6 @@ const CLINICAL_CASES =
 const FAVORITES =
   process.env.REACT_APP_BACK_API_URL + process.env.REACT_APP_FAVORITES
 
-
 export const fetchCases = (signal) => {
   const reponses = axios
     .get(CLINICAL_CASES, { signal: signal })
@@ -28,7 +27,7 @@ export const tryCases = () => {
 }
 
 export const addFavCase = (iUser, iItem) => {
-console.log('FAV SERvice :', iUser, iItem)
+  console.log('FAV SERvice :', iUser, iItem)
   const reponses = axios
     .post(FAVORITES, { userId: iUser, clinicalCaseId: iItem })
     .then((res) => ({
