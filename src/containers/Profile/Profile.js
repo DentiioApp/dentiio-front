@@ -64,6 +64,7 @@ const Profile = () => {
             <Grid item xs={12} sm container>
               <Grid item xs container direction="column" spacing={2}>
                 <Grid item xs >
+
                   <Typography gutterBottom variant="h4">
                     John Doe
                   </Typography>
