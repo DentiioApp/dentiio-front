@@ -5,8 +5,8 @@ import icon from "../../../images/logoteeth_transparent.png";
 import { tryKeywords } from "../../../services/Home";
 import { KEYWORDS_LIST, FILTERED_CASES } from "../../../store/actions";
 import "./Search.scss";
-import { TextField } from "@material-ui/core";
-import Autocomplete from "@material-ui/lab/Autocomplete";
+// import { TextField } from "@material-ui/core";
+// import Autocomplete from "@material-ui/lab/Autocomplete";
 
 const Search = (props) => {
   
@@ -32,12 +32,13 @@ const Search = (props) => {
     if (value.length > 0) {
       const regex = new RegExp(`^${value}`, "i");
       suggestions = items.map((item) => {
-        
-        const keywords = item.keyword;
-        if (keywords.filter(keyword => regex.test(keyword.name.toLowerCase())).length > 0) {
+        if (
+          item.keyword.filter((keyword) =>
+            regex.test(keyword.name.toLowerCase())
+          ).length > 0
+        ) {
           newdata.push(item);
         }
-        
       });
      
     }
@@ -57,7 +58,7 @@ const Search = (props) => {
   return (
     <div className="wrap">
       <div className="search">
-        <Autocomplete
+        {/* <Autocomplete
           id="grouped-demo"
           options={options.sort(
             (a, b) => -b.firstLetter.localeCompare(a.firstLetter)
@@ -68,7 +69,7 @@ const Search = (props) => {
           renderInput={(params) => (
             <TextField {...params} label="With categories" variant="outlined" />
           )}
-        />
+        /> */}
 
         <input
           onChange={(e) => onTextChanged(e)}
@@ -78,7 +79,7 @@ const Search = (props) => {
           placeholder="search"
           className="searchTerm"
         />
-        <button class="searchButton">
+        <button className="searchButton">
           <img src={icon}></img>
         </button>
       </div>
