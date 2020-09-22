@@ -3,11 +3,11 @@ import { TextField, makeStyles } from "@material-ui/core";
 import Autocomplete from "@material-ui/lab/Autocomplete";
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import icon from "../../../images/logoteeth_transparent.png";
+//import icon from "../../../images/logoteeth_transparent.png";
 import { tryKeywords } from "../../../services/Home";
 import { FILTERED_CASES, KEYWORDS_LIST } from "../../../store/actions";
 import "./Search.scss";
-import SearchIcon from "@material-ui/icons/Search";
+//import SearchIcon from "@material-ui/icons/Search";
 
 const useStyles = makeStyles((theme) => ({
   barWidth: {
