@@ -1,12 +1,14 @@
 import './patient.scss'
 
 import React, { useState } from 'react'
-//import { useDispatch } from 'react-redux'
-//import { useToasts } from 'react-toast-notifications'
+// import { useDispatch } from 'react-redux'
+// import { useToasts } from 'react-toast-notifications'
 
 import {
   Paper,
-  Typography
+  Switch,
+  Typography,
+  TextareaAutosize,
 } from '@material-ui/core/'
 import Grid from '@material-ui/core/Grid'
 import { makeStyles } from '@material-ui/core/styles'
@@ -16,7 +18,7 @@ import imgMobile from '../../../images/mobile-bg.svg'
 
 import GradientBtn from '../../UI/buttons/GradientBtn'
 import oStyle from '../../ResponsiveDesign/AuthStyle'
-//import { logUser } from '../../../store/actions'
+// import { logUser } from '../../../store/actions'
 import MenuItem from '@material-ui/core/MenuItem'
 import InputLabel from '@material-ui/core/InputLabel'
 
@@ -30,37 +32,38 @@ const useStyles = makeStyles((theme) => (oStyle(theme, imgDesktop, imgMobile)))
 
 const Patient = () => {
   const classes = useStyles()
-  //const dispatch = useDispatch()
-  //const { addToast } = useToasts()
+  // const dispatch = useDispatch()
+  // const { addToast } = useToasts()
   const messages = config.messages.auth
-
+  const ages = config.ages
+console.log('TEST :', ages)
   const initValues = {
-    age: '',
+    age: 0,
     gender: '',
     isSmoker: false,
     is_medical_background: false,
-    problem_health: 'none', 
-    in_treatment: 'none',
+    problem_health: '',
+    in_treatment: ''
   }
 
   const [values, setValues] = useState(initValues)
 
-  const catchSubmit = async(event) => {
+  const catchSubmit = async (event) => {
     event.preventDefault()
     const datas = await postPatient(values)
     const regex2 = RegExp(/Error/)
     if (regex2.test(datas)) {
-      return { message: messages.patient.error, appearance: 'error'}
+      return { message: messages.patient.error, appearance: 'error' }
     } else {
-      return { message: messages.patient.success, appearance: 'success'}
+      return { message: messages.patient.success, appearance: 'success' }
     }
   }
 
   const handleChange = prop => event => {
-    setValues({ ...values, [prop]: event.target.value })
+    if (prop === 'isSmoker' || prop === 'is_medical_background') { setValues({ ...values, [prop]: event.target.checked }) } else { setValues({ ...values, [prop]: event.target.value }) }
   }
 
-  setup() 
+  setup()
 
   return (
     <>
@@ -83,24 +86,28 @@ const Patient = () => {
               Fiche Patient
             </Typography>
             <form className={classes.form} noValidate>
+
               <TextField
-                variant='outlined'
-                margin='normal'
-                required
-                fullWidth
-                autoFocus
-                name='age'
-                label='age'
-                type='text'
+                className='textField'
                 id='age'
-                autoComplete='current-age'
-                onKeyDown={(e) => e.keyCode !== 13 ? null : catchSubmit(e)}
+                select
                 onChange={handleChange('age')}
-                //error={}
-              />
-              <InputLabel  shrink >count</InputLabel>
-              <InputLabel className='inputLabel' >
-              Genre* :
+                variant='outlined'
+              >
+                <MenuItem key='0' value='0' disabled>
+                  {'Age'}
+                </MenuItem>
+
+                {ages && ages.map((value,index,j) => (
+                  <MenuItem key={index} value={value}>
+                    {value}
+                  </MenuItem>
+                ))}
+              </TextField>
+
+        
+              <InputLabel className='inputLabel'>
+              Genre :
               </InputLabel>
               <TextField
                 className='textField'
@@ -110,88 +117,76 @@ const Patient = () => {
                 onChange={handleChange('gender')}
                 variant='outlined'
               >
-                <MenuItem key='Mr' value='Monsieur' disabled>
+                <MenuItem key='Mr' value='Monsieur'>
                   {'Monsieur'}
                 </MenuItem>
                 <MenuItem key='Mme' value='Madame'>
                   {'Madame'}
                 </MenuItem>
-                
+
               </TextField>
 
               <br />  <br />
 
               <InputLabel className='inputLabel'>
-              Fumeur* :
+              Fumeur :
               </InputLabel>
-              <TextField
-                className='textField'
-                id='isSmoker'
-                select
-                value={values.isSmoker === '' ? 'none' : values.isSmoker}
+              <Switch
+                checked={values.isSmoker}
                 onChange={handleChange('isSmoker')}
-                variant='outlined'
-              >
-                <MenuItem key='o' value={1} >
-                  {'OUI'}
-                </MenuItem>
-                <MenuItem key='n' value={0} >
-                  {'NON'}
-                </MenuItem>
-              </TextField>
+                color='primary'
+                name='isSmoker'
+                inputProps={{ 'aria-label': 'primary checkbox' }}
+              />
 
               <br />  <br />
 
               <InputLabel className='inputLabel'>
-              Antécedant medical* :
+              Antécedant medical
               </InputLabel>
-              <TextField
-                className='textField'
-                id='is_medical_background'
-                select
-                value={values.is_medical_background === '' ? 'none' : values.is_medical_background}
+               <Switch
+                checked={values.is_medical_background}
                 onChange={handleChange('is_medical_background')}
-                variant='outlined'
-              >
-                <MenuItem key='o' value={1} >
-                  {'OUI'}
-                </MenuItem>
-                <MenuItem key='n' value={0}>
-                  {'NON'}
-                </MenuItem>
-              </TextField>
+                color='primary'
+                name='is_medical_background'
+                inputProps={{ 'aria-label': 'primary checkbox' }}
+              />
 
               <br />  <br />
-
-              <TextField
+              <InputLabel className='inputLabel'>
+                Probleme cardiaque
+              </InputLabel>
+              <TextareaAutosize
+                aria-label="minimum height" 
+                rowsMin={3} placeholder="Renseignez le(s) probleme(s) cardiaque"
                 variant='outlined'
                 margin='normal'
                 required
                 fullWidth
-                autoFocus
                 name='problem_health'
-                label='problem_health'
-                type='text'
+                type='textarea'
                 id='problem_health'
                 autoComplete='current-problem_health'
-                onKeyDown={(e) => e.keyCode !== 13 ? null : catchSubmit(e)}
+                //onKeyDown={(e) => e.keyCode !== 13 ? null : catchSubmit(e)}
                 onChange={handleChange('problem_health')}
-                //error={errEmail}
               />
-              <TextField
+              
+              <InputLabel className='inputLabel'>
+                Sous traitement :
+              </InputLabel>
+              <TextareaAutosize
+                aria-label="minimum height" 
+                rowsMin={3} placeholder="Renseignez le(s) traitement(s)"
                 variant='outlined'
                 margin='normal'
                 required
                 fullWidth
-                autoFocus
                 name='in_treatment'
-                label='in_treatment'
-                type='text'
+                type='textarea'
                 id='in_treatment'
                 autoComplete='current-in_treatment'
-                onKeyDown={(e) => e.keyCode !== 13 ? null : catchSubmit(e)}
+                //onKeyDown={(e) => e.keyCode !== 13 ? null : catchSubmit(e)}
                 onChange={handleChange('in_treatment')}
-                //error={errEmail}
               />
 
               <div onClick={catchSubmit}>
