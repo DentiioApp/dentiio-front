@@ -23,7 +23,6 @@ export const tryLogin = (ident, pswd) => {
 }
 
 export const registerCheck = (user) => {
-  console.log('TEST :', user)
   const reponses = axios
     .post(USERS, user)
     .then((res) => {
