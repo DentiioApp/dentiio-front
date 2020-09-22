@@ -1,5 +1,3 @@
-// import Container from "@material-ui/core/Container";
-// import { makeStyles } from "@material-ui/core/styles";
 import React from 'react'
 import { Redirect } from 'react-router-dom'
 import CasesList from '../../components/App/CasesList/CasesList'
@@ -23,6 +21,7 @@ const Cases = () => {
   return (
     <>
       <Header target='home' />
+
       {/* <Container className={classes.root} children={""} /> */}
       <Search />
       <CasesList />

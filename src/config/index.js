@@ -34,8 +34,10 @@ const config = {
       symptome: [{}],
       treatment: [],
       treatmentPlan: 'none'
+
     },
     keywords: []
+
   },
 
   i18n: {
@@ -86,6 +88,10 @@ const config = {
       signin: {
         error: 'Connexion échoué, vérifier votre saisie',
         success: 'Connexion approuvé,  Bonjour ! '
+      },
+      card: {
+        error: 'Une erreur est survenue lors du chargement de votre carte',
+        success: 'Carte envoyé, vous serez notifié par mail une fois votre status validé ! '
       }
     }
   }

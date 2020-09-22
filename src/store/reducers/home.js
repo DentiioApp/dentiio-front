@@ -34,6 +34,7 @@ export const Home = (state = INIT_STATE, action) => {
 
     case 'HOME_RESET': return { ...state, usersLoaded: false, casesLoaded: false, jobsLoaded: false }
     case 'LOAD_INTERNET': return { ...state, internet: navigator.onLine }
+
     case 'KEYWORDS_LIST': return { ...state, keywords: action.keywords }
 
     default:

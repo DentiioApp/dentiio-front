@@ -27,7 +27,6 @@ export const tryCases = () => {
 }
 
 export const addFavCase = (iUser, iItem) => {
-  console.log('FAV SERvice :', iUser, iItem)
   const reponses = axios
     .post(FAVORITES, { userId: iUser, clinicalCaseId: iItem })
     .then((res) => ({
@@ -37,3 +36,14 @@ export const addFavCase = (iUser, iItem) => {
     .catch((e) => JSON.stringify(e))
   return reponses
 }
+
+export const postCase = (item) => {
+    const reponses = axios
+      .post(CLINICAL_CASES, item)
+      .then((res) => ({
+        message: 'OK',
+        datas: res.data['hydra:member']
+      }))
+      .catch((e) => JSON.stringify(e))
+    return reponses
+  } 

@@ -7,7 +7,6 @@ import { KEYWORDS_LIST, FILTERED_CASES } from '../../../store/actions'
 import './Search.scss'
 import { TextField } from '@material-ui/core'
 import Autocomplete from '@material-ui/lab/Autocomplete'
-import config from '../../../config'
 
 const Search = (props) => {
   const initValues = {

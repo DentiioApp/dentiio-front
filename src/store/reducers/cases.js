@@ -33,7 +33,7 @@ export const Cases = (state = INIT_STATE, action) => {
         allergen: action.datas.allergen
       }
 
-    default:
+    default :
       return state
   }
 }
