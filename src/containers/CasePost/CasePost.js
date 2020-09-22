@@ -1,6 +1,6 @@
 import React from 'react'
 import Header from '../../components/App/Header/Header'
-import axios from 'axios'
+import ModalGuidelinesPostCase from "../../components/App/Modal/ModalGuidelines-PostCase/ModalGuidelinesPostCase";
 
 const CasePost = () => {
 const CLINICAL_CASES =
@@ -116,6 +116,7 @@ const CLINICAL_CASES =
   return (
     <>
       <Header/>
+      <ModalGuidelinesPostCase/>
     </>
   )
 }
