@@ -79,11 +79,11 @@ const SignIn = () => {
     const regex2 = RegExp(/Error/)
 
     if (regex2.test(datas)) {
-      return { message: messages.signin.error, appearance: 'error'}
+      return { message: messages.signin.error, appearance: 'error' }
     } else {
       setDatas(datas)
 
-      return { message: messages.signin.success, appearance: 'success'}
+      return { message: messages.signin.success, appearance: 'success' }
     }
   }
 

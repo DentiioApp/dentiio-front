@@ -1,5 +1,5 @@
 
-import { registerUser , logUser, cardSave} from './Auth'
+import { registerUser, logUser, cardSave } from './Auth'
 import { addFav } from './Cases'
 
 export const ADD_FAVORITE = 'ADD_FAVORITE'

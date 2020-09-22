@@ -8,7 +8,7 @@ const INIT_STATE = {
   connected: false,
   isValidStatus: false,
   message: '',
-  subscribe: false,
+  subscribe: false
 }
 
 export const User = (state = INIT_STATE, action) => {

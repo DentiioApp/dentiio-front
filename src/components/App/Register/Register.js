@@ -55,7 +55,7 @@ const Register = () => {
     password: '',
     job: '',
     showPassword: false,
-    cgu: false,
+    cgu: false
   }
 
   const [values, setValues] = useState(initValues)
@@ -90,7 +90,7 @@ const Register = () => {
       prenom: values.pseudo,
       email: values.email,
       password: values.password,
-      job: '/api/jobs/'+ values.job,
+      job: '/api/jobs/' + values.job,
       createdAt: new Date().toISOString(),
       isEnabled: true
     })
@@ -155,8 +155,8 @@ const Register = () => {
   const handleMouseDownPassword = event => {
     event.preventDefault()
   }
-   
- //console.log('TEST :', navigator.onLine)
+
+  // console.log('TEST :', navigator.onLine)
 
   if (setup() === true) {
     return <Redirect to='/cases' />

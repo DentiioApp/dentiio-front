@@ -15,7 +15,7 @@ const Home = () => {
   const isLoaded = home.jobsLoaded
   var form = home.login ? <SignIn /> : <Register />
 
-  if(user.subscribe && !home.status) {
+  if (user.subscribe && !home.status) {
     form = <Status />
   }
 
@@ -25,7 +25,7 @@ const Home = () => {
       getJobs.then(response => {
         if (response.message !== 'Network error' && response.message !== undefined) {
           getJobs.then((res) => (dispatch({ type: JOB_LIST, data: res.datas })))
-        } 
+        }
       })
     }
   })

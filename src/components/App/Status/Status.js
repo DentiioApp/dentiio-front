@@ -26,7 +26,6 @@ import logo from '../../../images/logo.svg'
 import avatar from '../../../images/logoteeth_blue.png'
 import config from '../../../config'
 
-
 const useStyles = makeStyles((theme) => (oStyle(theme, imgDesktop, imgMobile)))
 
 const Status = () => {
@@ -36,7 +35,7 @@ const Status = () => {
   const messages = config.messages.auth
 
   const initValues = {
-    card: '',
+    card: ''
   }
 
   const [values, setValues] = useState(initValues)
@@ -47,18 +46,18 @@ const Status = () => {
     if (errCard) {
       return false
     } else {
-        const formData = new FormData(); 
-            
-        formData.append(
-          'card',
-          values.card.name 
-        ); 
-            
-      //dispatch(
-        SaveCard({
-          url: values.card.files
-        })
-      //)
+      const formData = new FormData()
+
+      formData.append(
+        'card',
+        values.card.name
+      )
+
+      // dispatch(
+      SaveCard({
+        url: values.card.files
+      })
+      // )
       addToast(messages.card.success, { appearance: 'success' })
       dispatch({ type: STATUS_FORM })
       dispatch({ type: LOGIN_FORM })
@@ -66,12 +65,12 @@ const Status = () => {
   }
 
   const handleChange = prop => event => {
-    let checkedFile = checkFiles(event)
-      if (checkedFile.error === true) {
-        setErrCard(checkedFile.message)
-      } else {
-        setErrCard(false)
-      }
+    const checkedFile = checkFiles(event)
+    if (checkedFile.error === true) {
+      setErrCard(checkedFile.message)
+    } else {
+      setErrCard(false)
+    }
 
     setValues({ ...values, card: event.target.value })
   }
@@ -110,7 +109,7 @@ const Status = () => {
                   multiple
                 />
               </Button>
-             
+
               <FormHelperText id='my-helper-text'>{errCard || ''}</FormHelperText>
 
               <div onClick={catchSubmit}>

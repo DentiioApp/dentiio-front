@@ -15,25 +15,25 @@ const config = {
   cache: {
     jobs: [],
     currentCase: {
-      id: "none",
-      type: "none",
+      id: 'none',
+      type: 'none',
       patient: {},
       averageNote: 0,
-      commentaires:[{}],
-      conclusion: "none",
-      createdAt: "2000-01)à1T00/00/00+02:00",
-      evolution: "none",
-      //id:0,
-      isEnabled:'false',
+      commentaires: [{}],
+      conclusion: 'none',
+      createdAt: '2000-01)à1T00/00/00+02:00',
+      evolution: 'none',
+      // id:0,
+      isEnabled: 'false',
       keyword: [{}],
       notations: [{}],
       observation: 'none',
       pathologie: [{}],
-      presentation:'none',
+      presentation: 'none',
       speciality: [{}],
       symptome: [{}],
       treatment: [],
-      treatmentPlan: "none",
+      treatmentPlan: 'none'
     }
   },
 
@@ -86,8 +86,8 @@ const config = {
         error: 'Connexion échoué, vérifier votre saisie',
         success: 'Connexion approuvé,  Bonjour ! '
       },
-      card:{
-        error: "Une erreur est survenue lors du chargement de votre carte",
+      card: {
+        error: 'Une erreur est survenue lors du chargement de votre carte',
         success: 'Carte envoyé, vous serez notifié par mail une fois votre status validé ! '
       }
     }
