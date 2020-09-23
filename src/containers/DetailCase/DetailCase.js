@@ -112,21 +112,22 @@ const imagesScanner = [
 
 const DetailCase = (props) => {
   const classes = useStyles()
-  const [item, setItem] = useState(null)
+  const [item, setItem] = useState({})
 
   const ResponseCase = async () => {
     const CaseById = await  getCaseById(props.match.params.id)
-    setItem(CaseById)
+    setItem(CaseById.datas)
   }
 
   useEffect(() => {
-    if (item === null) {
+    if (Object.entries(item).length === 0 ) {
       ResponseCase()
     }
   })
 
 
   console.log(item)
+  const Img = item.averageNote ? <img alt='' src={iconTeethFull} width='12px' className={classes.icon} /> : ""
 
   return (
     <>
@@ -146,8 +147,8 @@ const DetailCase = (props) => {
               </Typography>
               <Typography component='p' variant='body2' className={classes.subtitle}>
                 <span style={{ paddingRight: 20 }}>Implotologie</span>
-                <img alt='' src={iconTeethFull} width='12px' className={classes.icon} />
-                                    4,7 (32 notes)
+                {Img}
+                {item.averageNote && item.averageNote} ({item.notations && item.notations.length} notes)
               </Typography>
               <Typography component='p' variant='body2' className={classes.subtitle}>
                             Publié il y a 2 jours
