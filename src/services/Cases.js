@@ -47,7 +47,7 @@ export const postCase = (values, patient) => {
     evolution: values.evolution, //
     conclusion: values.conclusion, //
     createdAt: new Date().toISOString(), //
-    notations: ['/api/notations/' + 2250], //
+    notations: ['/api/notations/' + 1], //
 
     isEnabled: true,
 

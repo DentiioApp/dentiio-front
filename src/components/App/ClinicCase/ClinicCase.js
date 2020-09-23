@@ -3,7 +3,7 @@ import './clinicCase.scss'
 import React from 'react'
 import { useSelector } from 'react-redux'
 import { useToasts } from 'react-toast-notifications'
-
+import { Redirect } from 'react-router-dom'
 import {
   Paper,
   Typography
@@ -46,6 +46,8 @@ const ClinicCase = (props) => {
         addToast(messages.error, { appearance: 'error' })
       } else {
         addToast(messages.success, { appearance: 'success' })
+        setTimeout(() => { return <Redirect to='/cases' /> }, 2000);
+        
       }
     }
   }
@@ -73,6 +75,39 @@ const ClinicCase = (props) => {
               <Typography component='h1' variant='h5'>
                 Ajouter votre cas clinique
               </Typography>
+
+              <Typography component='h1' variant='h5'>
+              Titre du cas
+              </Typography>
+              <TextField
+                variant='outlined'
+                margin='normal'
+                required
+                autoFocus
+                name='title'
+                label='Titre du cas'
+                type='text'
+                id='title'
+                autoComplete='current-title'
+                onChange={props.onChange('title')}
+              />
+              <Typography component='h1' variant='h5'>
+                Inscription
+              </Typography>
+              <TextField
+                variant='outlined'
+                margin='normal'
+                required
+                autoFocus
+                fullWidth
+                name='summary'
+                label='Résumé'
+                type='text'
+                id='summary'
+                autoComplete='current-summary'
+                onChange={props.onChange('summary')}
+              />
+
 
               <Typography component='h1' variant='h5'>
                 Mot clés

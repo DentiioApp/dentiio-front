@@ -87,7 +87,6 @@ const CasePost = () => {
   const [values, setValues] = useState(initValues)
 
   const handleChange = prop => event => {
-    console.log('TEST :', keywords)
     if (prop === 'isASmoker' || prop === 'is_medical_background') { setValues({ ...values, [prop]: event.target.checked }) } else { setValues({ ...values, [prop]: event.target.value }) }
   }
 
