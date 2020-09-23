@@ -11,7 +11,7 @@ export const postPatient = (values) => {
     isMedicalBackground: values.is_medical_background,
     problemHealth: values.problem_health,
     inTreatment: values.in_treatment
-  } 
+  }
 
   const reponses = axios
     .post(PATIENTS, item)

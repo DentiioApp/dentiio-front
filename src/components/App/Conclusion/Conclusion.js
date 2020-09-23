@@ -6,7 +6,7 @@ import { useDispatch } from 'react-redux'
 import {
   Paper,
   Typography,
-  TextareaAutosize,
+  TextareaAutosize
 } from '@material-ui/core/'
 import Grid from '@material-ui/core/Grid'
 import { makeStyles } from '@material-ui/core/styles'
@@ -23,13 +23,12 @@ import avatar from '../../../images/logoteeth_blue.png'
 const useStyles = makeStyles((theme) => (oStyle(theme, imgDesktop, imgMobile)))
 
 const Conclusion = (props) => {
-  const classes = useStyles()  
+  const classes = useStyles()
   const dispatch = useDispatch()
 
   const catchSubmit = async (event) => {
-    dispatch({type: UPDATE_LEVEL, level:'cliniccase'})
+    dispatch({ type: UPDATE_LEVEL, level: 'cliniccase' })
   }
-
 
   setup()
 
@@ -54,10 +53,10 @@ const Conclusion = (props) => {
               Conclusion
             </Typography>
             <form className={classes.form} noValidate>
- 
+
               <TextareaAutosize
-                aria-label="minimum height" 
-                rowsMin={3} placeholder="Conclusion"
+                aria-label='minimum height'
+                rowsMin={3} placeholder='Conclusion'
                 variant='outlined'
                 margin='normal'
                 required
@@ -65,7 +64,7 @@ const Conclusion = (props) => {
                 type='textarea'
                 id='conclusion'
                 autoComplete='current-conclusion'
-                //onKeyDown={(e) => e.keyCode !== 13 ? null : catchSubmit(e)}
+                // onKeyDown={(e) => e.keyCode !== 13 ? null : catchSubmit(e)}
                 onChange={props.onChange('conclusion')}
               />
 

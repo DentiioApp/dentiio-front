@@ -6,7 +6,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import {
   Paper,
   Typography,
-  TextareaAutosize,
+  TextareaAutosize
 } from '@material-ui/core/'
 import Grid from '@material-ui/core/Grid'
 import { makeStyles } from '@material-ui/core/styles'
@@ -27,12 +27,12 @@ const useStyles = makeStyles((theme) => (oStyle(theme, imgDesktop, imgMobile)))
 const Diagnostic = (props) => {
   const classes = useStyles()
   const pathologies = useSelector((state) => state.home.pathologies)
-  const symptomes = useSelector((state) => state.home.symptomes) 
+  const symptomes = useSelector((state) => state.home.symptomes)
 
   const dispatch = useDispatch()
   const catchSubmit = async (event) => {
     event.preventDefault()
-    dispatch({type: UPDATE_LEVEL, level:'treatplan'})
+    dispatch({ type: UPDATE_LEVEL, level: 'treatplan' })
   }
 
   setup()
@@ -60,8 +60,8 @@ const Diagnostic = (props) => {
             <form className={classes.form} noValidate>
 
               <TextareaAutosize
-                aria-label="minimum height" 
-                rowsMin={3} placeholder="diagnostic"
+                aria-label='minimum height'
+                rowsMin={3} placeholder='diagnostic'
                 variant='outlined'
                 margin='normal'
                 required
@@ -113,7 +113,6 @@ const Diagnostic = (props) => {
                   </MenuItem>
                 ))}
               </TextField>
-
 
               <div onClick={catchSubmit}>
                 <GradientBtn

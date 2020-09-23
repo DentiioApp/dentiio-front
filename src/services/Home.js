@@ -6,13 +6,13 @@ const KEYWORDS =
 const SPECIALITIES =
   process.env.REACT_APP_BACK_API_URL + process.env.REACT_APP_SPECIALITIES
 
-const TREATMENTS= 
+const TREATMENTS =
   process.env.REACT_APP_BACK_API_URL + process.env.REACT_APP_TREATMENTS
 
-const PATHOLOGIES= 
+const PATHOLOGIES =
   process.env.REACT_APP_BACK_API_URL + process.env.REACT_APP_PATHOLOGIES
 
-const SYMPTOMES= 
+const SYMPTOMES =
   process.env.REACT_APP_BACK_API_URL + process.env.REACT_APP_SYMPTOMES
 
 export const fetchKeywords = () => {
@@ -37,7 +37,7 @@ export const fetchSpecialities = () => {
   return reponses
 }
 
-export const fetchTreatments= () => {
+export const fetchTreatments = () => {
   const reponses = axios
     .get(TREATMENTS)
     .then((res) => ({
@@ -48,7 +48,7 @@ export const fetchTreatments= () => {
   return reponses
 }
 
-export const fetchPathologies= () => {
+export const fetchPathologies = () => {
   const reponses = axios
     .get(PATHOLOGIES)
     .then((res) => ({
@@ -59,7 +59,7 @@ export const fetchPathologies= () => {
   return reponses
 }
 
-export const fetchSymptomes= () => {
+export const fetchSymptomes = () => {
   const reponses = axios
     .get(SYMPTOMES)
     .then((res) => ({

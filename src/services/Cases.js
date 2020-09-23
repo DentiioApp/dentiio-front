@@ -38,40 +38,39 @@ export const addFavCase = (iUser, iItem) => {
 }
 
 export const postCase = (values) => {
-
   const item = {
-    age: values.ages,//
-    smoking: values.isASmoker,//
+    age: values.ages, //
+    smoking: values.isASmoker, //
     presentation: values.summary,
-    treatmentPlan: "jctttttt",//
+    treatmentPlan: 'jctttttt', //
     observation: values.global_desc,
-    evolution: values.evolution,//
-    conclusion: values.conclusion,//
-    createdAt: new Date().toISOString(),//
-    notations: ["/api/notations/"+9754],//
-  
+    evolution: values.evolution, //
+    conclusion: values.conclusion, //
+    createdAt: new Date().toISOString(), //
+    notations: ['/api/notations/' + 9754], //
+
     isEnabled: true,
 
-    patient:["api/patients/"+values.patient.id],
+    patient: ['api/patients/' + values.patient.id],
     symptome: values.symptomes,
     treatment: values.treatment,
     pathologie: values.pathologie,
-    /*"speciality": ["/api/specialities/"+<number>, /api/specialities/"+<number>],*/
-    title: values.title,//
-    slug: "sluuuuuuggguueeee",
+    /* "speciality": ["/api/specialities/"+<number>, /api/specialities/"+<number>], */
+    title: values.title, //
+    slug: 'sluuuuuuggguueeee',
     /*
     "imageClinicalCases": [
       "string"
-    ],*/
+    ], */
     keyword: values.keywords
   }
 
   const reponses = axios
-      .post(CLINICAL_CASES, item)
-      .then((res) => ({
-        message: 'OK',
-        datas: res.data['hydra:member']
-      }))
-      .catch((e) => JSON.stringify(e))
-    return reponses
-  } 
+    .post(CLINICAL_CASES, item)
+    .then((res) => ({
+      message: 'OK',
+      datas: res.data['hydra:member']
+    }))
+    .catch((e) => JSON.stringify(e))
+  return reponses
+}

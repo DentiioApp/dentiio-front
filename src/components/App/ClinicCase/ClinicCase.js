@@ -1,11 +1,11 @@
 import './clinicCase.scss'
 
 import React from 'react'
-import {  useSelector } from 'react-redux'
+import { useSelector } from 'react-redux'
 
 import {
   Paper,
-  Typography,
+  Typography
 } from '@material-ui/core/'
 import Grid from '@material-ui/core/Grid'
 import { makeStyles } from '@material-ui/core/styles'
@@ -21,14 +21,14 @@ import oStyle from '../../ResponsiveDesign/AuthStyle'
 import { setup } from '../../../services/Auth'
 import GradientBtn from '../../UI/buttons/GradientBtn'
 import config from '../../../config'
-import {postCase} from '../../../services/Cases'
+import { postCase } from '../../../services/Cases'
 import { postPatient } from '../../../services/Patient'
 
 const useStyles = makeStyles((theme) => (oStyle(theme, imgDesktop, imgMobile)))
 
 const ClinicCase = (props) => {
   const classes = useStyles()
-  //const dispatch = useDispatch()
+  // const dispatch = useDispatch()
   const messages = config.messages.auth
 
   const keywords = useSelector((state) => state.home.keywords)
@@ -38,8 +38,8 @@ const ClinicCase = (props) => {
     event.preventDefault()
     const regex2 = RegExp(/Error/)
     const patient = await postPatient(props.values)
-    if(!regex2.test(patient.message)) {
-      console.log('PATIE?T SAVED :', )
+    if (!regex2.test(patient.message)) {
+      console.log('PATIE?T SAVED :')
       const datas = await postCase(props.values)
       if (regex2.test(datas)) {
         return { message: messages.postCase.error, appearance: 'error' }
@@ -94,7 +94,6 @@ const ClinicCase = (props) => {
                 ))}
               </TextField>
 
-
               <Typography component='h1' variant='h5'>
                 Spécialités
               </Typography>
@@ -115,8 +114,7 @@ const ClinicCase = (props) => {
                   </MenuItem>
                 ))}
               </TextField>
-        
-             
+
               <br />  <br />
 
               <div onClick={catchSubmit}>

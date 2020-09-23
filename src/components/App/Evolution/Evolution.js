@@ -6,7 +6,7 @@ import { useDispatch } from 'react-redux'
 import {
   Paper,
   Typography,
-  TextareaAutosize,
+  TextareaAutosize
 } from '@material-ui/core/'
 import Grid from '@material-ui/core/Grid'
 import { makeStyles } from '@material-ui/core/styles'
@@ -29,7 +29,7 @@ const Evolution = (props) => {
 
   const catchSubmit = async (event) => {
     event.preventDefault()
-    dispatch({type: UPDATE_LEVEL, level:'conclusion'})
+    dispatch({ type: UPDATE_LEVEL, level: 'conclusion' })
   }
 
   setup()
@@ -55,10 +55,10 @@ const Evolution = (props) => {
               Evolution
             </Typography>
             <form className={classes.form} noValidate>
- 
+
               <TextareaAutosize
-                aria-label="minimum height" 
-                rowsMin={3} placeholder="evolution"
+                aria-label='minimum height'
+                rowsMin={3} placeholder='evolution'
                 variant='outlined'
                 margin='normal'
                 required
@@ -66,7 +66,7 @@ const Evolution = (props) => {
                 type='textarea'
                 id='evolution'
                 autoComplete='current-evolution'
-                //onKeyDown={(e) => e.keyCode !== 13 ? null : catchSubmit(e)}
+                // onKeyDown={(e) => e.keyCode !== 13 ? null : catchSubmit(e)}
                 onChange={props.onChange('evolution')}
               />
 

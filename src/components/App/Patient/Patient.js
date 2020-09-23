@@ -1,13 +1,13 @@
 import './patient.scss'
 
-import React  from 'react'
+import React from 'react'
 import { useDispatch } from 'react-redux'
 
 import {
   Paper,
   Switch,
   Typography,
-  TextareaAutosize,
+  TextareaAutosize
 } from '@material-ui/core/'
 import Grid from '@material-ui/core/Grid'
 import { makeStyles } from '@material-ui/core/styles'
@@ -35,18 +35,19 @@ const Patient = (props) => {
 
   const catchSubmit = async (event) => {
     event.preventDefault()
-    dispatch({type: INIT_PATIENT , data: {
-      age: props.values.age,
-      gender: props.values.gender,
-      isSmoker: props.values.isSmoker,
-      is_medical_background: props.values.is_medical_background,
-      problem_health: props.values.problem_health,
-      in_treatment: props.values.in_treatment,
-    }})
-    dispatch({type: UPDATE_LEVEL, level:'exam'})
+    dispatch({
+      type: INIT_PATIENT,
+      data: {
+        age: props.values.age,
+        gender: props.values.gender,
+        isSmoker: props.values.isSmoker,
+        is_medical_background: props.values.is_medical_background,
+        problem_health: props.values.problem_health,
+        in_treatment: props.values.in_treatment
+      }
+    })
+    dispatch({ type: UPDATE_LEVEL, level: 'exam' })
   }
-
-
 
   setup()
 
@@ -80,14 +81,13 @@ const Patient = (props) => {
                 variant='outlined'
                 value={props.values.age === undefined ? 18 : props.values.age}
               >
-                {ages && ages.map((index,value) => (
-                  <MenuItem key={index+1} value={value}>
+                {ages && ages.map((index, value) => (
+                  <MenuItem key={index + 1} value={value}>
                     {value}
                   </MenuItem>
                 ))}
               </TextField>
 
-        
               <InputLabel className='inputLabel'>
               Genre :
               </InputLabel>
@@ -126,7 +126,7 @@ const Patient = (props) => {
               <InputLabel className='inputLabel'>
               Antécedant medical
               </InputLabel>
-               <Switch
+              <Switch
                 checked={props.values.is_medical_background}
                 onChange={props.onChange('is_medical_background')}
                 color='primary'
@@ -139,8 +139,8 @@ const Patient = (props) => {
                 Probleme cardiaque
               </InputLabel>
               <TextareaAutosize
-                aria-label="minimum height" 
-                rowsMin={3} placeholder="Renseignez le(s) probleme(s) cardiaque"
+                aria-label='minimum height'
+                rowsMin={3} placeholder='Renseignez le(s) probleme(s) cardiaque'
                 variant='outlined'
                 margin='normal'
                 required
@@ -148,16 +148,16 @@ const Patient = (props) => {
                 type='textarea'
                 id='problem_health'
                 autoComplete='current-problem_health'
-                //onKeyDown={(e) => e.keyCode !== 13 ? null : catchSubmit(e)}
+                // onKeyDown={(e) => e.keyCode !== 13 ? null : catchSubmit(e)}
                 onChange={props.onChange('problem_health')}
               />
-              
+
               <InputLabel className='inputLabel'>
                 Sous traitement :
               </InputLabel>
               <TextareaAutosize
-                aria-label="minimum height" 
-                rowsMin={3} placeholder="Renseignez le(s) traitement(s)"
+                aria-label='minimum height'
+                rowsMin={3} placeholder='Renseignez le(s) traitement(s)'
                 variant='outlined'
                 margin='normal'
                 required
@@ -165,10 +165,9 @@ const Patient = (props) => {
                 type='textarea'
                 id='in_treatment'
                 autoComplete='current-in_treatment'
-                //onKeyDown={(e) => e.keyCode !== 13 ? null : catchSubmit(e)}
+                // onKeyDown={(e) => e.keyCode !== 13 ? null : catchSubmit(e)}
                 onChange={props.onChange('in_treatment')}
               />
-                
 
               <div onClick={catchSubmit}>
                 <GradientBtn

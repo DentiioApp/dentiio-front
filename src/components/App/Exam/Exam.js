@@ -7,7 +7,7 @@ import {
   Paper,
   Switch,
   Typography,
-  TextareaAutosize,
+  TextareaAutosize
 } from '@material-ui/core/'
 import Grid from '@material-ui/core/Grid'
 import { makeStyles } from '@material-ui/core/styles'
@@ -25,7 +25,6 @@ import { setup } from '../../../services/Auth'
 import logo from '../../../images/logo.svg'
 import avatar from '../../../images/logoteeth_blue.png'
 
-
 const useStyles = makeStyles((theme) => (oStyle(theme, imgDesktop, imgMobile)))
 
 const Exam = (props) => {
@@ -34,9 +33,8 @@ const Exam = (props) => {
 
   const catchSubmit = async (event) => {
     event.preventDefault()
-    dispatch({type: UPDATE_LEVEL, level:'diagnostic'})
+    dispatch({ type: UPDATE_LEVEL, level: 'diagnostic' })
   }
-
 
   setup()
 
@@ -61,7 +59,7 @@ const Exam = (props) => {
               Examen Clinique
             </Typography>
             <form className={classes.form} noValidate>
-              
+
               <Button variant='contained' component='label'>
                 <InputLabel className='inputLabel'>
                   Ajouter des Photos:
@@ -76,8 +74,8 @@ const Exam = (props) => {
               </Button>
 
               <TextareaAutosize
-                aria-label="minimum height" 
-                rowsMin={3} placeholder="Description intraorale et extraorale"
+                aria-label='minimum height'
+                rowsMin={3} placeholder='Description intraorale et extraorale'
                 variant='outlined'
                 margin='normal'
                 required
@@ -85,38 +83,38 @@ const Exam = (props) => {
                 type='textarea'
                 id='intra_extra_oral_desc'
                 autoComplete='current-intra_extra_oral_desc'
-                //onKeyDown={(e) => e.keyCode !== 13 ? null : catchSubmit(e)}
+                // onKeyDown={(e) => e.keyCode !== 13 ? null : catchSubmit(e)}
                 onChange={props.onChange('intra_extra_oral_desc')}
               />
 
               <Typography component='h1' variant='h5'>
                 Examen Complementaire
               </Typography>
-              
+
               <InputLabel className='inputLabel'>
                 Probleme cardiaque
               </InputLabel>
               <TextareaAutosize
-                aria-label="minimum height" 
-                rowsMin={3} placeholder="Renseignez le(s) probleme(s) cardiaque"
+                aria-label='minimum height'
+                rowsMin={3} placeholder='Renseignez le(s) probleme(s) cardiaque'
                 variant='outlined'
                 margin='normal'
                 required
-                
+
                 name='problem_health'
                 type='textarea'
                 id='problem_health'
                 autoComplete='current-problem_health'
-                //onKeyDown={(e) => e.keyCode !== 13 ? null : catchSubmit(e)}
+                // onKeyDown={(e) => e.keyCode !== 13 ? null : catchSubmit(e)}
                 onChange={props.onChange('problem_health')}
               />
-              
+
               <InputLabel className='inputLabel'>
                 Sous traitement :
               </InputLabel>
               <TextareaAutosize
-                aria-label="minimum height" 
-                rowsMin={3} placeholder="Renseignez le(s) traitement(s)"
+                aria-label='minimum height'
+                rowsMin={3} placeholder='Renseignez le(s) traitement(s)'
                 variant='outlined'
                 margin='normal'
                 required
@@ -124,11 +122,11 @@ const Exam = (props) => {
                 type='textarea'
                 id='in_treatment'
                 autoComplete='current-in_treatment'
-                //onKeyDown={(e) => e.keyCode !== 13 ? null : catchSubmit(e)}
+                // onKeyDown={(e) => e.keyCode !== 13 ? null : catchSubmit(e)}
                 onChange={props.onChange('in_treatment')}
               />
-                
-              <hr/>
+
+              <hr />
 
               <div onClick={catchSubmit}>
                 <GradientBtn

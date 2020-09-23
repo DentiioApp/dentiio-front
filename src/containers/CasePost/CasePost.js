@@ -9,8 +9,8 @@ import Evolution from '../../components/App/Evolution/Evolution'
 import Conclusion from '../../components/App/Conclusion/Conclusion'
 import ClinicCase from '../../components/App/ClinicCase/ClinicCase'
 import TreatPlan from '../../components/App/TreatPlan/TreatPlan'
-import {fetchSpecialities, fetchPathologies, fetchKeywords, fetchTreatments, fetchSymptomes} from '../../services/Home'
-import {SPECS_LIST, KEYWORDS_LIST, PATHO_LIST, TREATMENTS_LIST, SYMPTOMES_LIST} from '../../store/actions'
+import { fetchSpecialities, fetchPathologies, fetchKeywords, fetchTreatments, fetchSymptomes } from '../../services/Home'
+import { SPECS_LIST, KEYWORDS_LIST, PATHO_LIST, TREATMENTS_LIST, SYMPTOMES_LIST } from '../../store/actions'
 
 const CasePost = () => {
   const home = useSelector((state) => state.home)
@@ -23,37 +23,37 @@ const CasePost = () => {
 
   const dispatch = useDispatch()
 
-  const getSpecialities = async() => {
+  const getSpecialities = async () => {
     const specialitiesLoaded = await fetchSpecialities()
-    dispatch({type: SPECS_LIST, data: specialitiesLoaded.datas})
+    dispatch({ type: SPECS_LIST, data: specialitiesLoaded.datas })
   }
 
-  const getKeywords = async() => {
+  const getKeywords = async () => {
     const keywordsLoaded = await fetchKeywords()
-    dispatch({type: KEYWORDS_LIST, keywords: keywordsLoaded.datas})
+    dispatch({ type: KEYWORDS_LIST, keywords: keywordsLoaded.datas })
   }
 
-  const getPathologies = async() => {
+  const getPathologies = async () => {
     const pathologiesLoaded = await fetchPathologies()
-    dispatch({type: PATHO_LIST, data: pathologiesLoaded.datas})
+    dispatch({ type: PATHO_LIST, data: pathologiesLoaded.datas })
   }
 
-  const getTreatments = async() => {
+  const getTreatments = async () => {
     const treatmentsLoaded = await fetchTreatments()
-    dispatch({type: TREATMENTS_LIST, data: treatmentsLoaded.datas})
+    dispatch({ type: TREATMENTS_LIST, data: treatmentsLoaded.datas })
   }
 
-  const getSymptomes = async() => {
+  const getSymptomes = async () => {
     const symptomesLoaded = await fetchSymptomes()
-    dispatch({type: SYMPTOMES_LIST, data: symptomesLoaded.datas})
+    dispatch({ type: SYMPTOMES_LIST, data: symptomesLoaded.datas })
   }
 
   useEffect(() => {
-    if (specialities && specialities.length < 1) {getSpecialities()}
-    if (keywords && keywords.length < 1) {getKeywords()}
-    if (pathologies && pathologies.length < 1) {getPathologies()}
-    if (treatments && treatments.length < 1) {getTreatments()}
-    if (symptomes && symptomes.length < 1) {getSymptomes()}
+    if (specialities && specialities.length < 1) { getSpecialities() }
+    if (keywords && keywords.length < 1) { getKeywords() }
+    if (pathologies && pathologies.length < 1) { getPathologies() }
+    if (treatments && treatments.length < 1) { getTreatments() }
+    if (symptomes && symptomes.length < 1) { getSymptomes() }
   })
 
   const initValues = {
@@ -81,14 +81,14 @@ const CasePost = () => {
     summary: '',
     keywords: [],
     specialities: [],
-    pathologies: [],
+    pathologies: []
   }
 
   const [values, setValues] = useState(initValues)
 
-  const handleChange = prop => event => {console.log('TEST :', keywords)
-    if (prop === 'isSmoker' || prop === 'is_medical_background') { setValues({ ...values, [prop]: event.target.checked }) } 
-    else { setValues({ ...values, [prop]: event.target.value }) }
+  const handleChange = prop => event => {
+    console.log('TEST :', keywords)
+    if (prop === 'isSmoker' || prop === 'is_medical_background') { setValues({ ...values, [prop]: event.target.checked }) } else { setValues({ ...values, [prop]: event.target.value }) }
   }
 
   let form
@@ -96,32 +96,31 @@ const CasePost = () => {
   switch (level) {
     case 'exam':
       form = <Exam onChange={handleChange} values={values} />
-      break;
+      break
     case 'diagnostic':
-      form= <Diagnostic onChange={handleChange} values={values} />
-      break;
+      form = <Diagnostic onChange={handleChange} values={values} />
+      break
     case 'treatplan':
-      form= <TreatPlan onChange={handleChange} values={values} />
-      break;
+      form = <TreatPlan onChange={handleChange} values={values} />
+      break
     case 'evolution':
-      form= <Evolution onChange={handleChange} values={values} />
-      break;
+      form = <Evolution onChange={handleChange} values={values} />
+      break
     case 'conclusion':
-      form= <Conclusion onChange={handleChange} values={values} />
-      break;
+      form = <Conclusion onChange={handleChange} values={values} />
+      break
     case 'cliniccase':
-      form= <ClinicCase onChange={handleChange} values={values} />
-      break;
+      form = <ClinicCase onChange={handleChange} values={values} />
+      break
     default:
-      form= <Patient onChange={handleChange} values={values} />
+      form = <Patient onChange={handleChange} values={values} />
   }
-  
 
   return (
     <>
       <Header />
       <ModalGuidelinesPostCase />
-      
+
       {form}
 
     </>

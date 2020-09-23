@@ -22,5 +22,4 @@ export const PATHO_LIST = 'PATHO_LIST'
 export const TREATMENTS_LIST = 'TREATMENTS_LIST'
 export const SYMPTOMES_LIST = 'SYMPTOMES_LIST'
 
-
 export { logUser, registerUser, cardSave, addFav }
