@@ -1,5 +1,6 @@
 import './caseItem.scss'
-import React from 'react'
+import React ,{ useEffect} from 'react'
+import { useDispatch, useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
 import Card from '@material-ui/core/Card'
 import CardMedia from '@material-ui/core/CardMedia'
@@ -15,10 +16,10 @@ import ChatIcon from '@material-ui/icons/Chat'
 import StarHalfIcon from '@material-ui/icons/StarHalf'
 
 const CasesItem = (props) => {
-
+  
   return (
     <Card className='root' key={props.item.id}>
-      <FavButton alt='favorite' value={props.item} /* bool={props.isFavorite} *//>
+      <FavButton alt='favorite' value={props.item} isFavorite={props.favorite} />
       <Link to={`/case/${props.item.id}`} style={{ textDecoration: 'none' }}>
         <CardMedia
           className='media'

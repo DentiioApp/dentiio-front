@@ -2,6 +2,7 @@
 import { logUser, cardSave } from './Auth'
 
 export const ADD_FAVORITE = 'ADD_FAVORITE'
+export const INIT_FAV_CASE = 'INIT_FAV_CASE'
 export const CARD_STATE = 'CARD_STATE'
 export const CASE_ITEM = 'CASE_ITEM'
 export const CASES_LIST = 'CASES_LIST'

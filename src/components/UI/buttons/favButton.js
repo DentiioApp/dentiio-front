@@ -30,11 +30,12 @@ const Favorites = (props) => {
     HandleFav(props.value)
   }
 
-  if (props.bool === 1) {
+  if (props.isFavorite === true) {
     return (
       <Button
         variant='contained'
         style={{ float: 'right', backgroundColor: 'white' }}
+        onClick={handleChange('remove')}
       >
         <StarIcon fontSize='medium' color='primary' />
       </Button>
@@ -45,7 +46,7 @@ const Favorites = (props) => {
       size='small'
       variant='contained'
       style={{ float: 'right', backgroundColor: 'white' }}
-      onClick={handleChange('item')}
+      onClick={handleChange('add')}
     >
       <StarBorderIcon color='primary' />
     </Button>

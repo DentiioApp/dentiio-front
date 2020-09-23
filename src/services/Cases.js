@@ -1,10 +1,12 @@
 import axios from 'axios'
-import jwtDecode from 'jwt-decode'
 
 const CLINICAL_CASES =
   process.env.REACT_APP_BACK_API_URL + process.env.REACT_APP_CLINICAL_CASES
 const FAVORITES =
   process.env.REACT_APP_BACK_API_URL + process.env.REACT_APP_FAVORITES
+
+const USERFAVORITES =
+  process.env.REACT_APP_BACK_API_URL + process.env.REACT_APP_USERS + '/1/' +process.env.REACT_APP_FAVORITES
 
 export const fetchCases = (page) => {
   const reponses = axios
@@ -35,6 +37,18 @@ export const addFavCase = (data) => {
     .catch((e) => JSON.stringify(e))
   return reponses
 }
+
+export const fetchUserFav = () => {
+  const reponses = axios
+    .get(USERFAVORITES)
+    .then((res) => ({
+      message: 'OK',
+      datas: res.data['hydra:member']
+    }))
+    .catch((e) => JSON.stringify(e))
+  return reponses
+}
+
 
 export const postCase = (values, patient) => {
   const item = {
