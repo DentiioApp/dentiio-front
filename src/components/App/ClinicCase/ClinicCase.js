@@ -87,6 +87,7 @@ const ClinicCase = (props) => {
                 className='textField'
                 id='specialities'
                 select
+                multiline
                 onChange={props.onChange('specialities')}
                 variant='outlined'
               >

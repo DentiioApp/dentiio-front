@@ -22,6 +22,9 @@ const INIT_STATE = {
   internet: false,
 
   keywords: [],
+  specialities: [],
+  treatments: [],
+  pathologies: [],
 
   level:''
 }
@@ -39,6 +42,9 @@ export const Home = (state = INIT_STATE, action) => {
     case 'LOAD_INTERNET': return { ...state, internet: navigator.onLine }
 
     case 'UPDATE_LEVEL': return { ...state, level: action.level }
+    case 'SPECS_LIST': return { ...state, specialities: action.data}
+    case 'TREATMENTS_LIST' : return { ...state, treatments: action.data}
+    case 'PATHO_LIST' : return { ...state, pathologies: action.data}
 
     default:
       return state

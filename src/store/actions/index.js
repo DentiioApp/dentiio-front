@@ -17,5 +17,9 @@ export const FILTERED_CASES = 'FILTERED_CASES'
 export const STATUS_FORM = 'STATUS_FORM'
 export const UPDATE_LEVEL = 'UPDATE_LEVEL'
 export const INIT_PATIENT = 'INIT_PATIENT'
+export const SPECS_LIST = 'SPECS_LIST'
+export const PATHO_LIST = 'PATHO_LIST'
+export const TREATMENTS_LIST = 'TREATMENTS_LIST'
+
 
 export { logUser, registerUser, cardSave, addFav }

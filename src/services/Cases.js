@@ -37,30 +37,44 @@ export const addFavCase = (iUser, iItem) => {
   return reponses
 }
 
-export const postCase = (/*item*/) => {
+export const postCase = (values) => {
+  let symptome = []
+  const fetchSymptome = values.symptome.map((value)=>{
+    symptome.push("/api/symptomes/"+value)
+  })
+
+  let treatment = []
+  const fetchTreatment = values.treatment.map((value)=>{
+    treatment.push("/api/treatments/"+value)
+  })
+
+  let pathologie = []
+  const fetchPathologie = values.pathologie.map((value)=>{
+    pathologie.push("/api/pathologies/"+value)
+  })
+
+  let keyword = []
+  const fetchKeyword = values.keyword.map((value)=>{
+    keyword.push("/api/keywords/"+value)
+  })
+
   const item = {
-    age: 0,
-    smoking: true,
-    presentation: "hgkgkhg",
+    age: values.ages,
+    smoking: values.isASmoker,
+    presentation: values.summary,
     treatmentPlan: "jctttttt",
-    observation: "zzzzzzz",
-    evolution: "aaaaaaaa",
-    conclusion: "ssssssssssss",
-    createdAt: "2020-09-22T09:09:37.518Z",
+    observation: values.global_desc,
+    evolution: values.evolution,
+    conclusion: values.conclusion,
+    createdAt: new Date().toISOString(),
     notations: ["/api/notations/"+9754],
   
     isEnabled: true,
-    patient: {
-      age: 0,
-      gender: "Monsieur",
-      isASmoker: true,
-      isMedicalBackground: true,
-      problemHealth: "yes",
-      inTreatment: "yes"
-    },
-    symptome: ["/api/symptomes/"+66],
-    treatment: ["/api/treatments/"+40],
-    pathologie: ["/api/pathologies/"+40],
+
+    patient:["api/patients/"+values.patient.id],
+    symptome: symptome,
+    treatment: treatment,
+    pathologie: pathologie,
     /*"speciality": ["/api/specialities/"+<number>, /api/specialities/"+<number>],*/
     title: "Titrrreeeeeee",
     slug: "sluuuuuuggguueeee",
@@ -68,7 +82,7 @@ export const postCase = (/*item*/) => {
     "imageClinicalCases": [
       "string"
     ],*/
-    keyword: ["/api/keywords/"+66]
+    keyword: keyword
   }
 
   const reponses = axios
