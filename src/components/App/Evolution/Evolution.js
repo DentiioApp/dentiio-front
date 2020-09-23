@@ -32,6 +32,10 @@ const Evolution = (props) => {
     dispatch({ type: UPDATE_LEVEL, level: 'conclusion' })
   }
 
+  const catchOnmit = async (event) => {
+    event.preventDefault()
+    dispatch({ type: UPDATE_LEVEL, level: 'treatplan' })
+  }
   setup()
 
   return (
@@ -70,13 +74,23 @@ const Evolution = (props) => {
                 onChange={props.onChange('evolution')}
               />
 
-              <div onClick={catchSubmit}>
-                <GradientBtn
-                  variant='contained'
-                  type='submit'
-                  description='SUIVANT'
-                  className='GradientBtn'
-                />
+              <div className='row'>
+                <div onClick={catchOnmit}>
+                  <GradientBtn
+                    variant='contained'
+                    type='submit'
+                    description='PRECEDENT'
+                    className='GradientBtn'
+                  />
+                </div>
+                <div onClick={catchSubmit}>
+                  <GradientBtn
+                    variant='contained'
+                    type='submit'
+                    description='SUIVANT'
+                    className='GradientBtn'
+                  />
+                </div>
               </div>
             </form>
           </div>

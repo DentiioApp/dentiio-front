@@ -30,9 +30,15 @@ const TreatPlan = (props) => {
   const classes = useStyles()
   const dispatch = useDispatch()
   const treatments = useSelector((state) => state.home.treatments)
+
   const catchSubmit = async (event) => {
     event.preventDefault()
     dispatch({ type: UPDATE_LEVEL, level: 'evolution' })
+  }
+
+  const catchOnmit = async (event) => {
+    event.preventDefault()
+    dispatch({ type: UPDATE_LEVEL, level: 'diagnostic' })
   }
 
   setup()
@@ -157,13 +163,23 @@ const TreatPlan = (props) => {
                 ))}
               </TextField>
 
-              <div onClick={catchSubmit}>
-                <GradientBtn
-                  variant='contained'
-                  type='submit'
-                  description='Suivant'
-                  className='GradientBtn'
-                />
+              <div className='row'>
+                <div onClick={catchOnmit}>
+                  <GradientBtn
+                    variant='contained'
+                    type='submit'
+                    description='PRECEDENT'
+                    className='GradientBtn'
+                  />
+                </div>
+                <div onClick={catchSubmit}>
+                  <GradientBtn
+                    variant='contained'
+                    type='submit'
+                    description='SUIVANT'
+                    className='GradientBtn'
+                  />
+                </div>
               </div>
             </form>
           </div>

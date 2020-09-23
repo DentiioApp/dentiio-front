@@ -47,6 +47,11 @@ const Diagnostic = (props) => {
       dispatch({ type: UPDATE_LEVEL, level: 'treatplan' })
   }
 
+  const catchOnmit = async (event) => {
+    event.preventDefault()
+    dispatch({ type: UPDATE_LEVEL, level: 'exam' })
+  }
+
   setup()
 
   return (
@@ -77,6 +82,7 @@ const Diagnostic = (props) => {
                 variant='outlined'
                 label="Intraorale et extraorale"
                 multiline
+                fullWidth
                 margin='dense'
                 required
                 name='diagnostic'
@@ -86,6 +92,8 @@ const Diagnostic = (props) => {
                 onChange={props.onChange('diagnostic')}
                 error={errors.errDiagnostic}
               />
+
+              <br /> <br />
 
               <Typography component='h1' variant='h5'>
                 Pathologies
@@ -111,6 +119,8 @@ const Diagnostic = (props) => {
                 ))}
               </TextField>
 
+              <br /> <br />
+
               <Typography component='h1' variant='h5'>
                 Symptomes
               </Typography>
@@ -135,13 +145,25 @@ const Diagnostic = (props) => {
                 ))}
               </TextField>
 
-              <div onClick={catchSubmit}>
-                <GradientBtn
-                  variant='contained'
-                  type='submit'
-                  description='SUIVANT'
-                  className='GradientBtn'
-                />
+              <br /> <br />
+
+              <div className='row'>
+                <div onClick={catchOnmit}>
+                  <GradientBtn
+                    variant='contained'
+                    type='submit'
+                    description='PRECEDENT'
+                    className='GradientBtn'
+                  />
+                </div>
+                <div onClick={catchSubmit}>
+                  <GradientBtn
+                    variant='contained'
+                    type='submit'
+                    description='SUIVANT'
+                    className='GradientBtn'
+                  />
+                </div>
               </div>
             </form>
           </div>

@@ -34,8 +34,9 @@ const useStyles = makeStyles((theme) => (oStyle(theme, imgDesktop, imgMobile)))
 const Patient = (props) => {
   const classes = useStyles()
   const dispatch = useDispatch()
+
   const {ages, sexes}  = config
-  console.log('TEST :',sexes )
+
   const initVals = {
     errAge: false,
     errGender: false,
@@ -55,7 +56,7 @@ const Patient = (props) => {
     if(isValid)
       dispatch({ type: UPDATE_LEVEL, level: 'exam' })
   }
-
+  
   setup()
 
   return (
@@ -102,7 +103,7 @@ const Patient = (props) => {
               <TextField
                 className='textField'
                 id='gender'
-                label="Genre"
+                label="HOMME / FEMME"
                 select
                 fullWidth
                 value={props.values.gender === undefined ? 'M' : props.values.gender}
@@ -198,7 +199,7 @@ const Patient = (props) => {
                 <GradientBtn
                   variant='contained'
                   type='submit'
-                  description='Suivant'
+                  description='SUIVANT'
                   className='GradientBtn'
                 />
               </div>

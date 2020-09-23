@@ -55,6 +55,7 @@ const CasesList = () => {
     <>
       <Container maxWidth='lg'>
         <center><img src={titleSvg} alt='Cas Cliniques' /></center>
+        <Paginator pages={pages} onChange={handleChange} />
         <div className={classes.root}>
           {areLoaded && cases.map((oCase, index) => (
             <CasesItem key={index} item={oCase} />

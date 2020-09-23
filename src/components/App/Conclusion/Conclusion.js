@@ -30,6 +30,11 @@ const Conclusion = (props) => {
     dispatch({ type: UPDATE_LEVEL, level: 'cliniccase' })
   }
 
+  const catchOnmit = async (event) => {
+    event.preventDefault()
+    dispatch({ type: UPDATE_LEVEL, level: 'evolution' })
+  }
+
   setup()
 
   return (
@@ -68,13 +73,23 @@ const Conclusion = (props) => {
                 onChange={props.onChange('conclusion')}
               />
 
-              <div onClick={catchSubmit}>
-                <GradientBtn
-                  variant='contained'
-                  type='submit'
-                  description='SUIVANT'
-                  className='GradientBtn'
-                />
+              <div className='row'>
+                <div onClick={catchOnmit}>
+                  <GradientBtn
+                    variant='contained'
+                    type='submit'
+                    description='PRECEDENT'
+                    className='GradientBtn'
+                  />
+                </div>
+                <div onClick={catchSubmit}>
+                  <GradientBtn
+                    variant='contained'
+                    type='submit'
+                    description='SUIVANT'
+                    className='GradientBtn'
+                  />
+                </div>
               </div>
             </form>
           </div>

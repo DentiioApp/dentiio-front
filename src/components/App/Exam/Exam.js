@@ -48,6 +48,11 @@ const Exam = (props) => {
       dispatch({ type: UPDATE_LEVEL, level: 'diagnostic' })
     }
 
+    const catchOnmit = async (event) => {
+      event.preventDefault()
+      dispatch({ type: UPDATE_LEVEL, level: '' })
+    }
+
   setup()
 
   return (
@@ -106,9 +111,6 @@ const Exam = (props) => {
                 Examen Complementaire
               </Typography>
 
-              <InputLabel className='inputLabel'>
-                Probleme cardiaque
-              </InputLabel>
               <TextField
                 aria-label='minimum height'
                 placeholder='Renseignez le(s) probleme(s) cardiaque'
@@ -126,15 +128,12 @@ const Exam = (props) => {
                 error={errors.errProblem_health}
               />
 
-              <InputLabel className='inputLabel'>
-                Nom de l'examen
-              </InputLabel>
               <TextField
                 aria-label='minimum height'
                 placeholder="Renseignez le nom l'examen"
                 variant='outlined'
                 margin='dense'
-                label="Probleme cardiaque"
+                label="Nom de l'examen"
                 multiline
                 required
                 name='exam_name'
@@ -145,13 +144,23 @@ const Exam = (props) => {
                 error={errors.errExam_name}
               />
 
-              <div onClick={catchSubmit}>
-                <GradientBtn
-                  variant='contained'
-                  type='submit'
-                  description='SUIVANT'
-                  className='GradientBtn'
-                />
+              <div className='row'>
+                <div onClick={catchOnmit}>
+                  <GradientBtn
+                    variant='contained'
+                    type='submit'
+                    description='PRECEDENT'
+                    className='GradientBtn'
+                  />
+                </div>
+                <div onClick={catchSubmit}>
+                  <GradientBtn
+                    variant='contained'
+                    type='submit'
+                    description='SUIVANT'
+                    className='GradientBtn'
+                  />
+                </div>
               </div>
             </form>
           </div>

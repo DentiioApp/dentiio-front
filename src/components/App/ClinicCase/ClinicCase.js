@@ -1,8 +1,9 @@
 import './clinicCase.scss'
 
 import React from 'react'
-import { useSelector } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
 import { useToasts } from 'react-toast-notifications'
+
 import {
   Paper,
   Typography
@@ -21,6 +22,7 @@ import oStyle from '../../ResponsiveDesign/AuthStyle'
 import { setup } from '../../../services/Auth'
 import GradientBtn from '../../UI/buttons/GradientBtn'
 
+import { UPDATE_LEVEL } from '../../../store/actions'
 import config from '../../../config'
 import { postCase } from '../../../services/Cases'
 import { postPatient } from '../../../services/Patient'
@@ -29,6 +31,7 @@ const useStyles = makeStyles((theme) => (oStyle(theme, imgDesktop, imgMobile)))
 
 const ClinicCase = (props) => {
   const classes = useStyles()
+  const dispatch = useDispatch()
   const { addToast } = useToasts()
   const messages = config.messages.cases
 
@@ -55,6 +58,11 @@ const ClinicCase = (props) => {
         }
       }
     }
+  }
+
+  const catchOnmit = async (event) => {
+    event.preventDefault()
+    dispatch({ type: UPDATE_LEVEL, level: 'conclusion' })
   }
 
   setup()
@@ -159,6 +167,14 @@ const ClinicCase = (props) => {
 
               <br />  <br />
 
+              <div onClick={catchOnmit}>
+                <GradientBtn
+                  variant='contained'
+                  type='submit'
+                  description='PRECEDENT'
+                  className='GradientBtn'
+                />
+              </div>
               <div onClick={catchSubmit}>
                 <GradientBtn
                   variant='contained'
