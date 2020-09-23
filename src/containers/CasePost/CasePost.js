@@ -79,7 +79,7 @@ const CasePost = () => {
     symptomes: [],
     title: '',
     summary: '',
-    keywords: '',
+    keywords: [],
     specialities: [],
     pathologies: [],
   }

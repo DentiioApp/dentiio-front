@@ -22,6 +22,7 @@ import { setup } from '../../../services/Auth'
 import GradientBtn from '../../UI/buttons/GradientBtn'
 import config from '../../../config'
 import {postCase} from '../../../services/Cases'
+import { postPatient } from '../../../services/Patient'
 
 const useStyles = makeStyles((theme) => (oStyle(theme, imgDesktop, imgMobile)))
 
@@ -35,12 +36,16 @@ const ClinicCase = (props) => {
 
   const catchSubmit = async (event) => {
     event.preventDefault()
-    const datas = await postCase(props.values)
     const regex2 = RegExp(/Error/)
-    if (regex2.test(datas)) {
-      return { message: messages.postCase.error, appearance: 'error' }
-    } else {
-      return { message: messages.postCase.success, appearance: 'success' }
+    const patient = await postPatient(props.values)
+    if(!regex2.test(patient.message)) {
+      console.log('PATIE?T SAVED :', )
+      const datas = await postCase(props.values)
+      if (regex2.test(datas)) {
+        return { message: messages.postCase.error, appearance: 'error' }
+      } else {
+        return { message: messages.postCase.success, appearance: 'success' }
+      }
     }
   }
 
@@ -73,13 +78,13 @@ const ClinicCase = (props) => {
               </Typography>
               <TextField
                 className='textField'
-                id='keyword'
+                id='keywords'
                 select
-                onChange={props.onChange('keyword')}
+                onChange={props.onChange('keywords')}
                 variant='outlined'
                 SelectProps={{
                   multiple: true,
-                  value: props.values.keyword
+                  value: props.values.keywords
                 }}
               >
                 {keywords && keywords.map((value) => (
