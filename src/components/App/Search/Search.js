@@ -1,5 +1,5 @@
 // import Icon from "../../../images/titleHeader.svg";
-import { TextField, makeStyles } from "@material-ui/core";
+import { TextField, makeStyles, Button } from "@material-ui/core";
 import Autocomplete from "@material-ui/lab/Autocomplete";
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
@@ -11,7 +11,22 @@ import "./Search.scss";
 
 const useStyles = makeStyles((theme) => ({
   barWidth: {
-    minWidth: '40% !important',
+    minWidth: "50%",
+    width: "50%",
+    [theme.breakpoints.down("sm")]: {
+      width: "90%",
+    },
+  },
+  
+  categoryButton: {
+    backgroundColor: "#82ccdd",
+    margin: "41px 10px 7px 10px",
+    height: "54px",
+    fontWeight: "bold",
+    color: "white",
+    "&:hover": {
+      backgroundColor: "#03B6F0",
+    },
   },
 })); 
 
@@ -25,6 +40,8 @@ const Search = (props) => {
   const items = useSelector((state) => state.home.cases);
   const [values, setValues] = useState(initValues);
   const dispatch = useDispatch();
+  
+ 
 
   const loadKeywords = async () => {
     const keywordsLoad = await tryKeywords();
@@ -69,7 +86,16 @@ const Search = (props) => {
   return (
     <div className="wrap">
       <div className="search">
+        <div>
+          <Button
+            className={classes.categoryButton}
+            variant="contained"
+          >
+            Toutes les catégories
+          </Button>
+        </div>
         {/* <SearchIcon /> */}
+
         <Autocomplete
           className={classes.barWidth}
           id="grouped-demo"
@@ -90,16 +116,6 @@ const Search = (props) => {
             />
           )}
         />
-        {/*
-        <input
-           onChange={(e) => onTextChanged(e)}
-           type="text"
-           value={values.text}
-           id="search-input"
-           placeholder="search"
-           className="searchTerm"
-         />
-        */}
 
         {/* <button className="searchButton">
           <img alt="Search" src={icon} />
