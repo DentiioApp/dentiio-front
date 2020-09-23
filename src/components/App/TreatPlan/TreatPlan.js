@@ -145,10 +145,13 @@ const TreatPlan = (props) => {
                 select
                 onChange={props.onChange('treatment')}
                 variant='outlined'
-                value={props.values.treatment}
+                SelectProps={{
+                  multiple: true,
+                  value: props.values.treatment
+                }}
               >
                 {treatments && treatments.map((value) => (
-                  <MenuItem key={value.id} value={value.id}>
+                  <MenuItem key={value['@id']} value={value['@id']}>
                     {value.name}
                   </MenuItem>
                 ))}

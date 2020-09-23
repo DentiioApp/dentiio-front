@@ -34,7 +34,7 @@ const Diagnostic = (props) => {
     event.preventDefault()
     dispatch({type: UPDATE_LEVEL, level:'treatplan'})
   }
-  console.log('props :', props.values)
+
   setup()
 
   return (
@@ -77,18 +77,17 @@ const Diagnostic = (props) => {
               </Typography>
               <TextField
                 className='textField'
-                id='pathologie'
+                id='pathologies'
                 select
-                onChange={props.onChange('pathologie')}
+                onChange={props.onChange('pathologies')}
                 variant='outlined'
                 SelectProps={{
                   multiple: true,
                   value: props.values.pathologies
                 }}
-                //value={props.values.pathologie}
               >
                 {pathologies && pathologies.map((value) => (
-                  <MenuItem key={value.id} value={value.id}>
+                  <MenuItem key={value['@id']} value={value['@id']}>
                     {value.name}
                   </MenuItem>
                 ))}
@@ -109,7 +108,7 @@ const Diagnostic = (props) => {
                 }}
               >
                 {symptomes && symptomes.map((value) => (
-                  <MenuItem key={value.id} value={value.id}>
+                  <MenuItem key={value['@id']} value={value['@id']}>
                     {value.name}
                   </MenuItem>
                 ))}

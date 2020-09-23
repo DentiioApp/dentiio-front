@@ -68,32 +68,44 @@ const ClinicCase = (props) => {
                 Ajouter votre cas clinique
               </Typography>
 
-
+              <Typography component='h1' variant='h5'>
+                Mot clés
+              </Typography>
               <TextField
                 className='textField'
-                id='keywords'
+                id='keyword'
                 select
-                multiline
-                onChange={props.onChange('keywords')}
+                onChange={props.onChange('keyword')}
                 variant='outlined'
+                SelectProps={{
+                  multiple: true,
+                  value: props.values.keyword
+                }}
               >
                 {keywords && keywords.map((value) => (
-                  <MenuItem key={value.id} value={value.id}>
+                  <MenuItem key={value['@id']} value={value['@id']}>
                     {value.name}
                   </MenuItem>
                 ))}
               </TextField>
 
+
+              <Typography component='h1' variant='h5'>
+                Spécialités
+              </Typography>
               <TextField
                 className='textField'
                 id='specialities'
                 select
-                multiline
                 onChange={props.onChange('specialities')}
                 variant='outlined'
+                SelectProps={{
+                  multiple: true,
+                  value: props.values.specialities
+                }}
               >
                 {specialities && specialities.map((value) => (
-                  <MenuItem key={value.id} value={value.id}>
+                  <MenuItem key={value['@id']} value={value['@id']}>
                     {value.name}
                   </MenuItem>
                 ))}

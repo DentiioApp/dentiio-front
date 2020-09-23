@@ -25,12 +25,12 @@ const CasePost = () => {
 
   const getSpecialities = async() => {
     const specialitiesLoaded = await fetchSpecialities()
-    dispatch({type: SPECS_LIST, data:specialitiesLoaded})
+    dispatch({type: SPECS_LIST, data: specialitiesLoaded.datas})
   }
 
   const getKeywords = async() => {
     const keywordsLoaded = await fetchKeywords()
-    dispatch({type: KEYWORDS_LIST, data:keywordsLoaded})
+    dispatch({type: KEYWORDS_LIST, data: keywordsLoaded.datas})
   }
 
   const getPathologies = async() => {
@@ -40,7 +40,7 @@ const CasePost = () => {
 
   const getTreatments = async() => {
     const treatmentsLoaded = await fetchTreatments()
-    dispatch({type: TREATMENTS_LIST, data: treatmentsLoaded})
+    dispatch({type: TREATMENTS_LIST, data: treatmentsLoaded.datas})
   }
 
   const getSymptomes = async() => {
@@ -68,7 +68,7 @@ const CasePost = () => {
     global_desc: '',
     medication_administered: [],
     treatments: [],
-
+    treatment: [],
     intra_extra_oral_desc: '',
 
     diagnostic: '',
@@ -79,14 +79,14 @@ const CasePost = () => {
     symptomes: [],
     title: '',
     summary: '',
-    keywords: [],
+    keywords: '',
     specialities: [],
     pathologies: [],
   }
 
   const [values, setValues] = useState(initValues)
 
-  const handleChange = prop => event => {
+  const handleChange = prop => event => {console.log('TEST :', values)
     if (prop === 'isSmoker' || prop === 'is_medical_background') { setValues({ ...values, [prop]: event.target.checked }) } 
     else { setValues({ ...values, [prop]: event.target.value }) }
   }

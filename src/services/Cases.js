@@ -38,30 +38,11 @@ export const addFavCase = (iUser, iItem) => {
 }
 
 export const postCase = (values) => {
-  let symptome = []
-  values.symptomes.map((value)=>{
-    return symptome.push("/api/symptomes/"+value)
-  })
-
-  let treatment = []
-  values.treatments.map((value)=>{
-    return treatment.push("/api/treatments/"+value)
-  })
-
-  let pathologie = []
-  values.pathologie.map((value)=>{
-    return pathologie.push("/api/pathologies/"+value)
-  })
-
-  let keyword = []
-  values.keywords.map((value)=>{
-    return keyword.push("/api/keywords/"+value)
-  })
 
   const item = {
     age: values.ages,//
     smoking: values.isASmoker,//
-    presentation: values.summary,//
+    presentation: values.summary,
     treatmentPlan: "jctttttt",//
     observation: values.global_desc,
     evolution: values.evolution,//
@@ -72,9 +53,9 @@ export const postCase = (values) => {
     isEnabled: true,
 
     patient:["api/patients/"+values.patient.id],
-    symptome: symptome,
-    treatment: treatment,
-    pathologie: pathologie,
+    symptome: values.symptomes,
+    treatment: values.treatment,
+    pathologie: values.pathologie,
     /*"speciality": ["/api/specialities/"+<number>, /api/specialities/"+<number>],*/
     title: values.title,//
     slug: "sluuuuuuggguueeee",
@@ -82,7 +63,7 @@ export const postCase = (values) => {
     "imageClinicalCases": [
       "string"
     ],*/
-    keyword: keyword
+    keyword: values.keywords
   }
 
   const reponses = axios
