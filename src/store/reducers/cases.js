@@ -1,17 +1,13 @@
-import { CASE_ITEM, ADD_FAVORITE, INIT_CURRENT_CASE, FILTERED_CASES } from '../actions'
+import { CASE_ITEM, ADD_FAVORITE, INIT_CURRENT_CASE, FILTERED_CASES, INIT_PATIENT } from '../actions'
 import config from '../../config'
 
 const INIT_STATE = {
   cases: {},
   favorites: {},
-  currentCase: config.cache.currentCase
+  currentCase: config.cache.currentCase,
+  patient: {}
 }
-/*
-const fullyfy=(state)=>{
-  const currCase = currentCase.map((prop)=> prop = state.prop)
-  return {...state, currentCase: currCase}
-}
-*/
+
 export const Cases = (state = INIT_STATE, action) => {
   switch (action.type) {
     case CASE_ITEM:
@@ -32,6 +28,9 @@ export const Cases = (state = INIT_STATE, action) => {
         oldAffect: action.datas.oldAffect,
         allergen: action.datas.allergen
       }
+
+    case INIT_PATIENT:
+      return { ...state, patient: action.data }
 
     default :
       return state

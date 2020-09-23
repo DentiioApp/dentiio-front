@@ -31,74 +31,72 @@ const useStyles = makeStyles((theme) => ({
 })); 
 
 
+
 const Search = (props) => {
-  const classes = useStyles();
+  const classes = useStyles()
   const initValues = {
-    keywords: [],
-  };
+    keywords: []
+  }
 
   const items = useSelector((state) => state.home.cases);
   const [values, setValues] = useState(initValues);
   const dispatch = useDispatch();
-  
- 
 
   const loadKeywords = async () => {
-    const keywordsLoad = await tryKeywords();
+    const keywordsLoad = await tryKeywords()
     if (keywordsLoad.datas.length > 0) {
-      setValues({ ...values, keywords: keywordsLoad.datas });
-      dispatch({ type: KEYWORDS_LIST, keywords: values.keywords });
+      setValues({ ...values, keywords: keywordsLoad.datas })
+      dispatch({ type: KEYWORDS_LIST, keywords: values.keywords })
     }
-  };
+  }
   // if no keywords in cache load keyword from api
   if (values.keywords.length < 1) {
-    loadKeywords();
+    loadKeywords()
   }
 
   const onTextChanged = (e) => {
-    const value = e.target.value;
-    const newdata = [];
+    const value = e.target.value
+    const newdata = []
     if (value.length > 0) {
-      const regex = new RegExp(`^${value}`, "i");
+      const regex = new RegExp(`^${value}`, 'i')
       items.map((item) => {
         if (
           item.keyword.filter((keyword) =>
             regex.test(keyword.name.toLowerCase())
           ).length > 0
         ) {
-          newdata.push(item);
+          newdata.push(item)
         }
-        return true;
-      });
+        return true
+      })
     }
 
-    dispatch({ type: FILTERED_CASES, data: newdata });
-  };
+    dispatch({ type: FILTERED_CASES, data: newdata })
+  }
 
   const options = values.keywords.map((option) => {
-    const firstLetter = option.name[0].toUpperCase();
+    const firstLetter = option.name[0].toUpperCase()
     return {
-      firstLetter: /[0-9]/.test(firstLetter) ? "0-9" : firstLetter,
-      ...option,
-    };
-  });
+      firstLetter: /[0-9]/.test(firstLetter) ? '0-9' : firstLetter,
+      ...option
+    }
+  })
 
   return (
-    <div className="wrap">
-      <div className="search">
-        <div>
-          <Button
+        </div>
+    <div className='wrap'>
+      <div className='search'>
+    <Button
             className={classes.categoryButton}
             variant="contained"
           >
             Toutes les catégories
           </Button>
-        </div>
         {/* <SearchIcon /> */}
 
         <Autocomplete
           className={classes.barWidth}
-          id="grouped-demo"
+          id='grouped-demo'
           options={options.sort(
             (a, b) => -b.firstLetter.localeCompare(a.firstLetter)
           )}
@@ -109,10 +107,10 @@ const Search = (props) => {
               {...params}
               onSelect={(e) => onTextChanged(e)}
               onChange={(e) => onTextChanged(e)}
-              label="Rechercher par mot clé, pathologie ou traitement..."
-              variant="outlined"
-              id="search-input"
-              className="searchTerm"
+              label='Rechercher par mot clé, pathologie ou traitement...'
+              variant='outlined'
+              id='search-input'
+              className='searchTerm'
             />
           )}
         />
@@ -122,7 +120,7 @@ const Search = (props) => {
         </button> */}
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default Search;
+export default Search
