@@ -60,6 +60,7 @@ const CasePost = () => {
     age: 0,
     gender: '',
     isASmoker: false,
+    isAnAlcooler: false,
 
     is_medical_background: false,
     problem_health: '',
@@ -90,7 +91,7 @@ const CasePost = () => {
   const [values, setValues] = useState(initValues)
 
   const handleChange = prop => event => {
-    if (prop === 'isASmoker' || prop === 'is_medical_background') { setValues({ ...values, [prop]: event.target.checked }) } 
+    if (prop === 'isASmoker' || prop === 'is_medical_background' || prop === 'isAnAlcooler') { setValues({ ...values, [prop]: event.target.checked }) } 
     else { setValues({ ...values, [prop]: event.target.value }) }
   }
 

@@ -87,12 +87,13 @@ const Exam = (props) => {
               
               <TextField
                 aria-label='minimum height'
-                placeholder='Description intraorale et extraorale'
+                //placeholder='Description intraorale et extraorale'
                 variant='outlined'
                 margin='dense'
                 label="Description intraorale et extraorale"
                 multiline
                 required
+                fullWidth
                 name='intra_extra_oral_desc'
                 type='textarea'
                 id='intra_extra_oral_desc'
@@ -116,6 +117,7 @@ const Exam = (props) => {
                 label="Probleme cardiaque"
                 multiline
                 required
+                fullWidth
                 name='problem_health'
                 type='textarea'
                 id='problem_health'

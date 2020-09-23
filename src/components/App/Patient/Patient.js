@@ -11,6 +11,10 @@ import {
 import Grid from '@material-ui/core/Grid'
 import { makeStyles } from '@material-ui/core/styles'
 import TextField from '@material-ui/core/TextField'
+import SmokingRoomsIcon from '@material-ui/icons/SmokingRooms';
+import LocalBarIcon from '@material-ui/icons/LocalBar';
+import LocalPharmacyIcon from '@material-ui/icons/LocalPharmacy';
+
 import imgDesktop from '../../../images/illus.png'
 import imgMobile from '../../../images/mobile-bg.svg'
 
@@ -30,8 +34,8 @@ const useStyles = makeStyles((theme) => (oStyle(theme, imgDesktop, imgMobile)))
 const Patient = (props) => {
   const classes = useStyles()
   const dispatch = useDispatch()
-  const ages = config.ages
-
+  const {ages, sexes}  = config
+  console.log('TEST :',sexes )
   const initVals = {
     errAge: false,
     errGender: false,
@@ -75,14 +79,12 @@ const Patient = (props) => {
               Fiche Patient
             </Typography>
             <form className={classes.form} noValidate>
-              <Typography className='inputLabel'>
-                Age
-              </Typography>
               <TextField
                 className='textField'
                 id='age'
                 label='Age'
                 select
+                fullWidth
                 onChange={props.onChange('age')}
                 variant='outlined'
                 value={props.values.age === undefined ? 18 : props.values.age}
@@ -90,37 +92,35 @@ const Patient = (props) => {
               >
                 {ages && ages.map((index, value) => (
                   <MenuItem key={index + 1} value={value}>
-                    {value}
+                    {value+' ans'}
                   </MenuItem>
                 ))}
               </TextField>
 
-              <InputLabel className='inputLabel'>
-                Genre
-              </InputLabel>
+              <br /> <br />
+
               <TextField
                 className='textField'
                 id='gender'
                 label="Genre"
                 select
-                value={props.values.gender === '' ? 'Monsieur' : props.values.gender}
+                fullWidth
+                value={props.values.gender === undefined ? 'M' : props.values.gender}
                 onChange={props.onChange('gender')}
                 variant='outlined'
                 error={errors.errGender}
               >
-                <MenuItem key='Mr' value='Monsieur'>
-                  {'Monsieur'}
-                </MenuItem>
-                <MenuItem key='Mme' value='Madame'>
-                  {'Madame'}
-                </MenuItem>
-
+                {sexes && sexes.map((value, id) => (
+                  <MenuItem key={id} value={value.id}>
+                    {value.name}
+                  </MenuItem>
+                ))}
               </TextField>
 
-              <br />  <br />
+              <br /> <br />
 
               <InputLabel className='inputLabel'>
-                Fumeur :
+                Fumeur <SmokingRoomsIcon />
               </InputLabel>
               <Switch
                 checked={props.values.isASmoker}
@@ -133,7 +133,20 @@ const Patient = (props) => {
               <br />  <br />
 
               <InputLabel className='inputLabel'>
-              Antécedant medical
+                Buveur <LocalBarIcon />
+              </InputLabel>
+              <Switch
+                checked={props.values.isAnAlcooler}
+                onChange={props.onChange('isAnAlcooler')}
+                color='primary'
+                name='isAnAlcooler'
+                inputProps={{ 'aria-label': 'primary checkbox' }}
+              />
+
+              <br />  <br />
+
+              <InputLabel className='inputLabel'>
+              Antécedant medical <LocalPharmacyIcon />
               </InputLabel>
               <Switch
                 checked={props.values.is_medical_background}
@@ -144,9 +157,7 @@ const Patient = (props) => {
               />
 
               <br />  <br />
-              <InputLabel className='inputLabel'>
-                Probleme cardiaque
-              </InputLabel>
+             
               <TextField
                 aria-label='minimum height'
                 placeholder='Renseignez le(s) probleme(s) cardiaque'
@@ -155,6 +166,7 @@ const Patient = (props) => {
                 label="Probleme cardiaque"
                 multiline
                 required
+                fullWidth
                 name='problem_health'
                 type='textarea'
                 id='problem_health'
@@ -164,15 +176,13 @@ const Patient = (props) => {
                 error={errors.errProblem_health}
               />
 
-              <InputLabel className='inputLabel'>
-                Sous traitement
-              </InputLabel>
               <TextField
                 aria-label='minimum height'
                 placeholder='Renseignez le(s) traitement(s)'
                 variant='outlined'
                 label="Sous traitement"
                 multiline
+                fullWidth
                 margin='normal'
                 required
                 name='in_treatment'
