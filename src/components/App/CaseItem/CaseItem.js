@@ -48,7 +48,7 @@ const CasesItem = (props) => {
           <Typography variant='body2' style={{ color: 'black', textTransform: 'capitalize' }} component='p'>
             {props.item.user.pseudo}
             <br />
-            {props.item.user.job}
+            {props.item.user.job.name}
           </Typography>
           <div className='grow' style={{ align: 'right' }} />
           {/* <TeethButton> */}
