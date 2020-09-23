@@ -100,7 +100,7 @@ const CasePost = () => {
 
   switch (level) {
     case 'exam':
-      form = <Exam onChange={handleChange} values={values} setValues={setValues} />
+      form = <Exam onChange={handleChange} values={values} />
       break
     case 'diagnostic':
       form = <Diagnostic onChange={handleChange} values={values} />

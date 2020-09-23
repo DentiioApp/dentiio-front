@@ -1,6 +1,5 @@
 
 import { logUser, cardSave } from './Auth'
-import { addFav } from './Cases'
 
 export const ADD_FAVORITE = 'ADD_FAVORITE'
 export const CARD_STATE = 'CARD_STATE'
@@ -21,4 +20,4 @@ export const PATHO_LIST = 'PATHO_LIST'
 export const TREATMENTS_LIST = 'TREATMENTS_LIST'
 export const SYMPTOMES_LIST = 'SYMPTOMES_LIST'
 
-export { logUser, cardSave, addFav }
+export { logUser, cardSave }
