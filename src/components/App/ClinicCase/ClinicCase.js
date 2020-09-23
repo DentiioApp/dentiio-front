@@ -3,7 +3,6 @@ import './clinicCase.scss'
 import React from 'react'
 import { useSelector } from 'react-redux'
 import { useToasts } from 'react-toast-notifications'
-import { Redirect } from 'react-router-dom'
 import {
   Paper,
   Typography
@@ -45,7 +44,7 @@ const ClinicCase = (props) => {
       if (regex2.test(datas)) {
         addToast(messages.error, { appearance: 'error' })
       } else {
-        addToast(messages.success, { appearance: 'success' }) 
+        addToast(messages.success, { appearance: 'success' })
       }
     }
   }
@@ -105,7 +104,6 @@ const ClinicCase = (props) => {
                 autoComplete='current-summary'
                 onChange={props.onChange('summary')}
               />
-
 
               <Typography component='h1' variant='h5'>
                 Mot clés
