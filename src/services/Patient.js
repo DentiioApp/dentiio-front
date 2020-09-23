@@ -7,7 +7,7 @@ export const postPatient = (values) => {
   const item = {
     age: values.age,
     gender: values.gender,
-    isASmoker: values.isASmoker,
+    isASmoker: values.isASmoker ? values.isASmoker : false,
     isMedicalBackground: values.is_medical_background,
     problemHealth: values.problem_health,
     inTreatment: values.in_treatment
@@ -17,7 +17,7 @@ export const postPatient = (values) => {
     .post(PATIENTS, item)
     .then((res) => ({
       message: 'OK',
-      datas: res.data['hydra:member']
+      datas: res.data
     }))
     .catch((e) => JSON.stringify(e))
   return reponses

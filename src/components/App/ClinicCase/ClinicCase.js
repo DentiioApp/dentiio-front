@@ -2,6 +2,7 @@ import './clinicCase.scss'
 
 import React from 'react'
 import { useSelector } from 'react-redux'
+import { useToasts } from 'react-toast-notifications'
 
 import {
   Paper,
@@ -20,6 +21,7 @@ import logo from '../../../images/logo.svg'
 import oStyle from '../../ResponsiveDesign/AuthStyle'
 import { setup } from '../../../services/Auth'
 import GradientBtn from '../../UI/buttons/GradientBtn'
+
 import config from '../../../config'
 import { postCase } from '../../../services/Cases'
 import { postPatient } from '../../../services/Patient'
@@ -28,8 +30,8 @@ const useStyles = makeStyles((theme) => (oStyle(theme, imgDesktop, imgMobile)))
 
 const ClinicCase = (props) => {
   const classes = useStyles()
-  // const dispatch = useDispatch()
-  const messages = config.messages.auth
+  const { addToast } = useToasts()
+  const messages = config.messages.cases
 
   const keywords = useSelector((state) => state.home.keywords)
   const specialities = useSelector((state) => state.home.specialities)
@@ -39,12 +41,11 @@ const ClinicCase = (props) => {
     const regex2 = RegExp(/Error/)
     const patient = await postPatient(props.values)
     if (!regex2.test(patient.message)) {
-      console.log('PATIE?T SAVED :')
-      const datas = await postCase(props.values)
+      const datas = await postCase(props.values, patient.datas['@id'])
       if (regex2.test(datas)) {
-        return { message: messages.postCase.error, appearance: 'error' }
+        addToast(messages.error, { appearance: 'error' })
       } else {
-        return { message: messages.postCase.success, appearance: 'success' }
+        addToast(messages.success, { appearance: 'success' })
       }
     }
   }

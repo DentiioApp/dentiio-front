@@ -37,7 +37,7 @@ export const addFavCase = (iUser, iItem) => {
   return reponses
 }
 
-export const postCase = (values) => {
+export const postCase = (values, patient) => {
   const item = {
     age: values.ages, //
     smoking: values.isASmoker, //
@@ -47,11 +47,11 @@ export const postCase = (values) => {
     evolution: values.evolution, //
     conclusion: values.conclusion, //
     createdAt: new Date().toISOString(), //
-    notations: ['/api/notations/' + 9754], //
+    notations: ['/api/notations/' + 2250], //
 
     isEnabled: true,
 
-    patient: ['api/patients/' + values.patient.id],
+    patient: patient,
     symptome: values.symptomes,
     treatment: values.treatment,
     pathologie: values.pathologie,

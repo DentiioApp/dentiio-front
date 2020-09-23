@@ -59,7 +59,7 @@ const CasePost = () => {
   const initValues = {
     age: 0,
     gender: '',
-    isSmoker: false,
+    isASmoker: false,
 
     is_medical_background: false,
     problem_health: '',
@@ -88,7 +88,7 @@ const CasePost = () => {
 
   const handleChange = prop => event => {
     console.log('TEST :', keywords)
-    if (prop === 'isSmoker' || prop === 'is_medical_background') { setValues({ ...values, [prop]: event.target.checked }) } else { setValues({ ...values, [prop]: event.target.value }) }
+    if (prop === 'isASmoker' || prop === 'is_medical_background') { setValues({ ...values, [prop]: event.target.checked }) } else { setValues({ ...values, [prop]: event.target.value }) }
   }
 
   let form

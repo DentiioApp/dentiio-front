@@ -77,7 +77,7 @@ const config = {
     timeOut: 200,
     cases: {
       error: "Une erreur s'est produite",
-      success: 'Inscription réussie',
+      success: 'Le cas a été ajouté avec succès',
 
       favorite: {
         add: {

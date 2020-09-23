@@ -114,10 +114,10 @@ const Patient = (props) => {
               Fumeur :
               </InputLabel>
               <Switch
-                checked={props.values.isSmoker}
-                onChange={props.onChange('isSmoker')}
+                checked={props.values.isASmoker}
+                onChange={props.onChange('isASmoker')}
                 color='primary'
-                name='isSmoker'
+                name='isASmoker'
                 inputProps={{ 'aria-label': 'primary checkbox' }}
               />
 
