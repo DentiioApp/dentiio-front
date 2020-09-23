@@ -1,13 +1,11 @@
 import './exam.scss'
 
-import React from 'react'
+import React, { useState } from 'react'
 import { useDispatch } from 'react-redux'
 
 import {
   Paper,
-  Switch,
-  Typography,
-  TextareaAutosize
+  Typography
 } from '@material-ui/core/'
 import Grid from '@material-ui/core/Grid'
 import { makeStyles } from '@material-ui/core/styles'
@@ -18,7 +16,7 @@ import Button from '@material-ui/core/Button'
 import GradientBtn from '../../UI/buttons/GradientBtn'
 import oStyle from '../../ResponsiveDesign/AuthStyle'
 import { UPDATE_LEVEL } from '../../../store/actions'
-import MenuItem from '@material-ui/core/MenuItem'
+//import MenuItem from '@material-ui/core/MenuItem'
 import InputLabel from '@material-ui/core/InputLabel'
 
 import { setup } from '../../../services/Auth'
@@ -30,11 +28,28 @@ const useStyles = makeStyles((theme) => (oStyle(theme, imgDesktop, imgMobile)))
 const Exam = (props) => {
   const classes = useStyles()
   const dispatch = useDispatch()
+  const initVals = {
+    errIntra_extra_oral_desc: false,
+    errProblem_health: false,
+    errIn_treatment: false,
+    errExam_name: false,
+  }
+  const [errors, setErrors] = useState(initVals)
 
+  const handleError = (prop) => {
+    setErrors({ ...errors, [prop]: false })
+  }
   const catchSubmit = async (event) => {
     event.preventDefault()
-    dispatch({ type: UPDATE_LEVEL, level: 'diagnostic' })
-  }
+    let isValid = true
+    if(props.values.intra_extra_oral_desc === ""){ setErrors({...errors, errIntra_extra_oral_desc: true}); isValid=false}
+    if(props.values.problem_health === ""){  setErrors({...errors, errProblem_health: true}); isValid=false}
+    if(props.values.in_treatment === ""){  setErrors({...errors, errIn_treatment: true}); isValid=false}
+    if(props.values.exam_name === ""){  setErrors({...errors, errExam_name: true}); isValid=false}
+    
+    if(isValid)
+      dispatch({ type: UPDATE_LEVEL, level: 'diagnostic' })
+    }
 
   setup()
 
@@ -66,25 +81,27 @@ const Exam = (props) => {
                 </InputLabel>
                 <input
                   type='file'
-                  onChange={props.onChange('cpsCard')}
-                  name='cps'
-                  id='cps'
+                  onChange={props.onChange('exam_pics')}
+                  name='exam_pics'
+                  id='exam_pics'
                   multiple
                 />
               </Button>
-
-              <TextareaAutosize
+              
+              <TextField
                 aria-label='minimum height'
-                rowsMin={3} placeholder='Description intraorale et extraorale'
+                placeholder='Description intraorale et extraorale'
                 variant='outlined'
-                margin='normal'
+                margin='dense'
+                label="Description intraorale et extraorale"
+                multiline
                 required
                 name='intra_extra_oral_desc'
                 type='textarea'
                 id='intra_extra_oral_desc'
                 autoComplete='current-intra_extra_oral_desc'
-                // onKeyDown={(e) => e.keyCode !== 13 ? null : catchSubmit(e)}
                 onChange={props.onChange('intra_extra_oral_desc')}
+                error={errors.errIntra_extra_oral_desc}
               />
 
               <Typography component='h1' variant='h5'>
@@ -94,39 +111,40 @@ const Exam = (props) => {
               <InputLabel className='inputLabel'>
                 Probleme cardiaque
               </InputLabel>
-              <TextareaAutosize
+              <TextField
                 aria-label='minimum height'
-                rowsMin={3} placeholder='Renseignez le(s) probleme(s) cardiaque'
+                placeholder='Renseignez le(s) probleme(s) cardiaque'
                 variant='outlined'
-                margin='normal'
+                margin='dense'
+                label="Probleme cardiaque"
+                multiline
                 required
-
                 name='problem_health'
                 type='textarea'
                 id='problem_health'
                 autoComplete='current-problem_health'
-                // onKeyDown={(e) => e.keyCode !== 13 ? null : catchSubmit(e)}
                 onChange={props.onChange('problem_health')}
+                error={errors.errProblem_health}
               />
 
               <InputLabel className='inputLabel'>
-                Sous traitement :
+                Nom de l'examen
               </InputLabel>
-              <TextareaAutosize
+              <TextField
                 aria-label='minimum height'
-                rowsMin={3} placeholder='Renseignez le(s) traitement(s)'
+                placeholder="Renseignez le nom l'examen"
                 variant='outlined'
-                margin='normal'
+                margin='dense'
+                label="Probleme cardiaque"
+                multiline
                 required
-                name='in_treatment'
+                name='exam_name'
                 type='textarea'
-                id='in_treatment'
-                autoComplete='current-in_treatment'
-                // onKeyDown={(e) => e.keyCode !== 13 ? null : catchSubmit(e)}
-                onChange={props.onChange('in_treatment')}
+                id='exam_name'
+                autoComplete='current-exam_name'
+                onChange={props.onChange('exam_name')}
+                error={errors.errExam_name}
               />
-
-              <hr />
 
               <div onClick={catchSubmit}>
                 <GradientBtn

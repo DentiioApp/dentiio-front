@@ -1,12 +1,11 @@
 import './diagnostic.scss'
 
-import React from 'react'
+import React, { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 
 import {
   Paper,
-  Typography,
-  TextareaAutosize
+  Typography
 } from '@material-ui/core/'
 import Grid from '@material-ui/core/Grid'
 import { makeStyles } from '@material-ui/core/styles'
@@ -30,9 +29,25 @@ const Diagnostic = (props) => {
   const symptomes = useSelector((state) => state.home.symptomes)
 
   const dispatch = useDispatch()
+  const initVals = {
+    errPathologies: false,
+    errDiagnostic:false,
+    errSymptomes: false,
+  }
+  const [errors, setErrors] = useState(initVals)
+
+  const handleError = (prop) => {
+    setErrors({ ...errors, [prop]: false })
+  }
   const catchSubmit = async (event) => {
     event.preventDefault()
-    dispatch({ type: UPDATE_LEVEL, level: 'treatplan' })
+    let isValid = true
+    if(props.values.diagnostic === ""){ setErrors({...errors, errDiagnostic: true}); isValid=false}
+    if(props.values.pathologies.length < 1){  setErrors({...errors, errPathologies: true}); isValid=false}
+    if(props.values.symptomes.length < 1){  setErrors({...errors, errSymptomes: true}); isValid=false}
+    
+    if(isValid)
+      dispatch({ type: UPDATE_LEVEL, level: 'treatplan' })
   }
 
   setup()
@@ -59,17 +74,20 @@ const Diagnostic = (props) => {
             </Typography>
             <form className={classes.form} noValidate>
 
-              <TextareaAutosize
+              <TextField
                 aria-label='minimum height'
-                rowsMin={3} placeholder='diagnostic'
+                placeholder='diagnostic'
                 variant='outlined'
-                margin='normal'
+                label="Intraorale et extraorale"
+                multiline
+                margin='dense'
                 required
                 name='diagnostic'
                 type='textarea'
                 id='diagnostic'
                 autoComplete='current-diagnostic'
                 onChange={props.onChange('diagnostic')}
+                error={errors.errDiagnostic}
               />
 
               <Typography component='h1' variant='h5'>
@@ -79,6 +97,7 @@ const Diagnostic = (props) => {
                 className='textField'
                 id='pathologies'
                 select
+                label="Pathologies"
                 onChange={props.onChange('pathologies')}
                 variant='outlined'
                 fullWidth
@@ -86,6 +105,7 @@ const Diagnostic = (props) => {
                   multiple: true,
                   value: props.values.pathologies
                 }}
+                error={errors.errPathologies}
               >
                 {pathologies && pathologies.map((value) => (
                   <MenuItem key={value['@id']} value={value['@id']}>
@@ -99,7 +119,8 @@ const Diagnostic = (props) => {
               </Typography>
               <TextField
                 className='textField'
-                id='symptomes'
+                id='Symptomes'
+                label="Symptomes"
                 select
                 onChange={props.onChange('symptomes')}
                 variant='outlined'
@@ -108,6 +129,7 @@ const Diagnostic = (props) => {
                   multiple: true,
                   value: props.values.symptomes
                 }}
+                error={errors.errSymptomes}
               >
                 {symptomes && symptomes.map((value) => (
                   <MenuItem key={value['@id']} value={value['@id']}>

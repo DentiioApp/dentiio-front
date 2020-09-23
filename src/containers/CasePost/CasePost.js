@@ -64,6 +64,9 @@ const CasePost = () => {
     is_medical_background: false,
     problem_health: '',
 
+    exam_pics: [],
+    exam_name: '',
+
     in_treatment: '',
     global_desc: '',
     medication_administered: [],
@@ -81,20 +84,32 @@ const CasePost = () => {
     summary: '',
     keywords: [],
     specialities: [],
-    pathologies: []
+    pathologies: [],
+
+    errAge: false,
+    errGender: false,
+    errProblem_health: false,
+    errIn_treatment: false,
+
+    errIntra_extra_oral_desc: false,
+    errProblem_health: false,
+
+    errExam_name: false,
+    errAge: false,
   }
 
   const [values, setValues] = useState(initValues)
 
   const handleChange = prop => event => {
-    if (prop === 'isASmoker' || prop === 'is_medical_background') { setValues({ ...values, [prop]: event.target.checked }) } else { setValues({ ...values, [prop]: event.target.value }) }
+    if (prop === 'isASmoker' || prop === 'is_medical_background') { setValues({ ...values, [prop]: event.target.checked }) } 
+    else { setValues({ ...values, [prop]: event.target.value }) }
   }
 
   let form
 
   switch (level) {
     case 'exam':
-      form = <Exam onChange={handleChange} values={values} />
+      form = <Exam onChange={handleChange} values={values} setValues={setValues} />
       break
     case 'diagnostic':
       form = <Diagnostic onChange={handleChange} values={values} />

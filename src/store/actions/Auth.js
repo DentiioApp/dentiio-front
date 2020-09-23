@@ -1,6 +1,5 @@
 import {
   LOG_USER,
-  REGISTER_USER,
   VALID_STATUS
 } from '.'
 

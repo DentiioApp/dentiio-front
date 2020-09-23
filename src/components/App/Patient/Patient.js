@@ -1,6 +1,6 @@
 import './patient.scss'
 
-import React from 'react'
+import React, { useState } from 'react'
 import { useDispatch } from 'react-redux'
 
 import {
@@ -33,9 +33,27 @@ const Patient = (props) => {
   const dispatch = useDispatch()
   const ages = config.ages
 
+  const initVals = {
+    errAge: false,
+    errGender: false,
+    errIn_treatment: false,
+  }
+  const [errors, setErrors] = useState(initVals)
+
+  const handleError = (prop) => {
+    setErrors({ ...errors, [prop]: false })
+  }
+
   const catchSubmit = async (event) => {
     event.preventDefault()
-    dispatch({ type: UPDATE_LEVEL, level: 'exam' })
+    let isValid = true
+    if(props.values.age === ""){ setErrors({...errors, errAge: true}); isValid=false}
+    if(props.values.gender === ""){  setErrors({...errors, errGender: true}); isValid=false}
+    if(props.values.problem_health === ""){  setErrors({...errors, errSymptomes: true}); isValid=false}
+    if(props.values.in_treatment === ""){  setErrors({...errors, errIn_treatment: true}); isValid=false}
+
+    if(isValid)
+      dispatch({ type: UPDATE_LEVEL, level: 'exam' })
   }
 
   setup()
@@ -71,6 +89,7 @@ const Patient = (props) => {
                 onChange={props.onChange('age')}
                 variant='outlined'
                 value={props.values.age === undefined ? 18 : props.values.age}
+                error={errors.values.errAge}
               >
                 {ages && ages.map((index, value) => (
                   <MenuItem key={index + 1} value={value}>
@@ -89,6 +108,7 @@ const Patient = (props) => {
                 value={props.values.gender === '' ? 'Monsieur' : props.values.gender}
                 onChange={props.onChange('gender')}
                 variant='outlined'
+                error={errors.errGender}
               >
                 <MenuItem key='Mr' value='Monsieur'>
                   {'Monsieur'}
@@ -102,7 +122,7 @@ const Patient = (props) => {
               <br />  <br />
 
               <InputLabel className='inputLabel'>
-              Fumeur :
+                Fumeur :
               </InputLabel>
               <Switch
                 checked={props.values.isASmoker}
@@ -141,6 +161,7 @@ const Patient = (props) => {
                 autoComplete='current-problem_health'
                 // onKeyDown={(e) => e.keyCode !== 13 ? null : catchSubmit(e)}
                 onChange={props.onChange('problem_health')}
+                error={props.values.errProblem_health}
               />
 
               <InputLabel className='inputLabel'>
@@ -158,6 +179,7 @@ const Patient = (props) => {
                 autoComplete='current-in_treatment'
                 // onKeyDown={(e) => e.keyCode !== 13 ? null : catchSubmit(e)}
                 onChange={props.onChange('in_treatment')}
+                error={props.values.errIn_treatment}
               />
 
               <div onClick={catchSubmit}>
