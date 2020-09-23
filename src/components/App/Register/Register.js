@@ -156,8 +156,6 @@ const Register = () => {
     event.preventDefault()
   }
 
-  // console.log('TEST :', navigator.onLine)
-
   if (setup() === true) {
     return <Redirect to='/cases' />
   }
@@ -201,7 +199,7 @@ const Register = () => {
               variant='outlined'
               margin='normal'
               required
-              fullWidth
+              fullwidth
               id='email'
               label='Email Address'
               name='email'
