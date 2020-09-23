@@ -81,6 +81,7 @@ const Diagnostic = (props) => {
                 select
                 onChange={props.onChange('pathologies')}
                 variant='outlined'
+                fullWidth
                 SelectProps={{
                   multiple: true,
                   value: props.values.pathologies
@@ -102,6 +103,7 @@ const Diagnostic = (props) => {
                 select
                 onChange={props.onChange('symptomes')}
                 variant='outlined'
+                fullWidth
                 SelectProps={{
                   multiple: true,
                   value: props.values.symptomes

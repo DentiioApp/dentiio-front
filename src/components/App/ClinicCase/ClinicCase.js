@@ -3,7 +3,6 @@ import './clinicCase.scss'
 import React from 'react'
 import { useSelector } from 'react-redux'
 import { useToasts } from 'react-toast-notifications'
-import { Redirect } from 'react-router-dom'
 import {
   Paper,
   Typography
@@ -46,8 +45,6 @@ const ClinicCase = (props) => {
         addToast(messages.error, { appearance: 'error' })
       } else {
         addToast(messages.success, { appearance: 'success' })
-        setTimeout(() => { return <Redirect to='/cases' /> }, 2000);
-        
       }
     }
   }
@@ -108,7 +105,6 @@ const ClinicCase = (props) => {
                 onChange={props.onChange('summary')}
               />
 
-
               <Typography component='h1' variant='h5'>
                 Mot clés
               </Typography>
@@ -118,6 +114,7 @@ const ClinicCase = (props) => {
                 select
                 onChange={props.onChange('keywords')}
                 variant='outlined'
+                fullWidth
                 SelectProps={{
                   multiple: true,
                   value: props.values.keywords
@@ -139,6 +136,7 @@ const ClinicCase = (props) => {
                 select
                 onChange={props.onChange('specialities')}
                 variant='outlined'
+                fullWidth
                 SelectProps={{
                   multiple: true,
                   value: props.values.specialities

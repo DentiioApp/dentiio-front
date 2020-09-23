@@ -5,19 +5,20 @@ const CLINICAL_CASES =
 const FAVORITES =
   process.env.REACT_APP_BACK_API_URL + process.env.REACT_APP_FAVORITES
 
-export const fetchCases = (signal) => {
+export const fetchCases = (page) => {
   const reponses = axios
-    .get(CLINICAL_CASES, { signal: signal })
+    .get(CLINICAL_CASES + '?page=' + page)
     .then((res) => ({
       message: 'OK',
-      datas: res.data['hydra:member']
+      datas: res.data['hydra:member'],
+      items: res.data['hydra:totalItems']
     }))
     .catch((e) => JSON.stringify(e))
   return reponses
 }
 
-export const tryCases = () => {
-  const fetchDatas = fetchCases()
+export const tryCases = (page) => {
+  const fetchDatas = fetchCases(page)
 
   if (fetchDatas.datas === undefined) {
     fetchDatas.datas = []
