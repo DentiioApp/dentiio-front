@@ -127,7 +127,9 @@ const DetailCase = (props) => {
 
 
   console.log(item)
+  const optionsDate = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
   const Img = item.averageNote ? <img alt='' src={iconTeethFull} width='12px' className={classes.icon} /> : ""
+
 
   return (
     <>
@@ -137,39 +139,43 @@ const DetailCase = (props) => {
         <Grid container spacing={1}>
           <Grid container item md={3} spacing={1}>
             <div className={classes.patientDesktop}>
-              <PatientDetail />
+              <PatientDetail data={item.Patient && item.Patient} />
             </div>
           </Grid>
           <Grid container item md={7} spacing={1}>
             <div className={classes.paddigTopTitle}>
               <Typography component='h1' variant='h4'>
-                            Traitement des racines internes
+                {item.title && item.title}
               </Typography>
               <Typography component='p' variant='body2' className={classes.subtitle}>
-                <span style={{ paddingRight: 20 }}>Implotologie</span>
+                <span style={{ paddingRight: 20 }}>
+                  {item.speciality && item.speciality.map((spe) =>(
+                      spe.name+", "
+                  ))}
+                </span>
                 {Img}
                 {item.averageNote && item.averageNote} ({item.notations && item.notations.length} notes)
               </Typography>
               <Typography component='p' variant='body2' className={classes.subtitle}>
-                            Publié il y a 2 jours
+                            Publié le {item.createdAt && new Date(item.createdAt).toLocaleDateString('fr-FR', optionsDate)}
               </Typography>
 
               <Grid container spacing={1} className={classes.resume}>
                 <Grid container item md={3} spacing={1} justify='center'>
                   <div className={classes.textCenter}>
                     <IconProfile color={palette.primary} profile={props.profileId} img={props.profileImg} />
-                    <p className={classes.profileName}>
-                                        Nikita
+                    <p className={classes.profileName} style={{textTransform: "capitalize"}}>
+                        {item.user && item.user.pseudo}
                       <br />
                       <span className={classes.subtitle}>
-                                          Implantologue
+                        {item.user && item.user.job.name}
                       </span>
                     </p>
                   </div>
                 </Grid>
                 <Grid container item md={9} spacing={1}>
                   <p>
-                                    L’améloblastome est la tumeur odontogène la plus fréquente dans les pays en voie de développement et occupe la 2ème place après lves odontomes dans les pays développés. Elle a été classée cliniquement en 3 groupes par l’OMS en 2017. La prise en charge de l’améloblastome est compliquée par le taux de récidive important associé à un traitement conservateur.
+                    {item.presentation && item.presentation}
                   </p>
                   <div className={classes.keywords}>
                     <Keyword keyword='Fumeur' />

@@ -19,6 +19,7 @@ const CasesItem = (props) => {
     // dispatch({type: INIT_CURRENT_CASE, item})
   }
 
+  console.log(props)
   return (
 
     <Card className='root' key={props.item.id}>
