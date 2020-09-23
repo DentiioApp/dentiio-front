@@ -6,8 +6,7 @@ import { useDispatch } from 'react-redux'
 import {
   Paper,
   Switch,
-  Typography,
-  TextareaAutosize
+  Typography
 } from '@material-ui/core/'
 import Grid from '@material-ui/core/Grid'
 import { makeStyles } from '@material-ui/core/styles'
@@ -37,19 +36,16 @@ const Patient = (props) => {
     errAge: false,
     errGender: false,
     errIn_treatment: false,
+    errProblem_health: false,
   }
   const [errors, setErrors] = useState(initVals)
-
-  const handleError = (prop) => {
-    setErrors({ ...errors, [prop]: false })
-  }
 
   const catchSubmit = async (event) => {
     event.preventDefault()
     let isValid = true
     if(props.values.age === ""){ setErrors({...errors, errAge: true}); isValid=false}
     if(props.values.gender === ""){  setErrors({...errors, errGender: true}); isValid=false}
-    if(props.values.problem_health === ""){  setErrors({...errors, errSymptomes: true}); isValid=false}
+    if(props.values.problem_health === ""){  setErrors({...errors, errProblem_health: true}); isValid=false}
     if(props.values.in_treatment === ""){  setErrors({...errors, errIn_treatment: true}); isValid=false}
 
     if(isValid)
@@ -85,11 +81,12 @@ const Patient = (props) => {
               <TextField
                 className='textField'
                 id='age'
+                label='Age'
                 select
                 onChange={props.onChange('age')}
                 variant='outlined'
                 value={props.values.age === undefined ? 18 : props.values.age}
-                error={errors.values.errAge}
+                error={errors.errAge}
               >
                 {ages && ages.map((index, value) => (
                   <MenuItem key={index + 1} value={value}>
@@ -104,6 +101,7 @@ const Patient = (props) => {
               <TextField
                 className='textField'
                 id='gender'
+                label="Genre"
                 select
                 value={props.values.gender === '' ? 'Monsieur' : props.values.gender}
                 onChange={props.onChange('gender')}
@@ -149,11 +147,13 @@ const Patient = (props) => {
               <InputLabel className='inputLabel'>
                 Probleme cardiaque
               </InputLabel>
-              <TextareaAutosize
+              <TextField
                 aria-label='minimum height'
-                rowsMin={3} placeholder='Renseignez le(s) probleme(s) cardiaque'
+                placeholder='Renseignez le(s) probleme(s) cardiaque'
                 variant='outlined'
                 margin='normal'
+                label="Probleme cardiaque"
+                multiline
                 required
                 name='problem_health'
                 type='textarea'
@@ -161,16 +161,18 @@ const Patient = (props) => {
                 autoComplete='current-problem_health'
                 // onKeyDown={(e) => e.keyCode !== 13 ? null : catchSubmit(e)}
                 onChange={props.onChange('problem_health')}
-                error={props.values.errProblem_health}
+                error={errors.errProblem_health}
               />
 
               <InputLabel className='inputLabel'>
-                Sous traitement :
+                Sous traitement
               </InputLabel>
-              <TextareaAutosize
+              <TextField
                 aria-label='minimum height'
-                rowsMin={3} placeholder='Renseignez le(s) traitement(s)'
+                placeholder='Renseignez le(s) traitement(s)'
                 variant='outlined'
+                label="Sous traitement"
+                multiline
                 margin='normal'
                 required
                 name='in_treatment'
@@ -179,7 +181,7 @@ const Patient = (props) => {
                 autoComplete='current-in_treatment'
                 // onKeyDown={(e) => e.keyCode !== 13 ? null : catchSubmit(e)}
                 onChange={props.onChange('in_treatment')}
-                error={props.values.errIn_treatment}
+                error={errors.errIn_treatment}
               />
 
               <div onClick={catchSubmit}>

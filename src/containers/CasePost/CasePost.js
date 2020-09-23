@@ -85,17 +85,6 @@ const CasePost = () => {
     keywords: [],
     specialities: [],
     pathologies: [],
-
-    errAge: false,
-    errGender: false,
-    errProblem_health: false,
-    errIn_treatment: false,
-
-    errIntra_extra_oral_desc: false,
-    errProblem_health: false,
-
-    errExam_name: false,
-    errAge: false,
   }
 
   const [values, setValues] = useState(initValues)

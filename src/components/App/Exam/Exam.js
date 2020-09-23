@@ -36,9 +36,6 @@ const Exam = (props) => {
   }
   const [errors, setErrors] = useState(initVals)
 
-  const handleError = (prop) => {
-    setErrors({ ...errors, [prop]: false })
-  }
   const catchSubmit = async (event) => {
     event.preventDefault()
     let isValid = true
