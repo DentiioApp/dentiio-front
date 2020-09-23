@@ -4,7 +4,7 @@ import config from '../../config'
 const INIT_STATE = {
   cases: {},
   favorites: {},
-  currentCase: config.cache.currentCase,
+  currentCase: config.cache.currentCase
 }
 
 export const Cases = (state = INIT_STATE, action) => {

@@ -29,16 +29,16 @@ const CasesList = () => {
   const cases = filteredCase.length > 0 ? filteredCase : homeCase
   const nbrCases = home.nbrCases
   const areLoaded = home.casesLoaded
-  const pages = Math.round(nbrCases/30)
+  const pages = Math.round(nbrCases / 30)
 
   const initValues = {
-    paginator: 1,
+    paginator: 1
   }
   const [values, setValues] = useState(initValues)
 
   useEffect(() => {
-      getCases()
-  },[values.paginator])
+    getCases()
+  }, [values.paginator])
 
   const handleChange = prop => event => {
     setValues({ ...values, paginator: event.target.value })
@@ -47,9 +47,9 @@ const CasesList = () => {
   const getCases = async () => {
     const fetch = await fetchCases(values.paginator)
     const regex2 = RegExp(/Error/)
-      if (!regex2.test(fetch.message)) {
-        dispatch({ type: CASES_LIST, datas: fetch.datas, nbrItems: fetch.items})
-      }
+    if (!regex2.test(fetch.message)) {
+      dispatch({ type: CASES_LIST, datas: fetch.datas, nbrItems: fetch.items })
+    }
   }
   return (
     <>
@@ -61,8 +61,8 @@ const CasesList = () => {
           )
           )}
         </div>
-     
-      <Paginator pages={pages} onChange={handleChange}/>
+
+        <Paginator pages={pages} onChange={handleChange} />
       </Container>
     </>
   )

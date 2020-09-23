@@ -7,7 +7,7 @@ const FAVORITES =
 
 export const fetchCases = (page) => {
   const reponses = axios
-    .get(CLINICAL_CASES+'?page='+page)
+    .get(CLINICAL_CASES + '?page=' + page)
     .then((res) => ({
       message: 'OK',
       datas: res.data['hydra:member'],

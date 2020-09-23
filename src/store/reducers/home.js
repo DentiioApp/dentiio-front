@@ -36,7 +36,7 @@ export const Home = (state = INIT_STATE, action) => {
     case 'STATUS_FORM': return { ...state, status: true }
 
     case 'JOB_LIST': return { ...state, jobs: action.data, jobsLoaded: true }
-    case 'CASES_LIST' : return { ...state, cases: action.datas, casesLoaded: true , nbrCases: action.nbrItems}
+    case 'CASES_LIST' : return { ...state, cases: action.datas, casesLoaded: true, nbrCases: action.nbrItems }
     case 'KEYWORDS_LIST': return { ...state, keywords: action.keywords }
 
     case 'HOME_RESET': return { ...state, usersLoaded: false, casesLoaded: false, jobsLoaded: false }
