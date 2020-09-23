@@ -7,8 +7,8 @@ export const postPatient = (values) => {
   const item = {
     age: values.age,
     gender: values.gender,
-    isASmoker: values.isASmoker ? values.isASmoker : false,
-    isMedicalBackground: values.is_medical_background,
+    isASmoker: values.isASmoker ? true : false,
+    isMedicalBackground: values.is_medical_background ? true : false,
     problemHealth: values.problem_health,
     inTreatment: values.in_treatment
   }

@@ -4,7 +4,7 @@ import { useSelector, useDispatch } from 'react-redux'
 import Container from '@material-ui/core/Container'
 import { makeStyles } from '@material-ui/core/styles'
 
-import { fetchCases, tryCases } from '../../../services/Cases'
+import { fetchCases } from '../../../services/Cases'
 import { CASES_LIST } from '../../../store/actions'
 import CasesItem from '../CaseItem/CaseItem'
 import Paginator from '../../UI/Paginator/Paginator'
@@ -16,7 +16,7 @@ const useStyles = makeStyles((theme) => ({
     flexWrap: 'wrap',
     '& > *': {
       margin: theme.spacing(3)
-    }
+    },
   }
 }))
 
@@ -47,7 +47,7 @@ const CasesList = () => {
   const getCases = async () => {
     const fetch = await fetchCases(values.paginator)
     const regex2 = RegExp(/Error/)
-    if (!regex2.test(fetch.message)) {
+    if (fetch.message !== undefined &&!regex2.test(fetch.message)) {
       dispatch({ type: CASES_LIST, datas: fetch.datas, nbrItems: fetch.items })
     }
   }
@@ -55,6 +55,7 @@ const CasesList = () => {
     <>
       <Container maxWidth='lg'>
         <center><img src={titleSvg} alt='Cas Cliniques' /></center>
+        <Paginator pages={pages} onChange={handleChange} current={values.paginator} />
         <div className={classes.root}>
           {areLoaded && cases.map((oCase, index) => (
             <CasesItem key={index} item={oCase} />
@@ -62,7 +63,7 @@ const CasesList = () => {
           )}
         </div>
 
-        <Paginator pages={pages} onChange={handleChange} />
+        <Paginator pages={pages} onChange={handleChange} current={values.paginator}/>
       </Container>
     </>
   )

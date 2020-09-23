@@ -17,16 +17,6 @@ export const fetchCases = (page) => {
   return reponses
 }
 
-export const tryCases = (page) => {
-  const fetchDatas = fetchCases(page)
-
-  if (fetchDatas.datas === undefined) {
-    fetchDatas.datas = []
-  }
-
-  return fetchDatas
-}
-
 export const addFavCase = (iUser, iItem) => {
   const reponses = axios
     .post(FAVORITES, { userId: iUser, clinicalCaseId: iItem })
@@ -52,7 +42,7 @@ export const postCase = (values, patient) => {
 
     isEnabled: true,
 
-    patient: patient,
+    patient: {patient},
     symptome: values.symptomes,
     treatment: values.treatment,
     pathologie: values.pathologie,

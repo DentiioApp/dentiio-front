@@ -1,12 +1,12 @@
 import './conclusion.scss'
 
-import React from 'react'
+import React, { useState } from 'react'
 import { useDispatch } from 'react-redux'
 
 import {
   Paper,
   Typography,
-  TextareaAutosize
+  TextField
 } from '@material-ui/core/'
 import Grid from '@material-ui/core/Grid'
 import { makeStyles } from '@material-ui/core/styles'
@@ -26,8 +26,22 @@ const Conclusion = (props) => {
   const classes = useStyles()
   const dispatch = useDispatch()
 
+  const initVals = {
+    errConclusion: false,
+  }
+  const [errors, setErrors] = useState(initVals)
+
   const catchSubmit = async (event) => {
-    dispatch({ type: UPDATE_LEVEL, level: 'cliniccase' })
+    event.preventDefault()
+    let isValid = true
+    if(props.values.conclusion === ""){ setErrors({...errors, errConclusion: true}); isValid=false}
+    if(isValid)
+      dispatch({ type: UPDATE_LEVEL, level: 'cliniccase' })
+  }
+
+  const catchOnmit = async (event) => {
+    event.preventDefault()
+    dispatch({ type: UPDATE_LEVEL, level: 'evolution' })
   }
 
   setup()
@@ -54,27 +68,39 @@ const Conclusion = (props) => {
             </Typography>
             <form className={classes.form} noValidate>
 
-              <TextareaAutosize
+              <TextField
                 aria-label='minimum height'
                 rowsMin={3} placeholder='Conclusion'
                 variant='outlined'
                 margin='normal'
                 required
+                autoFocus
                 name='conclusion'
                 type='textarea'
                 id='conclusion'
+                value= {props.values.conclusion}
                 autoComplete='current-conclusion'
-                // onKeyDown={(e) => e.keyCode !== 13 ? null : catchSubmit(e)}
                 onChange={props.onChange('conclusion')}
+                error={errors.errConclusion}
               />
 
-              <div onClick={catchSubmit}>
-                <GradientBtn
-                  variant='contained'
-                  type='submit'
-                  description='SUIVANT'
-                  className='GradientBtn'
-                />
+              <div className='row'>
+                <div onClick={catchOnmit}>
+                  <GradientBtn
+                    variant='contained'
+                    type='submit'
+                    description='PRECEDENT'
+                    className='GradientBtn'
+                  />
+                </div>
+                <div onClick={catchSubmit}>
+                  <GradientBtn
+                    variant='contained'
+                    type='submit'
+                    description='SUIVANT'
+                    className='GradientBtn'
+                  />
+                </div>
               </div>
             </form>
           </div>
