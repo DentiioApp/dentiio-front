@@ -47,9 +47,11 @@ const CasesList = () => {
 
   useEffect(() => {
     getCases()
-    if (favorites && favorites.length < 1) { initUserFav() }
   }, [values.paginator])
 
+  useEffect(() => {
+    if (favorites && favorites.length < 1) { initUserFav() }
+  }, [favorites])
   const handleChange = prop => event => {
     setValues({ ...values, paginator: event.target.value })
   }
@@ -72,7 +74,7 @@ const CasesList = () => {
             var isFavorite = false;
             if(favorites.length > 0){
               favorites.map((item)=> { 
-                if (item.id === oCase.id)
+                if (item.clinicalCaseId.substr(-1,1) == oCase.id)
                   isFavorite = true;
               })
             }
