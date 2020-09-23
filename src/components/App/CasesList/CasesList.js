@@ -4,7 +4,7 @@ import { useSelector, useDispatch } from 'react-redux'
 import Container from '@material-ui/core/Container'
 import { makeStyles } from '@material-ui/core/styles'
 
-import { fetchCases, tryCases } from '../../../services/Cases'
+import { fetchCases } from '../../../services/Cases'
 import { CASES_LIST } from '../../../store/actions'
 import CasesItem from '../CaseItem/CaseItem'
 import Paginator from '../../UI/Paginator/Paginator'

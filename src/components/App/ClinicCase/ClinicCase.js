@@ -37,14 +37,22 @@ const ClinicCase = (props) => {
 
   const catchSubmit = async (event) => {
     event.preventDefault()
-    const regex2 = RegExp(/Error/)
-    const patient = await postPatient(props.values)
-    if (!regex2.test(patient.message)) {
-      const datas = await postCase(props.values, patient.datas['@id'])
-      if (regex2.test(datas)) {
-        addToast(messages.error, { appearance: 'error' })
-      } else {
-        addToast(messages.success, { appearance: 'success' })
+    let isValid = true
+    if(props.values.title === ""){isValid=false}
+    if(props.values.summary === ""){isValid=false}
+    if(props.values.keywords.length < 1){isValid=false}
+    if(props.values.specialities.length < 1){isValid=false}
+
+    if(isValid){
+      const regex2 = RegExp(/Error/)
+      const patient = await postPatient(props.values)
+      if (!regex2.test(patient.message)) {
+        const datas = await postCase(props.values, patient.datas['@id'])
+        if (regex2.test(datas)) {
+          addToast(messages.error, { appearance: 'error' })
+        } else {
+          addToast(messages.success, { appearance: 'success' })
+        }
       }
     }
   }
