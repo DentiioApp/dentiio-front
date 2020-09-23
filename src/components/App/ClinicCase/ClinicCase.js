@@ -3,7 +3,6 @@ import './clinicCase.scss'
 import React from 'react'
 import { useSelector } from 'react-redux'
 import { useToasts } from 'react-toast-notifications'
-import { Redirect } from 'react-router-dom'
 import {
   Paper,
   Typography

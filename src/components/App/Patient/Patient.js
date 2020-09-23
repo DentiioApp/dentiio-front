@@ -17,7 +17,7 @@ import imgMobile from '../../../images/mobile-bg.svg'
 
 import GradientBtn from '../../UI/buttons/GradientBtn'
 import oStyle from '../../ResponsiveDesign/AuthStyle'
-import { UPDATE_LEVEL, INIT_PATIENT } from '../../../store/actions'
+import { UPDATE_LEVEL } from '../../../store/actions'
 import MenuItem from '@material-ui/core/MenuItem'
 import InputLabel from '@material-ui/core/InputLabel'
 
@@ -35,17 +35,6 @@ const Patient = (props) => {
 
   const catchSubmit = async (event) => {
     event.preventDefault()
-    dispatch({
-      type: INIT_PATIENT,
-      data: {
-        age: props.values.age,
-        gender: props.values.gender,
-        isSmoker: props.values.isSmoker,
-        is_medical_background: props.values.is_medical_background,
-        problem_health: props.values.problem_health,
-        in_treatment: props.values.in_treatment
-      }
-    })
     dispatch({ type: UPDATE_LEVEL, level: 'exam' })
   }
 
