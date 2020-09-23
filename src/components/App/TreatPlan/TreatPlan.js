@@ -144,6 +144,7 @@ const TreatPlan = (props) => {
                 select
                 onChange={props.onChange('treatment')}
                 variant='outlined'
+                fullWidth
                 SelectProps={{
                   multiple: true,
                   value: props.values.treatment

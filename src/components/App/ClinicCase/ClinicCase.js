@@ -45,9 +45,7 @@ const ClinicCase = (props) => {
       if (regex2.test(datas)) {
         addToast(messages.error, { appearance: 'error' })
       } else {
-        addToast(messages.success, { appearance: 'success' })
-        setTimeout(() => { return <Redirect to='/cases' /> }, 2000);
-        
+        addToast(messages.success, { appearance: 'success' }) 
       }
     }
   }
@@ -118,6 +116,7 @@ const ClinicCase = (props) => {
                 select
                 onChange={props.onChange('keywords')}
                 variant='outlined'
+                fullWidth
                 SelectProps={{
                   multiple: true,
                   value: props.values.keywords
@@ -139,6 +138,7 @@ const ClinicCase = (props) => {
                 select
                 onChange={props.onChange('specialities')}
                 variant='outlined'
+                fullWidth
                 SelectProps={{
                   multiple: true,
                   value: props.values.specialities
