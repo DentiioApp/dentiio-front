@@ -45,7 +45,7 @@ const CasePost = () => {
 
   const getSymptomes = async() => {
     const symptomesLoaded = await fetchSymptomes()
-    dispatch({type: TREATMENTS_LIST, data: symptomesLoaded})
+    dispatch({type: SYMPTOMES_LIST, data: symptomesLoaded.datas})
   }
 
   useEffect(() => {
@@ -76,7 +76,7 @@ const CasePost = () => {
     evolution: '',
 
     conclusion: '',
-    symptome: [],
+    symptomes: [],
     title: '',
     summary: '',
     keywords: [],
@@ -86,7 +86,7 @@ const CasePost = () => {
 
   const [values, setValues] = useState(initValues)
 
-  const handleChange = prop => event => {console.log('TEST :', pathologies)
+  const handleChange = prop => event => {
     if (prop === 'isSmoker' || prop === 'is_medical_background') { setValues({ ...values, [prop]: event.target.checked }) } 
     else { setValues({ ...values, [prop]: event.target.value }) }
   }

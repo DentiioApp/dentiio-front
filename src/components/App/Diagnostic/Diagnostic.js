@@ -34,7 +34,7 @@ const Diagnostic = (props) => {
     event.preventDefault()
     dispatch({type: UPDATE_LEVEL, level:'treatplan'})
   }
-
+  console.log('props :', props.values)
   setup()
 
   return (
@@ -83,7 +83,7 @@ const Diagnostic = (props) => {
                 variant='outlined'
                 SelectProps={{
                   multiple: true,
-                  value: []
+                  value: props.values.pathologies
                 }}
                 //value={props.values.pathologie}
               >
@@ -105,7 +105,7 @@ const Diagnostic = (props) => {
                 variant='outlined'
                 SelectProps={{
                   multiple: true,
-                  value: []
+                  value: props.values.symptomes
                 }}
               >
                 {symptomes && symptomes.map((value) => (
