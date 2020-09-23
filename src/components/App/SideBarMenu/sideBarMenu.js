@@ -1,3 +1,4 @@
+import React, { useRef, useEffect } from 'react'
 import AppBar from "@material-ui/core/AppBar";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import Divider from "@material-ui/core/Divider";
@@ -5,20 +6,22 @@ import Drawer from "@material-ui/core/Drawer";
 import IconButton from "@material-ui/core/IconButton";
 import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
-import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ListItemText from "@material-ui/core/ListItemText";
 import { makeStyles, useTheme } from "@material-ui/core/styles";
 import Toolbar from "@material-ui/core/Toolbar";
 import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
 import ChevronRightIcon from "@material-ui/icons/ChevronRight";
-import MailIcon from "@material-ui/icons/Mail";
-import InboxIcon from "@material-ui/icons/MoveToInbox";
 import clsx from "clsx";
-import React from "react";
+import { useDispatch, useSelector } from "react-redux";
 import RightMenuIcon from "../../UI/RightMenuIcon/rightMenuIcon";
 import TitleHeader from "../../UI/titleHeader/TitleHeader";
+import { openSideBar, closeSideBar, fetchSpecialities, fetchTreatments } from "../../../store/actions";
+import Collapse from "@material-ui/core/Collapse";
+import ExpandLess from "@material-ui/icons/ExpandLess";
+import ExpandMore from "@material-ui/icons/ExpandMore";
+import { Treatments } from '../../../store/reducers/treatments';
 
-const drawerWidth = 240;
+const drawerWidth = 250;
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -78,23 +81,64 @@ const useStyles = makeStyles((theme) => ({
     }),
     marginLeft: 0,
   },
+  nested: {
+    paddingLeft: theme.spacing(4),
+  },
 }));
 
 export default function PersistentDrawerLeft() {
+  const sideBarRef = useRef(null)
   const classes = useStyles();
   const theme = useTheme();
-  const [open, setOpen] = React.useState(false);
+  const dispatch = useDispatch();
+  const open = useSelector((state) => state.cases.openSideBar);
+  const specialities = useSelector((state) => state.specialities.specialities);
+  const treatments = useSelector((state) => state.treatments.treatments);
+
 
   const handleDrawerOpen = () => {
-    setOpen(true);
+    dispatch(openSideBar());
+
   };
 
   const handleDrawerClose = () => {
-    setOpen(false);
+    dispatch(closeSideBar());
   };
+  
+ 
+  dispatch(fetchTreatments())
+  dispatch(fetchSpecialities())
+  
+  
+  const [show, setOpen] = React.useState(true);
+  const handleClick = () => {
+    setOpen(!show);
+  };
+  
+  function useOutsideSideBar(ref) {
+    useEffect(() => {
+      /**
+       * Alert if clicked on outside of element
+       */
+      function handleClickOutside(event) {
+        if (ref.current && !ref.current.contains(event.target)) {
+             dispatch(closeSideBar());
+        }
+      }
+
+      // Bind the event listener
+      document.addEventListener("mousedown", handleClickOutside);
+      return () => {
+        // Unbind the event listener on clean up
+        document.removeEventListener("mousedown", handleClickOutside);
+      };
+    }, [ref]);
+  }
+  
+  useOutsideSideBar(sideBarRef);
 
   return (
-    <div className={classes.root}>
+    <div className={classes.root} ref={sideBarRef}>
       <CssBaseline />
       <AppBar
         position="fixed"
@@ -134,27 +178,45 @@ export default function PersistentDrawerLeft() {
           </IconButton>
         </div>
         <Divider />
-        <List>
-          {["Inbox", "Starred", "Send email", "Drafts"].map((text, index) => (
-            <ListItem button key={text}>
-              <ListItemIcon>
-                {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-              </ListItemIcon>
-              <ListItemText primary={text} />
+
+        <ListItem button onClick={handleClick}>
+          <ListItemText primary="Spécialités" />
+          {show ? <ExpandLess /> : <ExpandMore />}
+        </ListItem>
+        <Collapse in={show} timeout="auto" unmountOnExit>
+          <List component="div" disablePadding>
+            <ListItem button className={classes.nested}>
+              <ListItemText />
+              <List>
+                {specialities.map((speciality, index) => (
+                  <ListItem button key={index}>
+                    <ListItemText primary={speciality.name} />
+                  </ListItem>
+                ))}
+              </List>
             </ListItem>
-          ))}
-        </List>
+          </List>
+        </Collapse>
+        <ListItem button onClick={handleClick}>
+          <ListItemText primary="Traitements" />
+          {show ? <ExpandLess /> : <ExpandMore />}
+        </ListItem>
+        <Collapse in={show} timeout="auto" unmountOnExit>
+          <List component="div" disablePadding>
+            <ListItem button className={classes.nested}>
+              <ListItemText />
+              <List>
+                {treatments.map((treatment, index) => (
+                  <ListItem button key={index}>
+                    <ListItemText primary={treatment.name} />
+                  </ListItem>
+                ))}
+              </List>
+            </ListItem>
+          </List>
+        </Collapse>
+
         <Divider />
-        <List>
-          {["All mail", "Trash", "Spam"].map((text, index) => (
-            <ListItem button key={text}>
-              <ListItemIcon>
-                {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-              </ListItemIcon>
-              <ListItemText primary={text} />
-            </ListItem>
-          ))}
-        </List>
       </Drawer>
       <main
         className={clsx(classes.content, {

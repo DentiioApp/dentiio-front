@@ -1,6 +1,8 @@
 
 import { registerUser, logUser, cardSave } from './Auth'
-import { addFav } from './Cases'
+import { addFav, openSideBar, closeSideBar } from "./Cases";
+import { fetchSpecialities } from './Specialities';
+import { fetchTreatments } from "./Treatments";
 
 export const ADD_FAVORITE = 'ADD_FAVORITE'
 export const CARD_STATE = 'CARD_STATE'
@@ -15,5 +17,24 @@ export const INIT_CURRENT_CASE = 'INIT_CURRENT_CASE'
 export const KEYWORDS_LIST = 'KEYWORDS_LIST'
 export const FILTERED_CASES = 'FILTERED_CASES'
 export const STATUS_FORM = 'STATUS_FORM'
+export const UPDATE_LEVEL = 'UPDATE_LEVEL'
+export const INIT_PATIENT = 'INIT_PATIENT'
+export const SPECS_LIST = 'SPECS_LIST'
+export const PATHO_LIST = 'PATHO_LIST'
+export const TREATMENTS_LIST = 'TREATMENTS_LIST'
+export const SYMPTOMES_LIST = 'SYMPTOMES_LIST'
+export const OPEN_SIDE_BAR = "OPEN_SIDE_BAR";
+export const CLOSE_SIDE_BAR = "CLOSE_SIDE_BAR";
+export const SET_SPECIALITIES = "SET_SPECIALITIES";
+export const SET_TREATMENTS = "SET_TREATMENTS";
 
-export { logUser, registerUser, cardSave, addFav }
+export {
+  logUser,
+  registerUser,
+  cardSave,
+  addFav,
+  openSideBar,
+  closeSideBar,
+  fetchSpecialities,
+  fetchTreatments,
+};
