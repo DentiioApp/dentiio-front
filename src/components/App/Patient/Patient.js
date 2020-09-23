@@ -72,7 +72,9 @@ const Patient = (props) => {
               Fiche Patient
             </Typography>
             <form className={classes.form} noValidate>
-
+              <Typography className='inputLabel'>
+                Age
+              </Typography>
               <TextField
                 className='textField'
                 id='age'
@@ -89,7 +91,7 @@ const Patient = (props) => {
               </TextField>
 
               <InputLabel className='inputLabel'>
-              Genre :
+                Genre
               </InputLabel>
               <TextField
                 className='textField'
