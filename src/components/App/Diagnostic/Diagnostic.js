@@ -82,6 +82,7 @@ const Diagnostic = (props) => {
                 variant='outlined'
                 label="Intraorale et extraorale"
                 multiline
+                autoFocus
                 fullWidth
                 margin='dense'
                 required

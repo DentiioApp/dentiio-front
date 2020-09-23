@@ -75,6 +75,7 @@ const Evolution = (props) => {
                 margin='normal'
                 required
                 name='evolution'
+                autoFocus
                 type='textarea'
                 id='evolution'
                 value={props.values.evolution}

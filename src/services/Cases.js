@@ -42,7 +42,7 @@ export const postCase = (values, patient) => {
 
     isEnabled: true,
 
-    patient: patient,
+    patient: {patient},
     symptome: values.symptomes,
     treatment: values.treatment,
     pathologie: values.pathologie,

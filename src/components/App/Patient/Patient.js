@@ -166,6 +166,7 @@ const Patient = (props) => {
                 margin='normal'
                 label="Probleme cardiaque"
                 multiline
+                autoFocus
                 required
                 fullWidth
                 name='problem_health'

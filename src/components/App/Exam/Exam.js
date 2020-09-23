@@ -97,6 +97,7 @@ const Exam = (props) => {
                 margin='dense'
                 label="Description intraorale et extraorale"
                 multiline
+                autoFocus
                 required
                 fullWidth
                 name='intra_extra_oral_desc'

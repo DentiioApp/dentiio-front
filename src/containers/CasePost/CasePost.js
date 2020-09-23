@@ -67,6 +67,7 @@ const CasePost = () => {
 
     exam_pics: [],
     exam_name: '',
+    step: [],
 
     in_treatment: '',
     global_desc: '',

@@ -1,6 +1,6 @@
 import './treatPlan.scss'
 
-import React from 'react'
+import React, { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 
 import {
@@ -30,9 +30,24 @@ const TreatPlan = (props) => {
   const dispatch = useDispatch()
   const treatments = useSelector((state) => state.home.treatments)
 
+  const initVals = {
+    errGlobal_desc: false,
+    errMedication_administered: false,
+    errStep: false,
+    errTreatment: false,
+  }
+  const [errors, setErrors] = useState(initVals)
+
   const catchSubmit = async (event) => {
     event.preventDefault()
-    dispatch({ type: UPDATE_LEVEL, level: 'evolution' })
+    let isValid = true
+    if(props.values.global_desc === ""){ setErrors({...errors, errGlobal_desc: true}); isValid=false}
+    if(props.values.medication_administered === ""){  setErrors({...errors, errMedication_administered: true}); isValid=false}
+    if(props.values.step.length < 1){  setErrors({...errors, errStep: true}); isValid=false}
+    if(props.values.treatment.length < 1){  setErrors({...errors, errTreatment: true}); isValid=false}
+
+    if(isValid)
+      dispatch({ type: UPDATE_LEVEL, level: 'evolution' })
   }
 
   const catchOnmit = async (event) => {
@@ -74,6 +89,7 @@ const TreatPlan = (props) => {
                 margin='normal'
                 label="Description globale"
                 multiline
+                autoFocus
                 required
                 name='global_desc'
                 type='textarea'
@@ -81,6 +97,7 @@ const TreatPlan = (props) => {
                 value= {props.values.global_desc}
                 autoComplete='current-global_desc'
                 onChange={props.onChange('global_desc')}
+                error={errors.errGlobal_desc}
               />
               <TextField
                 variant='outlined'
@@ -94,7 +111,7 @@ const TreatPlan = (props) => {
                 value= {props.values.medication_administered}
                 autoComplete='current-medication_administered'
                 onChange={props.onChange('medication_administered')}
-                //error={errPseudo}
+                error={errors.errMedication_administered}
               />
 
               <InputLabel className='inputLabel'>
@@ -114,6 +131,7 @@ const TreatPlan = (props) => {
                 value= {props.values.step}
                 autoComplete='current-step1'
                 onChange={props.onChange('step')}
+                error={errors.errStep}
               />
 
               <InputLabel className='inputLabel'>
@@ -133,6 +151,7 @@ const TreatPlan = (props) => {
                 value= {props.values.step}
                 autoComplete='current-in_treatment'
                 onChange={props.onChange('step')}
+                error={errors.errStep}
               />
 
               <InputLabel className='inputLabel'>
@@ -152,6 +171,7 @@ const TreatPlan = (props) => {
                 autoComplete='current-step'
                 value= {props.values.step}
                 onChange={props.onChange('step')}
+                error={errors.errStep}
               />
 
               <InputLabel className='inputLabel'>
@@ -168,6 +188,7 @@ const TreatPlan = (props) => {
                   multiple: true,
                   value: props.values.treatment
                 }}
+                error={errors.errTreatment}
               >
                 {treatments && treatments.map((value) => (
                   <MenuItem key={value['@id']} value={value['@id']}>

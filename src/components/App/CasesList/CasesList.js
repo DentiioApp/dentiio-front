@@ -47,7 +47,7 @@ const CasesList = () => {
   const getCases = async () => {
     const fetch = await fetchCases(values.paginator)
     const regex2 = RegExp(/Error/)
-    if (!regex2.test(fetch.message)) {
+    if (fetch.message !== undefined &&!regex2.test(fetch.message)) {
       dispatch({ type: CASES_LIST, datas: fetch.datas, nbrItems: fetch.items })
     }
   }

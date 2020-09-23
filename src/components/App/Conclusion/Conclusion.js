@@ -74,6 +74,7 @@ const Conclusion = (props) => {
                 variant='outlined'
                 margin='normal'
                 required
+                autoFocus
                 name='conclusion'
                 type='textarea'
                 id='conclusion'
