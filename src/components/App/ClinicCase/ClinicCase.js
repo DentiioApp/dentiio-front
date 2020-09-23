@@ -46,7 +46,7 @@ const ClinicCase = (props) => {
         addToast(messages.error, { appearance: 'error' })
       } else {
         addToast(messages.success, { appearance: 'success' })
-        setTimeout(() => { return <Redirect to='/cases' /> }, 2000);
+        // setTimeout(() => { return <Redirect to='/cases' /> }, 2000);
         
       }
     }
