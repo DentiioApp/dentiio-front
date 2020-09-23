@@ -102,6 +102,7 @@ const Exam = (props) => {
                 name='intra_extra_oral_desc'
                 type='textarea'
                 id='intra_extra_oral_desc'
+                value= {props.values.intra_extra_oral_desc}
                 autoComplete='current-intra_extra_oral_desc'
                 onChange={props.onChange('intra_extra_oral_desc')}
                 error={errors.errIntra_extra_oral_desc}
@@ -123,6 +124,7 @@ const Exam = (props) => {
                 name='problem_health'
                 type='textarea'
                 id='problem_health'
+                value= {props.values.problem_health}
                 autoComplete='current-problem_health'
                 onChange={props.onChange('problem_health')}
                 error={errors.errProblem_health}
@@ -139,6 +141,7 @@ const Exam = (props) => {
                 name='exam_name'
                 type='textarea'
                 id='exam_name'
+                value= {props.values.exam_name}
                 autoComplete='current-exam_name'
                 onChange={props.onChange('exam_name')}
                 error={errors.errExam_name}

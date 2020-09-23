@@ -88,6 +88,7 @@ const Diagnostic = (props) => {
                 name='diagnostic'
                 type='textarea'
                 id='diagnostic'
+                value= {props.values.diagnostic}
                 autoComplete='current-diagnostic'
                 onChange={props.onChange('diagnostic')}
                 error={errors.errDiagnostic}

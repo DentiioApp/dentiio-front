@@ -1,6 +1,6 @@
 import './clinicCase.scss'
 
-import React from 'react'
+import React, { useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { useToasts } from 'react-toast-notifications'
 
@@ -37,15 +37,23 @@ const ClinicCase = (props) => {
 
   const keywords = useSelector((state) => state.home.keywords)
   const specialities = useSelector((state) => state.home.specialities)
+  
+  const initVals = {
+    errTitle: false,
+    errSummary: false,
+    errKeywords: false,
+    errSpecialities: false,
+  }
+  const [errors, setErrors] = useState(initVals)
 
   const catchSubmit = async (event) => {
     event.preventDefault()
     let isValid = true
-    if(props.values.title === ""){isValid=false}
-    if(props.values.summary === ""){isValid=false}
-    if(props.values.keywords.length < 1){isValid=false}
-    if(props.values.specialities.length < 1){isValid=false}
-
+    if(props.values.title === ""){ setErrors({...errors, errTitle: true}); isValid=false}
+    if(props.values.summary === ""){  setErrors({...errors, errSummary: true}); isValid=false}
+    if(props.values.keywords.length < 1){  setErrors({...errors, errKeywords: true}); isValid=false}
+    if(props.values.specialities.length < 1){  setErrors({...errors, errSpecialities: true}); isValid=false}
+    
     if(isValid){
       const regex2 = RegExp(/Error/)
       const patient = await postPatient(props.values)
@@ -103,6 +111,7 @@ const ClinicCase = (props) => {
                 id='title'
                 autoComplete='current-title'
                 onChange={props.onChange('title')}
+                error={errors.errTitle}
               />
               <Typography component='h1' variant='h5'>
                 Inscription
@@ -119,6 +128,7 @@ const ClinicCase = (props) => {
                 id='summary'
                 autoComplete='current-summary'
                 onChange={props.onChange('summary')}
+                error={errors.errSummary}
               />
 
               <Typography component='h1' variant='h5'>
@@ -135,6 +145,7 @@ const ClinicCase = (props) => {
                   multiple: true,
                   value: props.values.keywords
                 }}
+                error={errors.errKeywords}
               >
                 {keywords && keywords.map((value) => (
                   <MenuItem key={value['@id']} value={value['@id']}>
@@ -157,6 +168,7 @@ const ClinicCase = (props) => {
                   multiple: true,
                   value: props.values.specialities
                 }}
+                error={errors.errSpecialities}
               >
                 {specialities && specialities.map((value) => (
                   <MenuItem key={value['@id']} value={value['@id']}>

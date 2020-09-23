@@ -171,6 +171,7 @@ const Patient = (props) => {
                 name='problem_health'
                 type='textarea'
                 id='problem_health'
+                value= {props.values.problem_health}
                 autoComplete='current-problem_health'
                 // onKeyDown={(e) => e.keyCode !== 13 ? null : catchSubmit(e)}
                 onChange={props.onChange('problem_health')}
@@ -189,8 +190,8 @@ const Patient = (props) => {
                 name='in_treatment'
                 type='textarea'
                 id='in_treatment'
+                value= {props.values.in_treatment}
                 autoComplete='current-in_treatment'
-                // onKeyDown={(e) => e.keyCode !== 13 ? null : catchSubmit(e)}
                 onChange={props.onChange('in_treatment')}
                 error={errors.errIn_treatment}
               />

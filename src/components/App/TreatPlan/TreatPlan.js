@@ -6,7 +6,6 @@ import { useDispatch, useSelector } from 'react-redux'
 import {
   Paper,
   Typography,
-  TextareaAutosize
 } from '@material-ui/core/'
 import Grid from '@material-ui/core/Grid'
 import { makeStyles } from '@material-ui/core/styles'
@@ -68,15 +67,18 @@ const TreatPlan = (props) => {
               <InputLabel className='inputLabel'>
                Description globale
               </InputLabel>
-              <TextareaAutosize
+              <TextField
                 aria-label='minimum height'
-                rowsMin={3} placeholder='Description globale'
+                placeholder='Description globale'
                 variant='outlined'
                 margin='normal'
+                label="Description globale"
+                multiline
                 required
                 name='global_desc'
                 type='textarea'
                 id='global_desc'
+                value= {props.values.global_desc}
                 autoComplete='current-global_desc'
                 onChange={props.onChange('global_desc')}
               />
@@ -86,25 +88,30 @@ const TreatPlan = (props) => {
                 required
                 name='medication_administered'
                 label='Médicaments administrés'
+                multiline
                 type='text'
                 id='medication_administered'
+                value= {props.values.medication_administered}
                 autoComplete='current-medication_administered'
                 onChange={props.onChange('medication_administered')}
-                // error={errPseudo}
+                //error={errPseudo}
               />
 
               <InputLabel className='inputLabel'>
                 Etape 1
               </InputLabel>
-              <TextareaAutosize
+              <TextField
                 aria-label='minimum height'
-                rowsMin={3} placeholder='Renseignez le(s) probleme(s) cardiaque'
+                placeholder='Renseignez le(s) probleme(s) cardiaque'
                 variant='outlined'
                 margin='normal'
                 required
+                label="Etape 1"
+                multiline
                 name='step1'
                 type='textarea'
                 id='step1'
+                value= {props.values.step}
                 autoComplete='current-step1'
                 onChange={props.onChange('step')}
               />
@@ -112,15 +119,18 @@ const TreatPlan = (props) => {
               <InputLabel className='inputLabel'>
                 Etape 2
               </InputLabel>
-              <TextareaAutosize
+              <TextField
                 aria-label='minimum height'
                 rowsMin={3} placeholder='Renseignez le(s) traitement(s)'
                 variant='outlined'
                 margin='normal'
                 required
+                label="Etape 2"
+                multiline
                 name='step2'
                 type='textarea'
                 id='step2'
+                value= {props.values.step}
                 autoComplete='current-in_treatment'
                 onChange={props.onChange('step')}
               />
@@ -128,16 +138,19 @@ const TreatPlan = (props) => {
               <InputLabel className='inputLabel'>
                 Etape 3
               </InputLabel>
-              <TextareaAutosize
+              <TextField
                 aria-label='minimum height'
-                rowsMin={3} placeholder='Renseignez le(s) traitement(s)'
+                placeholder='Renseignez le(s) traitement(s)'
                 variant='outlined'
                 margin='normal'
                 required
+                label="Etape 3"
+                multiline
                 name='step3'
                 type='textarea'
                 id='step3'
                 autoComplete='current-step'
+                value= {props.values.step}
                 onChange={props.onChange('step')}
               />
 
