@@ -81,7 +81,6 @@ const Exam = (props) => {
                 variant='outlined'
                 margin='normal'
                 required
-                fullWidth
                 name='intra_extra_oral_desc'
                 type='textarea'
                 id='intra_extra_oral_desc'
@@ -150,7 +149,7 @@ const Exam = (props) => {
                 variant='outlined'
                 margin='normal'
                 required
-                fullWidth
+                
                 name='problem_health'
                 type='textarea'
                 id='problem_health'
@@ -168,7 +167,6 @@ const Exam = (props) => {
                 variant='outlined'
                 margin='normal'
                 required
-                fullWidth
                 name='in_treatment'
                 type='textarea'
                 id='in_treatment'

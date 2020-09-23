@@ -199,7 +199,7 @@ const Register = () => {
               variant='outlined'
               margin='normal'
               required
-              fullWidth
+              fullwidth
               id='email'
               label='Email Address'
               name='email'

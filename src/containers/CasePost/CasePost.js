@@ -9,7 +9,7 @@ import Evolution from '../../components/App/Evolution/Evolution'
 import Conclusion from '../../components/App/Conclusion/Conclusion'
 import ClinicCase from '../../components/App/ClinicCase/ClinicCase'
 import TreatPlan from '../../components/App/TreatPlan/TreatPlan'
-import {fetchSpecialities, fetchPathologies, tryKeywords, fetchTreatments} from '../../services/Home'
+import {fetchSpecialities, fetchPathologies, fetchKeywords, fetchTreatments} from '../../services/Home'
 import {SPECS_LIST, KEYWORDS_LIST, PATHO_LIST, TREATMENTS_LIST} from '../../store/actions'
 
 const CasePost = () => {
@@ -23,33 +23,29 @@ const CasePost = () => {
 
   const getSpecialities = async() => {
     const specialitiesLoaded = await fetchSpecialities()
-    console.log('SPECS_LIST :', specialitiesLoaded)
     dispatch({type: SPECS_LIST, data:specialitiesLoaded})
   }
 
   const getKeywords = async() => {
-    const keywordsLoaded = await tryKeywords()
-    console.log('KEYWORDS_LIST :', keywordsLoaded)
+    const keywordsLoaded = await fetchKeywords()
     dispatch({type: KEYWORDS_LIST, data:keywordsLoaded})
   }
 
   const getPathologies = async() => {
     const pathologiesLoaded = await fetchPathologies()
-    console.log('PATHO_LIST :', pathologiesLoaded)
     dispatch({type: PATHO_LIST, data: pathologiesLoaded})
   }
 
   const getTreatments = async() => {
     const treatmentsLoaded = await fetchTreatments()
-    console.log('TREATMENTS_LIST :', treatmentsLoaded)
     dispatch({type: TREATMENTS_LIST, data: treatmentsLoaded})
   }
 
   useEffect(() => {
-    if (specialities.length < 1) {const loadSpecialities = getSpecialities()}
-    if (keywords.length < 1) {const loadKeywords = getKeywords()}
-    if (pathologies.length < 1) {const loadPathologies = getPathologies()}
-    if (treatments.length < 1) {const loadTreatments = getTreatments()}
+    if (specialities && specialities.length < 1) {getSpecialities()}
+    if (keywords && keywords.length < 1) {getKeywords()}
+    if (pathologies && pathologies.length < 1) {getPathologies()}
+    if (treatments && treatments.length < 1) {getTreatments()}
 
   })
   const initValues = {

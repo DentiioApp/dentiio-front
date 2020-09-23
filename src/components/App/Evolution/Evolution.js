@@ -5,21 +5,17 @@ import { useDispatch } from 'react-redux'
 
 import {
   Paper,
-  Switch,
   Typography,
   TextareaAutosize,
 } from '@material-ui/core/'
 import Grid from '@material-ui/core/Grid'
 import { makeStyles } from '@material-ui/core/styles'
-import TextField from '@material-ui/core/TextField'
 import imgDesktop from '../../../images/illus.png'
 import imgMobile from '../../../images/mobile-bg.svg'
 
 import GradientBtn from '../../UI/buttons/GradientBtn'
 import oStyle from '../../ResponsiveDesign/AuthStyle'
 import { UPDATE_LEVEL } from '../../../store/actions'
-import MenuItem from '@material-ui/core/MenuItem'
-import InputLabel from '@material-ui/core/InputLabel'
 
 import { setup } from '../../../services/Auth'
 import logo from '../../../images/logo.svg'
@@ -66,7 +62,6 @@ const Evolution = (props) => {
                 variant='outlined'
                 margin='normal'
                 required
-                fullWidth
                 name='evolution'
                 type='textarea'
                 id='evolution'

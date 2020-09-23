@@ -78,10 +78,11 @@ const Patient = (props) => {
                 select
                 onChange={props.onChange('age')}
                 variant='outlined'
+                value={props.values.age === undefined ? 18 : props.values.age}
               >
                 {ages && ages.map((value,index) => (
-                  <MenuItem key={index+1} value={value}>
-                    {value}
+                  <MenuItem key={value+1} value={index}>
+                    {index}
                   </MenuItem>
                 ))}
               </TextField>
@@ -94,7 +95,7 @@ const Patient = (props) => {
                 className='textField'
                 id='gender'
                 select
-                value={props.values.gender === '' ? 'none' : props.values.gender}
+                value={props.values.gender === '' ? 'Monsieur' : props.values.gender}
                 onChange={props.onChange('gender')}
                 variant='outlined'
               >
@@ -143,7 +144,6 @@ const Patient = (props) => {
                 variant='outlined'
                 margin='normal'
                 required
-                fullWidth
                 name='problem_health'
                 type='textarea'
                 id='problem_health'
@@ -161,7 +161,6 @@ const Patient = (props) => {
                 variant='outlined'
                 margin='normal'
                 required
-                fullWidth
                 name='in_treatment'
                 type='textarea'
                 id='in_treatment'

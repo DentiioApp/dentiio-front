@@ -39,23 +39,23 @@ export const addFavCase = (iUser, iItem) => {
 
 export const postCase = (values) => {
   let symptome = []
-  const fetchSymptome = values.symptome.map((value)=>{
-    symptome.push("/api/symptomes/"+value)
+  values.symptome.map((value)=>{
+    return symptome.push("/api/symptomes/"+value)
   })
 
   let treatment = []
-  const fetchTreatment = values.treatment.map((value)=>{
-    treatment.push("/api/treatments/"+value)
+  values.treatment.map((value)=>{
+    return treatment.push("/api/treatments/"+value)
   })
 
   let pathologie = []
-  const fetchPathologie = values.pathologie.map((value)=>{
-    pathologie.push("/api/pathologies/"+value)
+  values.pathologie.map((value)=>{
+    return pathologie.push("/api/pathologies/"+value)
   })
 
   let keyword = []
-  const fetchKeyword = values.keyword.map((value)=>{
-    keyword.push("/api/keywords/"+value)
+  values.keyword.map((value)=>{
+    return keyword.push("/api/keywords/"+value)
   })
 
   const item = {

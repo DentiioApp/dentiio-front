@@ -5,7 +5,6 @@ import { useDispatch } from 'react-redux'
 
 import {
   Paper,
-  Switch,
   Typography,
   TextareaAutosize,
 } from '@material-ui/core/'
@@ -18,13 +17,11 @@ import imgMobile from '../../../images/mobile-bg.svg'
 import GradientBtn from '../../UI/buttons/GradientBtn'
 import oStyle from '../../ResponsiveDesign/AuthStyle'
 import { UPDATE_LEVEL } from '../../../store/actions'
-import MenuItem from '@material-ui/core/MenuItem'
 import InputLabel from '@material-ui/core/InputLabel'
 
 import { setup } from '../../../services/Auth'
 import logo from '../../../images/logo.svg'
 import avatar from '../../../images/logoteeth_blue.png'
-import config from '../../../config'
 
 const useStyles = makeStyles((theme) => (oStyle(theme, imgDesktop, imgMobile)))
 
@@ -70,7 +67,6 @@ const TreatPlan = (props) => {
                 variant='outlined'
                 margin='normal'
                 required
-                fullWidth
                 name='global_desc'
                 type='textarea'
                 id='global_desc'
@@ -81,7 +77,6 @@ const TreatPlan = (props) => {
                 variant='outlined'
                 margin='normal'
                 required
-                fullWidth
                 name='medication_administered'
                 label='Médicaments administrés'
                 type='text'
@@ -101,7 +96,6 @@ const TreatPlan = (props) => {
                 variant='outlined'
                 margin='normal'
                 required
-                fullWidth
                 name='step1'
                 type='textarea'
                 id='step1'
@@ -118,7 +112,6 @@ const TreatPlan = (props) => {
                 variant='outlined'
                 margin='normal'
                 required
-                fullWidth
                 name='step2'
                 type='textarea'
                 id='step2'
@@ -135,7 +128,6 @@ const TreatPlan = (props) => {
                 variant='outlined'
                 margin='normal'
                 required
-                fullWidth
                 name='step3'
                 type='textarea'
                 id='step3'

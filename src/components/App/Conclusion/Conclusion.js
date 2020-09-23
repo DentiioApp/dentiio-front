@@ -5,7 +5,6 @@ import { useDispatch } from 'react-redux'
 
 import {
   Paper,
-  Switch,
   Typography,
   TextareaAutosize,
 } from '@material-ui/core/'
@@ -13,7 +12,6 @@ import Grid from '@material-ui/core/Grid'
 import { makeStyles } from '@material-ui/core/styles'
 import imgDesktop from '../../../images/illus.png'
 import imgMobile from '../../../images/mobile-bg.svg'
-import Button from '@material-ui/core/Button'
 import GradientBtn from '../../UI/buttons/GradientBtn'
 import oStyle from '../../ResponsiveDesign/AuthStyle'
 import { UPDATE_LEVEL } from '../../../store/actions'
@@ -21,7 +19,6 @@ import { UPDATE_LEVEL } from '../../../store/actions'
 import { setup } from '../../../services/Auth'
 import logo from '../../../images/logo.svg'
 import avatar from '../../../images/logoteeth_blue.png'
-import config from '../../../config'
 
 const useStyles = makeStyles((theme) => (oStyle(theme, imgDesktop, imgMobile)))
 
@@ -64,7 +61,6 @@ const Conclusion = (props) => {
                 variant='outlined'
                 margin='normal'
                 required
-                fullWidth
                 name='conclusion'
                 type='textarea'
                 id='conclusion'

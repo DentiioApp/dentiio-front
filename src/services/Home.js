@@ -12,7 +12,7 @@ const TREATMENTS=
 const PATHOLOGIES= 
   process.env.REACT_APP_BACK_API_URL + process.env.REACT_APP_PATHOLOGIES
 
-const fetchKeywords = () => {
+export const fetchKeywords = () => {
   const reponses = axios
     .get(KEYWORDS)
     .then((res) => ({
@@ -28,7 +28,7 @@ export const fetchSpecialities = () => {
     .get(SPECIALITIES)
     .then((res) => ({
       message: 'OK',
-      datas: res.data
+      datas: res.data['hydra:member']
     }))
     .catch((e) => JSON.stringify(e))
   return reponses
@@ -39,7 +39,7 @@ export const fetchTreatments= () => {
     .get(TREATMENTS)
     .then((res) => ({
       message: 'OK',
-      datas: res.data
+      datas: res.data['hydra:member']
     }))
     .catch((e) => JSON.stringify(e))
   return reponses
@@ -50,7 +50,7 @@ export const fetchPathologies= () => {
     .get(PATHOLOGIES)
     .then((res) => ({
       message: 'OK',
-      datas: res.data
+      datas: res.data['hydra:member']
     }))
     .catch((e) => JSON.stringify(e))
   return reponses
