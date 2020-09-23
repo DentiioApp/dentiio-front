@@ -1,7 +1,7 @@
 import './treatPlan.scss'
 
 import React from 'react'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 
 import {
   Paper,
@@ -11,6 +11,7 @@ import {
 import Grid from '@material-ui/core/Grid'
 import { makeStyles } from '@material-ui/core/styles'
 import TextField from '@material-ui/core/TextField'
+import MenuItem from '@material-ui/core/MenuItem'
 import imgDesktop from '../../../images/illus.png'
 import imgMobile from '../../../images/mobile-bg.svg'
 
@@ -28,7 +29,7 @@ const useStyles = makeStyles((theme) => (oStyle(theme, imgDesktop, imgMobile)))
 const TreatPlan = (props) => {
   const classes = useStyles()
   const dispatch = useDispatch()
-
+  const treatments = useSelector((state) => state.home.treatments)
   const catchSubmit = async (event) => {
     event.preventDefault()
     dispatch({type: UPDATE_LEVEL, level:'evolution'})
@@ -135,12 +136,29 @@ const TreatPlan = (props) => {
                 onChange={props.onChange('step')}
               />
                 
+              <InputLabel className='inputLabel'>
+                Treatments
+              </InputLabel>
+              <TextField
+                className='textField'
+                id='treatment'
+                select
+                onChange={props.onChange('treatment')}
+                variant='outlined'
+                value={props.values.treatment}
+              >
+                {treatments && treatments.map((value) => (
+                  <MenuItem key={value.id} value={value.id}>
+                    {value.name}
+                  </MenuItem>
+                ))}
+              </TextField>
 
               <div onClick={catchSubmit}>
                 <GradientBtn
                   variant='contained'
                   type='submit'
-                  description='Se connecter'
+                  description='Suivant'
                   className='GradientBtn'
                 />
               </div>

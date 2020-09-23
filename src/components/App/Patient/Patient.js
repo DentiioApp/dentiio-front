@@ -80,9 +80,9 @@ const Patient = (props) => {
                 variant='outlined'
                 value={props.values.age === undefined ? 18 : props.values.age}
               >
-                {ages && ages.map((value,index) => (
-                  <MenuItem key={value+1} value={index}>
-                    {index}
+                {ages && ages.map((index,value) => (
+                  <MenuItem key={index+1} value={value}>
+                    {value}
                   </MenuItem>
                 ))}
               </TextField>

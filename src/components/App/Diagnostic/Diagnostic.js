@@ -1,7 +1,7 @@
 import './diagnostic.scss'
 
 import React from 'react'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 
 import {
   Paper,
@@ -10,6 +10,8 @@ import {
 } from '@material-ui/core/'
 import Grid from '@material-ui/core/Grid'
 import { makeStyles } from '@material-ui/core/styles'
+import TextField from '@material-ui/core/TextField'
+import MenuItem from '@material-ui/core/MenuItem'
 import imgDesktop from '../../../images/illus.png'
 import imgMobile from '../../../images/mobile-bg.svg'
 import GradientBtn from '../../UI/buttons/GradientBtn'
@@ -24,9 +26,12 @@ const useStyles = makeStyles((theme) => (oStyle(theme, imgDesktop, imgMobile)))
 
 const Diagnostic = (props) => {
   const classes = useStyles()
-  const dispatch = useDispatch()
+  const pathologies = useSelector((state) => state.home.pathologies)
+  const symptomes = useSelector((state) => state.home.symptomes) 
 
+  const dispatch = useDispatch()
   const catchSubmit = async (event) => {
+    event.preventDefault()
     dispatch({type: UPDATE_LEVEL, level:'treatplan'})
   }
 
@@ -53,7 +58,7 @@ const Diagnostic = (props) => {
               Diagnostic
             </Typography>
             <form className={classes.form} noValidate>
- 
+
               <TextareaAutosize
                 aria-label="minimum height" 
                 rowsMin={3} placeholder="diagnostic"
@@ -64,9 +69,52 @@ const Diagnostic = (props) => {
                 type='textarea'
                 id='diagnostic'
                 autoComplete='current-diagnostic'
-                //onKeyDown={(e) => e.keyCode !== 13 ? null : catchSubmit(e)}
                 onChange={props.onChange('diagnostic')}
               />
+
+              <Typography component='h1' variant='h5'>
+                Pathologies
+              </Typography>
+              <TextField
+                className='textField'
+                id='pathologie'
+                select
+                onChange={props.onChange('pathologie')}
+                variant='outlined'
+                SelectProps={{
+                  multiple: true,
+                  value: []
+                }}
+                //value={props.values.pathologie}
+              >
+                {pathologies && pathologies.map((value) => (
+                  <MenuItem key={value.id} value={value.id}>
+                    {value.name}
+                  </MenuItem>
+                ))}
+              </TextField>
+
+              <Typography component='h1' variant='h5'>
+                Symptomes
+              </Typography>
+              <TextField
+                className='textField'
+                id='symptomes'
+                select
+                onChange={props.onChange('symptomes')}
+                variant='outlined'
+                SelectProps={{
+                  multiple: true,
+                  value: []
+                }}
+              >
+                {symptomes && symptomes.map((value) => (
+                  <MenuItem key={value.id} value={value.id}>
+                    {value.name}
+                  </MenuItem>
+                ))}
+              </TextField>
+
 
               <div onClick={catchSubmit}>
                 <GradientBtn

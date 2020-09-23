@@ -59,15 +59,15 @@ export const postCase = (values) => {
   })
 
   const item = {
-    age: values.ages,
-    smoking: values.isASmoker,
-    presentation: values.summary,
-    treatmentPlan: "jctttttt",
+    age: values.ages,//
+    smoking: values.isASmoker,//
+    presentation: values.summary,//
+    treatmentPlan: "jctttttt",//
     observation: values.global_desc,
-    evolution: values.evolution,
-    conclusion: values.conclusion,
-    createdAt: new Date().toISOString(),
-    notations: ["/api/notations/"+9754],
+    evolution: values.evolution,//
+    conclusion: values.conclusion,//
+    createdAt: new Date().toISOString(),//
+    notations: ["/api/notations/"+9754],//
   
     isEnabled: true,
 
@@ -76,7 +76,7 @@ export const postCase = (values) => {
     treatment: treatment,
     pathologie: pathologie,
     /*"speciality": ["/api/specialities/"+<number>, /api/specialities/"+<number>],*/
-    title: "Titrrreeeeeee",
+    title: values.title,//
     slug: "sluuuuuuggguueeee",
     /*
     "imageClinicalCases": [

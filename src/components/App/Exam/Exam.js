@@ -92,54 +92,7 @@ const Exam = (props) => {
               <Typography component='h1' variant='h5'>
                 Examen Complementaire
               </Typography>
-
-              <InputLabel className='inputLabel'>
-              Genre :
-              </InputLabel>
-              <TextField
-                className='textField'
-                id='gender'
-                select
-                value={props.values.gender === '' ? 'none' : props.values.gender}
-                onChange={props.onChange('gender')}
-                variant='outlined'
-              >
-                <MenuItem key='Mr' value='Monsieur'>
-                  {'Monsieur'}
-                </MenuItem>
-                <MenuItem key='Mme' value='Madame'>
-                  {'Madame'}
-                </MenuItem>
-
-              </TextField>
-
-              <br />  <br />
-
-              <InputLabel className='inputLabel'>
-              Fumeur :
-              </InputLabel>
-              <Switch
-                checked={props.values.isSmoker}
-                onChange={props.onChange('isSmoker')}
-                color='primary'
-                name='isSmoker'
-                inputProps={{ 'aria-label': 'primary checkbox' }}
-              />
-
-              <br />  <br />
-
-              <InputLabel className='inputLabel'>
-              Antécedant medical
-              </InputLabel>
-               <Switch
-                checked={props.values.is_medical_background}
-                onChange={props.onChange('is_medical_background')}
-                color='primary'
-                name='is_medical_background'
-                inputProps={{ 'aria-label': 'primary checkbox' }}
-              />
-
-              <br />  <br />
+              
               <InputLabel className='inputLabel'>
                 Probleme cardiaque
               </InputLabel>

@@ -9,8 +9,8 @@ import Evolution from '../../components/App/Evolution/Evolution'
 import Conclusion from '../../components/App/Conclusion/Conclusion'
 import ClinicCase from '../../components/App/ClinicCase/ClinicCase'
 import TreatPlan from '../../components/App/TreatPlan/TreatPlan'
-import {fetchSpecialities, fetchPathologies, fetchKeywords, fetchTreatments} from '../../services/Home'
-import {SPECS_LIST, KEYWORDS_LIST, PATHO_LIST, TREATMENTS_LIST} from '../../store/actions'
+import {fetchSpecialities, fetchPathologies, fetchKeywords, fetchTreatments, fetchSymptomes} from '../../services/Home'
+import {SPECS_LIST, KEYWORDS_LIST, PATHO_LIST, TREATMENTS_LIST, SYMPTOMES_LIST} from '../../store/actions'
 
 const CasePost = () => {
   const home = useSelector((state) => state.home)
@@ -19,6 +19,8 @@ const CasePost = () => {
   const keywords = home.keywords
   const pathologies = home.pathologies
   const treatments = home.treatments
+  const symptomes = home.symptomes
+
   const dispatch = useDispatch()
 
   const getSpecialities = async() => {
@@ -33,7 +35,7 @@ const CasePost = () => {
 
   const getPathologies = async() => {
     const pathologiesLoaded = await fetchPathologies()
-    dispatch({type: PATHO_LIST, data: pathologiesLoaded})
+    dispatch({type: PATHO_LIST, data: pathologiesLoaded.datas})
   }
 
   const getTreatments = async() => {
@@ -41,13 +43,19 @@ const CasePost = () => {
     dispatch({type: TREATMENTS_LIST, data: treatmentsLoaded})
   }
 
+  const getSymptomes = async() => {
+    const symptomesLoaded = await fetchSymptomes()
+    dispatch({type: TREATMENTS_LIST, data: symptomesLoaded})
+  }
+
   useEffect(() => {
     if (specialities && specialities.length < 1) {getSpecialities()}
     if (keywords && keywords.length < 1) {getKeywords()}
     if (pathologies && pathologies.length < 1) {getPathologies()}
     if (treatments && treatments.length < 1) {getTreatments()}
-
+    if (symptomes && symptomes.length < 1) {getSymptomes()}
   })
+
   const initValues = {
     age: 0,
     gender: '',
@@ -59,7 +67,7 @@ const CasePost = () => {
     in_treatment: '',
     global_desc: '',
     medication_administered: [],
-    step: [],
+    treatments: [],
 
     intra_extra_oral_desc: '',
 
@@ -68,16 +76,17 @@ const CasePost = () => {
     evolution: '',
 
     conclusion: '',
-    
+    symptome: [],
     title: '',
     summary: '',
     keywords: [],
     specialities: [],
+    pathologies: [],
   }
 
   const [values, setValues] = useState(initValues)
 
-  const handleChange = prop => event => {
+  const handleChange = prop => event => {console.log('TEST :', pathologies)
     if (prop === 'isSmoker' || prop === 'is_medical_background') { setValues({ ...values, [prop]: event.target.checked }) } 
     else { setValues({ ...values, [prop]: event.target.value }) }
   }

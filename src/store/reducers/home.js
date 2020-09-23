@@ -25,7 +25,7 @@ const INIT_STATE = {
   specialities: [],
   treatments: [],
   pathologies: [],
-
+  symptomes: [],
   level:''
 }
 
@@ -45,7 +45,7 @@ export const Home = (state = INIT_STATE, action) => {
     case 'SPECS_LIST': return { ...state, specialities: action.data}
     case 'TREATMENTS_LIST' : return { ...state, treatments: action.data}
     case 'PATHO_LIST' : return { ...state, pathologies: action.data}
-
+    case 'SYMPTOMES_LIST' : return { ...state, sympthomes: action.data}
     default:
       return state
   }

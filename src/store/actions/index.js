@@ -20,6 +20,7 @@ export const INIT_PATIENT = 'INIT_PATIENT'
 export const SPECS_LIST = 'SPECS_LIST'
 export const PATHO_LIST = 'PATHO_LIST'
 export const TREATMENTS_LIST = 'TREATMENTS_LIST'
+export const SYMPTOMES_LIST = 'SYMPTOMES_LIST'
 
 
 export { logUser, registerUser, cardSave, addFav }
