@@ -1,14 +1,12 @@
 // import Icon from "../../../images/titleHeader.svg";
-import { TextField, makeStyles, Button } from "@material-ui/core";
+import { Button, makeStyles, TextField } from "@material-ui/core";
 import Autocomplete from "@material-ui/lab/Autocomplete";
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 //import icon from "../../../images/logoteeth_transparent.png";
 import { tryKeywords } from "../../../services/Home";
-import { FILTERED_CASES, KEYWORDS_LIST } from "../../../store/actions";
+import { FILTERED_CASES, KEYWORDS_LIST, openSideBar } from "../../../store/actions";
 import "./Search.scss";
-//import SearchIcon from "@material-ui/icons/Search";
-import { openSideBar } from "../../../store/actions";
 
 const useStyles = makeStyles((theme) => ({
   barWidth: {
@@ -29,9 +27,9 @@ const useStyles = makeStyles((theme) => ({
       backgroundColor: "#03B6F0",
     },
   },
-})); 
+  })); 
 
-const Search = (props) => {
+const Search = () => {
   const classes = useStyles()
   const initValues = {
     keywords: []
@@ -40,7 +38,6 @@ const Search = (props) => {
   const items = useSelector((state) => state.home.cases);
   const [values, setValues] = useState(initValues);
   const dispatch = useDispatch();
-  
 
   const loadKeywords = async () => {
     const keywordsLoad = await tryKeywords()
@@ -82,24 +79,22 @@ const Search = (props) => {
     }
   })
 
-  return (
-    <div className="wrap">
-      <div className="search">
-        <div>
-          <Button
-            onClick={() => {
-            
-              dispatch(openSideBar())
-            }
-            }
-            className={classes.categoryButton}
-            variant="contained"
-          >
-            Toutes les catégories
-          </Button>
-        </div>
+return (
+  <div className="wrap">
+    <div className="search">
+      <div>
+        <Button
+          onClick={() => {
+              
+            dispatch(openSideBar())
+          }}
+              
 
-        {/* <SearchIcon /> */}
+          className={classes.categoryButton}
+          variant="contained"
+        >
+          Toutes les catégories
+        </Button>
 
         <Autocomplete
           className={classes.barWidth}
@@ -121,13 +116,10 @@ const Search = (props) => {
             />
           )}
         />
-
-        {/* <button className="searchButton">
-          <img alt="Search" src={icon} />
-        </button> */}
       </div>
     </div>
-  )
+  </div>
+)
 }
 
 export default Search
