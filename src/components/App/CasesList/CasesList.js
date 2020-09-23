@@ -16,7 +16,7 @@ const useStyles = makeStyles((theme) => ({
     flexWrap: 'wrap',
     '& > *': {
       margin: theme.spacing(3)
-    }
+    },
   }
 }))
 
@@ -55,7 +55,7 @@ const CasesList = () => {
     <>
       <Container maxWidth='lg'>
         <center><img src={titleSvg} alt='Cas Cliniques' /></center>
-        <Paginator pages={pages} onChange={handleChange} />
+        <Paginator pages={pages} onChange={handleChange} current={values.paginator} />
         <div className={classes.root}>
           {areLoaded && cases.map((oCase, index) => (
             <CasesItem key={index} item={oCase} />
@@ -63,7 +63,7 @@ const CasesList = () => {
           )}
         </div>
 
-        <Paginator pages={pages} onChange={handleChange} />
+        <Paginator pages={pages} onChange={handleChange} current={values.paginator}/>
       </Container>
     </>
   )
