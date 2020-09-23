@@ -30,7 +30,7 @@ const CasePost = () => {
 
   const getKeywords = async() => {
     const keywordsLoaded = await fetchKeywords()
-    dispatch({type: KEYWORDS_LIST, data: keywordsLoaded.datas})
+    dispatch({type: KEYWORDS_LIST, keywords: keywordsLoaded.datas})
   }
 
   const getPathologies = async() => {
@@ -86,7 +86,7 @@ const CasePost = () => {
 
   const [values, setValues] = useState(initValues)
 
-  const handleChange = prop => event => {console.log('TEST :', values)
+  const handleChange = prop => event => {console.log('TEST :', keywords)
     if (prop === 'isSmoker' || prop === 'is_medical_background') { setValues({ ...values, [prop]: event.target.checked }) } 
     else { setValues({ ...values, [prop]: event.target.value }) }
   }
