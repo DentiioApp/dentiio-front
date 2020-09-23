@@ -21,7 +21,12 @@ const INIT_STATE = {
   config: { conf },
   internet: false,
 
-  keywords: []
+  keywords: [],
+  specialities: [],
+  treatments: [],
+  pathologies: [],
+  symptomes: [],
+  level: ''
 }
 
 export const Home = (state = INIT_STATE, action) => {
@@ -31,12 +36,16 @@ export const Home = (state = INIT_STATE, action) => {
 
     case 'JOB_LIST': return { ...state, jobs: action.data, jobsLoaded: true }
     case 'CASES_LIST' : return { ...state, cases: action.datas, casesLoaded: true }
+    case 'KEYWORDS_LIST': return { ...state, keywords: action.keywords }
 
     case 'HOME_RESET': return { ...state, usersLoaded: false, casesLoaded: false, jobsLoaded: false }
     case 'LOAD_INTERNET': return { ...state, internet: navigator.onLine }
 
-    case 'KEYWORDS_LIST': return { ...state, keywords: action.keywords }
-
+    case 'UPDATE_LEVEL': return { ...state, level: action.level }
+    case 'SPECS_LIST': return { ...state, specialities: action.data }
+    case 'TREATMENTS_LIST' : return { ...state, treatments: action.data }
+    case 'PATHO_LIST' : return { ...state, pathologies: action.data }
+    case 'SYMPTOMES_LIST' : return { ...state, symptomes: action.data }
     default:
       return state
   }
