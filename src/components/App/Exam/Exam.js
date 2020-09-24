@@ -16,7 +16,7 @@ import Button from '@material-ui/core/Button'
 import GradientBtn from '../../UI/buttons/GradientBtn'
 import oStyle from '../../ResponsiveDesign/AuthStyle'
 import { UPDATE_LEVEL } from '../../../store/actions'
-//import MenuItem from '@material-ui/core/MenuItem'
+// import MenuItem from '@material-ui/core/MenuItem'
 import InputLabel from '@material-ui/core/InputLabel'
 
 import { setup } from '../../../services/Auth'
@@ -32,26 +32,25 @@ const Exam = (props) => {
     errIntra_extra_oral_desc: false,
     errProblem_health: false,
     errIn_treatment: false,
-    errExam_name: false,
+    errExam_name: false
   }
   const [errors, setErrors] = useState(initVals)
 
   const catchSubmit = async (event) => {
     event.preventDefault()
     let isValid = true
-    if(props.values.intra_extra_oral_desc === ""){ setErrors({...errors, errIntra_extra_oral_desc: true}); isValid=false}
-    if(props.values.problem_health === ""){  setErrors({...errors, errProblem_health: true}); isValid=false}
-    if(props.values.in_treatment === ""){  setErrors({...errors, errIn_treatment: true}); isValid=false}
-    if(props.values.exam_name === ""){  setErrors({...errors, errExam_name: true}); isValid=false}
-    
-    if(isValid)
-      dispatch({ type: UPDATE_LEVEL, level: 'diagnostic' })
-    }
+    if (props.values.intra_extra_oral_desc === '') { setErrors({ ...errors, errIntra_extra_oral_desc: true }); isValid = false }
+    if (props.values.problem_health === '') { setErrors({ ...errors, errProblem_health: true }); isValid = false }
+    if (props.values.in_treatment === '') { setErrors({ ...errors, errIn_treatment: true }); isValid = false }
+    if (props.values.exam_name === '') { setErrors({ ...errors, errExam_name: true }); isValid = false }
 
-    const catchOnmit = async (event) => {
-      event.preventDefault()
-      dispatch({ type: UPDATE_LEVEL, level: '' })
-    }
+    if (isValid) { dispatch({ type: UPDATE_LEVEL, level: 'diagnostic' }) }
+  }
+
+  const catchOnmit = async (event) => {
+    event.preventDefault()
+    dispatch({ type: UPDATE_LEVEL, level: '' })
+  }
 
   setup()
 
@@ -89,13 +88,13 @@ const Exam = (props) => {
                   multiple
                 />
               </Button>
-              
+
               <TextField
                 aria-label='minimum height'
-                //placeholder='Description intraorale et extraorale'
+                // placeholder='Description intraorale et extraorale'
                 variant='outlined'
                 margin='dense'
-                label="Description intraorale et extraorale"
+                label='Description intraorale et extraorale'
                 multiline
                 autoFocus
                 required
@@ -103,7 +102,7 @@ const Exam = (props) => {
                 name='intra_extra_oral_desc'
                 type='textarea'
                 id='intra_extra_oral_desc'
-                value= {props.values.intra_extra_oral_desc}
+                value={props.values.intra_extra_oral_desc}
                 autoComplete='current-intra_extra_oral_desc'
                 onChange={props.onChange('intra_extra_oral_desc')}
                 error={errors.errIntra_extra_oral_desc}
@@ -118,14 +117,14 @@ const Exam = (props) => {
                 placeholder='Renseignez le(s) probleme(s) cardiaque'
                 variant='outlined'
                 margin='dense'
-                label="Probleme cardiaque"
+                label='Probleme cardiaque'
                 multiline
                 required
                 fullWidth
                 name='problem_health'
                 type='textarea'
                 id='problem_health'
-                value= {props.values.problem_health}
+                value={props.values.problem_health}
                 autoComplete='current-problem_health'
                 onChange={props.onChange('problem_health')}
                 error={errors.errProblem_health}
@@ -142,7 +141,7 @@ const Exam = (props) => {
                 name='exam_name'
                 type='textarea'
                 id='exam_name'
-                value= {props.values.exam_name}
+                value={props.values.exam_name}
                 autoComplete='current-exam_name'
                 onChange={props.onChange('exam_name')}
                 error={errors.errExam_name}

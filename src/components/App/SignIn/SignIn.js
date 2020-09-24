@@ -22,7 +22,7 @@ import Visibility from '@material-ui/icons/Visibility'
 import VisibilityOff from '@material-ui/icons/VisibilityOff'
 import GradientBtn from '../../UI/buttons/GradientBtn'
 import oStyle from '../../ResponsiveDesign/AuthStyle'
-import {LOGIN_FORM, logUser} from '../../../store/actions'
+import { LOGIN_FORM, logUser } from '../../../store/actions'
 import { tryLogin } from '../../../services/Users'
 import { setup } from '../../../services/Auth'
 import logo from '../../../images/logo.svg'
@@ -183,14 +183,14 @@ const SignIn = () => {
               </div>
               <br />
               <Typography>
-              <span>
-                {' '}
-                Pas de compte{' '}
-                <Link onClick={(e) => switchToSubscribe(e)} color='primary'>
+                <span>
                   {' '}
+                Pas de compte{' '}
+                  <Link onClick={(e) => switchToSubscribe(e)} color='primary'>
+                    {' '}
                   Inscrivez-vous !{' '}
-                </Link>{' '}
-              </span>
+                  </Link>{' '}
+                </span>
               </Typography>
             </form>
           </div>

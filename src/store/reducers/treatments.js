@@ -1,14 +1,14 @@
-import { SET_TREATMENTS } from "../actions";
+import { SET_TREATMENTS } from '../actions'
 
 const INIT_STATE = {
-  treatments: [],
-};
+  treatments: []
+}
 
 export const Treatments = (state = INIT_STATE, action) => {
   switch (action.type) {
     case SET_TREATMENTS:
-      return { ...state, treatments: action.data };
+      return { ...state, treatments: action.data }
     default:
-      return state;
+      return state
   }
-};
+}

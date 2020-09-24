@@ -1,29 +1,30 @@
-import React, {useState, useEffect} from 'react'
+import React, { useState, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import StarBorderIcon from '@material-ui/icons/StarBorder'
 import Button from '@material-ui/core/Button'
 import StarIcon from '@material-ui/icons/Star'
 import { addFavCase } from '../../../services/Cases'
-import {ADD_FAVORITE} from '../../../store/actions'
+import { ADD_FAVORITE } from '../../../store/actions'
 import { useToasts } from 'react-toast-notifications'
+import { getUserId } from '../../../services/Users'
 
 const Favorites = (props) => {
   const { config } = useSelector((state) => state.home)
-  const userId = useSelector((state) => state.user.id)
+  const userId = getUserId()
   const { addToast } = useToasts()
   const dispatch = useDispatch()
   const favorites = useSelector((state) => state.cases.favorites)
-  const [toggle, setToggle]=useState(<StarBorderIcon color='primary' />)
+  const [toggle, setToggle] = useState(<StarBorderIcon color='primary' />)
 
   useEffect(() => {
-    if(props.isFavorite){
+    if (props.isFavorite) {
       setToggle(<StarIcon fontSize='medium' color='primary' />)
     }
-  },[favorites, props] )
+  }, [favorites, props])
 
   const HandleFav = async (item) => {
     const messages = config.conf.messages.cases.favorite
-    const response = await addFavCase(item,userId)
+    const response = await addFavCase(item, userId)
     const regex2 = RegExp(/Error/)
 
     if (regex2.test(response)) {
@@ -39,7 +40,6 @@ const Favorites = (props) => {
     HandleFav(props.value)
   }
 
-  
   return (
     <Button
       key={props.value.id}

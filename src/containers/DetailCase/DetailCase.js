@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react'
+import React, { useEffect, useState } from 'react'
 import './gallery.css'
 import Header from '../../components/App/Header/Header'
 import NavbarDetail from '../../components/App/DetailCase/NavbarDetail'
@@ -15,12 +15,12 @@ import Keyword from '../../components/UI/Keywords/keywords'
 import Gallery from '../../components/UI/Gallery/Gallery'
 import LightboxButton from '../../components/UI/Gallery/LightboxButton'
 import CardPlanTreatment from '../../components/App/DetailCase/CardPlanTreatment'
-import {getCaseById} from "../../services/Cases";
+import { getCaseById } from '../../services/Cases'
 
 const useStyles = makeStyles((theme) => ({
   root: {
-  margin: "30px 10px 50px 10px",
-  border: "none"
+    margin: '30px 10px 50px 10px',
+    border: 'none'
   },
   alignRight: {
     textAlign: 'right'
@@ -85,120 +85,119 @@ const DetailCase = (props) => {
   const [item, setItem] = useState({})
 
   const ResponseCase = async () => {
-    const CaseById = await  getCaseById(props.match.params.id)
+    const CaseById = await getCaseById(props.match.params.id)
     setItem(CaseById.datas)
   }
 
   useEffect(() => {
-    if (Object.entries(item).length === 0 ) {
+    if (Object.entries(item).length === 0) {
       ResponseCase()
     }
   })
 
-
-  const optionsDate = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
-  const Img = item.averageNote ? <img alt='' src={iconTeethFull} width='12px' className={classes.icon} /> : ""
+  const optionsDate = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' }
+  const Img = item.averageNote ? <img alt='' src={iconTeethFull} width='12px' className={classes.icon} /> : ''
 
   const imagesExamFirst = (type) => {
-    if(item.imageClinicalCases){
+    if (item.imageClinicalCases) {
       const array = []
       item.imageClinicalCases.filter(function (i) {
-        return i.type.name === type;
+        return i.type.name === type
       }).map(function (img) {
-            return array.push({
-                  original: "https://api.dentiio.fr/images/"+img.path,
-                  thumbnail: "https://api.dentiio.fr/images/"+img.path
-                }
-            )
-          }
+        return array.push({
+          original: 'https://api.dentiio.fr/images/' + img.path,
+          thumbnail: 'https://api.dentiio.fr/images/' + img.path
+        }
+        )
+      }
       )
       item.imageClinicalCases.filter(function (i) {
-        return i.type.name === "principal"
+        return i.type.name === 'principal'
       }).map(function (img) {
-            return array.push({
-                  original: "https://api.dentiio.fr/images/"+img.path,
-                  thumbnail: "https://api.dentiio.fr/images/"+img.path
-                }
-            )
-          }
+        return array.push({
+          original: 'https://api.dentiio.fr/images/' + img.path,
+          thumbnail: 'https://api.dentiio.fr/images/' + img.path
+        }
+        )
+      }
       )
-        return array
+      return array
     }
   }
 
   const imagesExam = (type) => {
-    if(item.imageClinicalCases){
+    if (item.imageClinicalCases) {
       const array = []
       item.imageClinicalCases.filter(function (i) {
-        return i.type.name === type;
+        return i.type.name === type
       }).map(function (img) {
-            return array.push({
-                  original: "https://api.dentiio.fr/images/"+img.path,
-                  thumbnail: "https://api.dentiio.fr/images/"+img.path
-                }
-            )
-          }
+        return array.push({
+          original: 'https://api.dentiio.fr/images/' + img.path,
+          thumbnail: 'https://api.dentiio.fr/images/' + img.path
+        }
+        )
+      }
       )
       return array
     }
   }
 
   const imagesBiopsy = (type) => {
-    if(item.imageClinicalCases){
+    if (item.imageClinicalCases) {
       const array = []
       item.imageClinicalCases.filter(function (i) {
-        return i.type.name === type;
+        return i.type.name === type
       }).map(function (img) {
-            return array.push("https://api.dentiio.fr/images/"+img.path
-            )
-          }
+        return array.push('https://api.dentiio.fr/images/' + img.path
+        )
+      }
       )
       return array
     }
   }
   const Scanner = () => {
-    if (imagesExam("scanner")){
-      if (imagesExam("scanner").length !== 0){
+    if (imagesExam('scanner')) {
+      if (imagesExam('scanner').length !== 0) {
         return (
-            <>
-              <Typography component='h3' variant='h5' className={classes.titleExam}>
+          <>
+            <Typography component='h3' variant='h5' className={classes.titleExam}>
                 Scanner
-              </Typography>
-              <Gallery images={imagesExam("scanner")} />
-              <p>
-                {item.scanner && item.scanner}
-              </p>
-            </>
+            </Typography>
+            <Gallery images={imagesExam('scanner')} />
+            <p>
+              {item.scanner && item.scanner}
+            </p>
+          </>
         )
       }
     }
   }
 
   const Evolution = () => {
-    if (imagesExam("evolution")){
-      if (imagesExam("evolution").length !== 0){
+    if (imagesExam('evolution')) {
+      if (imagesExam('evolution').length !== 0) {
         return (
-            <>
-              <Gallery images={imagesExam("evolution")} />
-            </>
+          <>
+            <Gallery images={imagesExam('evolution')} />
+          </>
         )
       }
     }
   }
 
   const Biopsy = () => {
-    if (imagesExam("biopsy")){
-      if (imagesExam("biopsy").length !== 0){
+    if (imagesExam('biopsy')) {
+      if (imagesExam('biopsy').length !== 0) {
         return (
-            <>
-              <Typography component='h3' variant='h5' className={classes.titleExam}>
+          <>
+            <Typography component='h3' variant='h5' className={classes.titleExam}>
                 Biopsy
-              </Typography>
-              <p>
-                {item.biopsy && item.biopsy}
-              </p>
-              <LightboxButton images={imagesBiopsy("biopsy")}/>
-            </>
+            </Typography>
+            <p>
+              {item.biopsy && item.biopsy}
+            </p>
+            <LightboxButton images={imagesBiopsy('biopsy')} />
+          </>
         )
       }
     }
@@ -206,7 +205,7 @@ const DetailCase = (props) => {
 
   return (
     <>
-      <Header target=''/>
+      <Header target='' />
       <NavbarDetail />
       <div className={classes.root} id='presentation'>
         <Grid container spacing={1}>
@@ -222,8 +221,8 @@ const DetailCase = (props) => {
               </Typography>
               <Typography component='p' variant='body2' className={classes.subtitle}>
                 <span style={{ paddingRight: 20 }}>
-                  {item.speciality && item.speciality.map((spe) =>(
-                      spe.name+", "
+                  {item.speciality && item.speciality.map((spe) => (
+                    spe.name + ', '
                   ))}
                 </span>
                 {Img}
@@ -237,8 +236,8 @@ const DetailCase = (props) => {
                 <Grid container item md={3} spacing={1} justify='center'>
                   <div className={classes.textCenter}>
                     <IconProfile color={palette.primary} profile={props.profileId} img={props.profileImg} />
-                    <p className={classes.profileName} style={{textTransform: "capitalize"}}>
-                        {item.user && item.user.pseudo}
+                    <p className={classes.profileName} style={{ textTransform: 'capitalize' }}>
+                      {item.user && item.user.pseudo}
                       <br />
                       <span className={classes.subtitle}>
                         {item.user && item.user.job.name}
@@ -250,11 +249,11 @@ const DetailCase = (props) => {
                   <p>
                     {item.presentation && item.presentation}
                   </p>
-                    {item.keyword && item.keyword.map((keyword, index) => (
-                        <div key={index} className={classes.keywords}>
-                          <Keyword key={index} keyword={keyword.name} />
-                        </div>
-                    ))}
+                  {item.keyword && item.keyword.map((keyword, index) => (
+                    <div key={index} className={classes.keywords}>
+                      <Keyword key={index} keyword={keyword.name} />
+                    </div>
+                  ))}
                 </Grid>
               </Grid>
               <Typography component='h3' variant='h5' className={classes.h3}>
@@ -267,9 +266,9 @@ const DetailCase = (props) => {
               <Typography component='h3' variant='body1'>
                   Les symptômes sont :
                 {item.symptome && item.symptome.map((keyword, index) => (
-                    <div key={index} className={classes.keywords}>
-                      <Keyword key={index} keyword={keyword.name} />
-                    </div>
+                  <div key={index} className={classes.keywords}>
+                    <Keyword key={index} keyword={keyword.name} />
+                  </div>
                 ))}
               </Typography>
               <div className={classes.patientMobile}>
@@ -278,7 +277,7 @@ const DetailCase = (props) => {
               <Typography component='h3' variant='h5' className={classes.h3} id='examen'>
                             Examen clinique
               </Typography>
-              {item.imageClinicalCases && <Gallery images={imagesExamFirst("examen")} />}
+              {item.imageClinicalCases && <Gallery images={imagesExamFirst('examen')} />}
               <p>
                 {item.observation && item.observation}
               </p>
@@ -299,9 +298,9 @@ const DetailCase = (props) => {
               </p>
               <Grid container item md={12} spacing={1}>
                 {item.pathologie && item.pathologie.map((keyword, index) => (
-                    <div key={index} className={classes.keywords}>
-                      <Keyword key={index} keyword={keyword.name} />
-                    </div>
+                  <div key={index} className={classes.keywords}>
+                    <Keyword key={index} keyword={keyword.name} />
+                  </div>
                 ))}
               </Grid>
               <Typography component='h3' variant='h5' className={classes.h3} id='plan'>
@@ -312,9 +311,9 @@ const DetailCase = (props) => {
               </p>
               <Grid container spacing={1} className={classes.resume}>
                 {item.imageClinicalCases && imagesExam('plan-de-traitement').map((img, index) => (
-                    <Grid container item md={6} key={index} justify='center'>
-                      <CardPlanTreatment title={index+1} key={index} description='' image={img.original} />
-                    </Grid>
+                  <Grid container item md={6} key={index} justify='center'>
+                    <CardPlanTreatment title={index + 1} key={index} description='' image={img.original} />
+                  </Grid>
                 ))}
 
               </Grid>

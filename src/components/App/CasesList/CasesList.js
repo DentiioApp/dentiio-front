@@ -18,7 +18,7 @@ const useStyles = makeStyles((theme) => ({
     justifyContent: 'center',
     '& > *': {
       margin: theme.spacing(3)
-    },
+    }
   }
 }))
 
@@ -34,7 +34,6 @@ const CasesList = () => {
   const nbrCases = home.nbrCases
   const areLoaded = home.casesLoaded
   const pages = Math.round(nbrCases / 30)
-
   const initValues = {
     paginator: 1
   }
@@ -51,13 +50,13 @@ const CasesList = () => {
   const getCases = async () => {
     const fetch = await fetchCases(values.paginator)
     const regex2 = RegExp(/Error/)
-    if (fetch.message !== undefined &&!regex2.test(fetch.message)) {
+    if (fetch.message !== undefined && !regex2.test(fetch.message)) {
       dispatch({ type: CASES_LIST, datas: fetch.datas, nbrItems: fetch.items })
     }
   }
 
   useEffect(() => {
-   if (cases && cases.length < 1) { initUserFav() } getCases()
+    if (cases && cases.length < 1) { initUserFav() } getCases()
   }, [values.paginator])
 
   useEffect(() => {
@@ -72,24 +71,25 @@ const CasesList = () => {
     <>
       <Container maxWidth='lg'>
         <center><img src={titleSvg} alt='Cas Cliniques' /></center>
-        {'page '+values.paginator}
-        <Paginator pages={pages} onChange={handleChange} current={values.paginator} /> 
+
+        <Paginator pages={pages} onChange={handleChange} current={values.paginator} /> {cases.length > 0 ? '[page ' + values.paginator + ']' : ''}
         <div className={classes.root}>
           {areLoaded && cases.map((oCase, index) => {
-            var isFavorite = false;
-            if(favorites.length > 0){
-              favorites.map((item)=> { 
-                if (item.clinicalCaseId.substr(-1,1) === JSON.stringify(oCase.id))
-                  isFavorite = true;
+            var isFavorite = false
+            if (favorites.length > 0) {
+              favorites.map((item) => {
+                var slashIndex = item.clinicalCaseId.lastIndexOf('/')
+                var caseId = Number(item.clinicalCaseId.substr(slashIndex).substr(1, slashIndex.length))
+                if (caseId === oCase.id) { isFavorite = true }
                 return isFavorite
               })
             }
-            
+
             return <CasesItem key={index} item={oCase} favorite={isFavorite} />
           })}
         </div>
 
-        <Paginator pages={pages} onChange={handleChange} current={values.paginator}/>
+        <Paginator pages={pages} onChange={handleChange} current={values.paginator} />
       </Container>
     </>
   )

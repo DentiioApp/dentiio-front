@@ -73,8 +73,8 @@ const config = {
     86, 87, 88, 89, 90, 91, 92, 93, 94, 95, 96, 97, 98, 99, 100
   ],
   sexes: [
-    {id : 'M', name: 'HOMME'},
-    {id : 'F', name: 'FEMME'}
+    { id: 'M', name: 'HOMME' },
+    { id: 'F', name: 'FEMME' }
   ],
 
   messages: {

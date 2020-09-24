@@ -42,11 +42,11 @@ export default function PatientDetail (props) {
   const classes = useStyles()
   const currentCase = useSelector((state) => state.cases.currentCase)
 
-    const smoker = props.data ? props.data.isASmoker === false ? "Non" : "Oui" : "Non renseigné"
-    const drink = props.data ? props.data.isAlcool === false ? "Non" : "Oui" : "Non renseigné"
-    const inTreatment = props.data ? props.data.inTreatment.empty ? "Aucun traitement en cours" : "Traitement en cours: " : "Non renseigné"
-    const treatment = props.data ? props.data.inTreatment.empty ? "" : props.data.inTreatment : ""
-    const problemHealth = props.data ? props.data.problemHealth.empty ? "Aucun" : props.data.problemHealth : ""
+  const smoker = props.data ? props.data.isASmoker === false ? 'Non' : 'Oui' : 'Non renseigné'
+  const drink = props.data ? props.data.isAlcool === false ? 'Non' : 'Oui' : 'Non renseigné'
+  const inTreatment = props.data ? props.data.inTreatment.empty ? 'Aucun traitement en cours' : 'Traitement en cours: ' : 'Non renseigné'
+  const treatment = props.data ? props.data.inTreatment.empty ? '' : props.data.inTreatment : ''
+  const problemHealth = props.data ? props.data.problemHealth.empty ? 'Aucun' : props.data.problemHealth : ''
 
   return (
     <Card className={classes.root}>
@@ -69,7 +69,7 @@ export default function PatientDetail (props) {
                                 Sexe
               </TableCell>
               <TableCell align='left'>
-                  {props.data && props.data.gender}
+                {props.data && props.data.gender}
               </TableCell>
             </TableRow>
             <TableRow>
@@ -77,7 +77,7 @@ export default function PatientDetail (props) {
                                 Alcool
               </TableCell>
               <TableCell align='left'>
-                  {drink}
+                {drink}
               </TableCell>
             </TableRow>
             <TableRow>
@@ -85,15 +85,15 @@ export default function PatientDetail (props) {
                                 Fumeur
               </TableCell>
               <TableCell align='left'>
-                  {smoker}
+                {smoker}
               </TableCell>
             </TableRow>
           </TableBody>
         </Table>
         <Typography variant='body2' component='span'>
-            {inTreatment}
-            <br/>
-            {treatment}
+          {inTreatment}
+          <br />
+          {treatment}
         </Typography>
 
         <Divider className={classes.pos} />
