@@ -15,6 +15,8 @@ import StarHalfIcon from '@material-ui/icons/StarHalf'
 import './caseItem.scss'
 
 const CasesItem = (props) => {
+  //const classes = useStyles();
+  // const dispatch = useDispatch()
   const setCurrentCase = (e, item) => {
     // dispatch({type: INIT_CURRENT_CASE, item})
   }

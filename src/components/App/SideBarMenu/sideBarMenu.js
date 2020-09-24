@@ -107,7 +107,7 @@ export default function PersistentDrawerLeft() {
   
  
   dispatch(fetchTreatments())
-  dispatch(fetchSpecialities())
+  dispatch(fetchSpecialities());
   
   
   const [show, setOpen] = React.useState(true);
