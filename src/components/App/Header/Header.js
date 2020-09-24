@@ -6,13 +6,13 @@ import palette from '../../UI/ColorTheme/Palette'
 import { Link, Redirect } from 'react-router-dom'
 import TitleHeader from '../../UI/titleHeader/TitleHeader'
 import TitleHeaderMobile from '../../UI/titleHeader/titleHeaderMobile'
-import AddIcon from "../../UI/Icon/Header/Add";
+import AddIcon from "../../UI/Icon/Header/Add"
 import { setup } from '../../../services/Auth'
 import HomeIcon from '../../UI/Icon/Header/home'
 import FavoritesIcon from '../../UI/Icon/Header/favorites'
 import NotificationIcon from '../../UI/Icon/Header/notification'
 import ProfileIcon from '../../UI/Icon/Header/profile'
-import RightMenuIcon from "../../UI/RightMenuIcon/rightMenuIcon";
+import RightMenuIcon from "../../UI/RightMenuIcon/rightMenuIcon"
 
 const useStyles = makeStyles((theme) => ({
   grow: {

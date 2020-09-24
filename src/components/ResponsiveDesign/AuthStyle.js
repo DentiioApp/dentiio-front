@@ -48,8 +48,8 @@ export const oStyle = (theme, imgDesktop, imgMobile) => {
     login: {
       height: 'fit-content',
       position: 'absolute',
-      marginTop: '6%',
-      bottom: '4%',
+      marginTop: '0%',
+      top: '4%',
       right: '0',
       borderRadius: '20px',
       marginRight: '10%',

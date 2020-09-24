@@ -29,7 +29,6 @@ import VisibilityOff from '@material-ui/icons/VisibilityOff'
 import { useToasts } from 'react-toast-notifications'
 import { setup } from '../../../services/Auth'
 import oStyle from '../../ResponsiveDesign/AuthStyle'
-
 import { tryRegister } from '../../../services/Users'
 import { LOGIN_FORM, REGISTER_USER } from '../../../store/actions'
 import GradientBtn from '../../UI/buttons/GradientBtn'
