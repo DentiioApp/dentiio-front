@@ -6,7 +6,6 @@ import palette from '../../UI/ColorTheme/Palette'
 import { Link, Redirect } from 'react-router-dom'
 import TitleHeader from '../../UI/titleHeader/TitleHeader'
 import TitleHeaderMobile from '../../UI/titleHeader/titleHeaderMobile'
-
 import { setup } from '../../../services/Auth'
 import HomeIcon from '../../UI/Icon/Header/home'
 import FavoritesIcon from '../../UI/Icon/Header/favorites'

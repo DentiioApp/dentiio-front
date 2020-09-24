@@ -7,7 +7,8 @@ import { useToasts } from 'react-toast-notifications'
 
 import {
   Paper,
-  Typography
+  Typography,
+  Link
 } from '@material-ui/core/'
 import Grid from '@material-ui/core/Grid'
 import IconButton from '@material-ui/core/IconButton'
@@ -19,11 +20,9 @@ import imgDesktop from '../../../images/illus.png'
 import imgMobile from '../../../images/mobile-bg.svg'
 import Visibility from '@material-ui/icons/Visibility'
 import VisibilityOff from '@material-ui/icons/VisibilityOff'
-
 import GradientBtn from '../../UI/buttons/GradientBtn'
 import oStyle from '../../ResponsiveDesign/AuthStyle'
-import { logUser } from '../../../store/actions'
-
+import {LOGIN_FORM, logUser} from '../../../store/actions'
 import { tryLogin } from '../../../services/Users'
 import { setup } from '../../../services/Auth'
 import logo from '../../../images/logo.svg'
@@ -77,8 +76,6 @@ const SignIn = () => {
   const sendRequest = async () => {
     const datas = await tryLogin(values.pseudo, values.password)
     const regex2 = RegExp(/Error/)
-    console.log('TEST :', datas)
-
     if (regex2.test(datas)) {
       return { message: messages.signin.error, appearance: 'error' }
     } else {
@@ -103,6 +100,11 @@ const SignIn = () => {
   if (setup() === true) {
     return <Redirect to='/cases' />
   };
+
+  const switchToSubscribe = (e) => {
+    e.preventDefault()
+    dispatch({ type: LOGIN_FORM })
+  }
 
   return (
     <>
@@ -179,6 +181,17 @@ const SignIn = () => {
                   className='GradientBtn'
                 />
               </div>
+              <br />
+              <Typography>
+              <span>
+                {' '}
+                Pas de compte{' '}
+                <Link onClick={(e) => switchToSubscribe(e)} color='primary'>
+                  {' '}
+                  Inscrivez-vous !{' '}
+                </Link>{' '}
+              </span>
+              </Typography>
             </form>
           </div>
           {subscribeMsg}
