@@ -10,7 +10,7 @@ import CasesItem from '../CaseItem/CaseItem'
 import Paginator from '../../UI/Paginator/Paginator'
 import titleSvg from '../../../images/maquette/c-case-title.svg'
 import { getUserId } from '../../../services/Users'
-import loader from '../../../images/Spin-1s-200px.svg'
+import loader from '../../../images/Spinner-1s-347px.svg'
 
 const useStyles = makeStyles((theme) => ({
   root: {
