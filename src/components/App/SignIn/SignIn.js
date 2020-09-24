@@ -77,6 +77,7 @@ const SignIn = () => {
   const sendRequest = async () => {
     const datas = await tryLogin(values.pseudo, values.password)
     const regex2 = RegExp(/Error/)
+    console.log('TEST :', datas)
 
     if (regex2.test(datas)) {
       return { message: messages.signin.error, appearance: 'error' }

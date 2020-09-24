@@ -1,9 +1,9 @@
-import { CASE_ITEM, ADD_FAVORITE, INIT_CURRENT_CASE, FILTERED_CASES } from '../actions'
+import { CASE_ITEM, ADD_FAVORITE, INIT_CURRENT_CASE, FILTERED_CASES, INIT_FAV_CASE } from '../actions'
 import config from '../../config'
 
 const INIT_STATE = {
   cases: {},
-  favorites: {},
+  favorites: [],
   currentCase: config.cache.currentCase
 }
 
@@ -27,6 +27,8 @@ export const Cases = (state = INIT_STATE, action) => {
         oldAffect: action.datas.oldAffect,
         allergen: action.datas.allergen
       }
+
+    case INIT_FAV_CASE: return { ...state, favorites: action.data }
 
     default :
       return state
