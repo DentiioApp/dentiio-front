@@ -46,6 +46,19 @@ const NavbarDetail = () => {
           </IconButton>
           <div style={{ align: 'left' }}>
             <Link
+                to='presentation'
+                className={classes.detailnav}
+                activeClass='active'
+                spy
+                smooth
+                offset={-70}
+                duration={500}
+            >
+              <Button>
+                <span>Presentation</span>
+              </Button>
+            </Link>
+            <Link
               to='examen'
               className={classes.detailnav}
               activeClass='active'
@@ -135,6 +148,19 @@ const NavbarDetail = () => {
             </IconButton>
           </div>
           <div className='card'>
+            <Link
+                to='presentation'
+                className={classes.detailnav}
+                activeClass='active'
+                spy
+                smooth
+                offset={-70}
+                duration={500}
+            >
+              <Button>
+                <span>Presentation</span>
+              </Button>
+            </Link>
             <Link
               to='examen'
               className={classes.detailnav}

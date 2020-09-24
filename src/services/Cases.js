@@ -38,6 +38,17 @@ export const addFavCase = (data) => {
   return reponses
 }
 
+export const getCaseById = (id) => {
+    const reponses = axios
+        .get(CLINICAL_CASES + "/" + id)
+        .then((res) => ({
+            message: 'OK',
+            datas: res.data
+        }))
+        .catch((e) => JSON.stringify(e))
+    return reponses
+}
+
 export const fetchUserFav = () => {
   const reponses = axios
     .get(USERFAVORITES)
@@ -49,18 +60,17 @@ export const fetchUserFav = () => {
   return reponses
 }
 
-
 export const postCase = (values, patient) => {
   const item = {
-    age: values.ages, //
-    smoking: values.isASmoker, //
+    age: values.ages,
+    smoking: values.isASmoker,
     presentation: values.summary,
-    treatmentPlan: 'jctttttt', //
+    treatmentPlan: 'jctttttt',
     observation: values.global_desc,
-    evolution: values.evolution, //
-    conclusion: values.conclusion, //
-    createdAt: new Date().toISOString(), //
-    notations: ['/api/notations/' + 1], //
+    evolution: values.evolution,
+    conclusion: values.conclusion,
+    createdAt: new Date().toISOString(),
+    notations: ['/api/notations/' + 1],
 
     isEnabled: true,
 

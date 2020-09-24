@@ -38,10 +38,15 @@ const useStyles = makeStyles((theme) => ({
   }
 }))
 
-export default function PatientDetail () {
-  // eslint-disable-next-line react-hooks/rules-of-hooks
+export default function PatientDetail (props) {
   const classes = useStyles()
   const currentCase = useSelector((state) => state.cases.currentCase)
+
+    const smoker = props.data ? props.data.isASmoker === false ? "Non" : "Oui" : "Non renseigné"
+    const drink = props.data ? props.data.isAlcool === false ? "Non" : "Oui" : "Non renseigné"
+    const inTreatment = props.data ? props.data.inTreatment.empty ? "Aucun traitement en cours" : "Traitement en cours: " : "Non renseigné"
+    const treatment = props.data ? props.data.inTreatment.empty ? "" : props.data.inTreatment : ""
+    const problemHealth = props.data ? props.data.problemHealth.empty ? "Aucun" : props.data.problemHealth : ""
 
   return (
     <Card className={classes.root}>
@@ -56,8 +61,7 @@ export default function PatientDetail () {
                                 Age
               </TableCell>
               <TableCell align='left'>
-                {currentCase.age}
-                                33 ans
+                {props.data && props.data.age} ans
               </TableCell>
             </TableRow>
             <TableRow>
@@ -65,8 +69,7 @@ export default function PatientDetail () {
                                 Sexe
               </TableCell>
               <TableCell align='left'>
-                {currentCase.sexe}
-                                Homme
+                  {props.data && props.data.gender}
               </TableCell>
             </TableRow>
             <TableRow>
@@ -74,8 +77,7 @@ export default function PatientDetail () {
                                 Alcool
               </TableCell>
               <TableCell align='left'>
-                {currentCase.drinker}
-                                Oui
+                  {drink}
               </TableCell>
             </TableRow>
             <TableRow>
@@ -83,23 +85,21 @@ export default function PatientDetail () {
                                 Fumeur
               </TableCell>
               <TableCell align='left'>
-                {currentCase.smoker}
-                                Oui
+                  {smoker}
               </TableCell>
             </TableRow>
           </TableBody>
         </Table>
         <Typography variant='body2' component='span'>
-                    Traitement en cours :<br />
-          {currentCase.currentTreatment}
-                    Tramadol tous les soirs
+            {inTreatment}
+            <br/>
+            {treatment}
         </Typography>
 
         <Divider className={classes.pos} />
         <Typography variant='body2' component='span'>
                     Antécédents médicaux :<br />
-          {currentCase.oldAffect}
-                    Fibromialgie il y a 5 ans , Cholesterol  et Diabète controlé
+          {problemHealth}
         </Typography>
 
         <Divider className={classes.pos} />
