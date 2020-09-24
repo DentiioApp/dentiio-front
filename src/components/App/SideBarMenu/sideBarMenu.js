@@ -1,4 +1,8 @@
-import React, { useRef, useEffect } from 'react'
+import {
+  Accordion,
+  AccordionDetails,
+  AccordionSummary,
+} from "@material-ui/core";
 import AppBar from "@material-ui/core/AppBar";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import Divider from "@material-ui/core/Divider";
@@ -11,14 +15,19 @@ import { makeStyles, useTheme } from "@material-ui/core/styles";
 import Toolbar from "@material-ui/core/Toolbar";
 import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
 import ChevronRightIcon from "@material-ui/icons/ChevronRight";
+import ExpandMore from "@material-ui/icons/ExpandMore";
 import clsx from "clsx";
+import React, { useEffect, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import {
+  closeSideBar,
+  fetchPathologies,
+  fetchSpecialities,
+  fetchTreatments,
+  openSideBar,
+} from "../../../store/actions";
 import RightMenuIcon from "../../UI/RightMenuIcon/rightMenuIcon";
 import TitleHeader from "../../UI/titleHeader/TitleHeader";
-import { openSideBar, closeSideBar, fetchSpecialities, fetchTreatments } from "../../../store/actions";
-import Collapse from "@material-ui/core/Collapse";
-import ExpandLess from "@material-ui/icons/ExpandLess";
-import ExpandMore from "@material-ui/icons/ExpandMore";
 
 const drawerWidth = 250;
 
@@ -81,42 +90,46 @@ const useStyles = makeStyles((theme) => ({
     marginLeft: 0,
   },
   nested: {
-    paddingLeft: theme.spacing(4),
+    padding: "0 20px 3px 20px",
   },
 }));
 
 export default function PersistentDrawerLeft() {
-  const sideBarRef = useRef(null)
+  const sideBarRef = useRef(null);
   const classes = useStyles();
   const theme = useTheme();
   const dispatch = useDispatch();
   const open = useSelector((state) => state.cases.openSideBar);
-  const specialities = useSelector((state) => state.home.specialities);
-  const treatments = useSelector((state) => state.home.treatments);
-
+  const specialities = useSelector((state) => state.specialities.specialities);
+  const treatments = useSelector((state) => state.treatments.treatments);
+  const pathologies = useSelector((state) => state.pathologies.pathologies);
 
   const handleDrawerOpen = () => {
     dispatch(openSideBar());
-
   };
 
   const handleDrawerClose = () => {
     dispatch(closeSideBar());
   };
-  
-  useEffect(() => {
-    dispatch(fetchTreatments())
-  }, treatments)
 
   useEffect(() => {
-    dispatch(fetchSpecialities())
-  },specialities)
-  
-  const [show, setOpen] = React.useState(true);
-  const handleClick = () => {
-    setOpen(!show);
-  };
-  
+    if (treatments.length < 1) {
+      dispatch(fetchTreatments());
+    }
+  });
+
+  useEffect(() => {
+    if (specialities.length < 1) {
+      dispatch(fetchSpecialities());
+    }    
+  });
+
+  useEffect(() => {
+    if (pathologies.length < 1) {
+      dispatch(fetchPathologies());
+    }    
+  });
+
   function useOutsideSideBar(ref) {
     useEffect(() => {
       /**
@@ -124,7 +137,7 @@ export default function PersistentDrawerLeft() {
        */
       function handleClickOutside(event) {
         if (ref.current && !ref.current.contains(event.target)) {
-             dispatch(closeSideBar());
+          dispatch(closeSideBar());
         }
       }
 
@@ -136,7 +149,7 @@ export default function PersistentDrawerLeft() {
       };
     }, [ref]);
   }
-  
+
   useOutsideSideBar(sideBarRef);
 
   return (
@@ -181,42 +194,71 @@ export default function PersistentDrawerLeft() {
         </div>
         <Divider />
 
-        <ListItem button onClick={handleClick}>
-          <ListItemText primary="Spécialités" />
-          {show ? <ExpandLess /> : <ExpandMore />}
-        </ListItem>
-        <Collapse in={show} timeout="auto" unmountOnExit>
-          <List component="div" disablePadding>
+        <Accordion>
+          <AccordionSummary expandIcon={<ExpandMore />}>
+            <ListItem>
+              <ListItemText primary="Pathologies" />
+            </ListItem>
+          </AccordionSummary>
+
+          <AccordionDetails>
             <ListItem button className={classes.nested}>
               <ListItemText />
               <List>
-                {specialities.map((speciality, index) => (
-                  <ListItem button key={index}>
-                    <ListItemText primary={speciality.name} />
-                  </ListItem>
-                ))}
+                {pathologies &&
+                  pathologies.map((pathologie, index) => (
+                    <ListItem button key={index}>
+                      <ListItemText primary={pathologie.name} />
+                    </ListItem>
+                  ))}
               </List>
             </ListItem>
-          </List>
-        </Collapse>
-        <ListItem button onClick={handleClick}>
-          <ListItemText primary="Traitements" />
-          {show ? <ExpandLess /> : <ExpandMore />}
-        </ListItem>
-        <Collapse in={show} timeout="auto" unmountOnExit>
-          <List component="div" disablePadding>
-            <ListItem button className={classes.nested}>
+          </AccordionDetails>
+        </Accordion>
+
+        <Accordion>
+          <AccordionSummary expandIcon={<ExpandMore />}>
+            <ListItem>
+              <ListItemText primary="Spécialités" />
+            </ListItem>
+          </AccordionSummary>
+
+          <AccordionDetails>
+            <ListItem>
               <ListItemText />
               <List>
-                {treatments.map((treatment, index) => (
-                  <ListItem button key={index}>
-                    <ListItemText primary={treatment.name} />
-                  </ListItem>
-                ))}
+                {specialities &&
+                  specialities.map((speciality, index) => (
+                    <ListItem button key={index}>
+                      <ListItemText primary={speciality.name} />
+                    </ListItem>
+                  ))}
               </List>
             </ListItem>
-          </List>
-        </Collapse>
+          </AccordionDetails>
+        </Accordion>
+
+        <Accordion>
+          <AccordionSummary expandIcon={<ExpandMore />}>
+            <ListItem>
+              <ListItemText primary="Traitements" />
+            </ListItem>
+          </AccordionSummary>
+
+          <AccordionDetails>
+            <ListItem>
+              <ListItemText />
+              <List>
+                {treatments &&
+                  treatments.map((treatment, index) => (
+                    <ListItem button key={index}>
+                      <ListItemText primary={treatment.name} />
+                    </ListItem>
+                  ))}
+              </List>
+            </ListItem>
+          </AccordionDetails>
+        </Accordion>
 
         <Divider />
       </Drawer>

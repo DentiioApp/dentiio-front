@@ -16,7 +16,7 @@ export const User = (state = INIT_STATE, action) => {
     case LOG_USER :
       var details = jwtDecode(action.datas.token)
       login(action.datas.token)
-      return { id: details.id, username: details.username, connected: true, id: details.userId }
+      return { username: details.username, connected: true, id: details.userId }
 
     case REGISTER_USER : return { ...state, subscribe: true }
 

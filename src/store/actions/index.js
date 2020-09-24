@@ -1,8 +1,8 @@
-
 import {logUser, cardSave } from './Auth'
 import { openSideBar, closeSideBar } from "./Cases";
 import { fetchSpecialities } from './Specialities';
 import { fetchTreatments } from "./Treatments";
+import { fetchPathologies } from "./Pathologies";
 
 export const ADD_FAVORITE = 'ADD_FAVORITE'
 export const INIT_FAV_CASE = 'INIT_FAV_CASE'
@@ -27,6 +27,8 @@ export const OPEN_SIDE_BAR = "OPEN_SIDE_BAR";
 export const CLOSE_SIDE_BAR = "CLOSE_SIDE_BAR";
 export const SET_SPECIALITIES = "SET_SPECIALITIES";
 export const SET_TREATMENTS = "SET_TREATMENTS";
+export const SET_PATHOLOGIES = "SET_PATHOLOGIES";
+export const INIT_PATIENT = "INIT_PATIENT";
 
 export {
   logUser,
@@ -35,4 +37,5 @@ export {
   closeSideBar,
   fetchSpecialities,
   fetchTreatments,
+  fetchPathologies,
 };

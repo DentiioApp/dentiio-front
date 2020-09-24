@@ -1,21 +1,21 @@
 import {
-  CASE_ITEM,
   ADD_FAVORITE,
   INIT_CURRENT_CASE,
   FILTERED_CASES,
   CLOSE_SIDE_BAR,
   OPEN_SIDE_BAR,
   INIT_FAV_CASE,
+  CASE_ITEM,
 } from "../actions";
 
 import config from '../../config'
 
 const INIT_STATE = {
   cases: {},
+  currentCase: config.cache.currentCase,
   patient: {},
   openSideBar: false,
-  favorites: [],
-  currentCase: config.cache.currentCase
+  favorites: []
 }
 
 export const Cases = (state = INIT_STATE, action) => {
