@@ -28,8 +28,6 @@ export const Cases = (state = INIT_STATE, action) => {
       return { ...state, favorites: action.data };
     case FILTERED_CASES:
       return { ...state, cases: action.data };
-    case INIT_FAV_CASE:
-      return { ...state, favorites: action.data };
     case INIT_CURRENT_CASE:
       // const {age, sexe, drinker, smoker, currentTreatment, oldAffect,allergen} = action.data;
       return {
