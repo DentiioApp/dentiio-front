@@ -49,18 +49,16 @@ export const fetchUserFav = () => {
   return reponses
 }
 
-
 export const postCase = (values, patient) => {
   const item = {
-    age: values.ages, //
-    smoking: values.isASmoker, //
+    age: values.ages,
+    smoking: values.isASmoker,
     presentation: values.summary,
-    treatmentPlan: 'jctttttt', //
+    treatmentPlan: 'jctttttt',
     observation: values.global_desc,
-    evolution: values.evolution, //
-    conclusion: values.conclusion, //
-    createdAt: new Date().toISOString(), //
-    notations: ['/api/notations/' + 1], //
+    evolution: values.evolution,
+    conclusion: values.conclusion,
+    createdAt: new Date().toISOString(),
 
     isEnabled: true,
 
@@ -68,9 +66,9 @@ export const postCase = (values, patient) => {
     symptome: values.symptomes,
     treatment: values.treatment,
     pathologie: values.pathologie,
-    /* "speciality": ["/api/specialities/"+<number>, /api/specialities/"+<number>], */
-    title: values.title, //
-    slug: 'sluuuuuuggguueeee',
+    speciality: values.specialities,
+    title: values.title,
+    slug: '/',
     /*
     "imageClinicalCases": [
       "string"
