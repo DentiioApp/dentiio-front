@@ -6,6 +6,9 @@ const CLINICAL_CASES =
 const FAVORITES =
   process.env.REACT_APP_BACK_API_URL + process.env.REACT_APP_FAVORITES
 
+const CLINICAL_CASES_BY_USER =
+    process.env.REACT_APP_BACK_API_URL + process.env.REACT_APP_USERS
+
 export const fetchCases = (page) => {
   const reponses = axios
     .get(CLINICAL_CASES + '?page=' + page)
@@ -43,6 +46,17 @@ export const getCaseById = (id) => {
     }))
     .catch((e) => JSON.stringify(e))
   return reponses
+}
+
+export const getCaseByUserId = (id) => {
+    const reponses = axios
+        .get(CLINICAL_CASES_BY_USER + '/' + id + '/' + process.env.REACT_APP_CLINICAL_CASES)
+        .then((res) => ({
+            message: 'OK',
+            datas: res.data
+        }))
+        .catch((e) => JSON.stringify(e))
+    return reponses
 }
 
 export const fetchUserFav = (userId) => {

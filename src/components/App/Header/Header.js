@@ -72,7 +72,7 @@ export const Header = (props) => {
       >
         <Toolbar>
           <TitleHeader style={{ align: 'center' }} />
-          <RightMenuIcon />
+          <RightMenuIcon target={props.target}/>
         </Toolbar>
       </AppBar>
 

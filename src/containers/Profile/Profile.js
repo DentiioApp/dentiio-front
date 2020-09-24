@@ -1,7 +1,6 @@
 import { Avatar, makeStyles } from '@material-ui/core'
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import Button from "@material-ui/core/Button";
-import palette from "../../components/UI/ColorTheme/Palette";
 import Grid from '@material-ui/core/Grid'
 import Paper from '@material-ui/core/Paper'
 import Typography from '@material-ui/core/Typography'
@@ -9,6 +8,11 @@ import React, {useEffect, useState} from 'react'
 import Header from '../../components/App/Header/Header'
 import imgProfile from '../../images/profile.png'
 import {getUserId, getUserById} from '../../services/Users'
+import {getCaseByUserId} from '../../services/Cases'
+import CasesItem from "../../components/App/CaseItem/CaseItem";
+import Container from "@material-ui/core/Container";
+import {useSelector} from "react-redux";
+import titleSvg from "../../images/maquette/c-case-title.svg";
 
 function logout () {
   localStorage.clear()
@@ -19,6 +23,14 @@ const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
     marginTop: '55px'
+  },
+  card: {
+    display: 'flex',
+    flexWrap: 'wrap',
+    justifyContent: 'center',
+    '& > *': {
+      margin: theme.spacing(3)
+    }
   },
   paper: {
     padding: theme.spacing(2),
@@ -53,19 +65,27 @@ const useStyles = makeStyles((theme) => ({
 const Profile = () => {
   const classes = useStyles()
   const [item, setItem] = useState({})
+  const [cases, setCases] = useState({})
 
   const ResponseUser = async () => {
     const CaseById = await  getUserById(getUserId())
     setItem(CaseById.datas)
+  }
+  const ResponseCases = async () => {
+    const CaseById = await  getCaseByUserId(getUserId())
+    setCases(CaseById.datas['hydra:member'])
   }
 
   useEffect(() => {
     if (Object.entries(item).length === 0 ) {
       ResponseUser()
     }
+    if (Object.entries(cases).length === 0 ) {
+      ResponseCases()
+    }
   })
 
-  console.log(item)
+  console.log(cases)
 
   return (
     <>
@@ -87,21 +107,30 @@ const Profile = () => {
                   </Typography>
                 </Grid>
               </Grid>
-
               <Grid item>
                 <Button
                     onClick={logout}
                     variant="contained"
-                    color="default"
+                    color="inherit"
                     className={classes.button}
                 >
-                  <ExitToAppIcon fontSize={"small"} color={'inehrit'}/>
+                  <ExitToAppIcon fontSize={"small"} color={"inherit"}/>
                 </Button>
               </Grid>
             </Grid>
           </Grid>
         </Paper>
       </div>
+      <Container maxWidth='lg'>
+        <Typography component={"h2"} variant={"h5"} color={"primary"} style={{paddingTop: "20px"}}>
+          <center>Cas publiés</center>
+        </Typography>
+        <div className={classes.card}>
+          {Object.keys(cases).length !== 0 && cases.map((oCase, index) => {
+                return <CasesItem key={index} item={oCase} />
+          })}
+        </div>
+      </Container>
     </>
   )
 }
