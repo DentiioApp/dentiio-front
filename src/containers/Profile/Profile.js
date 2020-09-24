@@ -1,11 +1,14 @@
 import { Avatar, makeStyles } from '@material-ui/core'
-import ButtonBase from '@material-ui/core/ButtonBase'
+import ExitToAppIcon from '@material-ui/icons/ExitToApp';
+import Button from "@material-ui/core/Button";
+import palette from "../../components/UI/ColorTheme/Palette";
 import Grid from '@material-ui/core/Grid'
 import Paper from '@material-ui/core/Paper'
 import Typography from '@material-ui/core/Typography'
-import React from 'react'
+import React, {useEffect, useState} from 'react'
 import Header from '../../components/App/Header/Header'
-import imgProfile from '../../images/profile.svg'
+import imgProfile from '../../images/profile.png'
+import {getUserId, getUserById} from '../../services/Users'
 
 function logout () {
   localStorage.clear()
@@ -47,9 +50,23 @@ const useStyles = makeStyles((theme) => ({
     display: 'flex'
   }
 }))
-
 const Profile = () => {
   const classes = useStyles()
+  const [item, setItem] = useState({})
+
+  const ResponseUser = async () => {
+    const CaseById = await  getUserById(getUserId())
+    setItem(CaseById.datas)
+  }
+
+  useEffect(() => {
+    if (Object.entries(item).length === 0 ) {
+      ResponseUser()
+    }
+  })
+
+  console.log(item)
+
   return (
     <>
       <Header target='profile' />
@@ -57,25 +74,29 @@ const Profile = () => {
         <Paper className={classes.paper}>
           <Grid container spacing={2}>
             <Grid item>
-              <ButtonBase className={classes.image}>
                 <Avatar className={classes.large} alt='' src={imgProfile} />
-              </ButtonBase>
             </Grid>
             <Grid item xs={12} sm container>
               <Grid item xs container direction='column' spacing={2}>
                 <Grid item xs>
-
-                  <Typography gutterBottom variant='h4'>
-                    John Doe
+                  <Typography gutterBottom variant='h4' style={{textTransform: "capitalize"}}>
+                    {item && item.pseudo}
                   </Typography>
                   <Typography variant='body2' color='textSecondary'>
-                    Médecin
+                    {item && item.job && item.job.name}
                   </Typography>
                 </Grid>
               </Grid>
 
               <Grid item>
-                <button onClick={logout}>Se déconnecter</button>
+                <Button
+                    onClick={logout}
+                    variant="contained"
+                    color="default"
+                    className={classes.button}
+                >
+                  <ExitToAppIcon fontSize={"small"} color={'inehrit'}/>
+                </Button>
               </Grid>
             </Grid>
           </Grid>
