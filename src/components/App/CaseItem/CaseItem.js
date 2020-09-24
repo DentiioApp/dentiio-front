@@ -15,15 +15,23 @@ import StarHalfIcon from '@material-ui/icons/StarHalf'
 
 const CasesItem = (props) => {
 
-  console.log(props)
+  const img = () => {
+    if(props.item.imageClinicalCases){
+      return props.item.imageClinicalCases.filter(function (i) {
+        return i.type.name === "principal";
+      }).map(function(img) {
+        return img.path;
+      });
+    }
+  }
+
   return (
     <Card className='root' key={props.item.id}>
       <FavButton alt='favorite' value={props.item} isFavorite={props.favorite} />
       <Link to={`/case/${props.item.id}`} style={{ textDecoration: 'none' }}>
         <CardMedia
           className='media'
-          image='https://upload.wikimedia.org/wikipedia/commons/1/17/Yin_yang.svg'
-          /* image={process.env.REACT_APP_BACK_API_URL + "public/images/" + props.item.img} */
+          image={"https://api.dentiio.fr/images/"+img()[0]}
           title={props.item.title}
         />
         <div style={{ marginTop: '-35px', marginLeft: '15px' }}>
@@ -47,21 +55,14 @@ const CasesItem = (props) => {
             {props.item.user.job.name}
           </Typography>
           <div className='grow' style={{ align: 'right' }} />
-          {/* <TeethButton> */}
-
-          {/* </TeethButton> */}
-          {/* <CommentButton aria-label="comments"> */}
           <Typography variant='h6' color='textSecondary' component='p'>
             {props.item.commentaires.length}
           </Typography>
-          <ChatIcon color='primary' fontSize='default' className='pr-15' />
-          {/* </CommentButton> */}
-          {/* <NoteButton aria-label="comments"> */}
+          <ChatIcon color='primary' fontSize='large' className='pr-15' />
           <Typography variant='h6' color='textSecondary' component='p'>
             {avgNotes(props.item.notations)}
           </Typography>
           <StarHalfIcon color='primary' fontSize='default' />
-          {/* </NoteButton> */}
         </CardActions>
       </Link>
     </Card>

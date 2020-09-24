@@ -15,8 +15,6 @@ import Keyword from '../../components/UI/Keywords/keywords'
 import Gallery from '../../components/UI/Gallery/Gallery'
 import LightboxButton from '../../components/UI/Gallery/LightboxButton'
 import CardPlanTreatment from '../../components/App/DetailCase/CardPlanTreatment'
-import radio1 from '../../images/fixtures/radio.jpg'
-import radio2 from '../../images/fixtures/radio2.jpg'
 import {getCaseById} from "../../services/Cases";
 
 const useStyles = makeStyles((theme) => ({
@@ -98,7 +96,6 @@ const DetailCase = (props) => {
   })
 
 
-  console.log(item)
   const optionsDate = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
   const Img = item.averageNote ? <img alt='' src={iconTeethFull} width='12px' className={classes.icon} /> : ""
 
