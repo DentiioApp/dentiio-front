@@ -1,4 +1,7 @@
 import axios from 'axios'
+import jwtDecode from 'jwt-decode'
+
+const user = jwtDecode(localStorage.getItem('authToken'))
 
 const CLINICAL_CASES =
   process.env.REACT_APP_BACK_API_URL + process.env.REACT_APP_CLINICAL_CASES
@@ -6,7 +9,9 @@ const FAVORITES =
   process.env.REACT_APP_BACK_API_URL + process.env.REACT_APP_FAVORITES
 
 const USERFAVORITES =
-  process.env.REACT_APP_BACK_API_URL + process.env.REACT_APP_USERS + '/1/' +process.env.REACT_APP_FAVORITES
+  process.env.REACT_APP_BACK_API_URL + process.env.REACT_APP_USERS + '/'+user.userId+'/' +process.env.REACT_APP_FAVORITES
+
+
 
 export const fetchCases = (page) => {
   const reponses = axios
@@ -21,10 +26,8 @@ export const fetchCases = (page) => {
 }
 
 export const addFavCase = (data) => {
-  //const user = jwtDecode(localStorage.getItem('authToken'))
   const item = {
-    // userId: user['@id'],
-    userId: "api/users/1",
+    userId: "/api/users/"+user.userId,
     clinicalCaseId: data['@id'],
     createdAt: new Date().toISOString(),
   }
@@ -70,7 +73,6 @@ export const postCase = (values, patient) => {
     evolution: values.evolution,
     conclusion: values.conclusion,
     createdAt: new Date().toISOString(),
-    notations: ['/api/notations/' + 1],
 
     isEnabled: true,
 
@@ -78,9 +80,9 @@ export const postCase = (values, patient) => {
     symptome: values.symptomes,
     treatment: values.treatment,
     pathologie: values.pathologie,
-    /* "speciality": ["/api/specialities/"+<number>, /api/specialities/"+<number>], */
-    title: values.title, //
-    slug: 'sluuuuuuggguueeee',
+    speciality: values.specialities,
+    title: values.title,
+    slug: '/',
     /*
     "imageClinicalCases": [
       "string"
