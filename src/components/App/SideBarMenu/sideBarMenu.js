@@ -24,7 +24,7 @@ import {
   fetchPathologies,
   fetchSpecialities,
   fetchTreatments,
-  openSideBar
+  // openSideBar
 } from '../../../store/actions'
 import RightMenuIcon from '../../UI/RightMenuIcon/rightMenuIcon'
 import TitleHeader from '../../UI/titleHeader/TitleHeader'
@@ -104,9 +104,9 @@ export default function PersistentDrawerLeft () {
   const treatments = useSelector((state) => state.treatments.treatments)
   const pathologies = useSelector((state) => state.pathologies.pathologies)
 
-  const handleDrawerOpen = () => {
-    dispatch(openSideBar())
-  }
+  // const handleDrawerOpen = () => {
+  //   dispatch(openSideBar())
+  // }
 
   const handleDrawerClose = () => {
     dispatch(closeSideBar())
@@ -156,36 +156,28 @@ export default function PersistentDrawerLeft () {
     <div className={classes.root} ref={sideBarRef}>
       <CssBaseline />
       <AppBar
-        position='fixed'
+        position="fixed"
         className={clsx(classes.appBar, {
-          [classes.appBarShift]: open
+          [classes.appBarShift]: open,
         })}
       >
         <Toolbar>
-          <IconButton
-            color='inherit'
-            aria-label='open drawer'
-            onClick={handleDrawerOpen}
-            edge='start'
-            className={clsx(classes.menuButton, open && classes.hide)}
-          >
-            <TitleHeader />
-          </IconButton>
+          <TitleHeader />
           <RightMenuIcon />
         </Toolbar>
       </AppBar>
       <Drawer
         className={classes.drawer}
-        variant='persistent'
-        anchor='left'
+        variant="persistent"
+        anchor="left"
         open={open}
         classes={{
-          paper: classes.drawerPaper
+          paper: classes.drawerPaper,
         }}
       >
         <div className={classes.drawerHeader}>
           <IconButton onClick={handleDrawerClose}>
-            {theme.direction === 'ltr' ? (
+            {theme.direction === "ltr" ? (
               <ChevronLeftIcon />
             ) : (
               <ChevronRightIcon />
@@ -197,7 +189,7 @@ export default function PersistentDrawerLeft () {
         <Accordion>
           <AccordionSummary expandIcon={<ExpandMore />}>
             <ListItem>
-              <ListItemText primary='Pathologies' />
+              <ListItemText primary="Pathologies" />
             </ListItem>
           </AccordionSummary>
 
@@ -219,7 +211,7 @@ export default function PersistentDrawerLeft () {
         <Accordion>
           <AccordionSummary expandIcon={<ExpandMore />}>
             <ListItem>
-              <ListItemText primary='Spécialités' />
+              <ListItemText primary="Spécialités" />
             </ListItem>
           </AccordionSummary>
 
@@ -241,7 +233,7 @@ export default function PersistentDrawerLeft () {
         <Accordion>
           <AccordionSummary expandIcon={<ExpandMore />}>
             <ListItem>
-              <ListItemText primary='Traitements' />
+              <ListItemText primary="Traitements" />
             </ListItem>
           </AccordionSummary>
 
@@ -264,9 +256,9 @@ export default function PersistentDrawerLeft () {
       </Drawer>
       <main
         className={clsx(classes.content, {
-          [classes.contentShift]: open
+          [classes.contentShift]: open,
         })}
       />
     </div>
-  )
+  );
 }
