@@ -38,22 +38,11 @@ const CasesList = () => {
   const [values, setValues] = useState(initValues)
 
   const initUserFav = async () => {
-      const response = await fetchUserFav()
-      const regex2 = RegExp(/Error/)
-      if (!regex2.test(response)) {
-        dispatch({ type: INIT_FAV_CASE, data: response.datas })
-      }
-  }
-
-  useEffect(() => {
-    getCases()
-  }, [values.paginator])
-
-  useEffect(() => {
-    if (favorites && favorites.length < 1) { initUserFav() }
-  }, [favorites])
-  const handleChange = prop => event => {
-    setValues({ ...values, paginator: event.target.value })
+    const response = await fetchUserFav()
+    const regex2 = RegExp(/Error/)
+    if (!regex2.test(response)) {
+      dispatch({ type: INIT_FAV_CASE, data: response.datas })
+    }
   }
 
   const getCases = async () => {
@@ -64,18 +53,32 @@ const CasesList = () => {
     }
   }
 
+  useEffect(() => {
+   if (cases && cases.length < 1) { initUserFav() } getCases()
+  }, [values.paginator])
+
+  useEffect(() => {
+    if (favorites && favorites.length < 1) { initUserFav() }
+  }, [favorites.length])
+
+  const handleChange = prop => event => {
+    setValues({ ...values, paginator: event.target.value })
+  }
+
   return (
     <>
       <Container maxWidth='lg'>
         <center><img src={titleSvg} alt='Cas Cliniques' /></center>
-        <Paginator pages={pages} onChange={handleChange} current={values.paginator} />
+        {'page '+values.paginator}
+        <Paginator pages={pages} onChange={handleChange} current={values.paginator} /> 
         <div className={classes.root}>
           {areLoaded && cases.map((oCase, index) => {
             var isFavorite = false;
             if(favorites.length > 0){
               favorites.map((item)=> { 
-                if (item.clinicalCaseId.substr(-1,1) == oCase.id)
+                if (item.clinicalCaseId.substr(-1,1) === JSON.stringify(oCase.id))
                   isFavorite = true;
+                return isFavorite
               })
             }
             
