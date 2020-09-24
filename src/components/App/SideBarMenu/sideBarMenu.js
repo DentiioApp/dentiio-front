@@ -19,7 +19,6 @@ import { openSideBar, closeSideBar, fetchSpecialities, fetchTreatments } from ".
 import Collapse from "@material-ui/core/Collapse";
 import ExpandLess from "@material-ui/icons/ExpandLess";
 import ExpandMore from "@material-ui/icons/ExpandMore";
-import { Treatments } from '../../../store/reducers/treatments';
 
 const drawerWidth = 250;
 
