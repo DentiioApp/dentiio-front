@@ -9,6 +9,7 @@ import { useToasts } from 'react-toast-notifications'
 
 const Favorites = (props) => {
   const { config } = useSelector((state) => state.home)
+  const userId = useSelector((state) => state.user.id)
   const { addToast } = useToasts()
   const dispatch = useDispatch()
   const favorites = useSelector((state) => state.cases.favorites)
@@ -22,7 +23,7 @@ const Favorites = (props) => {
 
   const HandleFav = async (item) => {
     const messages = config.conf.messages.cases.favorite
-    const response = await addFavCase(item)
+    const response = await addFavCase(item,userId)
     const regex2 = RegExp(/Error/)
 
     if (regex2.test(response)) {

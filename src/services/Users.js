@@ -1,4 +1,5 @@
 import axios from 'axios'
+import jwtDecode from 'jwt-decode'
 
 const LOGIN_CHECK = process.env.REACT_APP_BACK_API_URL + process.env.REACT_APP_LOGIN_CHECK
 const USERS = process.env.REACT_APP_BACK_API_URL + process.env.REACT_APP_USERS
@@ -43,3 +44,10 @@ export const tryRegister = (user) => {
 
   return fetchDatas
 }
+
+export const getUserId = () => {
+  const token = jwtDecode(localStorage.getItem('authToken'))
+  return token.userId
+}
+
+
