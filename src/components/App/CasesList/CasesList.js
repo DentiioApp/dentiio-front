@@ -1,9 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
-
 import Container from '@material-ui/core/Container'
 import { makeStyles } from '@material-ui/core/styles'
-
 import { fetchCases, fetchUserFav } from '../../../services/Cases'
 import { CASES_LIST, INIT_FAV_CASE } from '../../../store/actions'
 import CasesItem from '../CaseItem/CaseItem'
@@ -66,6 +64,7 @@ const CasesList = () => {
   const handleChange = prop => event => {
     setValues({ ...values, paginator: event.target.value })
   }
+
 
   return (
     <>
