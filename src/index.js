@@ -33,7 +33,7 @@ const middleWare = store => next => action => {
   return next(action)
 }
 
-//allows to see status of the store in console by installing the React Developer Tools extension
+
 export const store = createStore(
   adminReducer,
   compose(
