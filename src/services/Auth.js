@@ -6,6 +6,8 @@ const BEARER = 'Bearer '
 export const login = (token) => {
   axios.defaults.headers.Authorization = BEARER + token
   localStorage.setItem('authToken', token)
+  const userID = jwtDecode(token)
+  localStorage.setItem('userID', userID.userId)
 }
 
 export const logout = () => {
