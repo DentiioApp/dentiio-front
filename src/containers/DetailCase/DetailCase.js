@@ -105,7 +105,7 @@ const DetailCase = (props) => {
       item.imageClinicalCases.filter(function (i) {
         return i.type.name === type;
       }).map(function (img) {
-            array.push({
+            return array.push({
                   original: "https://api.dentiio.fr/images/"+img.path,
                   thumbnail: "https://api.dentiio.fr/images/"+img.path
                 }
