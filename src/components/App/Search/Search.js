@@ -114,7 +114,7 @@ const Search = (props) => {
               {...params}
               onSelect={(e) => onTextChanged(e)}
               onChange={(e) => onTextChanged(e)}
-              label='Rechercher par mot clé, pathologie ou traitement...'
+              label='Rechercher un cas'
               variant='outlined'
               id='search-input'
               className='searchTerm'
