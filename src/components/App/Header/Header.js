@@ -12,7 +12,6 @@ import HomeIcon from '../../UI/Icon/Header/home'
 import FavoritesIcon from '../../UI/Icon/Header/favorites'
 import NotificationIcon from '../../UI/Icon/Header/notification'
 import ProfileIcon from '../../UI/Icon/Header/profile'
-import AddIcon from '../../UI/Icon/Header/add'
 import RightMenuIcon from "../../UI/RightMenuIcon/rightMenuIcon";
 
 const useStyles = makeStyles((theme) => ({

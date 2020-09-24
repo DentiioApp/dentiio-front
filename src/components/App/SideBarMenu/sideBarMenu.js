@@ -96,6 +96,7 @@ export default function PersistentDrawerLeft() {
   const pathologies = useSelector((state) => state.pathologies.pathologies);
 
 
+
   const handleDrawerOpen = () => {
     dispatch(openSideBar());
 
@@ -105,11 +106,24 @@ export default function PersistentDrawerLeft() {
     dispatch(closeSideBar());
   };
   
+
  
   dispatch(fetchTreatments())
   dispatch(fetchSpecialities())
   dispatch(fetchPathologies());
   
+
+  useEffect(() => {
+    dispatch(fetchTreatments())
+  }, treatments)
+
+  useEffect(() => {
+    dispatch(fetchSpecialities())
+  },specialities)
+
+  useEffect(() => {
+    dispatch(fetchPathologies())
+  },pathologies)
   
   const [show, setOpen] = React.useState(true);
   const handleClick = () => {

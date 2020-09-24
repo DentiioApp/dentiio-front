@@ -6,7 +6,9 @@ const FAVORITES =
   process.env.REACT_APP_BACK_API_URL + process.env.REACT_APP_FAVORITES
 
 const USERFAVORITES =
-  process.env.REACT_APP_BACK_API_URL + process.env.REACT_APP_USERS + '/1/' +process.env.REACT_APP_FAVORITES
+  process.env.REACT_APP_BACK_API_URL + process.env.REACT_APP_USERS + '/'+localStorage.getItem('userID')+'/' +process.env.REACT_APP_FAVORITES
+
+
 
 export const fetchCases = (page) => {
   const reponses = axios
@@ -21,10 +23,8 @@ export const fetchCases = (page) => {
 }
 
 export const addFavCase = (data) => {
-  //const user = jwtDecode(localStorage.getItem('authToken'))
   const item = {
-    // userId: user['@id'],
-    userId: "api/users/1",
+    userId: "/api/users/"+localStorage.getItem('userID'),
     clinicalCaseId: data['@id'],
     createdAt: new Date().toISOString(),
   }
@@ -38,6 +38,17 @@ export const addFavCase = (data) => {
   return reponses
 }
 
+export const getCaseById = (id) => {
+    const reponses = axios
+        .get(CLINICAL_CASES + "/" + id)
+        .then((res) => ({
+            message: 'OK',
+            datas: res.data
+        }))
+        .catch((e) => JSON.stringify(e))
+    return reponses
+}
+
 export const fetchUserFav = () => {
   const reponses = axios
     .get(USERFAVORITES)
@@ -49,18 +60,16 @@ export const fetchUserFav = () => {
   return reponses
 }
 
-
 export const postCase = (values, patient) => {
   const item = {
-    age: values.ages, //
-    smoking: values.isASmoker, //
+    age: values.ages,
+    smoking: values.isASmoker,
     presentation: values.summary,
-    treatmentPlan: 'jctttttt', //
+    treatmentPlan: 'jctttttt',
     observation: values.global_desc,
-    evolution: values.evolution, //
-    conclusion: values.conclusion, //
-    createdAt: new Date().toISOString(), //
-    notations: ['/api/notations/' + 1], //
+    evolution: values.evolution,
+    conclusion: values.conclusion,
+    createdAt: new Date().toISOString(),
 
     isEnabled: true,
 
@@ -68,9 +77,9 @@ export const postCase = (values, patient) => {
     symptome: values.symptomes,
     treatment: values.treatment,
     pathologie: values.pathologie,
-    /* "speciality": ["/api/specialities/"+<number>, /api/specialities/"+<number>], */
-    title: values.title, //
-    slug: 'sluuuuuuggguueeee',
+    speciality: values.specialities,
+    title: values.title,
+    slug: '/',
     /*
     "imageClinicalCases": [
       "string"

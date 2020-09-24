@@ -1,6 +1,5 @@
-
-import { logUser, cardSave } from './Auth'
-import { addFav, openSideBar, closeSideBar } from "./Cases";
+import {logUser, cardSave } from './Auth'
+import { openSideBar, closeSideBar } from "./Cases";
 import { fetchSpecialities } from './Specialities';
 import { fetchTreatments } from "./Treatments";
 import { fetchPathologies } from "./Pathologies";
@@ -34,12 +33,9 @@ export const INIT_PATIENT = "INIT_PATIENT";
 export {
   logUser,
   cardSave,
-  addFav,
   openSideBar,
   closeSideBar,
   fetchSpecialities,
   fetchTreatments,
   fetchPathologies,
 };
-
-
