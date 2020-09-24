@@ -1,9 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
-
 import Container from '@material-ui/core/Container'
 import { makeStyles } from '@material-ui/core/styles'
-
 import { fetchCases, fetchUserFav } from '../../../services/Cases'
 import { CASES_LIST, INIT_FAV_CASE } from '../../../store/actions'
 import CasesItem from '../CaseItem/CaseItem'
@@ -76,10 +74,9 @@ const CasesList = () => {
     )
   } else {
     return (
-      <>
-        <Container maxWidth='lg'>
-          <center><img src={titleSvg} alt='Cas Cliniques' /></center>
-
+    <>
+      <Container maxWidth='lg'>
+        <center><img src={titleSvg} alt='Cas Cliniques' /></center>
           <Paginator pages={pages} onChange={handleChange} current={values.paginator} /> {cases.length > 0 ? '[page ' + values.paginator + ']' : ''}
           <div className={classes.root}>
             {areLoaded && cases.map((oCase, index) => {

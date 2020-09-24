@@ -49,3 +49,15 @@ export const getUserId = () => {
   const token = jwtDecode(localStorage.getItem('authToken'))
   return token.userId
 }
+
+export const getUserById = (id) => {
+  const reponses = axios
+      .get(USERS + "/" + id)
+      .then((res) => ({
+        message: 'OK',
+        datas: res.data
+      }))
+      .catch((e) => JSON.stringify(e))
+  return reponses
+}
+
