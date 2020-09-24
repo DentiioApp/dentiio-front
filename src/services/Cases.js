@@ -38,6 +38,17 @@ export const addFavCase = (data) => {
   return reponses
 }
 
+export const getCaseById = (id) => {
+    const reponses = axios
+        .get(CLINICAL_CASES + "/" + id)
+        .then((res) => ({
+            message: 'OK',
+            datas: res.data
+        }))
+        .catch((e) => JSON.stringify(e))
+    return reponses
+}
+
 export const fetchUserFav = () => {
   const reponses = axios
     .get(USERFAVORITES)
