@@ -84,21 +84,6 @@ const useStyles = makeStyles((theme) => ({
   }
 }))
 
-const imagesExamen = [
-  {
-    original: 'https://dr-demonchaux-thierry.chirurgiens-dentistes.fr/wp-content/uploads/Encombrement-anterieur-Avant-Cas-Clinique.jpg',
-    thumbnail: 'https://dr-demonchaux-thierry.chirurgiens-dentistes.fr/wp-content/uploads/Encombrement-anterieur-Avant-Cas-Clinique.jpg'
-  },
-  {
-    original: plan1,
-    thumbnail: plan1
-  },
-  {
-    original: plan2,
-    thumbnail: plan2
-  }
-]
-
 const imagesScanner = [
   {
     original: radio1,
@@ -130,6 +115,88 @@ const DetailCase = (props) => {
   const optionsDate = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
   const Img = item.averageNote ? <img alt='' src={iconTeethFull} width='12px' className={classes.icon} /> : ""
 
+  const imagesExam = (type) => {
+    if(item.imageClinicalCases){
+      const array = []
+      item.imageClinicalCases.filter(function (i) {
+        return i.type.name === type;
+      }).map(function (img) {
+            array.push({
+                  original: "https://api.dentiio.fr/images/fixtures/"+img.path,
+                  thumbnail: "https://api.dentiio.fr/images/fixtures/"+img.path
+                }
+            )
+          }
+      )
+        return array
+    }
+  }
+  const imagesBiopsy = (type) => {
+    if(item.imageClinicalCases){
+      const array = []
+      item.imageClinicalCases.filter(function (i) {
+        return i.type.name === type;
+      }).map(function (img) {
+            array.push("https://api.dentiio.fr/images/fixtures/"+img.path
+            )
+          }
+      )
+      return array
+    }
+  }
+  const Scanner = () => {
+    if (imagesExam("scanner")){
+      if (imagesExam("scanner").length !== 0){
+        return (
+            <>
+              <Typography component='h3' variant='h5' className={classes.titleExam}>
+                Scanner
+              </Typography>
+              <Gallery images={imagesExam("scanner")} />
+              <p>
+                {item.scanner && item.scanner}
+              </p>
+            </>
+        )
+      }
+    }
+  }
+
+  const Evolution = () => {
+    if (imagesExam("scanner")){
+      if (imagesExam("scanner").length !== 0){
+        return (
+            <>
+              <Typography component='h3' variant='h5' className={classes.titleExam}>
+                Scanner
+              </Typography>
+              <Gallery images={imagesExam("scanner")} />
+              <p>
+                {item.scanner && item.scanner}
+              </p>
+            </>
+        )
+      }
+    }
+  }
+
+  const Biopsy = () => {
+    if (imagesExam("biopsy")){
+      if (imagesExam("biopsy").length !== 0){
+        return (
+            <>
+              <Typography component='h3' variant='h5' className={classes.titleExam}>
+                Biopsy
+              </Typography>
+              <p>
+                {item.biopsy && item.biopsy}
+              </p>
+              <LightboxButton images={imagesBiopsy("biopsy")}/>
+            </>
+        )
+      }
+    }
+  }
 
   return (
     <>
@@ -177,72 +244,66 @@ const DetailCase = (props) => {
                   <p>
                     {item.presentation && item.presentation}
                   </p>
-                  <div className={classes.keywords}>
-                    <Keyword keyword='Fumeur' />
-                  </div>
-                  <div className={classes.keywords}>
-                    <Keyword keyword='Racines internes' />
-                  </div>
-                  <div className={classes.keywords}>
-                    <Keyword keyword='Pollen' />
-                  </div>
+                    {item.keyword && item.keyword.map((keyword, index) => (
+                        <div key={index} className={classes.keywords}>
+                          <Keyword key={index} keyword={keyword.name} />
+                        </div>
+                    ))}
                 </Grid>
               </Grid>
               <Typography component='h3' variant='h5' className={classes.h3}>
                             Motif de consultation
               </Typography>
               <p>
+                {item.reason_consult && item.reason_consult}
                             Les dents infero-anterieur ont une légère mobilité et sont douloureuses depuis quelques jours.
               </p>
+              <Typography component='h3' variant='body1'>
+                  Les symptômes sont :
+                {item.symptome && item.symptome.map((keyword, index) => (
+                    <div key={index} className={classes.keywords}>
+                      <Keyword key={index} keyword={keyword.name} />
+                    </div>
+                ))}
+              </Typography>
               <div className={classes.patientMobile}>
                 <PatientDetail />
               </div>
               <Typography component='h3' variant='h5' className={classes.h3} id='examen'>
                             Examen clinique
               </Typography>
-              <Gallery images={imagesExamen} />
+              {item.imageClinicalCases && <Gallery images={imagesExam("examen")} />}
               <p>
-                            Les dents infero-anterieur ont une légère mobilité et sont douloureuses depuis quelques jours.
+                {item.observation && item.observation}
               </p>
               <Typography component='h3' variant='h5' className={classes.h3}>
                             Examen complementaire
               </Typography>
               {/* si il y a scanner */}
-              <Typography component='h3' variant='h5' className={classes.titleExam}>
-                            Scanner
-              </Typography>
-              <Gallery images={imagesScanner} />
-              <p>
-                            Scanner incroyable
-              </p>
+              {Scanner()}
+
               {/* si il y a biopsy */}
-              <Typography component='h3' variant='h5' className={classes.titleExam}>
-                            Biopsy
-              </Typography>
-              <p>
-                            La biopsy indique que nanani
-              </p>
-              <LightboxButton />
+              {Biopsy()}
+
               <Typography component='h3' variant='h5' className={classes.h3} id='diagnostic'>
                             Diagnostic
               </Typography>
               <p>
-                            Le diagnostic est nanananan
+                {item.diagnostic && item.diagnostic}
               </p>
               <Grid container item md={12} spacing={1}>
-                <div className={classes.keywords}>
-                  <Keyword keyword='Cancer' />
-                </div>
-                <div className={classes.keywords}>
-                  <Keyword keyword='Fracture' />
-                </div>
-                <div className={classes.keywords}>
-                  <Keyword keyword='Caillot' />
-                </div>
+                {item.pathologie && item.pathologie.map((keyword, index) => (
+                    <div key={index} className={classes.keywords}>
+                      <Keyword key={index} keyword={keyword.name} />
+                    </div>
+                ))}
               </Grid>
               <Typography component='h3' variant='h5' className={classes.h3} id='plan'>
                             Plan de traitement
               </Typography>
+              <p>
+                {item.treatmentPlan && item.treatmentPlan}
+              </p>
               <Grid container spacing={1} className={classes.resume}>
                 <Grid container item md={6} justify='center'>
                   <CardPlanTreatment title='1. Extraction' description='On a enlevé la dent' image={plan1} />
@@ -262,14 +323,15 @@ const DetailCase = (props) => {
                             Evolution
               </Typography>
               <p>
-                            Aprèe deux mois voila le resultat
+                {item.evolution && item.evolution}
               </p>
-              <Gallery images={imagesExamen} />
+              {Evolution()}
+              {item.imageClinicalCases && <Gallery images={imagesExam("evolution")} />}
               <Typography component='h3' variant='h5' className={classes.h3} id='conclusion'>
                             Conclusion
               </Typography>
               <p>
-                            C'était super
+                {item.conclusion && item.conclusion}
               </p>
             </div>
 

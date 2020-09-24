@@ -48,8 +48,6 @@ export default function PatientDetail (props) {
     const treatment = props.data ? props.data.inTreatment.empty ? "" : props.data.inTreatment : ""
     const problemHealth = props.data ? props.data.problemHealth.empty ? "Aucun" : props.data.problemHealth : ""
 
-    console.log(props.data)
-
   return (
     <Card className={classes.root}>
       <CardContent>
