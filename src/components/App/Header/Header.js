@@ -6,13 +6,13 @@ import palette from '../../UI/ColorTheme/Palette'
 import { Link, Redirect } from 'react-router-dom'
 import TitleHeader from '../../UI/titleHeader/TitleHeader'
 import TitleHeaderMobile from '../../UI/titleHeader/titleHeaderMobile'
-import AddIcon from "../../UI/Icon/Header/Add"
+import AddIcon from '../../UI/Icon/Header/Add'
 import { setup } from '../../../services/Auth'
 import HomeIcon from '../../UI/Icon/Header/home'
 import FavoritesIcon from '../../UI/Icon/Header/favorites'
 import NotificationIcon from '../../UI/Icon/Header/notification'
 import ProfileIcon from '../../UI/Icon/Header/profile'
-import RightMenuIcon from "../../UI/RightMenuIcon/rightMenuIcon"
+import RightMenuIcon from '../../UI/RightMenuIcon/rightMenuIcon'
 
 const useStyles = makeStyles((theme) => ({
   grow: {
@@ -30,7 +30,7 @@ const useStyles = makeStyles((theme) => ({
   sectionDesktop: {
     display: 'none',
     [theme.breakpoints.up('sm')]: {
-      display: 'flex',
+      display: 'flex'
     }
   },
   sectionMobileTop: {
@@ -64,51 +64,51 @@ export const Header = (props) => {
 
   return (
     <div className={classes.grow}>
-      
+
       <AppBar
-        position="static"
+        position='static'
         className={classes.sectionDesktop}
-        color="primary"
+        color='primary'
       >
         <Toolbar>
-          <TitleHeader style={{ align: "center" }} />
+          <TitleHeader style={{ align: 'center' }} />
           <RightMenuIcon />
         </Toolbar>
       </AppBar>
 
       {/* Mobile header */}
       <AppBar
-        position="static"
+        position='static'
         className={classes.sectionMobileTop}
-        color="inherit"
+        color='inherit'
       >
         <Toolbar>
-          <TitleHeaderMobile style={{ align: "center" }} />
-          <div className={classes.grow} style={{ align: "right" }} />
+          <TitleHeaderMobile style={{ align: 'center' }} />
+          <div className={classes.grow} style={{ align: 'right' }} />
           <div>
             <NotificationIcon color={palette.primary} />
           </div>
         </Toolbar>
       </AppBar>
-      <AppBar className={classes.sectionMobileBottom} color="inherit">
+      <AppBar className={classes.sectionMobileBottom} color='inherit'>
         <Toolbar>
           <AddIcon color={palette.primary} />
-          <div className={classes.grow} style={{ align: "right" }} />
-          <Link to="/cases">
+          <div className={classes.grow} style={{ align: 'right' }} />
+          <Link to='/cases'>
             <HomeIcon target={props.target} color={palette.primary} />
           </Link>
-          <div className={classes.grow} style={{ align: "right" }} />
-          <Link to="/favorites">
+          <div className={classes.grow} style={{ align: 'right' }} />
+          <Link to='/favorites'>
             <FavoritesIcon target={props.target} color={palette.primary} />
           </Link>
-          <div className={classes.grow} style={{ align: "right" }} />
-          <Link to="/profile">
+          <div className={classes.grow} style={{ align: 'right' }} />
+          <Link to='/profile'>
             <ProfileIcon target={props.target} color={palette.primary} />
           </Link>
         </Toolbar>
       </AppBar>
     </div>
-  );
+  )
 }
 
 export default Header

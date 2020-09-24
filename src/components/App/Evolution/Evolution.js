@@ -28,16 +28,15 @@ const Evolution = (props) => {
   const dispatch = useDispatch()
 
   const initVals = {
-    errEvolution: false,
+    errEvolution: false
   }
   const [errors, setErrors] = useState(initVals)
 
   const catchSubmit = async (event) => {
     event.preventDefault()
     let isValid = true
-    if(props.values.evolution === ""){ setErrors({...errors, errEvolution: true}); isValid=false}
-    if(isValid)
-      dispatch({ type: UPDATE_LEVEL, level: 'conclusion' })
+    if (props.values.evolution === '') { setErrors({ ...errors, errEvolution: true }); isValid = false }
+    if (isValid) { dispatch({ type: UPDATE_LEVEL, level: 'conclusion' }) }
   }
 
   const catchOnmit = async (event) => {

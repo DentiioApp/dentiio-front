@@ -17,4 +17,3 @@ export const cardSave = (data) => {
 }
 
 export const logUser = (datas) => { return { type: LOG_USER, datas: datas.data } }
-

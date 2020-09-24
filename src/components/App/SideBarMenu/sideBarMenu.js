@@ -1,172 +1,172 @@
 import {
   Accordion,
   AccordionDetails,
-  AccordionSummary,
-} from "@material-ui/core";
-import AppBar from "@material-ui/core/AppBar";
-import CssBaseline from "@material-ui/core/CssBaseline";
-import Divider from "@material-ui/core/Divider";
-import Drawer from "@material-ui/core/Drawer";
-import IconButton from "@material-ui/core/IconButton";
-import List from "@material-ui/core/List";
-import ListItem from "@material-ui/core/ListItem";
-import ListItemText from "@material-ui/core/ListItemText";
-import { makeStyles, useTheme } from "@material-ui/core/styles";
-import Toolbar from "@material-ui/core/Toolbar";
-import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
-import ChevronRightIcon from "@material-ui/icons/ChevronRight";
-import ExpandMore from "@material-ui/icons/ExpandMore";
-import clsx from "clsx";
-import React, { useEffect, useRef } from "react";
-import { useDispatch, useSelector } from "react-redux";
+  AccordionSummary
+} from '@material-ui/core'
+import AppBar from '@material-ui/core/AppBar'
+import CssBaseline from '@material-ui/core/CssBaseline'
+import Divider from '@material-ui/core/Divider'
+import Drawer from '@material-ui/core/Drawer'
+import IconButton from '@material-ui/core/IconButton'
+import List from '@material-ui/core/List'
+import ListItem from '@material-ui/core/ListItem'
+import ListItemText from '@material-ui/core/ListItemText'
+import { makeStyles, useTheme } from '@material-ui/core/styles'
+import Toolbar from '@material-ui/core/Toolbar'
+import ChevronLeftIcon from '@material-ui/icons/ChevronLeft'
+import ChevronRightIcon from '@material-ui/icons/ChevronRight'
+import ExpandMore from '@material-ui/icons/ExpandMore'
+import clsx from 'clsx'
+import React, { useEffect, useRef } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
 import {
   closeSideBar,
   fetchPathologies,
   fetchSpecialities,
   fetchTreatments,
-  openSideBar,
-} from "../../../store/actions";
-import RightMenuIcon from "../../UI/RightMenuIcon/rightMenuIcon";
-import TitleHeader from "../../UI/titleHeader/TitleHeader";
+  openSideBar
+} from '../../../store/actions'
+import RightMenuIcon from '../../UI/RightMenuIcon/rightMenuIcon'
+import TitleHeader from '../../UI/titleHeader/TitleHeader'
 
-const drawerWidth = 250;
+const drawerWidth = 250
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    display: "flex",
-    [theme.breakpoints.down("sm")]: {
-      display: "none",
-    },
+    display: 'flex',
+    [theme.breakpoints.down('sm')]: {
+      display: 'none'
+    }
   },
   appBar: {
-    transition: theme.transitions.create(["margin", "width"], {
+    transition: theme.transitions.create(['margin', 'width'], {
       easing: theme.transitions.easing.sharp,
-      duration: theme.transitions.duration.leavingScreen,
-    }),
+      duration: theme.transitions.duration.leavingScreen
+    })
   },
   appBarShift: {
     width: `calc(100% - ${drawerWidth}px)`,
     marginLeft: drawerWidth,
-    transition: theme.transitions.create(["margin", "width"], {
+    transition: theme.transitions.create(['margin', 'width'], {
       easing: theme.transitions.easing.easeOut,
-      duration: theme.transitions.duration.enteringScreen,
-    }),
+      duration: theme.transitions.duration.enteringScreen
+    })
   },
   menuButton: {
-    marginRight: theme.spacing(2),
+    marginRight: theme.spacing(2)
   },
   hide: {
-    display: "none",
+    display: 'none'
   },
   drawer: {
     width: drawerWidth,
-    flexShrink: 0,
+    flexShrink: 0
   },
   drawerPaper: {
-    width: drawerWidth,
+    width: drawerWidth
   },
   drawerHeader: {
-    display: "flex",
-    alignItems: "center",
+    display: 'flex',
+    alignItems: 'center',
     padding: theme.spacing(0, 1),
     // necessary for content to be below app bar
     ...theme.mixins.toolbar,
-    justifyContent: "flex-end",
+    justifyContent: 'flex-end'
   },
   content: {
     flexGrow: 1,
     padding: theme.spacing(3),
-    transition: theme.transitions.create("margin", {
+    transition: theme.transitions.create('margin', {
       easing: theme.transitions.easing.sharp,
-      duration: theme.transitions.duration.leavingScreen,
+      duration: theme.transitions.duration.leavingScreen
     }),
-    marginLeft: -drawerWidth,
+    marginLeft: -drawerWidth
   },
   contentShift: {
-    transition: theme.transitions.create("margin", {
+    transition: theme.transitions.create('margin', {
       easing: theme.transitions.easing.easeOut,
-      duration: theme.transitions.duration.enteringScreen,
+      duration: theme.transitions.duration.enteringScreen
     }),
-    marginLeft: 0,
+    marginLeft: 0
   },
   nested: {
-    padding: "0 20px 3px 20px",
-  },
-}));
+    padding: '0 20px 3px 20px'
+  }
+}))
 
-export default function PersistentDrawerLeft() {
-  const sideBarRef = useRef(null);
-  const classes = useStyles();
-  const theme = useTheme();
-  const dispatch = useDispatch();
-  const open = useSelector((state) => state.cases.openSideBar);
-  const specialities = useSelector((state) => state.specialities.specialities);
-  const treatments = useSelector((state) => state.treatments.treatments);
-  const pathologies = useSelector((state) => state.pathologies.pathologies);
+export default function PersistentDrawerLeft () {
+  const sideBarRef = useRef(null)
+  const classes = useStyles()
+  const theme = useTheme()
+  const dispatch = useDispatch()
+  const open = useSelector((state) => state.cases.openSideBar)
+  const specialities = useSelector((state) => state.specialities.specialities)
+  const treatments = useSelector((state) => state.treatments.treatments)
+  const pathologies = useSelector((state) => state.pathologies.pathologies)
 
   const handleDrawerOpen = () => {
-    dispatch(openSideBar());
-  };
+    dispatch(openSideBar())
+  }
 
   const handleDrawerClose = () => {
-    dispatch(closeSideBar());
-  };
+    dispatch(closeSideBar())
+  }
 
   useEffect(() => {
     if (treatments.length < 1) {
-      dispatch(fetchTreatments());
+      dispatch(fetchTreatments())
     }
-  });
+  })
 
   useEffect(() => {
     if (specialities.length < 1) {
-      dispatch(fetchSpecialities());
-    }    
-  });
+      dispatch(fetchSpecialities())
+    }
+  })
 
   useEffect(() => {
     if (pathologies.length < 1) {
-      dispatch(fetchPathologies());
-    }    
-  });
+      dispatch(fetchPathologies())
+    }
+  })
 
-  function useOutsideSideBar(ref) {
+  function useOutsideSideBar (ref) {
     useEffect(() => {
       /**
        * Alert if clicked on outside of element
        */
-      function handleClickOutside(event) {
+      function handleClickOutside (event) {
         if (ref.current && !ref.current.contains(event.target)) {
-          dispatch(closeSideBar());
+          dispatch(closeSideBar())
         }
       }
 
       // Bind the event listener
-      document.addEventListener("mousedown", handleClickOutside);
+      document.addEventListener('mousedown', handleClickOutside)
       return () => {
         // Unbind the event listener on clean up
-        document.removeEventListener("mousedown", handleClickOutside);
-      };
-    }, [ref]);
+        document.removeEventListener('mousedown', handleClickOutside)
+      }
+    }, [ref])
   }
 
-  useOutsideSideBar(sideBarRef);
+  useOutsideSideBar(sideBarRef)
 
   return (
     <div className={classes.root} ref={sideBarRef}>
       <CssBaseline />
       <AppBar
-        position="fixed"
+        position='fixed'
         className={clsx(classes.appBar, {
-          [classes.appBarShift]: open,
+          [classes.appBarShift]: open
         })}
       >
         <Toolbar>
           <IconButton
-            color="inherit"
-            aria-label="open drawer"
+            color='inherit'
+            aria-label='open drawer'
             onClick={handleDrawerOpen}
-            edge="start"
+            edge='start'
             className={clsx(classes.menuButton, open && classes.hide)}
           >
             <TitleHeader />
@@ -176,16 +176,16 @@ export default function PersistentDrawerLeft() {
       </AppBar>
       <Drawer
         className={classes.drawer}
-        variant="persistent"
-        anchor="left"
+        variant='persistent'
+        anchor='left'
         open={open}
         classes={{
-          paper: classes.drawerPaper,
+          paper: classes.drawerPaper
         }}
       >
         <div className={classes.drawerHeader}>
           <IconButton onClick={handleDrawerClose}>
-            {theme.direction === "ltr" ? (
+            {theme.direction === 'ltr' ? (
               <ChevronLeftIcon />
             ) : (
               <ChevronRightIcon />
@@ -197,7 +197,7 @@ export default function PersistentDrawerLeft() {
         <Accordion>
           <AccordionSummary expandIcon={<ExpandMore />}>
             <ListItem>
-              <ListItemText primary="Pathologies" />
+              <ListItemText primary='Pathologies' />
             </ListItem>
           </AccordionSummary>
 
@@ -219,7 +219,7 @@ export default function PersistentDrawerLeft() {
         <Accordion>
           <AccordionSummary expandIcon={<ExpandMore />}>
             <ListItem>
-              <ListItemText primary="Spécialités" />
+              <ListItemText primary='Spécialités' />
             </ListItem>
           </AccordionSummary>
 
@@ -241,7 +241,7 @@ export default function PersistentDrawerLeft() {
         <Accordion>
           <AccordionSummary expandIcon={<ExpandMore />}>
             <ListItem>
-              <ListItemText primary="Traitements" />
+              <ListItemText primary='Traitements' />
             </ListItem>
           </AccordionSummary>
 
@@ -264,9 +264,9 @@ export default function PersistentDrawerLeft() {
       </Drawer>
       <main
         className={clsx(classes.content, {
-          [classes.contentShift]: open,
+          [classes.contentShift]: open
         })}
-      ></main>
+      />
     </div>
-  );
+  )
 }

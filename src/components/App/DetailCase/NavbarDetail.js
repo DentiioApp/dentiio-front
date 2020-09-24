@@ -46,13 +46,13 @@ const NavbarDetail = () => {
           </IconButton>
           <div style={{ align: 'left' }}>
             <Link
-                to='presentation'
-                className={classes.detailnav}
-                activeClass='active'
-                spy
-                smooth
-                offset={-70}
-                duration={500}
+              to='presentation'
+              className={classes.detailnav}
+              activeClass='active'
+              spy
+              smooth
+              offset={-70}
+              duration={500}
             >
               <Button>
                 <span>Presentation</span>
@@ -149,13 +149,13 @@ const NavbarDetail = () => {
           </div>
           <div className='card'>
             <Link
-                to='presentation'
-                className={classes.detailnav}
-                activeClass='active'
-                spy
-                smooth
-                offset={-70}
-                duration={500}
+              to='presentation'
+              className={classes.detailnav}
+              activeClass='active'
+              spy
+              smooth
+              offset={-70}
+              duration={500}
             >
               <Button>
                 <span>Presentation</span>

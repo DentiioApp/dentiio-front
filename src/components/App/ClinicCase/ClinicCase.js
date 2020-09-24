@@ -37,24 +37,24 @@ const ClinicCase = (props) => {
 
   const keywords = useSelector((state) => state.home.keywords)
   const specialities = useSelector((state) => state.home.specialities)
-  
+
   const initVals = {
     errTitle: false,
     errSummary: false,
     errKeywords: false,
-    errSpecialities: false,
+    errSpecialities: false
   }
   const [errors, setErrors] = useState(initVals)
 
   const catchSubmit = async (event) => {
     event.preventDefault()
     let isValid = true
-    if(props.values.title === ""){ setErrors({...errors, errTitle: true}); isValid=false}
-    if(props.values.summary === ""){  setErrors({...errors, errSummary: true}); isValid=false}
-    if(props.values.keywords.length < 1){  setErrors({...errors, errKeywords: true}); isValid=false}
-    if(props.values.specialities.length < 1){  setErrors({...errors, errSpecialities: true}); isValid=false}
-    
-    if(isValid){
+    if (props.values.title === '') { setErrors({ ...errors, errTitle: true }); isValid = false }
+    if (props.values.summary === '') { setErrors({ ...errors, errSummary: true }); isValid = false }
+    if (props.values.keywords.length < 1) { setErrors({ ...errors, errKeywords: true }); isValid = false }
+    if (props.values.specialities.length < 1) { setErrors({ ...errors, errSpecialities: true }); isValid = false }
+
+    if (isValid) {
       const regex2 = RegExp(/Error/)
       const patient = await postPatient(props.values)
       if (!regex2.test(patient.message)) {

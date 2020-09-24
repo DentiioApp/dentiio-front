@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from 'react-redux'
 
 import {
   Paper,
-  Typography,
+  Typography
 } from '@material-ui/core/'
 import Grid from '@material-ui/core/Grid'
 import { makeStyles } from '@material-ui/core/styles'
@@ -34,20 +34,19 @@ const TreatPlan = (props) => {
     errGlobal_desc: false,
     errMedication_administered: false,
     errStep: false,
-    errTreatment: false,
+    errTreatment: false
   }
   const [errors, setErrors] = useState(initVals)
 
   const catchSubmit = async (event) => {
     event.preventDefault()
     let isValid = true
-    if(props.values.global_desc === ""){ setErrors({...errors, errGlobal_desc: true}); isValid=false}
-    if(props.values.medication_administered === ""){  setErrors({...errors, errMedication_administered: true}); isValid=false}
-    if(props.values.step.length < 1){  setErrors({...errors, errStep: true}); isValid=false}
-    if(props.values.treatment.length < 1){  setErrors({...errors, errTreatment: true}); isValid=false}
+    if (props.values.global_desc === '') { setErrors({ ...errors, errGlobal_desc: true }); isValid = false }
+    if (props.values.medication_administered === '') { setErrors({ ...errors, errMedication_administered: true }); isValid = false }
+    if (props.values.step.length < 1) { setErrors({ ...errors, errStep: true }); isValid = false }
+    if (props.values.treatment.length < 1) { setErrors({ ...errors, errTreatment: true }); isValid = false }
 
-    if(isValid)
-      dispatch({ type: UPDATE_LEVEL, level: 'evolution' })
+    if (isValid) { dispatch({ type: UPDATE_LEVEL, level: 'evolution' }) }
   }
 
   const catchOnmit = async (event) => {
@@ -87,14 +86,14 @@ const TreatPlan = (props) => {
                 placeholder='Description globale'
                 variant='outlined'
                 margin='normal'
-                label="Description globale"
+                label='Description globale'
                 multiline
                 autoFocus
                 required
                 name='global_desc'
                 type='textarea'
                 id='global_desc'
-                value= {props.values.global_desc}
+                value={props.values.global_desc}
                 autoComplete='current-global_desc'
                 onChange={props.onChange('global_desc')}
                 error={errors.errGlobal_desc}
@@ -108,7 +107,7 @@ const TreatPlan = (props) => {
                 multiline
                 type='text'
                 id='medication_administered'
-                value= {props.values.medication_administered}
+                value={props.values.medication_administered}
                 autoComplete='current-medication_administered'
                 onChange={props.onChange('medication_administered')}
                 error={errors.errMedication_administered}
@@ -123,12 +122,12 @@ const TreatPlan = (props) => {
                 variant='outlined'
                 margin='normal'
                 required
-                label="Etape 1"
+                label='Etape 1'
                 multiline
                 name='step1'
                 type='textarea'
                 id='step1'
-                value= {props.values.step}
+                value={props.values.step}
                 autoComplete='current-step1'
                 onChange={props.onChange('step')}
                 error={errors.errStep}
@@ -143,12 +142,12 @@ const TreatPlan = (props) => {
                 variant='outlined'
                 margin='normal'
                 required
-                label="Etape 2"
+                label='Etape 2'
                 multiline
                 name='step2'
                 type='textarea'
                 id='step2'
-                value= {props.values.step}
+                value={props.values.step}
                 autoComplete='current-in_treatment'
                 onChange={props.onChange('step')}
                 error={errors.errStep}
@@ -163,13 +162,13 @@ const TreatPlan = (props) => {
                 variant='outlined'
                 margin='normal'
                 required
-                label="Etape 3"
+                label='Etape 3'
                 multiline
                 name='step3'
                 type='textarea'
                 id='step3'
                 autoComplete='current-step'
-                value= {props.values.step}
+                value={props.values.step}
                 onChange={props.onChange('step')}
                 error={errors.errStep}
               />

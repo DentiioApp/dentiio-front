@@ -49,5 +49,3 @@ export const getUserId = () => {
   const token = jwtDecode(localStorage.getItem('authToken'))
   return token.userId
 }
-
-
