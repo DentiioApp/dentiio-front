@@ -15,11 +15,10 @@ import clsx from "clsx";
 import { useDispatch, useSelector } from "react-redux";
 import RightMenuIcon from "../../UI/RightMenuIcon/rightMenuIcon";
 import TitleHeader from "../../UI/titleHeader/TitleHeader";
-import { openSideBar, closeSideBar, fetchSpecialities, fetchTreatments } from "../../../store/actions";
+import { openSideBar, closeSideBar, fetchSpecialities, fetchTreatments, fetchPathologies } from "../../../store/actions";
 import Collapse from "@material-ui/core/Collapse";
 import ExpandLess from "@material-ui/icons/ExpandLess";
 import ExpandMore from "@material-ui/icons/ExpandMore";
-import { Treatments } from '../../../store/reducers/treatments';
 
 const drawerWidth = 250;
 
