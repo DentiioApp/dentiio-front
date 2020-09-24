@@ -1,9 +1,8 @@
 
-import { registerUser, logUser, cardSave } from './Auth'
+import { logUser, cardSave } from './Auth'
 import { addFav, openSideBar, closeSideBar } from "./Cases";
 import { fetchSpecialities } from './Specialities';
 import { fetchTreatments } from "./Treatments";
-import { logUser, cardSave } from './Auth'
 
 export const ADD_FAVORITE = 'ADD_FAVORITE'
 export const INIT_FAV_CASE = 'INIT_FAV_CASE'
@@ -28,10 +27,10 @@ export const OPEN_SIDE_BAR = "OPEN_SIDE_BAR";
 export const CLOSE_SIDE_BAR = "CLOSE_SIDE_BAR";
 export const SET_SPECIALITIES = "SET_SPECIALITIES";
 export const SET_TREATMENTS = "SET_TREATMENTS";
+export const INIT_PATIENT = "INIT_PATIENT";
 
 export {
   logUser,
-  registerUser,
   cardSave,
   addFav,
   openSideBar,
@@ -40,4 +39,4 @@ export {
   fetchTreatments,
 };
 
-export { logUser, cardSave }
+
