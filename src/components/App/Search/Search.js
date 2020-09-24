@@ -96,8 +96,6 @@ const Search = (props) => {
           </Button>
         </div>
 
-        {/* <SearchIcon /> */}
-
         <Autocomplete
           className={classes.barWidth}
           id='grouped-demo'
@@ -111,17 +109,13 @@ const Search = (props) => {
               {...params}
               onSelect={(e) => onTextChanged(e)}
               onChange={(e) => onTextChanged(e)}
-              label='Rechercher un cas'
+              label='Rechercher un cas...'
               variant='outlined'
               id='search-input'
               className='searchTerm'
             />
           )}
         />
-
-        {/* <button className="searchButton">
-          <img alt="Search" src={icon} />
-        </button> */}
       </div>
     </div>
   )
