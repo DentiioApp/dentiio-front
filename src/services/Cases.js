@@ -24,7 +24,7 @@ export const addFavCase = (data) => {
   //const user = jwtDecode(localStorage.getItem('authToken'))
   const item = {
     // userId: user['@id'],
-    userId: "api/users/1",
+    userId: "api/users/37",
     clinicalCaseId: data['@id'],
     createdAt: new Date().toISOString(),
   }
