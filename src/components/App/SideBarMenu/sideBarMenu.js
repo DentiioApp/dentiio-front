@@ -94,6 +94,7 @@ export default function PersistentDrawerLeft() {
   const open = useSelector((state) => state.cases.openSideBar);
   const specialities = useSelector((state) => state.specialities.specialities);
   const treatments = useSelector((state) => state.treatments.treatments);
+  const pathologies = useSelector((state) => state.pathologies.pathologies);
 
 
   const handleDrawerOpen = () => {
@@ -108,6 +109,7 @@ export default function PersistentDrawerLeft() {
  
   dispatch(fetchTreatments())
   dispatch(fetchSpecialities())
+  dispatch(fetchPathologies());
   
   
   const [show, setOpen] = React.useState(true);
@@ -178,6 +180,25 @@ export default function PersistentDrawerLeft() {
           </IconButton>
         </div>
         <Divider />
+
+        <ListItem button onClick={handleClick}>
+          <ListItemText primary="Pathologies" />
+          {show ? <ExpandLess /> : <ExpandMore />}
+        </ListItem>
+        <Collapse in={show} timeout="auto" unmountOnExit>
+          <List component="div" disablePadding>
+            <ListItem button className={classes.nested}>
+              <ListItemText />
+              <List>
+                {pathologies.map((pathologie, index) => (
+                  <ListItem button key={index}>
+                    <ListItemText primary={pathologie.name} />
+                  </ListItem>
+                ))}
+              </List>
+            </ListItem>
+          </List>
+        </Collapse>
 
         <ListItem button onClick={handleClick}>
           <ListItemText primary="Spécialités" />

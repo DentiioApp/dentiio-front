@@ -4,7 +4,7 @@ const INIT_STATE = {
   pathologies: [],
 };
 
-export const Specialities = (state = INIT_STATE, action) => {
+export const Pathologies = (state = INIT_STATE, action) => {
   switch (action.type) {
     case SET_PATHOLOGIES:
       return { ...state, pathologies : action.data };
