@@ -1,7 +1,4 @@
 import axios from 'axios'
-import jwtDecode from 'jwt-decode'
-
-const user = jwtDecode(localStorage.getItem('authToken'))
 
 const CLINICAL_CASES =
   process.env.REACT_APP_BACK_API_URL + process.env.REACT_APP_CLINICAL_CASES
@@ -9,7 +6,7 @@ const FAVORITES =
   process.env.REACT_APP_BACK_API_URL + process.env.REACT_APP_FAVORITES
 
 const USERFAVORITES =
-  process.env.REACT_APP_BACK_API_URL + process.env.REACT_APP_USERS + '/'+user.userId+'/' +process.env.REACT_APP_FAVORITES
+  process.env.REACT_APP_BACK_API_URL + process.env.REACT_APP_USERS + '/'+localStorage.getItem('userID')+'/' +process.env.REACT_APP_FAVORITES
 
 
 
@@ -27,7 +24,7 @@ export const fetchCases = (page) => {
 
 export const addFavCase = (data) => {
   const item = {
-    userId: "/api/users/"+user.userId,
+    userId: "/api/users/"+localStorage.getItem('userID'),
     clinicalCaseId: data['@id'],
     createdAt: new Date().toISOString(),
   }
