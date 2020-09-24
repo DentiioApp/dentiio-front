@@ -7,6 +7,8 @@ import {
   CLOSE_SIDE_BAR,
   OPEN_SIDE_BAR,
 } from "../actions";
+
+import { CASE_ITEM, ADD_FAVORITE, INIT_CURRENT_CASE, FILTERED_CASES, INIT_FAV_CASE } from '../actions'
 import config from '../../config'
 
 const INIT_STATE = {
@@ -15,6 +17,8 @@ const INIT_STATE = {
   currentCase: config.cache.currentCase,
   patient: {},
   openSideBar: false,
+  favorites: [],
+  currentCase: config.cache.currentCase
 }
 
 export const Cases = (state = INIT_STATE, action) => {
@@ -37,6 +41,7 @@ export const Cases = (state = INIT_STATE, action) => {
         oldAffect: action.datas.oldAffect,
         allergen: action.datas.allergen,
       };
+
 
     case INIT_PATIENT:
       return { ...state, patient: action.data };

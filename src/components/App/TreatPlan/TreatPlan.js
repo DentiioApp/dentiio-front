@@ -1,12 +1,11 @@
 import './treatPlan.scss'
 
-import React from 'react'
+import React, { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 
 import {
   Paper,
   Typography,
-  TextareaAutosize
 } from '@material-ui/core/'
 import Grid from '@material-ui/core/Grid'
 import { makeStyles } from '@material-ui/core/styles'
@@ -30,9 +29,30 @@ const TreatPlan = (props) => {
   const classes = useStyles()
   const dispatch = useDispatch()
   const treatments = useSelector((state) => state.home.treatments)
+
+  const initVals = {
+    errGlobal_desc: false,
+    errMedication_administered: false,
+    errStep: false,
+    errTreatment: false,
+  }
+  const [errors, setErrors] = useState(initVals)
+
   const catchSubmit = async (event) => {
     event.preventDefault()
-    dispatch({ type: UPDATE_LEVEL, level: 'evolution' })
+    let isValid = true
+    if(props.values.global_desc === ""){ setErrors({...errors, errGlobal_desc: true}); isValid=false}
+    if(props.values.medication_administered === ""){  setErrors({...errors, errMedication_administered: true}); isValid=false}
+    if(props.values.step.length < 1){  setErrors({...errors, errStep: true}); isValid=false}
+    if(props.values.treatment.length < 1){  setErrors({...errors, errTreatment: true}); isValid=false}
+
+    if(isValid)
+      dispatch({ type: UPDATE_LEVEL, level: 'evolution' })
+  }
+
+  const catchOnmit = async (event) => {
+    event.preventDefault()
+    dispatch({ type: UPDATE_LEVEL, level: 'diagnostic' })
   }
 
   setup()
@@ -62,17 +82,22 @@ const TreatPlan = (props) => {
               <InputLabel className='inputLabel'>
                Description globale
               </InputLabel>
-              <TextareaAutosize
+              <TextField
                 aria-label='minimum height'
-                rowsMin={3} placeholder='Description globale'
+                placeholder='Description globale'
                 variant='outlined'
                 margin='normal'
+                label="Description globale"
+                multiline
+                autoFocus
                 required
                 name='global_desc'
                 type='textarea'
                 id='global_desc'
+                value= {props.values.global_desc}
                 autoComplete='current-global_desc'
                 onChange={props.onChange('global_desc')}
+                error={errors.errGlobal_desc}
               />
               <TextField
                 variant='outlined'
@@ -80,59 +105,73 @@ const TreatPlan = (props) => {
                 required
                 name='medication_administered'
                 label='Médicaments administrés'
+                multiline
                 type='text'
                 id='medication_administered'
+                value= {props.values.medication_administered}
                 autoComplete='current-medication_administered'
                 onChange={props.onChange('medication_administered')}
-                // error={errPseudo}
+                error={errors.errMedication_administered}
               />
 
               <InputLabel className='inputLabel'>
                 Etape 1
               </InputLabel>
-              <TextareaAutosize
+              <TextField
                 aria-label='minimum height'
-                rowsMin={3} placeholder='Renseignez le(s) probleme(s) cardiaque'
+                placeholder='Renseignez le(s) probleme(s) cardiaque'
                 variant='outlined'
                 margin='normal'
                 required
+                label="Etape 1"
+                multiline
                 name='step1'
                 type='textarea'
                 id='step1'
+                value= {props.values.step}
                 autoComplete='current-step1'
                 onChange={props.onChange('step')}
+                error={errors.errStep}
               />
 
               <InputLabel className='inputLabel'>
                 Etape 2
               </InputLabel>
-              <TextareaAutosize
+              <TextField
                 aria-label='minimum height'
                 rowsMin={3} placeholder='Renseignez le(s) traitement(s)'
                 variant='outlined'
                 margin='normal'
                 required
+                label="Etape 2"
+                multiline
                 name='step2'
                 type='textarea'
                 id='step2'
+                value= {props.values.step}
                 autoComplete='current-in_treatment'
                 onChange={props.onChange('step')}
+                error={errors.errStep}
               />
 
               <InputLabel className='inputLabel'>
                 Etape 3
               </InputLabel>
-              <TextareaAutosize
+              <TextField
                 aria-label='minimum height'
-                rowsMin={3} placeholder='Renseignez le(s) traitement(s)'
+                placeholder='Renseignez le(s) traitement(s)'
                 variant='outlined'
                 margin='normal'
                 required
+                label="Etape 3"
+                multiline
                 name='step3'
                 type='textarea'
                 id='step3'
                 autoComplete='current-step'
+                value= {props.values.step}
                 onChange={props.onChange('step')}
+                error={errors.errStep}
               />
 
               <InputLabel className='inputLabel'>
@@ -149,6 +188,7 @@ const TreatPlan = (props) => {
                   multiple: true,
                   value: props.values.treatment
                 }}
+                error={errors.errTreatment}
               >
                 {treatments && treatments.map((value) => (
                   <MenuItem key={value['@id']} value={value['@id']}>
@@ -157,13 +197,23 @@ const TreatPlan = (props) => {
                 ))}
               </TextField>
 
-              <div onClick={catchSubmit}>
-                <GradientBtn
-                  variant='contained'
-                  type='submit'
-                  description='Suivant'
-                  className='GradientBtn'
-                />
+              <div className='row'>
+                <div onClick={catchOnmit}>
+                  <GradientBtn
+                    variant='contained'
+                    type='submit'
+                    description='PRECEDENT'
+                    className='GradientBtn'
+                  />
+                </div>
+                <div onClick={catchSubmit}>
+                  <GradientBtn
+                    variant='contained'
+                    type='submit'
+                    description='SUIVANT'
+                    className='GradientBtn'
+                  />
+                </div>
               </div>
             </form>
           </div>

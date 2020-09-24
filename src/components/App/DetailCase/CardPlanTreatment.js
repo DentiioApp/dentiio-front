@@ -17,7 +17,6 @@ const useStyles = makeStyles({
 })
 
 export default function CardPlanTreatment (props) {
-  // eslint-disable-next-line react-hooks/rules-of-hooks
   const classes = useStyles()
 
   const Media = (props) => {

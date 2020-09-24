@@ -5,30 +5,31 @@ const CLINICAL_CASES =
 const FAVORITES =
   process.env.REACT_APP_BACK_API_URL + process.env.REACT_APP_FAVORITES
 
-export const fetchCases = () => {
+const USERFAVORITES =
+  process.env.REACT_APP_BACK_API_URL + process.env.REACT_APP_USERS + '/1/' +process.env.REACT_APP_FAVORITES
+
+export const fetchCases = (page) => {
   const reponses = axios
-    .get(CLINICAL_CASES)
+    .get(CLINICAL_CASES + '?page=' + page)
     .then((res) => ({
       message: 'OK',
-      datas: res.data['hydra:member']
+      datas: res.data['hydra:member'],
+      items: res.data['hydra:totalItems']
     }))
     .catch((e) => JSON.stringify(e))
   return reponses
 }
 
-export const tryCases = () => {
-  const fetchDatas = fetchCases()
-
-  if (fetchDatas.datas === undefined) {
-    fetchDatas.datas = []
+export const addFavCase = (data) => {
+  //const user = jwtDecode(localStorage.getItem('authToken'))
+  const item = {
+    // userId: user['@id'],
+    userId: "api/users/1",
+    clinicalCaseId: data['@id'],
+    createdAt: new Date().toISOString(),
   }
-
-  return fetchDatas
-}
-
-export const addFavCase = (iUser, iItem) => {
   const reponses = axios
-    .post(FAVORITES, { userId: iUser, clinicalCaseId: iItem })
+    .post(FAVORITES, item)
     .then((res) => ({
       message: 'OK',
       datas: res.data['hydra:member']
@@ -36,6 +37,18 @@ export const addFavCase = (iUser, iItem) => {
     .catch((e) => JSON.stringify(e))
   return reponses
 }
+
+export const fetchUserFav = () => {
+  const reponses = axios
+    .get(USERFAVORITES)
+    .then((res) => ({
+      message: 'OK',
+      datas: res.data['hydra:member']
+    }))
+    .catch((e) => JSON.stringify(e))
+  return reponses
+}
+
 
 export const postCase = (values, patient) => {
   const item = {
@@ -51,7 +64,7 @@ export const postCase = (values, patient) => {
 
     isEnabled: true,
 
-    patient: patient,
+    patient: {patient},
     symptome: values.symptomes,
     treatment: values.treatment,
     pathologie: values.pathologie,
