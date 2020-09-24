@@ -3,7 +3,7 @@ import React from "react";
 import { Link, Redirect } from "react-router-dom";
 import { setup } from "../../../services/Auth";
 import palette from "../ColorTheme/Palette";
-import AddIcon from "../Icon/Header/add";
+import AddIcon from "../Icon/Header/Add";
 import FavoritesIcon from "../Icon/Header/favorites";
 import HomeIcon from "../Icon/Header/home";
 import NotificationIcon from "../Icon/Header/notification";

@@ -3,18 +3,15 @@ import {
   ADD_FAVORITE,
   INIT_CURRENT_CASE,
   FILTERED_CASES,
-  INIT_PATIENT,
   CLOSE_SIDE_BAR,
   OPEN_SIDE_BAR,
+  INIT_FAV_CASE,
 } from "../actions";
 
-import { CASE_ITEM, ADD_FAVORITE, INIT_CURRENT_CASE, FILTERED_CASES, INIT_FAV_CASE } from '../actions'
 import config from '../../config'
 
 const INIT_STATE = {
   cases: {},
-  favorites: {},
-  currentCase: config.cache.currentCase,
   patient: {},
   openSideBar: false,
   favorites: [],
@@ -26,6 +23,8 @@ export const Cases = (state = INIT_STATE, action) => {
     case CASE_ITEM:
       return { ...state, cases: action.datas };
     case ADD_FAVORITE:
+      return { ...state, favorites: action.data };
+     case INIT_FAV_CASE: 
       return { ...state, favorites: action.data };
     case FILTERED_CASES:
       return { ...state, cases: action.data };
@@ -41,10 +40,6 @@ export const Cases = (state = INIT_STATE, action) => {
         oldAffect: action.datas.oldAffect,
         allergen: action.datas.allergen,
       };
-
-
-    case INIT_PATIENT:
-      return { ...state, patient: action.data };
 
     case OPEN_SIDE_BAR:
       return { ...state, openSideBar: true };
