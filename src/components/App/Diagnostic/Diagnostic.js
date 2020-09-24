@@ -31,20 +31,19 @@ const Diagnostic = (props) => {
   const dispatch = useDispatch()
   const initVals = {
     errPathologies: false,
-    errDiagnostic:false,
-    errSymptomes: false,
+    errDiagnostic: false,
+    errSymptomes: false
   }
   const [errors, setErrors] = useState(initVals)
 
   const catchSubmit = async (event) => {
     event.preventDefault()
     let isValid = true
-    if(props.values.diagnostic === ""){ setErrors({...errors, errDiagnostic: true}); isValid=false}
-    if(props.values.pathologies.length < 1){  setErrors({...errors, errPathologies: true}); isValid=false}
-    if(props.values.symptomes.length < 1){  setErrors({...errors, errSymptomes: true}); isValid=false}
-    
-    if(isValid)
-      dispatch({ type: UPDATE_LEVEL, level: 'treatplan' })
+    if (props.values.diagnostic === '') { setErrors({ ...errors, errDiagnostic: true }); isValid = false }
+    if (props.values.pathologies.length < 1) { setErrors({ ...errors, errPathologies: true }); isValid = false }
+    if (props.values.symptomes.length < 1) { setErrors({ ...errors, errSymptomes: true }); isValid = false }
+
+    if (isValid) { dispatch({ type: UPDATE_LEVEL, level: 'treatplan' }) }
   }
 
   const catchOnmit = async (event) => {
@@ -80,7 +79,7 @@ const Diagnostic = (props) => {
                 aria-label='minimum height'
                 placeholder='diagnostic'
                 variant='outlined'
-                label="Intraorale et extraorale"
+                label='Intraorale et extraorale'
                 multiline
                 autoFocus
                 fullWidth
@@ -89,7 +88,7 @@ const Diagnostic = (props) => {
                 name='diagnostic'
                 type='textarea'
                 id='diagnostic'
-                value= {props.values.diagnostic}
+                value={props.values.diagnostic}
                 autoComplete='current-diagnostic'
                 onChange={props.onChange('diagnostic')}
                 error={errors.errDiagnostic}
@@ -104,7 +103,7 @@ const Diagnostic = (props) => {
                 className='textField'
                 id='pathologies'
                 select
-                label="Pathologies"
+                label='Pathologies'
                 onChange={props.onChange('pathologies')}
                 variant='outlined'
                 fullWidth
@@ -129,7 +128,7 @@ const Diagnostic = (props) => {
               <TextField
                 className='textField'
                 id='Symptomes'
-                label="Symptomes"
+                label='Symptomes'
                 select
                 onChange={props.onChange('symptomes')}
                 variant='outlined'

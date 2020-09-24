@@ -61,4 +61,3 @@ export const getUserById = (id) => {
   return reponses
 }
 
-

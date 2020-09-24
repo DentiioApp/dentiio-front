@@ -86,14 +86,13 @@ const CasePost = () => {
     summary: '',
     keywords: [],
     specialities: [],
-    pathologies: [],
+    pathologies: []
   }
 
   const [values, setValues] = useState(initValues)
 
   const handleChange = prop => event => {
-    if (prop === 'isASmoker' || prop === 'is_medical_background' || prop === 'isAnAlcooler') { setValues({ ...values, [prop]: event.target.checked }) } 
-    else { setValues({ ...values, [prop]: event.target.value }) }
+    if (prop === 'isASmoker' || prop === 'is_medical_background' || prop === 'isAnAlcooler') { setValues({ ...values, [prop]: event.target.checked }) } else { setValues({ ...values, [prop]: event.target.value }) }
   }
 
   let form

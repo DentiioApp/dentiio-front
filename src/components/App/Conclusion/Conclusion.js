@@ -27,16 +27,15 @@ const Conclusion = (props) => {
   const dispatch = useDispatch()
 
   const initVals = {
-    errConclusion: false,
+    errConclusion: false
   }
   const [errors, setErrors] = useState(initVals)
 
   const catchSubmit = async (event) => {
     event.preventDefault()
     let isValid = true
-    if(props.values.conclusion === ""){ setErrors({...errors, errConclusion: true}); isValid=false}
-    if(isValid)
-      dispatch({ type: UPDATE_LEVEL, level: 'cliniccase' })
+    if (props.values.conclusion === '') { setErrors({ ...errors, errConclusion: true }); isValid = false }
+    if (isValid) { dispatch({ type: UPDATE_LEVEL, level: 'cliniccase' }) }
   }
 
   const catchOnmit = async (event) => {
@@ -78,7 +77,7 @@ const Conclusion = (props) => {
                 name='conclusion'
                 type='textarea'
                 id='conclusion'
-                value= {props.values.conclusion}
+                value={props.values.conclusion}
                 autoComplete='current-conclusion'
                 onChange={props.onChange('conclusion')}
                 error={errors.errConclusion}

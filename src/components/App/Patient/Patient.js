@@ -11,9 +11,9 @@ import {
 import Grid from '@material-ui/core/Grid'
 import { makeStyles } from '@material-ui/core/styles'
 import TextField from '@material-ui/core/TextField'
-import SmokingRoomsIcon from '@material-ui/icons/SmokingRooms';
-import LocalBarIcon from '@material-ui/icons/LocalBar';
-import LocalPharmacyIcon from '@material-ui/icons/LocalPharmacy';
+import SmokingRoomsIcon from '@material-ui/icons/SmokingRooms'
+import LocalBarIcon from '@material-ui/icons/LocalBar'
+import LocalPharmacyIcon from '@material-ui/icons/LocalPharmacy'
 
 import imgDesktop from '../../../images/illus.png'
 import imgMobile from '../../../images/mobile-bg.svg'
@@ -35,28 +35,27 @@ const Patient = (props) => {
   const classes = useStyles()
   const dispatch = useDispatch()
 
-  const {ages, sexes}  = config
+  const { ages, sexes } = config
 
   const initVals = {
     errAge: false,
     errGender: false,
     errIn_treatment: false,
-    errProblem_health: false,
+    errProblem_health: false
   }
   const [errors, setErrors] = useState(initVals)
 
   const catchSubmit = async (event) => {
     event.preventDefault()
     let isValid = true
-    if(props.values.age === ""){ setErrors({...errors, errAge: true}); isValid=false}
-    if(props.values.gender === ""){  setErrors({...errors, errGender: true}); isValid=false}
-    if(props.values.problem_health === ""){  setErrors({...errors, errProblem_health: true}); isValid=false}
-    if(props.values.in_treatment === ""){  setErrors({...errors, errIn_treatment: true}); isValid=false}
+    if (props.values.age === '') { setErrors({ ...errors, errAge: true }); isValid = false }
+    if (props.values.gender === '') { setErrors({ ...errors, errGender: true }); isValid = false }
+    if (props.values.problem_health === '') { setErrors({ ...errors, errProblem_health: true }); isValid = false }
+    if (props.values.in_treatment === '') { setErrors({ ...errors, errIn_treatment: true }); isValid = false }
 
-    if(isValid)
-      dispatch({ type: UPDATE_LEVEL, level: 'exam' })
+    if (isValid) { dispatch({ type: UPDATE_LEVEL, level: 'exam' }) }
   }
-  
+
   setup()
 
   return (
@@ -93,7 +92,7 @@ const Patient = (props) => {
               >
                 {ages && ages.map((index, value) => (
                   <MenuItem key={index + 1} value={value}>
-                    {value+' ans'}
+                    {value + ' ans'}
                   </MenuItem>
                 ))}
               </TextField>
@@ -103,7 +102,7 @@ const Patient = (props) => {
               <TextField
                 className='textField'
                 id='gender'
-                label="HOMME / FEMME"
+                label='HOMME / FEMME'
                 select
                 fullWidth
                 value={props.values.gender === undefined ? 'M' : props.values.gender}
@@ -158,13 +157,13 @@ const Patient = (props) => {
               />
 
               <br />  <br />
-             
+
               <TextField
                 aria-label='minimum height'
                 placeholder='Renseignez le(s) probleme(s) cardiaque'
                 variant='outlined'
                 margin='normal'
-                label="Probleme cardiaque"
+                label='Probleme cardiaque'
                 multiline
                 autoFocus
                 required
@@ -172,7 +171,7 @@ const Patient = (props) => {
                 name='problem_health'
                 type='textarea'
                 id='problem_health'
-                value= {props.values.problem_health}
+                value={props.values.problem_health}
                 autoComplete='current-problem_health'
                 // onKeyDown={(e) => e.keyCode !== 13 ? null : catchSubmit(e)}
                 onChange={props.onChange('problem_health')}
@@ -183,7 +182,7 @@ const Patient = (props) => {
                 aria-label='minimum height'
                 placeholder='Renseignez le(s) traitement(s)'
                 variant='outlined'
-                label="Sous traitement"
+                label='Sous traitement'
                 multiline
                 fullWidth
                 margin='normal'
@@ -191,7 +190,7 @@ const Patient = (props) => {
                 name='in_treatment'
                 type='textarea'
                 id='in_treatment'
-                value= {props.values.in_treatment}
+                value={props.values.in_treatment}
                 autoComplete='current-in_treatment'
                 onChange={props.onChange('in_treatment')}
                 error={errors.errIn_treatment}

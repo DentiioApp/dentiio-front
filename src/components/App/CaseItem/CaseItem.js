@@ -14,14 +14,13 @@ import ChatIcon from '@material-ui/icons/Chat'
 import StarHalfIcon from '@material-ui/icons/StarHalf'
 
 const CasesItem = (props) => {
-
   const img = () => {
-    if(props.item.imageClinicalCases){
+    if (props.item.imageClinicalCases) {
       return props.item.imageClinicalCases.filter(function (i) {
-        return i.type.name === "principal";
-      }).map(function(img) {
-        return img.path;
-      });
+        return i.type.name === 'principal'
+      }).map(function (img) {
+        return img.path
+      })
     }
   }
 
@@ -31,7 +30,7 @@ const CasesItem = (props) => {
       <Link to={`/case/${props.item.id}`} style={{ textDecoration: 'none' }}>
         <CardMedia
           className='media'
-          image={"https://api.dentiio.fr/images/"+img()[0]}
+          image={'https://api.dentiio.fr/images/' + img()[0]}
           title={props.item.title}
         />
         <div style={{ marginTop: '-35px', marginLeft: '15px' }}>
