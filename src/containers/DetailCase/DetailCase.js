@@ -115,7 +115,7 @@ const DetailCase = (props) => {
       item.imageClinicalCases.filter(function (i) {
         return i.type.name === "principal"
       }).map(function (img) {
-            array.push({
+            return array.push({
                   original: "https://api.dentiio.fr/images/"+img.path,
                   thumbnail: "https://api.dentiio.fr/images/"+img.path
                 }
@@ -132,7 +132,7 @@ const DetailCase = (props) => {
       item.imageClinicalCases.filter(function (i) {
         return i.type.name === type;
       }).map(function (img) {
-            array.push({
+            return array.push({
                   original: "https://api.dentiio.fr/images/"+img.path,
                   thumbnail: "https://api.dentiio.fr/images/"+img.path
                 }
@@ -149,7 +149,7 @@ const DetailCase = (props) => {
       item.imageClinicalCases.filter(function (i) {
         return i.type.name === type;
       }).map(function (img) {
-            array.push("https://api.dentiio.fr/images/"+img.path
+            return array.push("https://api.dentiio.fr/images/"+img.path
             )
           }
       )
@@ -173,19 +173,6 @@ const DetailCase = (props) => {
       }
     }
   }
-
-  const TreatmentPlan = () => {
-    if (imagesExam("plan-de-traitement")){
-      if (imagesExam("plan-de-traitement").length !== 0){
-        const array = []
-        imagesExam("plan-de-traitement").map((img) => (
-            array.push(img.original)
-        ))
-        return array
-      }
-    }
-  }
-  console.log(TreatmentPlan())
 
   const Evolution = () => {
     if (imagesExam("evolution")){
