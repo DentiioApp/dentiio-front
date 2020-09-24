@@ -1,19 +1,35 @@
 // import Icon from "../../../images/titleHeader.svg";
-import { TextField, makeStyles } from '@material-ui/core'
-import Autocomplete from '@material-ui/lab/Autocomplete'
-import React, { useState } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
-// import icon from "../../../images/logoteeth_transparent.png";
-import { tryKeywords } from '../../../services/Home'
-import { FILTERED_CASES, KEYWORDS_LIST } from '../../../store/actions'
-import './Search.scss'
-// import SearchIcon from "@material-ui/icons/Search";
+import { TextField, makeStyles, Button } from "@material-ui/core";
+import Autocomplete from "@material-ui/lab/Autocomplete";
+import React, { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+//import icon from "../../../images/logoteeth_transparent.png";
+import { tryKeywords } from "../../../services/Home";
+import { FILTERED_CASES, KEYWORDS_LIST } from "../../../store/actions";
+import "./Search.scss";
+//import SearchIcon from "@material-ui/icons/Search";
+import { openSideBar } from "../../../store/actions";
 
 const useStyles = makeStyles((theme) => ({
   barWidth: {
-    minWidth: '40% !important'
-  }
-}))
+    minWidth: "50%",
+    width: "50%",
+    // [theme.breakpoints.down("sm")]: {
+    //   width: "90%",  
+    // },
+  },
+  
+  categoryButton: {
+    backgroundColor: "#82ccdd",
+    margin: "41px 10px 7px 10px",
+    height: "54px",
+    fontWeight: "bold",
+    color: "white",
+    "&:hover": {
+      backgroundColor: "#03B6F0",
+    },
+  },
+})); 
 
 const Search = (props) => {
   const classes = useStyles()
@@ -21,9 +37,10 @@ const Search = (props) => {
     keywords: []
   }
 
-  const items = useSelector((state) => state.home.cases)
-  const [values, setValues] = useState(initValues)
-  const dispatch = useDispatch()
+  const items = useSelector((state) => state.home.cases);
+  const [values, setValues] = useState(initValues);
+  const dispatch = useDispatch();
+  
 
   const loadKeywords = async () => {
     const keywordsLoad = await tryKeywords()
@@ -66,9 +83,24 @@ const Search = (props) => {
   })
 
   return (
-    <div className='wrap'>
-      <div className='search'>
+    <div className="wrap">
+      <div className="search">
+        <div>
+          <Button
+            onClick={() => {
+            
+              dispatch(openSideBar())
+            }
+            }
+            className={classes.categoryButton}
+            variant="contained"
+          >
+            Toutes les catégories
+          </Button>
+        </div>
+
         {/* <SearchIcon /> */}
+
         <Autocomplete
           className={classes.barWidth}
           id='grouped-demo'
@@ -89,16 +121,6 @@ const Search = (props) => {
             />
           )}
         />
-        {/*
-        <input
-           onChange={(e) => onTextChanged(e)}
-           type="text"
-           value={values.text}
-           id="search-input"
-           placeholder="search"
-           className="searchTerm"
-         />
-        */}
 
         {/* <button className="searchButton">
           <img alt="Search" src={icon} />

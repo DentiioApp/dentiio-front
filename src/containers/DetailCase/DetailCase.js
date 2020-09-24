@@ -15,8 +15,6 @@ import Keyword from '../../components/UI/Keywords/keywords'
 import Gallery from '../../components/UI/Gallery/Gallery'
 import LightboxButton from '../../components/UI/Gallery/LightboxButton'
 import CardPlanTreatment from '../../components/App/DetailCase/CardPlanTreatment'
-import plan1 from '../../images/fixtures/plan1.jpg'
-import plan2 from '../../images/fixtures/plan2.jpg'
 import radio1 from '../../images/fixtures/radio.jpg'
 import radio2 from '../../images/fixtures/radio2.jpg'
 import {getCaseById} from "../../services/Cases";
@@ -84,17 +82,6 @@ const useStyles = makeStyles((theme) => ({
   }
 }))
 
-const imagesScanner = [
-  {
-    original: radio1,
-    thumbnail: radio1
-  },
-  {
-    original: radio2,
-    thumbnail: radio2
-  }
-]
-
 const DetailCase = (props) => {
   const classes = useStyles()
   const [item, setItem] = useState({})
@@ -115,15 +102,25 @@ const DetailCase = (props) => {
   const optionsDate = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
   const Img = item.averageNote ? <img alt='' src={iconTeethFull} width='12px' className={classes.icon} /> : ""
 
-  const imagesExam = (type) => {
+  const imagesExamFirst = (type) => {
     if(item.imageClinicalCases){
       const array = []
       item.imageClinicalCases.filter(function (i) {
         return i.type.name === type;
       }).map(function (img) {
             array.push({
-                  original: "https://api.dentiio.fr/images/fixtures/"+img.path,
-                  thumbnail: "https://api.dentiio.fr/images/fixtures/"+img.path
+                  original: "https://api.dentiio.fr/images/"+img.path,
+                  thumbnail: "https://api.dentiio.fr/images/"+img.path
+                }
+            )
+          }
+      )
+      item.imageClinicalCases.filter(function (i) {
+        return i.type.name === "principal"
+      }).map(function (img) {
+            array.push({
+                  original: "https://api.dentiio.fr/images/"+img.path,
+                  thumbnail: "https://api.dentiio.fr/images/"+img.path
                 }
             )
           }
@@ -131,13 +128,31 @@ const DetailCase = (props) => {
         return array
     }
   }
+
+  const imagesExam = (type) => {
+    if(item.imageClinicalCases){
+      const array = []
+      item.imageClinicalCases.filter(function (i) {
+        return i.type.name === type;
+      }).map(function (img) {
+            array.push({
+                  original: "https://api.dentiio.fr/images/"+img.path,
+                  thumbnail: "https://api.dentiio.fr/images/"+img.path
+                }
+            )
+          }
+      )
+      return array
+    }
+  }
+
   const imagesBiopsy = (type) => {
     if(item.imageClinicalCases){
       const array = []
       item.imageClinicalCases.filter(function (i) {
         return i.type.name === type;
       }).map(function (img) {
-            array.push("https://api.dentiio.fr/images/fixtures/"+img.path
+            array.push("https://api.dentiio.fr/images/"+img.path
             )
           }
       )
@@ -162,18 +177,25 @@ const DetailCase = (props) => {
     }
   }
 
+  const TreatmentPlan = () => {
+    if (imagesExam("plan-de-traitement")){
+      if (imagesExam("plan-de-traitement").length !== 0){
+        const array = []
+        imagesExam("plan-de-traitement").map((img) => (
+            array.push(img.original)
+        ))
+        return array
+      }
+    }
+  }
+  console.log(TreatmentPlan())
+
   const Evolution = () => {
-    if (imagesExam("scanner")){
-      if (imagesExam("scanner").length !== 0){
+    if (imagesExam("evolution")){
+      if (imagesExam("evolution").length !== 0){
         return (
             <>
-              <Typography component='h3' variant='h5' className={classes.titleExam}>
-                Scanner
-              </Typography>
-              <Gallery images={imagesExam("scanner")} />
-              <p>
-                {item.scanner && item.scanner}
-              </p>
+              <Gallery images={imagesExam("evolution")} />
             </>
         )
       }
@@ -272,7 +294,7 @@ const DetailCase = (props) => {
               <Typography component='h3' variant='h5' className={classes.h3} id='examen'>
                             Examen clinique
               </Typography>
-              {item.imageClinicalCases && <Gallery images={imagesExam("examen")} />}
+              {item.imageClinicalCases && <Gallery images={imagesExamFirst("examen")} />}
               <p>
                 {item.observation && item.observation}
               </p>
@@ -305,28 +327,21 @@ const DetailCase = (props) => {
                 {item.treatmentPlan && item.treatmentPlan}
               </p>
               <Grid container spacing={1} className={classes.resume}>
-                <Grid container item md={6} justify='center'>
-                  <CardPlanTreatment title='1. Extraction' description='On a enlevé la dent' image={plan1} />
-                </Grid>
-                <Grid container item md={6} justify='center'>
-                  <CardPlanTreatment title='2. Polissage' description='On a polit la gencive' />
-                </Grid>
-                <Grid container item md={6} justify='center'>
-                  <CardPlanTreatment
-                    title='3. Fermer la plaie' description='On a fermé la plaie cisdlhcosidh vcsdivhsdvhsdivhsd vosdihvisdovhsdoiv hodivhsovhovhoduhvcosdhvcsdou chsdocuhsdvuhsfuhvsoduhvosu'
-                    image='https://lh3.googleusercontent.com/proxy/5VeKp24sBihw8l_wMn2PKQj2tIvmFLrsotoUSJh0mZBtOEF5H0QRw4XteaTcWYkRsxzY0YWzP2ZQNGd7XiCuVv4yh_GozOK6BjULz3F-afBTBHRJvaAGws5Kr13j9mpmHvluBjI8LMPFOeY'
-                  />
-                </Grid>
+                {item.imageClinicalCases && imagesExam('plan-de-traitement').map((img, index) => (
+                    <Grid container item md={6} key={index} justify='center'>
+                      <CardPlanTreatment title={index+1} key={index} description='' image={img.original} />
+                    </Grid>
+                ))}
+
               </Grid>
 
               <Typography component='h3' variant='h5' className={classes.h3} id='evolution'>
-                            Evolution
+                Evolution
               </Typography>
               <p>
                 {item.evolution && item.evolution}
               </p>
               {Evolution()}
-              {item.imageClinicalCases && <Gallery images={imagesExam("evolution")} />}
               <Typography component='h3' variant='h5' className={classes.h3} id='conclusion'>
                             Conclusion
               </Typography>

@@ -1,20 +1,33 @@
-import { CASE_ITEM, ADD_FAVORITE, INIT_CURRENT_CASE, FILTERED_CASES } from '../actions'
+import {
+  CASE_ITEM,
+  ADD_FAVORITE,
+  INIT_CURRENT_CASE,
+  FILTERED_CASES,
+  CLOSE_SIDE_BAR,
+  OPEN_SIDE_BAR,
+  INIT_FAV_CASE,
+} from "../actions";
+
 import config from '../../config'
 
 const INIT_STATE = {
   cases: {},
-  favorites: {},
+  patient: {},
+  openSideBar: false,
+  favorites: [],
   currentCase: config.cache.currentCase
 }
 
 export const Cases = (state = INIT_STATE, action) => {
   switch (action.type) {
     case CASE_ITEM:
-      return { ...state, cases: action.datas }
+      return { ...state, cases: action.datas };
     case ADD_FAVORITE:
-      return { ...state, favorites: action.data }
+      return { ...state, favorites: action.data };
+     case INIT_FAV_CASE: 
+      return { ...state, favorites: action.data };
     case FILTERED_CASES:
-      return { ...state, cases: action.data }
+      return { ...state, cases: action.data };
     case INIT_CURRENT_CASE:
       // const {age, sexe, drinker, smoker, currentTreatment, oldAffect,allergen} = action.data;
       return {
@@ -25,10 +38,16 @@ export const Cases = (state = INIT_STATE, action) => {
         smoker: action.datas.smoker,
         currentTreatment: action.datas.currentCase,
         oldAffect: action.datas.oldAffect,
-        allergen: action.datas.allergen
-      }
+        allergen: action.datas.allergen,
+      };
 
-    default :
-      return state
+    case OPEN_SIDE_BAR:
+      return { ...state, openSideBar: true };
+
+    case CLOSE_SIDE_BAR:
+      return { ...state, openSideBar: false };
+
+    default:
+      return state;
   }
 }

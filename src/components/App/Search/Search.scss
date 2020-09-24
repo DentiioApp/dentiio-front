@@ -1,11 +1,16 @@
 @import "../../../variables";
 
-
 .search {
   display: flex;
   align-items: center;
   justify-content: center;
   height: 16em;
+}
+
+@media only screen and (max-width: 600px) {
+  .search {
+    flex-direction: column;
+  }
 }
 
 .searchTerm {
@@ -47,4 +52,22 @@
   background: transparent !important;
 }
 
+.categoryButton {
+  text-transform: uppercase;
+  color: $white;
+  background-color: #82ccdd;
+  margin: 41px 10px 7px 10px;
+  width: 189px;
+  height: 55px;
+  border-radius: 2px;
+  border: hidden;
+  font-weight: bold;
 
+}
+
+.categoryButton:focus {
+  color: $white;
+  background-color: #82ccdd;
+  border: #82ccdd;
+
+}

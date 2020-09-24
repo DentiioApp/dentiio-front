@@ -1,3 +1,4 @@
+import './caseItem.scss'
 import React from 'react'
 import { Link } from 'react-router-dom'
 import Card from '@material-ui/core/Card'
@@ -8,23 +9,17 @@ import Typography from '@material-ui/core/Typography'
 import FavButton from '../../UI/buttons/favButton'
 import IconProfile from '../../UI/Icon/Profile/iconProfile'
 import { avgNotes } from '../../../utils'
-
 import Keyword from '../../UI/Keywords/keywords'
 import ChatIcon from '@material-ui/icons/Chat'
 import StarHalfIcon from '@material-ui/icons/StarHalf'
-import './caseItem.scss'
 
 const CasesItem = (props) => {
-  const setCurrentCase = (e, item) => {
-    // dispatch({type: INIT_CURRENT_CASE, item})
-  }
 
   console.log(props)
   return (
-
     <Card className='root' key={props.item.id}>
-      <FavButton alt='favorite' item={props.item} /* bool={props.isFavorite} *//>
-      <Link onClick={(e) => setCurrentCase(e, props.item)} to={`/case/${props.item.id}`} style={{ textDecoration: 'none' }}>
+      <FavButton alt='favorite' value={props.item} isFavorite={props.favorite} />
+      <Link to={`/case/${props.item.id}`} style={{ textDecoration: 'none' }}>
         <CardMedia
           className='media'
           image='https://upload.wikimedia.org/wikipedia/commons/1/17/Yin_yang.svg'

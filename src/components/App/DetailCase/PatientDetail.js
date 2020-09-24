@@ -42,8 +42,8 @@ export default function PatientDetail (props) {
   const classes = useStyles()
   const currentCase = useSelector((state) => state.cases.currentCase)
 
-    const smoker = props.data ? props.data.isASmoker == false ? "Non" : "Oui" : "Non renseigné"
-    const drink = props.data ? props.data.isAlcool == false ? "Non" : "Oui" : "Non renseigné"
+    const smoker = props.data ? props.data.isASmoker === false ? "Non" : "Oui" : "Non renseigné"
+    const drink = props.data ? props.data.isAlcool === false ? "Non" : "Oui" : "Non renseigné"
     const inTreatment = props.data ? props.data.inTreatment.empty ? "Aucun traitement en cours" : "Traitement en cours: " : "Non renseigné"
     const treatment = props.data ? props.data.inTreatment.empty ? "" : props.data.inTreatment : ""
     const problemHealth = props.data ? props.data.problemHealth.empty ? "Aucun" : props.data.problemHealth : ""
