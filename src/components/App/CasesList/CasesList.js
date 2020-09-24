@@ -9,6 +9,7 @@ import { CASES_LIST, INIT_FAV_CASE } from '../../../store/actions'
 import CasesItem from '../CaseItem/CaseItem'
 import Paginator from '../../UI/Paginator/Paginator'
 import titleSvg from '../../../images/maquette/c-case-title.svg'
+import { getUserId } from '../../../services/Users'
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -25,7 +26,7 @@ const CasesList = () => {
   const classes = useStyles()
   const dispatch = useDispatch()
   const home = useSelector((state) => state.home)
-  const userId = useSelector((state) => state.user.id)
+  const userId = getUserId()
   const homeCase = home.cases
   const filteredCase = useSelector((state) => state.cases.cases)
   const favorites = useSelector((state) => state.cases.favorites)

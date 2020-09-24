@@ -39,7 +39,18 @@ const Favorites = () => {
   return (
     <>
       <Header target='favorites' />
-      
+      {casesList.lenght > 0 && casesList.map((oCase, index) => {
+          var isFavorite = false;
+          if(favorites.length > 0){
+            favorites.map((item)=> {
+              console.log('TEST :', item , oCase)
+              if (item.id === oCase.id)
+                isFavorite = true;
+                return <CasesItem key={index} item={oCase} favorite={isFavorite} />
+            })
+          }
+        })
+      }
     </>
   )
 }
