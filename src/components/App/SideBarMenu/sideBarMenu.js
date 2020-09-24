@@ -104,10 +104,14 @@ export default function PersistentDrawerLeft() {
     dispatch(closeSideBar());
   };
   
- 
-  dispatch(fetchTreatments())
-  dispatch(fetchSpecialities())
-  
+  useEffect(() => {
+console.log('TEST :',fetchTreatments() )
+    dispatch(fetchTreatments())
+  }, treatments)
+
+  useEffect(() => {
+    dispatch(fetchSpecialities())
+  },specialities)
   
   const [show, setOpen] = React.useState(true);
   const handleClick = () => {
