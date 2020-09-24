@@ -2,13 +2,9 @@ import axios from 'axios'
 
 const CLINICAL_CASES =
   process.env.REACT_APP_BACK_API_URL + process.env.REACT_APP_CLINICAL_CASES
+
 const FAVORITES =
   process.env.REACT_APP_BACK_API_URL + process.env.REACT_APP_FAVORITES
-
-const USERFAVORITES =
-  process.env.REACT_APP_BACK_API_URL + process.env.REACT_APP_USERS + '/'+localStorage.getItem('userID')+'/' +process.env.REACT_APP_FAVORITES
-
-
 
 export const fetchCases = (page) => {
   const reponses = axios
@@ -22,9 +18,9 @@ export const fetchCases = (page) => {
   return reponses
 }
 
-export const addFavCase = (data) => {
+export const addFavCase = (data, userId) => {
   const item = {
-    userId: "/api/users/"+localStorage.getItem('userID'),
+    userId: "/api/users/"+userId,
     clinicalCaseId: data['@id'],
     createdAt: new Date().toISOString(),
   }
@@ -49,7 +45,10 @@ export const getCaseById = (id) => {
     return reponses
 }
 
-export const fetchUserFav = () => {
+export const fetchUserFav = (userId) => {
+  const USERFAVORITES =
+    process.env.REACT_APP_BACK_API_URL + process.env.REACT_APP_USERS + '/'+userId+'/' +process.env.REACT_APP_FAVORITES
+
   const reponses = axios
     .get(USERFAVORITES)
     .then((res) => ({

@@ -25,6 +25,7 @@ const CasesList = () => {
   const classes = useStyles()
   const dispatch = useDispatch()
   const home = useSelector((state) => state.home)
+  const userId = useSelector((state) => state.user.id)
   const homeCase = home.cases
   const filteredCase = useSelector((state) => state.cases.cases)
   const favorites = useSelector((state) => state.cases.favorites)
@@ -39,7 +40,7 @@ const CasesList = () => {
   const [values, setValues] = useState(initValues)
 
   const initUserFav = async () => {
-    const response = await fetchUserFav()
+    const response = await fetchUserFav(userId)
     const regex2 = RegExp(/Error/)
     if (!regex2.test(response)) {
       dispatch({ type: INIT_FAV_CASE, data: response.datas })

@@ -7,15 +7,8 @@ import Search from '../../components/App/Search/Search'
 
 import SwipeableTemporaryDrawer from "../../components/App/SideBarMenu/sideBarMenu"
 
-/* const useStyles = makeStyles((theme) => ({
-  root: {
-    height: 260,
-  },
-})); */
-
 const Cases = () => {
-  // const classes = useStyles();
-
+ 
   if (setup() === false) {
     return <Redirect to='/' />
   }
@@ -24,7 +17,6 @@ const Cases = () => {
     <>
       <Header target="home" />
       <SwipeableTemporaryDrawer />
-      {/* <Container className={classes.root} children={""} /> */}
       <Search />
       <CasesList />
     </>
