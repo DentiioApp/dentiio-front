@@ -5,12 +5,11 @@ import { useDispatch, useSelector } from 'react-redux'
 import { Redirect } from 'react-router-dom'
 
 import {
-  FormControlLabel,
+  Switch,
   Paper,
   Typography,
   Link
 } from '@material-ui/core/'
-import Checkbox from '@material-ui/core/Checkbox'
 import FormHelperText from '@material-ui/core/FormHelperText'
 import Grid from '@material-ui/core/Grid'
 import IconButton from '@material-ui/core/IconButton'
@@ -55,14 +54,13 @@ const Register = () => {
     password: '',
     job: '',
     showPassword: false,
-    cgu: false
   }
   const [emailSent, setEmailSent] = useState(false)
   const [values, setValues] = useState(initValues)
   const [errPseudo, setErrPseudo] = useState(false)
   const [errEmail, setErrEmail] = useState(false)
   const [errPassword, setErrPassword] = useState(false)
-  const [errCgu, setErrCgu] = useState(true)
+  const [errCgu, setErrCgu] = useState(false)
 
   const catchSubmit = (e) => {
     e.preventDefault()
@@ -71,15 +69,17 @@ const Register = () => {
     if (checkEmail(values.email) === false) { setErrEmail(true) }
     if (checkPassword(values.password) === false) { setErrPassword(true) }
 
-    if (values.cgu === false) { setErrCgu(true) }
-
     if ((errPseudo || errEmail || errPassword || values.pseudo === '') === true) {
       addToast(messages.register.error, { appearance: 'error' }); return false
     } else {
-      const respo = sendRequest()
-      respo.then((res) => {
-        addToast(res.message, { appearance: res.appearance })
-      })
+        if (!errCgu) {
+          addToast('Vous devez accepter les conditions generales d\'utilisation', { appearance: 'error' }); return false
+        } else {
+          const respo = sendRequest()
+          respo.then((res) => {
+            addToast(res.message, { appearance: res.appearance })
+          })
+        }
     }
   }
 
@@ -132,13 +132,6 @@ const Register = () => {
         setErrPassword(false)
       }
     }
-    if (prop === 'cgu') {
-      if (event.target.value === false) {
-        setErrCgu(true)
-      } else {
-        setErrCgu(false)
-      }
-    }
 
     setValues({ ...values, [prop]: event.target.value })
   }
@@ -151,12 +144,7 @@ const Register = () => {
   const handleClickShowPassword = () => {
     setValues({ ...values, showPassword: !values.showPassword })
   }
-  const handleClickCgu = () => {
-    setValues({ ...values, cgu: !values.cgu })
-  }
-  const handleMouseDownCgu = event => {
-    event.preventDefault()
-  }
+
   const handleMouseDownPassword = event => {
     event.preventDefault()
   }
@@ -277,18 +265,16 @@ const Register = () => {
 
             <br />  <br />
 
-            <FormControlLabel
-              control={
-                <Checkbox
-                  color='primary'
-                  checked={values.cgu}
-                  onKeyDown={(e) => e.keyCode !== 13 ? null : catchSubmit(e)}
-                  onClick={handleClickCgu}
-                  onMouseDown={handleMouseDownCgu}
-                  error={errCgu.toString()}
-                />
-              }
-              label="J'accepte les conditions générales de d'utilisation"
+            <Typography component='p' color='textPrimary'>
+                {"J'accepte les conditions générales de d'utilisation"}
+            </Typography>
+              
+            <Switch
+              checked={errCgu}
+              onChange={(e)=>{setErrCgu(e.target.checked)}}
+              color='primary'
+              name='is_medical_background'
+              inputProps={{ 'aria-label': 'primary checkbox' }}
             />
 
             <br /> <br /> <br />
