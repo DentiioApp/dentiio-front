@@ -178,8 +178,6 @@ const Register = () => {
             />
             <FormHelperText id='my-helper-text'>{/* On ne partagera jamais votre email. */}</FormHelperText>
 
-            <br />
-
             <InputLabel className='inputLabel'>
               Vous êtes* :
             </InputLabel>

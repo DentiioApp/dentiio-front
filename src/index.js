@@ -21,7 +21,6 @@ import {
   BrowserRouter as Router,
   Switch,
   Route
-  // Link,
 } from 'react-router-dom'
 import CasePost from './containers/CasePost/CasePost'
 import QuestionPost from './containers/QuestionPost/QuestionPost'
