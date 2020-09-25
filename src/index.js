@@ -16,6 +16,7 @@ import { ToastProvider } from 'react-toast-notifications'
 import { ThemeProvider } from '@material-ui/core/styles'
 import colorTheme from './components/UI/ColorTheme/ColorTheme'
 import DetailCase from './containers/DetailCase/DetailCase'
+import { init } from 'emailjs-com'
 
 import {
   BrowserRouter as Router,
@@ -26,6 +27,7 @@ import {
 import CasePost from './containers/CasePost/CasePost'
 import QuestionPost from './containers/QuestionPost/QuestionPost'
 
+init(process.env.REAT_APP_EMAIL_USER_ID)
 dotenv.config()
 
 // MIDDLEWARE

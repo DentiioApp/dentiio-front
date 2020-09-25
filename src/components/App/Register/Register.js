@@ -30,6 +30,8 @@ import { useToasts } from 'react-toast-notifications'
 import { setup } from '../../../services/Auth'
 import oStyle from '../../ResponsiveDesign/AuthStyle'
 import { tryRegister } from '../../../services/Users'
+import { sendEmail } from '../../../services/Email'
+
 import { LOGIN_FORM, REGISTER_USER } from '../../../store/actions'
 import GradientBtn from '../../UI/buttons/GradientBtn'
 import { checkText, checkEmail, checkPassword } from '../../../utils'
@@ -47,7 +49,6 @@ const Register = () => {
   const user = useSelector((state) => state.user)
 
   const messages = config.conf.messages.auth
-
   const initValues = {
     pseudo: '',
     email: '',
@@ -56,7 +57,7 @@ const Register = () => {
     showPassword: false,
     cgu: false
   }
-
+  const [emailSent, setEmailSent] = useState(false)
   const [values, setValues] = useState(initValues)
   const [errPseudo, setErrPseudo] = useState(false)
   const [errEmail, setErrEmail] = useState(false)
@@ -99,6 +100,11 @@ const Register = () => {
     if (regex2.test(response)) {
       return { message: messages.register.error, appearance: 'error' }
     } else {
+      if (!emailSent) {
+        const mailing = await sendEmail(values.email, values.pseudo)
+        if (mailing.data !== 'OK') { console.log('Problem lors de lenvoie du mail') }
+        setEmailSent(true)
+      }
       dispatch({ type: REGISTER_USER })
       return { message: messages.register.success, appearance: 'success' }
     }
@@ -178,7 +184,7 @@ const Register = () => {
           <Typography component='h1' variant='h5'>
               Inscription
           </Typography>
-          <form className={classes.form} noValidate>
+          <form className={classes.form} noValidate onSubmit={sendEmail}>
             <TextField
               variant='outlined'
               margin='normal'
@@ -201,7 +207,7 @@ const Register = () => {
               fullwidth
               id='email'
               label='Email Address'
-              name='email'
+              name='{{ customer_name }}'
               autoComplete='email'
               onKeyDown={(e) => e.keyCode !== 13 ? null : catchSubmit(e)}
               onChange={handleChange('email')}
@@ -287,7 +293,7 @@ const Register = () => {
 
             <br /> <br /> <br />
 
-            <div onClick={catchSubmit}>
+            <div onClick={(e) => (catchSubmit(e))}>
               <GradientBtn
                 variant='contained'
                 type='submit'

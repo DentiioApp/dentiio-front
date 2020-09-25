@@ -5,19 +5,21 @@ import { useDispatch } from 'react-redux'
 
 import {
   Paper,
-  Typography
+  Typography,
+  Button,
+  TableRow
 } from '@material-ui/core/'
 import Grid from '@material-ui/core/Grid'
 import { makeStyles } from '@material-ui/core/styles'
 import TextField from '@material-ui/core/TextField'
+import ArrowBackIcon from '@material-ui/icons/ArrowBack'
+import ArrowForwardIcon from '@material-ui/icons/ArrowForward'
+import InputLabel from '@material-ui/core/InputLabel'
+
 import imgDesktop from '../../../images/illus.png'
 import imgMobile from '../../../images/mobile-bg.svg'
-import Button from '@material-ui/core/Button'
-import GradientBtn from '../../UI/buttons/GradientBtn'
 import oStyle from '../../ResponsiveDesign/AuthStyle'
 import { UPDATE_LEVEL } from '../../../store/actions'
-// import MenuItem from '@material-ui/core/MenuItem'
-import InputLabel from '@material-ui/core/InputLabel'
 
 import { setup } from '../../../services/Auth'
 import logo from '../../../images/logo.svg'
@@ -147,24 +149,27 @@ const Exam = (props) => {
                 error={errors.errExam_name}
               />
 
-              <div className='row'>
-                <div onClick={catchOnmit}>
-                  <GradientBtn
+              <br />  <br />
+
+              <center>
+                <TableRow>
+                  <Button
                     variant='contained'
                     type='submit'
-                    description='PRECEDENT'
-                    className='GradientBtn'
-                  />
-                </div>
-                <div onClick={catchSubmit}>
-                  <GradientBtn
+                    onClick={catchOnmit}
+                  >
+                    <ArrowBackIcon />
+                  </Button>
+
+                  <Button
                     variant='contained'
                     type='submit'
-                    description='SUIVANT'
-                    className='GradientBtn'
-                  />
-                </div>
-              </div>
+                    onClick={catchSubmit}
+                  >
+                    <ArrowForwardIcon />
+                  </Button>
+                </TableRow>
+              </center>
             </form>
           </div>
         </Grid>

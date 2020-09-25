@@ -22,7 +22,7 @@ import Visibility from '@material-ui/icons/Visibility'
 import VisibilityOff from '@material-ui/icons/VisibilityOff'
 import GradientBtn from '../../UI/buttons/GradientBtn'
 import oStyle from '../../ResponsiveDesign/AuthStyle'
-import { LOGIN_FORM, logUser } from '../../../store/actions'
+import { SUBSCRIBE_FORM, logUser } from '../../../store/actions'
 import { tryLogin } from '../../../services/Users'
 import { setup } from '../../../services/Auth'
 import logo from '../../../images/logo.svg'
@@ -103,7 +103,7 @@ const SignIn = () => {
 
   const switchToSubscribe = (e) => {
     e.preventDefault()
-    dispatch({ type: LOGIN_FORM })
+    dispatch({ type: SUBSCRIBE_FORM })
   }
 
   return (

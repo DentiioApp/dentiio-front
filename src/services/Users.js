@@ -52,12 +52,11 @@ export const getUserId = () => {
 
 export const getUserById = (id) => {
   const reponses = axios
-      .get(USERS + "/" + id)
-      .then((res) => ({
-        message: 'OK',
-        datas: res.data
-      }))
-      .catch((e) => JSON.stringify(e))
+    .get(USERS + '/' + id)
+    .then((res) => ({
+      message: 'OK',
+      datas: res.data
+    }))
+    .catch((e) => JSON.stringify(e))
   return reponses
 }
-

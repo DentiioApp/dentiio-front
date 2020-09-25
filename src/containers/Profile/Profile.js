@@ -1,18 +1,16 @@
 import { Avatar, makeStyles } from '@material-ui/core'
-import ExitToAppIcon from '@material-ui/icons/ExitToApp';
-import Button from "@material-ui/core/Button";
+import ExitToAppIcon from '@material-ui/icons/ExitToApp'
+import Button from '@material-ui/core/Button'
 import Grid from '@material-ui/core/Grid'
 import Paper from '@material-ui/core/Paper'
 import Typography from '@material-ui/core/Typography'
-import React, {useEffect, useState} from 'react'
+import React, { useEffect, useState } from 'react'
 import Header from '../../components/App/Header/Header'
 import imgProfile from '../../images/profile.png'
-import {getUserId, getUserById} from '../../services/Users'
-import {getCaseByUserId} from '../../services/Cases'
-import CasesItem from "../../components/App/CaseItem/CaseItem";
-import Container from "@material-ui/core/Container";
-import {useSelector} from "react-redux";
-import titleSvg from "../../images/maquette/c-case-title.svg";
+import { getUserId, getUserById } from '../../services/Users'
+import { getCaseByUserId } from '../../services/Cases'
+import CasesItem from '../../components/App/CaseItem/CaseItem'
+import Container from '@material-ui/core/Container'
 
 function logout () {
   localStorage.clear()
@@ -68,24 +66,22 @@ const Profile = () => {
   const [cases, setCases] = useState({})
 
   const ResponseUser = async () => {
-    const CaseById = await  getUserById(getUserId())
+    const CaseById = await getUserById(getUserId())
     setItem(CaseById.datas)
   }
   const ResponseCases = async () => {
-    const CaseById = await  getCaseByUserId(getUserId())
+    const CaseById = await getCaseByUserId(getUserId())
     setCases(CaseById.datas['hydra:member'])
   }
 
   useEffect(() => {
-    if (Object.entries(item).length === 0 ) {
+    if (Object.entries(item).length === 0) {
       ResponseUser()
     }
-    if (Object.entries(cases).length === 0 ) {
+    if (Object.entries(cases).length === 0) {
       ResponseCases()
     }
   })
-
-  console.log(cases)
 
   return (
     <>
@@ -94,12 +90,12 @@ const Profile = () => {
         <Paper className={classes.paper}>
           <Grid container spacing={2}>
             <Grid item>
-                <Avatar className={classes.large} alt='' src={imgProfile} />
+              <Avatar className={classes.large} alt='' src={imgProfile} />
             </Grid>
             <Grid item xs={12} sm container>
               <Grid item xs container direction='column' spacing={2}>
                 <Grid item xs>
-                  <Typography gutterBottom variant='h4' style={{textTransform: "capitalize"}}>
+                  <Typography gutterBottom variant='h4' style={{ textTransform: 'capitalize' }}>
                     {item && item.pseudo}
                   </Typography>
                   <Typography variant='body2' color='textSecondary'>
@@ -109,12 +105,12 @@ const Profile = () => {
               </Grid>
               <Grid item>
                 <Button
-                    onClick={logout}
-                    variant="contained"
-                    color="inherit"
-                    className={classes.button}
+                  onClick={logout}
+                  variant='contained'
+                  color='inherit'
+                  className={classes.button}
                 >
-                  <ExitToAppIcon fontSize={"small"} color={"inherit"}/>
+                  <ExitToAppIcon fontSize='small' color='inherit' />
                 </Button>
               </Grid>
             </Grid>
@@ -122,12 +118,12 @@ const Profile = () => {
         </Paper>
       </div>
       <Container maxWidth='lg'>
-        <Typography component={"h2"} variant={"h5"} color={"primary"} style={{paddingTop: "20px"}}>
+        <Typography component='h2' variant='h5' color='primary' style={{ paddingTop: '20px' }}>
           <center>Cas publiés</center>
         </Typography>
         <div className={classes.card}>
           {Object.keys(cases).length !== 0 && cases.map((oCase, index) => {
-                return <CasesItem key={index} item={oCase} />
+            return <CasesItem key={index} item={oCase} />
           })}
         </div>
       </Container>

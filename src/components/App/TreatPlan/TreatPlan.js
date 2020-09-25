@@ -5,7 +5,9 @@ import { useDispatch, useSelector } from 'react-redux'
 
 import {
   Paper,
-  Typography
+  Typography,
+  Button,
+  TableRow
 } from '@material-ui/core/'
 import Grid from '@material-ui/core/Grid'
 import { makeStyles } from '@material-ui/core/styles'
@@ -13,8 +15,8 @@ import TextField from '@material-ui/core/TextField'
 import MenuItem from '@material-ui/core/MenuItem'
 import imgDesktop from '../../../images/illus.png'
 import imgMobile from '../../../images/mobile-bg.svg'
-
-import GradientBtn from '../../UI/buttons/GradientBtn'
+import ArrowBackIcon from '@material-ui/icons/ArrowBack'
+import ArrowForwardIcon from '@material-ui/icons/ArrowForward'
 import oStyle from '../../ResponsiveDesign/AuthStyle'
 import { UPDATE_LEVEL } from '../../../store/actions'
 import InputLabel from '@material-ui/core/InputLabel'
@@ -196,24 +198,27 @@ const TreatPlan = (props) => {
                 ))}
               </TextField>
 
-              <div className='row'>
-                <div onClick={catchOnmit}>
-                  <GradientBtn
+              <br />  <br />
+
+              <center>
+                <TableRow>
+                  <Button
                     variant='contained'
                     type='submit'
-                    description='PRECEDENT'
-                    className='GradientBtn'
-                  />
-                </div>
-                <div onClick={catchSubmit}>
-                  <GradientBtn
+                    onClick={catchOnmit}
+                  >
+                    <ArrowBackIcon />
+                  </Button>
+
+                  <Button
                     variant='contained'
                     type='submit'
-                    description='SUIVANT'
-                    className='GradientBtn'
-                  />
-                </div>
-              </div>
+                    onClick={catchSubmit}
+                  >
+                    <ArrowForwardIcon />
+                  </Button>
+                </TableRow>
+              </center>
             </form>
           </div>
         </Grid>
