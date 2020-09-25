@@ -16,7 +16,7 @@ import { ToastProvider } from 'react-toast-notifications'
 import { ThemeProvider } from '@material-ui/core/styles'
 import colorTheme from './components/UI/ColorTheme/ColorTheme'
 import DetailCase from './containers/DetailCase/DetailCase'
-
+import config from './config'
 import {
   BrowserRouter as Router,
   Switch,
@@ -44,7 +44,7 @@ export const store = createStore(
 ReactDOM.render(
   <ThemeProvider theme={colorTheme}>
     <Provider store={store}>
-      <ToastProvider autoDismiss autoDismissTimeout='1500'>
+      <ToastProvider autoDismiss autoDismissTimeout={config.messages.timeOut}>
         <Router>
           <div>
             <Switch>
