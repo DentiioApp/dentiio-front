@@ -26,7 +26,6 @@ import {
 import CasePost from './containers/CasePost/CasePost'
 import QuestionPost from './containers/QuestionPost/QuestionPost'
 
-init(process.env.REAT_APP_EMAIL_USER_ID)
 dotenv.config()
 
 // MIDDLEWARE
