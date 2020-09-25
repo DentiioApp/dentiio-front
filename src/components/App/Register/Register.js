@@ -88,7 +88,7 @@ const Register = () => {
       nom: values.pseudo,
       pseudo: values.pseudo,
       prenom: values.pseudo,
-      email: values.email,
+      email: values.email.toLowerCase(),
       password: values.password,
       job: '/api/jobs/' + values.job,
       createdAt: new Date().toISOString(),
