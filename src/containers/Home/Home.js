@@ -15,7 +15,7 @@ const Home = () => {
   const isLoaded = home.jobsLoaded
   var form = home.login ? <SignIn /> : <Register />
 
-  if (user.subscribe && !home.status) {
+  if (user.subscribe && user.tryValidStatus ===undefined  && !home.status) {
     form = <Status />
   }
 

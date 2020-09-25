@@ -1,7 +1,7 @@
 import './status.scss'
 
-import React, { useState } from 'react'
-import { useDispatch } from 'react-redux'
+import React, { useState, useEffect } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
 import { useToasts } from 'react-toast-notifications'
 import {
   Paper,
@@ -14,13 +14,13 @@ import { makeStyles } from '@material-ui/core/styles'
 import imgDesktop from '../../../images/illus.png'
 import imgMobile from '../../../images/mobile-bg.svg'
 
-import { SaveCard } from '../../../services/SaveCard'
+import { SaveCard, tryLogin } from '../../../services/Users'
 import GradientBtn from '../../UI/buttons/GradientBtn'
 import oStyle from '../../ResponsiveDesign/AuthStyle'
 import { checkFiles } from '../../../utils'
 
 import { setup } from '../../../services/Auth'
-import { LOGIN_FORM, STATUS_FORM } from '../../../store/actions'
+import { LOGIN_FORM, STATUS_FORM, LOG_USER} from '../../../store/actions'
 import logo from '../../../images/logo.svg'
 import avatar from '../../../images/logoteeth_blue.png'
 import config from '../../../config'
@@ -32,6 +32,17 @@ const Status = () => {
   const dispatch = useDispatch()
   const { addToast } = useToasts()
   const messages = config.messages.auth
+  const credentials = useSelector ((state) => state.user.credentials)
+
+  useEffect(() => {
+    if (credentials && credentials.email !=='') {
+      const SignUser = async () => {
+        const isSignIn = await tryLogin(credentials.email, credentials.passwd) 
+        dispatch({ type: LOG_USER, datas: isSignIn })
+      }
+     SignUser()
+    }
+  })
 
   const initValues = {
     card: ''
@@ -46,21 +57,23 @@ const Status = () => {
     if (errCard) {
       return false
     } else {
-      const formData = new FormData()
-
-      formData.append(
-        'card',
-        values.card.name
-      )
-
-      // dispatch(
-      SaveCard({
-        url: values.card.files
+      const im = document.querySelector('input').files[0]
+      const fileReader = new FileReader()
+      fileReader.onload = (FileLoadEvent) => {
+        let base64 = FileLoadEvent.target.result
+       console.log('TEST :', base64)
+        setValues({ ...values, card: base64 })
+      }
+      fileReader.readAsDataURL(im) 
+      const response = SaveCard({
+        base64: values.card,
+        userId: 306
       })
-      // )
+      console.log('responseFR :', response)
+      /*
       addToast(messages.card.success, { appearance: 'success' })
       dispatch({ type: STATUS_FORM })
-      dispatch({ type: LOGIN_FORM })
+      dispatch({ type: LOGIN_FORM })*/
     }
   }
 
@@ -98,7 +111,7 @@ const Status = () => {
               Je Valide Mon Status
             </Typography>
             <form className={classes.form} noValidate>
-              <Button variant='contained' component='label'>
+              
                 Ma carte CPS
                 <input
                   type='file'
@@ -108,8 +121,8 @@ const Status = () => {
                   id='cps'
                   multiple
                 />
-              </Button>
-
+                <img src="" alt='' id="u"/>
+                <input type="textarea" id="i"></input>
               <FormHelperText id='my-helper-text'>{errCard || ''}</FormHelperText>
 
               <div onClick={catchSubmit}>
