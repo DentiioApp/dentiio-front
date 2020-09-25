@@ -1,14 +1,14 @@
 import './signIn.scss'
 
 import React, { useState, useEffect } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
+import { useDispatch } from 'react-redux'
 import { Redirect } from 'react-router-dom'
 import { useToasts } from 'react-toast-notifications'
 
 import {
-  Avatar,
   Paper,
-  Typography
+  Typography,
+  Link
 } from '@material-ui/core/'
 import Grid from '@material-ui/core/Grid'
 import IconButton from '@material-ui/core/IconButton'
@@ -20,13 +20,10 @@ import imgDesktop from '../../../images/illus.png'
 import imgMobile from '../../../images/mobile-bg.svg'
 import Visibility from '@material-ui/icons/Visibility'
 import VisibilityOff from '@material-ui/icons/VisibilityOff'
-
-import StatusModal from '../StatusModal/StatusModal'
 import GradientBtn from '../../UI/buttons/GradientBtn'
 import oStyle from '../../ResponsiveDesign/AuthStyle'
-import { logUser } from '../../../store/actions'
-
-import loginCheck from '../../../services/LoginCheck'
+import { SUBSCRIBE_FORM, logUser } from '../../../store/actions'
+import { tryLogin } from '../../../services/Users'
 import { setup } from '../../../services/Auth'
 import logo from '../../../images/logo.svg'
 import avatar from '../../../images/logoteeth_blue.png'
@@ -38,9 +35,8 @@ const SignIn = () => {
   const classes = useStyles()
   const dispatch = useDispatch()
   const subscribeMsg = localStorage.getItem('authSubscribeMsg')
-  const user = useSelector((state) => state.user)
   const { addToast } = useToasts()
-  const conf = config.messages.auth
+  const messages = config.messages.auth
 
   const initValues = {
     pseudo: '',
@@ -63,21 +59,30 @@ const SignIn = () => {
     e.preventDefault()
 
     if (values.password !== '' && values.pseudo !== '') {
-      const getToken = loginCheck(values.pseudo, values.password)
-      getToken.then((res) => {
-        setDatas(res)
+      const respo = sendRequest()
+      respo.then((res) => {
+        addToast(res.message, { appearance: res.appearance })
       })
-
-      addToast(conf.signin.success, { appearance: 'success' })
     } else {
+      addToast(messages.signin.error, { appearance: 'error' })
       setErrEmail(true)
       setErrPassword(true)
-
-      addToast(conf.signin.error, { appearance: 'error' })
       return false
     }
 
     setValues(initValues)
+  }
+
+  const sendRequest = async () => {
+    const datas = await tryLogin(values.pseudo, values.password)
+    const regex2 = RegExp(/Error/)
+    if (regex2.test(datas)) {
+      return { message: messages.signin.error, appearance: 'error' }
+    } else {
+      setDatas(datas)
+
+      return { message: messages.signin.success, appearance: 'success' }
+    }
   }
 
   const handleChange = prop => event => {
@@ -92,18 +97,17 @@ const SignIn = () => {
     event.preventDefault()
   }
 
-  var modal = undefined
-  if (user.subscribe === true) {
-    modal = <StatusModal />
-  }
-
   if (setup() === true) {
     return <Redirect to='/cases' />
   };
 
+  const switchToSubscribe = (e) => {
+    e.preventDefault()
+    dispatch({ type: SUBSCRIBE_FORM })
+  }
+
   return (
     <>
-      {modal}
       <Grid container component='main' className={classes.root}>
         <img className={classes.logo} alt='' src={logo} />
         <Grid
@@ -177,6 +181,17 @@ const SignIn = () => {
                   className='GradientBtn'
                 />
               </div>
+              <br />
+              <Typography>
+                <span>
+                  {' '}
+                Pas de compte{' '}
+                  <Link onClick={(e) => switchToSubscribe(e)} color='primary'>
+                    {' '}
+                  Inscrivez-vous !{' '}
+                  </Link>{' '}
+                </span>
+              </Typography>
             </form>
           </div>
           {subscribeMsg}

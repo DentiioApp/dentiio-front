@@ -16,7 +16,6 @@ import { ToastProvider } from 'react-toast-notifications'
 import { ThemeProvider } from '@material-ui/core/styles'
 import colorTheme from './components/UI/ColorTheme/ColorTheme'
 import DetailCase from './containers/DetailCase/DetailCase'
-import config from './config'
 
 import {
   BrowserRouter as Router,
@@ -24,6 +23,8 @@ import {
   Route
   // Link,
 } from 'react-router-dom'
+import CasePost from './containers/CasePost/CasePost'
+import QuestionPost from './containers/QuestionPost/QuestionPost'
 
 dotenv.config()
 
@@ -32,16 +33,18 @@ const middleWare = store => next => action => {
   return next(action)
 }
 
-export const store = createStore(adminReducer,
+export const store = createStore(
+  adminReducer,
   compose(
     applyMiddleware(ReduxThunk, middleWare)
+    // window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
   )
 )
 
 ReactDOM.render(
   <ThemeProvider theme={colorTheme}>
     <Provider store={store}>
-      <ToastProvider autoDismissTimeout={config.messages.auth.timeOut}>
+      <ToastProvider autoDismiss autoDismissTimeout='1500'>
         <Router>
           <div>
             <Switch>
@@ -50,6 +53,8 @@ ReactDOM.render(
               <Route path='/case/:id' component={DetailCase} />
               <Route exact path='/favorites' component={Favorites} />
               <Route exact path='/profile' component={Profile} />
+              <Route exact path='/post-question' component={QuestionPost} />
+              <Route exact path='/post-case' component={CasePost} />
             </Switch>
           </div>
         </Router>
@@ -59,4 +64,4 @@ ReactDOM.render(
   , document.getElementById('root')
 )
 
-serviceWorker.unregister();
+serviceWorker.register()

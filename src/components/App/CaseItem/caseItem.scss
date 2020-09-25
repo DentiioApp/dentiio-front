@@ -1,0 +1,33 @@
+.root{
+  max-width: 345px;
+}
+.media{
+  height: 0;
+  padding-top: 56.25%;
+}
+.expand{
+  transform: rotate(0deg);
+  margin-left: auto;
+}
+.avatar{
+  background-color: #03B6F0;
+}
+.flright{
+  float: right;
+}
+.grow{
+  flex-grow: 1;
+}
+.pr-15{
+  padding-right: 15px;
+}
+.presentation{
+  height: 100px;
+  text-overflow: ellipsis;
+}
+.title{
+  padding-top: 15px;
+  height: 60px;
+  text-overflow: ellipsis;
+  line-height: 1!important;
+}

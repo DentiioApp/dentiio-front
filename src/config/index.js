@@ -7,20 +7,37 @@ const config = {
 
   },
 
+  // apis
   url: {
-    netski: process.env.REACT_APP_ || 'http://localhost',
-    auth: process.env.REACT_APP_ || 'http://localhost',
-    catalog: process.env.REACT_APP_ || 'http://localhost',
-    config: process.env.REACT_APP_ || 'http://localhost',
-    booking: process.env.REACT_APP_ || 'http://localhost',
-    pts: process.env.REACT_APP_ || 'http://localhost',
-    static: process.env.REACT_APP_ || 'http://localhost',
-    staticNetski: process.env.REACT_APP_ || 'http://localhost',
-    apiGateway: process.env.REACT_APP_ || 'http://localhost'
+    // apiGateway: process.env.REACT_APP_ || 'http://localhost'
   },
 
   cache: {
-    jobs: []
+    jobs: [],
+    currentCase: {
+      id: 'none',
+      type: 'none',
+      patient: {},
+      averageNote: 0,
+      commentaires: [{}],
+      conclusion: 'none',
+      createdAt: '2000-01)à1T00/00/00+02:00',
+      evolution: 'none',
+      // id:0,
+      isEnabled: 'false',
+      keyword: [{}],
+      notations: [{}],
+      observation: 'none',
+      pathologie: [{}],
+      presentation: 'none',
+      speciality: [{}],
+      symptome: [{}],
+      treatment: [],
+      treatmentPlan: 'none'
+
+    },
+    keywords: []
+
   },
 
   i18n: {
@@ -46,24 +63,49 @@ const config = {
     // }
   },
 
+  ages: [
+    1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15,
+    16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29,
+    30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43,
+    44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 54, 55, 56, 57,
+    58, 59, 60, 61, 62, 63, 64, 65, 66, 67, 68, 69, 70, 71,
+    72, 73, 74, 75, 76, 77, 78, 79, 80, 81, 82, 83, 84, 85,
+    86, 87, 88, 89, 90, 91, 92, 93, 94, 95, 96, 97, 98, 99, 100
+  ],
+  sexes: [
+    { id: 'M', name: 'HOMME' },
+    { id: 'F', name: 'FEMME' }
+  ],
+
   messages: {
     timeOut: 200,
-    Cases: {
-      error: "Une erreur s'\est produite",
-      success: 'Inscription réussie'
+    cases: {
+      error: "Une erreur s'est produite",
+      success: 'Le cas a été ajouté avec succès',
+
+      favorite: {
+        add: {
+          error: 'Cas clinique non ajouté aux favoris, veuillez reessayer plus tard',
+          success: 'Ce cas clicnique est maintenant dans vos favoris'
+        }
+      }
     },
     Profile: {
-      error: "Une erreur s'\est produite",
+      error: "Une erreur s'est produite",
       success: 'Inscription réussie'
     },
     auth: {
       register: {
-        error: "Une erreur s'\est produite , validez les données du formulaire",
+        error: "Une erreur s'est produite , validez les données du formulaire",
         success: 'Inscription réussie, Bonjour ! '
       },
       signin: {
         error: 'Connexion échoué, vérifier votre saisie',
         success: 'Connexion approuvé,  Bonjour ! '
+      },
+      card: {
+        error: 'Une erreur est survenue lors du chargement de votre carte',
+        success: 'Carte envoyé, vous serez notifié par mail une fois votre status validé ! '
       }
     }
   }

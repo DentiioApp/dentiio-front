@@ -33,10 +33,8 @@ const useStyles = makeStyles((theme) => ({
   }
 }))
 
-export const NavbarDetail = () => {
-  // eslint-disable-next-line react-hooks/rules-of-hooks
+const NavbarDetail = () => {
   const classes = useStyles()
-  // eslint-disable-next-line react-hooks/rules-of-hooks
   const history = useHistory()
 
   return (
@@ -47,6 +45,19 @@ export const NavbarDetail = () => {
             <ArrowBackIcon color='primary' />
           </IconButton>
           <div style={{ align: 'left' }}>
+            <Link
+              to='presentation'
+              className={classes.detailnav}
+              activeClass='active'
+              spy
+              smooth
+              offset={-70}
+              duration={500}
+            >
+              <Button>
+                <span>Presentation</span>
+              </Button>
+            </Link>
             <Link
               to='examen'
               className={classes.detailnav}
@@ -137,6 +148,19 @@ export const NavbarDetail = () => {
             </IconButton>
           </div>
           <div className='card'>
+            <Link
+              to='presentation'
+              className={classes.detailnav}
+              activeClass='active'
+              spy
+              smooth
+              offset={-70}
+              duration={500}
+            >
+              <Button>
+                <span>Presentation</span>
+              </Button>
+            </Link>
             <Link
               to='examen'
               className={classes.detailnav}

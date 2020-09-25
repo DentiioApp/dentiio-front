@@ -2,10 +2,16 @@ import { combineReducers } from 'redux'
 import { Cases } from './cases'
 import { Home } from './home'
 import { User } from './user'
+import { Specialities } from './specialities'
+import { Treatments } from './treatments'
+import { Pathologies } from './pathologies'
 
 export const adminReducer = combineReducers({
   cases: Cases,
   user: User,
   home: Home,
-  jobs: ''
+  specialities: Specialities,
+  treatments: Treatments,
+  pathologies: Pathologies
+
 })

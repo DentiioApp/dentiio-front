@@ -5,13 +5,11 @@ import { useDispatch, useSelector } from 'react-redux'
 import { Redirect } from 'react-router-dom'
 
 import {
-  Avatar,
-  FormControlLabel,
+  Switch,
   Paper,
   Typography,
   Link
 } from '@material-ui/core/'
-import Checkbox from '@material-ui/core/Checkbox'
 import FormHelperText from '@material-ui/core/FormHelperText'
 import Grid from '@material-ui/core/Grid'
 import IconButton from '@material-ui/core/IconButton'
@@ -30,8 +28,10 @@ import VisibilityOff from '@material-ui/icons/VisibilityOff'
 import { useToasts } from 'react-toast-notifications'
 import { setup } from '../../../services/Auth'
 import oStyle from '../../ResponsiveDesign/AuthStyle'
+import { tryRegister } from '../../../services/Users'
+import { sendEmail } from '../../../services/Email'
 
-import { registerUser, LOGIN_FORM } from '../../../store/actions'
+import { LOGIN_FORM, REGISTER_USER } from '../../../store/actions'
 import GradientBtn from '../../UI/buttons/GradientBtn'
 import { checkText, checkEmail, checkPassword } from '../../../utils'
 
@@ -48,43 +48,65 @@ const Register = () => {
   const user = useSelector((state) => state.user)
 
   const messages = config.conf.messages.auth
-
   const initValues = {
     pseudo: '',
     email: '',
     password: '',
     job: '',
     showPassword: false,
-    cgu: true
-
   }
-
+  const [emailSent, setEmailSent] = useState(false)
   const [values, setValues] = useState(initValues)
   const [errPseudo, setErrPseudo] = useState(false)
   const [errEmail, setErrEmail] = useState(false)
   const [errPassword, setErrPassword] = useState(false)
-  const [errCgu, setErrCgu] = useState(true)
+  const [errCgu, setErrCgu] = useState(false)
 
   const catchSubmit = (e) => {
     e.preventDefault()
 
-    if (checkText(values.pseudo) === false) { setErrPseudo(true) }
+    if (checkText(values.pseudo) === false || values.pseudo === '') { setErrPseudo(true) }
     if (checkEmail(values.email) === false) { setErrEmail(true) }
     if (checkPassword(values.password) === false) { setErrPassword(true) }
 
-    if (values.cgu === false) { setErrCgu(true) }
-
-    if ((errPseudo || errEmail || errPassword || !errCgu) === true) {
+    if ((errPseudo || errEmail || errPassword || values.pseudo === '') === true) {
       addToast(messages.register.error, { appearance: 'error' }); return false
     } else {
-      dispatch(registerUser({
-        pseudo: values.pseudo,
-        email: values.email,
-        password: values.password,
-        job: values.job,
-        cgu: values.cgu
-      }))
-      addToast(messages.register.success, { appearance: 'success' })
+        if (!errCgu) {
+          addToast('Vous devez accepter les conditions generales d\'utilisation', { appearance: 'error' }); return false
+        } else {
+          const respo = sendRequest()
+          respo.then((res) => {
+            addToast(res.message, { appearance: res.appearance })
+          })
+        }
+    }
+  }
+
+  const sendRequest = async () => {
+    const response = await tryRegister({
+      nom: values.pseudo,
+      pseudo: values.pseudo,
+      prenom: values.pseudo,
+      email: values.email.toLowerCase(),
+      password: values.password,
+      job: '/api/jobs/' + values.job,
+      createdAt: new Date().toISOString(),
+      isEnabled: true
+    })
+
+    const regex2 = RegExp(/Error/)
+
+    if (regex2.test(response)) {
+      return { message: messages.register.error, appearance: 'error' }
+    } else {
+      if (!emailSent) {
+        const mailing = await sendEmail(values.email, values.pseudo)
+        if (mailing.data !== 'OK') { console.log('Problem lors de lenvoie du mail') }
+        setEmailSent(true)
+      }
+      dispatch({ type: REGISTER_USER })
+      return { message: messages.register.success, appearance: 'success' }
     }
   }
 
@@ -110,13 +132,6 @@ const Register = () => {
         setErrPassword(false)
       }
     }
-    if (prop === 'cgu') {
-      if (event.target.value === false) {
-        setErrCgu(true)
-      } else {
-        setErrCgu(false)
-      }
-    }
 
     setValues({ ...values, [prop]: event.target.value })
   }
@@ -129,12 +144,7 @@ const Register = () => {
   const handleClickShowPassword = () => {
     setValues({ ...values, showPassword: !values.showPassword })
   }
-  const handleClickCgu = () => {
-    setValues({ ...values, cgu: !values.cgu })
-  }
-  const handleMouseDownCgu = event => {
-    event.preventDefault()
-  }
+
   const handleMouseDownPassword = event => {
     event.preventDefault()
   }
@@ -162,7 +172,7 @@ const Register = () => {
           <Typography component='h1' variant='h5'>
               Inscription
           </Typography>
-          <form className={classes.form} noValidate>
+          <form className={classes.form} noValidate onSubmit={sendEmail}>
             <TextField
               variant='outlined'
               margin='normal'
@@ -182,12 +192,11 @@ const Register = () => {
               variant='outlined'
               margin='normal'
               required
-              fullWidth
+              fullwidth
               id='email'
               label='Email Address'
-              name='email'
+              name='{{ customer_name }}'
               autoComplete='email'
-              autoFocus
               onKeyDown={(e) => e.keyCode !== 13 ? null : catchSubmit(e)}
               onChange={handleChange('email')}
               error={errEmail}
@@ -212,7 +221,7 @@ const Register = () => {
                 {'Indiquez votre profession'}
               </MenuItem>
 
-              {jobs.map(option => (
+              {jobs && jobs.map(option => (
                 <MenuItem key={option.ident} value={option.id}>
                   {option.name}
                 </MenuItem>
@@ -256,23 +265,21 @@ const Register = () => {
 
             <br />  <br />
 
-            <FormControlLabel
-              control={
-                <Checkbox
-                  color='primary'
-                  checked={!values.cgu}
-                  onKeyDown={(e) => e.keyCode !== 13 ? null : catchSubmit(e)}
-                  onClick={handleClickCgu}
-                  onMouseDown={handleMouseDownCgu}
-                  error={errCgu.toString()}
-                />
-              }
-              label="J'accepte les conditions générales de d'utilisation"
+            <Typography component='p' color='textPrimary'>
+                {"J'accepte les conditions générales de d'utilisation"}
+            </Typography>
+              
+            <Switch
+              checked={errCgu}
+              onChange={(e)=>{setErrCgu(e.target.checked)}}
+              color='primary'
+              name='is_medical_background'
+              inputProps={{ 'aria-label': 'primary checkbox' }}
             />
 
             <br /> <br /> <br />
 
-            <div onClick={catchSubmit}>
+            <div onClick={(e) => (catchSubmit(e))}>
               <GradientBtn
                 variant='contained'
                 type='submit'
