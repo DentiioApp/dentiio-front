@@ -33,7 +33,7 @@ import { sendEmail } from '../../../services/Email'
 
 import { LOGIN_FORM, REGISTER_USER } from '../../../store/actions'
 import GradientBtn from '../../UI/buttons/GradientBtn'
-import { checkText, checkEmail, checkPassword } from '../../../utils'
+import { checkEmail, checkPassword } from '../../../utils'
 
 const useStyles = makeStyles((theme) => oStyle(theme, imgDesktop, imgMobile))
 
@@ -49,15 +49,13 @@ const Register = () => {
 
   const messages = config.conf.messages.auth
   const initValues = {
-    pseudo: '',
     email: '',
     password: '',
     job: '',
-    showPassword: false,
+    showPassword: false
   }
   const [emailSent, setEmailSent] = useState(false)
   const [values, setValues] = useState(initValues)
-  const [errPseudo, setErrPseudo] = useState(false)
   const [errEmail, setErrEmail] = useState(false)
   const [errPassword, setErrPassword] = useState(false)
   const [errCgu, setErrCgu] = useState(false)
@@ -65,29 +63,27 @@ const Register = () => {
   const catchSubmit = (e) => {
     e.preventDefault()
 
-    if (checkText(values.pseudo) === false || values.pseudo === '') { setErrPseudo(true) }
     if (checkEmail(values.email) === false) { setErrEmail(true) }
     if (checkPassword(values.password) === false) { setErrPassword(true) }
 
-    if ((errPseudo || errEmail || errPassword || values.pseudo === '') === true) {
+    if ((errEmail || errPassword) === true) {
       addToast(messages.register.error, { appearance: 'error' }); return false
     } else {
-        if (!errCgu) {
-          addToast('Vous devez accepter les conditions generales d\'utilisation', { appearance: 'error' }); return false
-        } else {
-          const respo = sendRequest()
-          respo.then((res) => {
-            addToast(res.message, { appearance: res.appearance })
-          })
-        }
+      if (!errCgu) {
+        addToast('Vous devez accepter les conditions generales d\'utilisation', { appearance: 'error' }); return false
+      } else {
+        const respo = sendRequest()
+        respo.then((res) => {
+          addToast(res.message, { appearance: res.appearance })
+        })
+      }
     }
   }
 
   const sendRequest = async () => {
     const response = await tryRegister({
-      nom: values.pseudo,
-      pseudo: values.pseudo,
-      prenom: values.pseudo,
+      nom: 'none',
+      prenom: 'none',
       email: values.email.toLowerCase(),
       password: values.password,
       job: '/api/jobs/' + values.job,
@@ -111,13 +107,6 @@ const Register = () => {
   }
 
   const handleChange = prop => event => {
-    if (prop === 'pseudo') {
-      if (checkText(event.target.value) === false || event.target.value === '') {
-        setErrPseudo(true)
-      } else {
-        setErrPseudo(false)
-      }
-    }
     if (prop === 'email') {
       if (checkEmail(event.target.value) === false) {
         setErrEmail(true)
@@ -177,21 +166,6 @@ const Register = () => {
               variant='outlined'
               margin='normal'
               required
-              autoFocus
-              fullWidth
-              name='pseudo'
-              label='Pseudo'
-              type='text'
-              id='pseudo'
-              autoComplete='current-pseudo'
-              onKeyDown={(e) => e.keyCode !== 13 ? null : catchSubmit(e)}
-              onChange={handleChange('pseudo')}
-              error={errPseudo}
-            />
-            <TextField
-              variant='outlined'
-              margin='normal'
-              required
               fullwidth
               id='email'
               label='Email Address'
@@ -203,8 +177,6 @@ const Register = () => {
               helperText={values.email !== '' ? (checkEmail(values.email) === false ? 'Email invalide!' : ' ') : ''}
             />
             <FormHelperText id='my-helper-text'>{/* On ne partagera jamais votre email. */}</FormHelperText>
-
-            <br />
 
             <InputLabel className='inputLabel'>
               Vous êtes* :
@@ -266,12 +238,12 @@ const Register = () => {
             <br />  <br />
 
             <Typography component='p' color='textPrimary'>
-                {"J'accepte les conditions générales de d'utilisation"}
+              {"J'accepte les conditions générales de d'utilisation"}
             </Typography>
-              
+
             <Switch
               checked={errCgu}
-              onChange={(e)=>{setErrCgu(e.target.checked)}}
+              onChange={(e) => { setErrCgu(e.target.checked) }}
               color='primary'
               name='is_medical_background'
               inputProps={{ 'aria-label': 'primary checkbox' }}

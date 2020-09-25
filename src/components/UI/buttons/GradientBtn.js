@@ -28,6 +28,7 @@ const GradientBtn = (props) => {
         root: classes.root,
         label: classes.label
       }}
+      onClick={props.onClick}
     >
       {props.description}
     </Button>

@@ -78,7 +78,7 @@ const config = {
   ],
 
   messages: {
-    timeOut: 200,
+    timeOut: '2500',
     cases: {
       error: "Une erreur s'est produite",
       success: 'Le cas a été ajouté avec succès',
@@ -96,7 +96,7 @@ const config = {
     },
     auth: {
       register: {
-        error: "Une erreur s'est produite , validez les données du formulaire",
+        error: "L'adresse email existe déja veuillez en saisir une autre",
         success: 'Inscription réussie, Bonjour ! '
       },
       signin: {
