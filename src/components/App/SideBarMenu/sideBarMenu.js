@@ -23,7 +23,7 @@ import {
   closeSideBar,
   fetchPathologies,
   fetchSpecialities,
-  fetchTreatments,
+  fetchTreatments
   // openSideBar
 } from '../../../store/actions'
 import RightMenuIcon from '../../UI/RightMenuIcon/rightMenuIcon'
@@ -156,9 +156,9 @@ export default function PersistentDrawerLeft () {
     <div className={classes.root} ref={sideBarRef}>
       <CssBaseline />
       <AppBar
-        position="fixed"
+        position='fixed'
         className={clsx(classes.appBar, {
-          [classes.appBarShift]: open,
+          [classes.appBarShift]: open
         })}
       >
         <Toolbar>
@@ -168,16 +168,16 @@ export default function PersistentDrawerLeft () {
       </AppBar>
       <Drawer
         className={classes.drawer}
-        variant="persistent"
-        anchor="left"
+        variant='persistent'
+        anchor='left'
         open={open}
         classes={{
-          paper: classes.drawerPaper,
+          paper: classes.drawerPaper
         }}
       >
         <div className={classes.drawerHeader}>
           <IconButton onClick={handleDrawerClose}>
-            {theme.direction === "ltr" ? (
+            {theme.direction === 'ltr' ? (
               <ChevronLeftIcon />
             ) : (
               <ChevronRightIcon />
@@ -189,7 +189,7 @@ export default function PersistentDrawerLeft () {
         <Accordion>
           <AccordionSummary expandIcon={<ExpandMore />}>
             <ListItem>
-              <ListItemText primary="Pathologies" />
+              <ListItemText primary='Pathologies' />
             </ListItem>
           </AccordionSummary>
 
@@ -211,7 +211,7 @@ export default function PersistentDrawerLeft () {
         <Accordion>
           <AccordionSummary expandIcon={<ExpandMore />}>
             <ListItem>
-              <ListItemText primary="Spécialités" />
+              <ListItemText primary='Spécialités' />
             </ListItem>
           </AccordionSummary>
 
@@ -233,7 +233,7 @@ export default function PersistentDrawerLeft () {
         <Accordion>
           <AccordionSummary expandIcon={<ExpandMore />}>
             <ListItem>
-              <ListItemText primary="Traitements" />
+              <ListItemText primary='Traitements' />
             </ListItem>
           </AccordionSummary>
 
@@ -256,9 +256,9 @@ export default function PersistentDrawerLeft () {
       </Drawer>
       <main
         className={clsx(classes.content, {
-          [classes.contentShift]: open,
+          [classes.contentShift]: open
         })}
       />
     </div>
-  );
+  )
 }

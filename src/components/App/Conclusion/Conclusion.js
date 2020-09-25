@@ -6,13 +6,16 @@ import { useDispatch } from 'react-redux'
 import {
   Paper,
   Typography,
-  TextField
+  TextField,
+  Button,
+  TableRow
 } from '@material-ui/core/'
 import Grid from '@material-ui/core/Grid'
 import { makeStyles } from '@material-ui/core/styles'
 import imgDesktop from '../../../images/illus.png'
 import imgMobile from '../../../images/mobile-bg.svg'
-import GradientBtn from '../../UI/buttons/GradientBtn'
+import ArrowBackIcon from '@material-ui/icons/ArrowBack'
+import ArrowForwardIcon from '@material-ui/icons/ArrowForward'
 import oStyle from '../../ResponsiveDesign/AuthStyle'
 import { UPDATE_LEVEL } from '../../../store/actions'
 
@@ -83,24 +86,27 @@ const Conclusion = (props) => {
                 error={errors.errConclusion}
               />
 
-              <div className='row'>
-                <div onClick={catchOnmit}>
-                  <GradientBtn
+              <br />  <br />
+
+              <center>
+                <TableRow>
+                  <Button
                     variant='contained'
                     type='submit'
-                    description='PRECEDENT'
-                    className='GradientBtn'
-                  />
-                </div>
-                <div onClick={catchSubmit}>
-                  <GradientBtn
+                    onClick={catchOnmit}
+                  >
+                    <ArrowBackIcon />
+                  </Button>
+
+                  <Button
                     variant='contained'
                     type='submit'
-                    description='SUIVANT'
-                    className='GradientBtn'
-                  />
-                </div>
-              </div>
+                    onClick={catchSubmit}
+                  >
+                    <ArrowForwardIcon />
+                  </Button>
+                </TableRow>
+              </center>
             </form>
           </div>
         </Grid>

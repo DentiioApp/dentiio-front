@@ -6,7 +6,8 @@ import { useDispatch } from 'react-redux'
 import {
   Paper,
   Switch,
-  Typography
+  Typography,
+  Button
 } from '@material-ui/core/'
 import Grid from '@material-ui/core/Grid'
 import { makeStyles } from '@material-ui/core/styles'
@@ -14,11 +15,11 @@ import TextField from '@material-ui/core/TextField'
 import SmokingRoomsIcon from '@material-ui/icons/SmokingRooms'
 import LocalBarIcon from '@material-ui/icons/LocalBar'
 import LocalPharmacyIcon from '@material-ui/icons/LocalPharmacy'
+import ArrowForwardIcon from '@material-ui/icons/ArrowForward'
 
 import imgDesktop from '../../../images/illus.png'
 import imgMobile from '../../../images/mobile-bg.svg'
 
-import GradientBtn from '../../UI/buttons/GradientBtn'
 import oStyle from '../../ResponsiveDesign/AuthStyle'
 import { UPDATE_LEVEL } from '../../../store/actions'
 import MenuItem from '@material-ui/core/MenuItem'
@@ -196,14 +197,17 @@ const Patient = (props) => {
                 error={errors.errIn_treatment}
               />
 
-              <div onClick={catchSubmit}>
-                <GradientBtn
+              <br />  <br />
+
+              <center>
+                <Button
                   variant='contained'
                   type='submit'
-                  description='SUIVANT'
-                  className='GradientBtn'
-                />
-              </div>
+                  onClick={catchSubmit}
+                >
+                  <ArrowForwardIcon />
+                </Button>
+              </center>
             </form>
           </div>
         </Grid>

@@ -59,7 +59,7 @@ const CasesItem = (props) => {
           </Typography>
           <ChatIcon color='primary' fontSize='large' className='pr-15' />
           <Typography variant='h6' color='textSecondary' component='p'>
-            {avgNotes(props.item.notations)}
+            {(isNaN(props.item.notations) ? avgNotes(props.item.notations) : 'Aucune note')}
           </Typography>
           <StarHalfIcon color='primary' fontSize='default' />
         </CardActions>

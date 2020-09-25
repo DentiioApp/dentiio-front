@@ -66,7 +66,7 @@ const CasesList = () => {
     setValues({ ...values, paginator: event.target.value })
   }
 
-  if (cases.length < 1 ) {
+  if (cases.length < 1) {
     return (
       <>
         <center><img src={loader} alt='' /></center>
@@ -74,9 +74,9 @@ const CasesList = () => {
     )
   } else {
     return (
-    <>
-      <Container maxWidth='lg'>
-        <center><img src={titleSvg} alt='Cas Cliniques' /></center>
+      <>
+        <Container maxWidth='lg'>
+          <center><img src={titleSvg} alt='Cas Cliniques' /></center>
           <Paginator pages={pages} onChange={handleChange} current={values.paginator} /> {cases.length > 0 ? '[page ' + values.paginator + ']' : ''}
           <div className={classes.root}>
             {areLoaded && cases.map((oCase, index) => {

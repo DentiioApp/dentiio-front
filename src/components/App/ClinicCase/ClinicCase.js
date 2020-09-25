@@ -6,8 +6,11 @@ import { useToasts } from 'react-toast-notifications'
 
 import {
   Paper,
-  Typography
+  Typography,
+  Button,
+  TableRow
 } from '@material-ui/core/'
+import SaveIcon from '@material-ui/icons/Save'
 import Grid from '@material-ui/core/Grid'
 import { makeStyles } from '@material-ui/core/styles'
 import TextField from '@material-ui/core/TextField'
@@ -20,7 +23,7 @@ import logo from '../../../images/logo.svg'
 
 import oStyle from '../../ResponsiveDesign/AuthStyle'
 import { setup } from '../../../services/Auth'
-import GradientBtn from '../../UI/buttons/GradientBtn'
+import ArrowBackIcon from '@material-ui/icons/ArrowBack'
 
 import { UPDATE_LEVEL } from '../../../store/actions'
 import config from '../../../config'
@@ -179,22 +182,25 @@ const ClinicCase = (props) => {
 
               <br />  <br />
 
-              <div onClick={catchOnmit}>
-                <GradientBtn
-                  variant='contained'
-                  type='submit'
-                  description='PRECEDENT'
-                  className='GradientBtn'
-                />
-              </div>
-              <div onClick={catchSubmit}>
-                <GradientBtn
-                  variant='contained'
-                  type='submit'
-                  description='Valider le cas clinique'
-                  className='GradientBtn'
-                />
-              </div>
+              <center>
+                <TableRow>
+                  <Button
+                    variant='contained'
+                    type='submit'
+                    onClick={catchOnmit}
+                  >
+                    <ArrowBackIcon />
+                  </Button>
+
+                  <Button
+                    variant='contained'
+                    type='submit'
+                    onClick={catchSubmit}
+                  >
+                    <SaveIcon />
+                  </Button>
+                </TableRow>
+              </center>
             </form>
           </div>
         </Grid>

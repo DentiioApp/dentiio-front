@@ -49,14 +49,14 @@ export const getCaseById = (id) => {
 }
 
 export const getCaseByUserId = (id) => {
-    const reponses = axios
-        .get(CLINICAL_CASES_BY_USER + '/' + id + '/' + process.env.REACT_APP_CLINICAL_CASES)
-        .then((res) => ({
-            message: 'OK',
-            datas: res.data
-        }))
-        .catch((e) => JSON.stringify(e))
-    return reponses
+  const reponses = axios
+    .get(CLINICAL_CASES_BY_USER + '/' + id + '/' + process.env.REACT_APP_CLINICAL_CASES)
+    .then((res) => ({
+      message: 'OK',
+      datas: res.data
+    }))
+    .catch((e) => JSON.stringify(e))
+  return reponses
 }
 
 export const fetchUserFav = (userId) => {

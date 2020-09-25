@@ -15,7 +15,7 @@ const Favorites = (props) => {
   const dispatch = useDispatch()
   const favorites = useSelector((state) => state.cases.favorites)
   const [toggle, setToggle] = useState(<StarBorderIcon color='primary' />)
-
+  const messages = config.conf.messages.cases.favorite
   useEffect(() => {
     if (props.isFavorite) {
       setToggle(<StarIcon fontSize='medium' color='primary' />)
@@ -23,16 +23,14 @@ const Favorites = (props) => {
   }, [favorites, props])
 
   const HandleFav = async (item) => {
-    const messages = config.conf.messages.cases.favorite
     const response = await addFavCase(item, userId)
     const regex2 = RegExp(/Error/)
 
     if (regex2.test(response)) {
       addToast(messages.add.error, { appearance: 'error' })
     } else {
-      dispatch({ type: ADD_FAVORITE, data: item })
-
       addToast(messages.add.success, { appearance: 'success' })
+      dispatch({ type: ADD_FAVORITE, data: item })
     }
   }
 
