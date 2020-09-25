@@ -33,7 +33,7 @@ import { sendEmail } from '../../../services/Email'
 
 import { LOGIN_FORM, REGISTER_USER } from '../../../store/actions'
 import GradientBtn from '../../UI/buttons/GradientBtn'
-import { checkText, checkEmail, checkPassword } from '../../../utils'
+import { checkEmail, checkPassword } from '../../../utils'
 
 const useStyles = makeStyles((theme) => oStyle(theme, imgDesktop, imgMobile))
 
@@ -49,7 +49,6 @@ const Register = () => {
 
   const messages = config.conf.messages.auth
   const initValues = {
-    pseudo: '',
     email: '',
     password: '',
     job: '',
@@ -57,7 +56,6 @@ const Register = () => {
   }
   const [emailSent, setEmailSent] = useState(false)
   const [values, setValues] = useState(initValues)
-  const [errPseudo, setErrPseudo] = useState(false)
   const [errEmail, setErrEmail] = useState(false)
   const [errPassword, setErrPassword] = useState(false)
   const [errCgu, setErrCgu] = useState(false)
@@ -65,11 +63,10 @@ const Register = () => {
   const catchSubmit = (e) => {
     e.preventDefault()
 
-    if (checkText(values.pseudo) === false || values.pseudo === '') { setErrPseudo(true) }
     if (checkEmail(values.email) === false) { setErrEmail(true) }
     if (checkPassword(values.password) === false) { setErrPassword(true) }
 
-    if ((errPseudo || errEmail || errPassword || values.pseudo === '') === true) {
+    if ((errEmail || errPassword) === true) {
       addToast(messages.register.error, { appearance: 'error' }); return false
     } else {
         if (!errCgu) {
@@ -85,9 +82,8 @@ const Register = () => {
 
   const sendRequest = async () => {
     const response = await tryRegister({
-      nom: values.pseudo,
-      pseudo: values.pseudo,
-      prenom: values.pseudo,
+      nom: 'none',
+      prenom: 'none',
       email: values.email.toLowerCase(),
       password: values.password,
       job: '/api/jobs/' + values.job,
@@ -111,13 +107,6 @@ const Register = () => {
   }
 
   const handleChange = prop => event => {
-    if (prop === 'pseudo') {
-      if (checkText(event.target.value) === false || event.target.value === '') {
-        setErrPseudo(true)
-      } else {
-        setErrPseudo(false)
-      }
-    }
     if (prop === 'email') {
       if (checkEmail(event.target.value) === false) {
         setErrEmail(true)
@@ -173,21 +162,6 @@ const Register = () => {
               Inscription
           </Typography>
           <form className={classes.form} noValidate onSubmit={sendEmail}>
-            <TextField
-              variant='outlined'
-              margin='normal'
-              required
-              autoFocus
-              fullWidth
-              name='pseudo'
-              label='Pseudo'
-              type='text'
-              id='pseudo'
-              autoComplete='current-pseudo'
-              onKeyDown={(e) => e.keyCode !== 13 ? null : catchSubmit(e)}
-              onChange={handleChange('pseudo')}
-              error={errPseudo}
-            />
             <TextField
               variant='outlined'
               margin='normal'

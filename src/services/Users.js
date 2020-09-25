@@ -1,5 +1,6 @@
 import axios from 'axios'
 import jwtDecode from 'jwt-decode'
+import randomstring from 'randomstring'
 
 const LOGIN_CHECK = process.env.REACT_APP_BACK_API_URL + process.env.REACT_APP_LOGIN_CHECK
 const USERS = process.env.REACT_APP_BACK_API_URL + process.env.REACT_APP_USERS
@@ -24,6 +25,13 @@ export const tryLogin = (ident, pswd) => {
 }
 
 export const registerCheck = (user) => {
+  const pseudo = randomstring.generate({
+    length: 6,
+    charset: 'alphabetic'
+  });
+
+  user.pseudo = pseudo
+
   const reponses = axios
     .post(USERS, user)
     .then((res) => {

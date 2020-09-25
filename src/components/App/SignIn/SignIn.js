@@ -97,14 +97,14 @@ const SignIn = () => {
     event.preventDefault()
   }
 
-  if (setup() === true) {
-    return <Redirect to='/cases' />
-  };
-
   const switchToSubscribe = (e) => {
     e.preventDefault()
     dispatch({ type: SUBSCRIBE_FORM })
   }
+
+  if (setup() === true) {
+    return <Redirect to='/cases' />
+  };
 
   return (
     <>
@@ -133,13 +133,12 @@ const SignIn = () => {
                 required
                 fullWidth
                 autoFocus
-                name='pseudo'
-                label='pseudo'
+                name='email'
+                label='email'
                 type='text'
-                id='pseudo'
-                autoComplete='current-pseudo'
-                onKeyDown={(e) => e.keyCode !== 13 ? null : catchSubmit(e)}
-                onChange={handleChange('pseudo')}
+                id='email'
+                autoComplete='current-email'
+                onChange={handleChange('email')}
                 error={errEmail}
               />
 
@@ -155,7 +154,6 @@ const SignIn = () => {
                 autoComplete='on'
                 placeholder='Password'
                 error={errPassword}
-                onKeyDown={(e) => e.keyCode !== 13 ? null : catchSubmit(e)}
                 onChange={handleChange('password')}
                 endAdornment={
                   <InputAdornment position='start'>
