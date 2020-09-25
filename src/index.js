@@ -16,7 +16,6 @@ import { ToastProvider } from 'react-toast-notifications'
 import { ThemeProvider } from '@material-ui/core/styles'
 import colorTheme from './components/UI/ColorTheme/ColorTheme'
 import DetailCase from './containers/DetailCase/DetailCase'
-import { init } from 'emailjs-com'
 
 import {
   BrowserRouter as Router,
