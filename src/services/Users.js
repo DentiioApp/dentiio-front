@@ -28,7 +28,7 @@ export const registerCheck = (user) => {
   const pseudo = randomstring.generate({
     length: 6,
     charset: 'alphabetic'
-  });
+  })
 
   user.pseudo = pseudo
 

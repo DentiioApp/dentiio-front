@@ -52,7 +52,7 @@ const Register = () => {
     email: '',
     password: '',
     job: '',
-    showPassword: false,
+    showPassword: false
   }
   const [emailSent, setEmailSent] = useState(false)
   const [values, setValues] = useState(initValues)
@@ -69,14 +69,14 @@ const Register = () => {
     if ((errEmail || errPassword) === true) {
       addToast(messages.register.error, { appearance: 'error' }); return false
     } else {
-        if (!errCgu) {
-          addToast('Vous devez accepter les conditions generales d\'utilisation', { appearance: 'error' }); return false
-        } else {
-          const respo = sendRequest()
-          respo.then((res) => {
-            addToast(res.message, { appearance: res.appearance })
-          })
-        }
+      if (!errCgu) {
+        addToast('Vous devez accepter les conditions generales d\'utilisation', { appearance: 'error' }); return false
+      } else {
+        const respo = sendRequest()
+        respo.then((res) => {
+          addToast(res.message, { appearance: res.appearance })
+        })
+      }
     }
   }
 
@@ -238,12 +238,12 @@ const Register = () => {
             <br />  <br />
 
             <Typography component='p' color='textPrimary'>
-                {"J'accepte les conditions générales de d'utilisation"}
+              {"J'accepte les conditions générales de d'utilisation"}
             </Typography>
-              
+
             <Switch
               checked={errCgu}
-              onChange={(e)=>{setErrCgu(e.target.checked)}}
+              onChange={(e) => { setErrCgu(e.target.checked) }}
               color='primary'
               name='is_medical_background'
               inputProps={{ 'aria-label': 'primary checkbox' }}

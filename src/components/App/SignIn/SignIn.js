@@ -134,13 +134,15 @@ const SignIn = () => {
                 fullWidth
                 autoFocus
                 name='email'
-                label='email'
+                label='Email'
                 type='text'
                 id='email'
                 autoComplete='current-email'
                 onChange={handleChange('email')}
                 error={errEmail}
               />
+
+              <br />
 
               <OutlinedInput
                 variant='outlined'
@@ -171,14 +173,14 @@ const SignIn = () => {
 
               <br />  <br />
 
-              <div onClick={catchSubmit}>
-                <GradientBtn
-                  variant='contained'
-                  type='submit'
-                  description='Se connecter'
-                  className='GradientBtn'
-                />
-              </div>
+              <GradientBtn
+                variant='contained'
+                type='submit'
+                description='Se connecter'
+                className='GradientBtn'
+                onClick={catchSubmit}
+              />
+
               <br />
               <Typography>
                 <span>
