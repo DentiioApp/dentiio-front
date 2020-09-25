@@ -101,7 +101,7 @@ const Register = () => {
         if (mailing.data !== 'OK') { console.log('Problem lors de lenvoie du mail') }
         setEmailSent(true)
       }
-      dispatch({ type: REGISTER_USER, email: values.email ,passwd: values.password  })
+      dispatch({ type: REGISTER_USER, email: values.email, passwd: values.password })
       return { message: messages.register.success, appearance: 'success' }
     }
   }
@@ -138,7 +138,7 @@ const Register = () => {
     event.preventDefault()
   }
 
-  if (setup() === true && user.tryValidStatus !== undefined ) {
+  if (setup()) {
     return <Redirect to='/cases' />
   }
 

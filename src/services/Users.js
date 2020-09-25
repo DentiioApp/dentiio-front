@@ -69,12 +69,11 @@ export const getUserById = (id) => {
   return isUserGet
 }
 
-export const SaveCard = async (data) => {
-  const licenceDOC = {licenceDoc: data.base64}
+export const saveCard = async (data) => {
+  const licenceDOC = { licenceDoc: data.image }
   const isCardPut = await axios.put(USERS + '/' + data.userId, licenceDOC)
     .then(res => res.statusText)
     .catch(console.warning)
 
   return isCardPut
 }
-
