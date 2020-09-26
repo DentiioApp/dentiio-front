@@ -39,7 +39,7 @@ const SignIn = () => {
   const messages = config.messages.auth
 
   const initValues = {
-    pseudo: '',
+    email: '',
     password: '',
     showPassword: false
   }
@@ -58,7 +58,7 @@ const SignIn = () => {
   const catchSubmit = async (e) => {
     e.preventDefault()
 
-    if (values.password !== '' && values.pseudo !== '') {
+    if (values.password !== '' && values.email !== '') {
       const respo = sendRequest()
       respo.then((res) => {
         addToast(res.message, { appearance: res.appearance })
@@ -74,7 +74,7 @@ const SignIn = () => {
   }
 
   const sendRequest = async () => {
-    const datas = await tryLogin(values.pseudo, values.password)
+    const datas = await tryLogin(values.email, values.password)
     const regex2 = RegExp(/Error/)
     if (regex2.test(datas)) {
       return { message: messages.signin.error, appearance: 'error' }
