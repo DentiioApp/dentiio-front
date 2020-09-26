@@ -5,17 +5,17 @@ import randomstring from 'randomstring'
 const LOGIN_CHECK = process.env.REACT_APP_BACK_API_URL + process.env.REACT_APP_LOGIN_CHECK
 const USERS = process.env.REACT_APP_BACK_API_URL + process.env.REACT_APP_USERS
 
-export const loginCheck = (ident, pswd) => {
+export const loginCheck = (email, passwd) => {
   const reponses = axios.post(
-    LOGIN_CHECK, { username: ident, password: pswd }
+    LOGIN_CHECK, { username: email, password: passwd }
   ).then(res => res)
     .catch((e) => JSON.stringify(e))
 
   return reponses
 }
 
-export const tryLogin = (ident, pswd) => {
-  const fetchDatas = loginCheck(ident, pswd)
+export const tryLogin = (email, passwd) => {
+  const fetchDatas = loginCheck(email, passwd)
 
   if (fetchDatas.datas === undefined) {
     fetchDatas.datas = []

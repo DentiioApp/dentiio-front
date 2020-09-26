@@ -1,8 +1,8 @@
 import './status.scss'
 
-import React, { useState, useEffect } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
-import { Redirect, useHistory } from 'react-router-dom'
+import React, { useState,/* useEffect */} from 'react'
+import { useDispatch, /*useSelector */} from 'react-redux'
+import { /*Redirect, */useHistory } from 'react-router-dom'
 import { useToasts } from 'react-toast-notifications'
 import {
   Paper,
@@ -15,13 +15,13 @@ import { makeStyles } from '@material-ui/core/styles'
 import imgDesktop from '../../../images/illus.png'
 import imgMobile from '../../../images/mobile-bg.svg'
 
-import { getUserId, saveCard, tryLogin } from '../../../services/Users'
+//import { getUserId, saveCard, tryLogin } from '../../../services/Users'
 import GradientBtn from '../../UI/buttons/GradientBtn'
 import oStyle from '../../ResponsiveDesign/AuthStyle'
 import { checkFiles } from '../../../utils'
 
 import { setup } from '../../../services/Auth'
-import { LOGIN_FORM, STATUS_FORM, LOG_USER } from '../../../store/actions'
+import { LOGIN_FORM, STATUS_FORM, /*LOG_USER*/ } from '../../../store/actions'
 import logo from '../../../images/logo.svg'
 import avatar from '../../../images/logoteeth_blue.png'
 import config from '../../../config'
@@ -33,9 +33,10 @@ const Status = () => {
   const dispatch = useDispatch()
   const { addToast } = useToasts()
   const messages = config.messages.auth
-  const credentials = useSelector((state) => state.user.credentials)
-  const fileReader = new FileReader()
-  const history = useHistory()
+  //const credentials = useSelector((state) => state.user.credentials)
+  //const fileReader = new FileReader()
+  //const history = useHistory()
+  /*
   useEffect(() => {
     if (credentials && credentials.email !== '') {
       const SignUser = async () => {
@@ -45,6 +46,7 @@ const Status = () => {
       SignUser()
     }
   })
+*/
 
   const [errCard, setErrCard] = useState(false)
 
@@ -53,7 +55,7 @@ const Status = () => {
 
     if (errCard || document.querySelector('input').files[0] === undefined) {
       return false
-    } else {
+    } else {/*
       const uploadFile = document.querySelector('input').files[0]
 
       fileReader.onload = async (FileLoadEvent) => {
@@ -69,7 +71,8 @@ const Status = () => {
         localStorage.removeItem('authToken')
       }
       fileReader.readAsDataURL(uploadFile)
-
+      */
+      addToast(messages.card.success, { appearance: 'success' }) 
       dispatch({ type: STATUS_FORM })
       dispatch({ type: LOGIN_FORM })
     }
@@ -86,7 +89,7 @@ const Status = () => {
   }
 
   if (!setup()) {
-    return <Redirect to='/' />
+    //return <Redirect to='/' />
   };
 
   return (
