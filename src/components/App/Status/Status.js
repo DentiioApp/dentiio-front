@@ -21,7 +21,7 @@ import oStyle from '../../ResponsiveDesign/AuthStyle'
 import { checkFiles } from '../../../utils'
 
 import { setup } from '../../../services/Auth'
-import { LOGIN_FORM, STATUS_FORM, LOG_USER } from '../../../store/actions'
+import { LOGIN_FORM, STATUS_FORM, /*LOG_USER*/ } from '../../../store/actions'
 import logo from '../../../images/logo.svg'
 import avatar from '../../../images/logoteeth_blue.png'
 import config from '../../../config'
@@ -34,8 +34,8 @@ const Status = () => {
   const { addToast } = useToasts()
   const messages = config.messages.auth
   //const credentials = useSelector((state) => state.user.credentials)
-  const fileReader = new FileReader()
-  const history = useHistory()
+  //const fileReader = new FileReader()
+  //const history = useHistory()
   /*
   useEffect(() => {
     if (credentials && credentials.email !== '') {
