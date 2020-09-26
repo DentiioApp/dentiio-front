@@ -1,26 +1,27 @@
 import './status.scss'
 
-import React, { useState } from 'react'
-import { useDispatch } from 'react-redux'
+import React, { useState, useEffect } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+import { Redirect, useHistory } from 'react-router-dom'
 import { useToasts } from 'react-toast-notifications'
 import {
   Paper,
-  Typography
+  Typography,
+  Input
 } from '@material-ui/core/'
 import Grid from '@material-ui/core/Grid'
-import Button from '@material-ui/core/Button'
 import FormHelperText from '@material-ui/core/FormHelperText'
 import { makeStyles } from '@material-ui/core/styles'
 import imgDesktop from '../../../images/illus.png'
 import imgMobile from '../../../images/mobile-bg.svg'
 
-import { SaveCard } from '../../../services/SaveCard'
+import { getUserId, saveCard, tryLogin } from '../../../services/Users'
 import GradientBtn from '../../UI/buttons/GradientBtn'
 import oStyle from '../../ResponsiveDesign/AuthStyle'
 import { checkFiles } from '../../../utils'
 
 import { setup } from '../../../services/Auth'
-import { LOGIN_FORM, STATUS_FORM } from '../../../store/actions'
+import { LOGIN_FORM, STATUS_FORM, LOG_USER } from '../../../store/actions'
 import logo from '../../../images/logo.svg'
 import avatar from '../../../images/logoteeth_blue.png'
 import config from '../../../config'
@@ -32,33 +33,43 @@ const Status = () => {
   const dispatch = useDispatch()
   const { addToast } = useToasts()
   const messages = config.messages.auth
+  const credentials = useSelector((state) => state.user.credentials)
+  const fileReader = new FileReader()
+  const history = useHistory()
+  useEffect(() => {
+    if (credentials && credentials.email !== '') {
+      const SignUser = async () => {
+        const isSignIn = await tryLogin(credentials.email, credentials.passwd)
+        dispatch({ type: LOG_USER, datas: isSignIn })
+      }
+      SignUser()
+    }
+  })
 
-  const initValues = {
-    card: ''
-  }
-
-  const [values, setValues] = useState(initValues)
   const [errCard, setErrCard] = useState(false)
 
   const catchSubmit = (e) => {
     e.preventDefault()
 
-    if (errCard) {
+    if (errCard || document.querySelector('input').files[0] === undefined) {
       return false
     } else {
-      const formData = new FormData()
+      const uploadFile = document.querySelector('input').files[0]
 
-      formData.append(
-        'card',
-        values.card.name
-      )
+      fileReader.onload = async (FileLoadEvent) => {
+        var base64 = FileLoadEvent.target.result
 
-      // dispatch(
-      SaveCard({
-        url: values.card.files
-      })
-      // )
-      addToast(messages.card.success, { appearance: 'success' })
+        const response = await saveCard({
+          image: base64,
+          userId: getUserId()
+        })
+
+        if (response === 'OK') { addToast(messages.card.success, { appearance: 'success' }) } else { addToast(messages.card.error, { appearance: 'error' }) }
+        history.goForward('/')
+        localStorage.removeItem('authToken')
+      }
+      fileReader.readAsDataURL(uploadFile)
+
       dispatch({ type: STATUS_FORM })
       dispatch({ type: LOGIN_FORM })
     }
@@ -66,16 +77,17 @@ const Status = () => {
 
   const handleChange = prop => event => {
     const checkedFile = checkFiles(event)
+
     if (checkedFile.error === true) {
       setErrCard(checkedFile.message)
     } else {
       setErrCard(false)
     }
-
-    setValues({ ...values, card: event.target.value })
   }
 
-  setup()
+  if (!setup()) {
+    return <Redirect to='/' />
+  };
 
   return (
     <>
@@ -98,17 +110,14 @@ const Status = () => {
               Je Valide Mon Status
             </Typography>
             <form className={classes.form} noValidate>
-              <Button variant='contained' component='label'>
-                Ma carte CPS
-                <input
-                  type='file'
-                  onKeyDown={(e) => e.keyCode !== 13 ? null : catchSubmit}
-                  onChange={handleChange('cpsCard')}
-                  name='cps'
-                  id='cps'
-                  multiple
-                />
-              </Button>
+              <Input
+                type='file'
+                onKeyDown={(e) => e.keyCode !== 13 ? null : catchSubmit}
+                onChange={handleChange('cpsCard')}
+                name='cps'
+                id='cps'
+                required
+              />
 
               <FormHelperText id='my-helper-text'>{errCard || ''}</FormHelperText>
 

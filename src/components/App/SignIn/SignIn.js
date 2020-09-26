@@ -22,7 +22,7 @@ import Visibility from '@material-ui/icons/Visibility'
 import VisibilityOff from '@material-ui/icons/VisibilityOff'
 import GradientBtn from '../../UI/buttons/GradientBtn'
 import oStyle from '../../ResponsiveDesign/AuthStyle'
-import { SUBSCRIBE_FORM, logUser } from '../../../store/actions'
+import { SUBSCRIBE_FORM, LOG_USER } from '../../../store/actions'
 import { tryLogin } from '../../../services/Users'
 import { setup } from '../../../services/Auth'
 import logo from '../../../images/logo.svg'
@@ -51,7 +51,7 @@ const SignIn = () => {
 
   useEffect(() => {
     if (datas !== '') {
-      dispatch(logUser(datas))
+      dispatch({ type: LOG_USER, datas: datas })
     }
   })
 
@@ -102,7 +102,7 @@ const SignIn = () => {
     dispatch({ type: SUBSCRIBE_FORM })
   }
 
-  if (setup() === true) {
+  if (setup()) {
     return <Redirect to='/cases' />
   };
 

@@ -1,4 +1,3 @@
-import { logUser, cardSave } from './Auth'
 import { openSideBar, closeSideBar } from './Cases'
 import { fetchSpecialities } from './Specialities'
 import { fetchTreatments } from './Treatments'
@@ -32,8 +31,6 @@ export const SET_PATHOLOGIES = 'SET_PATHOLOGIES'
 export const INIT_PATIENT = 'INIT_PATIENT'
 
 export {
-  logUser,
-  cardSave,
   openSideBar,
   closeSideBar,
   fetchSpecialities,

@@ -59,12 +59,21 @@ export const getUserId = () => {
 }
 
 export const getUserById = (id) => {
-  const reponses = axios
+  const isUserGet = axios
     .get(USERS + '/' + id)
     .then((res) => ({
       message: 'OK',
       datas: res.data
     }))
     .catch((e) => JSON.stringify(e))
-  return reponses
+  return isUserGet
+}
+
+export const saveCard = async (data) => {
+  const licenceDOC = { licenceDoc: data.image }
+  const isCardPut = await axios.put(USERS + '/' + data.userId, licenceDOC)
+    .then(res => res.statusText)
+    .catch(console.warning)
+
+  return isCardPut
 }
