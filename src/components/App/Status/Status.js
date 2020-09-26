@@ -2,6 +2,7 @@ import './status.scss'
 
 import React, { useState, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
+import { Redirect, useHistory } from 'react-router-dom'
 import { useToasts } from 'react-toast-notifications'
 import {
   Paper,
@@ -34,7 +35,7 @@ const Status = () => {
   const messages = config.messages.auth
   const credentials = useSelector((state) => state.user.credentials)
   const fileReader = new FileReader()
-
+  const history = useHistory()
   useEffect(() => {
     if (credentials && credentials.email !== '') {
       const SignUser = async () => {
@@ -54,16 +55,21 @@ const Status = () => {
       return false
     } else {
       const uploadFile = document.querySelector('input').files[0]
+
       fileReader.onload = async (FileLoadEvent) => {
         var base64 = FileLoadEvent.target.result
+
         const response = await saveCard({
           image: base64,
           userId: getUserId()
         })
 
         if (response === 'OK') { addToast(messages.card.success, { appearance: 'success' }) } else { addToast(messages.card.error, { appearance: 'error' }) }
+        history.goForward('/')
+        localStorage.removeItem('authToken')
       }
       fileReader.readAsDataURL(uploadFile)
+
       dispatch({ type: STATUS_FORM })
       dispatch({ type: LOGIN_FORM })
     }
@@ -71,6 +77,7 @@ const Status = () => {
 
   const handleChange = prop => event => {
     const checkedFile = checkFiles(event)
+
     if (checkedFile.error === true) {
       setErrCard(checkedFile.message)
     } else {
@@ -78,7 +85,9 @@ const Status = () => {
     }
   }
 
-  setup()
+  if (!setup()) {
+    return <Redirect to='/' />
+  };
 
   return (
     <>

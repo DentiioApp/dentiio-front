@@ -47,6 +47,7 @@ const Favorites = () => {
             return <CasesItem key={index} item={oCase} favorite={isFavorite} />
           })
         }
+        return isFavorite
       })}
     </>
   )

@@ -25,7 +25,7 @@ export const User = (state = INIT_STATE, action) => {
     case REGISTER_USER : return { ...state, subscribe: true, isValidStatus: true, credentials: { email: action.email, passwd: action.passwd } }
 
     case VALID_STATUS :
-      return { ...state, isValidStatus: true, message: localStorage.getItem('pendingStatus') }
+      return { ...state, isValidStatus: true }
 
     default :
       return state
