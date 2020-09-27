@@ -4,7 +4,6 @@ import CasesList from '../../components/App/CasesList/CasesList'
 import Header from '../../components/App/Header/Header'
 import { setup } from '../../services/Auth'
 import Search from '../../components/App/Search/Search'
-
 import SwipeableTemporaryDrawer from '../../components/App/SideBarMenu/sideBarMenu'
 
 const Cases = () => {

@@ -76,6 +76,8 @@ const Evolution = (props) => {
                 margin='normal'
                 required
                 name='evolution'
+                label='Evolution'
+                multiline
                 autoFocus
                 type='textarea'
                 id='evolution'

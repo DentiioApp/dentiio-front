@@ -8,7 +8,8 @@ import CasesItem from '../CaseItem/CaseItem'
 import Paginator from '../../UI/Paginator/Paginator'
 import titleSvg from '../../../images/maquette/c-case-title.svg'
 import { getUserId } from '../../../services/Users'
-import loader from '../../../images/Spinner-1s-347px.svg'
+
+import Spinner from '../../../containers/Cases/Spinner'
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -66,15 +67,10 @@ const CasesList = () => {
     setValues({ ...values, paginator: event.target.value })
   }
 
-  if (cases.length < 1) {
+  
     return (
       <>
-        <center><img src={loader} alt='' /></center>
-      </>
-    )
-  } else {
-    return (
-      <>
+        <React.Suspense fallback={<Spinner />}>
         <Container maxWidth='lg'>
           <center><img src={titleSvg} alt='Cas Cliniques' /></center>
           <Paginator pages={pages} onChange={handleChange} current={values.paginator} /> {cases.length > 0 ? '[page ' + values.paginator + ']' : ''}
@@ -96,9 +92,10 @@ const CasesList = () => {
 
           <Paginator pages={pages} onChange={handleChange} current={values.paginator} />
         </Container>
+        </React.Suspense>
       </>
     )
-  }
+  
 }
 
 export default CasesList

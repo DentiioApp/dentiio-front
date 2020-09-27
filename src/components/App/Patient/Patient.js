@@ -7,8 +7,9 @@ import {
   Paper,
   Switch,
   Typography,
-  Button
+  Button,
 } from '@material-ui/core/'
+import AddCircleIcon from '@material-ui/icons/AddCircle';
 import Grid from '@material-ui/core/Grid'
 import { makeStyles } from '@material-ui/core/styles'
 import TextField from '@material-ui/core/TextField'
@@ -196,6 +197,31 @@ const Patient = (props) => {
                 onChange={props.onChange('in_treatment')}
                 error={errors.errIn_treatment}
               />
+
+                <fieldset id="fieldset_old_injury">
+                  <div id="node_old_injury">
+                    <TextField
+                      aria-label='minimum height'
+                      placeholder='Antecedent medicaux'
+                      variant='outlined'
+                      label='Antecedent medicaux'
+                      multiline
+                      fullWidth
+                      margin='normal'
+                      required
+                      htmlFor="old_injury"
+                      name='old_injury'
+                      type='textarea'
+                      id='old_injury'
+                      value={props.values.old_injury}
+                      autoComplete='current-old_injury'
+                      onChange={props.onChange('old_injury')}
+                      error={errors.errIn_treatment}
+                    />
+                    <AddCircleIcon onClick={props.onChange('old_injury')}/>
+                  </div>
+                </fieldset>
+                
 
               <br />  <br />
 
