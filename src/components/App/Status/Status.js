@@ -2,7 +2,6 @@ import './status.scss'
 
 import React, { useState,/* useEffect */} from 'react'
 import { useDispatch, /*useSelector */} from 'react-redux'
-import { /*Redirect, */useHistory } from 'react-router-dom'
 import { useToasts } from 'react-toast-notifications'
 import {
   Paper,

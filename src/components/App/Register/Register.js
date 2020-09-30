@@ -21,7 +21,6 @@ import { makeStyles } from '@material-ui/core/styles'
 import TextField from '@material-ui/core/TextField'
 import imgDesktop from '../../../images/illus.png'
 import imgMobile from '../../../images/mobile-bg.svg'
-import avatar from '../../../images/logoteeth_blue.png'
 import logo from '../../../images/logo.svg'
 import Visibility from '@material-ui/icons/Visibility'
 import VisibilityOff from '@material-ui/icons/VisibilityOff'
@@ -157,18 +156,46 @@ const Register = () => {
         className={classes.login}
       >
         <div className={classes.paper}>
-          <img className={classes.avatar} alt='' src={avatar} />
           <Typography component='h1' variant='h5'>
-              Inscription
+            Nouveau sur Dentiio ?
           </Typography>
+          <br/>
+          <Typography component='h3' variant='subtitle2'>
+            Saisissez vos informations pour continuer.
+          </Typography>
+          <br/><br/>
           <form className={classes.form} noValidate onSubmit={sendEmail}>
+            <InputLabel className='inputLabel'>
+              Vous êtes* :
+            </InputLabel>
+            <TextField
+                fullWidth
+                className='textField'
+                id='job'
+                select
+                value={values.job === '' ? 'none' : values.job}
+                onChange={handleChange('job')}
+                variant='outlined'
+            >
+              <MenuItem key='none' value='none' disabled>
+                {'Indiquez votre profession'}
+              </MenuItem>
+
+              {jobs && jobs.map(option => (
+                  <MenuItem key={option.ident} value={option.id}>
+                    {option.name}
+                  </MenuItem>
+              ))}
+            </TextField>
+            <br/><br/>
+
             <TextField
               variant='outlined'
               margin='normal'
               required
-              fullwidth
+              fullWidth
               id='email'
-              label='Email Address'
+              label='Votre adresse email'
               name='{{ customer_name }}'
               autoComplete='email'
               onKeyDown={(e) => e.keyCode !== 13 ? null : catchSubmit(e)}
@@ -176,32 +203,7 @@ const Register = () => {
               error={errEmail}
               helperText={values.email !== '' ? (checkEmail(values.email) === false ? 'Email invalide!' : ' ') : ''}
             />
-            <FormHelperText id='my-helper-text'>{/* On ne partagera jamais votre email. */}</FormHelperText>
-
-            <InputLabel className='inputLabel'>
-              Vous êtes* :
-            </InputLabel>
-            <TextField
-              className='textField'
-              id='job'
-              select
-              value={values.job === '' ? 'none' : values.job}
-              onChange={handleChange('job')}
-              variant='outlined'
-            >
-              <MenuItem key='none' value='none' disabled>
-                {'Indiquez votre profession'}
-              </MenuItem>
-
-              {jobs && jobs.map(option => (
-                <MenuItem key={option.ident} value={option.id}>
-                  {option.name}
-                </MenuItem>
-              ))}
-            </TextField>
-
-            <br /> <br />
-
+            <br/><br/>
             <OutlinedInput
               variant='outlined'
               required
@@ -212,7 +214,7 @@ const Register = () => {
               value={values.password}
               id='outlined-adornment-password'
               autoComplete='on'
-              placeholder='Password'
+              placeholder='Votre mot de passe *'
               error={errPassword}
               onKeyDown={(e) => e.keyCode !== 13 ? null : catchSubmit(e)}
               onChange={handleChange('password')}
@@ -230,16 +232,12 @@ const Register = () => {
               }
 
             />
-            <br />
+            <br/>
             <Typography component='p' color='textPrimary'>
                 8 caractères minimum, un caractère spécial, une majuscule
             </Typography>
 
-            <br />  <br />
-
-            <Typography component='p' color='textPrimary'>
-              {"J'accepte les conditions générales de d'utilisation"}
-            </Typography>
+            <br/><br/>
 
             <Switch
               checked={errCgu}
@@ -248,8 +246,11 @@ const Register = () => {
               name='is_medical_background'
               inputProps={{ 'aria-label': 'primary checkbox' }}
             />
+            <Typography component='p' color='textPrimary'>
+              {"J'accepte les conditions générales de d'utilisation"}
+            </Typography>
 
-            <br /> <br /> <br />
+            <br/><br/><br/>
 
             <div onClick={(e) => (catchSubmit(e))}>
               <GradientBtn
@@ -266,7 +267,7 @@ const Register = () => {
                   Déjà un compte{' '}
                 <Link onClick={(e) => switchToLogin(e)} color='primary'>
                   {' '}
-                    Connectez vous ?{' '}
+                    Connectez-vous ?{' '}
                 </Link>{' '}
               </span>
             </Typography>
