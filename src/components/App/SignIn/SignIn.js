@@ -181,14 +181,21 @@ const SignIn = () => {
               />
 
               <br /><br/><br/>
-              <Typography>
+              <Typography  align={"center"}>
                 <span>
-                  {' '}
+                  <Link href="#" color='primary'>
+                    Mot de passe oublié ?
+                  </Link>
+                </span>
+              </Typography>
+              <br/>
+              <br/>
+              <Typography align={"center"}>
+                <span>
                 Nouveau sur Dentiio ?{' '}
                   <Link href="#" onClick={(e) => switchToSubscribe(e)} color='primary'>
-                    {' '}
-                  Inscrivez-vous.{' '}
-                  </Link>{' '}
+                  Inscrivez-vous.
+                  </Link>
                 </span>
               </Typography>
             </form>
