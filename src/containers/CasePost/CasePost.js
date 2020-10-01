@@ -63,9 +63,7 @@ const CasePost = () => {
     age: 0,
     gender: '',
     isASmoker: false,
-    isAnAlcooler: false,
-    old_injury: [], 
-
+    isAlcooler: false,
     is_medical_background: false,
     medical_background: [],
     current_treatments: [],
