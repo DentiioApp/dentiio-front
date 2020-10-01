@@ -1,22 +1,16 @@
-// import Icon from "../../../images/titleHeader.svg";
-import { TextField, makeStyles, Button } from '@material-ui/core'
+import { TextField, makeStyles } from '@material-ui/core'
 import Autocomplete from '@material-ui/lab/Autocomplete'
 import React, { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-// import icon from "../../../images/logoteeth_transparent.png";
 import { tryKeywords } from '../../../services/Home'
 import { FILTERED_CASES, KEYWORDS_LIST } from '../../../store/actions'
 import './Search.scss'
-// import SearchIcon from "@material-ui/icons/Search";
-import { openSideBar } from '../../../store/actions'
+import CategoriesCases from "../../UI/Dawers/CategoriesCases";
 
 const useStyles = makeStyles((theme) => ({
   barWidth: {
     minWidth: '50%',
     width: '50%'
-    // [theme.breakpoints.down("sm")]: {
-    //   width: "90%",
-    // },
   },
 
   categoryButton: {
@@ -84,18 +78,7 @@ const Search = (props) => {
   return (
     <div className='wrap'>
       <div className='search'>
-        <div>
-          <Button
-            onClick={() => {
-              dispatch(openSideBar())
-            }}
-            className={classes.categoryButton}
-            variant='contained'
-          >
-            Toutes les catégories
-          </Button>
-        </div>
-
+        <CategoriesCases className={classes.barWidth}/>
         <Autocomplete
           className={classes.barWidth}
           id='grouped-demo'

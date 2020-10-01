@@ -18,7 +18,7 @@ const Favorites = (props) => {
   const messages = config.conf.messages.cases.favorite
   useEffect(() => {
     if (props.isFavorite) {
-      setToggle(<StarIcon fontSize='medium' color='primary' />)
+      setToggle(<StarIcon fontSize='default' color='primary' />)
     }
   }, [favorites, props])
 

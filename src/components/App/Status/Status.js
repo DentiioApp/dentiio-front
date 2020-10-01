@@ -14,7 +14,6 @@ import { makeStyles } from '@material-ui/core/styles'
 import imgDesktop from '../../../images/illus.png'
 import imgMobile from '../../../images/mobile-bg.svg'
 import StatusJustif from "../../UI/Modal/StatusJustif";
-//import { getUserId, saveCard, tryLogin } from '../../../services/Users'
 import GradientBtn from '../../UI/buttons/GradientBtn'
 import oStyle from '../../ResponsiveDesign/AuthStyle'
 import { checkFiles } from '../../../utils'
@@ -22,7 +21,6 @@ import { checkFiles } from '../../../utils'
 import { setup } from '../../../services/Auth'
 import { LOGIN_FORM, STATUS_FORM, /*LOG_USER*/ } from '../../../store/actions'
 import logo from '../../../images/logo.svg'
-import avatar from '../../../images/logoteeth_blue.png'
 import config from '../../../config'
 
 const useStyles = makeStyles((theme) => (oStyle(theme, imgDesktop, imgMobile)))
