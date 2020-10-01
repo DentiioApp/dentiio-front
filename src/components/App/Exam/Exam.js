@@ -31,10 +31,12 @@ const Exam = (props) => {
   const classes = useStyles()
   const dispatch = useDispatch()
   const initVals = {
+    exam_pics: [],
+    extra_exam_desc: [],
     errIntra_extra_oral_desc: false,
-    errProblem_health: false,
-    errIn_treatment: false,
-    errExam_name: false
+    //errProblem_health: false,
+    //errIn_treatment: false,
+    errExtra_exam_name: false,
   }
   const [errors, setErrors] = useState(initVals)
 
@@ -44,7 +46,10 @@ const Exam = (props) => {
     if (props.values.intra_extra_oral_desc === '') { setErrors({ ...errors, errIntra_extra_oral_desc: true }); isValid = false }
     if (props.values.problem_health === '') { setErrors({ ...errors, errProblem_health: true }); isValid = false }
     if (props.values.in_treatment === '') { setErrors({ ...errors, errIn_treatment: true }); isValid = false }
-    if (props.values.exam_name === '') { setErrors({ ...errors, errExam_name: true }); isValid = false }
+    if (props.values.extra_exam.extra_exam_name === '') { setErrors({ ...errors, errExtra_exam_name: true }); isValid = false }
+    if (props.values.extra_exam.extra_exam_desc === '') { setErrors({ ...errors, errExtra_exam_desc: true }); isValid = false }
+
+    
 
     if (isValid) { dispatch({ type: UPDATE_LEVEL, level: 'diagnostic' }) }
   }
@@ -113,7 +118,7 @@ const Exam = (props) => {
               <Typography component='h1' variant='h5'>
                 Examen Complementaire
               </Typography>
-
+              {/*
               <TextField
                 aria-label='minimum height'
                 placeholder='Renseignez le(s) probleme(s) cardiaque'
@@ -131,7 +136,7 @@ const Exam = (props) => {
                 onChange={props.onChange('problem_health')}
                 error={errors.errProblem_health}
               />
-
+              */}
               <TextField
                 aria-label='minimum height'
                 placeholder="Renseignez le nom l'examen"
@@ -140,13 +145,32 @@ const Exam = (props) => {
                 label="Nom de l'examen"
                 multiline
                 required
-                name='exam_name'
+                name='extra_exam_name'
                 type='textarea'
-                id='exam_name'
-                value={props.values.exam_name}
-                autoComplete='current-exam_name'
-                onChange={props.onChange('exam_name')}
-                error={errors.errExam_name}
+                id='extra_exam_name'
+                value={props.values.extra_exam.extra_exam_name}
+                autoComplete='current-extra_exam_name'
+                onChange={props.onChange('extra_exam_name')}
+                error={errors.errExtra_exam_name}
+              />
+
+              <TextField
+                aria-label='minimum height'
+                placeholder='Description'
+                variant='outlined'
+                label='Description'
+                multiline
+                autoFocus
+                fullWidth
+                margin='dense'
+                required
+                name='extra_exam_desc'
+                type='textarea'
+                id='extra_exam_desc'
+                value={props.values.extra_exam.extra_exam_desc}
+                autoComplete='current-extra_exam_desc'
+                onChange={props.onChange('extra_exam_desc')}
+                error={errors.errExtra_exam_desc}
               />
 
               <br />  <br />

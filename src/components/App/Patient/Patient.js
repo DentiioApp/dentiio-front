@@ -42,8 +42,7 @@ const Patient = (props) => {
   const initVals = {
     errAge: false,
     errGender: false,
-    errIn_treatment: false,
-    errProblem_health: false
+    errReason_consultation: false,
   }
   const [errors, setErrors] = useState(initVals)
 
@@ -52,9 +51,7 @@ const Patient = (props) => {
     let isValid = true
     if (props.values.age === '') { setErrors({ ...errors, errAge: true }); isValid = false }
     if (props.values.gender === '') { setErrors({ ...errors, errGender: true }); isValid = false }
-    if (props.values.problem_health === '') { setErrors({ ...errors, errProblem_health: true }); isValid = false }
-    if (props.values.in_treatment === '') { setErrors({ ...errors, errIn_treatment: true }); isValid = false }
-
+    if (props.values.reason_consultation.length < 1) { setErrors({ ...errors, errReason_consultation: true }); isValid = false }
     if (isValid) { dispatch({ type: UPDATE_LEVEL, level: 'exam' }) }
   }
 
@@ -147,34 +144,21 @@ const Patient = (props) => {
 
               <br />  <br />
 
-              <InputLabel className='inputLabel'>
-              Antécedant medical <LocalPharmacyIcon />
-              </InputLabel>
-              <Switch
-                checked={props.values.is_medical_background}
-                onChange={props.onChange('is_medical_background')}
-                color='primary'
-                name='is_medical_background'
-                inputProps={{ 'aria-label': 'primary checkbox' }}
-              />
-
-              <br />  <br />
-
               <TextField
                 aria-label='minimum height'
-                placeholder='Renseignez le(s) probleme(s) cardiaque'
+                placeholder='Antécédents médicauts'
                 variant='outlined'
                 margin='normal'
-                label='Probleme cardiaque'
+                label='Antécédents médicauts'
                 multiline
                 autoFocus
                 required
                 fullWidth
-                name='problem_health'
+                name='old_injury'
                 type='textarea'
-                id='problem_health'
-                value={props.values.problem_health}
-                autoComplete='current-problem_health'
+                id='old_injury'
+                value={props.values.old_injury}
+                autoComplete='current-old_injury'
                 // onKeyDown={(e) => e.keyCode !== 13 ? null : catchSubmit(e)}
                 onChange={props.onChange('problem_health')}
                 error={errors.errProblem_health}
@@ -189,39 +173,53 @@ const Patient = (props) => {
                 fullWidth
                 margin='normal'
                 required
-                name='in_treatment'
+                name='current_treatment'
                 type='textarea'
-                id='in_treatment'
-                value={props.values.in_treatment}
-                autoComplete='current-in_treatment'
-                onChange={props.onChange('in_treatment')}
-                error={errors.errIn_treatment}
+                id='current_treatment'
+                value={props.values.errCurrent_treatment}
+                autoComplete='current-current_treatment'
+                onChange={props.onChange('current_treatment')}
+                error={errors.errCurrent_treatment}
               />
 
-                <fieldset id="fieldset_old_injury">
-                  <div id="node_old_injury">
-                    <TextField
-                      aria-label='minimum height'
-                      placeholder='Antecedent medicaux'
-                      variant='outlined'
-                      label='Antecedent medicaux'
-                      multiline
-                      fullWidth
-                      margin='normal'
-                      required
-                      htmlFor="old_injury"
-                      name='old_injury'
-                      type='textarea'
-                      id='old_injury'
-                      value={props.values.old_injury}
-                      autoComplete='current-old_injury'
-                      onChange={props.onChange('old_injury')}
-                      error={errors.errIn_treatment}
-                    />
-                    <AddCircleIcon onClick={props.onChange('old_injury')}/>
-                  </div>
-                </fieldset>
-                
+              <TextField
+                aria-label='minimum height'
+                placeholder='Allergie(s)'
+                variant='outlined'
+                label='Allergie(s)'
+                multiline
+                fullWidth
+                margin='normal'
+                name='allergie'
+                type='textarea'
+                id='current_allergie'
+                value={props.values.allergies}
+                autoComplete='current-allergie'
+                onChange={props.onChange('current_allergie')}
+                error={errors.errAllergies}
+              />                
+
+              <br />  <br />
+
+              <TextField
+                aria-label='minimum height'
+                placeholder='Motif de la consultation'
+                variant='outlined'
+                margin='normal'
+                label='Motif de la consultation'
+                multiline
+                autoFocus
+                required
+                fullWidth
+                name='reason_consultation'
+                type='textarea'
+                id='reason_consultation'
+                value={props.values.reason_consultation[0]}
+                autoComplete='current-reason_consultation'
+                onKeyDown={(e) => e.keyCode !== 13 ? null : catchSubmit(e)}
+                onChange={props.onChange('reason_consultation')}
+                error={errors.errReason_consultation}
+              />
 
               <br />  <br />
 

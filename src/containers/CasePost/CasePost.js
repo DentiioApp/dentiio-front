@@ -70,18 +70,19 @@ const CasePost = () => {
     allergies: [],
     reason_consultation:[],
     //Examen clinique
+    exam_pics: [],
     pictures_clinic_exam :[],
     intra_extra_oral_desc: '',
     //Examen complementaire
     extra_exam: {
-      names: [],
-      pictures: [],
-      description: [],
+      extra_exam_name: [],
+      extra_exam_pictures: [],
+      extra_exam_desc: [],
     },
 
     problem_health: '',
 
-    exam_pics: [],
+    
     exam_name: '',
     step: [],
 
