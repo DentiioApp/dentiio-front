@@ -268,14 +268,14 @@ const Register = () => {
                 className='GradientBtn'
               />
             </div>
-            <br />
+            <br /><br/><br/>
             <Typography>
               <span>
                 {' '}
                   Déjà un compte ?{' '}
                 <Link href="#" onClick={(e) => switchToLogin(e)} color='primary'>
                   {' '}
-                    Connectez-vous{' '}
+                    Connectez-vous.{' '}
                 </Link>{' '}
               </span>
             </Typography>

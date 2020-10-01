@@ -111,10 +111,9 @@ const SignIn = () => {
         <img className={classes.logo} alt='' src={logo} />
         <Grid
           item
-          xs={10}
-          sm={8}
-          md={8}
-          lg={5}
+          xs={11}
+          sm={7}
+          md={7}
           component={Paper}
           elevation={6}
           square
@@ -124,6 +123,7 @@ const SignIn = () => {
             <Typography component='h1' variant='h5'>
               J'ai déjà un compte Dentiio
             </Typography>
+            <br/><br/>
             <form className={classes.form} noValidate>
               <TextField
                 variant='outlined'
@@ -140,9 +140,10 @@ const SignIn = () => {
                 error={errEmail}
               />
 
-              <br/>
+              <br/><br/>
 
-                <OutlinedInput
+
+              <OutlinedInput
                   variant='outlined'
                   required
                   fullWidth
@@ -169,7 +170,7 @@ const SignIn = () => {
                   }
                 />
 
-              <br/><br/>
+              <br/><br/><br/><br/>
 
               <GradientBtn
                 variant='contained'
@@ -179,14 +180,14 @@ const SignIn = () => {
                 onClick={catchSubmit}
               />
 
-              <br />
+              <br /><br/><br/>
               <Typography>
                 <span>
                   {' '}
                 Nouveau sur Dentiio ?{' '}
                   <Link href="#" onClick={(e) => switchToSubscribe(e)} color='primary'>
                     {' '}
-                  Inscrivez-vous{' '}
+                  Inscrivez-vous.{' '}
                   </Link>{' '}
                 </span>
               </Typography>

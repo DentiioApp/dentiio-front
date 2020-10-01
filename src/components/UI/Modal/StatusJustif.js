@@ -78,12 +78,12 @@ export default function StatusJustif() {
                     <br/>
                     <Typography gutterBottom>
                         Votre justificatif doit impérativement faire apparaître:
+                    </Typography>
                     <ul>
                         <li>Votre nom et prénom</li>
                         <li>Votre spécialité ou votre statut</li>
                         <li>Votre affiliation à un ordre, faculté/école ou établissement de santé</li>
                     </ul>
-                    </Typography>
                     <Typography gutterBottom>
                         Si vous avez une question, n’hésitez pas à nous contacter sur : contact@dentiio.fr
                     </Typography>

@@ -110,7 +110,7 @@ const Status = () => {
             </Typography>
             <br/><br/>
             <Typography component='h3' variant='subtitle2'>
-              Uploadez votre carte CPS, carte étudiante ou autre document qui vous faites partis du milieu dentaire. <StatusJustif/>
+              Uploadez votre carte CPS, carte étudiante ou autre document qui montre que vous faites partie du milieu dentaire. <StatusJustif/>
             </Typography>
             <br/>
             <form className={classes.form} noValidate>
