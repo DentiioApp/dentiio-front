@@ -57,12 +57,26 @@ const CasePost = () => {
   })
 
   const initValues = {
+    //Information du patient
     age: 0,
     gender: '',
     isASmoker: false,
-    isAnAlcooler: false,
-
+    isAlcooler: false,
     is_medical_background: false,
+    medical_background: [],
+    current_treatments: [],
+    allergies: [],
+    reason_consultation:[],
+    //Examen clinique
+    pictures_clinic_exam :[],
+    intra_extra_oral_desc: '',
+    //Examen complementaire
+    extra_exam: {
+      names: [],
+      pictures: [],
+      description: [],
+    },
+
     problem_health: '',
 
     exam_pics: [],
@@ -72,9 +86,9 @@ const CasePost = () => {
     in_treatment: '',
     global_desc: '',
     medication_administered: [],
-    treatments: [],
+    
     treatment: [],
-    intra_extra_oral_desc: '',
+    
 
     diagnostic: '',
 
