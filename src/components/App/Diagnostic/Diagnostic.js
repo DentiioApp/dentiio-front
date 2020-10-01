@@ -10,6 +10,7 @@ import {
   TableRow
 } from '@material-ui/core/'
 import Grid from '@material-ui/core/Grid'
+import InputLabel from '@material-ui/core/InputLabel'
 import { makeStyles } from '@material-ui/core/styles'
 import TextField from '@material-ui/core/TextField'
 import MenuItem from '@material-ui/core/MenuItem'
@@ -29,13 +30,13 @@ const useStyles = makeStyles((theme) => (oStyle(theme, imgDesktop, imgMobile)))
 const Diagnostic = (props) => {
   const classes = useStyles()
   const pathologies = useSelector((state) => state.home.pathologies)
-  const symptomes = useSelector((state) => state.home.symptomes)
 
   const dispatch = useDispatch()
   const initVals = {
     errPathologies: false,
     errDiagnostic: false,
-    errSymptomes: false
+    errMedication_administered: false,
+    errGlobal_desc: false,
   }
   const [errors, setErrors] = useState(initVals)
 
@@ -44,7 +45,8 @@ const Diagnostic = (props) => {
     let isValid = true
     if (props.values.diagnostic === '') { setErrors({ ...errors, errDiagnostic: true }); isValid = false }
     if (props.values.pathologies.length < 1) { setErrors({ ...errors, errPathologies: true }); isValid = false }
-    if (props.values.symptomes.length < 1) { setErrors({ ...errors, errSymptomes: true }); isValid = false }
+    if (props.values.medication_administered === '') { setErrors({ ...errors, errMedication_administered: true }); isValid = false }
+    if (props.values.global_desc === '') { setErrors({ ...errors, errGlobal_desc: true }); isValid = false }
 
     if (isValid) { dispatch({ type: UPDATE_LEVEL, level: 'treatplan' }) }
   }
@@ -125,29 +127,43 @@ const Diagnostic = (props) => {
 
               <br /> <br />
 
-              <Typography component='h1' variant='h5'>
-                Symptomes
-              </Typography>
+              <InputLabel className='inputLabel'>
+               Description globale
+              </InputLabel>
               <TextField
-                className='textField'
-                id='Symptomes'
-                label='Symptomes'
-                select
-                onChange={props.onChange('symptomes')}
+                aria-label='minimum height'
+                placeholder='Description globale'
                 variant='outlined'
-                fullWidth
-                SelectProps={{
-                  multiple: true,
-                  value: props.values.symptomes
-                }}
-                error={errors.errSymptomes}
-              >
-                {symptomes && symptomes.map((value) => (
-                  <MenuItem key={value['@id']} value={value['@id']}>
-                    {value.name}
-                  </MenuItem>
-                ))}
-              </TextField>
+                margin='normal'
+                label='Description globale'
+                multiline
+                autoFocus
+                required
+                name='global_desc'
+                type='textarea'
+                id='global_desc'
+                value={props.values.global_desc}
+                autoComplete='current-global_desc'
+                onChange={props.onChange('global_desc')}
+                error={errors.errGlobal_desc}
+              />
+
+              <br /> <br />
+
+              <TextField
+                variant='outlined'
+                margin='normal'
+                required
+                name='medication_administered'
+                label='Médicaments administrés'
+                multiline
+                type='text'
+                id='medication_administered'
+                value={props.values.medication_administered}
+                autoComplete='current-medication_administered'
+                onChange={props.onChange('medication_administered')}
+                error={errors.errMedication_administered}
+              />
 
               <br /> <br />
 

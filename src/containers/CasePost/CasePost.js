@@ -69,10 +69,12 @@ const CasePost = () => {
     current_treatments: [],
     allergies: [],
     reason_consultation:[],
+
     //Examen clinique
     exam_pics: [],
     pictures_clinic_exam :[],
     intra_extra_oral_desc: '',
+
     //Examen complementaire
     extra_exam: {
       extra_exam_name: [],
@@ -80,10 +82,24 @@ const CasePost = () => {
       extra_exam_desc: [],
     },
 
-    problem_health: '',
+    //Dagnostic
+    diagnostic: '',
 
-    
-    exam_name: '',
+    //Evolution
+    evolution_pics: [],
+    evolution: '',
+
+    //Conclusion
+    conclusion: '',
+
+    //Add clinical case
+    title: '',
+    summary: '',
+    keywords: [],
+    specialities: [],
+
+
+
     step: [],
 
     in_treatment: '',
@@ -91,18 +107,8 @@ const CasePost = () => {
     medication_administered: [],
     
     treatment: [],
-    
-
-    diagnostic: '',
-
-    evolution: '',
-
-    conclusion: '',
     symptomes: [],
-    title: '',
-    summary: '',
-    keywords: [],
-    specialities: [],
+    
     pathologies: []
   }
 
