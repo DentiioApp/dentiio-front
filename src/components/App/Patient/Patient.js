@@ -51,7 +51,7 @@ const Patient = (props) => {
     let isValid = true
     if (props.values.age === '') { setErrors({ ...errors, errAge: true }); isValid = false }
     if (props.values.gender === '') { setErrors({ ...errors, errGender: true }); isValid = false }
-    if (props.values.reason_consultation.length < 1) { setErrors({ ...errors, errReason_consultation: true }); isValid = false }
+    if (props.values.reason_consultation === '') { setErrors({ ...errors, errReason_consultation: true }); isValid = false }
     if (isValid) { dispatch({ type: UPDATE_LEVEL, level: 'exam' }) }
   }
 

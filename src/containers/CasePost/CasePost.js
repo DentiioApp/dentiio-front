@@ -68,22 +68,30 @@ const CasePost = () => {
     medical_background: [],
     current_treatments: [],
     allergies: [],
-    reason_consultation:[],
+    reason_consultation: '',
 
     //Examen clinique
     exam_pics: [],
     pictures_clinic_exam :[],
     intra_extra_oral_desc: '',
+    symptomes: [],
 
     //Examen complementaire
     extra_exam: {
       extra_exam_name: [],
       extra_exam_pictures: [],
-      extra_exam_desc: [],
+      extra_exam_desc: '',
     },
 
     //Dagnostic
     diagnostic: '',
+    pathologies: [],
+    global_desc: '',
+    medication_administered: [],
+
+
+    //Plan de traitement
+    step: [],
 
     //Evolution
     evolution_pics: [],
@@ -98,25 +106,15 @@ const CasePost = () => {
     keywords: [],
     specialities: [],
 
-
-
-    step: [],
-
     in_treatment: '',
-    global_desc: '',
-    medication_administered: [],
-    
     treatment: [],
-    symptomes: [],
-    
-    pathologies: []
   }
 
   const [values, setValues] = useState(initValues)
   const [inCrement, setInCrement] = useState(1)
    
   const handleChange = prop => event => {
-    if (prop === 'isASmoker' || prop === 'is_medical_background' || prop === 'isAnAlcooler') { setValues({ ...values, [prop]: event.target.checked }) }
+    if (prop === 'isASmoker' || prop === 'isAnAlcooler') { setValues({ ...values, [prop]: event.target.checked }) }
     else if (prop === 'old_injury') {
 
       function addFields(){
@@ -156,10 +154,11 @@ const CasePost = () => {
         }
         addFields()
       setValues({ ...values, [prop]: event.target.value }) 
-    } 
-    else { setValues({ ...values, [prop]: event.target.value }) }
+    }
+    else if (prop === 'extra_exam_desc') {setValues({ ...values, ['extra_exam.prop]: event.target.value })}
+    else { console.log('prop :', prop);setValues({ ...values, [prop]: event.target.value }) }
   }
-
+   
   let form
 
   switch (level) {

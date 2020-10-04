@@ -51,7 +51,7 @@ const Exam = (props) => {
    
     if (isValid) { dispatch({ type: UPDATE_LEVEL, level: 'diagnostic' }) }
   }
-
+console.log('TEST :', props.values)
   const catchOnmit = async (event) => {
     event.preventDefault()
     dispatch({ type: UPDATE_LEVEL, level: '' })
@@ -193,7 +193,7 @@ const Exam = (props) => {
                 name='extra_exam_desc'
                 type='textarea'
                 id='extra_exam_desc'
-                value={props.values.extra_exam.extra_exam_desc[0]}
+                value={props.values.extra_exam.extra_exam_desc}
                 autoComplete='current-extra_exam_desc'
                 onChange={props.onChange('extra_exam_desc')}
                 error={errors.errExtra_exam_desc}
