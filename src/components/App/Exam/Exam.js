@@ -45,13 +45,12 @@ const Exam = (props) => {
     event.preventDefault()
     let isValid = true
     if (props.values.intra_extra_oral_desc === '') { setErrors({ ...errors, errIntra_extra_oral_desc: true }); isValid = false }
-    if (props.values.extra_exam.extra_exam_name < 1) { setErrors({ ...errors, errExtra_exam_name: true }); isValid = false }
-    if (props.values.extra_exam.extra_exam_desc < 1) { setErrors({ ...errors, errExtra_exam_desc: true }); isValid = false }
+    if (props.values.extra_exam_name < 1) { setErrors({ ...errors, errExtra_exam_name: true }); isValid = false }
+    if (props.values.extra_exam_desc < 1) { setErrors({ ...errors, errExtra_exam_desc: true }); isValid = false }
     if (props.values.symptomes.length < 1) { setErrors({ ...errors, errSymptomes: true }); isValid = false }
-   
+
     if (isValid) { dispatch({ type: UPDATE_LEVEL, level: 'diagnostic' }) }
   }
-console.log('TEST :', props.values)
   const catchOnmit = async (event) => {
     event.preventDefault()
     dispatch({ type: UPDATE_LEVEL, level: '' })
@@ -144,25 +143,7 @@ console.log('TEST :', props.values)
               <Typography component='h1' variant='h5'>
                 Examen Complementaire
               </Typography>
-              {/*
-              <TextField
-                aria-label='minimum height'
-                placeholder='Renseignez le(s) probleme(s) cardiaque'
-                variant='outlined'
-                margin='dense'
-                label='Probleme cardiaque'
-                multiline
-                required
-                fullWidth
-                name='problem_health'
-                type='textarea'
-                id='problem_health'
-                value={props.values.problem_health}
-                autoComplete='current-problem_health'
-                onChange={props.onChange('problem_health')}
-                error={errors.errProblem_health}
-              />
-              */}
+
               <TextField
                 aria-label='minimum height'
                 placeholder="Renseignez le nom l'examen"
@@ -174,7 +155,7 @@ console.log('TEST :', props.values)
                 name='extra_exam_name'
                 type='textarea'
                 id='extra_exam_name'
-                value={props.values.extra_exam.extra_exam_name[0]}
+                value={props.values.extra_exam_name}
                 autoComplete='current-extra_exam_name'
                 onChange={props.onChange('extra_exam_name')}
                 error={errors.errExtra_exam_name}
@@ -193,7 +174,7 @@ console.log('TEST :', props.values)
                 name='extra_exam_desc'
                 type='textarea'
                 id='extra_exam_desc'
-                value={props.values.extra_exam.extra_exam_desc}
+                value={props.values.extra_exam_desc}
                 autoComplete='current-extra_exam_desc'
                 onChange={props.onChange('extra_exam_desc')}
                 error={errors.errExtra_exam_desc}

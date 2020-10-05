@@ -25,7 +25,7 @@ export const tryLogin = (email, passwd) => {
 }
 
 export const registerCheck = (user) => {
-  const pseudo = randomstring.generate({
+  const pseudo = 'Dentiio-' + randomstring.generate({
     length: 6,
     charset: 'alphabetic'
   })

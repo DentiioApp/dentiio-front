@@ -9,6 +9,7 @@ export const INIT_FAV_CASE = 'INIT_FAV_CASE'
 export const CARD_STATE = 'CARD_STATE'
 export const CASE_ITEM = 'CASE_ITEM'
 export const CASES_LIST = 'CASES_LIST'
+export const FREE_CREDENTIALS = 'FREE_CREDENTIALS'
 export const JOB_LIST = 'JOB_LIST'
 export const LOG_USER = 'LOG_USER'
 export const LOGIN_FORM = 'LOGIN_FORM'
@@ -18,7 +19,6 @@ export const VALID_STATUS = 'VALID_STATUS'
 export const INIT_CURRENT_CASE = 'INIT_CURRENT_CASE'
 export const KEYWORDS_LIST = 'KEYWORDS_LIST'
 export const FILTERED_CASES = 'FILTERED_CASES'
-export const STATUS_FORM = 'STATUS_FORM'
 export const UPDATE_LEVEL = 'UPDATE_LEVEL'
 export const SPECS_LIST = 'SPECS_LIST'
 export const PATHO_LIST = 'PATHO_LIST'
@@ -39,4 +39,5 @@ export {
   fetchSpecialities,
   fetchTreatments,
   fetchPathologies,
-  fetchCatPathologies}
+  fetchCatPathologies
+}

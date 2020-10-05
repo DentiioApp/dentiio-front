@@ -99,7 +99,7 @@ const Evolution = (props) => {
                   onChange={props.onChange('evolution_pics')}
                   name='evolution_pics'
                   id='evolution_pics'
-                  values= {props.values.evolution_pics}
+                  values={props.values.evolution_pics}
                   multiple
                 />
               </Button>

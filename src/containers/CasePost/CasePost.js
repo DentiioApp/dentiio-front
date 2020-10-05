@@ -59,106 +59,100 @@ const CasePost = () => {
   })
 
   const initValues = {
-    //Information du patient
+    // Require for create patient but non in figma maquette
+    is_medical_background: true,
+    problemHealth: true,
+    in_treatment: 'true',
+
+    // Information du patient
     age: 0,
     gender: '',
     isASmoker: false,
-    isAlcooler: false,
-    is_medical_background: false,
+    isDrinker: false,
     medical_background: [],
     current_treatments: [],
-    allergies: [],
+    allergies: '',
     reason_consultation: '',
 
-    //Examen clinique
+    // Examen clinique
     exam_pics: [],
-    pictures_clinic_exam :[],
+    pictures_clinic_exam: [],
     intra_extra_oral_desc: '',
     symptomes: [],
 
-    //Examen complementaire
-    extra_exam: {
-      extra_exam_name: [],
-      extra_exam_pictures: [],
-      extra_exam_desc: '',
-    },
+    // Examen complementaire
+    extra_exam_name: '',
+    extra_exam_pictures: '',
+    extra_exam_desc: '',
 
-    //Dagnostic
+    // Dagnostic
     diagnostic: '',
     pathologies: [],
     global_desc: '',
     medication_administered: [],
 
-
-    //Plan de traitement
+    // Plan de traitement
     step: [],
 
-    //Evolution
+    // Evolution
     evolution_pics: [],
     evolution: '',
 
-    //Conclusion
+    // Conclusion
     conclusion: '',
 
-    //Add clinical case
+    // Add clinical case
     title: '',
     summary: '',
     keywords: [],
     specialities: [],
 
-    in_treatment: '',
-    treatment: [],
+    treatment: []
   }
 
   const [values, setValues] = useState(initValues)
   const [inCrement, setInCrement] = useState(1)
-   
+
   const handleChange = prop => event => {
-    if (prop === 'isASmoker' || prop === 'isAnAlcooler') { setValues({ ...values, [prop]: event.target.checked }) }
-    else if (prop === 'old_injury') {
-
-      function addFields(){
-            var container = document.getElementById("fieldset_old_injury");
-            // Clear previous contents of the container
-            /*while (container.hasChildNodes()) {
+    if (prop === 'isASmoker' || prop === 'isDrinker') { setValues({ ...values, [prop]: event.target.checked }) } else if (prop === 'old_injury') {
+      function addFields () {
+        var container = document.getElementById('fieldset_old_injury')
+        // Clear previous contents of the container
+        /* while (container.hasChildNodes()) {
                 container.removeChild(container.lastChild);
-            }*/
-            
-            // Append a node with a random text
-            var newDiv= document.createElement('div');
-            newDiv.setAttribute("id","node_old_injury"+inCrement);
-            
+            } */
 
-            //   texField.setAttribute("label","minimum height")
-            //   texField.setAttribute("placeholder","Antecedent medicaux")
-            //   texField.setAttribute("variant","outlined")
-            //   texField.setAttribute("label","Antecedent medicaux")
-            //   texField.setAttribute("multilined",true)
-            //   texField.setAttribute("fullWidth",true)
-                newDiv.append(React.createFactory('TexField',<TextField  label="Combo box" variant="outlined" >jj</TextField>));
-              
-            container.appendChild(newDiv)
-            // Create an <input> element, set its type and name attributes
-            /*
+        // Append a node with a random text
+        var newDiv = document.createElement('div')
+        newDiv.setAttribute('id', 'node_old_injury' + inCrement)
+
+        //   texField.setAttribute("label","minimum height")
+        //   texField.setAttribute("placeholder","Antecedent medicaux")
+        //   texField.setAttribute("variant","outlined")
+        //   texField.setAttribute("label","Antecedent medicaux")
+        //   texField.setAttribute("multilined",true)
+        //   texField.setAttribute("fullWidth",true)
+        newDiv.append(React.createFactory('TexField', <TextField label='Combo box' variant='outlined'>jj</TextField>))
+
+        container.appendChild(newDiv)
+        // Create an <input> element, set its type and name attributes
+        /*
 
             var input = document.createElement("input");
             input.type = "text";
             input.name = "member" + i;
             container.appendChild(input);
-            
+
             */
-            // Append a line break 
-            container.appendChild(document.createElement("br"));
-            setInCrement(inCrement+1)
-           
-        }
-        addFields()
-      setValues({ ...values, [prop]: event.target.value }) 
-    }
-    else if (prop === 'extra_exam_desc') {setValues({ ...values, ['extra_exam.prop']: event.target.value })}
-    else { console.log('prop :', prop);setValues({ ...values, [prop]: event.target.value }) }
+        // Append a line break
+        container.appendChild(document.createElement('br'))
+        setInCrement(inCrement + 1)
+      }
+      addFields()
+      setValues({ ...values, [prop]: event.target.value })
+    } else { setValues({ ...values, [prop]: event.target.value }) }
   }
-   
+
   let form
 
   switch (level) {

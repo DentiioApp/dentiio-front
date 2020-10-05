@@ -7,9 +7,9 @@ import {
   Paper,
   Switch,
   Typography,
-  Button,
+  Button
 } from '@material-ui/core/'
-import AddCircleIcon from '@material-ui/icons/AddCircle';
+import AddCircleIcon from '@material-ui/icons/AddCircle'
 import Grid from '@material-ui/core/Grid'
 import { makeStyles } from '@material-ui/core/styles'
 import TextField from '@material-ui/core/TextField'
@@ -42,7 +42,7 @@ const Patient = (props) => {
   const initVals = {
     errAge: false,
     errGender: false,
-    errReason_consultation: false,
+    errReason_consultation: false
   }
   const [errors, setErrors] = useState(initVals)
 
@@ -135,10 +135,10 @@ const Patient = (props) => {
                 Buveur <LocalBarIcon />
               </InputLabel>
               <Switch
-                checked={props.values.isAnAlcooler}
-                onChange={props.onChange('isAnAlcooler')}
+                checked={props.values.isDrinker}
+                onChange={props.onChange('isDrinker')}
                 color='primary'
-                name='isAnAlcooler'
+                name='isDrinker'
                 inputProps={{ 'aria-label': 'primary checkbox' }}
               />
 
@@ -190,14 +190,14 @@ const Patient = (props) => {
                 multiline
                 fullWidth
                 margin='normal'
-                name='allergie'
+                name='allergies'
                 type='textarea'
-                id='current_allergie'
+                id='current_allergies'
                 value={props.values.allergies}
-                autoComplete='current-allergie'
-                onChange={props.onChange('current_allergie')}
+                autoComplete='current-allergies'
+                onChange={props.onChange('allergies')}
                 error={errors.errAllergies}
-              />                
+              />
 
               <br />  <br />
 

@@ -67,37 +67,34 @@ const CasesList = () => {
     setValues({ ...values, paginator: event.target.value })
   }
 
-if (cases.length < 1 ) {
-  return (<Spinner />)
-} 
-else {
-  return (
-    <>
-      <Container maxWidth='lg'>
-        <center><img src={titleSvg} alt='Cas Cliniques' /></center>
-        <Paginator pages={pages} onChange={handleChange} current={values.paginator} /> {cases.length > 0 ? '[page ' + values.paginator + ']' : ''}
-        <div className={classes.root}>
-          {areLoaded && cases.map((oCase, index) => {
-            var isFavorite = false
-            if (favorites.length > 0) {
-              favorites.map((item) => {
-                var slashIndex = item.clinicalCaseId.lastIndexOf('/')
-                var caseId = Number(item.clinicalCaseId.substr(slashIndex).substr(1, slashIndex.length))
-                if (caseId === oCase.id) { isFavorite = true }
-                return isFavorite
-              })
-            }
+  if (cases.length < 1) {
+    return (<Spinner />)
+  } else {
+    return (
+      <>
+        <Container maxWidth='lg'>
+          <center><img src={titleSvg} alt='Cas Cliniques' /></center>
+          <Paginator pages={pages} onChange={handleChange} current={values.paginator} /> {cases.length > 0 ? '[page ' + values.paginator + ']' : ''}
+          <div className={classes.root}>
+            {areLoaded && cases.map((oCase, index) => {
+              var isFavorite = false
+              if (favorites.length > 0) {
+                favorites.map((item) => {
+                  var slashIndex = item.clinicalCaseId.lastIndexOf('/')
+                  var caseId = Number(item.clinicalCaseId.substr(slashIndex).substr(1, slashIndex.length))
+                  if (caseId === oCase.id) { isFavorite = true }
+                  return isFavorite
+                })
+              }
 
-            return <CasesItem key={index} item={oCase} favorite={isFavorite} />
-          })}
-        </div>
-        <Paginator pages={pages} onChange={handleChange} current={values.paginator} />
-      </Container>
-    </>
-  )
-}
-    
-  
+              return <CasesItem key={index} item={oCase} favorite={isFavorite} />
+            })}
+          </div>
+          <Paginator pages={pages} onChange={handleChange} current={values.paginator} />
+        </Container>
+      </>
+    )
+  }
 }
 
 export default CasesList

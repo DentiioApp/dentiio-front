@@ -36,7 +36,7 @@ const Diagnostic = (props) => {
     errPathologies: false,
     errDiagnostic: false,
     errMedication_administered: false,
-    errGlobal_desc: false,
+    errGlobal_desc: false
   }
   const [errors, setErrors] = useState(initVals)
 
@@ -84,7 +84,7 @@ const Diagnostic = (props) => {
                 aria-label='minimum height'
                 placeholder='diagnostic'
                 variant='outlined'
-                label='Intraorale et extraorale'
+                label='Diagnostic'
                 multiline
                 autoFocus
                 fullWidth

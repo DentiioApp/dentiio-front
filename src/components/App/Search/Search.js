@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { tryKeywords } from '../../../services/Home'
 import { FILTERED_CASES, KEYWORDS_LIST } from '../../../store/actions'
 import './Search.scss'
-import CategoriesCases from "../../UI/Dawers/CategoriesCases";
+import CategoriesCases from '../../UI/Dawers/CategoriesCases'
 
 const useStyles = makeStyles((theme) => ({
   barWidth: {
@@ -78,7 +78,7 @@ const Search = (props) => {
   return (
     <div className='wrap'>
       <div className='search'>
-        <CategoriesCases className={classes.barWidth}/>
+        <CategoriesCases className={classes.barWidth} />
         <Autocomplete
           className={classes.barWidth}
           id='grouped-demo'
