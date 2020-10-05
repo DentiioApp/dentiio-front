@@ -26,7 +26,7 @@ import { SUBSCRIBE_FORM, LOG_USER } from '../../../store/actions'
 import { tryLogin } from '../../../services/Users'
 import { setup } from '../../../services/Auth'
 import config from '../../../config'
-import logo from "../../../images/logo.svg";
+import logo from '../../../images/logo.svg'
 
 const useStyles = makeStyles((theme) => (oStyle(theme, imgDesktop, imgMobile)))
 
@@ -123,7 +123,7 @@ const SignIn = () => {
             <Typography component='h1' variant='h5'>
               J'ai déjà un compte Dentiio
             </Typography>
-            <br/><br/>
+            <br /><br />
             <form className={classes.form} noValidate>
               <TextField
                 variant='outlined'
@@ -140,37 +140,36 @@ const SignIn = () => {
                 error={errEmail}
               />
 
-              <br/><br/>
-
+              <br /><br />
 
               <OutlinedInput
-                  variant='outlined'
-                  required
-                  fullWidth
-                  name='password'
-                  label='Mot de passe*'
-                  type={values.showPassword ? 'text' : 'password'}
-                  value={values.password}
-                  id='outlined-adornment-password'
-                  autoComplete='on'
-                  placeholder='Mot de passe*'
-                  error={errPassword}
-                  onChange={handleChange('password')}
-                  endAdornment={
-                    <InputAdornment position='start'>
-                      <IconButton
-                        aria-label='toggle password visibility'
-                        onClick={handleClickShowPassword}
-                        onMouseDown={handleMouseDownPassword}
-                        edge='end'
-                      >
-                        {values.showPassword ? <Visibility /> : <VisibilityOff />}
-                      </IconButton>
-                    </InputAdornment>
-                  }
-                />
+                variant='outlined'
+                required
+                fullWidth
+                name='password'
+                label='Mot de passe*'
+                type={values.showPassword ? 'text' : 'password'}
+                value={values.password}
+                id='outlined-adornment-password'
+                autoComplete='on'
+                placeholder='Mot de passe*'
+                error={errPassword}
+                onChange={handleChange('password')}
+                endAdornment={
+                  <InputAdornment position='start'>
+                    <IconButton
+                      aria-label='toggle password visibility'
+                      onClick={handleClickShowPassword}
+                      onMouseDown={handleMouseDownPassword}
+                      edge='end'
+                    >
+                      {values.showPassword ? <Visibility /> : <VisibilityOff />}
+                    </IconButton>
+                  </InputAdornment>
+                }
+              />
 
-              <br/><br/><br/><br/>
+              <br /><br /><br /><br />
 
               <GradientBtn
                 variant='contained'
@@ -180,20 +179,20 @@ const SignIn = () => {
                 onClick={catchSubmit}
               />
 
-              <br /><br/><br/>
-              <Typography  align={"center"}>
+              <br /><br /><br />
+              <Typography align='center'>
                 <span>
-                  <Link href="#" color='primary'>
+                  <Link href='#' color='primary'>
                     Mot de passe oublié ?
                   </Link>
                 </span>
               </Typography>
-              <br/>
-              <br/>
-              <Typography align={"center"}>
+              <br />
+              <br />
+              <Typography align='center'>
                 <span>
                 Nouveau sur Dentiio ?{' '}
-                  <Link href="#" onClick={(e) => switchToSubscribe(e)} color='primary'>
+                  <Link href='#' onClick={(e) => switchToSubscribe(e)} color='primary'>
                   Inscrivez-vous.
                   </Link>
                 </span>

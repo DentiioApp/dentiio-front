@@ -46,7 +46,7 @@ export const oStyle = (theme, imgDesktop, imgMobile) => {
     },
 
     login: {
-      minWidth: "500px",
+      minWidth: '500px',
       height: 'fit-content',
       position: 'absolute',
       marginTop: '0%',
@@ -55,7 +55,7 @@ export const oStyle = (theme, imgDesktop, imgMobile) => {
       borderRadius: '20px',
       marginRight: '10%',
       [theme.breakpoints.down('sm')]: {
-        minWidth: "150px",
+        minWidth: '150px',
         marginLeft: 'auto',
         marginRight: 'auto',
         position: 'inherit',

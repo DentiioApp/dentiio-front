@@ -9,8 +9,9 @@ import {
   Paper,
   Typography,
   Link
+  , FormControlLabel, FormControl
 } from '@material-ui/core/'
-import {FormControlLabel, FormControl} from "@material-ui/core";
+
 import Grid from '@material-ui/core/Grid'
 import IconButton from '@material-ui/core/IconButton'
 import InputAdornment from '@material-ui/core/InputAdornment'
@@ -158,38 +159,38 @@ const Register = () => {
           <Typography component='h1' variant='h5'>
             Nouveau sur Dentiio ?
           </Typography>
-          <br/>
+          <br />
           <Typography component='h3' variant='subtitle2'>
             Saisissez vos informations pour continuer.
           </Typography>
-          <br/><br/>
+          <br /><br />
           <form className={classes.form} noValidate onSubmit={sendEmail}>
             <InputLabel className='inputLabel'>
               Vous êtes* :
             </InputLabel>
             <TextField
-                fullWidth
-                id='job'
-                select
-                value={values.job === '' ? 'none' : values.job}
-                onChange={handleChange('job')}
-                variant='outlined'
+              fullWidth
+              id='job'
+              select
+              value={values.job === '' ? 'none' : values.job}
+              onChange={handleChange('job')}
+              variant='outlined'
             >
               <MenuItem key='none' value='none' disabled>
                 {'Indiquez votre profession'}
               </MenuItem>
 
               {jobs && jobs.map(option => (
-                  <MenuItem key={option.ident} value={option.id}>
-                    {option.name}
-                  </MenuItem>
+                <MenuItem key={option.ident} value={option.id}>
+                  {option.name}
+                </MenuItem>
               ))}
             </TextField>
-            <br/><br/>
+            <br /><br />
 
             <TextField
               variant='outlined'
-              className="labelGrey"
+              className='labelGrey'
               margin='normal'
               required
               fullWidth
@@ -202,10 +203,10 @@ const Register = () => {
               error={errEmail}
               helperText={values.email !== '' ? (checkEmail(values.email) === false ? 'Email invalide!' : ' ') : ''}
             />
-            <br/><br/>
+            <br /><br />
 
-            <FormControl fullWidth variant="outlined">
-              <InputLabel htmlFor="outlined-adornment-password">Votre mot de passe *</InputLabel>
+            <FormControl fullWidth variant='outlined'>
+              <InputLabel htmlFor='outlined-adornment-password'>Votre mot de passe *</InputLabel>
               <OutlinedInput
                 variant='outlined'
                 required
@@ -214,7 +215,7 @@ const Register = () => {
                 label='Votre mot de passe *'
                 type={values.showPassword ? 'text' : 'password'}
                 value={values.password}
-                className="labelGreyPassword"
+                className='labelGreyPassword'
                 id='outlined-adornment-password'
                 autoComplete='on'
                 error={errPassword}
@@ -235,30 +236,30 @@ const Register = () => {
               />
             </FormControl>
 
-            <br/>
+            <br />
             <Typography component='p' color='textPrimary'>
                 8 caractères minimum, un caractère spécial, une majuscule
             </Typography>
 
-            <br/><br/>
+            <br /><br />
 
             <FormControlLabel
-                className={"labelGreyAccept"}
+              className='labelGreyAccept'
 
               control={
-                  <Switch
-                    checked={errCgu}
-                    onChange={(e) => { setErrCgu(e.target.checked) }}
-                    color='primary'
-                    name='is_medical_background'
-                    inputProps={{ 'aria-label': 'primary checkbox' }}
-                    className={"label"}
-                  />
-                }
-                label="J'accepte les Conditions générales de d'utilisation"
+                <Switch
+                  checked={errCgu}
+                  onChange={(e) => { setErrCgu(e.target.checked) }}
+                  color='primary'
+                  name='is_medical_background'
+                  inputProps={{ 'aria-label': 'primary checkbox' }}
+                  className='label'
+                />
+              }
+              label="J'accepte les Conditions générales de d'utilisation"
             />
 
-            <br/><br/><br/>
+            <br /><br /><br />
 
             <div onClick={(e) => (catchSubmit(e))}>
               <GradientBtn
@@ -268,12 +269,12 @@ const Register = () => {
                 className='GradientBtn'
               />
             </div>
-            <br /><br/><br/>
+            <br /><br /><br />
             <Typography>
               <span>
                 {' '}
                   Déjà un compte ?{' '}
-                <Link href="#" onClick={(e) => switchToLogin(e)} color='primary'>
+                <Link href='#' onClick={(e) => switchToLogin(e)} color='primary'>
                   {' '}
                     Connectez-vous.{' '}
                 </Link>{' '}

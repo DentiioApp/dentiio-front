@@ -105,7 +105,8 @@ const config = {
       },
       card: {
         error: 'Une erreur est survenue lors du chargement de votre carte',
-        success: 'Carte envoyé, vous serez notifié par mail une fois votre status validé ! '
+        success: 'Carte envoyé, vous serez notifié par mail une fois votre status validé ! ',
+        pending: 'Telechargement de votre carte en progression ...'
       }
     }
   }
