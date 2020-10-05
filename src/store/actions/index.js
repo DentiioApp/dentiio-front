@@ -3,7 +3,6 @@ import { fetchSpecialities } from './Specialities'
 import { fetchTreatments } from './Treatments'
 import { fetchPathologies } from './Pathologies'
 import { fetchCatPathologies } from './CatPathologies'
-import { fetchCatTreatments } from './CatTreatments'
 
 export const ADD_FAVORITE = 'ADD_FAVORITE'
 export const INIT_FAV_CASE = 'INIT_FAV_CASE'
@@ -40,6 +39,4 @@ export {
   fetchSpecialities,
   fetchTreatments,
   fetchPathologies,
-  fetchCatPathologies,
-  fetchCatTreatments
-}
+  fetchCatPathologies}

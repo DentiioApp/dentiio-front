@@ -9,11 +9,11 @@ import ListItem from '@material-ui/core/ListItem';
 import ExpandMore from '@material-ui/icons/ExpandMore'
 import ListItemText from '@material-ui/core/ListItemText';
 import ListIcon from '@material-ui/icons/List';
-import { fetchSpecialities, fetchCatTreatments, fetchCatPathologies} from "../../../store/actions";
+import { fetchSpecialities, fetchCatPathologies} from "../../../store/actions";
 import {useDispatch, useSelector} from "react-redux";
 import IconButton from "@material-ui/core/IconButton";
 import CloseIcon from '@material-ui/icons/Close';
-import {Accordion, AccordionDetails, AccordionSummary} from "@material-ui/core";
+import {Accordion, AccordionSummary} from "@material-ui/core";
 
 
 const useStyles = makeStyles({
@@ -36,7 +36,6 @@ export default function TemporaryDrawer() {
     const dispatch = useDispatch()
     const specialities = useSelector((state) => state.specialities.specialities)
     const catPathologies = useSelector((state) => state.catPathologies.catPathologies)
-    const catTreatments = useSelector((state) => state.catTreatments.catTreatments)
 
     const toggleDrawer = (anchor, open) => (event) => {
         if (event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift')) {
@@ -47,9 +46,6 @@ export default function TemporaryDrawer() {
     };
 
     useEffect(() => {
-        if (catTreatments.length < 1) {
-            dispatch(fetchCatTreatments())
-        }
         if (specialities.length < 1) {
             dispatch(fetchSpecialities())
         }
@@ -97,6 +93,9 @@ export default function TemporaryDrawer() {
                                     <ListItem button className={classes.nested}>
                                         <ListItemText />
                                         <List>
+                                            <ListItem button key={index}>
+                                                <ListItemText primary="Toutes" />
+                                            </ListItem>
                                             {catPathologie.pathologies &&
                                             catPathologie.pathologies.map((pathologie, index) => (
                                                 <ListItem button key={index}>
@@ -114,28 +113,6 @@ export default function TemporaryDrawer() {
             <Accordion>
                 <AccordionSummary expandIcon={<ExpandMore />}>
                     <ListItem>
-                        <ListItemText primary='Spécialités' />
-                    </ListItem>
-                </AccordionSummary>
-
-                <AccordionDetails>
-                    <ListItem>
-                        <ListItemText />
-                        <List>
-                            {specialities &&
-                            specialities.map((speciality, index) => (
-                                <ListItem button key={index}>
-                                    <ListItemText primary={speciality.name} />
-                                </ListItem>
-                            ))}
-                        </List>
-                    </ListItem>
-                </AccordionDetails>
-            </Accordion>
-
-            <Accordion>
-                <AccordionSummary expandIcon={<ExpandMore />}>
-                    <ListItem>
                         <ListItemText primary='Traitements' />
                     </ListItem>
                 </AccordionSummary>
@@ -143,19 +120,22 @@ export default function TemporaryDrawer() {
                 <ListItem button className={classes.nested}>
                     <ListItemText />
                     <List>
-                        {catTreatments &&
-                        catTreatments.map((catTreatment, index) => (
+                        {specialities &&
+                        specialities.map((specialitie, index) => (
                             <Accordion key={index}>
                                 <AccordionSummary expandIcon={<ExpandMore />}>
                                     <ListItem>
-                                        <ListItemText primary={catTreatment.name} />
+                                        <ListItemText primary={specialitie.name} />
                                     </ListItem>
                                 </AccordionSummary>
                                 <ListItem button className={classes.nested}>
                                     <ListItemText />
                                     <List>
-                                        {catTreatment.treatments &&
-                                        catTreatment.treatments.map((treatment, index) => (
+                                        <ListItem button key={index}>
+                                            <ListItemText primary="Tous" />
+                                        </ListItem>
+                                        {specialitie.treatments &&
+                                        specialitie.treatments.map((treatment, index) => (
                                             <ListItem button key={index}>
                                                 <ListItemText primary={treatment.name} />
                                             </ListItem>
@@ -167,6 +147,7 @@ export default function TemporaryDrawer() {
                     </List>
                 </ListItem>
             </Accordion>
+
         </div>
     );
 
