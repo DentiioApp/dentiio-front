@@ -159,7 +159,6 @@ const Patient = (props) => {
                 id='old_injury'
                 value={props.values.old_injury}
                 autoComplete='current-old_injury'
-                // onKeyDown={(e) => e.keyCode !== 13 ? null : catchSubmit(e)}
                 onChange={props.onChange('problem_health')}
                 error={errors.errProblem_health}
               />
