@@ -10,7 +10,7 @@ import {
   Typography,
   Link
 } from '@material-ui/core/'
-import FormHelperText from '@material-ui/core/FormHelperText'
+import {FormControlLabel, FormControl} from "@material-ui/core";
 import Grid from '@material-ui/core/Grid'
 import IconButton from '@material-ui/core/IconButton'
 import InputAdornment from '@material-ui/core/InputAdornment'
@@ -144,7 +144,6 @@ const Register = () => {
   return (
     <Grid container component='main' className={classes.root}>
       <img className={classes.logo} alt='' src={logo} />
-
       <Grid
         item
         xs={11}
@@ -170,7 +169,6 @@ const Register = () => {
             </InputLabel>
             <TextField
                 fullWidth
-                className='textField'
                 id='job'
                 select
                 value={values.job === '' ? 'none' : values.job}
@@ -191,6 +189,7 @@ const Register = () => {
 
             <TextField
               variant='outlined'
+              className="labelGrey"
               margin='normal'
               required
               fullWidth
@@ -204,34 +203,38 @@ const Register = () => {
               helperText={values.email !== '' ? (checkEmail(values.email) === false ? 'Email invalide!' : ' ') : ''}
             />
             <br/><br/>
-            <OutlinedInput
-              variant='outlined'
-              required
-              fullWidth
-              name='password'
-              label='Password'
-              type={values.showPassword ? 'text' : 'password'}
-              value={values.password}
-              id='outlined-adornment-password'
-              autoComplete='on'
-              placeholder='Votre mot de passe *'
-              error={errPassword}
-              onKeyDown={(e) => e.keyCode !== 13 ? null : catchSubmit(e)}
-              onChange={handleChange('password')}
-              endAdornment={
-                <InputAdornment position='start'>
-                  <IconButton
-                    aria-label='toggle password visibility'
-                    onClick={handleClickShowPassword}
-                    onMouseDown={handleMouseDownPassword}
-                    edge='end'
-                  >
-                    {values.showPassword ? <Visibility /> : <VisibilityOff />}
-                  </IconButton>
-                </InputAdornment>
-              }
 
-            />
+            <FormControl fullWidth variant="outlined">
+              <InputLabel htmlFor="outlined-adornment-password">Votre mot de passe *</InputLabel>
+              <OutlinedInput
+                variant='outlined'
+                required
+                fullWidth
+                name='password'
+                label='Votre mot de passe *'
+                type={values.showPassword ? 'text' : 'password'}
+                value={values.password}
+                className="labelGreyPassword"
+                id='outlined-adornment-password'
+                autoComplete='on'
+                error={errPassword}
+                onKeyDown={(e) => e.keyCode !== 13 ? null : catchSubmit(e)}
+                onChange={handleChange('password')}
+                endAdornment={
+                  <InputAdornment position='start'>
+                    <IconButton
+                      aria-label='toggle password visibility'
+                      onClick={handleClickShowPassword}
+                      onMouseDown={handleMouseDownPassword}
+                      edge='end'
+                    >
+                      {values.showPassword ? <Visibility /> : <VisibilityOff />}
+                    </IconButton>
+                  </InputAdornment>
+                }
+              />
+            </FormControl>
+
             <br/>
             <Typography component='p' color='textPrimary'>
                 8 caractères minimum, un caractère spécial, une majuscule
@@ -239,16 +242,21 @@ const Register = () => {
 
             <br/><br/>
 
-            <Switch
-              checked={errCgu}
-              onChange={(e) => { setErrCgu(e.target.checked) }}
-              color='primary'
-              name='is_medical_background'
-              inputProps={{ 'aria-label': 'primary checkbox' }}
+            <FormControlLabel
+                className={"labelGreyAccept"}
+
+              control={
+                  <Switch
+                    checked={errCgu}
+                    onChange={(e) => { setErrCgu(e.target.checked) }}
+                    color='primary'
+                    name='is_medical_background'
+                    inputProps={{ 'aria-label': 'primary checkbox' }}
+                    className={"label"}
+                  />
+                }
+                label="J'accepte les Conditions générales de d'utilisation"
             />
-            <Typography component='p' color='textPrimary'>
-              {"J'accepte les conditions générales de d'utilisation"}
-            </Typography>
 
             <br/><br/><br/>
 
@@ -256,18 +264,18 @@ const Register = () => {
               <GradientBtn
                 variant='contained'
                 type='submit'
-                description={'S\'inscrire'}
+                description={'S\'INSCRIRE'}
                 className='GradientBtn'
               />
             </div>
-            <br />
+            <br /><br/><br/>
             <Typography>
               <span>
                 {' '}
-                  Déjà un compte{' '}
-                <Link onClick={(e) => switchToLogin(e)} color='primary'>
+                  Déjà un compte ?{' '}
+                <Link href="#" onClick={(e) => switchToLogin(e)} color='primary'>
                   {' '}
-                    Connectez-vous ?{' '}
+                    Connectez-vous.{' '}
                 </Link>{' '}
               </span>
             </Typography>

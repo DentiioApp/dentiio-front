@@ -25,9 +25,8 @@ import oStyle from '../../ResponsiveDesign/AuthStyle'
 import { SUBSCRIBE_FORM, LOG_USER } from '../../../store/actions'
 import { tryLogin } from '../../../services/Users'
 import { setup } from '../../../services/Auth'
-import logo from '../../../images/logo.svg'
-import avatar from '../../../images/logoteeth_blue.png'
 import config from '../../../config'
+import logo from "../../../images/logo.svg";
 
 const useStyles = makeStyles((theme) => (oStyle(theme, imgDesktop, imgMobile)))
 
@@ -112,20 +111,19 @@ const SignIn = () => {
         <img className={classes.logo} alt='' src={logo} />
         <Grid
           item
-          xs={10}
-          sm={8}
-          md={8}
-          lg={5}
+          xs={11}
+          sm={7}
+          md={7}
           component={Paper}
           elevation={6}
           square
           className={classes.login}
         >
           <div className={classes.paper}>
-            <img className={classes.avatar} alt='' src={avatar} />
             <Typography component='h1' variant='h5'>
-              Connexion
+              J'ai déjà un compte Dentiio
             </Typography>
+            <br/><br/>
             <form className={classes.form} noValidate>
               <TextField
                 variant='outlined'
@@ -134,7 +132,7 @@ const SignIn = () => {
                 fullWidth
                 autoFocus
                 name='email'
-                label='Email'
+                label='Adresse email'
                 type='text'
                 id='email'
                 autoComplete='current-email'
@@ -142,54 +140,62 @@ const SignIn = () => {
                 error={errEmail}
               />
 
-              <br />
+              <br/><br/>
+
 
               <OutlinedInput
-                variant='outlined'
-                required
-                fullWidth
-                name='password'
-                label='Password'
-                type={values.showPassword ? 'text' : 'password'}
-                value={values.password}
-                id='outlined-adornment-password'
-                autoComplete='on'
-                placeholder='Password'
-                error={errPassword}
-                onChange={handleChange('password')}
-                endAdornment={
-                  <InputAdornment position='start'>
-                    <IconButton
-                      aria-label='toggle password visibility'
-                      onClick={handleClickShowPassword}
-                      onMouseDown={handleMouseDownPassword}
-                      edge='end'
-                    >
-                      {values.showPassword ? <Visibility /> : <VisibilityOff />}
-                    </IconButton>
-                  </InputAdornment>
-                }
-              />
+                  variant='outlined'
+                  required
+                  fullWidth
+                  name='password'
+                  label='Mot de passe*'
+                  type={values.showPassword ? 'text' : 'password'}
+                  value={values.password}
+                  id='outlined-adornment-password'
+                  autoComplete='on'
+                  placeholder='Mot de passe*'
+                  error={errPassword}
+                  onChange={handleChange('password')}
+                  endAdornment={
+                    <InputAdornment position='start'>
+                      <IconButton
+                        aria-label='toggle password visibility'
+                        onClick={handleClickShowPassword}
+                        onMouseDown={handleMouseDownPassword}
+                        edge='end'
+                      >
+                        {values.showPassword ? <Visibility /> : <VisibilityOff />}
+                      </IconButton>
+                    </InputAdornment>
+                  }
+                />
 
-              <br />  <br />
+              <br/><br/><br/><br/>
 
               <GradientBtn
                 variant='contained'
                 type='submit'
-                description='Se connecter'
+                description='SE CONNECTER'
                 className='GradientBtn'
                 onClick={catchSubmit}
               />
 
-              <br />
-              <Typography>
+              <br /><br/><br/>
+              <Typography  align={"center"}>
                 <span>
-                  {' '}
-                Pas de compte{' '}
-                  <Link onClick={(e) => switchToSubscribe(e)} color='primary'>
-                    {' '}
-                  Inscrivez-vous !{' '}
-                  </Link>{' '}
+                  <Link href="#" color='primary'>
+                    Mot de passe oublié ?
+                  </Link>
+                </span>
+              </Typography>
+              <br/>
+              <br/>
+              <Typography align={"center"}>
+                <span>
+                Nouveau sur Dentiio ?{' '}
+                  <Link href="#" onClick={(e) => switchToSubscribe(e)} color='primary'>
+                  Inscrivez-vous.
+                  </Link>
                 </span>
               </Typography>
             </form>

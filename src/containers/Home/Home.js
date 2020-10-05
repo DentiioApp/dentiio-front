@@ -13,7 +13,7 @@ const Home = () => {
   const home = useSelector((state) => state.home)
   const user = useSelector((state) => state.user)
   const isLoaded = home.jobsLoaded
-  var form = home.login ? <SignIn /> : <Register />
+  var form = home.login ?  <Register /> : <SignIn />
 
   if (user.subscribe && /*user.tryValidStatus === undefined && */!home.status) {
     form = <Status />

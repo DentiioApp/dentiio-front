@@ -21,7 +21,9 @@ const Favorites = () => {
   }
 
   useEffect(() => {
-    if (favorites && favorites.length < 1) { initUserFav() }
+    if (favorites && favorites.length < 1) {
+      initUserFav()
+    }
   }, [favorites.length])
 
   const getCases = async () => {
