@@ -155,7 +155,7 @@ const CasePost = () => {
         addFields()
       setValues({ ...values, [prop]: event.target.value }) 
     }
-    else if (prop === 'extra_exam_desc') {setValues({ ...values, ['extra_exam.prop]: event.target.value })}
+    else if (prop === 'extra_exam_desc') {setValues({ ...values, ['extra_exam.prop']: event.target.value })}
     else { console.log('prop :', prop);setValues({ ...values, [prop]: event.target.value }) }
   }
    

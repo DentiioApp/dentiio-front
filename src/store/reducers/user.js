@@ -6,7 +6,7 @@ const INIT_STATE = {
   id: 0,
   username: '',
   connected: false,
-  isValidStatus: 0,
+  isValidStatus: true,
   message: '',
   subscribe: false,
   credentials: {

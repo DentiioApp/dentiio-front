@@ -46,10 +46,10 @@ export default function TemporaryDrawer() {
     };
 
     useEffect(() => {
-        if (specialities.length < 1) {
+        if (specialities && specialities.length < 1) {
             dispatch(fetchSpecialities())
         }
-        if (catPathologies.length < 1) {
+        if (catPathologies && catPathologies.length < 1) {
             dispatch(fetchCatPathologies())
         }
     })
