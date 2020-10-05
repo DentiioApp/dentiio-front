@@ -5,6 +5,8 @@ import { User } from './user'
 import { Specialities } from './specialities'
 import { Treatments } from './treatments'
 import { Pathologies } from './pathologies'
+import { CatPathologies } from './catPathologies'
+import { CatTreatments } from './catTreatments'
 
 export const adminReducer = combineReducers({
   cases: Cases,
@@ -12,6 +14,8 @@ export const adminReducer = combineReducers({
   home: Home,
   specialities: Specialities,
   treatments: Treatments,
-  pathologies: Pathologies
+  pathologies: Pathologies,
+  catPathologies: CatPathologies,
+  catTreatments: CatTreatments
 
 })
