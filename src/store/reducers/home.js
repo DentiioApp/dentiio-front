@@ -32,8 +32,8 @@ const INIT_STATE = {
 
 export const Home = (state = INIT_STATE, action) => {
   switch (action.type) {
-    case 'LOGIN_FORM': return { ...state, login: true }
-    case 'SUBSCRIBE_FORM': return { ...state, login: false }
+    case 'LOGIN_FORM': return { ...state, login: false }
+    case 'SUBSCRIBE_FORM': return { ...state, login: true }
     case 'STATUS_FORM': return { ...state, status: true }
 
     case 'JOB_LIST': return { ...state, jobs: action.data, jobsLoaded: true }

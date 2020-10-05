@@ -13,8 +13,7 @@ import FormHelperText from '@material-ui/core/FormHelperText'
 import { makeStyles } from '@material-ui/core/styles'
 import imgDesktop from '../../../images/illus.png'
 import imgMobile from '../../../images/mobile-bg.svg'
-
-//import { getUserId, saveCard, tryLogin } from '../../../services/Users'
+import StatusJustif from "../../UI/Modal/StatusJustif";
 import GradientBtn from '../../UI/buttons/GradientBtn'
 import oStyle from '../../ResponsiveDesign/AuthStyle'
 import { checkFiles } from '../../../utils'
@@ -22,7 +21,6 @@ import { checkFiles } from '../../../utils'
 import { setup } from '../../../services/Auth'
 import { LOGIN_FORM, STATUS_FORM, /*LOG_USER*/ } from '../../../store/actions'
 import logo from '../../../images/logo.svg'
-import avatar from '../../../images/logoteeth_blue.png'
 import config from '../../../config'
 
 const useStyles = makeStyles((theme) => (oStyle(theme, imgDesktop, imgMobile)))
@@ -107,27 +105,33 @@ const Status = () => {
           className={classes.login}
         >
           <div className={classes.paper}>
-            <img className={classes.avatar} alt='' src={avatar} />
             <Typography component='h1' variant='h5'>
-              Je Valide Mon Status
+              Validez votre inscription
             </Typography>
+            <br/><br/>
+            <Typography component='h3' variant='subtitle2'>
+              Uploadez votre carte CPS, carte étudiante ou autre document qui montre que vous faites partie du milieu dentaire. <StatusJustif/>
+            </Typography>
+            <br/>
             <form className={classes.form} noValidate>
               <Input
                 type='file'
+                fullWidth
                 onKeyDown={(e) => e.keyCode !== 13 ? null : catchSubmit}
                 onChange={handleChange('cpsCard')}
                 name='cps'
                 id='cps'
                 required
               />
-
               <FormHelperText id='my-helper-text'>{errCard || ''}</FormHelperText>
+              <br/><br/>
+
 
               <div onClick={catchSubmit}>
                 <GradientBtn
                   variant='contained'
                   type='submit'
-                  description='Reclamer mon statut'
+                  description='ENVOYER'
                   className='GradientBtn'
                 />
               </div>

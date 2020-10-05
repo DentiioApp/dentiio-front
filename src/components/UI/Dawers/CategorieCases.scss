@@ -1,0 +1,31 @@
+.drawerHeader{
+  display: flex;
+  align-items: center;
+  margin-left: 50px!important;
+  justify-content: flex-end;
+}
+.searchby{
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+}
+.flex {
+  background-color: #03b6f0;
+  color: white;
+  font-size: 19px;
+  font-weight: bolder;
+  display: flex;
+  align-items: center;
+  padding: 10px 0 10px 10px;
+  justify-content: flex-start;
+}
+.boutonCat{
+  padding: 14px 15px!important;
+  font-size: 0.9375rem!important;
+  margin-top: 33px!important;
+}
+.MuiButton-outlinedSizeLarge {
+  padding: 15px 15px;
+  font-size: 0.9375rem;
+  margin-top: 33px;
+}
