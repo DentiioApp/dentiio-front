@@ -2,17 +2,12 @@
 import conf from '../../config'
 
 const INIT_STATE = {
-  navBarOpen: '',
 
-  loadingJobs: false,
   jobsLoaded: false,
   jobs: [],
 
-  loadingUsers: false,
-  usersLoaded: false,
   users: [],
 
-  loadingCases: false,
   casesLoaded: false,
   cases: [],
   nbrCases: 1,

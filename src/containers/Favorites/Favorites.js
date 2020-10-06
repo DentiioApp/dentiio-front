@@ -1,6 +1,5 @@
 import React, { useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
-import { Redirect } from 'react-router-dom'
 
 import Header from '../../components/App/Header/Header'
 import Container from '@material-ui/core/Container'

@@ -1,6 +1,6 @@
 import './signIn.scss'
 
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import { useDispatch } from 'react-redux'
 import { Redirect } from 'react-router-dom'
 import { useToasts } from 'react-toast-notifications'
@@ -23,7 +23,7 @@ import VisibilityOff from '@material-ui/icons/VisibilityOff'
 import GradientBtn from '../../UI/buttons/GradientBtn'
 import oStyle from '../../ResponsiveDesign/AuthStyle'
 import { SUBSCRIBE_FORM, LOG_USER } from '../../../store/actions'
-import { tryLogin } from '../../../services/Users'
+import { loginCheck } from '../../../services/Users'
 import { setup } from '../../../services/Auth'
 import config from '../../../config'
 import logo from '../../../images/logo.svg'
@@ -43,16 +43,9 @@ const SignIn = () => {
     showPassword: false
   }
 
-  const [datas, setDatas] = useState('')
   const [values, setValues] = useState(initValues)
   const [errEmail, setErrEmail] = useState(false)
   const [errPassword, setErrPassword] = useState(false)
-
-  useEffect(() => {
-    if (datas !== '') {
-      dispatch({ type: LOG_USER, datas: datas })
-    }
-  })
 
   const onKeyUp = (event) => {
     if (event.keyCode === 13) {
@@ -64,29 +57,17 @@ const SignIn = () => {
     e.preventDefault()
 
     if (values.password !== '' && values.email !== '') {
-      const respo = sendRequest()
-      respo.then((res) => {
-        addToast(res.message, { appearance: res.appearance })
-      })
+      const regex2 = RegExp(/Error/)
+      const response = await loginCheck(values.email, values.password)
+      if (regex2.test(response.datas)) {
+        addToast(messages.signin.error, {appearance: 'error'})
+      } else {
+        addToast(messages.signin.success, {appearance: 'success'})
+        dispatch({ type: LOG_USER, datas: response.datas })
+      }
     } else {
-      addToast(messages.signin.error, { appearance: 'error' })
       setErrEmail(true)
       setErrPassword(true)
-      return false
-    }
-
-    setValues(initValues)
-  }
-
-  const sendRequest = async () => {
-    const datas = await tryLogin(values.email, values.password)
-    const regex2 = RegExp(/Error/)
-    if (regex2.test(datas)) {
-      return { message: messages.signin.error, appearance: 'error' }
-    } else {
-      setDatas(datas)
-
-      return { message: messages.signin.success, appearance: 'success' }
     }
   }
 
