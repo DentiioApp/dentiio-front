@@ -22,7 +22,6 @@ import imgMobile from '../../../images/mobile-bg.svg'
 import logo from '../../../images/logo.svg'
 
 import oStyle from '../../ResponsiveDesign/AuthStyle'
-import { setup } from '../../../services/Auth'
 import ArrowBackIcon from '@material-ui/icons/ArrowBack'
 
 import { UPDATE_LEVEL } from '../../../store/actions'
@@ -74,8 +73,6 @@ const ClinicCase = (props) => {
     event.preventDefault()
     dispatch({ type: UPDATE_LEVEL, level: 'conclusion' })
   }
-
-  setup()
 
   return (
     <>

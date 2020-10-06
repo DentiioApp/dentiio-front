@@ -9,7 +9,6 @@ import { INIT_FAV_CASE, CASES_LIST } from '../../store/actions'
 import CasesItem from '../../components/App/CaseItem/CaseItem'
 import { fetchCases, fetchUserFav } from '../../services/Cases'
 import { getUserId } from '../../services/Users'
-import { setup } from '../../services/Auth'
 import Spinner from '../../components/UI/Dawers/Spinner'
 
 const useStyles = makeStyles((theme) => ({
@@ -25,35 +24,10 @@ const useStyles = makeStyles((theme) => ({
 
 const Favorites = () => {
   const classes = useStyles()
+  const dispatch = useDispatch()
+  const casesList = useSelector((state) => state.home.cases)
   const favorites = useSelector((state) => state.cases.favorites)
   const userId = getUserId()
-  const casesList = useSelector((state) => state.home.cases)
-  const dispatch = useDispatch()
-  const initUserFav = async () => {
-    const response = await fetchUserFav(userId)
-    const regex2 = RegExp(/Error/)
-    if (!regex2.test(response)) {
-      dispatch({ type: INIT_FAV_CASE, data: response.datas })
-    }
-  }
-
-  useEffect(() => {
-    if (favorites && favorites.length < 1) {
-      initUserFav()
-    }
-  }, [favorites.length])
-
-  const getCases = async () => {
-    const fetch = await fetchCases()
-    const regex2 = RegExp(/Error/)
-    if (fetch.message !== undefined && !regex2.test(fetch.message)) {
-      dispatch({ type: CASES_LIST, datas: fetch.datas, nbrItems: fetch.items })
-    }
-  }
-
-  useEffect(() => {
-    if (casesList && casesList.length < 1) { getCases() }
-  })
 
   var favsIds = []; favorites.length > 0 && favorites.map((item) => { return favsIds.push(item.id) })
 
@@ -62,9 +36,31 @@ const Favorites = () => {
     return favsIds.includes(item.id) ? favoriteCases.push(item) : false
   })
 
-  if (setup() === false) {
-    return <Redirect to='/' />
+  const initUserFav = async () => {
+    const response = await fetchUserFav(userId)
+    const regex2 = RegExp(/Error/)
+    if (!regex2.test(response)) {
+      dispatch({ type: INIT_FAV_CASE, data: response.datas })
+    }
   }
+
+  const getCases = async () => {
+    const fetch = await fetchCases()
+    const regex2 = RegExp(/Error/)
+    if (fetch.message !== undefined && !regex2.test(fetch.message)) {
+      dispatch({ type: CASES_LIST, datas: fetch.datas, nbrItems: fetch.items })
+    }
+  }
+ 
+  useEffect(() => {
+    if (favorites && favorites.length < 1) {
+      initUserFav()
+    }
+  }, [favorites.length])
+
+  useEffect(() => {
+    if (casesList && casesList.length < 1) { getCases() }
+  })
 
   if (favoriteCases.length < 1 && favorites.length > 0) {
     return (<><Header target='favorites' /><Spinner /></>)

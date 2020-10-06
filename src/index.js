@@ -6,6 +6,7 @@ import Cases from './containers/Cases/Cases'
 import Favorites from './containers/Favorites/Favorites'
 import Profile from './containers/Profile/Profile'
 import * as serviceWorker from './serviceWorker'
+import { setup } from './services/Auth'
 // import "bootstrap/dist/css/bootstrap.min.css";
 import { applyMiddleware, compose, createStore } from 'redux'
 import { adminReducer } from './store/reducers'
@@ -32,6 +33,8 @@ const middleWare = store => next => action => {
   return next(action)
 }
 
+const setUp = setup()
+
 export const store = createStore(
   adminReducer,
   compose(
@@ -39,7 +42,7 @@ export const store = createStore(
     // window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
   )
 )
-
+  
 ReactDOM.render(
   <ThemeProvider theme={colorTheme}>
     <Provider store={store}>
@@ -48,10 +51,10 @@ ReactDOM.render(
           <div>
             <Switch>
               <Route exact path='/' component={Home} />
-              <Route exact path='/cases' component={Cases} />
+              <Route exact path='/cases' component={setUp ? Cases : Home} />
               <Route path='/case/:id' component={DetailCase} />
-              <Route exact path='/favorites' component={Favorites} />
-              <Route exact path='/profile' component={Profile} />
+              <Route exact path='/favorites' component={setUp ? Favorites : Home} />
+              <Route exact path='/profile' component={setUp ? Profile : Home} />
               <Route exact path='/post-question' component={QuestionPost} />
               <Route exact path='/post-case' component={CasePost} />
             </Switch>

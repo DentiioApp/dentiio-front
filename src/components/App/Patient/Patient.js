@@ -26,7 +26,6 @@ import { UPDATE_LEVEL } from '../../../store/actions'
 import MenuItem from '@material-ui/core/MenuItem'
 import InputLabel from '@material-ui/core/InputLabel'
 
-import { setup } from '../../../services/Auth'
 import logo from '../../../images/logo.svg'
 import avatar from '../../../images/logoteeth_blue.png'
 import config from '../../../config'
@@ -54,8 +53,6 @@ const Patient = (props) => {
     if (props.values.reason_consultation === '') { setErrors({ ...errors, errReason_consultation: true }); isValid = false }
     if (isValid) { dispatch({ type: UPDATE_LEVEL, level: 'exam' }) }
   }
-
-  setup()
 
   return (
     <>
