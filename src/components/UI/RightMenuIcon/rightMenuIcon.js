@@ -1,6 +1,6 @@
 import { makeStyles } from '@material-ui/core/styles'
 import React from 'react'
-import { Link, Redirect } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import palette from '../ColorTheme/Palette'
 import AddIcon from '../Icon/Header/Add'
 import FavoritesIcon from '../Icon/Header/favorites'

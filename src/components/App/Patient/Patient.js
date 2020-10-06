@@ -9,13 +9,11 @@ import {
   Typography,
   Button
 } from '@material-ui/core/'
-import AddCircleIcon from '@material-ui/icons/AddCircle'
 import Grid from '@material-ui/core/Grid'
 import { makeStyles } from '@material-ui/core/styles'
 import TextField from '@material-ui/core/TextField'
 import SmokingRoomsIcon from '@material-ui/icons/SmokingRooms'
 import LocalBarIcon from '@material-ui/icons/LocalBar'
-import LocalPharmacyIcon from '@material-ui/icons/LocalPharmacy'
 import ArrowForwardIcon from '@material-ui/icons/ArrowForward'
 
 import imgDesktop from '../../../images/illus.png'
