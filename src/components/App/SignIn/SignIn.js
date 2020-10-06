@@ -54,6 +54,12 @@ const SignIn = () => {
     }
   })
 
+  const onKeyUp = (event) => {
+    if (event.keyCode === 13) {
+        catchSubmit(event)
+      }
+  }
+
   const catchSubmit = async (e) => {
     e.preventDefault()
 
@@ -167,6 +173,7 @@ const SignIn = () => {
                     </IconButton>
                   </InputAdornment>
                 }
+                onKeyUp={onKeyUp}
               />
 
               <br /><br /><br /><br />

@@ -60,6 +60,12 @@ const Register = () => {
   const [errPassword, setErrPassword] = useState(false)
   const [errCgu, setErrCgu] = useState(false)
 
+  const onKeyUp = (event) => {
+    if (event.keyCode === 13) {
+        catchSubmit(event)
+      }
+  }
+
   const catchSubmit = (e) => {
     e.preventDefault()
 
@@ -233,6 +239,7 @@ const Register = () => {
                     </IconButton>
                   </InputAdornment>
                 }
+                onKeyUp={onKeyUp}
               />
             </FormControl>
 
