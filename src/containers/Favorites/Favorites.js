@@ -8,6 +8,7 @@ import CasesItem from '../../components/App/CaseItem/CaseItem'
 import { fetchCases, fetchUserFav } from '../../services/Cases'
 import { getUserId } from '../../services/Users'
 import titleSvg from '../../images/maquette/c-case-title.svg'
+import Spinner from '../../components/UI/Dawers/Spinner'
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -41,7 +42,7 @@ const Favorites = () => {
   }, [favorites.length])
 
   const getCases = async () => {
-    const fetch = await fetchCases(1)
+    const fetch = await fetchCases()
     const regex2 = RegExp(/Error/)
     if (fetch.message !== undefined && !regex2.test(fetch.message)) {
       dispatch({ type: CASES_LIST, datas: fetch.datas, nbrItems: fetch.items })
@@ -59,21 +60,25 @@ const Favorites = () => {
     return favsIds.includes(item.id) ? favoriteCases.push(item) : false
   })
 
-  return (
-    <>
-      <Header target='favorites' />
-      <Container maxWidth='lg'>
-        <center><span>Publications favorites</span></center>
-        <div className={classes.root}>
-          {
-            favoriteCases.length > 0 && favoriteCases.map((oCase, index) => {
-              return <CasesItem key={index} item={oCase} favorite />
-            })
-          }
-        </div>
-      </Container>
-    </>
-  )
+  if (favoriteCases.length < 1) {
+    return (<><Header target='favorites' /><Spinner /></>)
+  } else {
+    return (
+      <>
+        <Header target='favorites' />
+        <Container maxWidth='lg'>
+          <center><span>Publications favorites</span></center>
+          <div className={classes.root}>
+            {
+              favoriteCases.length > 0 && favoriteCases.map((oCase, index) => {
+                return <CasesItem key={index} item={oCase} favorite />
+              })
+            }
+          </div>
+        </Container>
+      </>
+    )
+  }
 }
 
 export default Favorites
