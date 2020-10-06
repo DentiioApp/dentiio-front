@@ -9,9 +9,8 @@ import { getUserId } from '../../services/Users'
 const Favorites = () => {
   const favorites = useSelector((state) => state.cases.favorites)
   const userId = getUserId()
-  const casesList = useSelector((state) => state.cases.cases)
+  const casesList = useSelector((state) => state.home.cases)
   const dispatch = useDispatch()
-
   const initUserFav = async () => {
     const response = await fetchUserFav(userId)
     const regex2 = RegExp(/Error/)
@@ -27,7 +26,7 @@ const Favorites = () => {
   }, [favorites.length])
 
   const getCases = async () => {
-    const fetch = await fetchCases()
+    const fetch = await fetchCases(1)
     const regex2 = RegExp(/Error/)
     if (fetch.message !== undefined && !regex2.test(fetch.message)) {
       dispatch({ type: CASES_LIST, datas: fetch.datas, nbrItems: fetch.items })
@@ -36,21 +35,25 @@ const Favorites = () => {
 
   useEffect(() => {
     if (casesList && casesList.length < 1) { getCases() }
-  }, [])
+  })
+  
+  var favsIds = []
+  favorites && favorites.map((item)=>{
+    return favsIds.push(item.id)
+  })
+  var favoriteCases = []
+  casesList && casesList.map((item)=>{
+    return favsIds.includes(item.id) ? favoriteCases.push(item) : false
+  })
 
   return (
     <>
       <Header target='favorites' />
-      {casesList.lenght > 0 && casesList.map((oCase, index) => {
-        var isFavorite = false
-        if (favorites.length > 0) {
-          favorites.map((item) => {
-            if (item.id === oCase.id) { isFavorite = true }
-            return <CasesItem key={index} item={oCase} favorite={isFavorite} />
-          })
-        }
-        return isFavorite
-      })}
+      {
+        favoriteCases.length > 0 && favoriteCases.map((oCase, index) => {
+            return <CasesItem key={index} item={oCase} favorite={true} />
+        })
+      }
     </>
   )
 }
