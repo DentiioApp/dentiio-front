@@ -1,12 +1,27 @@
 import React, { useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import Header from '../../components/App/Header/Header'
+import Container from '@material-ui/core/Container'
+import { makeStyles } from '@material-ui/core/styles'
 import { INIT_FAV_CASE, CASES_LIST } from '../../store/actions'
 import CasesItem from '../../components/App/CaseItem/CaseItem'
 import { fetchCases, fetchUserFav } from '../../services/Cases'
 import { getUserId } from '../../services/Users'
+import titleSvg from '../../images/maquette/c-case-title.svg'
+
+const useStyles = makeStyles((theme) => ({
+  root: {
+    display: 'flex',
+    flexWrap: 'wrap',
+    justifyContent: 'center',
+    '& > *': {
+      margin: theme.spacing(3)
+    }
+  }
+}))
 
 const Favorites = () => {
+  const classes = useStyles()
   const favorites = useSelector((state) => state.cases.favorites)
   const userId = getUserId()
   const casesList = useSelector((state) => state.home.cases)
@@ -36,24 +51,27 @@ const Favorites = () => {
   useEffect(() => {
     if (casesList && casesList.length < 1) { getCases() }
   })
-  
-  var favsIds = []
-  favorites && favorites.map((item)=>{
-    return favsIds.push(item.id)
-  })
+
+  var favsIds = []; favorites && favorites.map((item) => { return favsIds.push(item.id) })
+
   var favoriteCases = []
-  casesList && casesList.map((item)=>{
+  casesList && casesList.map((item) => {
     return favsIds.includes(item.id) ? favoriteCases.push(item) : false
   })
 
   return (
     <>
       <Header target='favorites' />
-      {
-        favoriteCases.length > 0 && favoriteCases.map((oCase, index) => {
-            return <CasesItem key={index} item={oCase} favorite={true} />
-        })
-      }
+      <Container maxWidth='lg'>
+        <center><span>Publications favorites</span></center>
+        <div className={classes.root}>
+          {
+            favoriteCases.length > 0 && favoriteCases.map((oCase, index) => {
+              return <CasesItem key={index} item={oCase} favorite />
+            })
+          }
+        </div>
+      </Container>
     </>
   )
 }
