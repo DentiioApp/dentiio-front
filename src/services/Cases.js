@@ -9,7 +9,7 @@ const FAVORITES =
 const CLINICAL_CASES_BY_USER =
     process.env.REACT_APP_BACK_API_URL + process.env.REACT_APP_USERS
 
-export const fetchCases = (page) => {
+export const fetchCases = (page=1) => {
   const reponses = axios
     .get(CLINICAL_CASES + '?page=' + page)
     .then((res) => ({
@@ -77,8 +77,9 @@ export const postCase = (values, patient) => {
   const item = {
     age: values.ages,
     smoking: values.isASmoker,
+    /* drinking: values.isDrinker, */
     presentation: values.summary,
-    treatmentPlan: 'jctttttt',
+    treatmentPlan: 'Plan de traitement',
     observation: values.global_desc,
     evolution: values.evolution,
     conclusion: values.conclusion,

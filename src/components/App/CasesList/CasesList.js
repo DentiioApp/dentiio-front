@@ -8,7 +8,8 @@ import CasesItem from '../CaseItem/CaseItem'
 import Paginator from '../../UI/Paginator/Paginator'
 import titleSvg from '../../../images/maquette/c-case-title.svg'
 import { getUserId } from '../../../services/Users'
-import loader from '../../../images/Spinner-1s-347px.svg'
+
+import Spinner from '../../../components/UI/Dawers/Spinner'
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -67,11 +68,7 @@ const CasesList = () => {
   }
 
   if (cases.length < 1) {
-    return (
-      <>
-        <center><img src={loader} alt='' /></center>
-      </>
-    )
+    return (<Spinner />)
   } else {
     return (
       <>
@@ -93,7 +90,6 @@ const CasesList = () => {
               return <CasesItem key={index} item={oCase} favorite={isFavorite} />
             })}
           </div>
-
           <Paginator pages={pages} onChange={handleChange} current={values.paginator} />
         </Container>
       </>

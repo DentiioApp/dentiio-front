@@ -9,6 +9,7 @@ import {
   Typography,
   Button
 } from '@material-ui/core/'
+import AddCircleIcon from '@material-ui/icons/AddCircle'
 import Grid from '@material-ui/core/Grid'
 import { makeStyles } from '@material-ui/core/styles'
 import TextField from '@material-ui/core/TextField'
@@ -41,8 +42,7 @@ const Patient = (props) => {
   const initVals = {
     errAge: false,
     errGender: false,
-    errIn_treatment: false,
-    errProblem_health: false
+    errReason_consultation: false
   }
   const [errors, setErrors] = useState(initVals)
 
@@ -51,9 +51,7 @@ const Patient = (props) => {
     let isValid = true
     if (props.values.age === '') { setErrors({ ...errors, errAge: true }); isValid = false }
     if (props.values.gender === '') { setErrors({ ...errors, errGender: true }); isValid = false }
-    if (props.values.problem_health === '') { setErrors({ ...errors, errProblem_health: true }); isValid = false }
-    if (props.values.in_treatment === '') { setErrors({ ...errors, errIn_treatment: true }); isValid = false }
-
+    if (props.values.reason_consultation === '') { setErrors({ ...errors, errReason_consultation: true }); isValid = false }
     if (isValid) { dispatch({ type: UPDATE_LEVEL, level: 'exam' }) }
   }
 
@@ -137,23 +135,10 @@ const Patient = (props) => {
                 Buveur <LocalBarIcon />
               </InputLabel>
               <Switch
-                checked={props.values.isAnAlcooler}
-                onChange={props.onChange('isAnAlcooler')}
+                checked={props.values.isDrinker}
+                onChange={props.onChange('isDrinker')}
                 color='primary'
-                name='isAnAlcooler'
-                inputProps={{ 'aria-label': 'primary checkbox' }}
-              />
-
-              <br />  <br />
-
-              <InputLabel className='inputLabel'>
-              Antécedant medical <LocalPharmacyIcon />
-              </InputLabel>
-              <Switch
-                checked={props.values.is_medical_background}
-                onChange={props.onChange('is_medical_background')}
-                color='primary'
-                name='is_medical_background'
+                name='isDrinker'
                 inputProps={{ 'aria-label': 'primary checkbox' }}
               />
 
@@ -161,20 +146,19 @@ const Patient = (props) => {
 
               <TextField
                 aria-label='minimum height'
-                placeholder='Renseignez le(s) probleme(s) cardiaque'
+                placeholder='Antécédents médicauts'
                 variant='outlined'
                 margin='normal'
-                label='Probleme cardiaque'
+                label='Antécédents médicauts'
                 multiline
                 autoFocus
                 required
                 fullWidth
-                name='problem_health'
+                name='old_injury'
                 type='textarea'
-                id='problem_health'
-                value={props.values.problem_health}
-                autoComplete='current-problem_health'
-                // onKeyDown={(e) => e.keyCode !== 13 ? null : catchSubmit(e)}
+                id='old_injury'
+                value={props.values.old_injury}
+                autoComplete='current-old_injury'
                 onChange={props.onChange('problem_health')}
                 error={errors.errProblem_health}
               />
@@ -188,13 +172,52 @@ const Patient = (props) => {
                 fullWidth
                 margin='normal'
                 required
-                name='in_treatment'
+                name='current_treatment'
                 type='textarea'
-                id='in_treatment'
-                value={props.values.in_treatment}
-                autoComplete='current-in_treatment'
-                onChange={props.onChange('in_treatment')}
-                error={errors.errIn_treatment}
+                id='current_treatment'
+                value={props.values.errCurrent_treatment}
+                autoComplete='current-current_treatment'
+                onChange={props.onChange('current_treatment')}
+                error={errors.errCurrent_treatment}
+              />
+
+              <TextField
+                aria-label='minimum height'
+                placeholder='Allergie(s)'
+                variant='outlined'
+                label='Allergie(s)'
+                multiline
+                fullWidth
+                margin='normal'
+                name='allergies'
+                type='textarea'
+                id='current_allergies'
+                value={props.values.allergies}
+                autoComplete='current-allergies'
+                onChange={props.onChange('allergies')}
+                error={errors.errAllergies}
+              />
+
+              <br />  <br />
+
+              <TextField
+                aria-label='minimum height'
+                placeholder='Motif de la consultation'
+                variant='outlined'
+                margin='normal'
+                label='Motif de la consultation'
+                multiline
+                autoFocus
+                required
+                fullWidth
+                name='reason_consultation'
+                type='textarea'
+                id='reason_consultation'
+                value={props.values.reason_consultation[0]}
+                autoComplete='current-reason_consultation'
+                onKeyDown={(e) => e.keyCode !== 13 ? null : catchSubmit(e)}
+                onChange={props.onChange('reason_consultation')}
+                error={errors.errReason_consultation}
               />
 
               <br />  <br />

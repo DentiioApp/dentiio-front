@@ -33,8 +33,6 @@ const TreatPlan = (props) => {
   const treatments = useSelector((state) => state.home.treatments)
 
   const initVals = {
-    errGlobal_desc: false,
-    errMedication_administered: false,
     errStep: false,
     errTreatment: false
   }
@@ -43,8 +41,6 @@ const TreatPlan = (props) => {
   const catchSubmit = async (event) => {
     event.preventDefault()
     let isValid = true
-    if (props.values.global_desc === '') { setErrors({ ...errors, errGlobal_desc: true }); isValid = false }
-    if (props.values.medication_administered === '') { setErrors({ ...errors, errMedication_administered: true }); isValid = false }
     if (props.values.step.length < 1) { setErrors({ ...errors, errStep: true }); isValid = false }
     if (props.values.treatment.length < 1) { setErrors({ ...errors, errTreatment: true }); isValid = false }
 
@@ -79,42 +75,6 @@ const TreatPlan = (props) => {
               Plan de traitement
             </Typography>
             <form className={classes.form} noValidate>
-
-              <InputLabel className='inputLabel'>
-               Description globale
-              </InputLabel>
-              <TextField
-                aria-label='minimum height'
-                placeholder='Description globale'
-                variant='outlined'
-                margin='normal'
-                label='Description globale'
-                multiline
-                autoFocus
-                required
-                name='global_desc'
-                type='textarea'
-                id='global_desc'
-                value={props.values.global_desc}
-                autoComplete='current-global_desc'
-                onChange={props.onChange('global_desc')}
-                error={errors.errGlobal_desc}
-              />
-              <TextField
-                variant='outlined'
-                margin='normal'
-                required
-                name='medication_administered'
-                label='Médicaments administrés'
-                multiline
-                type='text'
-                id='medication_administered'
-                value={props.values.medication_administered}
-                autoComplete='current-medication_administered'
-                onChange={props.onChange('medication_administered')}
-                error={errors.errMedication_administered}
-              />
-
               <InputLabel className='inputLabel'>
                 Etape 1
               </InputLabel>

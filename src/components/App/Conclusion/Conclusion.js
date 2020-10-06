@@ -80,6 +80,8 @@ const Conclusion = (props) => {
                 name='conclusion'
                 type='textarea'
                 id='conclusion'
+                label='Conclusion'
+                multiline
                 value={props.values.conclusion}
                 autoComplete='current-conclusion'
                 onChange={props.onChange('conclusion')}

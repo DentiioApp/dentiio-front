@@ -1,7 +1,8 @@
 import './status.scss'
 
-import React, { useState,/* useEffect */} from 'react'
-import { useDispatch, /*useSelector */} from 'react-redux'
+import React, { useState, useEffect } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+// import { Redirect } from 'react-router-dom'
 import { useToasts } from 'react-toast-notifications'
 import {
   Paper,
@@ -13,13 +14,14 @@ import FormHelperText from '@material-ui/core/FormHelperText'
 import { makeStyles } from '@material-ui/core/styles'
 import imgDesktop from '../../../images/illus.png'
 import imgMobile from '../../../images/mobile-bg.svg'
-import StatusJustif from "../../UI/Modal/StatusJustif";
+import StatusJustif from '../../UI/Modal/StatusJustif'
 import GradientBtn from '../../UI/buttons/GradientBtn'
 import oStyle from '../../ResponsiveDesign/AuthStyle'
 import { checkFiles } from '../../../utils'
 
-import { setup } from '../../../services/Auth'
-import { LOGIN_FORM, STATUS_FORM, /*LOG_USER*/ } from '../../../store/actions'
+import { tryLogin, getUserId, saveCard } from '../../../services/Users'
+
+import { LOG_USER, VALID_STATUS, FREE_CREDENTIALS } from '../../../store/actions'
 import logo from '../../../images/logo.svg'
 import config from '../../../config'
 
@@ -30,20 +32,18 @@ const Status = () => {
   const dispatch = useDispatch()
   const { addToast } = useToasts()
   const messages = config.messages.auth
-  //const credentials = useSelector((state) => state.user.credentials)
-  //const fileReader = new FileReader()
-  //const history = useHistory()
-  /*
+  const credentials = useSelector((state) => state.user.credentials)
+  const fileReader = new FileReader()
+
   useEffect(() => {
     if (credentials && credentials.email !== '') {
-      const SignUser = async () => {
+      return async () => {
         const isSignIn = await tryLogin(credentials.email, credentials.passwd)
         dispatch({ type: LOG_USER, datas: isSignIn })
+        dispatch({ type: FREE_CREDENTIALS })
       }
-      SignUser()
     }
   })
-*/
 
   const [errCard, setErrCard] = useState(false)
 
@@ -52,7 +52,9 @@ const Status = () => {
 
     if (errCard || document.querySelector('input').files[0] === undefined) {
       return false
-    } else {/*
+    } else {
+      addToast(messages.card.pending, { appearance: 'info' })
+
       const uploadFile = document.querySelector('input').files[0]
 
       fileReader.onload = async (FileLoadEvent) => {
@@ -64,14 +66,11 @@ const Status = () => {
         })
 
         if (response === 'OK') { addToast(messages.card.success, { appearance: 'success' }) } else { addToast(messages.card.error, { appearance: 'error' }) }
-        history.goForward('/')
-        localStorage.removeItem('authToken')
       }
+
       fileReader.readAsDataURL(uploadFile)
-      */
-      addToast(messages.card.success, { appearance: 'success' }) 
-      dispatch({ type: STATUS_FORM })
-      dispatch({ type: LOGIN_FORM })
+
+      dispatch({ type: VALID_STATUS })
     }
   }
 
@@ -84,10 +83,6 @@ const Status = () => {
       setErrCard(false)
     }
   }
-
-  if (!setup()) {
-    //return <Redirect to='/' />
-  };
 
   return (
     <>
@@ -108,11 +103,11 @@ const Status = () => {
             <Typography component='h1' variant='h5'>
               Validez votre inscription
             </Typography>
-            <br/><br/>
+            <br /><br />
             <Typography component='h3' variant='subtitle2'>
-              Uploadez votre carte CPS, carte étudiante ou autre document qui montre que vous faites partie du milieu dentaire. <StatusJustif/>
+              Uploadez votre carte CPS, carte étudiante ou autre document qui montre que vous faites partie du milieu dentaire. <StatusJustif />
             </Typography>
-            <br/>
+            <br />
             <form className={classes.form} noValidate>
               <Input
                 type='file'
@@ -124,8 +119,7 @@ const Status = () => {
                 required
               />
               <FormHelperText id='my-helper-text'>{errCard || ''}</FormHelperText>
-              <br/><br/>
-
+              <br /><br />
 
               <div onClick={catchSubmit}>
                 <GradientBtn

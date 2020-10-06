@@ -1,7 +1,7 @@
 import './exam.scss'
 
 import React, { useState } from 'react'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 
 import {
   Paper,
@@ -15,7 +15,7 @@ import TextField from '@material-ui/core/TextField'
 import ArrowBackIcon from '@material-ui/icons/ArrowBack'
 import ArrowForwardIcon from '@material-ui/icons/ArrowForward'
 import InputLabel from '@material-ui/core/InputLabel'
-
+import MenuItem from '@material-ui/core/MenuItem'
 import imgDesktop from '../../../images/illus.png'
 import imgMobile from '../../../images/mobile-bg.svg'
 import oStyle from '../../ResponsiveDesign/AuthStyle'
@@ -30,11 +30,14 @@ const useStyles = makeStyles((theme) => (oStyle(theme, imgDesktop, imgMobile)))
 const Exam = (props) => {
   const classes = useStyles()
   const dispatch = useDispatch()
+  const symptomes = useSelector((state) => state.home.symptomes)
+
   const initVals = {
+    exam_pics: [],
+    extra_exam_desc: [],
     errIntra_extra_oral_desc: false,
-    errProblem_health: false,
-    errIn_treatment: false,
-    errExam_name: false
+    errExtra_exam_name: false,
+    errSymptomes: false
   }
   const [errors, setErrors] = useState(initVals)
 
@@ -42,13 +45,12 @@ const Exam = (props) => {
     event.preventDefault()
     let isValid = true
     if (props.values.intra_extra_oral_desc === '') { setErrors({ ...errors, errIntra_extra_oral_desc: true }); isValid = false }
-    if (props.values.problem_health === '') { setErrors({ ...errors, errProblem_health: true }); isValid = false }
-    if (props.values.in_treatment === '') { setErrors({ ...errors, errIn_treatment: true }); isValid = false }
-    if (props.values.exam_name === '') { setErrors({ ...errors, errExam_name: true }); isValid = false }
+    if (props.values.extra_exam_name < 1) { setErrors({ ...errors, errExtra_exam_name: true }); isValid = false }
+    if (props.values.extra_exam_desc < 1) { setErrors({ ...errors, errExtra_exam_desc: true }); isValid = false }
+    if (props.values.symptomes.length < 1) { setErrors({ ...errors, errSymptomes: true }); isValid = false }
 
     if (isValid) { dispatch({ type: UPDATE_LEVEL, level: 'diagnostic' }) }
   }
-
   const catchOnmit = async (event) => {
     event.preventDefault()
     dispatch({ type: UPDATE_LEVEL, level: '' })
@@ -110,27 +112,37 @@ const Exam = (props) => {
                 error={errors.errIntra_extra_oral_desc}
               />
 
+              <br /> <br />
+
+              <Typography component='h1' variant='h5'>
+                Symptomes
+              </Typography>
+              <TextField
+                className='textField'
+                id='Symptomes'
+                label='Symptomes'
+                select
+                onChange={props.onChange('symptomes')}
+                variant='outlined'
+                fullWidth
+                SelectProps={{
+                  multiple: true,
+                  value: props.values.symptomes
+                }}
+                error={errors.errSymptomes}
+              >
+                {symptomes && symptomes.map((value) => (
+                  <MenuItem key={value['@id']} value={value['@id']}>
+                    {value.name}
+                  </MenuItem>
+                ))}
+              </TextField>
+
+              <br /> <br />
+
               <Typography component='h1' variant='h5'>
                 Examen Complementaire
               </Typography>
-
-              <TextField
-                aria-label='minimum height'
-                placeholder='Renseignez le(s) probleme(s) cardiaque'
-                variant='outlined'
-                margin='dense'
-                label='Probleme cardiaque'
-                multiline
-                required
-                fullWidth
-                name='problem_health'
-                type='textarea'
-                id='problem_health'
-                value={props.values.problem_health}
-                autoComplete='current-problem_health'
-                onChange={props.onChange('problem_health')}
-                error={errors.errProblem_health}
-              />
 
               <TextField
                 aria-label='minimum height'
@@ -140,13 +152,32 @@ const Exam = (props) => {
                 label="Nom de l'examen"
                 multiline
                 required
-                name='exam_name'
+                name='extra_exam_name'
                 type='textarea'
-                id='exam_name'
-                value={props.values.exam_name}
-                autoComplete='current-exam_name'
-                onChange={props.onChange('exam_name')}
-                error={errors.errExam_name}
+                id='extra_exam_name'
+                value={props.values.extra_exam_name}
+                autoComplete='current-extra_exam_name'
+                onChange={props.onChange('extra_exam_name')}
+                error={errors.errExtra_exam_name}
+              />
+
+              <TextField
+                aria-label='minimum height'
+                placeholder='Description'
+                variant='outlined'
+                label='Description'
+                multiline
+                autoFocus
+                fullWidth
+                margin='dense'
+                required
+                name='extra_exam_desc'
+                type='textarea'
+                id='extra_exam_desc'
+                value={props.values.extra_exam_desc}
+                autoComplete='current-extra_exam_desc'
+                onChange={props.onChange('extra_exam_desc')}
+                error={errors.errExtra_exam_desc}
               />
 
               <br />  <br />

@@ -11,6 +11,7 @@ import {
   TableRow
 } from '@material-ui/core/'
 import Grid from '@material-ui/core/Grid'
+import InputLabel from '@material-ui/core/InputLabel'
 import { makeStyles } from '@material-ui/core/styles'
 import imgDesktop from '../../../images/illus.png'
 import imgMobile from '../../../images/mobile-bg.svg'
@@ -76,6 +77,8 @@ const Evolution = (props) => {
                 margin='normal'
                 required
                 name='evolution'
+                label='Evolution'
+                multiline
                 autoFocus
                 type='textarea'
                 id='evolution'
@@ -84,6 +87,22 @@ const Evolution = (props) => {
                 onChange={props.onChange('evolution')}
                 error={errors.errEvolution}
               />
+
+              <br />  <br />
+
+              <Button variant='contained' component='label'>
+                <InputLabel className='inputLabel'>
+                  Ajouter des Photos:
+                </InputLabel>
+                <input
+                  type='file'
+                  onChange={props.onChange('evolution_pics')}
+                  name='evolution_pics'
+                  id='evolution_pics'
+                  values={props.values.evolution_pics}
+                  multiple
+                />
+              </Button>
 
               <br />  <br />
 

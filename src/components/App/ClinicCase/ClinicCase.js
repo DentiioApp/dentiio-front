@@ -48,7 +48,6 @@ const ClinicCase = (props) => {
     errSpecialities: false
   }
   const [errors, setErrors] = useState(initVals)
-
   const catchSubmit = async (event) => {
     event.preventDefault()
     let isValid = true
