@@ -1,5 +1,7 @@
 import React, { useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
+import { Redirect } from 'react-router-dom'
+
 import Header from '../../components/App/Header/Header'
 import Container from '@material-ui/core/Container'
 import { makeStyles } from '@material-ui/core/styles'
@@ -7,7 +9,7 @@ import { INIT_FAV_CASE, CASES_LIST } from '../../store/actions'
 import CasesItem from '../../components/App/CaseItem/CaseItem'
 import { fetchCases, fetchUserFav } from '../../services/Cases'
 import { getUserId } from '../../services/Users'
-import titleSvg from '../../images/maquette/c-case-title.svg'
+import { setup } from '../../services/Auth'
 import Spinner from '../../components/UI/Dawers/Spinner'
 
 const useStyles = makeStyles((theme) => ({
@@ -53,12 +55,16 @@ const Favorites = () => {
     if (casesList && casesList.length < 1) { getCases() }
   })
 
-  var favsIds = []; favorites && favorites.map((item) => { return favsIds.push(item.id) })
+  var favsIds = []; favorites.length > 0 && favorites.map((item) => { return favsIds.push(item.id) })
 
   var favoriteCases = []
   casesList && casesList.map((item) => {
     return favsIds.includes(item.id) ? favoriteCases.push(item) : false
   })
+
+  if (setup() === false) {
+    return <Redirect to='/' />
+  }
 
   if (favoriteCases.length < 1 && favorites.length > 0) {
     return (<><Header target='favorites' /><Spinner /></>)

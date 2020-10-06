@@ -5,7 +5,7 @@ import Header from '../../components/App/Header/Header'
 import { setup } from '../../services/Auth'
 import Search from '../../components/App/Search/Search'
 
-const Cases = () => {
+const Cases = (props) => {
   if (setup() === false) {
     return <Redirect to='/' />
   }
