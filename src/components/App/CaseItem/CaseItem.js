@@ -12,6 +12,8 @@ import { avgNotes } from '../../../utils'
 import Keyword from '../../UI/Keywords/keywords'
 import ChatIcon from '@material-ui/icons/Chat'
 import StarHalfIcon from '@material-ui/icons/StarHalf'
+import Avatar from 'avataaars'
+
 
 const CasesItem = (props) => {
   const img = () => {
@@ -46,19 +48,33 @@ const CasesItem = (props) => {
             {props.item.presentation}
           </Typography>
         </CardContent>
+        <br/>
         <CardActions disableSpacing>
-          <IconProfile color='primary' />
+          <Avatar
+              style={{width: '50px', height: '50px'}}
+              avatarStyle='Circle'
+              topType='LongHairMiaWallace'
+              accessoriesType='Prescription02'
+              hairColor='BrownDark'
+              facialHairType='Blank'
+              clotheType='Hoodie'
+              clotheColor='PastelBlue'
+              eyeType='Happy'
+              eyebrowType='Default'
+              mouthType='Smile'
+              skinColor='Light'
+          />
           <Typography variant='body2' style={{ color: 'black', textTransform: 'capitalize' }} component='p'>
             {props.item.user.pseudo}
             <br />
             {props.item.user.job.name}
           </Typography>
           <div className='grow' style={{ align: 'right' }} />
-          <Typography variant='h6' color='textSecondary' component='p'>
+          <Typography variant='body2' color='textSecondary' component='p'>
             {props.item.commentaires.length}
           </Typography>
-          <ChatIcon color='primary' fontSize='large' className='pr-15' />
-          <Typography variant='h6' color='textSecondary' component='p'>
+          <ChatIcon color='primary' fontSize='default' className='pr-15' />
+          <Typography variant='body2' color='textSecondary' component='p'>
             {(isNaN(props.item.notations) ? avgNotes(props.item.notations) : 'Aucune note')}
           </Typography>
           <StarHalfIcon color='primary' fontSize='default' />

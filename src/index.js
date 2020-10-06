@@ -6,7 +6,6 @@ import Cases from './containers/Cases/Cases'
 import Favorites from './containers/Favorites/Favorites'
 import Profile from './containers/Profile/Profile'
 import * as serviceWorker from './serviceWorker'
-// import "bootstrap/dist/css/bootstrap.min.css";
 import { applyMiddleware, compose, createStore } from 'redux'
 import { adminReducer } from './store/reducers'
 import { Provider } from 'react-redux'
@@ -24,7 +23,7 @@ import {
 } from 'react-router-dom'
 import CasePost from './containers/CasePost/CasePost'
 import QuestionPost from './containers/QuestionPost/QuestionPost'
-
+import UserAvatar from "./containers/UserAvatar/UserAvatar";
 dotenv.config()
 
 // MIDDLEWARE
@@ -54,6 +53,7 @@ ReactDOM.render(
               <Route exact path='/profile' component={Profile} />
               <Route exact path='/post-question' component={QuestionPost} />
               <Route exact path='/post-case' component={CasePost} />
+              <Route exact path='/avatar' component={UserAvatar} />
             </Switch>
           </div>
         </Router>
