@@ -60,7 +60,7 @@ const Favorites = () => {
     return favsIds.includes(item.id) ? favoriteCases.push(item) : false
   })
 
-  if (favoriteCases.length < 1) {
+  if (favoriteCases.length < 1 && favorites.length > 0) {
     return (<><Header target='favorites' /><Spinner /></>)
   } else {
     return (
@@ -70,9 +70,9 @@ const Favorites = () => {
           <center><span>Publications favorites</span></center>
           <div className={classes.root}>
             {
-              favoriteCases.length > 0 && favoriteCases.map((oCase, index) => {
+              favoriteCases.length > 0 ? favoriteCases.length > 0 && favoriteCases.map((oCase, index) => {
                 return <CasesItem key={index} item={oCase} favorite />
-              })
+              }) : 'Vous n\'avez pas de publication favorite'
             }
           </div>
         </Container>
