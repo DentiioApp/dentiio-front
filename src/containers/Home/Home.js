@@ -20,7 +20,7 @@ const Home = () => {
   }
 
   const loadJobs = async () => {
-    const jobs = await fetchJobs()
+    let jobs = await fetchJobs()
     if (jobs !== {})
       dispatch({ type: JOB_LIST, data: jobs.datas })
   }

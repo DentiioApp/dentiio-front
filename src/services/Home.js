@@ -15,67 +15,58 @@ const PATHOLOGIES =
 const SYMPTOMES =
   process.env.REACT_APP_BACK_API_URL + process.env.REACT_APP_SYMPTOMES
 
-export const fetchKeywords = () => {
-  const reponses = axios
+export const fetchKeywords = async () => {
+  let responses = await axios
     .get(KEYWORDS)
     .then((res) => ({
       message: 'OK',
       datas: res.data['hydra:member']
     }))
     .catch((e) => JSON.stringify(e))
-  return reponses
+
+    return responses = responses.datas === undefined ? [] : responses
 }
 
 export const fetchSpecialities = () => {
-  const reponses = axios
+  let responses = axios
     .get(SPECIALITIES)
     .then((res) => ({
       message: 'OK',
       datas: res.data['hydra:member']
     }))
     .catch((e) => JSON.stringify(e))
-  return reponses
+  return responses
 }
 
 export const fetchTreatments = () => {
-  const reponses = axios
+  let responses = axios
     .get(TREATMENTS)
     .then((res) => ({
       message: 'OK',
       datas: res.data['hydra:member']
     }))
     .catch((e) => JSON.stringify(e))
-  return reponses
+  return responses
 }
 
 export const fetchPathologies = () => {
-  const reponses = axios
+  let responses = axios
     .get(PATHOLOGIES)
     .then((res) => ({
       message: 'OK',
       datas: res.data['hydra:member']
     }))
     .catch((e) => JSON.stringify(e))
-  return reponses
+  return responses
 }
 
 export const fetchSymptomes = () => {
-  const reponses = axios
+  let responses = axios
     .get(SYMPTOMES)
     .then((res) => ({
       message: 'OK',
       datas: res.data['hydra:member']
     }))
     .catch((e) => JSON.stringify(e))
-  return reponses
-}
-
-export const tryKeywords = () => {
-  const fetchDatas = fetchKeywords()
-
-  if (fetchDatas.datas === undefined) {
-    fetchDatas.datas = []
-  }
-
-  return fetchDatas
+  return responses
 }

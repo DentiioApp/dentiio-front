@@ -7,16 +7,18 @@ import { addFavCase } from '../../../services/Cases'
 import { ADD_FAVORITE } from '../../../store/actions'
 import { useToasts } from 'react-toast-notifications'
 import { getUserId } from '../../../services/Users'
-import { errorApi } from '../../../utils'
 
 const Favorites = (props) => {
-  const { config } = useSelector((state) => state.home)
   const userId = getUserId()
   const { addToast } = useToasts()
   const dispatch = useDispatch()
+
+  const { config } = useSelector((state) => state.home)
   const favorites = useSelector((state) => state.cases.favorites)
   const [toggle, setToggle] = useState(<StarBorderIcon color='primary' />)
+
   const messages = config.conf.messages.cases.favorite
+
   useEffect(() => {
     if (props.isFavorite) {
       setToggle(<StarIcon fontSize='default' color='primary' />)
@@ -24,9 +26,9 @@ const Favorites = (props) => {
   }, [favorites, props])
 
   const HandleFav = async (item) => {
-    const response = await addFavCase(item, userId)
+    let response = await addFavCase(item, userId)
 
-    if (errorApi().test(response)) {
+    if (response === {}) {
       addToast(messages.add.error, { appearance: 'error' })
     } else {
       addToast(messages.add.success, { appearance: 'success' })

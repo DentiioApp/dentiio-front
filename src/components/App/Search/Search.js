@@ -2,7 +2,7 @@ import { TextField, makeStyles } from '@material-ui/core'
 import Autocomplete from '@material-ui/lab/Autocomplete'
 import React, { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { tryKeywords } from '../../../services/Home'
+import { fetchKeywords } from '../../../services/Home'
 import { CASE_FILTERED, KEYWORDS_LIST } from '../../../store/actions'
 import './Search.scss'
 import CategoriesCases from '../../UI/Dawers/CategoriesCases'
@@ -27,21 +27,24 @@ const useStyles = makeStyles((theme) => ({
 
 const Search = (props) => {
   const classes = useStyles()
+  const dispatch = useDispatch()
+
   const initValues = {
     keywords: []
   }
 
   const casesList = useSelector((state) => state.cases.casesList)
   const [values, setValues] = useState(initValues)
-  const dispatch = useDispatch()
 
   const loadKeywords = async () => {
-    const keywordsLoad = await tryKeywords()
-    if (keywordsLoad.datas.length > 0) {
+    const keywordsLoad = await fetchKeywords()
+
+    if (keywordsLoad.datas.length > 1) {
       setValues({ ...values, keywords: keywordsLoad.datas })
       dispatch({ type: KEYWORDS_LIST, keywords: values.keywords })
     }
   }
+
   // if no keywords in cache load keyword from api
   if (values.keywords.length < 1) {
     loadKeywords()
