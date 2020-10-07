@@ -36,7 +36,6 @@ const CasesList = () => {
   const nbrCases = caseSelector.nbrCases
   const areLoaded = caseSelector.casesLoaded
   const favorites = caseSelector.favorites
-  
   const pages = Math.round(nbrCases / 30)
   
   const initValues = {
@@ -84,8 +83,8 @@ const CasesList = () => {
               var isFavorite = false
               if (favorites.length > 0) {
                 favorites.map((item) => {
-                  var slashIndex = item.clinicalCaseId.lastIndexOf('/')
-                  var caseId = Number(item.clinicalCaseId.substr(slashIndex).substr(1, slashIndex.length))
+                  var slashIndex = item.clinicalCaseId !== undefined ? item.clinicalCaseId.lastIndexOf('/') : false
+                  var caseId = slashIndex ? Number(item.clinicalCaseId.substr(slashIndex).substr(1, slashIndex.length)): item.user.id
                   if (caseId === oCase.id) { isFavorite = true }
                   return isFavorite
                 })

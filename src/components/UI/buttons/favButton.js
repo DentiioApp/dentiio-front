@@ -32,7 +32,7 @@ const Favorites = (props) => {
       addToast(messages.add.error, { appearance: 'error' })
     } else {
       addToast(messages.add.success, { appearance: 'success' })
-      dispatch({ type: ADD_FAVORITE, data: item })
+      dispatch({ type: ADD_FAVORITE, datas: item })
     }
   }
 

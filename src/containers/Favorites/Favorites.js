@@ -32,7 +32,7 @@ const Favorites = () => {
   var favsIds = []; favorites.length > 0 && favorites.map((item) => { return favsIds.push(item.id) })
 
   var favoriteCases = []
-  casesList && casesList.map((item) => {
+  casesList.length > 0 && casesList.map((item) => {
     return favsIds.includes(item.id) ? favoriteCases.push(item) : false
   })
 
@@ -70,8 +70,8 @@ const Favorites = () => {
           <center><span>Publications favorites</span></center>
           <div className={classes.root}>
             {
-              favoriteCases.length > 0 ? favoriteCases.length > 0 && favoriteCases.map((oCase, index) => {
-                return <CasesItem key={index} item={oCase} favorite />
+              favoriteCases.length > 0 ? favoriteCases.map((oCase, index) => {
+                return <CasesItem key={index} item={oCase} favorite={true} />
               }) : 'Vous n\'avez pas de publication favorite'
             }
           </div>

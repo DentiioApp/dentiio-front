@@ -11,8 +11,8 @@ import config from '../../config'
 
 const INIT_STATE = {
   cases: {},
-  casesFiltred: {},
-  casesList: {},
+  casesFiltred: [],
+  casesList: [],
   nbrCases: 1,
   casesLoaded: false,
   currentCase: config.cache.currentCase,
@@ -30,7 +30,7 @@ export const Cases = (state = INIT_STATE, action) => {
       return { ...state, casesFiltred: action.datas }
 
     case ADD_FAVORITE:
-      return { ...state, favorites: action.data }
+      return { ...state, favorites: state.favorites.concat(action.datas) }
 
     case INIT_FAV_CASE:
       return { ...state, favorites: action.datas }
