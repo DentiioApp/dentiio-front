@@ -3,7 +3,7 @@ import Autocomplete from '@material-ui/lab/Autocomplete'
 import React, { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { tryKeywords } from '../../../services/Home'
-import { FILTERED_CASES, KEYWORDS_LIST } from '../../../store/actions'
+import { CASE_FILTERED, KEYWORDS_LIST } from '../../../store/actions'
 import './Search.scss'
 import CategoriesCases from '../../UI/Dawers/CategoriesCases'
 
@@ -31,7 +31,7 @@ const Search = (props) => {
     keywords: []
   }
 
-  const items = useSelector((state) => state.home.cases)
+  const casesList = useSelector((state) => state.cases.casesList)
   const [values, setValues] = useState(initValues)
   const dispatch = useDispatch()
 
@@ -49,10 +49,10 @@ const Search = (props) => {
 
   const onTextChanged = (e) => {
     const value = e.target.value
-    const newdata = []
+    var newdata = []
     if (value.length > 0) {
       const regex = new RegExp(`^${value}`, 'i')
-      items.map((item) => {
+      casesList.map((item) => {
         if (
           item.keyword.filter((keyword) =>
             regex.test(keyword.name.toLowerCase())
@@ -64,7 +64,7 @@ const Search = (props) => {
       })
     }
 
-    dispatch({ type: FILTERED_CASES, data: newdata })
+    dispatch({ type: CASE_FILTERED, datas: newdata })
   }
 
   const options = values.keywords.map((option) => {

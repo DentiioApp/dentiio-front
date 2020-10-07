@@ -9,6 +9,7 @@ import CasesItem from '../../components/App/CaseItem/CaseItem'
 import { fetchCases, fetchUserFav } from '../../services/Cases'
 import { getUserId } from '../../services/Users'
 import Spinner from '../../components/UI/Dawers/Spinner'
+import { errorApi } from '../../utils'
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -24,7 +25,7 @@ const useStyles = makeStyles((theme) => ({
 const Favorites = () => {
   const classes = useStyles()
   const dispatch = useDispatch()
-  const casesList = useSelector((state) => state.home.cases)
+  const casesList = useSelector((state) => state.cases.casesList)
   const favorites = useSelector((state) => state.cases.favorites)
   const userId = getUserId()
 
@@ -37,16 +38,14 @@ const Favorites = () => {
 
   const initUserFav = async () => {
     const response = await fetchUserFav(userId)
-    const regex2 = RegExp(/Error/)
-    if (!regex2.test(response)) {
-      dispatch({ type: INIT_FAV_CASE, data: response.datas })
+    if (!errorApi().test(response)) {
+      dispatch({ type: INIT_FAV_CASE, datas: response.datas })
     }
   }
 
   const getCases = async () => {
     const fetch = await fetchCases()
-    const regex2 = RegExp(/Error/)
-    if (fetch.message !== undefined && !regex2.test(fetch.message)) {
+    if (fetch.message !== undefined && !errorApi().test(fetch.message)) {
       dispatch({ type: CASES_LIST, datas: fetch.datas, nbrItems: fetch.items })
     }
   }

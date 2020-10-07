@@ -27,6 +27,7 @@ import { loginCheck } from '../../../services/Users'
 import { setup } from '../../../services/Auth'
 import config from '../../../config'
 import logo from '../../../images/logo.svg'
+import { errorApi } from '../../../utils'
 
 const useStyles = makeStyles((theme) => (oStyle(theme, imgDesktop, imgMobile)))
 
@@ -57,9 +58,9 @@ const SignIn = () => {
     e.preventDefault()
 
     if (values.password !== '' && values.email !== '') {
-      const regex2 = RegExp(/Error/)
+
       const response = await loginCheck(values.email, values.password)
-      if (regex2.test(response.datas)) {
+      if (errorApi().test(response.datas)) {
         addToast(messages.signin.error, {appearance: 'error'})
       } else {
         addToast(messages.signin.success, {appearance: 'success'})

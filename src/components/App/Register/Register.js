@@ -33,7 +33,7 @@ import { sendEmail } from '../../../services/Email'
 
 import { LOGIN_FORM, REGISTER_USER } from '../../../store/actions'
 import GradientBtn from '../../UI/buttons/GradientBtn'
-import { checkEmail, checkPassword } from '../../../utils'
+import { checkEmail, checkPassword, errorApi } from '../../../utils'
 
 const useStyles = makeStyles((theme) => oStyle(theme, imgDesktop, imgMobile))
 
@@ -97,9 +97,7 @@ const Register = () => {
       isEnabled: true
     })
 
-    const regex2 = RegExp(/Error/)
-
-    if (regex2.test(response)) {
+    if (errorApi().test(response)) {
       return { message: messages.register.error, appearance: 'error' }
     } else {
       if (!emailSent) {

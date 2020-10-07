@@ -8,10 +8,6 @@ const INIT_STATE = {
 
   users: [],
 
-  casesLoaded: false,
-  cases: [],
-  nbrCases: 1,
-
   login: false,
   config: { conf },
   internet: false,
@@ -30,7 +26,6 @@ export const Home = (state = INIT_STATE, action) => {
     case 'SUBSCRIBE_FORM': return { ...state, login: true }
 
     case 'JOB_LIST': return { ...state, jobs: action.data, jobsLoaded: true }
-    case 'CASES_LIST' : return { ...state, cases: action.datas, casesLoaded: true, nbrCases: action.nbrItems }
     case 'KEYWORDS_LIST': return { ...state, keywords: action.keywords }
 
     case 'HOME_RESET': return { ...state, usersLoaded: false, casesLoaded: false, jobsLoaded: false }

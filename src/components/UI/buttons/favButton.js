@@ -7,6 +7,7 @@ import { addFavCase } from '../../../services/Cases'
 import { ADD_FAVORITE } from '../../../store/actions'
 import { useToasts } from 'react-toast-notifications'
 import { getUserId } from '../../../services/Users'
+import { errorApi } from '../../../utils'
 
 const Favorites = (props) => {
   const { config } = useSelector((state) => state.home)
@@ -24,9 +25,8 @@ const Favorites = (props) => {
 
   const HandleFav = async (item) => {
     const response = await addFavCase(item, userId)
-    const regex2 = RegExp(/Error/)
 
-    if (regex2.test(response)) {
+    if (errorApi().test(response)) {
       addToast(messages.add.error, { appearance: 'error' })
     } else {
       addToast(messages.add.success, { appearance: 'success' })
