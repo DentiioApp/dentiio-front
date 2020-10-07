@@ -6,7 +6,7 @@ const LOGIN_CHECK = process.env.REACT_APP_BACK_API_URL + process.env.REACT_APP_L
 const USERS = process.env.REACT_APP_BACK_API_URL + process.env.REACT_APP_USERS
 
 export const loginCheck = (email, passwd) => {
-  const reponses = axios.post(
+  let reponses = axios.post(
     LOGIN_CHECK, { username: email, password: passwd }
   ).then((res) =>{ return  {message: 'OK', datas: res}})
     .catch((e) => JSON.stringify(e))
@@ -14,7 +14,7 @@ export const loginCheck = (email, passwd) => {
   return reponses
 }
 
-export const registerCheck = (user) => {
+export const registerCheck =  async (user) => {
   const pseudo = 'Dentiio-' + randomstring.generate({
     length: 6,
     charset: 'alphabetic'
@@ -22,7 +22,7 @@ export const registerCheck = (user) => {
 
   user.pseudo = pseudo
 
-  const reponses = axios
+  let responses = await axios
     .post(USERS, user)
     .then((res) => {
       localStorage.setItem('authSubscribeMsg', res.statusText)
@@ -30,17 +30,7 @@ export const registerCheck = (user) => {
     })
     .catch((e) => JSON.stringify(e))
 
-  return reponses
-}
-
-export const tryRegister = (user) => {
-  const fetchDatas = registerCheck(user)
-
-  if (fetchDatas.datas === undefined) {
-    fetchDatas.datas = []
-  }
-
-  return fetchDatas
+  return responses = responses.datas !== 'Created' ? {} : responses
 }
 
 export const getUserId = () => {
@@ -49,7 +39,7 @@ export const getUserId = () => {
 }
 
 export const getUserById = (id) => {
-  const isUserGet = axios
+  let isUserGet = axios
     .get(USERS + '/' + id)
     .then((res) => ({
       message: 'OK',
@@ -60,8 +50,8 @@ export const getUserById = (id) => {
 }
 
 export const saveCard = async (data) => {
-  const licenceDOC = { licenceDoc: data.image }
-  const isCardPut = await axios.put(USERS + '/' + data.userId, licenceDOC)
+  let licenceDOC = { licenceDoc: data.image }
+  let isCardPut = await axios.put(USERS + '/' + data.userId, licenceDOC)
     .then(res => res.statusText)
     .catch(console.warning)
 

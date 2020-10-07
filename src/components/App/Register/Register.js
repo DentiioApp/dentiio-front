@@ -28,12 +28,12 @@ import VisibilityOff from '@material-ui/icons/VisibilityOff'
 import { useToasts } from 'react-toast-notifications'
 import { setup } from '../../../services/Auth'
 import oStyle from '../../ResponsiveDesign/AuthStyle'
-import { tryRegister } from '../../../services/Users'
+import { registerCheck } from '../../../services/Users'
 import { sendEmail } from '../../../services/Email'
 
 import { LOGIN_FORM, REGISTER_USER } from '../../../store/actions'
 import GradientBtn from '../../UI/buttons/GradientBtn'
-import { checkEmail, checkPassword, errorApi } from '../../../utils'
+import { checkEmail, checkPassword } from '../../../utils'
 
 const useStyles = makeStyles((theme) => oStyle(theme, imgDesktop, imgMobile))
 
@@ -87,7 +87,7 @@ const Register = () => {
   }
 
   const sendRequest = async () => {
-    const response = await tryRegister({
+    const response = await registerCheck({
       nom: 'none',
       prenom: 'none',
       email: values.email.toLowerCase(),
@@ -97,7 +97,7 @@ const Register = () => {
       isEnabled: true
     })
 
-    if (errorApi().test(response)) {
+    if (response === {}) {
       return { message: messages.register.error, appearance: 'error' }
     } else {
       if (!emailSent) {
