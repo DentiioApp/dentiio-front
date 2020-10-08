@@ -80,6 +80,7 @@ const TreatPlan = (props) => {
                 variant='outlined'
                 margin='normal'
                 required
+                autoFocus
                 label='Etape 1'
                 multiline
                 name='step1'
