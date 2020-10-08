@@ -26,7 +26,7 @@ const FavButton = (props) => {
   }, [Object.keys(favorites).length, props])
 
   const HandleFav = (item) => {
-console.log('TEST :', item)
+    console.log('TEddST :', item)
     let addOrDelete = props.isFavorite ? addFavCase() : removeFavCase()  
     const response = addOrDelete(item, userId)
 
