@@ -7,7 +7,7 @@ import CardContent from '@material-ui/core/CardContent'
 import CardActions from '@material-ui/core/CardActions'
 import Typography from '@material-ui/core/Typography'
 import FavButton from '../../UI/buttons/favButton'
-import IconProfile from '../../UI/Icon/Profile/iconProfile'
+import UserAvatar from "../../UI/Avatars/UserAvatar";
 import { avgNotes } from '../../../utils'
 import Keyword from '../../UI/Keywords/keywords'
 import ChatIcon from '@material-ui/icons/Chat'
@@ -25,6 +25,7 @@ const CasesItem = (props) => {
       })
     }
   }
+  console.log(props.item.user)
 
   return (
     <Card className='root' key={props.item.id}>
@@ -50,20 +51,7 @@ const CasesItem = (props) => {
         </CardContent>
         <br/>
         <CardActions disableSpacing>
-          <Avatar
-              style={{width: '50px', height: '50px'}}
-              avatarStyle='Circle'
-              topType='LongHairMiaWallace'
-              accessoriesType='Prescription02'
-              hairColor='BrownDark'
-              facialHairType='Blank'
-              clotheType='Hoodie'
-              clotheColor='PastelBlue'
-              eyeType='Happy'
-              eyebrowType='Default'
-              mouthType='Smile'
-              skinColor='Light'
-          />
+          <UserAvatar avatar={props.item.user.avatar} width={"50px"}/>
           <Typography variant='body2' style={{ color: 'black', textTransform: 'capitalize' }} component='p'>
             {props.item.user.pseudo}
             <br />

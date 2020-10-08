@@ -8,7 +8,6 @@ import CasesItem from '../CaseItem/CaseItem'
 import Paginator from '../../UI/Paginator/Paginator'
 import titleSvg from '../../../images/maquette/c-case-title.svg'
 import { getUserId } from '../../../services/Users'
-
 import Spinner from '../../../components/UI/Dawers/Spinner'
 
 const useStyles = makeStyles((theme) => ({

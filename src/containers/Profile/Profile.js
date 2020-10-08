@@ -1,4 +1,4 @@
-import { Avatar, makeStyles } from '@material-ui/core'
+import { makeStyles } from '@material-ui/core'
 import ExitToAppIcon from '@material-ui/icons/ExitToApp'
 import Button from '@material-ui/core/Button'
 import Grid from '@material-ui/core/Grid'
@@ -6,11 +6,13 @@ import Paper from '@material-ui/core/Paper'
 import Typography from '@material-ui/core/Typography'
 import React, { useEffect, useState } from 'react'
 import Header from '../../components/App/Header/Header'
-import imgProfile from '../../images/profile.png'
+import UserAvatar from '../../components/UI/Avatars/UserAvatar';
 import { getUserId, getUserById } from '../../services/Users'
 import { getCaseByUserId } from '../../services/Cases'
 import CasesItem from '../../components/App/CaseItem/CaseItem'
 import Container from '@material-ui/core/Container'
+import {Link} from "react-router-dom";
+import EditIcon from '@material-ui/icons/Edit';
 
 function logout () {
   localStorage.clear()
@@ -89,8 +91,24 @@ const Profile = () => {
       <div className={classes.root}>
         <Paper className={classes.paper}>
           <Grid container spacing={2}>
-            <Grid item>
-              <Avatar className={classes.large} alt='' src={imgProfile} />
+            <Grid item style={{textAlign: "center"}}>
+              <Link to='/avatar'>
+                <Button>
+                  <UserAvatar avatar={item.avatar} width={"150px"}/>
+                </Button>
+              </Link>
+              <br/>
+              <Link to='/avatar' style={{textDecoration: "none"}}>
+                <Button
+                    variant="outlined"
+                    size="small"
+                    color="primary"
+                    aria-label="Add"
+                >
+                  <EditIcon />
+                  Avatar
+                </Button>
+              </Link>
             </Grid>
             <Grid item xs={12} sm container>
               <Grid item xs container direction='column' spacing={2}>

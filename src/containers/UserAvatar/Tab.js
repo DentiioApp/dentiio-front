@@ -1,22 +1,26 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import PropTypes from 'prop-types';
 import { makeStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
-import PhoneIcon from '@material-ui/icons/Phone';
-import FavoriteIcon from '@material-ui/icons/Favorite';
-import PersonPinIcon from '@material-ui/icons/PersonPin';
-import HelpIcon from '@material-ui/icons/Help';
-import ShoppingBasket from '@material-ui/icons/ShoppingBasket';
-import ThumbDown from '@material-ui/icons/ThumbDown';
-import ThumbUp from '@material-ui/icons/ThumbUp';
 import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
-import {Mouth} from "../../components/UI/Avatars/Library";
+import SaveIcon from '@material-ui/icons/Save';
+import {
+    Mouth,
+    Eyebrows,
+    Eye,
+    Hair,
+    HairColor,
+    SkinColor,
+    Accessories,
+    Clothes,
+    ClothesColor, Beard
+} from "../../components/UI/Avatars/Library";
 import Avatar, {Piece} from "avataaars";
 import Button from "@material-ui/core/Button";
-
+import {getUserById, getUserId} from "../../services/Users";
 function TabPanel(props) {
     const { children, value, index, ...other } = props;
 
@@ -55,41 +59,95 @@ const useStyles = makeStyles((theme) => ({
         flexGrow: 1,
         width: '100%',
         backgroundColor: theme.palette.background.paper,
+        textAlign: "center",
+        [theme.breakpoints.down('sm')]: {
+            marginTop: '70px!important'
+        }
     },
+    btn: {
+        margin: 5
+    },
+    avatar: {
+
+    }
 }));
 
 export default function TabAvatar() {
     const classes = useStyles();
     const [value, setValue] = React.useState(0);
-    const [mouth, setMouth] = React.useState('Smile');
+    const [user, setUser] = React.useState({});
+
+    const ResponseUser = async () => {
+        const CaseById = await getUserById(getUserId())
+        setUser(CaseById.datas)
+    }
+
+    const [mouth, setMouth] = React.useState("");
+    const [eye, setEye] = React.useState("");
+    const [eyebrow, setEyebrow] = React.useState("");
+    const [hair, setHair] = React.useState("");
+    const [hairColor, setHaircolor] = React.useState("");
+    const [skinColor, setSkinColor] = React.useState("");
+    const [accessories, setAccessories] = React.useState("");
+    const [clothe, setClothe] = React.useState("");
+    const [clotheColor, setClotheColor] = React.useState("");
+    const [beard, setBeard] = React.useState("");
+    const [beardColor, setBeardColor] = React.useState("");
+    const [i, setI] = React.useState(true);
+
+    useEffect(() => {
+        if (Object.entries(user).length === 0) {
+            ResponseUser()
+        }
+        if (user.avatar && i===true){
+            setBeardColor(user.avatar.facialHairColor)
+            setMouth(user.avatar.mouthType)
+            setEye(user.avatar.eyeType)
+            setEyebrow(user.avatar.eyebrowType)
+            setHair(user.avatar.topType)
+            setHaircolor(user.avatar.hairColor)
+            setSkinColor(user.avatar.skinColor)
+            setAccessories(user.avatar.accessoriesType)
+            setClothe(user.avatar.clotheType)
+            setClotheColor(user.avatar.clotheColor)
+            setBeard(user.avatar.facialHairType)
+            setI(false)
+        }
+    })
 
     const handleChange = (event, newValue) => {
         setValue(newValue);
     };
-
-    const handleMouth = (newValue) => {
-        setMouth(newValue);
-    };
-
-    console.log(mouth)
-    console.log(value)
-
     return (
         <div className={classes.root}>
             <Avatar
                 style={{width: '200px', height: '200px'}}
                 avatarStyle='Circle'
-                topType='LongHairMiaWallace'
-                accessoriesType='Prescription02'
-                hairColor='BrownDark'
-                facialHairType='Blank'
-                clotheType='Hoodie'
-                clotheColor='PastelBlue'
-                eyeType='Happy'
-                eyebrowType='Default'
-                mouthType={mouth}
-                skinColor='Light'
+                topType={hair && hair}
+                accessoriesType={accessories && accessories}
+                hairColor={hairColor && hairColor}
+                facialHairType={beard && beard}
+                facialHairColor={beardColor && beardColor}
+                clotheType={clothe && clothe}
+                clotheColor={clotheColor && clotheColor}
+                eyeType={eye && eye}
+                eyebrowType={eyebrow && eyebrow}
+                mouthType={mouth && mouth}
+                skinColor={skinColor && skinColor}
+                className={classes.avatar}
             />
+            <br/>
+            <Button
+                variant="contained"
+                color="primary"
+                size="small"
+                className={classes.button}
+                startIcon={<SaveIcon />}
+            >
+                Enregistrer
+            </Button>
+            <br/>
+            <br/>
             <AppBar position="static" color="default">
                 <Tabs
                     value={value}
@@ -100,39 +158,90 @@ export default function TabAvatar() {
                     textColor="primary"
                     aria-label="scrollable force tabs example"
                 >
-                    <Tab label="Bouche" icon={<PhoneIcon />} {...a11yProps(0)} />
-                    <Tab label="Nez" icon={<FavoriteIcon />} {...a11yProps(1)} />
-                    <Tab label="Item Three" icon={<PersonPinIcon />} {...a11yProps(2)} />
-                    <Tab label="Item Four" icon={<HelpIcon />} {...a11yProps(3)} />
-                    <Tab label="Item Five" icon={<ShoppingBasket />} {...a11yProps(4)} />
-                    <Tab label="Item Six" icon={<ThumbDown />} {...a11yProps(5)} />
-                    <Tab label="Item Seven" icon={<ThumbUp />} {...a11yProps(6)} />
+                    <Tab label="Yeux"  {...a11yProps(0)} />
+                    <Tab label="Sourcil"  {...a11yProps(1)} />
+                    <Tab label="Bouche"  {...a11yProps(2)} />
+                    <Tab label="Cheveux" {...a11yProps(3)} />
+                    <Tab label="Peau" {...a11yProps(4)} />
+                    <Tab label="Barbe"  {...a11yProps(5)} />
+                    <Tab label="Vêtement" {...a11yProps(6)} />
+                    <Tab label="Accessoires"  {...a11yProps(7)} />
+
                 </Tabs>
             </AppBar>
             <TabPanel value={value} index={0}>
-                {Mouth.map((mouthTypes) => (
-                    <Button onClick={handleMouth}>
-                        <Piece pieceType="mouth" pieceSize="250" mouthType={mouthTypes}/>
+                {Eye.map((type) => (
+                    <Button onClick={() => setEye(type)}>
+                        <Piece pieceType="eyes" pieceSize="250" eyeType={type}/>
                     </Button>
                 ))}
             </TabPanel>
             <TabPanel value={value} index={1}>
-                Item Two
+                {Eyebrows.map((type) => (
+                    <Button onClick={() => setEyebrow(type)}>
+                        <Piece pieceType="eyebrows" pieceSize="250" eyebrowType={type}/>
+                    </Button>
+                ))}
             </TabPanel>
             <TabPanel value={value} index={2}>
-                Item Three
+                {Mouth.map((type) => (
+                    <Button onClick={() => setMouth(type)}>
+                        <Piece pieceType="mouth" pieceSize="250" mouthType={type}/>
+                    </Button>
+                ))}
             </TabPanel>
             <TabPanel value={value} index={3}>
-                Item Four
+                {HairColor.map((type) => (
+                    <Button className={classes.btn} variant={"outlined"} onClick={() => setHaircolor(type)}>
+                        {type}
+                    </Button>
+                ))}
+                <br/>
+                {Hair.map((type) => (
+                    <Button onClick={() => setHair(type)}>
+                        <Piece pieceType="top" pieceSize="100" topType={type} hairColor={hairColor}/>
+                    </Button>
+                ))}
             </TabPanel>
             <TabPanel value={value} index={4}>
-                Item Five
+                {SkinColor.map((type) => (
+                    <Button onClick={() => setSkinColor(type)}>
+                        <Piece pieceType="skin" pieceSize="100" skinColor={type} />
+                    </Button>
+                ))}
             </TabPanel>
             <TabPanel value={value} index={5}>
-                Item Six
+                {HairColor.map((type) => (
+                    <Button className={classes.btn} variant={"outlined"} onClick={() => setBeardColor(type)}>
+                        {type}
+                    </Button>
+                ))}
+                <br/>
+                {Beard.map((type) => (
+                    <Button onClick={() => setBeard(type)}>
+                        <Piece pieceType="facialHair" pieceSize="100" facialHairType={type} facialHairColor={beardColor}/>
+                    </Button>
+                ))}
             </TabPanel>
             <TabPanel value={value} index={6}>
-                Item Seven
+                {ClothesColor.map((type) => (
+                    <Button className={classes.btn} variant={"outlined"} onClick={() => setClotheColor(type)}>
+                        {type}
+                    </Button>
+                ))}
+                <br/>
+                {Clothes.map((type) => (
+                    <Button onClick={() => setClothe(type)}>
+                        <Piece pieceType="clothe" pieceSize="100" clotheType={type} clotheColor={clotheColor}/>
+                    </Button>
+                ))}
+            </TabPanel>
+            <TabPanel value={value} index={7}>
+                {Accessories.map((type) => (
+                    <Button onClick={() => setAccessories(type)}>
+                        <Piece pieceType="accessories" pieceSize="100" accessoriesType={type}/>
+                    </Button>
+                ))}
             </TabPanel>
         </div>
     );
