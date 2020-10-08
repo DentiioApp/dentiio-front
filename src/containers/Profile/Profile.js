@@ -12,6 +12,7 @@ import { getCaseByUserId } from '../../services/Cases'
 import CasesItem from '../../components/App/CaseItem/CaseItem'
 import Container from '@material-ui/core/Container'
 import { setup } from '../../services/Auth'
+import Spinner from '../../components/UI/Dawers/Spinner'
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -86,52 +87,56 @@ const Profile = () => {
     }
   })
   if (setup()) {
-    return (
-      <>
-        <Header target='profile' />
-        <div className={classes.root}>
-          <Paper className={classes.paper}>
-            <Grid container spacing={2}>
-              <Grid item>
-                <Avatar className={classes.large} alt='' src={imgProfile} />
-              </Grid>
-              <Grid item xs={12} sm container>
-                <Grid item xs container direction='column' spacing={2}>
-                  <Grid item xs>
-                    <Typography gutterBottom variant='h4' style={{ textTransform: 'capitalize' }}>
-                      {item && item.pseudo}
-                    </Typography>
-                    <Typography variant='body2' color='textSecondary'>
-                      {item && item.job && item.job.name}
-                    </Typography>
+    if (cases.length === undefined) {
+      return (<><Header target='profile' /><Spinner /></>)
+    } else {
+      return (
+        <>
+          <Header target='profile' />
+          <div className={classes.root}>
+            <Paper className={classes.paper}>
+              <Grid container spacing={2}>
+                <Grid item>
+                  <Avatar className={classes.large} alt='' src={imgProfile} />
+                </Grid>
+                <Grid item xs={12} sm container>
+                  <Grid item xs container direction='column' spacing={2}>
+                    <Grid item xs>
+                      <Typography gutterBottom variant='h4' style={{ textTransform: 'capitalize' }}>
+                        {item && item.pseudo}
+                      </Typography>
+                      <Typography variant='body2' color='textSecondary'>
+                        {item && item.job && item.job.name}
+                      </Typography>
+                    </Grid>
+                  </Grid>
+                  <Grid item>
+                    <Button
+                      onClick={logout}
+                      variant='contained'
+                      color='inherit'
+                      className={classes.button}
+                    >
+                      <ExitToAppIcon fontSize='small' color='inherit' />
+                    </Button>
                   </Grid>
                 </Grid>
-                <Grid item>
-                  <Button
-                    onClick={logout}
-                    variant='contained'
-                    color='inherit'
-                    className={classes.button}
-                  >
-                    <ExitToAppIcon fontSize='small' color='inherit' />
-                  </Button>
-                </Grid>
               </Grid>
-            </Grid>
-          </Paper>
-        </div>
-        <Container maxWidth='lg'>
-          <Typography component='h2' variant='h5' color='primary' style={{ paddingTop: '20px' }}>
-            <center>Cas publiés</center>
-          </Typography>
-          <div className={classes.card}>
-            {Object.keys(cases).length !== 0 && cases.map((oCase, index) => {
-              return <CasesItem key={index} item={oCase} />
-            })}
+            </Paper>
           </div>
-        </Container>
-      </>
-    )
+          <Container maxWidth='lg'>
+            <Typography component='h2' variant='h5' color='primary' style={{ paddingTop: '20px' }}>
+              <center>Cas publiés</center>
+            </Typography>
+            <div className={classes.card}>
+              {Object.keys(cases).length !== 0 && cases.map((oCase, index) => {
+                return <CasesItem key={index} item={oCase} />
+              })}
+            </div>
+          </Container>
+        </>
+      )
+    } 
   } else {
     window.location.href = '/'
   }
