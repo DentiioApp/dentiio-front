@@ -70,7 +70,7 @@ const Favorites = () => {
           <div className={classes.root}>
             {
               favoriteCases.length > 0 ? favoriteCases.map((oCase, index) => {
-                return <CasesItem key={index} item={oCase} favorite={true} />
+                return <CasesItem key={index} item={oCase} favorite />
               }) : 'Vous n\'avez pas de publication favorite'
             }
           </div>

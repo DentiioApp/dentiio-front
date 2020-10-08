@@ -7,7 +7,7 @@ import {
   Paper,
   Typography,
   TextField,
-  Button,
+  Button
 } from '@material-ui/core/'
 import Grid from '@material-ui/core/Grid'
 import InputLabel from '@material-ui/core/InputLabel'

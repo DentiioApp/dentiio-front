@@ -28,7 +28,7 @@ const CasesList = () => {
   const userId = getUserId()
 
   const caseSelector = useSelector((state) => state.cases)
-  
+
   const casesList = caseSelector.casesList
   const casesFiltred = caseSelector.casesFiltred
   const cases = casesFiltred.length > 0 ? casesFiltred : casesList
@@ -37,7 +37,7 @@ const CasesList = () => {
   const areLoaded = caseSelector.casesLoaded
   const favorites = caseSelector.favorites
   const pages = Math.round(nbrCases / 30)
-  
+
   const initValues = {
     paginator: 1
   }
@@ -84,7 +84,7 @@ const CasesList = () => {
               if (favorites.length > 0) {
                 favorites.map((item) => {
                   var slashIndex = item.clinicalCaseId !== undefined ? item.clinicalCaseId.lastIndexOf('/') : false
-                  var caseId = slashIndex ? Number(item.clinicalCaseId.substr(slashIndex).substr(1, slashIndex.length)): item.user.id
+                  var caseId = slashIndex ? Number(item.clinicalCaseId.substr(slashIndex).substr(1, slashIndex.length)) : item.user.id
                   if (caseId === oCase.id) { isFavorite = true }
                   return isFavorite
                 })

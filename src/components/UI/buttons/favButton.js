@@ -26,7 +26,7 @@ const Favorites = (props) => {
   }, [Object.keys(favorites).length, props])
 
   const HandleFav = async (item) => {
-    let response = await addFavCase(item, userId)
+    const response = await addFavCase(item, userId)
 
     if (response === {}) {
       addToast(messages.add.error, { appearance: 'error' })

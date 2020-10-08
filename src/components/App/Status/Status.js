@@ -17,14 +17,13 @@ import imgMobile from '../../../images/mobile-bg.svg'
 import StatusJustif from '../../UI/Modal/StatusJustif'
 import GradientBtn from '../../UI/buttons/GradientBtn'
 import oStyle from '../../ResponsiveDesign/AuthStyle'
-import { checkFiles } from '../../../utils'
+import { checkFiles, errorApi } from '../../../utils'
 
 import { loginCheck, getUserId, saveCard } from '../../../services/Users'
 
 import { LOG_USER, VALID_STATUS, FREE_CREDENTIALS } from '../../../store/actions'
 import logo from '../../../images/logo.svg'
 import config from '../../../config'
-import { errorApi } from '../../../utils'
 
 const useStyles = makeStyles((theme) => (oStyle(theme, imgDesktop, imgMobile)))
 
@@ -44,7 +43,7 @@ const Status = () => {
           dispatch({ type: LOG_USER, datas: isSignIn.datas })
           dispatch({ type: FREE_CREDENTIALS })
         } else {
-          addToast(messages.signin.autoLogError, {appearance: 'warning'})
+          addToast(messages.signin.autoLogError, { appearance: 'warning' })
         }
       }
     }
