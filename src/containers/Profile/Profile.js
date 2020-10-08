@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react'
-import {Avatar, makeStyles} from '@material-ui/core'
+import { makeStyles} from '@material-ui/core'
 import ExitToAppIcon from '@material-ui/icons/ExitToApp'
 import Button from '@material-ui/core/Button'
 import Grid from '@material-ui/core/Grid'
@@ -14,12 +14,6 @@ import Container from '@material-ui/core/Container'
 import {Link} from "react-router-dom";
 import EditIcon from '@material-ui/icons/Edit';
 import {setup} from '../../services/Auth'
-
-
-function logout() {
-    localStorage.clear()
-    window.location.href = '/'
-}
 
 
 const useStyles = makeStyles((theme) => ({
@@ -94,6 +88,7 @@ const Profile = () => {
             ResponseCases()
         }
     })
+
     if (setup()) {
         return (
             <>

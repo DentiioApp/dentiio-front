@@ -4,6 +4,7 @@ import randomstring from 'randomstring'
 
 const LOGIN_CHECK = process.env.REACT_APP_BACK_API_URL + process.env.REACT_APP_LOGIN_CHECK
 const USERS = process.env.REACT_APP_BACK_API_URL + process.env.REACT_APP_USERS
+const AVATAR = process.env.REACT_APP_BACK_API_URL + process.env.REACT_APP_AVATAR
 
 export const loginCheck = (email, passwd) => {
   let reponses = axios.post(
@@ -56,4 +57,13 @@ export const saveCard = async (data) => {
     .catch(console.warning)
 
   return isCardPut
+}
+
+export const saveAvatar = async (data) => {
+  const avatarId = data["avatarId"]
+  delete data['avatarId']
+  let isAvatarPut = await axios.put(AVATAR + '/' + avatarId, data)
+      .then(res => res.statusText)
+      .catch(console.warning)
+  return isAvatarPut
 }

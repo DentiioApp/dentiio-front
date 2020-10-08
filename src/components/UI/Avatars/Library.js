@@ -9,7 +9,7 @@ export const Mouth = [
     "Grimace",
     "Sad",
     "ScreamOpen",
-    "Serious",
+    "Serious"
 ]
 
 export const Eye = [

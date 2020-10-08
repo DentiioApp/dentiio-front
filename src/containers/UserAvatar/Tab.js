@@ -6,6 +6,8 @@ import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
+import { useDispatch } from 'react-redux'
+
 import SaveIcon from '@material-ui/icons/Save';
 import {
     Mouth,
@@ -20,7 +22,10 @@ import {
 } from "../../components/UI/Avatars/Library";
 import Avatar, {Piece} from "avataaars";
 import Button from "@material-ui/core/Button";
-import {getUserById, getUserId} from "../../services/Users";
+import {getUserById, getUserId, saveAvatar} from "../../services/Users";
+import {UPDATE_AVATAR} from "../../store/actions";
+import {useToasts} from "react-toast-notifications";
+import config from "../../config";
 function TabPanel(props) {
     const { children, value, index, ...other } = props;
 
@@ -67,15 +72,17 @@ const useStyles = makeStyles((theme) => ({
     btn: {
         margin: 5
     },
-    avatar: {
-
-    }
 }));
 
 export default function TabAvatar() {
     const classes = useStyles();
     const [value, setValue] = React.useState(0);
     const [user, setUser] = React.useState({});
+    const dispatch = useDispatch()
+    const { addToast } = useToasts()
+    const messages = config.messages.avatar
+
+
 
     const ResponseUser = async () => {
         const CaseById = await getUserById(getUserId())
@@ -100,6 +107,7 @@ export default function TabAvatar() {
             ResponseUser()
         }
         if (user.avatar && i===true){
+            setI(false)
             setBeardColor(user.avatar.facialHairColor)
             setMouth(user.avatar.mouthType)
             setEye(user.avatar.eyeType)
@@ -111,13 +119,35 @@ export default function TabAvatar() {
             setClothe(user.avatar.clotheType)
             setClotheColor(user.avatar.clotheColor)
             setBeard(user.avatar.facialHairType)
-            setI(false)
         }
     })
 
     const handleChange = (event, newValue) => {
         setValue(newValue);
     };
+
+    const catchSubmit = async (e) => {
+        e.preventDefault()
+
+            const response = await saveAvatar({
+                topType: hair,
+                accessoriesType: accessories,
+                hairColor: hairColor,
+                facialHairType: hair,
+                facialHairColor: beardColor,
+                clotheType: clothe,
+                clotheColor: clotheColor,
+                eyebrowType: eyebrow,
+                mouthType: mouth,
+                skinColor: skinColor,
+                eyeType: eye,
+                avatarId: user.avatar.id
+            })
+
+        if (response === 'OK') { addToast(messages.success, { appearance: 'success' }) } else { addToast(messages.error, { appearance: 'error' }) }
+                dispatch({ type: UPDATE_AVATAR }
+            )
+    }
     return (
         <div className={classes.root}>
             <Avatar
@@ -134,10 +164,10 @@ export default function TabAvatar() {
                 eyebrowType={eyebrow && eyebrow}
                 mouthType={mouth && mouth}
                 skinColor={skinColor && skinColor}
-                className={classes.avatar}
             />
             <br/>
             <Button
+                onClick={catchSubmit}
                 variant="contained"
                 color="primary"
                 size="small"
@@ -171,74 +201,74 @@ export default function TabAvatar() {
             </AppBar>
             <TabPanel value={value} index={0}>
                 {Eye.map((type) => (
-                    <Button onClick={() => setEye(type)}>
+                    <Button key={type} onClick={() => setEye(type)}>
                         <Piece pieceType="eyes" pieceSize="250" eyeType={type}/>
                     </Button>
                 ))}
             </TabPanel>
             <TabPanel value={value} index={1}>
                 {Eyebrows.map((type) => (
-                    <Button onClick={() => setEyebrow(type)}>
+                    <Button key={type} onClick={() => setEyebrow(type)}>
                         <Piece pieceType="eyebrows" pieceSize="250" eyebrowType={type}/>
                     </Button>
                 ))}
             </TabPanel>
             <TabPanel value={value} index={2}>
                 {Mouth.map((type) => (
-                    <Button onClick={() => setMouth(type)}>
+                    <Button key={type} onClick={() => setMouth(type)}>
                         <Piece pieceType="mouth" pieceSize="250" mouthType={type}/>
                     </Button>
                 ))}
             </TabPanel>
             <TabPanel value={value} index={3}>
                 {HairColor.map((type) => (
-                    <Button className={classes.btn} variant={"outlined"} onClick={() => setHaircolor(type)}>
+                    <Button key={type} className={classes.btn} variant={"outlined"} onClick={() => setHaircolor(type)}>
                         {type}
                     </Button>
                 ))}
                 <br/>
                 {Hair.map((type) => (
-                    <Button onClick={() => setHair(type)}>
+                    <Button key={type} onClick={() => setHair(type)}>
                         <Piece pieceType="top" pieceSize="100" topType={type} hairColor={hairColor}/>
                     </Button>
                 ))}
             </TabPanel>
             <TabPanel value={value} index={4}>
                 {SkinColor.map((type) => (
-                    <Button onClick={() => setSkinColor(type)}>
+                    <Button key={type} onClick={() => setSkinColor(type)}>
                         <Piece pieceType="skin" pieceSize="100" skinColor={type} />
                     </Button>
                 ))}
             </TabPanel>
             <TabPanel value={value} index={5}>
                 {HairColor.map((type) => (
-                    <Button className={classes.btn} variant={"outlined"} onClick={() => setBeardColor(type)}>
+                    <Button key={type} className={classes.btn} variant={"outlined"} onClick={() => setBeardColor(type)}>
                         {type}
                     </Button>
                 ))}
                 <br/>
                 {Beard.map((type) => (
-                    <Button onClick={() => setBeard(type)}>
+                    <Button key={type} onClick={() => setBeard(type)}>
                         <Piece pieceType="facialHair" pieceSize="100" facialHairType={type} facialHairColor={beardColor}/>
                     </Button>
                 ))}
             </TabPanel>
             <TabPanel value={value} index={6}>
                 {ClothesColor.map((type) => (
-                    <Button className={classes.btn} variant={"outlined"} onClick={() => setClotheColor(type)}>
+                    <Button key={type} className={classes.btn} variant={"outlined"} onClick={() => setClotheColor(type)}>
                         {type}
                     </Button>
                 ))}
                 <br/>
                 {Clothes.map((type) => (
-                    <Button onClick={() => setClothe(type)}>
+                    <Button key={type} onClick={() => setClothe(type)}>
                         <Piece pieceType="clothe" pieceSize="100" clotheType={type} clotheColor={clotheColor}/>
                     </Button>
                 ))}
             </TabPanel>
             <TabPanel value={value} index={7}>
                 {Accessories.map((type) => (
-                    <Button onClick={() => setAccessories(type)}>
+                    <Button key={type} onClick={() => setAccessories(type)}>
                         <Piece pieceType="accessories" pieceSize="100" accessoriesType={type}/>
                     </Button>
                 ))}

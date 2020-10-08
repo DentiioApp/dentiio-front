@@ -108,6 +108,11 @@ const config = {
         success: 'Carte envoyé, vous serez notifié par mail une fois votre status validé ! ',
         pending: 'Telechargement de votre carte en progression ...'
       }
+    },
+    avatar: {
+      error: 'Une erreur est survenue',
+      success: 'Avatar modifié !',
+      pending: 'Votre avatar est en cours de chargement ...'
     }
   }
 }
