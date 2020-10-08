@@ -7,9 +7,8 @@ import {
   Paper,
   Typography,
   Button,
-  TableRow
+  Grid
 } from '@material-ui/core/'
-import Grid from '@material-ui/core/Grid'
 import { makeStyles } from '@material-ui/core/styles'
 import TextField from '@material-ui/core/TextField'
 import ArrowBackIcon from '@material-ui/icons/ArrowBack'
@@ -180,7 +179,7 @@ const Exam = (props) => {
               <br />  <br />
 
               <center>
-                <TableRow>
+                <Grid item xs={12}>
                   <Button
                     variant='contained'
                     type='submit'
@@ -196,7 +195,7 @@ const Exam = (props) => {
                   >
                     <ArrowForwardIcon />
                   </Button>
-                </TableRow>
+                </Grid>
               </center>
             </form>
           </div>

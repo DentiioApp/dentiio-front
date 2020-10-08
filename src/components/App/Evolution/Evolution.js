@@ -8,7 +8,6 @@ import {
   Typography,
   TextField,
   Button,
-  TableRow
 } from '@material-ui/core/'
 import Grid from '@material-ui/core/Grid'
 import InputLabel from '@material-ui/core/InputLabel'
@@ -105,7 +104,7 @@ const Evolution = (props) => {
               <br />  <br />
 
               <center>
-                <TableRow>
+                <Grid item xs={12}>
                   <Button
                     variant='contained'
                     type='submit'
@@ -121,7 +120,7 @@ const Evolution = (props) => {
                   >
                     <ArrowForwardIcon />
                   </Button>
-                </TableRow>
+                </Grid>
               </center>
             </form>
           </div>

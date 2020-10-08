@@ -8,7 +8,6 @@ import {
   Paper,
   Typography,
   Button,
-  TableRow
 } from '@material-ui/core/'
 import SaveIcon from '@material-ui/icons/Save'
 import Grid from '@material-ui/core/Grid'
@@ -179,7 +178,7 @@ const ClinicCase = (props) => {
               <br />  <br />
 
               <center>
-                <TableRow>
+                <Grid item xs={12}>
                   <Button
                     variant='contained'
                     type='submit'
@@ -195,7 +194,7 @@ const ClinicCase = (props) => {
                   >
                     <SaveIcon />
                   </Button>
-                </TableRow>
+                </Grid>
               </center>
             </form>
           </div>
