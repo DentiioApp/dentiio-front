@@ -21,7 +21,6 @@ import imgMobile from '../../../images/mobile-bg.svg'
 import oStyle from '../../ResponsiveDesign/AuthStyle'
 import { UPDATE_LEVEL } from '../../../store/actions'
 
-import { setup } from '../../../services/Auth'
 import logo from '../../../images/logo.svg'
 import avatar from '../../../images/logoteeth_blue.png'
 
@@ -55,8 +54,6 @@ const Exam = (props) => {
     event.preventDefault()
     dispatch({ type: UPDATE_LEVEL, level: '' })
   }
-
-  setup()
 
   return (
     <>

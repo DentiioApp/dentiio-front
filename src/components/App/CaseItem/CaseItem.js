@@ -12,7 +12,6 @@ import { avgNotes } from '../../../utils'
 import Keyword from '../../UI/Keywords/keywords'
 import ChatIcon from '@material-ui/icons/Chat'
 import StarHalfIcon from '@material-ui/icons/StarHalf'
-import Avatar from 'avataaars'
 
 
 const CasesItem = (props) => {
@@ -25,7 +24,6 @@ const CasesItem = (props) => {
       })
     }
   }
-  console.log(props.item.user)
 
   return (
     <Card className='root' key={props.item.id}>

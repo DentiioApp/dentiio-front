@@ -1,7 +1,6 @@
 import { makeStyles } from '@material-ui/core/styles'
 import React from 'react'
-import { Link, Redirect } from 'react-router-dom'
-import { setup } from '../../../services/Auth'
+import { Link } from 'react-router-dom'
 import palette from '../ColorTheme/Palette'
 import AddIcon from '../Icon/Header/Add'
 import FavoritesIcon from '../Icon/Header/favorites'
@@ -56,11 +55,6 @@ const useStyles = makeStyles((theme) => ({
 
 export const RightMenuIcon = (props) => {
   const classes = useStyles()
-
-  if (setup() === false) {
-    return <Redirect to='/' />
-  }
-
   return (
     <div className={classes.right}>
       <div className={classes.grow} style={{ align: 'right' }} />

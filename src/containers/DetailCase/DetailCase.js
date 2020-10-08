@@ -1,4 +1,6 @@
 import React, { useEffect, useState } from 'react'
+import { Redirect } from 'react-router-dom'
+
 import './gallery.css'
 import Header from '../../components/App/Header/Header'
 import NavbarDetail from '../../components/App/DetailCase/NavbarDetail'
@@ -16,6 +18,7 @@ import Gallery from '../../components/UI/Gallery/Gallery'
 import LightboxButton from '../../components/UI/Gallery/LightboxButton'
 import CardPlanTreatment from '../../components/App/DetailCase/CardPlanTreatment'
 import { getCaseById } from '../../services/Cases'
+import { setup } from '../../services/Auth'
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -203,6 +206,7 @@ const DetailCase = (props) => {
     }
   }
 
+  if (setup()){
   return (
     <>
       <Header target='' />
@@ -348,6 +352,9 @@ const DetailCase = (props) => {
       </div>
     </>
   )
+  } else {
+    return (<Redirect to="/" />)
+  }
 }
 
 export default DetailCase

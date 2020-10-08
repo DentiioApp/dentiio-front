@@ -21,7 +21,6 @@ import oStyle from '../../ResponsiveDesign/AuthStyle'
 import { UPDATE_LEVEL } from '../../../store/actions'
 import InputLabel from '@material-ui/core/InputLabel'
 
-import { setup } from '../../../services/Auth'
 import logo from '../../../images/logo.svg'
 import avatar from '../../../images/logoteeth_blue.png'
 
@@ -51,8 +50,6 @@ const TreatPlan = (props) => {
     event.preventDefault()
     dispatch({ type: UPDATE_LEVEL, level: 'diagnostic' })
   }
-
-  setup()
 
   return (
     <>

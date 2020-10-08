@@ -21,7 +21,6 @@ import ArrowForwardIcon from '@material-ui/icons/ArrowForward'
 import oStyle from '../../ResponsiveDesign/AuthStyle'
 import { UPDATE_LEVEL } from '../../../store/actions'
 
-import { setup } from '../../../services/Auth'
 import logo from '../../../images/logo.svg'
 import avatar from '../../../images/logoteeth_blue.png'
 
@@ -55,8 +54,6 @@ const Diagnostic = (props) => {
     event.preventDefault()
     dispatch({ type: UPDATE_LEVEL, level: 'exam' })
   }
-
-  setup()
 
   return (
     <>

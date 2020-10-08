@@ -1,17 +1,20 @@
 import {
   ADD_FAVORITE,
-  INIT_CURRENT_CASE,
-  FILTERED_CASES,
   CLOSE_SIDE_BAR,
   OPEN_SIDE_BAR,
   INIT_FAV_CASE,
-  CASE_ITEM
+  CASES_LIST,
+  CASE_FILTERED
 } from '../actions'
 
 import config from '../../config'
 
 const INIT_STATE = {
   cases: {},
+  casesFiltred: [],
+  casesList: [],
+  nbrCases: 1,
+  casesLoaded: false,
   currentCase: config.cache.currentCase,
   patient: {},
   openSideBar: false,
@@ -20,26 +23,17 @@ const INIT_STATE = {
 
 export const Cases = (state = INIT_STATE, action) => {
   switch (action.type) {
-    case CASE_ITEM:
-      return { ...state, cases: action.datas }
+    case CASES_LIST:
+      return { ...state, casesList: action.datas, casesLoaded: true, nbrCases: action.nbrItems }
+
+    case CASE_FILTERED:
+      return { ...state, casesFiltred: action.datas }
+
     case ADD_FAVORITE:
-      return { ...state, favorites: action.data }
+      return { ...state, favorites: state.favorites.concat(action.datas) }
+
     case INIT_FAV_CASE:
-      return { ...state, favorites: action.data }
-    case FILTERED_CASES:
-      return { ...state, cases: action.data }
-    case INIT_CURRENT_CASE:
-      // const {age, sexe, drinker, smoker, currentTreatment, oldAffect,allergen} = action.data;
-      return {
-        ...state,
-        age: action.datas.age,
-        sexe: action.datas.sexe,
-        drinker: action.datas.drinker,
-        smoker: action.datas.smoker,
-        currentTreatment: action.datas.currentCase,
-        oldAffect: action.datas.oldAffect,
-        allergen: action.datas.allergen
-      }
+      return { ...state, favorites: action.datas }
 
     case OPEN_SIDE_BAR:
       return { ...state, openSideBar: true }

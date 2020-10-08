@@ -9,13 +9,11 @@ import {
   Typography,
   Button
 } from '@material-ui/core/'
-import AddCircleIcon from '@material-ui/icons/AddCircle'
 import Grid from '@material-ui/core/Grid'
 import { makeStyles } from '@material-ui/core/styles'
 import TextField from '@material-ui/core/TextField'
 import SmokingRoomsIcon from '@material-ui/icons/SmokingRooms'
 import LocalBarIcon from '@material-ui/icons/LocalBar'
-import LocalPharmacyIcon from '@material-ui/icons/LocalPharmacy'
 import ArrowForwardIcon from '@material-ui/icons/ArrowForward'
 
 import imgDesktop from '../../../images/illus.png'
@@ -26,7 +24,6 @@ import { UPDATE_LEVEL } from '../../../store/actions'
 import MenuItem from '@material-ui/core/MenuItem'
 import InputLabel from '@material-ui/core/InputLabel'
 
-import { setup } from '../../../services/Auth'
 import logo from '../../../images/logo.svg'
 import avatar from '../../../images/logoteeth_blue.png'
 import config from '../../../config'
@@ -54,8 +51,6 @@ const Patient = (props) => {
     if (props.values.reason_consultation === '') { setErrors({ ...errors, errReason_consultation: true }); isValid = false }
     if (isValid) { dispatch({ type: UPDATE_LEVEL, level: 'exam' }) }
   }
-
-  setup()
 
   return (
     <>

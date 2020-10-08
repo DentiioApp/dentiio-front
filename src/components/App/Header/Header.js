@@ -3,11 +3,10 @@ import { makeStyles } from '@material-ui/core/styles'
 import AppBar from '@material-ui/core/AppBar'
 import Toolbar from '@material-ui/core/Toolbar'
 import palette from '../../UI/ColorTheme/Palette'
-import { Link, Redirect } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import TitleHeader from '../../UI/titleHeader/TitleHeader'
 import TitleHeaderMobile from '../../UI/titleHeader/titleHeaderMobile'
 import AddIcon from '../../UI/Icon/Header/Add'
-import { setup } from '../../../services/Auth'
 import HomeIcon from '../../UI/Icon/Header/home'
 import FavoritesIcon from '../../UI/Icon/Header/favorites'
 import NotificationIcon from '../../UI/Icon/Header/notification'
@@ -57,10 +56,6 @@ const useStyles = makeStyles((theme) => ({
 
 export const Header = (props) => {
   const classes = useStyles()
-
-  if (setup() === false) {
-    return <Redirect to='/' />
-  };
 
   return (
     <div className={classes.grow}>

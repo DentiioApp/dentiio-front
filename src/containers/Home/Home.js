@@ -6,7 +6,7 @@ import { JOB_LIST } from '../../store/actions'
 import Register from '../../components/App/Register/Register'
 import SignIn from '../../components/App/SignIn/SignIn'
 import Status from '../../components/App/Status/Status'
-import { tryJobs } from '../../services/Jobs'
+import { fetchJobs } from '../../services/Jobs'
 
 const Home = () => {
   const dispatch = useDispatch()
@@ -19,14 +19,15 @@ const Home = () => {
     form = <Status />
   }
 
+  const loadJobs = async () => {
+    let jobs = await fetchJobs()
+    if (jobs !== {})
+      dispatch({ type: JOB_LIST, data: jobs.datas })
+  }
+
   useEffect(() => {
-    if (!isLoaded) {
-      const getJobs = tryJobs()
-      getJobs.then(response => {
-        if (response.message !== 'Network error' && response.message !== undefined) {
-          getJobs.then((res) => (dispatch({ type: JOB_LIST, data: res.datas })))
-        }
-      })
+    if (!isLoaded && home.login) {
+      loadJobs()
     }
   })
 
