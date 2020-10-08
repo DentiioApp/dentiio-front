@@ -7,8 +7,8 @@ import Tab from '@material-ui/core/Tab';
 import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
 import { useDispatch } from 'react-redux'
-
 import SaveIcon from '@material-ui/icons/Save';
+import { useHistory } from "react-router-dom";
 import {
     Mouth,
     Eyebrows,
@@ -78,6 +78,7 @@ export default function TabAvatar() {
     const classes = useStyles();
     const [value, setValue] = React.useState(0);
     const [user, setUser] = React.useState({});
+    let history = useHistory();
     const dispatch = useDispatch()
     const { addToast } = useToasts()
     const messages = config.messages.avatar
@@ -128,25 +129,24 @@ export default function TabAvatar() {
 
     const catchSubmit = async (e) => {
         e.preventDefault()
-
-            const response = await saveAvatar({
-                topType: hair,
-                accessoriesType: accessories,
-                hairColor: hairColor,
-                facialHairType: hair,
-                facialHairColor: beardColor,
-                clotheType: clothe,
-                clotheColor: clotheColor,
-                eyebrowType: eyebrow,
-                mouthType: mouth,
-                skinColor: skinColor,
-                eyeType: eye,
-                avatarId: user.avatar.id
-            })
+        const response = await saveAvatar({
+            topType: hair,
+            accessoriesType: accessories,
+            hairColor: hairColor,
+            facialHairType: hair,
+            facialHairColor: beardColor,
+            clotheType: clothe,
+            clotheColor: clotheColor,
+            eyebrowType: eyebrow,
+            mouthType: mouth,
+            skinColor: skinColor,
+            eyeType: eye,
+            avatarId: user.avatar.id
+        })
 
         if (response === 'OK') { addToast(messages.success, { appearance: 'success' }) } else { addToast(messages.error, { appearance: 'error' }) }
-                dispatch({ type: UPDATE_AVATAR }
-            )
+        dispatch({ type: UPDATE_AVATAR })
+        history.push('/profile')
     }
     return (
         <div className={classes.root}>
