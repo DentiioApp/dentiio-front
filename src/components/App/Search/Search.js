@@ -25,7 +25,7 @@ const useStyles = makeStyles((theme) => ({
   }
 }))
 
-const Search = (props) => {
+const Search = () => {
   const classes = useStyles()
   const dispatch = useDispatch()
 

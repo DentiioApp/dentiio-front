@@ -18,7 +18,7 @@ const INIT_STATE = {
   currentCase: config.cache.currentCase,
   patient: {},
   openSideBar: false,
-  favorites: []
+  favorites: {}
 }
 
 export const Cases = (state = INIT_STATE, action) => {

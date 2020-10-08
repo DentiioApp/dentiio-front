@@ -1,18 +1,19 @@
 import axios from 'axios'
 import jwtDecode from 'jwt-decode'
 import randomstring from 'randomstring'
+import { errorApi } from '../utils'
 
 const LOGIN_CHECK = process.env.REACT_APP_BACK_API_URL + process.env.REACT_APP_LOGIN_CHECK
 const USERS = process.env.REACT_APP_BACK_API_URL + process.env.REACT_APP_USERS
 const AVATAR = process.env.REACT_APP_BACK_API_URL + process.env.REACT_APP_AVATAR
 
 export const loginCheck = (email, passwd) => {
-  let reponses = axios.post(
+  let responses = axios.post(
     LOGIN_CHECK, { username: email, password: passwd }
   ).then((res) =>{ return  {message: 'OK', datas: res}})
     .catch((e) => JSON.stringify(e))
 
-  return reponses
+  return responses
 }
 
 export const registerCheck =  async (user) => {
@@ -39,15 +40,16 @@ export const getUserId = () => {
   return token.userId
 }
 
-export const getUserById = (id) => {
-  let isUserGet = axios
+export const getUserById = async (id) => {
+  let isUserGet = await axios
     .get(USERS + '/' + id)
     .then((res) => ({
       message: 'OK',
       datas: res.data
     }))
     .catch((e) => JSON.stringify(e))
-  return isUserGet
+
+  return errorApi().test(isUserGet) ? {} : isUserGet
 }
 
 export const saveCard = async (data) => {

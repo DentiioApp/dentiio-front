@@ -61,7 +61,8 @@ const SignIn = () => {
       dispatch({ type: START_LOADER})
       const response = await loginCheck(values.email, values.password)
       dispatch({ type: STOP_LOADER})
-      if (errorApi().test(response.datas)) {
+
+      if (errorApi().test(response)) {
         addToast(messages.signin.error, {appearance: 'error'})
       } else {
         addToast(messages.signin.success, {appearance: 'success'})
