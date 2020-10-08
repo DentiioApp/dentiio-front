@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
+import { Redirect } from 'react-router-dom'
 import Header from '../../components/App/Header/Header'
 import ModalGuidelinesPostCase from '../../components/App/Modal/ModalGuidelines-PostCase/ModalGuidelinesPostCase'
 import Patient from '../../components/App/Patient/Patient'
@@ -10,6 +11,7 @@ import Conclusion from '../../components/App/Conclusion/Conclusion'
 import ClinicCase from '../../components/App/ClinicCase/ClinicCase'
 import TreatPlan from '../../components/App/TreatPlan/TreatPlan'
 import TextField from '@material-ui/core/TextField'
+import { setup } from '../../services/Auth'
 
 import { fetchSpecialities, fetchPathologies, fetchKeywords, fetchTreatments, fetchSymptomes } from '../../services/Home'
 import { SPECS_LIST, KEYWORDS_LIST, PATHO_LIST, TREATMENTS_LIST, SYMPTOMES_LIST } from '../../store/actions'
@@ -178,15 +180,19 @@ const CasePost = () => {
       form = <Patient onChange={handleChange} values={values} />
   }
 
-  return (
-    <>
-      <Header />
-      <ModalGuidelinesPostCase />
+  if (setup()){
+    return (
+      <>
+        <Header />
+        <ModalGuidelinesPostCase />
 
-      {form}
+        {form}
 
-    </>
-  )
+      </>
+    ) 
+  } else {
+    return (<Redirect to="/" />)
+  }
 }
 
 export default CasePost

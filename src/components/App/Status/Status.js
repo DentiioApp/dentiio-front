@@ -19,7 +19,7 @@ import GradientBtn from '../../UI/buttons/GradientBtn'
 import oStyle from '../../ResponsiveDesign/AuthStyle'
 import { checkFiles } from '../../../utils'
 
-import { tryLogin, getUserId, saveCard } from '../../../services/Users'
+import { loginCheck, getUserId, saveCard } from '../../../services/Users'
 
 import { LOG_USER, VALID_STATUS, FREE_CREDENTIALS } from '../../../store/actions'
 import logo from '../../../images/logo.svg'
@@ -38,8 +38,8 @@ const Status = () => {
   useEffect(() => {
     if (credentials && credentials.email !== '') {
       return async () => {
-        const isSignIn = await tryLogin(credentials.email, credentials.passwd)
-        dispatch({ type: LOG_USER, datas: isSignIn })
+        const isSignIn = await loginCheck(credentials.email, credentials.passwd)
+        dispatch({ type: LOG_USER, datas: isSignIn.datas })
         dispatch({ type: FREE_CREDENTIALS })
       }
     }

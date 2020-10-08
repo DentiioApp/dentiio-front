@@ -28,6 +28,7 @@ import { UPDATE_LEVEL } from '../../../store/actions'
 import config from '../../../config'
 import { postCase } from '../../../services/Cases'
 import { postPatient } from '../../../services/Patient'
+import { errorApi } from '../../../utils'
 
 const useStyles = makeStyles((theme) => (oStyle(theme, imgDesktop, imgMobile)))
 
@@ -56,11 +57,10 @@ const ClinicCase = (props) => {
     if (props.values.specialities.length < 1) { setErrors({ ...errors, errSpecialities: true }); isValid = false }
 
     if (isValid) {
-      const regex2 = RegExp(/Error/)
       const patient = await postPatient(props.values)
-      if (!regex2.test(patient.message)) {
+      if (!errorApi().test(patient.message)) {
         const datas = await postCase(props.values, patient.datas['@id'])
-        if (regex2.test(datas)) {
+        if (errorApi().test(datas)) {
           addToast(messages.error, { appearance: 'error' })
         } else {
           addToast(messages.success, { appearance: 'success' })

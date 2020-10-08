@@ -28,7 +28,7 @@ import VisibilityOff from '@material-ui/icons/VisibilityOff'
 import { useToasts } from 'react-toast-notifications'
 import { setup } from '../../../services/Auth'
 import oStyle from '../../ResponsiveDesign/AuthStyle'
-import { tryRegister } from '../../../services/Users'
+import { registerCheck } from '../../../services/Users'
 import { sendEmail } from '../../../services/Email'
 
 import { LOGIN_FORM, REGISTER_USER } from '../../../store/actions'
@@ -87,7 +87,7 @@ const Register = () => {
   }
 
   const sendRequest = async () => {
-    const response = await tryRegister({
+    const response = await registerCheck({
       nom: 'none',
       prenom: 'none',
       email: values.email.toLowerCase(),
@@ -97,9 +97,7 @@ const Register = () => {
       isEnabled: true
     })
 
-    const regex2 = RegExp(/Error/)
-
-    if (regex2.test(response)) {
+    if (response === {}) {
       return { message: messages.register.error, appearance: 'error' }
     } else {
       if (!emailSent) {
@@ -107,6 +105,7 @@ const Register = () => {
         if (mailing.data !== 'OK') { console.log('Problem lors de lenvoie du mail') }
         setEmailSent(true)
       }
+
       dispatch({ type: REGISTER_USER, email: values.email, passwd: values.password })
       return { message: messages.register.success, appearance: 'success' }
     }
@@ -120,6 +119,7 @@ const Register = () => {
         setErrEmail(false)
       }
     }
+
     if (prop === 'password') {
       if (checkPassword(event.target.value) === false) {
         setErrPassword(true)

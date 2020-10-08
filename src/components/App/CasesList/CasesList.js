@@ -8,7 +8,7 @@ import CasesItem from '../CaseItem/CaseItem'
 import Paginator from '../../UI/Paginator/Paginator'
 import titleSvg from '../../../images/maquette/c-case-title.svg'
 import { getUserId } from '../../../services/Users'
-
+import { errorApi } from '../../../utils'
 import Spinner from '../../../components/UI/Dawers/Spinner'
 
 const useStyles = makeStyles((theme) => ({
@@ -25,32 +25,35 @@ const useStyles = makeStyles((theme) => ({
 const CasesList = () => {
   const classes = useStyles()
   const dispatch = useDispatch()
-  const home = useSelector((state) => state.home)
   const userId = getUserId()
-  const homeCase = home.cases
-  const filteredCase = useSelector((state) => state.cases.cases)
-  const favorites = useSelector((state) => state.cases.favorites)
-  const cases = filteredCase.length > 0 ? filteredCase : homeCase
-  const nbrCases = home.nbrCases
-  const areLoaded = home.casesLoaded
+
+  const caseSelector = useSelector((state) => state.cases)
+  
+  const casesList = caseSelector.casesList
+  const casesFiltred = caseSelector.casesFiltred
+  const cases = casesFiltred.length > 0 ? casesFiltred : casesList
+
+  const nbrCases = caseSelector.nbrCases
+  const areLoaded = caseSelector.casesLoaded
+  const favorites = caseSelector.favorites
   const pages = Math.round(nbrCases / 30)
+  
   const initValues = {
     paginator: 1
   }
+
   const [values, setValues] = useState(initValues)
 
   const initUserFav = async () => {
     const response = await fetchUserFav(userId)
-    const regex2 = RegExp(/Error/)
-    if (!regex2.test(response)) {
-      dispatch({ type: INIT_FAV_CASE, data: response.datas })
+    if (!errorApi().test(response)) {
+      dispatch({ type: INIT_FAV_CASE, datas: response.datas })
     }
   }
 
   const getCases = async () => {
     const fetch = await fetchCases(values.paginator)
-    const regex2 = RegExp(/Error/)
-    if (fetch.message !== undefined && !regex2.test(fetch.message)) {
+    if (fetch.message !== undefined && !errorApi().test(fetch.message)) {
       dispatch({ type: CASES_LIST, datas: fetch.datas, nbrItems: fetch.items })
     }
   }
@@ -80,8 +83,8 @@ const CasesList = () => {
               var isFavorite = false
               if (favorites.length > 0) {
                 favorites.map((item) => {
-                  var slashIndex = item.clinicalCaseId.lastIndexOf('/')
-                  var caseId = Number(item.clinicalCaseId.substr(slashIndex).substr(1, slashIndex.length))
+                  var slashIndex = item.clinicalCaseId !== undefined ? item.clinicalCaseId.lastIndexOf('/') : false
+                  var caseId = slashIndex ? Number(item.clinicalCaseId.substr(slashIndex).substr(1, slashIndex.length)): item.user.id
                   if (caseId === oCase.id) { isFavorite = true }
                   return isFavorite
                 })
