@@ -23,7 +23,7 @@ const Favorites = (props) => {
     if (props.isFavorite) {
       setToggle(<StarIcon fontSize='default' color='primary' />)
     }
-  }, [favorites, props])
+  }, [Object.keys(favorites).length, props])
 
   const HandleFav = async (item) => {
     let response = await addFavCase(item, userId)

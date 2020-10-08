@@ -22,7 +22,7 @@ import Visibility from '@material-ui/icons/Visibility'
 import VisibilityOff from '@material-ui/icons/VisibilityOff'
 import GradientBtn from '../../UI/buttons/GradientBtn'
 import oStyle from '../../ResponsiveDesign/AuthStyle'
-import { SUBSCRIBE_FORM, LOG_USER } from '../../../store/actions'
+import { SUBSCRIBE_FORM, LOG_USER, START_LOADER, STOP_LOADER } from '../../../store/actions'
 import { loginCheck } from '../../../services/Users'
 import { setup } from '../../../services/Auth'
 import config from '../../../config'
@@ -58,9 +58,11 @@ const SignIn = () => {
     e.preventDefault()
 
     if (values.password !== '' && values.email !== '') {
-
+      dispatch({ type: START_LOADER})
       const response = await loginCheck(values.email, values.password)
-      if (errorApi().test(response.datas)) {
+      dispatch({ type: STOP_LOADER})
+
+      if (errorApi().test(response)) {
         addToast(messages.signin.error, {appearance: 'error'})
       } else {
         addToast(messages.signin.success, {appearance: 'success'})

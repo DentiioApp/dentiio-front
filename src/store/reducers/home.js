@@ -2,6 +2,7 @@
 import conf from '../../config'
 
 const INIT_STATE = {
+  loader: false,
 
   jobsLoaded: false,
   jobs: [],
@@ -22,6 +23,8 @@ const INIT_STATE = {
 
 export const Home = (state = INIT_STATE, action) => {
   switch (action.type) {
+    case 'START_LOADER': return { ...state, loader: true }
+    case 'STOP_LOADER': return { ...state, loader: false }
     case 'LOGIN_FORM': return { ...state, login: false }
     case 'SUBSCRIBE_FORM': return { ...state, login: true }
 

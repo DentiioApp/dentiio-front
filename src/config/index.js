@@ -82,6 +82,7 @@ const config = {
     cases: {
       error: "Une erreur s'est produite",
       success: 'Le cas a été ajouté avec succès',
+      patientError: 'Une erreur est survenu à la création du patient',
 
       favorite: {
         add: {
@@ -101,7 +102,8 @@ const config = {
       },
       signin: {
         error: 'Connexion échoué, vérifier votre saisie',
-        success: 'Connexion approuvé,  Bonjour ! '
+        success: 'Connexion approuvé,  Bonjour ! ',
+        autoLogError: 'Une erreur est survenu lors d\'une authentification'
       },
       card: {
         error: 'Une erreur est survenue lors du chargement de votre carte',

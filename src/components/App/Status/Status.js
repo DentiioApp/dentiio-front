@@ -24,6 +24,7 @@ import { loginCheck, getUserId, saveCard } from '../../../services/Users'
 import { LOG_USER, VALID_STATUS, FREE_CREDENTIALS } from '../../../store/actions'
 import logo from '../../../images/logo.svg'
 import config from '../../../config'
+import { errorApi } from '../../../utils'
 
 const useStyles = makeStyles((theme) => (oStyle(theme, imgDesktop, imgMobile)))
 
@@ -39,8 +40,12 @@ const Status = () => {
     if (credentials && credentials.email !== '') {
       return async () => {
         const isSignIn = await loginCheck(credentials.email, credentials.passwd)
-        dispatch({ type: LOG_USER, datas: isSignIn.datas })
-        dispatch({ type: FREE_CREDENTIALS })
+        if (isSignIn.datas !== undefined && !errorApi().test(isSignIn.datas)) {
+          dispatch({ type: LOG_USER, datas: isSignIn.datas })
+          dispatch({ type: FREE_CREDENTIALS })
+        } else {
+          addToast(messages.signin.autoLogError, {appearance: 'warning'})
+        }
       }
     }
   })
