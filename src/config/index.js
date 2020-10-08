@@ -101,7 +101,8 @@ const config = {
       },
       signin: {
         error: 'Connexion échoué, vérifier votre saisie',
-        success: 'Connexion approuvé,  Bonjour ! '
+        success: 'Connexion approuvé,  Bonjour ! ',
+        autoLogError: 'Une erreur est survenu lors d\'une authentification'
       },
       card: {
         error: 'Une erreur est survenue lors du chargement de votre carte',
