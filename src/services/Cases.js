@@ -10,7 +10,7 @@ const CLINICAL_CASES_BY_USER =
     process.env.REACT_APP_BACK_API_URL + process.env.REACT_APP_USERS
 
 export const fetchCases = (page = 1) => {
-  const reponses = axios
+  let reponses = axios
     .get(CLINICAL_CASES + '?page=' + page)
     .then((res) => ({
       message: 'OK',
@@ -22,12 +22,12 @@ export const fetchCases = (page = 1) => {
 }
 
 export const addFavCase = (data, userId) => {
-  const item = {
+  let item = {
     userId: '/api/users/' + userId,
     clinicalCaseId: data['@id'],
     createdAt: new Date().toISOString()
   }
-  const reponses = axios
+  let reponses = axios
     .post(FAVORITES, item)
     .then((res) => ({
       message: 'OK',
@@ -38,7 +38,7 @@ export const addFavCase = (data, userId) => {
 }
 
 export const getCaseById = (id) => {
-  const reponses = axios
+  let reponses = axios
     .get(CLINICAL_CASES + '/' + id)
     .then((res) => ({
       message: 'OK',
@@ -49,7 +49,7 @@ export const getCaseById = (id) => {
 }
 
 export const getCaseByUserId = (id) => {
-  const reponses = axios
+  let reponses = axios
     .get(CLINICAL_CASES_BY_USER + '/' + id + '/' + process.env.REACT_APP_CLINICAL_CASES)
     .then((res) => ({
       message: 'OK',
@@ -63,7 +63,7 @@ export const fetchUserFav = (userId) => {
   const USERFAVORITES =
     process.env.REACT_APP_BACK_API_URL + process.env.REACT_APP_USERS + '/' + userId + '/' + process.env.REACT_APP_FAVORITES
 
-  const reponses = axios
+  let reponses = axios
     .get(USERFAVORITES)
     .then((res) => ({
       message: 'OK',
@@ -74,7 +74,7 @@ export const fetchUserFav = (userId) => {
 }
 
 export const postCase = (values, patient) => {
-  const item = {
+  let item = {
     age: values.ages,
     smoking: values.isASmoker,
     /* drinking: values.isDrinker, */
@@ -101,7 +101,7 @@ export const postCase = (values, patient) => {
     keyword: values.keywords
   }
 
-  const reponses = axios
+  let reponses = axios
     .post(CLINICAL_CASES, item)
     .then((res) => ({
       message: 'OK',

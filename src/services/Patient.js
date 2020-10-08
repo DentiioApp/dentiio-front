@@ -4,7 +4,7 @@ const PATIENTS =
   process.env.REACT_APP_BACK_API_URL + process.env.REACT_APP_PATIENTS
 
 export const postPatient = (values) => {
-  const item = {
+  let item = {
     age: values.age,
     gender: values.gender,
     isASmoker: values.isASmoker,
@@ -13,7 +13,7 @@ export const postPatient = (values) => {
     inTreatment: values.in_treatment
   }
 
-  const reponses = axios
+  let reponses = axios
     .post(PATIENTS, item)
     .then((res) => ({
       message: 'OK',

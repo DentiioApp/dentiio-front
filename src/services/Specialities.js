@@ -4,7 +4,7 @@ const SPECILITIES =
   process.env.REACT_APP_BACK_API_URL + process.env.REACT_APP_SPECIALITIES
 
 const fetchSpecialitesData = () => {
-  const reponses = axios
+  let reponses = axios
     .get(SPECILITIES)
     .then((res) => ({
       message: 'OK',
