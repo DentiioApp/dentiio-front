@@ -10,6 +10,7 @@ import { fetchCases, fetchUserFav } from '../../services/Cases'
 import { getUserId } from '../../services/Users'
 import Spinner from '../../components/UI/Dawers/Spinner'
 import { errorApi } from '../../utils'
+import { setup } from '../../services/Auth'
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -29,7 +30,13 @@ const Favorites = () => {
   const favorites = useSelector((state) => state.cases.favorites)
   const userId = getUserId()
 
-  var favsIds = []; favorites.length > 0 && favorites.map((item) => { return favsIds.push(item.id) })
+  var favsIds = []; Object.keys(favorites).length > 0 && favorites.map((item) => {
+    //Si l'objet est un cas clinique on recupere l'id du cas clinique dans la chaine de caractère de la clé clinicalCaseId
+    let slashIndex = item.clinicalCaseId !== undefined ? item.clinicalCaseId.lastIndexOf('/') : false;
+    let caseId = slashIndex ? Number(item.clinicalCaseId.substr(slashIndex).substr(1, slashIndex.length)) : 0;
+    //Sinon si l'objet est un favorite on recupère l'id dans la clé id de l'obbjet favorite 
+    return favsIds.push( caseId === 0 ? item.id: caseId) 
+  })           
 
   var favoriteCases = []
   casesList.length > 0 && casesList.map((item) => {
@@ -38,9 +45,7 @@ const Favorites = () => {
 
   const initUserFav = async () => {
     const response = await fetchUserFav(userId)
-    if (!errorApi().test(response)) {
-      dispatch({ type: INIT_FAV_CASE, datas: response.datas })
-    }
+    return errorApi().test(response) ? null :dispatch({ type: INIT_FAV_CASE, datas: response.datas })
   }
 
   const getCases = async () => {
@@ -49,34 +54,34 @@ const Favorites = () => {
       dispatch({ type: CASES_LIST, datas: fetch.datas, nbrItems: fetch.items })
     }
   }
-  useEffect(() => {
-    if (favorites && Object.keys(favorites).length < 1) {
-      initUserFav()
-    }
-  }, [Object.keys(favorites).length])
 
   useEffect(() => {
+    if (Object.keys(favorites).length < 1) {
+      initUserFav()
+    }
     if (casesList && casesList.length < 1) { getCases() }
   })
 
-  if (Object.keys(favorites).length < 1) {
-    return (<><Header target='favorites' /><Spinner /></>)
-  } else {
-    return (
-      <>
-        <Header target='favorites' />
-        <Container maxWidth='lg'>
-          <center><span>Publications favorites</span></center>
-          <div className={classes.root}>
-            {
-              favoriteCases.length > 0 ? favoriteCases.map((oCase, index) => {
-                return <CasesItem key={index} item={oCase} favorite />
-              }) : 'Vous n\'avez pas de publication favorite'
-            }
-          </div>
-        </Container>
-      </>
-    )
+  if (setup()) {
+    if (Object.keys(favorites).length < 1) {
+      return (<><Header target='favorites' /><Spinner /></>)
+    } else {
+      return (
+        <>
+          <Header target='favorites' />
+          <Container maxWidth='lg'>
+            <center><span>Publications favorites</span></center>
+            <div className={classes.root}>
+              {
+                favoriteCases.length > 0 ? favoriteCases.map((oCase, index) => {
+                  return <CasesItem key={index} item={oCase} favorite />
+                }) : 'Vous n\'avez pas de publication favorite'
+              }
+            </div>
+          </Container>
+        </>
+      )
+    }
   }
 }
 

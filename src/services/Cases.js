@@ -10,7 +10,7 @@ const CLINICAL_CASES_BY_USER =
     process.env.REACT_APP_BACK_API_URL + process.env.REACT_APP_USERS
 
 export const fetchCases = (page = 1) => {
-  let reponses = axios
+  let responses = axios
     .get(CLINICAL_CASES + '?page=' + page)
     .then((res) => ({
       message: 'OK',
@@ -18,7 +18,7 @@ export const fetchCases = (page = 1) => {
       items: res.data['hydra:totalItems']
     }))
     .catch((e) => JSON.stringify(e))
-  return reponses
+  return responses
 }
 
 export const addFavCase = (data, userId) => {
@@ -27,50 +27,66 @@ export const addFavCase = (data, userId) => {
     clinicalCaseId: data['@id'],
     createdAt: new Date().toISOString()
   }
-  let reponses = axios
+  let responses = axios
     .post(FAVORITES, item)
     .then((res) => ({
       message: 'OK',
       datas: res.data['hydra:member']
     }))
     .catch((e) => JSON.stringify(e))
-  return reponses
+  return responses = responses.datas !== undefined ? {} : responses
+}
+
+export const removeFavCase = (data, userId) => {
+  let item = {
+    userId: '/api/users/' + userId,
+    clinicalCaseId: data['@id'],
+    createdAt: new Date().toISOString()
+  }
+  let responses = axios
+    .post(FAVORITES, item)
+    .then((res) => ({
+      message: 'OK',
+      datas: res.data['hydra:member']
+    }))
+    .catch((e) => JSON.stringify(e))
+  return responses = responses.datas !== undefined ? {} : responses
 }
 
 export const getCaseById = (id) => {
-  let reponses = axios
+  let responses = axios
     .get(CLINICAL_CASES + '/' + id)
     .then((res) => ({
       message: 'OK',
       datas: res.data
     }))
     .catch((e) => JSON.stringify(e))
-  return reponses
+  return responses
 }
 
 export const getCaseByUserId = (id) => {
-  let reponses = axios
+  let responses = axios
     .get(CLINICAL_CASES_BY_USER + '/' + id + '/' + process.env.REACT_APP_CLINICAL_CASES)
     .then((res) => ({
       message: 'OK',
       datas: res.data
     }))
     .catch((e) => JSON.stringify(e))
-  return reponses
+  return responses
 }
 
 export const fetchUserFav = (userId) => {
   const USERFAVORITES =
     process.env.REACT_APP_BACK_API_URL + process.env.REACT_APP_USERS + '/' + userId + '/' + process.env.REACT_APP_FAVORITES
 
-  let reponses = axios
+  let responses = axios
     .get(USERFAVORITES)
     .then((res) => ({
       message: 'OK',
       datas: res.data['hydra:member']
     }))
     .catch((e) => JSON.stringify(e))
-  return reponses
+  return responses
 }
 
 export const postCase = (values, patient) => {
@@ -101,12 +117,12 @@ export const postCase = (values, patient) => {
     keyword: values.keywords
   }
 
-  let reponses = axios
+  let responses = axios
     .post(CLINICAL_CASES, item)
     .then((res) => ({
       message: 'OK',
       datas: res.data['hydra:member']
     }))
     .catch((e) => JSON.stringify(e))
-  return reponses
+  return responses
 }

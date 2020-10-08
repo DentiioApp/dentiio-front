@@ -3,12 +3,12 @@ import { useDispatch, useSelector } from 'react-redux'
 import StarBorderIcon from '@material-ui/icons/StarBorder'
 import Button from '@material-ui/core/Button'
 import StarIcon from '@material-ui/icons/Star'
-import { addFavCase } from '../../../services/Cases'
+import { addFavCase, removeFavCase } from '../../../services/Cases'
 import { ADD_FAVORITE } from '../../../store/actions'
 import { useToasts } from 'react-toast-notifications'
 import { getUserId } from '../../../services/Users'
 
-const Favorites = (props) => {
+const FavButton = (props) => {
   const userId = getUserId()
   const { addToast } = useToasts()
   const dispatch = useDispatch()
@@ -25,10 +25,12 @@ const Favorites = (props) => {
     }
   }, [Object.keys(favorites).length, props])
 
-  const HandleFav = async (item) => {
-    const response = await addFavCase(item, userId)
+  const HandleFav = (item) => {
+console.log('TEST :', item)
+    let addOrDelete = props.isFavorite ? addFavCase() : removeFavCase()  
+    const response = addOrDelete(item, userId)
 
-    if (response === {}) {
+    if (Object.keys(response).length < 1) {
       addToast(messages.add.error, { appearance: 'error' })
     } else {
       addToast(messages.add.success, { appearance: 'success' })
@@ -52,4 +54,4 @@ const Favorites = (props) => {
   )
 }
 
-export default Favorites
+export default FavButton
