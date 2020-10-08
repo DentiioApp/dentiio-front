@@ -206,7 +206,7 @@ const DetailCase = (props) => {
     }
   }
 
-  if (setup()){
+  if (setup()) {
   return (
     <>
       <Header target='' />

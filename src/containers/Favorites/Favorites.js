@@ -60,7 +60,7 @@ const Favorites = () => {
     if (casesList && casesList.length < 1) { getCases() }
   })
 
-  if (favoriteCases.length < 1 && favorites.length > 0) {
+  if (favorites.length < 1) {
     return (<><Header target='favorites' /><Spinner /></>)
   } else {
     return (

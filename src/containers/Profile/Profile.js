@@ -14,7 +14,7 @@ import Container from '@material-ui/core/Container'
 import {Link} from "react-router-dom";
 import EditIcon from '@material-ui/icons/Edit';
 import {setup} from '../../services/Auth'
-
+import Spinner from '../../components/UI/Dawers/Spinner'
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -90,6 +90,9 @@ const Profile = () => {
     })
 
     if (setup()) {
+      if (cases.length === undefined) {
+        return (<><Header target='profile' /><Spinner /></>)
+      } else {
         return (
             <>
                 <Header target='profile'/>
@@ -154,6 +157,7 @@ const Profile = () => {
                 </Container>
             </>
         )
+       }
     } else {
         window.location.href = '/'
     }
