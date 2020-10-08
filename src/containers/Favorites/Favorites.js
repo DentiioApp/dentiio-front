@@ -59,7 +59,7 @@ const Favorites = () => {
   useEffect(() => {
     if (casesList && casesList.length < 1) { getCases() }
   })
-console.log('TEST :', favorites)
+
   if (favorites.length < 1) {
     return (<><Header target='favorites' /><Spinner /></>)
   } else {
