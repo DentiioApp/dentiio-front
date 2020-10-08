@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useEffect, useState} from 'react'
 import { makeStyles } from '@material-ui/core/styles'
 import AppBar from '@material-ui/core/AppBar'
 import Toolbar from '@material-ui/core/Toolbar'
@@ -10,8 +10,9 @@ import AddIcon from '../../UI/Icon/Header/Add'
 import HomeIcon from '../../UI/Icon/Header/home'
 import FavoritesIcon from '../../UI/Icon/Header/favorites'
 import NotificationIcon from '../../UI/Icon/Header/notification'
-import ProfileIcon from '../../UI/Icon/Header/profile'
 import RightMenuIcon from '../../UI/RightMenuIcon/rightMenuIcon'
+import {getUserById, getUserId} from "../../../services/Users";
+import UserAvatar from "../../UI/Avatars/UserAvatar";
 
 const useStyles = makeStyles((theme) => ({
   grow: {
@@ -57,6 +58,19 @@ const useStyles = makeStyles((theme) => ({
 export const Header = (props) => {
   const classes = useStyles()
 
+  const [item, setItem] = useState({})
+
+  const ResponseUser = async () => {
+    const CaseById = await getUserById(getUserId())
+    setItem(CaseById.datas)
+  }
+
+  useEffect(() => {
+    if (Object.entries(item).length === 0) {
+      ResponseUser()
+    }
+  })
+
   return (
     <div className={classes.grow}>
 
@@ -67,7 +81,7 @@ export const Header = (props) => {
       >
         <Toolbar>
           <TitleHeader style={{ align: 'center' }} />
-          <RightMenuIcon target={props.target} />
+          <RightMenuIcon target={props.target} avatar={item.avatar} />
         </Toolbar>
       </AppBar>
 
@@ -98,7 +112,7 @@ export const Header = (props) => {
           </Link>
           <div className={classes.grow} style={{ align: 'right' }} />
           <Link to='/profile'>
-            <ProfileIcon target={props.target} color={palette.primary} />
+            <UserAvatar width={"40px"} avatar={item.avatar}/>
           </Link>
         </Toolbar>
       </AppBar>

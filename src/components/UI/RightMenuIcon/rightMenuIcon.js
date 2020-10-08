@@ -1,4 +1,5 @@
 import { makeStyles } from '@material-ui/core/styles'
+import Button from "@material-ui/core/Button";
 import React from 'react'
 import { Link } from 'react-router-dom'
 import palette from '../ColorTheme/Palette'
@@ -6,7 +7,7 @@ import AddIcon from '../Icon/Header/Add'
 import FavoritesIcon from '../Icon/Header/favorites'
 import HomeIcon from '../Icon/Header/home'
 import NotificationIcon from '../Icon/Header/notification'
-import ProfileIcon from '../Icon/Header/profile'
+import UserAvatar from "../Avatars/UserAvatar";
 
 const useStyles = makeStyles((theme) => ({
   grow: {
@@ -50,6 +51,9 @@ const useStyles = makeStyles((theme) => ({
   right: {
     position: 'absolute',
     right: '0'
+  },
+  avatar: {
+    paddingTop: "50px!important"
   }
 }))
 
@@ -67,7 +71,9 @@ export const RightMenuIcon = (props) => {
         </Link>
         <NotificationIcon color={palette.white} />
         <Link to='/profile'>
-          <ProfileIcon target={props.target} color={palette.white} />
+          <Button >
+            <UserAvatar width={"40px"} avatar={props.avatar}/>
+          </Button>
         </Link>
         <AddIcon color={palette.white} />
       </div>
