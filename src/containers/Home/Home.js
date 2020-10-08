@@ -7,16 +7,22 @@ import Register from '../../components/App/Register/Register'
 import SignIn from '../../components/App/SignIn/SignIn'
 import Status from '../../components/App/Status/Status'
 import { fetchJobs } from '../../services/Jobs'
+import Spinner from '../../components/UI/Dawers/Spinner'
 
 const Home = () => {
   const dispatch = useDispatch()
   const home = useSelector((state) => state.home)
+  const loader = home.loader
   const user = useSelector((state) => state.user)
   const isLoaded = home.jobsLoaded
   var form = home.login ? <Register /> : <SignIn />
 
   if (user.subscribe === true) {
     form = <Status />
+  }
+
+  if(loader === true) {
+    form = <Spinner />
   }
 
   const loadJobs = async () => {

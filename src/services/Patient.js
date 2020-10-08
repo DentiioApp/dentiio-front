@@ -20,5 +20,6 @@ export const postPatient = (values) => {
       datas: res.data
     }))
     .catch((e) => JSON.stringify(e))
+
   return reponses
 }

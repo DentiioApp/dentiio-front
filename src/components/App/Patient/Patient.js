@@ -208,7 +208,7 @@ const Patient = (props) => {
                 name='reason_consultation'
                 type='textarea'
                 id='reason_consultation'
-                value={props.values.reason_consultation[0]}
+                value={props.values.reason_consultation}
                 autoComplete='current-reason_consultation'
                 onKeyDown={(e) => e.keyCode !== 13 ? null : catchSubmit(e)}
                 onChange={props.onChange('reason_consultation')}

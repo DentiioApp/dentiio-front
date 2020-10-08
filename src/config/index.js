@@ -82,6 +82,7 @@ const config = {
     cases: {
       error: "Une erreur s'est produite",
       success: 'Le cas a été ajouté avec succès',
+      patientError: 'Une erreur est survenu à la création du patient',
 
       favorite: {
         add: {

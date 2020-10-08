@@ -7,7 +7,6 @@ import {
   Paper,
   Typography,
   Button,
-  TableRow
 } from '@material-ui/core/'
 import Grid from '@material-ui/core/Grid'
 import { makeStyles } from '@material-ui/core/styles'
@@ -81,6 +80,7 @@ const TreatPlan = (props) => {
                 variant='outlined'
                 margin='normal'
                 required
+                autoFocus
                 label='Etape 1'
                 multiline
                 name='step1'
@@ -158,7 +158,7 @@ const TreatPlan = (props) => {
               <br />  <br />
 
               <center>
-                <TableRow>
+                <Grid item xs={12}>
                   <Button
                     variant='contained'
                     type='submit'
@@ -174,7 +174,7 @@ const TreatPlan = (props) => {
                   >
                     <ArrowForwardIcon />
                   </Button>
-                </TableRow>
+                </Grid>
               </center>
             </form>
           </div>

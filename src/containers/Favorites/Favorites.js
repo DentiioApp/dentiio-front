@@ -49,18 +49,17 @@ const Favorites = () => {
       dispatch({ type: CASES_LIST, datas: fetch.datas, nbrItems: fetch.items })
     }
   }
- 
   useEffect(() => {
-    if (favorites && favorites.length < 1) {
+    if (favorites && Object.keys(favorites).length < 1) {
       initUserFav()
     }
-  }, [favorites.length])
+  }, [Object.keys(favorites).length])
 
   useEffect(() => {
     if (casesList && casesList.length < 1) { getCases() }
   })
 
-  if (favorites.length < 1) {
+  if (Object.keys(favorites).length < 1) {
     return (<><Header target='favorites' /><Spinner /></>)
   } else {
     return (

@@ -1,10 +1,11 @@
-import { LOG_USER, REGISTER_USER, VALID_STATUS, FREE_CREDENTIALS } from '../actions'
+import { LOG_USER, REGISTER_USER, VALID_STATUS, FREE_CREDENTIALS, SET_USER } from '../actions'
 import jwtDecode from 'jwt-decode'
 import { login } from '../../services/Auth'
 
 const INIT_STATE = {
   id: 0,
   username: '',
+  current_user: {},
   connected: false,
   message: '',
   subscribe: false,
@@ -20,6 +21,9 @@ export const User = (state = INIT_STATE, action) => {
       var details = jwtDecode(action.datas.data.token)
       login(action.datas.data.token)
       return { ...state, username: details.username, connected: true, id: details.userId }
+
+     case SET_USER :
+      return { ...state, current_user: action.datas }
 
     case FREE_CREDENTIALS :
       return { ...state, credentials: { email: '', passwd: '' } }
