@@ -15,6 +15,7 @@ import {Link} from "react-router-dom";
 import EditIcon from '@material-ui/icons/Edit';
 import {setup} from '../../services/Auth'
 import Spinner from '../../components/UI/Dawers/Spinner'
+import ParametersProfileButton from "../../components/UI/buttons/ParametersProfileButton";
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -75,11 +76,6 @@ const Profile = () => {
         setCases(CaseById.datas['hydra:member'])
     }
 
-    const logout = () => {
-        localStorage.clear()
-        window.location.href = '/'
-    }
-
     useEffect(() => {
         if (Object.entries(item).length === 0) {
             ResponseUser()
@@ -105,18 +101,6 @@ const Profile = () => {
                                         <UserAvatar avatar={item.avatar} width={"150px"}/>
                                     </Button>
                                 </Link>
-                                <br/>
-                                <Link to='/avatar' style={{textDecoration: "none"}}>
-                                    <Button
-                                        variant="outlined"
-                                        size="small"
-                                        color="primary"
-                                        aria-label="Add"
-                                    >
-                                        <EditIcon/>
-                                        Avatar
-                                    </Button>
-                                </Link>
                             </Grid>
                             <Grid item xs={12} sm container>
                                 <Grid item xs={12} sm container>
@@ -131,14 +115,7 @@ const Profile = () => {
                                         </Grid>
                                     </Grid>
                                     <Grid item>
-                                        <Button
-                                            onClick={logout}
-                                            variant='contained'
-                                            color='inherit'
-                                            className={classes.button}
-                                        >
-                                            <ExitToAppIcon fontSize='small' color='inherit'/>
-                                        </Button>
+                                        <ParametersProfileButton />
                                     </Grid>
                                 </Grid>
                             </Grid>

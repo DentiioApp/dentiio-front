@@ -81,7 +81,7 @@ export const Header = (props) => {
       >
         <Toolbar>
           <TitleHeader style={{ align: 'center' }} />
-          <RightMenuIcon target={props.target} avatar={item.avatar} />
+          <RightMenuIcon target={props.target} avatar={item && item.avatar} />
         </Toolbar>
       </AppBar>
 
@@ -112,7 +112,7 @@ export const Header = (props) => {
           </Link>
           <div className={classes.grow} style={{ align: 'right' }} />
           <Link to='/profile'>
-            <UserAvatar width={"40px"} avatar={item.avatar}/>
+            <UserAvatar width={"40px"} avatar={item && item.avatar}/>
           </Link>
         </Toolbar>
       </AppBar>

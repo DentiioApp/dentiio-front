@@ -24,6 +24,7 @@ import {
 import CasePost from './containers/CasePost/CasePost'
 import QuestionPost from './containers/QuestionPost/QuestionPost'
 import UserAvatar from "./containers/UserAvatar/UserAvatar";
+import EditProfile from "./containers/Profile/EditProfile";
 dotenv.config()
 
 // MIDDLEWARE
@@ -51,6 +52,7 @@ ReactDOM.render(
               <Route path='/case/:id' component={DetailCase} />
               <Route exact path='/favorites' component={Favorites} />
               <Route exact path='/profile' component={Profile} />
+              <Route exact path='/profile/edit' component={EditProfile} />
               <Route exact path='/post-question' component={QuestionPost} />
               <Route exact path='/post-case' component={CasePost} />
               <Route exact path='/avatar' component={UserAvatar} />

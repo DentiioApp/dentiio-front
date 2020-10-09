@@ -7,12 +7,10 @@ const USERS = process.env.REACT_APP_BACK_API_URL + process.env.REACT_APP_USERS
 const AVATAR = process.env.REACT_APP_BACK_API_URL + process.env.REACT_APP_AVATAR
 
 export const loginCheck = (email, passwd) => {
-  let reponses = axios.post(
+  return axios.post(
     LOGIN_CHECK, { username: email, password: passwd }
   ).then((res) =>{ return  {message: 'OK', datas: res}})
     .catch((e) => JSON.stringify(e))
-
-  return reponses
 }
 
 export const registerCheck =  async (user) => {
@@ -40,30 +38,34 @@ export const getUserId = () => {
 }
 
 export const getUserById = (id) => {
-  let isUserGet = axios
+  return axios
     .get(USERS + '/' + id)
     .then((res) => ({
       message: 'OK',
       datas: res.data
     }))
     .catch((e) => JSON.stringify(e))
-  return isUserGet
 }
 
 export const saveCard = async (data) => {
   let licenceDOC = { licenceDoc: data.image }
-  let isCardPut = await axios.put(USERS + '/' + data.userId, licenceDOC)
+  return await axios.put(USERS + '/' + data.userId, licenceDOC)
     .then(res => res.statusText)
     .catch(console.warning)
-
-  return isCardPut
 }
 
 export const saveAvatar = async (data) => {
   const avatarId = data["avatarId"]
   delete data['avatarId']
-  let isAvatarPut = await axios.put(AVATAR + '/' + avatarId, data)
+  return await axios.put(AVATAR + '/' + avatarId, data)
       .then(res => res.statusText)
       .catch(console.warning)
-  return isAvatarPut
+}
+
+export const editUser = async (data) => {
+  const userId = data["userId"]
+  delete data['userId']
+  return await axios.put(USERS + '/' + userId, data)
+      .then(res => res.statusText)
+      .catch(console.warning)
 }
