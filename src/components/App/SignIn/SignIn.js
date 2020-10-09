@@ -50,22 +50,22 @@ const SignIn = () => {
 
   const onKeyUp = (event) => {
     if (event.keyCode === 13) {
-        catchSubmit(event)
-      }
+      catchSubmit(event)
+    }
   }
 
   const catchSubmit = async (e) => {
     e.preventDefault()
 
     if (values.password !== '' && values.email !== '') {
-      dispatch({ type: START_LOADER})
+      dispatch({ type: START_LOADER })
       const response = await loginCheck(values.email, values.password)
-      dispatch({ type: STOP_LOADER})
+      dispatch({ type: STOP_LOADER })
 
       if (errorApi().test(response)) {
-        addToast(messages.signin.error, {appearance: 'error'})
+        addToast(messages.signin.error, { appearance: 'error' })
       } else {
-        addToast(messages.signin.success, {appearance: 'success'})
+        addToast(messages.signin.success, { appearance: 'success' })
         dispatch({ type: LOG_USER, datas: response.datas })
       }
     } else {

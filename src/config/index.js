@@ -88,6 +88,10 @@ const config = {
         add: {
           error: 'Cas clinique non ajouté aux favoris, veuillez reessayer plus tard',
           success: 'Ce cas clicnique est maintenant dans vos favoris'
+        },
+        delete: {
+          error: 'Le cas clinique n\'a pas pu être retiré de vos favoris, veuillez reessayer plus tard',
+          success: 'Ce cas clicnique ne fais plus partie de vos favoris'
         }
       }
     },

@@ -21,14 +21,13 @@ const Home = () => {
     form = <Status />
   }
 
-  if(loader === true) {
+  if (loader === true) {
     form = <Spinner />
   }
 
   const loadJobs = async () => {
-    let jobs = await fetchJobs()
-    if (jobs !== {})
-      dispatch({ type: JOB_LIST, data: jobs.datas })
+    const jobs = await fetchJobs()
+    if (jobs !== {}) { dispatch({ type: JOB_LIST, data: jobs.datas }) }
   }
 
   useEffect(() => {

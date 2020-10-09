@@ -23,7 +23,7 @@ import {
 } from 'react-router-dom'
 import CasePost from './containers/CasePost/CasePost'
 import QuestionPost from './containers/QuestionPost/QuestionPost'
-import UserAvatar from "./containers/UserAvatar/UserAvatar";
+import UserAvatar from './containers/UserAvatar/UserAvatar'
 dotenv.config()
 
 // MIDDLEWARE
@@ -38,7 +38,7 @@ export const store = createStore(
     //window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
   )
 )
-  
+
 ReactDOM.render(
   <ThemeProvider theme={colorTheme}>
     <Provider store={store}>

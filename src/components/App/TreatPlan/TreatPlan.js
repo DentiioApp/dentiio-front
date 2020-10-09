@@ -6,7 +6,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import {
   Paper,
   Typography,
-  Button,
+  Button
 } from '@material-ui/core/'
 import Grid from '@material-ui/core/Grid'
 import { makeStyles } from '@material-ui/core/styles'

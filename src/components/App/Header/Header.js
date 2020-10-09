@@ -12,7 +12,7 @@ import HomeIcon from '../../UI/Icon/Header/home'
 import FavoritesIcon from '../../UI/Icon/Header/favorites'
 import NotificationIcon from '../../UI/Icon/Header/notification'
 import RightMenuIcon from '../../UI/RightMenuIcon/rightMenuIcon'
-import UserAvatar from "../../UI/Avatars/UserAvatar";
+import UserAvatar from '../../UI/Avatars/UserAvatar'
 
 const useStyles = makeStyles((theme) => ({
   grow: {
@@ -57,7 +57,7 @@ const useStyles = makeStyles((theme) => ({
 
 export const Header = (props) => {
   const classes = useStyles()
-  const currents_user = useSelector((state)=>(state.user.current_user))
+  const currents_user = useSelector((state) => (state.user.current_user))
 
   return (
     <div className={classes.grow}>
@@ -100,7 +100,7 @@ export const Header = (props) => {
           </Link>
           <div className={classes.grow} style={{ align: 'right' }} />
           <Link to='/profile'>
-            <UserAvatar width={"40px"} avatar={currents_user.avatar}/>
+            <UserAvatar width='40px' avatar={currents_user.avatar} />
           </Link>
         </Toolbar>
       </AppBar>

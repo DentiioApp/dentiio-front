@@ -62,8 +62,8 @@ const Register = () => {
 
   const onKeyUp = (event) => {
     if (event.keyCode === 13) {
-        catchSubmit(event)
-      }
+      catchSubmit(event)
+    }
   }
 
   const catchSubmit = (e) => {

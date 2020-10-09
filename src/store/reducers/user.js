@@ -22,7 +22,7 @@ export const User = (state = INIT_STATE, action) => {
       login(action.datas.data.token)
       return { ...state, username: details.username, connected: true, id: details.userId }
 
-     case SET_USER :
+    case SET_USER :
       return { ...state, current_user: action.datas }
 
     case FREE_CREDENTIALS :

@@ -6,13 +6,12 @@ import CardMedia from '@material-ui/core/CardMedia'
 import CardContent from '@material-ui/core/CardContent'
 import CardActions from '@material-ui/core/CardActions'
 import Typography from '@material-ui/core/Typography'
-import FavButton from '../../UI/buttons/favButton'
-import UserAvatar from "../../UI/Avatars/UserAvatar";
+import FavButton from '../../UI/buttons/FavButton'
+import UserAvatar from '../../UI/Avatars/UserAvatar'
 import { avgNotes } from '../../../utils'
 import Keyword from '../../UI/Keywords/keywords'
 import ChatIcon from '@material-ui/icons/Chat'
 import StarHalfIcon from '@material-ui/icons/StarHalf'
-
 
 const CasesItem = (props) => {
   const img = () => {
@@ -47,9 +46,9 @@ const CasesItem = (props) => {
             {props.item.presentation}
           </Typography>
         </CardContent>
-        <br/>
+        <br />
         <CardActions disableSpacing>
-          <UserAvatar avatar={props.item.user.avatar} width={"50px"}/>
+          <UserAvatar avatar={props.item.user.avatar} width='50px' />
           <Typography variant='body2' style={{ color: 'black', textTransform: 'capitalize' }} component='p'>
             {props.item.user.pseudo}
             <br />

@@ -9,8 +9,8 @@ const FAVORITES =
 const CLINICAL_CASES_BY_USER =
     process.env.REACT_APP_BACK_API_URL + process.env.REACT_APP_USERS
 
-export const fetchCases = (page=1) => {
-  const reponses = axios
+export const fetchCases = (page = 1) => {
+  const responses = axios
     .get(CLINICAL_CASES + '?page=' + page)
     .then((res) => ({
       message: 'OK',
@@ -18,7 +18,7 @@ export const fetchCases = (page=1) => {
       items: res.data['hydra:totalItems']
     }))
     .catch((e) => JSON.stringify(e))
-  return reponses
+  return responses
 }
 
 export const addFavCase = (data, userId) => {
@@ -27,50 +27,72 @@ export const addFavCase = (data, userId) => {
     clinicalCaseId: data['@id'],
     createdAt: new Date().toISOString()
   }
-  const reponses = axios
+  let responses = axios
     .post(FAVORITES, item)
     .then((res) => ({
-      message: 'OK',
-      datas: res.data['hydra:member']
+      datas: res.status
     }))
     .catch((e) => JSON.stringify(e))
-  return reponses
+  return responses = responses.datas !== 201 ? 'Error' : 'Created'
+}
+
+export const removeFavCase = async (data, userId) => {
+  const allFavCase = await fetchUserFav(userId)
+
+  const favMatch = allFavCase.datas.filter((fav) => {
+    // On compare l'id du cas clinique dans la chaine de caractère de la clé clinicalCaseId  du favorie
+    const slashIndex = fav.clinicalCaseId !== undefined ? fav.clinicalCaseId.lastIndexOf('/') : false
+    const caseId = slashIndex ? Number(fav.clinicalCaseId.substr(slashIndex).substr(1, slashIndex.length)) : 0
+    // et l'id du cas clinique passé en paramettre
+    return caseId === data.id
+  })
+
+  const favId = favMatch[0].id
+
+  const responses = await axios
+    .delete(FAVORITES + '/' + favId)
+    .then((res) => ({
+      datas: res.status
+    }))
+    .catch((e) => JSON.stringify(e))
+
+  return responses.datas
 }
 
 export const getCaseById = (id) => {
-  const reponses = axios
+  const responses = axios
     .get(CLINICAL_CASES + '/' + id)
     .then((res) => ({
       message: 'OK',
       datas: res.data
     }))
     .catch((e) => JSON.stringify(e))
-  return reponses
+  return responses
 }
 
 export const getCaseByUserId = (id) => {
-  const reponses = axios
+  const responses = axios
     .get(CLINICAL_CASES_BY_USER + '/' + id + '/' + process.env.REACT_APP_CLINICAL_CASES)
     .then((res) => ({
       message: 'OK',
       datas: res.data
     }))
     .catch((e) => JSON.stringify(e))
-  return reponses
+  return responses
 }
 
 export const fetchUserFav = (userId) => {
   const USERFAVORITES =
     process.env.REACT_APP_BACK_API_URL + process.env.REACT_APP_USERS + '/' + userId + '/' + process.env.REACT_APP_FAVORITES
 
-  const reponses = axios
+  const responses = axios
     .get(USERFAVORITES)
     .then((res) => ({
       message: 'OK',
       datas: res.data['hydra:member']
     }))
     .catch((e) => JSON.stringify(e))
-  return reponses
+  return responses
 }
 
 export const postCase = (values, patient) => {
@@ -101,12 +123,12 @@ export const postCase = (values, patient) => {
     keyword: values.keywords
   }
 
-  const reponses = axios
+  const responses = axios
     .post(CLINICAL_CASES, item)
     .then((res) => ({
       message: 'OK',
       datas: res.data['hydra:member']
     }))
     .catch((e) => JSON.stringify(e))
-  return reponses
+  return responses
 }

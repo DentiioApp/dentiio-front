@@ -1,21 +1,21 @@
-import React, {useEffect, useState} from 'react'
+import React, { useEffect, useState } from 'react'
 import { Redirect } from 'react-router-dom'
 import CasesList from '../../components/App/CasesList/CasesList'
 import { useDispatch, useSelector } from 'react-redux'
 import Header from '../../components/App/Header/Header'
 import Search from '../../components/App/Search/Search'
 import { setup } from '../../services/Auth'
-import {getUserById, getUserId} from "../../services/Users";
+import { getUserById, getUserId } from '../../services/Users'
 import { SET_USER } from '../../store/actions'
 
 const Cases = () => {
   const dispatch = useDispatch()
-  const current_user = useSelector((state)=>(state.user.current_user))
+  const current_user = useSelector((state) => (state.user.current_user))
   const [fetchUser, setFetchUser] = useState(false)
 
   const ResponseUser = async () => {
     const response = await getUserById(getUserId())
-    
+
     if (Object.entries(response).length !== 0) {
       setFetchUser(true)
       dispatch({ type: SET_USER, datas: response.datas })
@@ -23,12 +23,12 @@ const Cases = () => {
   }
 
   useEffect(() => {
-    if (!fetchUser &&  Object.entries(current_user).length < 1) {
+    if (!fetchUser && Object.entries(current_user).length < 1) {
       ResponseUser()
     }
-  },[fetchUser] )
+  }, [fetchUser])
 
-  if (setup()){
+  if (setup()) {
     return (
       <>
         <Header target='home' />
@@ -37,7 +37,7 @@ const Cases = () => {
       </>
     )
   } else {
-    return (<Redirect to="/" />)
+    return (<Redirect to='/' />)
   }
 }
 

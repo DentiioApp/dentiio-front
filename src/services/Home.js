@@ -24,11 +24,11 @@ export const fetchKeywords = async () => {
     }))
     .catch((e) => JSON.stringify(e))
 
-    return responses = responses.datas === undefined ? [] : responses
+  return responses = responses.datas === undefined ? [] : responses
 }
 
 export const fetchSpecialities = () => {
-  let responses = axios
+  const responses = axios
     .get(SPECIALITIES)
     .then((res) => ({
       message: 'OK',
@@ -39,7 +39,7 @@ export const fetchSpecialities = () => {
 }
 
 export const fetchTreatments = () => {
-  let responses = axios
+  const responses = axios
     .get(TREATMENTS)
     .then((res) => ({
       message: 'OK',
@@ -50,7 +50,7 @@ export const fetchTreatments = () => {
 }
 
 export const fetchPathologies = () => {
-  let responses = axios
+  const responses = axios
     .get(PATHOLOGIES)
     .then((res) => ({
       message: 'OK',
@@ -61,7 +61,7 @@ export const fetchPathologies = () => {
 }
 
 export const fetchSymptomes = () => {
-  let responses = axios
+  const responses = axios
     .get(SYMPTOMES)
     .then((res) => ({
       message: 'OK',

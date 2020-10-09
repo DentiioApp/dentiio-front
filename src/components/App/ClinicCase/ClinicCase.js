@@ -2,13 +2,13 @@ import './clinicCase.scss'
 
 import React, { useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
-import {useHistory} from 'react-router-dom'
+import { useHistory } from 'react-router-dom'
 import { useToasts } from 'react-toast-notifications'
 
 import {
   Paper,
   Typography,
-  Button,
+  Button
 } from '@material-ui/core/'
 import SaveIcon from '@material-ui/icons/Save'
 import Grid from '@material-ui/core/Grid'
@@ -62,24 +62,23 @@ const ClinicCase = (props) => {
     if (props.values.specialities.length < 1) { setErrors({ ...errors, errSpecialities: true }); isValid = false }
 
     if (isValid) {
-      dispatch({ type: START_LOADER})
+      dispatch({ type: START_LOADER })
 
       const patient = await postPatient(props.values)
 
       if (!errorApi().test(patient)) {
         const datas = await postCase(props.values, patient.datas['@id'])
-        
+
         if (errorApi().test(datas)) {
           addToast(messages.error, { appearance: 'error' })
         } else {
           addToast(messages.success, { appearance: 'success' })
           history.push('/')
         }
-        
       } else {
-           addToast(messages.patientError, { appearance: 'error' })
+        addToast(messages.patientError, { appearance: 'error' })
       }
-      dispatch({ type: STOP_LOADER})
+      dispatch({ type: STOP_LOADER })
     }
   }
 
@@ -88,10 +87,9 @@ const ClinicCase = (props) => {
     dispatch({ type: UPDATE_LEVEL, level: 'conclusion' })
   }
 
-  if(loader === true) {
+  if (loader === true) {
     return (<Spinner />)
-  } 
-  else {
+  } else {
     return (
       <>
         <Grid container component='main' className={classes.root}>
