@@ -31,12 +31,12 @@ const Favorites = () => {
   const userId = getUserId()
 
   var favsIds = []; Object.keys(favorites).length > 0 && favorites.map((item) => {
-    //Si l'objet est un cas clinique on recupere l'id du cas clinique dans la chaine de caractère de la clé clinicalCaseId
-    let slashIndex = item.clinicalCaseId !== undefined ? item.clinicalCaseId.lastIndexOf('/') : false;
-    let caseId = slashIndex ? Number(item.clinicalCaseId.substr(slashIndex).substr(1, slashIndex.length)) : 0;
-    //Sinon si l'objet est un favorite on recupère l'id dans la clé id de l'obbjet favorite 
-    return favsIds.push( caseId === 0 ? item.id: caseId) 
-  })           
+    // Si l'objet est un cas clinique on recupere l'id du cas clinique dans la chaine de caractère de la clé clinicalCaseId
+    const slashIndex = item.clinicalCaseId !== undefined ? item.clinicalCaseId.lastIndexOf('/') : false
+    const caseId = slashIndex ? Number(item.clinicalCaseId.substr(slashIndex).substr(1, slashIndex.length)) : 0
+    // Sinon si l'objet est un favorite on recupère l'id dans la clé id de l'obbjet favorite
+    return favsIds.push(caseId === 0 ? item.id : caseId)
+  })
 
   var favoriteCases = []
   casesList.length > 0 && casesList.map((item) => {
@@ -45,7 +45,7 @@ const Favorites = () => {
 
   const initUserFav = async () => {
     const response = await fetchUserFav(userId)
-    return errorApi().test(response) ? null :dispatch({ type: INIT_FAV_CASE, datas: response.datas })
+    return errorApi().test(response) ? null : dispatch({ type: INIT_FAV_CASE, datas: response.datas })
   }
 
   const getCases = async () => {

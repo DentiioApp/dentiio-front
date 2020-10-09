@@ -4,7 +4,7 @@ const TREATMENTS =
   process.env.REACT_APP_BACK_API_URL + process.env.REACT_APP_TREATMENTS
 
 const fetchTreatmentsData = () => {
-  let reponses = axios
+  const reponses = axios
     .get(TREATMENTS)
     .then((res) => ({
       message: 'OK',

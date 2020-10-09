@@ -8,7 +8,7 @@ const USERS = process.env.REACT_APP_BACK_API_URL + process.env.REACT_APP_USERS
 const AVATAR = process.env.REACT_APP_BACK_API_URL + process.env.REACT_APP_AVATAR
 
 export const loginCheck = (email, passwd) => {
-  let responses = axios.post(
+  const responses = axios.post(
     LOGIN_CHECK, { username: email, password: passwd }
   ).then((res) => { return { message: 'OK', datas: res } })
     .catch((e) => JSON.stringify(e))
@@ -17,7 +17,7 @@ export const loginCheck = (email, passwd) => {
 }
 
 export const registerCheck = async (user) => {
-  let pseudo = 'Dentiio-' + randomstring.generate({
+  const pseudo = 'Dentiio-' + randomstring.generate({
     length: 6,
     charset: 'alphabetic'
   })
@@ -41,7 +41,7 @@ export const getUserId = () => {
 }
 
 export const getUserById = async (id) => {
-  let isUserGet = await axios
+  const isUserGet = await axios
     .get(USERS + '/' + id)
     .then((res) => ({
       message: 'OK',
@@ -53,8 +53,8 @@ export const getUserById = async (id) => {
 }
 
 export const saveCard = async (data) => {
-  let licenceDOC = { licenceDoc: data.image }
-  let isCardPut = await axios.put(USERS + '/' + data.userId, licenceDOC)
+  const licenceDOC = { licenceDoc: data.image }
+  const isCardPut = await axios.put(USERS + '/' + data.userId, licenceDOC)
     .then(res => res.statusText)
     .catch(console.warning)
 
@@ -62,9 +62,9 @@ export const saveCard = async (data) => {
 }
 
 export const saveAvatar = async (data) => {
-  let avatarId = data.avatarId
+  const avatarId = data.avatarId
   delete data.avatarId
-  let isAvatarPut = await axios.put(AVATAR + '/' + avatarId, data)
+  const isAvatarPut = await axios.put(AVATAR + '/' + avatarId, data)
     .then(res => res.statusText)
     .catch(console.warning)
   return isAvatarPut
