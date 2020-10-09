@@ -25,17 +25,27 @@ const FavButton = (props) => {
     }
   }, [Object.keys(favorites).length, props])
 
-  const HandleFav = (item) => {
-    console.log('TEddST :', item)
-    let addOrDelete = props.isFavorite ? addFavCase() : removeFavCase()  
-    const response = addOrDelete(item, userId)
+ 
+  const HandleFav = async (item) => {
+    let addOrDelete = props.isFavorite ? removeFavCase: addFavCase   
+    let response = await addOrDelete(item, userId)
 
-    if (Object.keys(response).length < 1) {
-      addToast(messages.add.error, { appearance: 'error' })
+    if(typeof response === 'string') {
+      if (response === "Error") {
+        addToast(messages.add.error, { appearance: 'error' })
+      } else {
+        addToast(messages.add.success, { appearance: 'success' })
+        dispatch({ type: ADD_FAVORITE, datas: item })
+      }
     } else {
-      addToast(messages.add.success, { appearance: 'success' })
-      dispatch({ type: ADD_FAVORITE, datas: item })
+      if (response === 204) {
+        addToast(messages.delete.success, { appearance: 'success' })
+        dispatch({ type: ADD_FAVORITE, datas: item })
+      } else {
+          addToast(messages.delete.error, { appearance: 'error' })
+      }
     }
+    
   }
 
   const handleChange = prop => event => {

@@ -63,7 +63,7 @@ const Favorites = () => {
   })
 
   if (setup()) {
-    if (Object.keys(favorites).length < 1) {
+    if (casesList.length < 1) {
       return (<><Header target='favorites' /><Spinner /></>)
     } else {
       return (

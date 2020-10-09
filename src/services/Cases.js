@@ -30,27 +30,34 @@ export const addFavCase = (data, userId) => {
   let responses = axios
     .post(FAVORITES, item)
     .then((res) => ({
-      message: 'OK',
-      datas: res.data['hydra:member']
+      datas: res.status
     }))
     .catch((e) => JSON.stringify(e))
-  return responses = responses.datas !== undefined ? {} : responses
+console.log('TEST :', responses)
+  return responses = responses.datas !== 201 ? 'Error' : 'Created'
 }
 
-export const removeFavCase = (data, userId) => {
-  let item = {
-    userId: '/api/users/' + userId,
-    clinicalCaseId: data['@id'],
-    createdAt: new Date().toISOString()
-  }
-  let responses = axios
-    .post(FAVORITES, item)
+export const removeFavCase = async (data, userId) => {
+  let allFavCase = await fetchUserFav(userId)
+
+  let favMatch =  allFavCase.datas.filter((fav)=>{
+    //On compare l'id du cas clinique dans la chaine de caractère de la clé clinicalCaseId  du favorie 
+    let slashIndex = fav.clinicalCaseId !== undefined ? fav.clinicalCaseId.lastIndexOf('/') : false;
+    let caseId = slashIndex ? Number(fav.clinicalCaseId.substr(slashIndex).substr(1, slashIndex.length)) : 0;
+     //et l'id du cas clinique passé en paramettre 
+    return caseId === data.id 
+  })
+
+  let favId = favMatch[0].id
+
+  let responses = await axios
+    .delete(FAVORITES + '/' + favId)
     .then((res) => ({
-      message: 'OK',
-      datas: res.data['hydra:member']
+      datas: res.status
     }))
     .catch((e) => JSON.stringify(e))
-  return responses = responses.datas !== undefined ? {} : responses
+
+  return responses.datas
 }
 
 export const getCaseById = (id) => {
