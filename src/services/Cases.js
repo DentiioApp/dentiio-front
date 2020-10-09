@@ -1,4 +1,5 @@
 import axios from 'axios'
+import { favOrCase } from '../utils'
 
 const CLINICAL_CASES =
   process.env.REACT_APP_BACK_API_URL + process.env.REACT_APP_CLINICAL_CASES
@@ -21,13 +22,13 @@ export const fetchCases = (page = 1) => {
   return responses
 }
 
-export const addFavCase = (data, userId) => {
+export const addFavCase = async (data, userId) => {
   const item = {
     userId: '/api/users/' + userId,
     clinicalCaseId: data['@id'],
     createdAt: new Date().toISOString()
   }
-  let responses = axios
+  let responses = await axios
     .post(FAVORITES, item)
     .then((res) => ({
       datas: res.status
@@ -40,10 +41,7 @@ export const removeFavCase = async (data, userId) => {
   const allFavCase = await fetchUserFav(userId)
 
   const favMatch = allFavCase.datas.filter((fav) => {
-    // On compare l'id du cas clinique dans la chaine de caractère de la clé clinicalCaseId  du favorie
-    const slashIndex = fav.clinicalCaseId !== undefined ? fav.clinicalCaseId.lastIndexOf('/') : false
-    const caseId = slashIndex ? Number(fav.clinicalCaseId.substr(slashIndex).substr(1, slashIndex.length)) : 0
-    // et l'id du cas clinique passé en paramettre
+    let caseId = favOrCase(fav)
     return caseId === data.id
   })
 

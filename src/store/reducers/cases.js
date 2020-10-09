@@ -8,6 +8,8 @@ import {
   REMOVE_FAVORITE,
 } from '../actions'
 
+import { favOrCase } from '../../utils'
+
 import config from '../../config'
 
 const INIT_STATE = {
@@ -34,7 +36,21 @@ export const Cases = (state = INIT_STATE, action) => {
       return { ...state, favorites: state.favorites.concat(action.datas) }
 
     case REMOVE_FAVORITE:
-      return { state }
+      let data = favOrCase(action.datas)
+      let newFavs = state.favorites.filter(favType =>{
+          let caseIndex = null 
+          if (favType["@type"] === 'ClinicalCase') {
+            caseIndex = caseIndex.id
+          }
+          if (favType["@type"] === 'Favorite') {
+            caseIndex = favOrCase(favType)
+          }
+          console.log('TEST :',data,  caseIndex)
+          return data === caseIndex
+    
+      })
+      console.log('newFavs :', newFavs)
+      return { ...state, favorites: newFavs }
 
     case INIT_FAV_CASE:
       return { ...state, favorites: action.datas }
