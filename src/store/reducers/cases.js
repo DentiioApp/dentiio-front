@@ -21,7 +21,7 @@ const INIT_STATE = {
   currentCase: config.cache.currentCase,
   patient: {},
   openSideBar: false,
-  favorites: {}
+  favorites: []
 }
 
 export const Cases = (state = INIT_STATE, action) => {
@@ -37,20 +37,28 @@ export const Cases = (state = INIT_STATE, action) => {
 
     case REMOVE_FAVORITE:
       let data = favOrCase(action.datas)
-      let newFavs = state.favorites.filter(favType =>{
+      let newobject = state
+
+      state.favorites.map( (favType, index) =>{
           let caseIndex = null 
+          let res = null
+
           if (favType["@type"] === 'ClinicalCase') {
             caseIndex = caseIndex.id
           }
           if (favType["@type"] === 'Favorite') {
             caseIndex = favOrCase(favType)
           }
-          console.log('TEST :',data,  caseIndex)
-          return data === caseIndex
-    
+
+          if (caseIndex === data) {
+            state.favorites.splice(index,1)
+            newobject = { ...state, favorites: state.favorites }
+          }
+
+          return null
       })
-      console.log('newFavs :', newFavs)
-      return { ...state, favorites: newFavs }
+      
+      return newobject
 
     case INIT_FAV_CASE:
       return { ...state, favorites: action.datas }
