@@ -5,6 +5,7 @@ import { fetchPathologies } from './Pathologies'
 import { fetchCatPathologies } from './CatPathologies'
 
 export const ADD_FAVORITE = 'ADD_FAVORITE'
+export const REMOVE_FAVORITE = 'REMOVE_FAVORITE'
 export const INIT_FAV_CASE = 'INIT_FAV_CASE'
 export const CARD_STATE = 'CARD_STATE'
 export const CASES_LIST = 'CASES_LIST'

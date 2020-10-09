@@ -4,7 +4,7 @@ import StarBorderIcon from '@material-ui/icons/StarBorder'
 import Button from '@material-ui/core/Button'
 import StarIcon from '@material-ui/icons/Star'
 import { addFavCase, removeFavCase } from '../../../services/Cases'
-import { ADD_FAVORITE } from '../../../store/actions'
+import { ADD_FAVORITE, REMOVE_FAVORITE } from '../../../store/actions'
 import { useToasts } from 'react-toast-notifications'
 import { getUserId } from '../../../services/Users'
 
@@ -39,7 +39,7 @@ const FavButton = (props) => {
     } else {
       if (response === 204) {
         addToast(messages.delete.success, { appearance: 'success' })
-        dispatch({ type: ADD_FAVORITE, datas: item })
+        dispatch({ type: REMOVE_FAVORITE, datas: item })
       } else {
         addToast(messages.delete.error, { appearance: 'error' })
       }

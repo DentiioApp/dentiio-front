@@ -4,7 +4,8 @@ import {
   OPEN_SIDE_BAR,
   INIT_FAV_CASE,
   CASES_LIST,
-  CASE_FILTERED
+  CASE_FILTERED,
+  REMOVE_FAVORITE,
 } from '../actions'
 
 import config from '../../config'
@@ -30,6 +31,9 @@ export const Cases = (state = INIT_STATE, action) => {
       return { ...state, casesFiltred: action.datas }
 
     case ADD_FAVORITE:
+      return { ...state, favorites: state.favorites.concat(action.datas) }
+
+    case REMOVE_FAVORITE:
       return { ...state, favorites: state.favorites.concat(action.datas) }
 
     case INIT_FAV_CASE:
