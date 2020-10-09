@@ -42,5 +42,5 @@ export {
   fetchSpecialities,
   fetchTreatments,
   fetchPathologies,
-  fetchCatPathologies
+  fetchCatPathologies,
 }

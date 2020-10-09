@@ -8,6 +8,8 @@ import {
   REMOVE_FAVORITE,
 } from '../actions'
 
+import { favOrCase } from '../../utils'
+
 import config from '../../config'
 
 const INIT_STATE = {
@@ -19,7 +21,7 @@ const INIT_STATE = {
   currentCase: config.cache.currentCase,
   patient: {},
   openSideBar: false,
-  favorites: {}
+  favorites: []
 }
 
 export const Cases = (state = INIT_STATE, action) => {
@@ -34,7 +36,29 @@ export const Cases = (state = INIT_STATE, action) => {
       return { ...state, favorites: state.favorites.concat(action.datas) }
 
     case REMOVE_FAVORITE:
-      return { state }
+      let data = favOrCase(action.datas)
+      let newobject = state
+
+      state.favorites.map( (favType, index) =>{
+          let caseIndex = null 
+          let res = null
+
+          if (favType["@type"] === 'ClinicalCase') {
+            caseIndex = caseIndex.id
+          }
+          if (favType["@type"] === 'Favorite') {
+            caseIndex = favOrCase(favType)
+          }
+
+          if (caseIndex === data) {
+            state.favorites.splice(index,1)
+            newobject = { ...state, favorites: state.favorites }
+          }
+
+          return null
+      })
+      
+      return newobject
 
     case INIT_FAV_CASE:
       return { ...state, favorites: action.datas }
