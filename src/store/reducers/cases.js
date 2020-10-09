@@ -34,7 +34,7 @@ export const Cases = (state = INIT_STATE, action) => {
       return { ...state, favorites: state.favorites.concat(action.datas) }
 
     case REMOVE_FAVORITE:
-      return { ...state, favorites: state.favorites.concat(action.datas) }
+      return { state }
 
     case INIT_FAV_CASE:
       return { ...state, favorites: action.datas }
