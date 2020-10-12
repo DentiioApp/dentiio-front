@@ -102,7 +102,7 @@ const EditProfile = () => {
                                     />
                                     <br/>
                                     <br/>
-                                    <br/>
+                                    {/*<br/>
                                     <TextField
                                         id="mail"
                                         label="Mail"
@@ -111,7 +111,7 @@ const EditProfile = () => {
                                         onChange={(e) => {handleChange(e, "email")}}
                                     />
                                     <br/>
-                                    <br/>
+                                    <br/>*/}
                                     <Button
                                         onClick={catchSubmit}
                                         variant="contained"
