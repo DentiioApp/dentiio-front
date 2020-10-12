@@ -10,7 +10,6 @@ import ExitToAppIcon from '@material-ui/icons/ExitToApp'
 import SettingsIcon from '@material-ui/icons/Settings';
 import EditIcon from '@material-ui/icons/Edit';
 import {Link} from "react-router-dom";
-import Grid from "@material-ui/core/Grid";
 
 const StyledMenu = withStyles({
     paper: {

@@ -1,9 +1,10 @@
-import React, {useEffect, useState} from 'react'
+import React from 'react'
+import { Link } from 'react-router-dom'
+import { useSelector } from 'react-redux'
 import { makeStyles } from '@material-ui/core/styles'
 import AppBar from '@material-ui/core/AppBar'
 import Toolbar from '@material-ui/core/Toolbar'
 import palette from '../../UI/ColorTheme/Palette'
-import { Link } from 'react-router-dom'
 import TitleHeader from '../../UI/titleHeader/TitleHeader'
 import TitleHeaderMobile from '../../UI/titleHeader/titleHeaderMobile'
 import AddIcon from '../../UI/Icon/Header/Add'
@@ -11,8 +12,7 @@ import HomeIcon from '../../UI/Icon/Header/home'
 import FavoritesIcon from '../../UI/Icon/Header/favorites'
 import NotificationIcon from '../../UI/Icon/Header/notification'
 import RightMenuIcon from '../../UI/RightMenuIcon/rightMenuIcon'
-import {getUserById, getUserId} from "../../../services/Users";
-import UserAvatar from "../../UI/Avatars/UserAvatar";
+import UserAvatar from '../../UI/Avatars/UserAvatar'
 
 const useStyles = makeStyles((theme) => ({
   grow: {
@@ -25,12 +25,6 @@ const useStyles = makeStyles((theme) => ({
     display: 'none',
     [theme.breakpoints.up('sm')]: {
       display: 'block'
-    }
-  },
-  sectionDesktop: {
-    display: 'none',
-    [theme.breakpoints.up('sm')]: {
-      display: 'flex'
     }
   },
   sectionMobileTop: {
@@ -57,31 +51,18 @@ const useStyles = makeStyles((theme) => ({
 
 export const Header = (props) => {
   const classes = useStyles()
-
-  const [item, setItem] = useState({})
-
-  const ResponseUser = async () => {
-    const CaseById = await getUserById(getUserId())
-    setItem(CaseById.datas)
-  }
-
-  useEffect(() => {
-    if (Object.entries(item).length === 0) {
-      ResponseUser()
-    }
-  })
+  const currents_user = useSelector((state) => (state.user.current_user))
 
   return (
     <div className={classes.grow}>
 
       <AppBar
         position='static'
-        className={classes.sectionDesktop}
         color='primary'
       >
         <Toolbar>
           <TitleHeader style={{ align: 'center' }} />
-          <RightMenuIcon target={props.target} avatar={item && item.avatar} />
+          <RightMenuIcon target={props.target} avatar={currents_user.avatar} />
         </Toolbar>
       </AppBar>
 
@@ -112,7 +93,7 @@ export const Header = (props) => {
           </Link>
           <div className={classes.grow} style={{ align: 'right' }} />
           <Link to='/profile'>
-            <UserAvatar width={"40px"} avatar={item && item.avatar}/>
+            <UserAvatar width={'40px'} avatar={currents_user.avatar} />
           </Link>
         </Toolbar>
       </AppBar>

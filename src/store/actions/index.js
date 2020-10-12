@@ -5,6 +5,7 @@ import { fetchPathologies } from './Pathologies'
 import { fetchCatPathologies } from './CatPathologies'
 
 export const ADD_FAVORITE = 'ADD_FAVORITE'
+export const REMOVE_FAVORITE = 'REMOVE_FAVORITE'
 export const INIT_FAV_CASE = 'INIT_FAV_CASE'
 export const CARD_STATE = 'CARD_STATE'
 export const CASES_LIST = 'CASES_LIST'
@@ -25,11 +26,14 @@ export const TREATMENTS_LIST = 'TREATMENTS_LIST'
 export const SYMPTOMES_LIST = 'SYMPTOMES_LIST'
 export const OPEN_SIDE_BAR = 'OPEN_SIDE_BAR'
 export const CLOSE_SIDE_BAR = 'CLOSE_SIDE_BAR'
+export const SET_USER = 'SET_USER'
 export const SET_SPECIALITIES = 'SET_SPECIALITIES'
 export const SET_TREATMENTS = 'SET_TREATMENTS'
 export const SET_PATHOLOGIES = 'SET_PATHOLOGIES'
 export const SET_CAT_PATHOLOGIES = 'SET_CAT_PATHOLOGIES'
 export const SET_CAT_TREATMENTS = 'SET_CAT_TREATMENTS'
+export const START_LOADER = 'START_LOADER'
+export const STOP_LOADER = 'STOP_LOADER'
 export const INIT_PATIENT = 'INIT_PATIENT'
 
 export {
@@ -38,5 +42,5 @@ export {
   fetchSpecialities,
   fetchTreatments,
   fetchPathologies,
-  fetchCatPathologies
+  fetchCatPathologies,
 }

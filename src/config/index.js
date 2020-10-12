@@ -82,11 +82,16 @@ const config = {
     cases: {
       error: "Une erreur s'est produite",
       success: 'Le cas a été ajouté avec succès',
+      patientError: 'Une erreur est survenu à la création du patient',
 
       favorite: {
         add: {
           error: 'Cas clinique non ajouté aux favoris, veuillez reessayer plus tard',
           success: 'Ce cas clicnique est maintenant dans vos favoris'
+        },
+        delete: {
+          error: 'Le cas clinique n\'a pas pu être retiré de vos favoris, veuillez reessayer plus tard',
+          success: 'Ce cas clicnique ne fais plus partie de vos favoris'
         }
       }
     },
@@ -101,7 +106,8 @@ const config = {
       },
       signin: {
         error: 'Connexion échoué, vérifier votre saisie',
-        success: 'Connexion approuvé,  Bonjour ! '
+        success: 'Connexion approuvé,  Bonjour ! ',
+        autoLogError: 'Une erreur est survenu lors d\'une authentification'
       },
       card: {
         error: 'Une erreur est survenue lors du chargement de votre carte',

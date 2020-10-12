@@ -3,12 +3,12 @@ import { useDispatch, useSelector } from 'react-redux'
 import StarBorderIcon from '@material-ui/icons/StarBorder'
 import Button from '@material-ui/core/Button'
 import StarIcon from '@material-ui/icons/Star'
-import { addFavCase } from '../../../services/Cases'
-import { ADD_FAVORITE } from '../../../store/actions'
+import { addFavCase, removeFavCase } from '../../../services/Cases'
+import { ADD_FAVORITE, REMOVE_FAVORITE } from '../../../store/actions'
 import { useToasts } from 'react-toast-notifications'
 import { getUserId } from '../../../services/Users'
 
-const Favorites = (props) => {
+const FavButton = (props) => {
   const userId = getUserId()
   const { addToast } = useToasts()
   const dispatch = useDispatch()
@@ -23,16 +23,26 @@ const Favorites = (props) => {
     if (props.isFavorite) {
       setToggle(<StarIcon fontSize='default' color='primary' />)
     }
-  }, [favorites, props])
+  }, [Object.keys(favorites).length, props])
 
   const HandleFav = async (item) => {
-    let response = await addFavCase(item, userId)
+    const addOrDelete = props.isFavorite ? removeFavCase : addFavCase
+    const response = await addOrDelete(item, userId)
 
-    if (response === {}) {
-      addToast(messages.add.error, { appearance: 'error' })
+    if (typeof response === 'string') {
+      if (response === 'Error') {
+        addToast(messages.add.error, { appearance: 'error' })
+      } else {
+        addToast(messages.add.success, { appearance: 'success' })
+        dispatch({ type: ADD_FAVORITE, datas: item })
+      }
     } else {
-      addToast(messages.add.success, { appearance: 'success' })
-      dispatch({ type: ADD_FAVORITE, datas: item })
+      if (response === 204) {
+        addToast(messages.delete.success, { appearance: 'success' })
+        dispatch({ type: REMOVE_FAVORITE, datas: item })
+      } else {
+        addToast(messages.delete.error, { appearance: 'error' })
+      }
     }
   }
 
@@ -52,4 +62,4 @@ const Favorites = (props) => {
   )
 }
 
-export default Favorites
+export default FavButton

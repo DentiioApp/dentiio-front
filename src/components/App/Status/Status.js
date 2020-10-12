@@ -17,7 +17,7 @@ import imgMobile from '../../../images/mobile-bg.svg'
 import StatusJustif from '../../UI/Modal/StatusJustif'
 import GradientBtn from '../../UI/buttons/GradientBtn'
 import oStyle from '../../ResponsiveDesign/AuthStyle'
-import { checkFiles } from '../../../utils'
+import { checkFiles, errorApi } from '../../../utils'
 
 import { loginCheck, getUserId, saveCard } from '../../../services/Users'
 
@@ -39,8 +39,12 @@ const Status = () => {
     if (credentials && credentials.email !== '') {
       return async () => {
         const isSignIn = await loginCheck(credentials.email, credentials.passwd)
-        dispatch({ type: LOG_USER, datas: isSignIn.datas })
-        dispatch({ type: FREE_CREDENTIALS })
+        if (isSignIn.datas !== undefined && !errorApi().test(isSignIn.datas)) {
+          dispatch({ type: LOG_USER, datas: isSignIn.datas })
+          dispatch({ type: FREE_CREDENTIALS })
+        } else {
+          addToast(messages.signin.autoLogError, { appearance: 'warning' })
+        }
       }
     }
   })

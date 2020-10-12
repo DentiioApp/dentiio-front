@@ -4,8 +4,11 @@ import {
   OPEN_SIDE_BAR,
   INIT_FAV_CASE,
   CASES_LIST,
-  CASE_FILTERED
+  CASE_FILTERED,
+  REMOVE_FAVORITE,
 } from '../actions'
+
+import { favOrCase } from '../../utils'
 
 import config from '../../config'
 
@@ -31,6 +34,30 @@ export const Cases = (state = INIT_STATE, action) => {
 
     case ADD_FAVORITE:
       return { ...state, favorites: state.favorites.concat(action.datas) }
+
+    case REMOVE_FAVORITE:
+      let data = favOrCase(action.datas)
+      let newobject = state
+
+      state.favorites.map( (favType, index) =>{
+          let caseIndex = null 
+
+          if (favType["@type"] === 'ClinicalCase') {
+            caseIndex = caseIndex.id
+          }
+          if (favType["@type"] === 'Favorite') {
+            caseIndex = favOrCase(favType)
+          }
+
+          if (caseIndex === data) {
+            state.favorites.splice(index,1)
+            newobject = { ...state, favorites: state.favorites }
+          }
+
+          return null
+      })
+      
+      return newobject
 
     case INIT_FAV_CASE:
       return { ...state, favorites: action.datas }

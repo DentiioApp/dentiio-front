@@ -180,7 +180,7 @@ const CasePost = () => {
       form = <Patient onChange={handleChange} values={values} />
   }
 
-  if (setup()){
+  if (setup()) {
     return (
       <>
         <Header />
@@ -189,9 +189,9 @@ const CasePost = () => {
         {form}
 
       </>
-    ) 
+    )
   } else {
-    return (<Redirect to="/" />)
+    return (<Redirect to='/' />)
   }
 }
 

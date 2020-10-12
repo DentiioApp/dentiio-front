@@ -36,10 +36,10 @@ export const store = createStore(
   adminReducer,
   compose(
     applyMiddleware(ReduxThunk, middleWare)
-    // window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
+    //window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
   )
 )
-  
+
 ReactDOM.render(
   <ThemeProvider theme={colorTheme}>
     <Provider store={store}>
