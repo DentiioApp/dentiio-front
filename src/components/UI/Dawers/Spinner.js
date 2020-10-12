@@ -1,12 +1,20 @@
-import React from 'react'
-import loader from '../../../images/Spinner-1s-347px.svg'
+import React from 'react';
+import { makeStyles } from '@material-ui/core/styles';
+import CircularProgress from '@material-ui/core/CircularProgress';
 
-const Spinner = () => {
-  return (
-    <>
-      <center><img src={loader} alt='' /></center>
-    </>
-  )
+const useStyles = makeStyles((theme) => ({
+    root: {
+        textAlign: 'center',
+        paddingTop: '10%'
+    },
+}));
+
+export default function CircularIndeterminate() {
+    const classes = useStyles();
+
+    return (
+        <div className={classes.root}>
+            <CircularProgress />
+        </div>
+    );
 }
-
-export default Spinner

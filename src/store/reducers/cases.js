@@ -41,7 +41,6 @@ export const Cases = (state = INIT_STATE, action) => {
 
       state.favorites.map( (favType, index) =>{
           let caseIndex = null 
-          let res = null
 
           if (favType["@type"] === 'ClinicalCase') {
             caseIndex = caseIndex.id

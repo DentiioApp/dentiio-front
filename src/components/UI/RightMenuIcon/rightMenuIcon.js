@@ -72,7 +72,7 @@ export const RightMenuIcon = (props) => {
         <NotificationIcon color={palette.white} />
         <Link to='/profile'>
           <Button>
-            <UserAvatar width='40px' avatar={props.avatar} />
+            <UserAvatar width={'40px'} avatar={props.avatar} />
           </Button>
         </Link>
         <AddIcon color={palette.white} />

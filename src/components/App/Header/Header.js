@@ -27,12 +27,6 @@ const useStyles = makeStyles((theme) => ({
       display: 'block'
     }
   },
-  sectionDesktop: {
-    display: 'none',
-    [theme.breakpoints.up('sm')]: {
-      display: 'flex'
-    }
-  },
   sectionMobileTop: {
     display: 'flex',
     position: 'fixed',
@@ -64,7 +58,6 @@ export const Header = (props) => {
 
       <AppBar
         position='static'
-        className={classes.sectionDesktop}
         color='primary'
       >
         <Toolbar>
@@ -100,7 +93,7 @@ export const Header = (props) => {
           </Link>
           <div className={classes.grow} style={{ align: 'right' }} />
           <Link to='/profile'>
-            <UserAvatar width='40px' avatar={currents_user.avatar} />
+            <UserAvatar width={'40px'} avatar={currents_user.avatar} />
           </Link>
         </Toolbar>
       </AppBar>

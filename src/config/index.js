@@ -119,6 +119,11 @@ const config = {
       error: 'Une erreur est survenue',
       success: 'Avatar modifié !',
       pending: 'Votre avatar est en cours de chargement ...'
+    },
+    editUser: {
+      error: 'Une erreur est survenue',
+      success: 'Informations modifiées !',
+      pending: 'Votre avatar est en cours de chargement ...'
     }
   }
 }
