@@ -11,7 +11,8 @@ import UserAvatar from '../../UI/Avatars/UserAvatar'
 import { avgNotes } from '../../../utils'
 import Keyword from '../../UI/Keywords/keywords'
 import ChatIcon from '@material-ui/icons/Chat'
-import StarHalfIcon from '@material-ui/icons/StarHalf'
+import StarBorderIcon from '@material-ui/icons/StarBorder';
+import StarIcon from '@material-ui/icons/Star';
 
 const CasesItem = (props) => {
   const img = () => {
@@ -62,7 +63,11 @@ const CasesItem = (props) => {
           <Typography variant='body2' color='textSecondary' component='p'>
             {(isNaN(props.item.notations) ? avgNotes(props.item.notations) : 'Aucune note')}
           </Typography>
-          <StarHalfIcon color='primary' fontSize='default' />
+          {(isNaN(props.item.notations) ?
+                  <StarIcon color='primary' fontSize='default' /> :
+                  <StarBorderIcon color='primary' fontSize='default' />
+          )}
+
         </CardActions>
       </Link>
     </Card>
