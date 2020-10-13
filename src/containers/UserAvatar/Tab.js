@@ -6,7 +6,7 @@ import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
-import {useDispatch} from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
 import { useHistory } from 'react-router-dom'
 import SaveIcon from '@material-ui/icons/Save';
 import {
@@ -23,7 +23,7 @@ import {
 import Avatar, {Piece} from "avataaars";
 import Button from "@material-ui/core/Button";
 import {getUserById, getUserId, saveAvatar} from "../../services/Users";
-import {UPDATE_AVATAR} from "../../store/actions";
+import {SET_USER, UPDATE_AVATAR} from "../../store/actions";
 import {useToasts} from "react-toast-notifications";
 import config from "../../config";
 import ArrowBackIcon from '@material-ui/icons/ArrowBack'
@@ -83,55 +83,56 @@ const useStyles = makeStyles((theme) => ({
 export default function TabAvatar() {
     const classes = useStyles();
     const [value, setValue] = React.useState(0);
-    const [user, setUser] = React.useState({});
     const dispatch = useDispatch()
     const history = useHistory()
     const {addToast} = useToasts()
     const messages = config.messages.editUser
+    const currents_user = useSelector((state) => (state.user.current_user))
 
 
-    const ResponseUser = async () => {
-        const CaseById = await getUserById(getUserId())
-        setUser(CaseById.datas)
-    }
 
-    const [mouth, setMouth] = React.useState("");
-    const [eye, setEye] = React.useState("");
-    const [eyebrow, setEyebrow] = React.useState("");
-    const [hair, setHair] = React.useState("");
-    const [hairColor, setHaircolor] = React.useState("");
-    const [skinColor, setSkinColor] = React.useState("");
-    const [accessories, setAccessories] = React.useState("");
-    const [clothe, setClothe] = React.useState("");
-    const [clotheColor, setClotheColor] = React.useState("");
-    const [beard, setBeard] = React.useState("");
-    const [beardColor, setBeardColor] = React.useState("");
+    const [mouth, setMouth] = React.useState(currents_user.avatar && currents_user.avatar.mouthType);
+    const [eye, setEye] = React.useState(currents_user.avatar && currents_user.avatar.eyeType);
+    const [eyebrow, setEyebrow] = React.useState(currents_user.avatar && currents_user.avatar.eyebrowType);
+    const [hair, setHair] = React.useState(currents_user.avatar && currents_user.avatar.topType);
+    const [hairColor, setHaircolor] = React.useState(currents_user.avatar && currents_user.avatar.hairColor);
+    const [skinColor, setSkinColor] = React.useState(currents_user.avatar && currents_user.avatar.skinColor);
+    const [accessories, setAccessories] = React.useState(currents_user.avatar && currents_user.avatar.accessoriesType);
+    const [clothe, setClothe] = React.useState(currents_user.avatar && currents_user.avatar.clotheType);
+    const [clotheColor, setClotheColor] = React.useState(currents_user.avatar && currents_user.avatar.clotheColor);
+    const [beard, setBeard] = React.useState(currents_user.avatar && currents_user.avatar.facialHairType);
+    const [beardColor, setBeardColor] = React.useState(currents_user.avatar && currents_user.avatar.facialHairColor);
     const [i, setI] = React.useState(true);
 
 
     useEffect(() => {
-        if (Object.entries(user).length === 0) {
-            ResponseUser()
-        }
-        if (user.avatar && i === true) {
+        if (currents_user.avatar && i === true) {
             setI(false)
-            setBeardColor(user.avatar.facialHairColor)
-            setMouth(user.avatar.mouthType)
-            setEye(user.avatar.eyeType)
-            setEyebrow(user.avatar.eyebrowType)
-            setHair(user.avatar.topType)
-            setHaircolor(user.avatar.hairColor)
-            setSkinColor(user.avatar.skinColor)
-            setAccessories(user.avatar.accessoriesType)
-            setClothe(user.avatar.clotheType)
-            setClotheColor(user.avatar.clotheColor)
-            setBeard(user.avatar.facialHairType)
+            setBeardColor(currents_user.avatar.facialHairColor)
+            setMouth(currents_user.avatar.mouthType)
+            setEye(currents_user.avatar.eyeType)
+            setEyebrow(currents_user.avatar.eyebrowType)
+            setHair(currents_user.avatar.topType)
+            setHaircolor(currents_user.avatar.hairColor)
+            setSkinColor(currents_user.avatar.skinColor)
+            setAccessories(currents_user.avatar.accessoriesType)
+            setClothe(currents_user.avatar.clotheType)
+            setClotheColor(currents_user.avatar.clotheColor)
+            setBeard(currents_user.avatar.facialHairType)
         }
     })
 
     const handleChange = (event, newValue) => {
         setValue(newValue);
     };
+
+    const ResponseUser = async () => {
+        const response = await getUserById(getUserId())
+
+        if (Object.entries(response).length !== 0) {
+            dispatch({ type: SET_USER, datas: response.datas })
+        }
+    }
 
     const catchSubmit = async (e) => {
         e.preventDefault()
@@ -148,7 +149,7 @@ export default function TabAvatar() {
             mouthType: mouth,
             skinColor: skinColor,
             eyeType: eye,
-            avatarId: user.avatar.id
+            avatarId: currents_user.avatar.id
         })
 
         if (response === 'OK') {
@@ -157,6 +158,7 @@ export default function TabAvatar() {
             addToast(messages.error, {appearance: 'error'})
         }
         dispatch({type: UPDATE_AVATAR})
+        await ResponseUser()
         history.push("/profile")
     }
     return (

@@ -9,9 +9,7 @@ import Grid from '@material-ui/core/Grid'
 import Typography from '@material-ui/core/Typography'
 import { makeStyles } from '@material-ui/core/styles'
 import iconTeethFull from '../../images/icon/iconTeethFull.svg'
-import Button from '@material-ui/core/Button'
 import IconProfile from '../../components/UI/Icon/Profile/iconProfile'
-import ShareIcon from '@material-ui/icons/Share'
 import palette from '../../components/UI/ColorTheme/Palette'
 import Keyword from '../../components/UI/Keywords/keywords'
 import Gallery from '../../components/UI/Gallery/Gallery'
@@ -19,6 +17,7 @@ import LightboxButton from '../../components/UI/Gallery/LightboxButton'
 import CardPlanTreatment from '../../components/App/DetailCase/CardPlanTreatment'
 import { getCaseById } from '../../services/Cases'
 import { setup } from '../../services/Auth'
+import RatingCase from "../../components/App/DetailCase/Rating";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -336,16 +335,11 @@ const DetailCase = (props) => {
                   {item.conclusion && item.conclusion}
                 </p>
               </div>
+              <RatingCase/>
 
             </Grid>
             <Grid container className={classes.alignRight} item md={2} spacing={1}>
               <div>
-                <Button
-                  href=''
-                  onClick={e => e.preventDefault()}
-                >
-                  <ShareIcon /> Partager
-                </Button>
               </div>
             </Grid>
           </Grid>
