@@ -15,6 +15,8 @@ import {useToasts} from "react-toast-notifications";
 import config from "../../config";
 import IconButton from "@material-ui/core/IconButton";
 import ArrowBackIcon from '@material-ui/icons/ArrowBack'
+import {SET_USER} from "../../store/actions";
+import {useDispatch} from "react-redux";
 
 
 const useStyles = makeStyles((theme) => ({
@@ -43,10 +45,16 @@ const EditProfile = () => {
     const [item, setItem] = useState({})
     const [pseudo, setPseudo] = useState()
     const [email, setEmail] = useState()
+    const dispatch = useDispatch()
+
 
     const ResponseUser = async () => {
-        const CaseById = await getUserById(getUserId())
-        setItem(CaseById.datas)
+        const response = await getUserById(getUserId())
+        setItem(response.datas)
+
+        if (Object.entries(response).length !== 0) {
+            dispatch({ type: SET_USER, datas: response.datas })
+        }
     }
 
     useEffect(() => {
@@ -60,6 +68,7 @@ const EditProfile = () => {
         if (type === "email"){setEmail(e.target.value)}
     }
 
+
     const catchSubmit = async (e) => {
         e.preventDefault()
         const response = await editUser({
@@ -67,6 +76,7 @@ const EditProfile = () => {
             userId: item.id,
             email: email
         })
+        await ResponseUser()
 
         if (response === 'OK') {
             addToast(messages.success, {appearance: 'success'})
