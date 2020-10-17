@@ -116,16 +116,18 @@ const Profile = () => {
                             </Grid>
                         </Paper>
                     </div>
-                    <Container maxWidth='lg'>
-                        <Typography component='h2' variant='h5' color='primary' style={{paddingTop: '20px'}}>
-                            <center>Cas publiés</center>
-                        </Typography>
-                        <div className={classes.card}>
-                            {Object.keys(cases).length !== 0 && cases.map((oCase, index) => {
-                                return <CasesItem key={index} item={oCase}/>
-                            })}
-                        </div>
-                    </Container>
+                    {Object.keys(cases).length !== 0 ?
+                      <Container maxWidth='lg'>
+                          <Typography component='h2' variant='h5' color='primary' style={{paddingTop: '20px'}}>
+                              <center>Cas publiés</center>
+                          </Typography>
+                          <div className={classes.card}>
+                              {cases.map((oCase, index) => {
+                                  return <CasesItem key={index} item={oCase}/>
+                              })}
+                          </div>
+                      </Container> : null
+                    }
                 </>
             )
         }

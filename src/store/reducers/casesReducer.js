@@ -43,7 +43,7 @@ export const Cases = (state = INIT_STATE, action) => {
           let caseIndex = null 
 
           if (favType["@type"] === 'ClinicalCase') {
-            caseIndex = caseIndex.id
+            caseIndex = favType.id
           }
           if (favType["@type"] === 'Favorite') {
             caseIndex = favOrCase(favType)
