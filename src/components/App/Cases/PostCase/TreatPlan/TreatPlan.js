@@ -156,26 +156,27 @@ const TreatPlan = (props) => {
                         </Grid>
                     </Grid>
                 </Grid>
-                    <br/>
-                    <center>
-                        <Button className={classes.button}
-                                onClick={catchOnmit}
-                        >
-                            Précédent
-                        </Button>
-                        <Button
-                            variant="contained"
-                            color="primary"
-                            className={classes.button}
-                            type='submit'
-                            onClick={catchSubmit}
-                        >
-                            Suivant
-                        </Button>
-                    </center>
+                <br/>
+                <center>
+                    <Button className={classes.button}
+                            onClick={catchOnmit}
+                    >
+                        Précédent
+                    </Button>
+                    <Button
+                        variant="contained"
+                        color="primary"
+                        className={classes.button}
+                        type='submit'
+                        onClick={catchSubmit}
+                    >
+                        Suivant
+                    </Button>
+                </center>
+                <br/><br/><br/><br/>
             </form>
         </>
-)
+    )
 }
 
 export default TreatPlan
