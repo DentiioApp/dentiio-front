@@ -3,21 +3,21 @@ import {Redirect} from 'react-router-dom'
 
 import './gallery.css'
 import Header from '../../components/App/Header/Header'
-import NavbarDetail from '../../components/App/DetailCase/NavbarDetail'
-import PatientDetail from '../../components/App/DetailCase/PatientDetail'
+import NavbarDetail from '../../components/App/Cases/DetailCase/NavbarDetail'
+import PatientDetail from '../../components/App/Cases/DetailCase/PatientDetail'
 import Grid from '@material-ui/core/Grid'
 import Typography from '@material-ui/core/Typography'
 import {makeStyles} from '@material-ui/core/styles'
 import iconTeethFull from '../../images/icon/iconTeethFull.svg'
 import IconProfile from '../../components/UI/Icon/Profile/iconProfile'
 import palette from '../../components/UI/ColorTheme/Palette'
-import Keyword from '../../components/UI/Keywords/keywords'
+import Keyword from '../../components/UI/buttons/Keywords/keywords'
 import Gallery from '../../components/UI/Gallery/Gallery'
 import LightboxButton from '../../components/UI/Gallery/LightboxButton'
-import CardPlanTreatment from '../../components/App/DetailCase/CardPlanTreatment'
+import CardPlanTreatment from '../../components/App/Cases/DetailCase/CardPlanTreatment'
 import {getCaseById} from '../../services/Cases'
 import {setup} from '../../services/Auth'
-import RatingCase from "../../components/App/DetailCase/Rating";
+import RatingCase from "../../components/App/Cases/DetailCase/Rating";
 import Spinner from "../../components/UI/Dawers/Spinner";
 
 const useStyles = makeStyles((theme) => ({

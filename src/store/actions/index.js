@@ -1,8 +1,8 @@
-import { openSideBar, closeSideBar } from './Cases'
-import { fetchSpecialities } from './Specialities'
-import { fetchTreatments } from './Treatments'
-import { fetchPathologies } from './Pathologies'
-import { fetchCatPathologies } from './CatPathologies'
+import { openSideBar, closeSideBar } from './CasesAction'
+import { fetchSpecialities } from './SpecialitiesAction'
+import { fetchTreatments } from './TreatmentsAction'
+import { fetchPathologies } from './PathologiesAction'
+import { fetchCatPathologies } from './CatPathologiesAction'
 
 export const ADD_FAVORITE = 'ADD_FAVORITE'
 export const REMOVE_FAVORITE = 'REMOVE_FAVORITE'
