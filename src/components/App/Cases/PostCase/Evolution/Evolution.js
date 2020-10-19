@@ -1,10 +1,7 @@
 import './evolution.scss'
-
 import React, { useState } from 'react'
 import { useDispatch } from 'react-redux'
-
 import {
-  Paper,
   Typography,
   TextField,
   Button
@@ -12,10 +9,10 @@ import {
 import Grid from '@material-ui/core/Grid'
 import InputLabel from '@material-ui/core/InputLabel'
 import { makeStyles } from '@material-ui/core/styles'
-import ArrowBackIcon from '@material-ui/icons/ArrowBack'
-import ArrowForwardIcon from '@material-ui/icons/ArrowForward'
 import oStyle from '../../../../UI/ResponsiveDesign/AuthStyle'
-import { UPDATE_LEVEL } from '../../../../../store/actions'
+import {UPDATE_LEVEL, UPDATE_STEPPER_POSTCASE} from '../../../../../store/actions'
+import AddAPhotoIcon from "@material-ui/core/SvgIcon/SvgIcon";
+import {DropzoneArea} from "material-ui-dropzone";
 
 const useStyles = makeStyles((theme) => (oStyle(theme)))
 
@@ -26,46 +23,41 @@ const Evolution = (props) => {
   const initVals = {
     errEvolution: false
   }
-  const [errors, setErrors] = useState(initVals)
+  const [errors/*, setErrors*/] = useState(initVals)
 
   const catchSubmit = async (event) => {
     event.preventDefault()
     let isValid = true
-    if (props.values.evolution === '') { setErrors({ ...errors, errEvolution: true }); isValid = false }
-    if (isValid) { dispatch({ type: UPDATE_LEVEL, level: 'conclusion' }) }
+    /*if (props.values.evolution === '') { setErrors({ ...errors, errEvolution: true }); isValid = false }*/
+    if (isValid) { dispatch({ type: UPDATE_LEVEL, level: 'cliniccase' })
+      dispatch({type: UPDATE_STEPPER_POSTCASE, levelStepperPostCase: 5})
+
+    }
   }
 
   const catchOnmit = async (event) => {
     event.preventDefault()
     dispatch({ type: UPDATE_LEVEL, level: 'treatplan' })
+    dispatch({type: UPDATE_STEPPER_POSTCASE, levelStepperPostCase: 3})
   }
 
   return (
     <>
-      <Grid container component='main' className={classes.root}>
-        <Grid
-          item
-          xs={10}
-          sm={8}
-          md={8}
-          lg={5}
-          component={Paper}
-          elevation={6}
-          square
-          className={classes.login}
-        >
+    <Typography component='h1' variant='h5'>
+      <center>Evolution</center>
+    </Typography>
+    <form className={classes.form} noValidate>
+      <Grid container component='main'>
+        <Grid item xs={12} >
           <div className={classes.paper}>
-            <Typography component='h1' variant='h5'>
-              Evolution
-            </Typography>
-            <form className={classes.form} noValidate>
-
               <TextField
                 aria-label='minimum height'
-                rowsMin={3} placeholder='evolution'
+                rows={4}
+                placeholder='Description des évolutions'
                 variant='outlined'
                 margin='normal'
                 required
+                fullWidth
                 name='evolution'
                 label='Evolution'
                 multiline
@@ -95,30 +87,55 @@ const Evolution = (props) => {
               </Button>
 
               <br />  <br />
-
-              <center>
-                <Grid item xs={12}>
-                  <Button
-                    variant='contained'
-                    type='submit'
-                    onClick={catchOnmit}
-                  >
-                    <ArrowBackIcon />
-                  </Button>
-
-                  <Button
-                    variant='contained'
-                    type='submit'
-                    onClick={catchSubmit}
-                  >
-                    <ArrowForwardIcon />
-                  </Button>
-                </Grid>
-              </center>
-            </form>
+            <DropzoneArea
+                showPreviewsInDropzone
+                useChipsForPreview
+                dropzoneText={'Déposez les photos d\'évolutions'}
+                previewGridProps={{container: {spacing: 1, direction: 'row'}}}
+                previewText="Selected files"
+                Icon={AddAPhotoIcon}
+            />
+            <br/><br/>
+            <TextField
+                aria-label='minimum height'
+                rows={4}
+                placeholder='Conclusion'
+                variant='outlined'
+                margin='normal'
+                required
+                autoFocus
+                fullWidth
+                name='conclusion'
+                type='textarea'
+                id='conclusion'
+                label='Conclusion'
+                multiline
+                value={props.values.conclusion}
+                autoComplete='current-conclusion'
+                onChange={props.onChange('conclusion')}
+                error={errors.errConclusion}
+            />
           </div>
         </Grid>
       </Grid>
+      <br/>
+      <center>
+        <Button className={classes.button}
+                onClick={catchOnmit}
+        >
+          Précédent
+        </Button>
+        <Button
+            variant="contained"
+            color="primary"
+            className={classes.button}
+            type='submit'
+            onClick={catchSubmit}
+        >
+          Suivant
+        </Button>
+      </center>
+    </form>
     </>
   )
 }

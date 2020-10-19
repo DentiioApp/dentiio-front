@@ -44,6 +44,9 @@ export const oStyle = (theme, imgDesktop, imgMobile) => {
       position: 'absolute',
       margin: '13px 23px 0px 50px'
     },
+    treatmentPhotoInput:{
+      minHeight: '100px!important'
+    },
 
     login: {
       minWidth: '500px',

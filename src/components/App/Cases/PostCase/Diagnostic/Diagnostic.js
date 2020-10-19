@@ -8,7 +8,6 @@ import {
   Button
 } from '@material-ui/core/'
 import Grid from '@material-ui/core/Grid'
-import InputLabel from '@material-ui/core/InputLabel'
 import { makeStyles } from '@material-ui/core/styles'
 import TextField from '@material-ui/core/TextField'
 import MenuItem from '@material-ui/core/MenuItem'
@@ -63,10 +62,10 @@ const Diagnostic = (props) => {
         <center>Diagnostic</center>
       </Typography>
 
-      <Grid container item spacing={3} component='main'>
+      <Grid container item spacing={2} component='main'>
         <Grid item xs={12}>
           <div className={classes.paper}>
-              <TextField
+            <TextField
                 aria-label='minimum height'
                 placeholder='diagnostic'
                 variant='outlined'
@@ -84,13 +83,11 @@ const Diagnostic = (props) => {
                 autoComplete='current-diagnostic'
                 onChange={props.onChange('diagnostic')}
                 error={errors.errDiagnostic}
-              />
-
-              <br /> <br />
-
-              <Typography component='h1' variant='h5'>
-                Pathologies
-              </Typography>
+            />
+          </div>
+        </Grid>
+          <Grid item xs={12} sm={6}>
+          <div className={classes.paper}>
             <div style={{width: '100%'}}>
               <CreatableSelect
                   //POSSIBILITE de trier par catégorie check doc react-select.com
@@ -100,7 +97,6 @@ const Diagnostic = (props) => {
                   options={newPathologie}
               />
             </div>
-            <br/>
             <br/>
               <TextField
                 className='textField'
@@ -123,38 +119,18 @@ const Diagnostic = (props) => {
                 ))}
               </TextField>
 
-              <br /> <br />
-
-              <InputLabel className='inputLabel'>
-               Description globale
-              </InputLabel>
-              <TextField
-                aria-label='minimum height'
-                placeholder='Description globale'
-                variant='outlined'
-                margin='normal'
-                label='Description globale'
-                multiline
-                autoFocus
-                required
-                name='global_desc'
-                type='textarea'
-                id='global_desc'
-                value={props.values.global_desc}
-                autoComplete='current-global_desc'
-                onChange={props.onChange('global_desc')}
-                error={errors.errGlobal_desc}
-              />
-
-              <br /> <br />
-
-              <TextField
+          </div>
+        </Grid>
+            <Grid item xs={12} sm={6}>
+              <div className={classes.paper}>
+            <TextField
                 variant='outlined'
                 margin='normal'
                 required
                 name='medication_administered'
-                label='Médicaments administrés'
+                label='Médicaments administrés, utile ?'
                 multiline
+                fullWidth
                 type='text'
                 id='medication_administered'
                 value={props.values.medication_administered}
@@ -166,7 +142,7 @@ const Diagnostic = (props) => {
               <br /> <br />
           </div>
         </Grid>
-      </Grid>
+        </Grid>
       <center>
         <Button type='submit'
                 onClick={catchOnmit}

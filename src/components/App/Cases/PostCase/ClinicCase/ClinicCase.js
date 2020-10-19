@@ -19,7 +19,7 @@ import MenuItem from '@material-ui/core/MenuItem'
 import oStyle from '../../../../UI/ResponsiveDesign/AuthStyle'
 import ArrowBackIcon from '@material-ui/icons/ArrowBack'
 
-import { UPDATE_LEVEL, START_LOADER, STOP_LOADER } from '../../../../../store/actions'
+import {UPDATE_LEVEL, START_LOADER, STOP_LOADER, UPDATE_STEPPER_POSTCASE} from '../../../../../store/actions'
 import config from '../../../../../config'
 import { postCase } from '../../../../../services/Cases'
 import { postPatient } from '../../../../../services/Patient'
@@ -74,12 +74,15 @@ const ClinicCase = (props) => {
         addToast(messages.patientError, { appearance: 'error' })
       }
       dispatch({ type: STOP_LOADER })
+      dispatch({type: UPDATE_LEVEL, level: ''})
+      dispatch({type: UPDATE_STEPPER_POSTCASE, levelStepperPostCase: 0})
     }
   }
 
   const catchOnmit = async (event) => {
     event.preventDefault()
-    dispatch({ type: UPDATE_LEVEL, level: 'conclusion' })
+    dispatch({ type: UPDATE_LEVEL, level: 'evolution' })
+    dispatch({type: UPDATE_STEPPER_POSTCASE, levelStepperPostCase: 4})
   }
 
   if (loader === true) {
@@ -87,24 +90,13 @@ const ClinicCase = (props) => {
   } else {
     return (
       <>
-        <Grid container component='main' className={classes.root}>
-          <Grid
-            item
-            xs={10}
-            sm={8}
-            md={8}
-            lg={5}
-            component={Paper}
-            elevation={6}
-            square
-            className={classes.login}
-          >
+      <Typography component='h1' variant='h5'>
+        <center>Ajouter votre cas clinique</center>
+      </Typography>
+      <form className={classes.form} noValidate>
+      <Grid container component='main'>
+          <Grid item xs={12} >
             <div className={classes.paper}>
-              <form className={classes.form} noValidate>
-                <Typography component='h1' variant='h5'>
-                  Ajouter votre cas clinique
-                </Typography>
-
                 <Typography component='h1' variant='h5'>
                 Titre du cas
                 </Typography>
@@ -112,6 +104,7 @@ const ClinicCase = (props) => {
                   variant='outlined'
                   margin='normal'
                   required
+                  fullWidth
                   autoFocus
                   name='title'
                   label='Titre du cas'
@@ -186,30 +179,30 @@ const ClinicCase = (props) => {
                 </TextField>
 
                 <br />  <br />
-
-                <center>
-                  <Grid item xs={12}>
-                    <Button
-                      variant='contained'
-                      type='submit'
-                      onClick={catchOnmit}
-                    >
-                      <ArrowBackIcon />
-                    </Button>
-
-                    <Button
-                      variant='contained'
-                      type='submit'
-                      onClick={catchSubmit}
-                    >
-                      <SaveIcon />
-                    </Button>
-                  </Grid>
-                </center>
-              </form>
             </div>
           </Grid>
         </Grid>
+        <center>
+          <Grid item xs={12}>
+            <Button className={classes.button}
+                    onClick={catchOnmit}
+            >
+              Précédent
+            </Button>
+
+            <Button
+                variant="contained"
+                color="primary"
+                className={classes.button}
+                type='submit'
+                onClick={catchSubmit}
+            >
+              <SaveIcon />
+            </Button>
+          </Grid>
+        </center>
+      </form>
+
       </>
     )
   }

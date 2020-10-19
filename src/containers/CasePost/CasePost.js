@@ -6,7 +6,6 @@ import Patient from '../../components/App/Cases/PostCase/Patient/Patient'
 import Exam from '../../components/App/Cases/PostCase/Exam/Exam'
 import Diagnostic from '../../components/App/Cases/PostCase/Diagnostic/Diagnostic'
 import Evolution from '../../components/App/Cases/PostCase/Evolution/Evolution'
-import Conclusion from '../../components/App/Cases/PostCase/Conclusion/Conclusion'
 import ClinicCase from '../../components/App/Cases/PostCase/ClinicCase/ClinicCase'
 import TreatPlan from '../../components/App/Cases/PostCase/TreatPlan/TreatPlan'
 import TextField from '@material-ui/core/TextField'
@@ -99,11 +98,15 @@ const CasePost = () => {
     // Dagnostic
     diagnostic: '',
     pathologies: [],
-    global_desc: '',
     medication_administered: [],
 
     // Plan de traitement
-    step: [],
+    step1: "",
+    step1Pics: [],
+    step2: "",
+    step2Pics: [],
+    step3: "",
+    step3Pics: [],
 
     // Evolution
     evolution_pics: [],
@@ -179,9 +182,6 @@ const CasePost = () => {
     case 'evolution':
       form = <Evolution onChange={handleChange} values={values} />
       break
-    case 'conclusion':
-      form = <Conclusion onChange={handleChange} values={values} />
-      break
     case 'cliniccase':
       form = <ClinicCase onChange={handleChange} values={values} />
       break
@@ -192,9 +192,7 @@ const CasePost = () => {
   if (setup()) {
     return (
       <>
-{/*
         <ModalGuidelinesPostCase />
-*/}
         <PostCaseStepper/>
         {form}
       </>
