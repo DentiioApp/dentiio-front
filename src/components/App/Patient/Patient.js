@@ -1,237 +1,238 @@
 import './patient.scss'
-
-import React, { useState } from 'react'
-import { useDispatch } from 'react-redux'
-
+import React, {useState} from 'react'
+import {useDispatch} from 'react-redux'
 import {
-  Paper,
-  Switch,
-  Typography,
-  Button
+    Switch,
+    Typography,
+    Button
 } from '@material-ui/core/'
 import Grid from '@material-ui/core/Grid'
-import { makeStyles } from '@material-ui/core/styles'
+import {makeStyles} from '@material-ui/core/styles'
 import TextField from '@material-ui/core/TextField'
 import SmokingRoomsIcon from '@material-ui/icons/SmokingRooms'
 import LocalBarIcon from '@material-ui/icons/LocalBar'
-import ArrowForwardIcon from '@material-ui/icons/ArrowForward'
-
 import imgDesktop from '../../../images/illus.png'
 import imgMobile from '../../../images/mobile-bg.svg'
-
 import oStyle from '../../ResponsiveDesign/AuthStyle'
-import { UPDATE_LEVEL } from '../../../store/actions'
+import {UPDATE_LEVEL, UPDATE_STEPPER_POSTCASE} from '../../../store/actions'
 import MenuItem from '@material-ui/core/MenuItem'
 import InputLabel from '@material-ui/core/InputLabel'
-
-import logo from '../../../images/logo.svg'
-import avatar from '../../../images/logoteeth_blue.png'
 import config from '../../../config'
 
 const useStyles = makeStyles((theme) => (oStyle(theme, imgDesktop, imgMobile)))
 
 const Patient = (props) => {
-  const classes = useStyles()
-  const dispatch = useDispatch()
+    const classes = useStyles()
+    const dispatch = useDispatch()
 
-  const { ages, sexes } = config
+    const {ages, sexes} = config
 
-  const initVals = {
-    errAge: false,
-    errGender: false,
-    errReason_consultation: false
-  }
-  const [errors, setErrors] = useState(initVals)
+    const initVals = {
+        errAge: false,
+        errGender: false,
+        errReason_consultation: false
+    }
+    const [errors, setErrors] = useState(initVals)
 
-  const catchSubmit = async (event) => {
-    event.preventDefault()
-    let isValid = true
-    if (props.values.age === '') { setErrors({ ...errors, errAge: true }); isValid = false }
-    if (props.values.gender === '') { setErrors({ ...errors, errGender: true }); isValid = false }
-    if (props.values.reason_consultation === '') { setErrors({ ...errors, errReason_consultation: true }); isValid = false }
-    if (isValid) { dispatch({ type: UPDATE_LEVEL, level: 'exam' }) }
-  }
+    const catchSubmit = async (event) => {
+        event.preventDefault()
+        let isValid = true
+        if (props.values.age === '') {
+            setErrors({...errors, errAge: true});
+            isValid = false
+        }
+        if (props.values.gender === '') {
+            setErrors({...errors, errGender: true});
+            isValid = false
+        }
+        if (props.values.reason_consultation === '') {
+            setErrors({...errors, errReason_consultation: true});
+            isValid = false
+        }
+        if (isValid) {
+            dispatch({type: UPDATE_LEVEL, level: 'exam'})
+            dispatch({type: UPDATE_STEPPER_POSTCASE, levelStepperPostCase: 1})
+        }
+    }
 
-  return (
-    <>
-      <Grid container component='main' className={classes.root}>
-        <img className={classes.logo} alt='' src={logo} />
-        <Grid
-          item
-          xs={10}
-          sm={8}
-          md={8}
-          lg={5}
-          component={Paper}
-          elevation={6}
-          square
-          className={classes.login}
-        >
-          <div className={classes.paper}>
-            <img className={classes.avatar} alt='' src={avatar} />
-            <Typography component='h1' variant='h5'>
-              Fiche Patient
-            </Typography>
+    return (
+        <>
             <form className={classes.form} noValidate>
-              <TextField
-                className='textField'
-                id='age'
-                label='Age'
-                select
-                fullWidth
-                onChange={props.onChange('age')}
-                variant='outlined'
-                value={props.values.age === undefined ? 18 : props.values.age}
-                error={errors.errAge}
-              >
-                {ages && ages.map((index, value) => (
-                  <MenuItem key={index + 1} value={value}>
-                    {value + ' ans'}
-                  </MenuItem>
-                ))}
-              </TextField>
+                <Typography component='h1' variant='h5'>
+                    <center>Information patient</center>
+                </Typography>
+                <Grid container item spacing={3} component='main'>
+                    <Grid item xs={12} sm={6}>
+                        <div className={classes.paper}>
+                            <TextField
+                                aria-label='minimum height'
+                                multiline
+                                rows={4}
+                                placeholder='Motif de la consultation'
+                                variant='outlined'
+                                margin='normal'
+                                label='Motif de la consultation'
+                                autoFocus
+                                required
+                                fullWidth
+                                name='reason_consultation'
+                                type='textarea'
+                                id='reason_consultation'
+                                value={props.values.reason_consultation}
+                                autoComplete='current-reason_consultation'
+                                onKeyDown={(e) => e.keyCode !== 13 ? null : catchSubmit(e)}
+                                onChange={props.onChange('reason_consultation')}
+                                error={errors.errReason_consultation}
+                            />
+                            <br/>
+                            <TextField
+                                className='textField'
+                                id='age'
+                                label='Age'
+                                select
+                                fullWidth
+                                onChange={props.onChange('age')}
+                                variant='outlined'
+                                value={props.values.age === undefined ? 18 : props.values.age}
+                                error={errors.errAge}
+                            >
+                                {ages && ages.map((index, value) => (
+                                    <MenuItem key={index + 1} value={value}>
+                                        {value + ' ans'}
+                                    </MenuItem>
+                                ))}
+                            </TextField>
 
-              <br /> <br />
+                            <br/> <br/>
 
-              <TextField
-                className='textField'
-                id='gender'
-                label='HOMME / FEMME'
-                select
-                fullWidth
-                value={props.values.gender === undefined ? 'M' : props.values.gender}
-                onChange={props.onChange('gender')}
-                variant='outlined'
-                error={errors.errGender}
-              >
-                {sexes && sexes.map((value, id) => (
-                  <MenuItem key={id} value={value.id}>
-                    {value.name}
-                  </MenuItem>
-                ))}
-              </TextField>
+                            <TextField
+                                className='textField'
+                                id='gender'
+                                label='Sexe'
+                                select
+                                fullWidth
+                                value={props.values.gender === undefined ? 'M' : props.values.gender}
+                                onChange={props.onChange('gender')}
+                                variant='outlined'
+                                error={errors.errGender}
+                            >
+                                {sexes && sexes.map((value, id) => (
+                                    <MenuItem key={id} value={value.id}>
+                                        {value.name}
+                                    </MenuItem>
+                                ))}
+                            </TextField>
 
-              <br /> <br />
+                            <br/> <br/>
 
-              <InputLabel className='inputLabel'>
-                Fumeur <SmokingRoomsIcon />
-              </InputLabel>
-              <Switch
-                checked={props.values.isASmoker}
-                onChange={props.onChange('isASmoker')}
-                color='primary'
-                name='isASmoker'
-                inputProps={{ 'aria-label': 'primary checkbox' }}
-              />
+                            <Grid container spacing={3}>
+                                <Grid item xs={6}>
+                                    <InputLabel className='inputLabel'>
+                                        Fumeur <SmokingRoomsIcon/>
+                                    </InputLabel>
+                                    <Switch
+                                        checked={props.values.isASmoker}
+                                        onChange={props.onChange('isASmoker')}
+                                        color='primary'
+                                        name='isASmoker'
+                                        inputProps={{'aria-label': 'primary checkbox'}}
+                                    /> </Grid>
+                                <Grid item xs={6}>
+                                    <InputLabel className='inputLabel'>
+                                        Alcool <LocalBarIcon/>
+                                    </InputLabel>
+                                    <Switch
+                                        checked={props.values.isDrinker}
+                                        onChange={props.onChange('isDrinker')}
+                                        color='primary'
+                                        name='isDrinker'
+                                        inputProps={{'aria-label': 'primary checkbox'}}
+                                    />
+                                </Grid>
+                            </Grid>
+                        </div>
+                    </Grid>
+                    <Grid item xs={12} sm={6}>
+                        <div className={classes.paper}>
 
-              <br />  <br />
+                            <TextField
+                                aria-label='minimum height'
+                                placeholder='Antécédents médicaux'
+                                variant='outlined'
+                                margin='normal'
+                                label='Antécédents médicaux'
+                                multiline
+                                autoFocus
+                                required
+                                fullWidth
+                                name='old_injury'
+                                type='textarea'
+                                id='old_injury'
+                                value={props.values.old_injury}
+                                autoComplete='current-old_injury'
+                                onChange={props.onChange('problem_health')}
+                                error={errors.errProblem_health}
+                            />
 
-              <InputLabel className='inputLabel'>
-                Buveur <LocalBarIcon />
-              </InputLabel>
-              <Switch
-                checked={props.values.isDrinker}
-                onChange={props.onChange('isDrinker')}
-                color='primary'
-                name='isDrinker'
-                inputProps={{ 'aria-label': 'primary checkbox' }}
-              />
+                            <TextField
+                                aria-label='minimum height'
+                                placeholder='Renseignez le(s) traitement(s)'
+                                variant='outlined'
+                                label='Sous traitement'
+                                multiline
+                                fullWidth
+                                margin='normal'
+                                required
+                                name='current_treatment'
+                                type='textarea'
+                                id='current_treatment'
+                                value={props.values.errCurrent_treatment}
+                                autoComplete='current-current_treatment'
+                                onChange={props.onChange('current_treatment')}
+                                error={errors.errCurrent_treatment}
+                            />
+                            <br/>
 
-              <br />  <br />
+                            <TextField
+                                aria-label='minimum height'
+                                placeholder='Allergie(s)'
+                                variant='outlined'
+                                label='Allergie(s)'
+                                multiline
+                                fullWidth
+                                margin='normal'
+                                name='allergies'
+                                type='textarea'
+                                id='current_allergies'
+                                value={props.values.allergies}
+                                autoComplete='current-allergies'
+                                onChange={props.onChange('allergies')}
+                                error={errors.errAllergies}
+                            />
 
-              <TextField
-                aria-label='minimum height'
-                placeholder='Antécédents médicauts'
-                variant='outlined'
-                margin='normal'
-                label='Antécédents médicauts'
-                multiline
-                autoFocus
-                required
-                fullWidth
-                name='old_injury'
-                type='textarea'
-                id='old_injury'
-                value={props.values.old_injury}
-                autoComplete='current-old_injury'
-                onChange={props.onChange('problem_health')}
-                error={errors.errProblem_health}
-              />
+                            <br/> <br/>
+                        </div>
 
-              <TextField
-                aria-label='minimum height'
-                placeholder='Renseignez le(s) traitement(s)'
-                variant='outlined'
-                label='Sous traitement'
-                multiline
-                fullWidth
-                margin='normal'
-                required
-                name='current_treatment'
-                type='textarea'
-                id='current_treatment'
-                value={props.values.errCurrent_treatment}
-                autoComplete='current-current_treatment'
-                onChange={props.onChange('current_treatment')}
-                error={errors.errCurrent_treatment}
-              />
-
-              <TextField
-                aria-label='minimum height'
-                placeholder='Allergie(s)'
-                variant='outlined'
-                label='Allergie(s)'
-                multiline
-                fullWidth
-                margin='normal'
-                name='allergies'
-                type='textarea'
-                id='current_allergies'
-                value={props.values.allergies}
-                autoComplete='current-allergies'
-                onChange={props.onChange('allergies')}
-                error={errors.errAllergies}
-              />
-
-              <br />  <br />
-
-              <TextField
-                aria-label='minimum height'
-                placeholder='Motif de la consultation'
-                variant='outlined'
-                margin='normal'
-                label='Motif de la consultation'
-                multiline
-                autoFocus
-                required
-                fullWidth
-                name='reason_consultation'
-                type='textarea'
-                id='reason_consultation'
-                value={props.values.reason_consultation}
-                autoComplete='current-reason_consultation'
-                onKeyDown={(e) => e.keyCode !== 13 ? null : catchSubmit(e)}
-                onChange={props.onChange('reason_consultation')}
-                error={errors.errReason_consultation}
-              />
-
-              <br />  <br />
-
-              <center>
-                <Button
-                  variant='contained'
-                  type='submit'
-                  onClick={catchSubmit}
-                >
-                  <ArrowForwardIcon />
-                </Button>
-              </center>
+                    </Grid>
+                </Grid>
+                <center>
+                    <Button disabled className={classes.button}>
+                        Précédent
+                    </Button>
+                    <Button
+                        variant="contained"
+                        color="primary"
+                        className={classes.button}
+                        type='submit'
+                        onClick={catchSubmit}
+                    >
+                        Suivant
+                    </Button>
+                </center>
             </form>
-          </div>
-        </Grid>
-      </Grid>
-    </>
-  )
+
+        </>
+    )
 }
 
 export default Patient

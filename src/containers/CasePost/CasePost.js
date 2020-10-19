@@ -15,6 +15,7 @@ import { setup } from '../../services/Auth'
 
 import { fetchSpecialities, fetchPathologies, fetchKeywords, fetchTreatments, fetchSymptomes } from '../../services/Home'
 import { SPECS_LIST, KEYWORDS_LIST, PATHO_LIST, TREATMENTS_LIST, SYMPTOMES_LIST } from '../../store/actions'
+import PostCaseStepper from "../../components/UI/Steppers/PostCaseStepper";
 
 const CasePost = () => {
   const home = useSelector((state) => state.home)
@@ -67,7 +68,7 @@ const CasePost = () => {
     in_treatment: 'true',
 
     // Information du patient
-    age: 0,
+    age: '',
     gender: '',
     isASmoker: false,
     isDrinker: false,
@@ -86,6 +87,15 @@ const CasePost = () => {
     extra_exam_name: '',
     extra_exam_pictures: '',
     extra_exam_desc: '',
+    scanner_desc: '',
+    scanner_pics: [],
+    biopsy_desc: '',
+    biopsy_pics: [],
+    moulage_desc: '',
+    moulage_pics: [],
+    teleradio_desc: '',
+    teleradio_pics: [],
+
 
     // Dagnostic
     diagnostic: '',
@@ -183,11 +193,11 @@ const CasePost = () => {
   if (setup()) {
     return (
       <>
-        <Header />
+{/*
         <ModalGuidelinesPostCase />
-
+*/}
+        <PostCaseStepper/>
         {form}
-
       </>
     )
   } else {
