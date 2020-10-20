@@ -1,20 +1,20 @@
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { Redirect } from 'react-router-dom'
-import Header from '../../components/App/Header/Header'
 import ModalGuidelinesPostCase from '../../components/Helper/Modal/ModalGuidelines-PostCase/ModalGuidelinesPostCase'
-import Patient from '../../components/App/Cases/Patient/Patient'
-import Exam from '../../components/App/Cases/Exam/Exam'
-import Diagnostic from '../../components/App/Cases/Diagnostic/Diagnostic'
-import Evolution from '../../components/App/Cases/Evolution/Evolution'
-import Conclusion from '../../components/App/Cases/Conclusion/Conclusion'
-import ClinicCase from '../../components/App/Cases/ClinicCase/ClinicCase'
-import TreatPlan from '../../components/App/Cases/TreatPlan/TreatPlan'
+import Patient from '../../components/App/Cases/PostCase/Patient/Patient'
+import Exam from '../../components/App/Cases/PostCase/Exam/Exam'
+import Diagnostic from '../../components/App/Cases/PostCase/Diagnostic/Diagnostic'
+import Evolution from '../../components/App/Cases/PostCase/Evolution/Evolution'
+import ClinicCase from '../../components/App/Cases/PostCase/ClinicCase/ClinicCase'
+import TreatPlan from '../../components/App/Cases/PostCase/TreatPlan/TreatPlan'
 import TextField from '@material-ui/core/TextField'
 import { setup } from '../../services/Auth'
 
 import { fetchSpecialities, fetchPathologies, fetchKeywords, fetchTreatments, fetchSymptomes } from '../../services/Home'
 import { SPECS_LIST, KEYWORDS_LIST, PATHO_LIST, TREATMENTS_LIST, SYMPTOMES_LIST } from '../../store/actions'
+import PostCaseStepper from "../../components/UI/Steppers/PostCaseStepper";
+import Header from "../../components/App/Header/Header";
 
 const CasePost = () => {
   const home = useSelector((state) => state.home)
@@ -67,7 +67,7 @@ const CasePost = () => {
     in_treatment: 'true',
 
     // Information du patient
-    age: 0,
+    age: '',
     gender: '',
     isASmoker: false,
     isDrinker: false,
@@ -86,15 +86,28 @@ const CasePost = () => {
     extra_exam_name: '',
     extra_exam_pictures: '',
     extra_exam_desc: '',
+    scanner_desc: '',
+    scanner_pics: [],
+    biopsy_desc: '',
+    biopsy_pics: [],
+    moulage_desc: '',
+    moulage_pics: [],
+    teleradio_desc: '',
+    teleradio_pics: [],
+
 
     // Dagnostic
     diagnostic: '',
     pathologies: [],
-    global_desc: '',
     medication_administered: [],
 
     // Plan de traitement
-    step: [],
+    step1: "",
+    step1Pics: [],
+    step2: "",
+    step2Pics: [],
+    step3: "",
+    step3Pics: [],
 
     // Evolution
     evolution_pics: [],
@@ -170,9 +183,6 @@ const CasePost = () => {
     case 'evolution':
       form = <Evolution onChange={handleChange} values={values} />
       break
-    case 'conclusion':
-      form = <Conclusion onChange={handleChange} values={values} />
-      break
     case 'cliniccase':
       form = <ClinicCase onChange={handleChange} values={values} />
       break
@@ -183,11 +193,10 @@ const CasePost = () => {
   if (setup()) {
     return (
       <>
-        <Header />
+        <Header/>
         <ModalGuidelinesPostCase />
-
+        <PostCaseStepper/>
         {form}
-
       </>
     )
   } else {

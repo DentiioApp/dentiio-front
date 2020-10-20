@@ -18,7 +18,8 @@ const INIT_STATE = {
   treatments: [],
   pathologies: [],
   symptomes: [],
-  level: ''
+  level: '',
+  levelStepperPostCase: 0,
 }
 
 export const Home = (state = INIT_STATE, action) => {
@@ -35,6 +36,7 @@ export const Home = (state = INIT_STATE, action) => {
     case 'LOAD_INTERNET': return { ...state, internet: navigator.onLine }
 
     case 'UPDATE_LEVEL': return { ...state, level: action.level }
+    case 'UPDATE_STEPPER_POSTCASE': return { ...state, levelStepperPostCase: action.levelStepperPostCase }
     case 'SPECS_LIST': return { ...state, specialities: action.data }
     case 'TREATMENTS_LIST' : return { ...state, treatments: action.data }
     case 'PATHO_LIST' : return { ...state, pathologies: action.data }
