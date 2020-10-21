@@ -1,0 +1,41 @@
+jobs:
+  test:
+    executor:
+      name: node/default
+    steps:
+      - checkout
+      - node/install-packages:
+          pkg-manager: yarn
+      - run:
+          command: yarn run test
+          name: YARN tests
+  eslint:
+    executor:
+      name: node/default
+    steps:
+      - checkout
+      - node/install-packages:
+          pkg-manager: yarn
+      - run:
+          command: eslint src/
+          name: Eslint Run
+  build:
+    executor:
+      name: node/default
+    steps:
+      - checkout
+      - node/install-packages:
+          pkg-manager: yarn
+      - run:
+          command: yarn build
+          name: YARN Build
+
+orbs:
+  node: circleci/node@3.0.0
+version: 2.1
+workflows:
+  test_dentiio_front:
+    jobs:
+      - test
+      - eslint
+      - build
