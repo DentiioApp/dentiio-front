@@ -1,19 +1,14 @@
 jobs:
-  yarn_install:
+  test:
     executor:
       name: node/default
     steps:
       - checkout
       - node/install-packages:
           pkg-manager: yarn
-  test:
-    executor:
-      name: node/default
-    steps:
-      - checkout
       - run:
           command: yarn run test
-          name: YARN tests
+          name: YARN Tests
   eslint:
     executor:
       name: node/default
@@ -23,7 +18,7 @@ jobs:
           pkg-manager: yarn
       - run:
           command: eslint src/
-          name: Eslint Run
+          name: ESLINT Run
   build:
     executor:
       name: node/default
@@ -41,9 +36,6 @@ version: 2.1
 workflows:
   test_dentiio_front:
     jobs:
-      - yarn_install
-      - test:
-          requires:
-            - yarn_install
+      - test
       - eslint
       - build
