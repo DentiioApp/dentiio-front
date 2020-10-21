@@ -8,7 +8,13 @@ jobs:
           pkg-manager: yarn
       - run:
           command: yarn run test
-          name: Run YARN tests
+          name: YARN tests
+      - run:
+          command: yarn build
+          name: YARN Build
+      - run:
+          command: eslint src/
+          name: Eslint Run
 orbs:
   node: circleci/node@3.0.0
 version: 2.1
