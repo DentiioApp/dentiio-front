@@ -1,0 +1,33 @@
+{
+  "files": {
+    "main.css": "/dentiio-front/static/css/main.1b4c6fd3.chunk.css",
+    "main.js": "/dentiio-front/static/js/main.f9b9eff3.chunk.js",
+    "main.js.map": "/dentiio-front/static/js/main.f9b9eff3.chunk.js.map",
+    "runtime-main.js": "/dentiio-front/static/js/runtime-main.6c1a93bb.js",
+    "runtime-main.js.map": "/dentiio-front/static/js/runtime-main.6c1a93bb.js.map",
+    "static/css/2.9522b9fe.chunk.css": "/dentiio-front/static/css/2.9522b9fe.chunk.css",
+    "static/js/2.5554cfa3.chunk.js": "/dentiio-front/static/js/2.5554cfa3.chunk.js",
+    "static/js/2.5554cfa3.chunk.js.map": "/dentiio-front/static/js/2.5554cfa3.chunk.js.map",
+    "index.html": "/dentiio-front/index.html",
+    "precache-manifest.2aa1a20032b1b7928cefe32fc5b44c8e.js": "/dentiio-front/precache-manifest.2aa1a20032b1b7928cefe32fc5b44c8e.js",
+    "service-worker.js": "/dentiio-front/service-worker.js",
+    "static/css/2.9522b9fe.chunk.css.map": "/dentiio-front/static/css/2.9522b9fe.chunk.css.map",
+    "static/css/main.1b4c6fd3.chunk.css.map": "/dentiio-front/static/css/main.1b4c6fd3.chunk.css.map",
+    "static/js/2.5554cfa3.chunk.js.LICENSE.txt": "/dentiio-front/static/js/2.5554cfa3.chunk.js.LICENSE.txt",
+    "static/media/c-case-title.svg": "/dentiio-front/static/media/c-case-title.943f65d6.svg",
+    "static/media/empty.png": "/dentiio-front/static/media/empty.8fe4f7da.png",
+    "static/media/iconTeethFull.svg": "/dentiio-front/static/media/iconTeethFull.d65dc867.svg",
+    "static/media/illus.png": "/dentiio-front/static/media/illus.118607fe.png",
+    "static/media/logo.svg": "/dentiio-front/static/media/logo.62f3c076.svg",
+    "static/media/mobile-bg.svg": "/dentiio-front/static/media/mobile-bg.6a3438cf.svg",
+    "static/media/titleHeader.svg": "/dentiio-front/static/media/titleHeader.22ac42e4.svg",
+    "static/media/titleHeaderMobile.svg": "/dentiio-front/static/media/titleHeaderMobile.9f2eceea.svg"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.6c1a93bb.js",
+    "static/css/2.9522b9fe.chunk.css",
+    "static/js/2.5554cfa3.chunk.js",
+    "static/css/main.1b4c6fd3.chunk.css",
+    "static/js/main.f9b9eff3.chunk.js"
+  ]
+}
