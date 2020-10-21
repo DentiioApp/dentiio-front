@@ -44,27 +44,26 @@ const CasesList = () => {
 
   const [values, setValues] = useState(initValues)
 
-  const initUserFav = async () => {
-    const response = await fetchUserFav(userId)
-    if (!errorApi().test(response)) {
-      dispatch({ type: INIT_FAV_CASE, datas: response.datas })
-    }
-  }
-
-  const getCases = async () => {
-    const fetch = await fetchCases(values.paginator)
-    if (fetch.message !== undefined && !errorApi().test(fetch.message)) {
-      dispatch({ type: CASES_LIST, datas: fetch.datas, nbrItems: fetch.items })
-    }
-  }
-
   useEffect(() => {
-    // eslint-disable-next-line
-    if (cases && cases.length < 1) { initUserFav() } getCases()}, [values.paginator])
 
-  useEffect(() => {
-    // eslint-disable-next-line
-    if (favorites && favorites.length < 1) { initUserFav() }}, [favorites.length])
+    const getCases = async () => {
+      const fetch = await fetchCases(values.paginator)
+      if (fetch.message !== undefined && !errorApi().test(fetch.message)) {
+        dispatch({ type: CASES_LIST, datas: fetch.datas, nbrItems: fetch.items })
+      }
+    }
+
+    const initUserFav = async () => {
+      const response = await fetchUserFav(userId)
+      if (!errorApi().test(response)) {
+        dispatch({ type: INIT_FAV_CASE, datas: response.datas })
+      }
+    }
+
+    if (cases && cases.length < 1) { initUserFav() } getCases()
+    if (favorites && favorites.length < 1) { initUserFav() }
+  }, [userId, dispatch, cases, values, favorites])
+
 
   const handleChange = prop => event => {
     setValues({ ...values, paginator: event.target.value })

@@ -32,8 +32,8 @@ export default function PostCaseStepper() {
     const steps = getSteps();
 
     useEffect(() => {
-        // eslint-disable-next-line
-        setActiveStep(level)}, []);
+        setActiveStep(level)
+    }, [level]);
 
     return (
         <div className={classes.root}>

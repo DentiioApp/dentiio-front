@@ -12,8 +12,7 @@ const useStyles = makeStyles({
   }
 })
 
-const keywords = (props) => {
-  // eslint-disable-next-line react-hooks/rules-of-hooks
+const Keywords = (props) => {
   const classes = useStyles()
 
   return (
@@ -23,4 +22,4 @@ const keywords = (props) => {
   )
 }
 
-export default keywords
+export default Keywords
