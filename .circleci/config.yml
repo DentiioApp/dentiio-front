@@ -2,10 +2,10 @@ jobs:
   yarn_install:
     executor:
       name: node/default
-      steps:
-        - checkout
-        - node/install-packages:
-            pkg-manager: yarn
+    steps:
+      - checkout
+      - node/install-packages:
+          pkg-manager: yarn
   test:
     executor:
       name: node/default
