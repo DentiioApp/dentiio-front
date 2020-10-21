@@ -1,20 +1,19 @@
-
-name: Deploy on Heroku
+name: Deploy Pre Prod on Heroku
 on:
   push:
     branches:
-      - master
+      - dev
   pull_request:
     branches:
-      - master
+      - dev
 
 
 jobs:
   deploy:
-    name: Deployement
+    name: Deployement-Preprod
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v1
       - uses: actions/setup-ruby@v1
       - run: gem install dpl
-      - run: dpl --provider=heroku --app=dentiio-front --api-key=${{ secrets.API_KEY_HEROKU }}
+      - run: dpl --provider=heroku --app=pp-dentiio-front --api-key=${{ secrets.API_KEY_HEROKU }}

@@ -13,20 +13,19 @@ const Cases = () => {
   const current_user = useSelector((state) => (state.user.current_user))
   const [fetchUser, setFetchUser] = useState(false)
 
-  const ResponseUser = async () => {
-    const response = await getUserById(getUserId())
-
-    if (Object.entries(response).length !== 0) {
-      setFetchUser(true)
-      dispatch({ type: SET_USER, datas: response.datas })
-    }
-  }
 
   useEffect(() => {
-    if (!fetchUser && Object.entries(current_user).length < 1) {
-      ResponseUser()
+
+    const ResponseUser = async () => {
+      const response = await getUserById(getUserId())
+      if (Object.entries(response).length !== 0) {
+        setFetchUser(true)
+        dispatch({ type: SET_USER, datas: response.datas })
+      }
     }
-  }, [fetchUser])
+
+    if (!fetchUser && Object.entries(current_user).length < 1) {ResponseUser()}
+    }, [fetchUser, current_user, dispatch])
 
   if (setup()) {
     return (

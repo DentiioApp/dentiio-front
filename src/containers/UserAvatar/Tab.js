@@ -104,9 +104,9 @@ export default function TabAvatar() {
     const [beardColor, setBeardColor] = React.useState(currents_user.avatar && currents_user.avatar.facialHairColor);
     const [i, setI] = React.useState(true);
 
-
     useEffect(() => {
-        if (currents_user.avatar && i === true) {
+        /* eslint-disable */
+        if (currents_user.avatar && i === true) { // eslint-disable-line
             setI(false)
             setBeardColor(currents_user.avatar.facialHairColor)
             setMouth(currents_user.avatar.mouthType)
@@ -120,7 +120,7 @@ export default function TabAvatar() {
             setClotheColor(currents_user.avatar.clotheColor)
             setBeard(currents_user.avatar.facialHairType)
         }
-    })
+    }, [])
 
     const handleChange = (event, newValue) => {
         setValue(newValue);

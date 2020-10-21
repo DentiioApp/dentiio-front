@@ -14,7 +14,7 @@ const FavButton = (props) => {
   const dispatch = useDispatch()
 
   const { config } = useSelector((state) => state.home)
-  const favorites = useSelector((state) => state.cases.favorites)
+  // const favorites = useSelector((state) => state.cases.favorites)
   const [toggle, setToggle] = useState(<StarBorderIcon color='primary' />)
 
   const messages = config.conf.messages.cases.favorite
@@ -23,7 +23,7 @@ const FavButton = (props) => {
     if (props.isFavorite) {
       setToggle(<StarIcon fontSize='default' color='primary' />)
     }
-  }, [Object.keys(favorites).length, props])
+  }, [props])
 
   const HandleFav = async (item) => {
     const addOrDelete = props.isFavorite ? removeFavCase : addFavCase

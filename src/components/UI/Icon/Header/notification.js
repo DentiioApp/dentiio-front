@@ -10,8 +10,7 @@ import IconProfile from '../Profile/iconProfile'
 import Typography from '@material-ui/core/Typography'
 import IconNotifSubject from '../../Icon/iconNotifSubject/iconNotifSubject'
 
-const notification = (props) => {
-  // eslint-disable-next-line react-hooks/rules-of-hooks
+const Notification = (props) => {
   const [anchorEl, setAnchorEl] = React.useState(null)
   const isMenuOpen = Boolean(anchorEl)
 
@@ -82,4 +81,4 @@ const notification = (props) => {
   )
 }
 
-export default notification
+export default Notification
