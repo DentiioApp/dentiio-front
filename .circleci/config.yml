@@ -6,7 +6,6 @@ jobs:
       - checkout
       - node/install-packages:
           pkg-manager: yarn
-
   test:
     executor:
       name: node/default
