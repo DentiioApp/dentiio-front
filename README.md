@@ -1,7 +1,10 @@
 ![Dentiio Front](https://www.dentiio.com/img/logoblue.png)
 
 [![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0) ![Functionnals Test](https://github.com/dentiioApp/dentiio-front/workflows/Functionnals%20Test/badge.svg) 
-
+[![CircleCI](https://circleci.com/gh/DentiioApp/dentiio-front.svg?style=svg)](https://app.circleci.com/pipelines/github/DentiioApp/dentiio-front)
+[![Known Vulnerabilities](https://snyk.io/test/github/DentiioApp/dentiio-front/badge.svg)](https://app.snyk.io/org/romainmaucot/project/a12a5430-9768-4163-9633-cda2c668e4ac)
+[![Maintainability](https://api.codeclimate.com/v1/badges/8351686dd3932e5858a0/maintainability)](https://codeclimate.com/github/DentiioApp/dentiio-front/maintainability)
+[![dependencies](https://david-dm.org/DentiioApp/dentiio-front.svg)]()
 ---------------
 [Dentiio](https://www.dentiio.com/) Front is a [React app](https://github.com/facebook/react)
 
