@@ -59,12 +59,12 @@ const CasesList = () => {
   }
 
   useEffect(() => {
-    if (cases && cases.length < 1) { initUserFav() } getCases()
-  }, [values.paginator])
+    // eslint-disable-next-line
+    if (cases && cases.length < 1) { initUserFav() } getCases()}, [values.paginator])
 
   useEffect(() => {
-    if (favorites && favorites.length < 1) { initUserFav() }
-  }, [favorites.length])
+    // eslint-disable-next-line
+    if (favorites && favorites.length < 1) { initUserFav() }}, [favorites.length])
 
   const handleChange = prop => event => {
     setValues({ ...values, paginator: event.target.value })

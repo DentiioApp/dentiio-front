@@ -23,10 +23,8 @@ const Cases = () => {
   }
 
   useEffect(() => {
-    if (!fetchUser && Object.entries(current_user).length < 1) {
-      ResponseUser()
-    }
-  }, [fetchUser])
+    // eslint-disable-next-line
+    if (!fetchUser && Object.entries(current_user).length < 1) {ResponseUser()}}, [fetchUser])
 
   if (setup()) {
     return (

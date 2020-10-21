@@ -1,12 +1,9 @@
 import './clinicCase.scss'
-
 import React, {useState} from 'react'
 import {useSelector, useDispatch} from 'react-redux'
 import {useHistory} from 'react-router-dom'
 import {useToasts} from 'react-toast-notifications'
-
 import {
-    Paper,
     Typography,
     Button
 } from '@material-ui/core/'
@@ -15,10 +12,7 @@ import Grid from '@material-ui/core/Grid'
 import {makeStyles} from '@material-ui/core/styles'
 import TextField from '@material-ui/core/TextField'
 import MenuItem from '@material-ui/core/MenuItem'
-
 import oStyle from '../../../../UI/ResponsiveDesign/AuthStyle'
-import ArrowBackIcon from '@material-ui/icons/ArrowBack'
-
 import {UPDATE_LEVEL, START_LOADER, STOP_LOADER, UPDATE_STEPPER_POSTCASE} from '../../../../../store/actions'
 import config from '../../../../../config'
 import {postCase} from '../../../../../services/Cases'

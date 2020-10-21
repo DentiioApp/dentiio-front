@@ -27,14 +27,13 @@ function getSteps() {
 export default function PostCaseStepper() {
     const home = useSelector((state) => state.home)
     const level = home.levelStepperPostCase
-
     const classes = useStyles();
     const [activeStep, setActiveStep] = React.useState(level);
     const steps = getSteps();
 
     useEffect(() => {
-        setActiveStep(level)
-    });
+        // eslint-disable-next-line
+        setActiveStep(level)}, []);
 
     return (
         <div className={classes.root}>

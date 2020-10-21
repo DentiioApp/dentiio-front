@@ -23,6 +23,7 @@ const FavButton = (props) => {
     if (props.isFavorite) {
       setToggle(<StarIcon fontSize='default' color='primary' />)
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [Object.keys(favorites).length, props])
 
   const HandleFav = async (item) => {
