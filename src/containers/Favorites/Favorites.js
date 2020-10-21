@@ -21,8 +21,8 @@ const Favorites = () => {
   }
 
   useEffect(() => {
-    if (favorites && favorites.length < 1) { initUserFav() }
-  }, [favorites.length])
+    // eslint-disable-next-line
+    if (favorites && favorites.length < 1) { initUserFav() }}, [favorites.length])
 
   const getCases = async () => {
     const fetch = await fetchCases()
@@ -33,8 +33,8 @@ const Favorites = () => {
   }
 
   useEffect(() => {
-    if (casesList && casesList.length < 1) { getCases() }
-  }, [])
+    // eslint-disable-next-line
+    if (casesList && casesList.length < 1) { getCases() }}, [])
 
   return (
     <>
@@ -43,11 +43,12 @@ const Favorites = () => {
         var isFavorite = false
         if (favorites.length > 0) {
           favorites.map((item) => {
-            console.log('TEST :', item, oCase)
+            // console.log('TEST :', item, oCase)
             if (item.id === oCase.id) { isFavorite = true }
             return <CasesItem key={index} item={oCase} favorite={isFavorite} />
           })
         }
+        return false
       })}
     </>
   )
