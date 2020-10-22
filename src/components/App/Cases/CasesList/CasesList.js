@@ -60,7 +60,10 @@ const CasesList = () => {
       }
     }
 
-    if (cases && cases.length < 1) { initUserFav() } getCases()
+    if (cases && cases.length < 1) {
+      initUserFav()
+      getCases()
+    }
     if (favorites && favorites.length < 1) { initUserFav() }
   }, [userId, dispatch, cases, values, favorites])
 
