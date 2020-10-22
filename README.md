@@ -4,6 +4,7 @@
 [![CircleCI](https://circleci.com/gh/DentiioApp/dentiio-front.svg?style=svg)](https://app.circleci.com/pipelines/github/DentiioApp/dentiio-front)
 [![Known Vulnerabilities](https://snyk.io/test/github/dentiio/dentiio-front/badge.svg)](https://app.snyk.io/org/dentiio/projects)
 [![Maintainability](https://api.codeclimate.com/v1/badges/8351686dd3932e5858a0/maintainability)](https://codeclimate.com/github/DentiioApp/dentiio-front/maintainability)
+[![CodeFactor](https://www.codefactor.io/repository/github/dentiioapp/dentiio-front/badge)](https://www.codefactor.io/repository/github/dentiioapp/dentiio-front)
 [![dependencies](https://david-dm.org/DentiioApp/dentiio-front.svg)]()
 ---------------
 [Dentiio](https://www.dentiio.com/) Front is a [React app](https://github.com/facebook/react)
