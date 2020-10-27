@@ -2,12 +2,12 @@ import './status.scss'
 
 import React, { useState, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-// import { Redirect } from 'react-router-dom'
 import { useToasts } from 'react-toast-notifications'
 import {
   Paper,
   Typography,
-  Input
+  Input,
+  FormControl
 } from '@material-ui/core/'
 import Grid from '@material-ui/core/Grid'
 import FormHelperText from '@material-ui/core/FormHelperText'
@@ -19,12 +19,15 @@ import GradientBtn from '../../../UI/buttons/GradientBtn'
 import oStyle from '../../../UI/ResponsiveDesign/AuthStyle'
 import { checkFiles, errorApi } from '../../../../utils'
 
-import { loginCheck, getUserId, saveCard } from '../../../../services/Users'
+import {loginCheck, getUserId, saveCard, registerCheck} from '../../../../services/Users'
 
-import { LOG_USER, VALID_STATUS, FREE_CREDENTIALS } from '../../../../store/actions'
+import {LOG_USER, VALID_STATUS, FREE_CREDENTIALS, REGISTER_USER} from '../../../../store/actions'
 import logo from '../../../../images/logo.svg'
 import config from '../../../../config'
-
+import InputLabel from "@material-ui/core/InputLabel/InputLabel";
+import {Select} from "@material-ui/core";
+import MenuItem from "@material-ui/core/MenuItem";
+import {sendEmail} from "../../../../services/Email";
 const useStyles = makeStyles((theme) => (oStyle(theme, imgDesktop, imgMobile)))
 
 const Status = () => {
@@ -34,6 +37,8 @@ const Status = () => {
   const messages = config.messages.auth
   const credentials = useSelector((state) => state.user.credentials)
   const fileReader = new FileReader()
+  const [values, setValues] = useState({job: ''})
+  const { jobs } = useSelector((state) => state.home)
 
   useEffect(() => {
     if (credentials && credentials.email !== '') {
@@ -50,9 +55,15 @@ const Status = () => {
   })
 
   const [errCard, setErrCard] = useState(false)
+  const [emailSent, setEmailSent] = useState(false)
+
 
   const catchSubmit = (e) => {
     e.preventDefault()
+    const respo = sendRequest()
+    respo.then((res) => {
+      addToast(res.message, { appearance: res.appearance })
+    })
 
     if (errCard || document.querySelector('input').files[0] === undefined) {
       return false
@@ -71,14 +82,12 @@ const Status = () => {
 
         if (response === 'OK') { addToast(messages.card.success, { appearance: 'success' }) } else { addToast(messages.card.error, { appearance: 'error' }) }
       }
-
       fileReader.readAsDataURL(uploadFile)
-
       dispatch({ type: VALID_STATUS })
     }
   }
 
-  const handleChange = prop => event => {
+  const handleChangeFile = prop => event => {
     const checkedFile = checkFiles(event)
 
     if (checkedFile.error === true) {
@@ -88,26 +97,56 @@ const Status = () => {
     }
   }
 
+  const handleChange = prop => event => {
+    setValues({ ...values, [prop]: event.target.value })
+  }
+
+  const sendRequest = async () => {
+    const response = await registerCheck({
+      email: values.email.toLowerCase(),
+      password: values.password,
+      job: '/api/jobs/' + values.job,
+      createdAt: new Date().toISOString(),
+      isEnabled: true
+    })
+    if (response === {}) {
+      return { message: messages.register.error, appearance: 'error' }
+    } else {
+      if (!emailSent) {
+        const mailing = await sendEmail(values.email, values.pseudo)
+        if (mailing.data !== 'OK') { console.log('Erreur lors de l\'envoi du mail') }
+        setEmailSent(true)
+      }
+    }
+  }
+
+
   return (
     <>
-      <Grid container component='main' className={classes.root}>
-        <img className={classes.logo} alt='' src={logo} />
-        <Grid
-          item
-          xs={10}
-          sm={8}
-          md={8}
-          lg={5}
-          component={Paper}
-          elevation={6}
-          square
-          className={classes.login}
-        >
-          <div className={classes.paper}>
-            <Typography component='h1' variant='h5'>
-              Validez votre inscription
-            </Typography>
+      <Grid container component='main'>
+        <Grid item xs={1} md={3}>
+        </Grid>
+        <Grid item xs={10} md={6}>
+          <Typography component='h1' variant='h4' className='title'>
+            <center>C'est l'heure des présentation</center>
+          </Typography>
             <br /><br />
+            <FormControl fullWidth variant="outlined" className={classes.formControl}>
+              <InputLabel id="job">Vous êtes*</InputLabel>
+              <Select
+                  labelId="demo-simple-select-outlined-label"
+                  id="job"
+                  onChange={handleChange('job')}
+                  label="Vous êtes*"
+                  value={values.job === '' ? '' : values.job}
+              >
+                {jobs && jobs.map(option => (
+                    <MenuItem key={option.ident} value={option.id}>
+                      {option.name}
+                    </MenuItem>
+                ))}
+              </Select>
+            </FormControl>
             <Typography component='h3' variant='subtitle2'>
               Uploadez votre carte CPS, carte étudiante ou autre document qui montre que vous faites partie du milieu dentaire. <StatusJustif />
             </Typography>
@@ -117,7 +156,7 @@ const Status = () => {
                 type='file'
                 fullWidth
                 onKeyDown={(e) => e.keyCode !== 13 ? null : catchSubmit}
-                onChange={handleChange('cpsCard')}
+                onChange={handleChangeFile('cpsCard')}
                 name='cps'
                 id='cps'
                 required
@@ -134,7 +173,6 @@ const Status = () => {
                 />
               </div>
             </form>
-          </div>
         </Grid>
       </Grid>
     </>

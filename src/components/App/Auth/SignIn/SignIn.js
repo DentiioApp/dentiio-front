@@ -6,7 +6,6 @@ import { Redirect } from 'react-router-dom'
 import { useToasts } from 'react-toast-notifications'
 
 import {
-  Paper,
   Typography,
   Link
 } from '@material-ui/core/'
@@ -14,25 +13,19 @@ import Grid from '@material-ui/core/Grid'
 import IconButton from '@material-ui/core/IconButton'
 import InputAdornment from '@material-ui/core/InputAdornment'
 import OutlinedInput from '@material-ui/core/OutlinedInput'
-import { makeStyles } from '@material-ui/core/styles'
 import TextField from '@material-ui/core/TextField'
-import imgDesktop from '../../../../images/illus.png'
-import imgMobile from '../../../../images/mobile-bg.svg'
 import Visibility from '@material-ui/icons/Visibility'
 import VisibilityOff from '@material-ui/icons/VisibilityOff'
 import GradientBtn from '../../../UI/buttons/GradientBtn'
-import oStyle from '../../../UI/ResponsiveDesign/AuthStyle'
 import { SUBSCRIBE_FORM, LOG_USER, START_LOADER, STOP_LOADER } from '../../../../store/actions'
 import { loginCheck } from '../../../../services/Users'
 import { setup } from '../../../../services/Auth'
 import config from '../../../../config'
-import logo from '../../../../images/logo.svg'
 import { errorApi } from '../../../../utils'
-
-const useStyles = makeStyles((theme) => (oStyle(theme, imgDesktop, imgMobile)))
+import FormControl from "@material-ui/core/FormControl";
+import {InputLabel} from "@material-ui/core";
 
 const SignIn = () => {
-  const classes = useStyles()
   const dispatch = useDispatch()
   const subscribeMsg = localStorage.getItem('authSubscribeMsg')
   const { addToast } = useToasts()
@@ -86,35 +79,22 @@ const SignIn = () => {
     event.preventDefault()
   }
 
-  const switchToSubscribe = (e) => {
-    e.preventDefault()
-    dispatch({ type: SUBSCRIBE_FORM })
-  }
 
   if (setup()) {
     return <Redirect to='/cases' />
-  };
+  }
 
   return (
     <>
-      <Grid container component='main' className={classes.root}>
-        <img className={classes.logo} alt='' src={logo} />
-        <Grid
-          item
-          xs={11}
-          sm={7}
-          md={7}
-          component={Paper}
-          elevation={6}
-          square
-          className={classes.login}
-        >
-          <div className={classes.paper}>
-            <Typography component='h1' variant='h5'>
-              J'ai déjà un compte Dentiio
+      <Grid container component='main' >
+        <Grid item xs={1} md={3}>
+        </Grid>
+        <Grid item xs={10} md={6}>
+            <Typography component='h1' variant='h4' className='title'>
+              <center>Je me connecte</center>
             </Typography>
-            <br /><br />
-            <form className={classes.form} noValidate>
+            <br />
+            <form noValidate>
               <TextField
                 variant='outlined'
                 margin='normal'
@@ -131,36 +111,46 @@ const SignIn = () => {
               />
 
               <br /><br />
+              <FormControl fullWidth variant="outlined">
+                <InputLabel htmlFor="outlined-adornment-password">Mot de passe*</InputLabel>
+                <OutlinedInput
+                    variant='outlined'
+                    required
+                    fullWidth
+                    name='password'
+                    label='Mot de passe*'
+                    type={values.showPassword ? 'text' : 'password'}
+                    value={values.password}
+                    id='outlined-adornment-password'
+                    autoComplete='on'
+                    error={errPassword}
+                    onChange={handleChange('password')}
+                    endAdornment={
+                      <InputAdornment position='start'>
+                        <IconButton
+                            aria-label='toggle password visibility'
+                            onClick={handleClickShowPassword}
+                            onMouseDown={handleMouseDownPassword}
+                            edge='end'
+                        >
+                          {values.showPassword ? <Visibility /> : <VisibilityOff />}
+                        </IconButton>
+                      </InputAdornment>
+                    }
+                    onKeyUp={onKeyUp}
+                />
+              </FormControl>
 
-              <OutlinedInput
-                variant='outlined'
-                required
-                fullWidth
-                name='password'
-                label='Mot de passe*'
-                type={values.showPassword ? 'text' : 'password'}
-                value={values.password}
-                id='outlined-adornment-password'
-                autoComplete='on'
-                placeholder='Mot de passe*'
-                error={errPassword}
-                onChange={handleChange('password')}
-                endAdornment={
-                  <InputAdornment position='start'>
-                    <IconButton
-                      aria-label='toggle password visibility'
-                      onClick={handleClickShowPassword}
-                      onMouseDown={handleMouseDownPassword}
-                      edge='end'
-                    >
-                      {values.showPassword ? <Visibility /> : <VisibilityOff />}
-                    </IconButton>
-                  </InputAdornment>
-                }
-                onKeyUp={onKeyUp}
-              />
+              <br/><br/>
+              <Typography align='left' component='h1' variant='body1'>
+                <span>
+                  <Link href='#' color='primary'>
+                    Mot de passe oublié ?
+                  </Link>
+                </span>
+              </Typography>
 
-              <br /><br /><br /><br />
+              <br/><br/>
 
               <GradientBtn
                 variant='contained'
@@ -169,27 +159,7 @@ const SignIn = () => {
                 className='GradientBtn'
                 onClick={catchSubmit}
               />
-
-              <br /><br /><br />
-              <Typography align='center'>
-                <span>
-                  <Link href='#' color='primary'>
-                    Mot de passe oublié ?
-                  </Link>
-                </span>
-              </Typography>
-              <br />
-              <br />
-              <Typography align='center'>
-                <span>
-                Nouveau sur Dentiio ?{' '}
-                  <Link href='#' onClick={(e) => switchToSubscribe(e)} color='primary'>
-                  Inscrivez-vous.
-                  </Link>
-                </span>
-              </Typography>
             </form>
-          </div>
           {subscribeMsg}
         </Grid>
       </Grid>

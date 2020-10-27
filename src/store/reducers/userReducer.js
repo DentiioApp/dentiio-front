@@ -1,4 +1,4 @@
-import { LOG_USER, REGISTER_USER, VALID_STATUS, FREE_CREDENTIALS, SET_USER } from '../actions'
+import { LOG_USER, REGISTER_USER, VALID_STATUS, FREE_CREDENTIALS, SET_USER, SET_NEW_USER } from '../actions'
 import jwtDecode from 'jwt-decode'
 import { login } from '../../services/Auth'
 
@@ -32,6 +32,29 @@ export const User = (state = INIT_STATE, action) => {
 
     case VALID_STATUS :
       return { ...state, subscribe: false }
+
+    default :
+      return state
+  }
+}
+
+const newUser = {
+    pseudo: '',
+    email: '',
+    password: '',
+    licenceDoc: '',
+    specialities: [],
+    job: ''
+}
+
+export const NewUser = (state = newUser, action) => {
+  switch (action.type) {
+
+    case SET_NEW_USER :
+      return { ...state,
+        email: action.datas.email,
+        password: action.datas.password,
+      }
 
     default :
       return state
