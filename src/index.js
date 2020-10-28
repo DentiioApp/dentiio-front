@@ -25,24 +25,14 @@ import CasePost from './containers/CasePost/CasePost'
 import QuestionPost from './containers/QuestionPost/QuestionPost'
 import UserAvatar from "./containers/UserAvatar/UserAvatar";
 import EditProfile from "./containers/Profile/EditProfile";
+import { PersistGate } from 'redux-persist/integration/react'
+import ConfigureStore from './store/configureStore'
 dotenv.config()
-
-// MIDDLEWARE
-const middleWare = store => next => action => {
-  return next(action)
-}
-
-export const store = createStore(
-  adminReducer,
-  compose(
-    applyMiddleware(ReduxThunk, middleWare)
-    //window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
-  )
-)
 
 ReactDOM.render(
   <ThemeProvider theme={colorTheme}>
-    <Provider store={store}>
+    <Provider store={ConfigureStore().store}>
+      <PersistGate loading={null} persistor={ConfigureStore().persistor}>
       <ToastProvider autoDismiss autoDismissTimeout={config.messages.timeOut}>
         <Router>
           <div>
@@ -60,6 +50,7 @@ ReactDOM.render(
           </div>
         </Router>
       </ToastProvider>
+      </PersistGate>
     </Provider>
   </ThemeProvider>
   , document.getElementById('root')

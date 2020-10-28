@@ -43,19 +43,23 @@ const newUser = {
     email: '',
     password: '',
     licenceDoc: '',
+    acceptCgu: false,
     specialities: [],
     job: ''
 }
 
 export const NewUser = (state = newUser, action) => {
   switch (action.type) {
-
     case SET_NEW_USER :
       return { ...state,
         email: action.datas.email,
         password: action.datas.password,
+        pseudo: action.datas.pseudo,
+        licenceDoc: action.datas.licenceDoc,
+        specialities: action.datas.specialities,
+        job: action.datas.job,
+        acceptCgu: action.datas.acceptCgu,
       }
-
     default :
       return state
   }

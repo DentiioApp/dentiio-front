@@ -5,10 +5,10 @@ import { useDispatch, useSelector } from 'react-redux'
 import { Redirect } from 'react-router-dom'
 
 import {
-  Switch,
   Typography,
-  FormControlLabel,
-  FormControl
+  FormControl,
+  Checkbox,
+  Link
 } from '@material-ui/core/'
 
 import Grid from '@material-ui/core/Grid'
@@ -27,9 +27,10 @@ import { setup } from '../../../../services/Auth'
 import oStyle from '../../../UI/ResponsiveDesign/AuthStyle'
 import { registerCheck } from '../../../../services/Users'
 import { sendEmail } from '../../../../services/Email'
-import { LOGIN_FORM, REGISTER_USER } from '../../../../store/actions'
+import {LOGIN_FORM, REGISTER_USER, SET_NEW_USER} from '../../../../store/actions'
 import GradientBtn from '../../../UI/buttons/GradientBtn'
-import { checkEmail, checkPassword } from '../../../../utils'
+import { checkEmail, checkPassword, checkPseudo } from '../../../../utils/fields/fieldsCheckRegister'
+import SmokingRoomsIcon from "@material-ui/core/SvgIcon/SvgIcon";
 
 const useStyles = makeStyles((theme) => oStyle(theme, imgDesktop, imgMobile))
 
@@ -40,16 +41,32 @@ const Register = (props) => {
   const { config } = useSelector((state) => state.home)
   const user = useSelector((state) => state.user)
   const messages = config.conf.messages.auth
-  const [values, setValues] = useState(props.values)
+  const newUser = useSelector((state) => state.newUser)
+  const [values, setValues] = useState({
+    pseudo: newUser.pseudo,
+    email: newUser.email,
+    password: newUser.password,
+    acceptCgu: newUser.acceptCgu,
+    showPassword: false
+  })
   const [errCgu, setErrCgu] = useState(false)
-console.log(props.error)
+  const [error, setError] = useState({
+    email: false,
+    password: false,
+    pseudo: false,
+  })
+
+
   const catchSubmit = (e) => {
     e.preventDefault()
 
-    if ( props.error.email || checkEmail(props.values.email) === false) {
+    if ( error.pseudo || checkPseudo(values.pseudo) === false) {
+      addToast('Pseudo invalide', { appearance: 'error' }); return false
+    }
+    else if ( error.email || checkEmail(values.email) === false) {
       addToast('Email invalide', { appearance: 'error' }); return false
     }
-    else if (props.error.password || checkPassword(props.values.password) === false){
+    else if (error.password || checkPassword(values.password) === false){
       addToast('Mot de passe invalide', { appearance: 'error' }); return false
     }
     else if (!errCgu) {
@@ -57,8 +74,31 @@ console.log(props.error)
     }
     else {
       console.log('done')
-        //dispatch({ type: REGISTER_USER, email: values.email, passwd: values.password })
+      dispatch({ type: SET_NEW_USER, datas: values })
+      //dispatch({ type: REGISTER_USER, email: values.email, passwd: values.password })
       return { message: messages.register.success, appearance: 'success' }
+    }
+  }
+
+
+  const handleChange = prop => event => {
+    if (prop === 'email') {
+      (checkEmail(event.target.value) === false) ?
+          setError({ ...error, 'email': true}) : setError({ ...error, 'email': false})
+    }
+    if (prop === 'password') {
+      (checkPassword(event.target.value) === false) ?
+          setError({ ...error, 'password': true}) : setError({ ...error, 'password': false})
+    }
+    if (prop === 'pseudo') {
+      (checkPseudo(event.target.value) === false) ?
+          setError({ ...error, 'pseudo': true}) : setError({ ...error, 'pseudo': false})
+    }
+    setValues({ ...values, [prop]: event.target.value })
+
+    if (prop === 'acceptCgu') {
+      setErrCgu(event.target.checked)
+      setValues({ ...values, [prop]: event.target.checked })
     }
   }
 
@@ -90,29 +130,31 @@ console.log(props.error)
                 margin='normal'
                 required
                 fullWidth
+                value={values.pseudo}
                 id='pseudo'
                 label='Votre pseudo'
                 name='{{ customer_name }}'
                 autoComplete='pseudo'
-                onChange={props.onChange('pseudo')}
-                error={props.error.email}
-                helperText={props.values.email !== '' ? (checkEmail(values.email) === false ? 'Email invalide!' : ' ') : ''}
+                onChange={handleChange('pseudo')}
+                error={error.pseudo}
+                helperText={values.pseudo !== '' ? (checkPseudo(values.pseudo) === false ? '3 caractère minimum' : ' ') : ''}
             />
-            <br /><br />
+            <br />
             <TextField
               variant='outlined'
               className='labelGrey'
               margin='normal'
               required
               fullWidth
+              value={values.email}
               id='email'
               label='Votre adresse email'
               name='{{ customer_name }}'
               autoComplete='email'
               onKeyDown={(e) => e.keyCode !== 13 ? null : catchSubmit(e)}
-              onChange={props.onChange('email')}
-              error={props.error.email}
-              helperText={props.values.email !== '' ? (checkEmail(values.email) === false ? 'Email invalide!' : ' ') : ''}
+              onChange={handleChange('email')}
+              error={error.email}
+              helperText={values.email !== '' ? (checkEmail(values.email) === false ? 'Email invalide!' : ' ') : ''}
             />
             <br /><br />
 
@@ -122,14 +164,15 @@ console.log(props.error)
                 variant='outlined'
                 required
                 fullWidth
+                value={values.password}
                 name='password'
                 label='Votre mot de passe *'
                 type={values.showPassword ? 'text' : 'password'}
                 className='labelGreyPassword'
                 id='outlined-adornment-password'
                 autoComplete='on'
-                error={props.error.password}
-                onChange={props.onChange('password')}
+                error={error.password}
+                onChange={handleChange('password')}
                 endAdornment={
                   <InputAdornment position='start'>
                     <IconButton
@@ -151,21 +194,21 @@ console.log(props.error)
 
             <br /><br />
 
-            <FormControlLabel
-              className='labelGreyAccept'
-
-              control={
-                <Switch
-                  checked={errCgu}
-                  onChange={(e) => { setErrCgu(e.target.checked) }}
-                  color='primary'
-                  name='is_medical_background'
-                  inputProps={{ 'aria-label': 'primary checkbox' }}
-                  className='label'
+            <Grid container spacing={3}>
+              <Grid item xs={2} sm={1}>
+                <Checkbox
+                    checked={values.acceptCgu}
+                    onChange={handleChange('acceptCgu')}
+                    name="acceptCgu"
+                    color="primary"
                 />
-              }
-              label="J'accepte les Conditions générales de d'utilisation"
-            />
+              </Grid>
+              <Grid item xs={10}>
+                <Typography style={{paddingTop: '10px'}}>
+                  J'accepte les <Link>Conditions générales de d'utilisation</Link>
+                </Typography>
+              </Grid>
+            </Grid>
 
             <br /><br /><br />
 
