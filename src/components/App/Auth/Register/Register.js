@@ -1,6 +1,6 @@
 import './register.scss'
 
-import React, { useState } from 'react'
+import React, {useEffect, useState} from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { Redirect } from 'react-router-dom'
 
@@ -10,7 +10,6 @@ import {
   Checkbox,
   Link
 } from '@material-ui/core/'
-
 import Grid from '@material-ui/core/Grid'
 import IconButton from '@material-ui/core/IconButton'
 import InputAdornment from '@material-ui/core/InputAdornment'
@@ -18,8 +17,6 @@ import InputLabel from '@material-ui/core/InputLabel'
 import OutlinedInput from '@material-ui/core/OutlinedInput'
 import { makeStyles } from '@material-ui/core/styles'
 import TextField from '@material-ui/core/TextField'
-import imgDesktop from '../../../../images/illus.png'
-import imgMobile from '../../../../images/mobile-bg.svg'
 import Visibility from '@material-ui/icons/Visibility'
 import VisibilityOff from '@material-ui/icons/VisibilityOff'
 import { useToasts } from 'react-toast-notifications'
@@ -30,9 +27,8 @@ import { sendEmail } from '../../../../services/Email'
 import {LOGIN_FORM, REGISTER_USER, SET_NEW_USER} from '../../../../store/actions'
 import GradientBtn from '../../../UI/buttons/GradientBtn'
 import { checkEmail, checkPassword, checkPseudo } from '../../../../utils/fields/fieldsCheckRegister'
-import SmokingRoomsIcon from "@material-ui/core/SvgIcon/SvgIcon";
 
-const useStyles = makeStyles((theme) => oStyle(theme, imgDesktop, imgMobile))
+const useStyles = makeStyles((theme) => oStyle(theme))
 
 const Register = (props) => {
   const classes = useStyles()
@@ -46,30 +42,29 @@ const Register = (props) => {
     pseudo: newUser.pseudo,
     email: newUser.email,
     password: newUser.password,
-    acceptCgu: newUser.acceptCgu,
-    showPassword: false
+    acceptCgu: false,
+    showPassword: false,
   })
-  const [errCgu, setErrCgu] = useState(false)
+  const [showButton, setshowButton] = useState(false)
+    const [errCgu, setErrCgu] = useState(null)
   const [error, setError] = useState({
-    email: false,
-    password: false,
-    pseudo: false,
+    email: null,
+    password: null,
+    pseudo: null,
   })
-
 
   const catchSubmit = (e) => {
     e.preventDefault()
-
-    if ( error.pseudo || checkPseudo(values.pseudo) === false) {
+    if ( error.pseudo || !checkPseudo(values.pseudo)) {
       addToast('Pseudo invalide', { appearance: 'error' }); return false
     }
-    else if ( error.email || checkEmail(values.email) === false) {
+    else if ( error.email || !checkEmail(values.email)) {
       addToast('Email invalide', { appearance: 'error' }); return false
     }
-    else if (error.password || checkPassword(values.password) === false){
+    else if (error.password || !checkPassword(values.password)){
       addToast('Mot de passe invalide', { appearance: 'error' }); return false
     }
-    else if (!errCgu) {
+    else if (errCgu) {
         addToast('Vous devez accepter les conditions generales d\'utilisation', { appearance: 'error' }); return false
     }
     else {
@@ -79,7 +74,6 @@ const Register = (props) => {
       return { message: messages.register.success, appearance: 'success' }
     }
   }
-
 
   const handleChange = prop => event => {
     if (prop === 'email') {
@@ -95,12 +89,19 @@ const Register = (props) => {
           setError({ ...error, 'pseudo': true}) : setError({ ...error, 'pseudo': false})
     }
     setValues({ ...values, [prop]: event.target.value })
-
     if (prop === 'acceptCgu') {
-      setErrCgu(event.target.checked)
+      setErrCgu(!event.target.checked)
       setValues({ ...values, [prop]: event.target.checked })
     }
   }
+
+
+  useEffect(() => {
+console.log('change')
+      if(checkPseudo(values.pseudo) && checkEmail(values.email) && checkPassword(values.password) && values.acceptCgu){
+        setshowButton(true )
+      } else setshowButton(false )
+  }, [values]);
 
   const handleClickShowPassword = () => {
     setValues({ ...values, showPassword: !values.showPassword })
@@ -212,7 +213,7 @@ const Register = (props) => {
 
             <br /><br /><br />
 
-            <div onClick={(e) => (catchSubmit(e))}>
+            <div onClick={(e) => (catchSubmit(e))} hidden={!showButton}>
               <GradientBtn
                 variant='contained'
                 type='submit'
