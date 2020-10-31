@@ -101,7 +101,7 @@ const config = {
     },
     auth: {
       register: {
-        error: "L'adresse email existe déja veuillez en saisir une autre",
+        error: "Une erreur est survenue",
         success: 'Inscription réussie, Bonjour ! '
       },
       signin: {

@@ -27,12 +27,13 @@ import UserAvatar from "./containers/UserAvatar/UserAvatar";
 import EditProfile from "./containers/Profile/EditProfile";
 import { PersistGate } from 'redux-persist/integration/react'
 import ConfigureStore from './store/configureStore'
+import CGU from "./containers/CGU/CGU";
 dotenv.config()
 
 ReactDOM.render(
   <ThemeProvider theme={colorTheme}>
     <Provider store={ConfigureStore().store}>
-      <PersistGate loading={null} persistor={ConfigureStore().persistor}>
+
       <ToastProvider autoDismiss autoDismissTimeout={config.messages.timeOut}>
         <Router>
           <div>
@@ -46,11 +47,12 @@ ReactDOM.render(
               <Route exact path='/post-question' component={QuestionPost} />
               <Route exact path='/post-case' component={CasePost} />
               <Route exact path='/avatar' component={UserAvatar} />
+              <Route exact path='/cgu' component={CGU} />
             </Switch>
           </div>
         </Router>
       </ToastProvider>
-      </PersistGate>
+
     </Provider>
   </ThemeProvider>
   , document.getElementById('root')

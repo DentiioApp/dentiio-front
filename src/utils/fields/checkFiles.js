@@ -6,9 +6,9 @@ const resetInput = (event) => {
 
 const checkMimeType = (file, event) => {
   let err = ''
-  const typesAvailable = ['image/png', 'image/jpeg', 'image/jpg']
+  const typesAvailable = ['image/png', 'image/jpeg', 'image/jpg', 'application/pdf']
   if (typesAvailable.every(goodType => file.type !== goodType)) {
-    err += 'les fichiers au format ' + file.type + ' ne sont pas supportés\n'
+    err += 'Les fichiers au format ' + file.type + ' ne sont pas supportés\n'
   }
 
   if (err !== '') { // if message not same old that mean has error

@@ -14,13 +14,7 @@ export const loginCheck = (email, passwd) => {
 }
 
 export const registerCheck =  async (user) => {
-    const pseudo = 'Dentiio-' + randomstring.generate({
-        length: 6,
-        charset: 'alphabetic'
-    })
-
-    user.pseudo = pseudo
-
+console.log(user, 'USER SEND')
     let responses = await axios
         .post(USERS, user)
         .then((res) => {
@@ -29,7 +23,7 @@ export const registerCheck =  async (user) => {
         })
         .catch((e) => JSON.stringify(e))
 
-    return responses = responses.datas !== 'Created' ? {} : responses
+    return responses.datas !== 'Created' ? {} : responses
 }
 
 export const getUserId = () => {

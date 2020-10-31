@@ -11,7 +11,9 @@ import {useDispatch} from "react-redux";
 const useStyles = makeStyles((theme) => ({
   root: {
     top: 0,
-    position: 'fixed'
+    position: 'relative',
+    marginBottom: '30px',
+    zIndex: 1
   },
   menuButton: {
     marginRight: theme.spacing(4),
@@ -46,7 +48,7 @@ export const AuthHeader = () => {
           <ConnexionTitleHeader className={classes.title} />
           <Typography variant="h6" className={classes.title}>
           </Typography>
-          <Button onClick={(e) => switchToLogin(e)} className={classes.menuButton} color='primary'size='large' >Inscription</Button>
+          <Button onClick={(e) => switchToLogin(e)} className={classes.menuButton} color='primary' size='large' >Inscription</Button>
           <Button onClick={(e) => switchToSubscribe(e)} className={classes.menuButton} color='primary' size='large' >Connexion</Button>
         </Toolbar>
       </AppBar>

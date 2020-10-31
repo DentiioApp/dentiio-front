@@ -1,4 +1,4 @@
-import { LOG_USER, REGISTER_USER, VALID_STATUS, FREE_CREDENTIALS, SET_USER, SET_NEW_USER } from '../actions'
+import { LOG_USER, REGISTER_USER, VALID_STATUS, FREE_CREDENTIALS, SET_USER, BACK_LOGIN_FORM } from '../actions'
 import jwtDecode from 'jwt-decode'
 import { login } from '../../services/Auth'
 
@@ -9,10 +9,14 @@ const INIT_STATE = {
   connected: false,
   message: '',
   subscribe: false,
-  credentials: {
-    email: '',
-    passwd: ''
-  }
+
+  pseudo: '',
+  email: '',
+  password: '',
+  licenceDoc: null,
+  acceptCgu: false,
+  specialities: [],
+  job: ''
 }
 
 export const User = (state = INIT_STATE, action) => {
@@ -28,38 +32,22 @@ export const User = (state = INIT_STATE, action) => {
     case FREE_CREDENTIALS :
       return { ...state, credentials: { email: '', passwd: '' } }
 
-    case REGISTER_USER : return { ...state, subscribe: true, credentials: { email: action.email, passwd: action.passwd } }
+    case REGISTER_USER : return { ...state,
+      subscribe: true,
+      email: action.datas.email,
+      password: action.datas.password,
+      pseudo: action.datas.pseudo,
+      licenceDoc: action.datas.licenceDoc ? action.datas.licenceDoc : state.licenceDoc,
+      specialities: action.datas.specialities,
+      job: action.datas.job ? action.datas.job : state.job,
+      acceptCgu: action.datas.acceptCgu
+    }
+    case BACK_LOGIN_FORM :
+      return { ...state, subscribe: false }
 
     case VALID_STATUS :
       return { ...state, subscribe: false }
 
-    default :
-      return state
-  }
-}
-
-const newUser = {
-    pseudo: '',
-    email: '',
-    password: '',
-    licenceDoc: '',
-    acceptCgu: false,
-    specialities: [],
-    job: ''
-}
-
-export const NewUser = (state = newUser, action) => {
-  switch (action.type) {
-    case SET_NEW_USER :
-      return { ...state,
-        email: action.datas.email,
-        password: action.datas.password,
-        pseudo: action.datas.pseudo,
-        licenceDoc: action.datas.licenceDoc,
-        specialities: action.datas.specialities,
-        job: action.datas.job,
-        acceptCgu: action.datas.acceptCgu,
-      }
     default :
       return state
   }

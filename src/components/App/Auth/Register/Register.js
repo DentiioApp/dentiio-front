@@ -22,27 +22,25 @@ import VisibilityOff from '@material-ui/icons/VisibilityOff'
 import { useToasts } from 'react-toast-notifications'
 import { setup } from '../../../../services/Auth'
 import oStyle from '../../../UI/ResponsiveDesign/AuthStyle'
-import { registerCheck } from '../../../../services/Users'
 import { sendEmail } from '../../../../services/Email'
-import {LOGIN_FORM, REGISTER_USER, SET_NEW_USER} from '../../../../store/actions'
+import {LOGIN_FORM, REGISTER_USER, VALID_STATUS} from '../../../../store/actions'
 import GradientBtn from '../../../UI/buttons/GradientBtn'
 import { checkEmail, checkPassword, checkPseudo } from '../../../../utils/fields/fieldsCheckRegister'
 
 const useStyles = makeStyles((theme) => oStyle(theme))
 
-const Register = (props) => {
+const Register = () => {
   const classes = useStyles()
   const dispatch = useDispatch()
   const { addToast } = useToasts()
   const { config } = useSelector((state) => state.home)
   const user = useSelector((state) => state.user)
   const messages = config.conf.messages.auth
-  const newUser = useSelector((state) => state.newUser)
   const [values, setValues] = useState({
-    pseudo: newUser.pseudo,
-    email: newUser.email,
-    password: newUser.password,
-    acceptCgu: false,
+    pseudo: user.pseudo,
+    email: user.email,
+    password: user.password,
+    acceptCgu: user.acceptCgu,
     showPassword: false,
   })
   const [showButton, setshowButton] = useState(false)
@@ -68,9 +66,7 @@ const Register = (props) => {
         addToast('Vous devez accepter les conditions generales d\'utilisation', { appearance: 'error' }); return false
     }
     else {
-      console.log('done')
-      dispatch({ type: SET_NEW_USER, datas: values })
-      //dispatch({ type: REGISTER_USER, email: values.email, passwd: values.password })
+      dispatch({ type: REGISTER_USER, datas: values })
       return { message: messages.register.success, appearance: 'success' }
     }
   }
@@ -97,7 +93,6 @@ const Register = (props) => {
 
 
   useEffect(() => {
-console.log('change')
       if(checkPseudo(values.pseudo) && checkEmail(values.email) && checkPassword(values.password) && values.acceptCgu){
         setshowButton(true )
       } else setshowButton(false )
@@ -152,7 +147,6 @@ console.log('change')
               label='Votre adresse email'
               name='{{ customer_name }}'
               autoComplete='email'
-              onKeyDown={(e) => e.keyCode !== 13 ? null : catchSubmit(e)}
               onChange={handleChange('email')}
               error={error.email}
               helperText={values.email !== '' ? (checkEmail(values.email) === false ? 'Email invalide!' : ' ') : ''}
@@ -206,7 +200,7 @@ console.log('change')
               </Grid>
               <Grid item xs={10}>
                 <Typography style={{paddingTop: '10px'}}>
-                  J'accepte les <Link>Conditions générales de d'utilisation</Link>
+                  J'accepte les <Link href='/cgu' >Conditions générales de d'utilisation</Link>
                 </Typography>
               </Grid>
             </Grid>
@@ -217,7 +211,7 @@ console.log('change')
               <GradientBtn
                 variant='contained'
                 type='submit'
-                description={'S\'INSCRIRE'}
+                description={'CONTINUER'}
                 className='GradientBtn'
               />
             </div>

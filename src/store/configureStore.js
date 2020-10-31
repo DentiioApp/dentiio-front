@@ -22,7 +22,7 @@ export default () => {
         persistedReducer,
         compose(
             applyMiddleware(ReduxThunk, middleWare),
-            window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
+            //window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
         ))
     let persistor = persistStore(store)
     return {store, persistor}

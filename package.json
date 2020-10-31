@@ -10,6 +10,7 @@
     "@testing-library/react": "^11.0.4",
     "@testing-library/user-event": "^12.1.5",
     "add": "^2.0.6",
+    "antd": "^4.7.3",
     "avataaars": "^1.2.1",
     "axios": "^0.20.0",
     "clsx": "^1.1.0",

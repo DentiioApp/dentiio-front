@@ -33,7 +33,7 @@ export const SET_PATHOLOGIES = 'SET_PATHOLOGIES'
 export const SET_CAT_PATHOLOGIES = 'SET_CAT_PATHOLOGIES'
 export const START_LOADER = 'START_LOADER'
 export const STOP_LOADER = 'STOP_LOADER'
-export const SET_NEW_USER = 'SET_NEW_USER'
+export const BACK_LOGIN_FORM = 'BACK_LOGIN_FORM'
 
 export {
   openSideBar,
