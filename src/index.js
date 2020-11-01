@@ -33,7 +33,7 @@ dotenv.config()
 ReactDOM.render(
   <ThemeProvider theme={colorTheme}>
     <Provider store={ConfigureStore().store}>
-
+      <PersistGate loading={null} persistor={ConfigureStore().persistor}>
       <ToastProvider autoDismiss autoDismissTimeout={config.messages.timeOut}>
         <Router>
           <div>
@@ -52,7 +52,7 @@ ReactDOM.render(
           </div>
         </Router>
       </ToastProvider>
-
+      </PersistGate>
     </Provider>
   </ThemeProvider>
   , document.getElementById('root')

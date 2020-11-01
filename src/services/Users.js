@@ -1,6 +1,7 @@
 import axios from 'axios'
 import jwtDecode from 'jwt-decode'
 import randomstring from 'randomstring'
+import {message} from "antd";
 
 const LOGIN_CHECK = process.env.REACT_APP_BACK_API_URL + process.env.REACT_APP_LOGIN_CHECK
 const USERS = process.env.REACT_APP_BACK_API_URL + process.env.REACT_APP_USERS
@@ -14,16 +15,15 @@ export const loginCheck = (email, passwd) => {
 }
 
 export const registerCheck =  async (user) => {
-console.log(user, 'USER SEND')
-    let responses = await axios
+    return  await axios
         .post(USERS, user)
         .then((res) => {
             localStorage.setItem('authSubscribeMsg', res.statusText)
-            return { message: 'OK', datas: res.statusText }
+            return { valid: true, datas: res.statusText }
         })
-        .catch((e) => JSON.stringify(e))
-
-    return responses.datas !== 'Created' ? {} : responses
+        .catch(error => {
+            return ({valid: false, datas: error.response.data["hydra:description"]})
+        })
 }
 
 export const getUserId = () => {

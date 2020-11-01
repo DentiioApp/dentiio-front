@@ -55,13 +55,14 @@ const Status = () => {
 
     useEffect(() => {
         dispatch({type: REGISTER_USER, datas: values})
-        if ((values.job !== '' && values.licenceDoc && (errCard === false))) {
+        if ((values.job !== '' && values.licenceDoc && (errCard.error === false))) {
             setshowButton(true)
         } else setshowButton(false)
     }, [values]);
 
-    const [errCard, setErrCard] = useState(false)
+    const [errCard, setErrCard] = useState({error: true, message: false})
     const [emailSent, setEmailSent] = useState(false)
+    console.log(errCard)
 
 
     const catchSubmit = (e) => {
@@ -69,27 +70,52 @@ const Status = () => {
         setshowSpinner(true)
         setshowButton(false)
         fileReader.onload = async (FileLoadEvent) => {
-            var licenceBase64 = FileLoadEvent.target.result
+            const licenceBase64 = FileLoadEvent.target.result
             const response = await sendRequest(licenceBase64)
-            if (response && response.message === 'OK') {
+            if (response && response.valid) {
                 addToast(messages.register.success, {appearance: 'success'})
+                if (!emailSent) {
+                    const mailing = await sendEmail(values.email, values.pseudo)
+                    if (mailing.data !== 'OK') {
+                        console.log('Erreur lors de l\'envoi du mail')
+                    }
+                    setEmailSent(true)
+                }
             } else {
-                addToast(messages.register.error, {appearance: 'error'})
+                console.log(response.datas)
+                addToast(response.datas, {appearance: 'error'})
                 setshowSpinner(false)
                 setshowButton(true)
             }
         }
+        if (values.licenceDoc){
+            fileReader.readAsDataURL(values.licenceDoc)
+        }
+    }
 
-        fileReader.readAsDataURL(values.licenceDoc)
-        //dispatch({ type: VALID_STATUS })
+    const sendRequest = async (licenceBase64) => {
+        return await registerCheck({
+            pseudo: values.pseudo,
+            email: values.email.toLowerCase(),
+            password: values.password,
+            job: '/api/jobs/' + values.job,
+            roles: [
+                "ROLE_USER"
+            ],
+            createdAt: new Date().toISOString(),
+            isEnabled: true,
+            image64: licenceBase64,
+            acceptCgu: true
+        })
     }
 
     const handleChangeFile = () => event => {
         const checkedFile = checkFiles(event)
         if (checkedFile.error === true) {
-            setErrCard(checkedFile.message)
+            setErrCard({error: true, message: checkedFile.message})
+            setshowButton(false)
         } else {
-            setErrCard(false)
+            setErrCard({error: false, message: false})
             setValues({...values, licenceDoc: event.target.files[0]})
         }
     }
@@ -100,33 +126,6 @@ const Status = () => {
 
     const goBack = () => {
         dispatch({type: BACK_LOGIN_FORM})
-    }
-
-    const sendRequest = async (licenceBase64) => {
-        const response = await registerCheck({
-            pseudo: values.pseudo,
-            email: values.email.toLowerCase(),
-            password: values.password,
-            job: '/api/jobs/' + values.job,
-            roles: [
-                "ROLE_USER"
-            ],
-            createdAt: new Date().toISOString(),
-            isEnabled: true,
-            image64: licenceBase64
-        })
-        if (response === {}) {
-            return {message: messages.register.error, appearance: 'error'}
-        } else {
-            if (!emailSent) {
-                const mailing = await sendEmail(values.email, values.pseudo)
-                if (mailing.data !== 'OK') {
-                    console.log('Erreur lors de l\'envoi du mail')
-                }
-                setEmailSent(true)
-                return response
-            }
-        }
     }
 
     return (
@@ -178,7 +177,7 @@ const Status = () => {
                             required
                             //value={values.licenceDoc ? values.licenceDoc : '' }
                         />
-                        <FormHelperText id='my-helper-text'>{errCard || ''}</FormHelperText>
+                        <FormHelperText id='my-helper-text'>{errCard.message || ''}</FormHelperText>
                         <br/><br/>
 
                         <div onClick={catchSubmit} hidden={!showButton}>
