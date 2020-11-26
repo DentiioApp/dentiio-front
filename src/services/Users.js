@@ -14,15 +14,26 @@ export const loginCheck = (email, passwd) => {
         .catch((e) => JSON.stringify(e))
 }
 
-export const registerCheck =  async (user) => {
+export const createUser =  async (user) => {
     return  await axios
         .post(USERS, user)
         .then((res) => {
-            localStorage.setItem('authSubscribeMsg', res.statusText)
             return { valid: true, datas: res.statusText }
         })
         .catch(error => {
-            return ({valid: false, datas: error.response.data["hydra:description"]})
+            return ({valid: false, datas: error.response && error.response.data["hydra:description"]})
+        })
+}
+
+export const saveCardandJob = async (userId, licenceDoc, jobId) => {
+    axios.defaults.headers.Authorization = 'Bearer ' + localStorage.getItem('authToken')
+    return await axios
+        .put(USERS + '/' + userId, {image64: licenceDoc, job: '/api/jobs/' + jobId})
+        .then((res) => {
+            return { valid: true, datas: res.statusText }
+        })
+        .catch(error => {
+            return ({valid: false, datas: error.response && error.response.data["hydra:description"]})
         })
 }
 
@@ -39,13 +50,6 @@ export const getUserById = (id) => {
             datas: res.data
         }))
         .catch((e) => JSON.stringify(e))
-}
-
-export const saveCard = async (data) => {
-    let licenceDOC = { licenceDoc: data.image }
-    return await axios.put(USERS + '/' + data.userId, licenceDOC)
-        .then(res => res.statusText)
-        .catch(console.warning)
 }
 
 export const saveAvatar = async (data) => {

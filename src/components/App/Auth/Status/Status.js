@@ -16,21 +16,23 @@ import imgMobile from '../../../../images/mobile-bg.svg'
 import StatusJustif from '../../../UI/Modal/StatusJustif'
 import GradientBtn from '../../../UI/buttons/GradientBtn'
 import oStyle from '../../../UI/ResponsiveDesign/AuthStyle'
-import {checkFiles, checkPassword, errorApi} from '../../../../utils'
-import {loginCheck, getUserId, saveCard, registerCheck} from '../../../../services/Users'
+import {checkFiles} from '../../../../utils'
+import {getUserId, loginCheck, saveCardandJob} from '../../../../services/Users'
 import Spinner from "../../../UI/Dawers/Spinner";
+import Button from '@material-ui/core/Button';
+import CloudUploadIcon from '@material-ui/icons/CloudUpload';
 import {
-    LOG_USER,
     REGISTER_USER,
-    BACK_LOGIN_FORM, VALID_STATUS
+    TOKEN_REGENERATE,
+    VALID_STATUS
 } from '../../../../store/actions'
 import config from '../../../../config'
 import InputLabel from "@material-ui/core/InputLabel/InputLabel";
 import {Select} from "@material-ui/core";
 import MenuItem from "@material-ui/core/MenuItem";
-import {sendEmail} from "../../../../services/Email";
-import IconButton from "@material-ui/core/IconButton";
-import ArrowBackIcon from '@material-ui/icons/ArrowBack'
+import { useHistory } from 'react-router-dom'
+import {login} from "../../../../services/Auth";
+
 
 const useStyles = makeStyles((theme) => (oStyle(theme, imgDesktop, imgMobile)))
 
@@ -41,11 +43,8 @@ const Status = () => {
     const messages = config.messages.auth
     const user = useSelector((state) => state.user)
     const fileReader = new FileReader()
+    const history = useHistory()
     const [values, setValues] = useState({
-        pseudo: user.pseudo,
-        email: user.email,
-        password: user.password,
-        acceptCgu: user.acceptCgu,
         licenceDoc: user.licenceDoc,
         job: user.job
     })
@@ -54,59 +53,40 @@ const Status = () => {
     const [showSpinner, setshowSpinner] = useState(false)
 
     useEffect(() => {
-        dispatch({type: REGISTER_USER, datas: values})
         if ((values.job !== '' && values.licenceDoc && (errCard.error === false))) {
             setshowButton(true)
         } else setshowButton(false)
     }, [values]);
 
     const [errCard, setErrCard] = useState({error: true, message: false})
-    const [emailSent, setEmailSent] = useState(false)
-    console.log(errCard)
-
 
     const catchSubmit = (e) => {
         e.preventDefault()
         setshowSpinner(true)
         setshowButton(false)
+        if (values.licenceDoc){
+            fileReader.readAsDataURL(values.licenceDoc)
+        }
         fileReader.onload = async (FileLoadEvent) => {
             const licenceBase64 = FileLoadEvent.target.result
             const response = await sendRequest(licenceBase64)
             if (response && response.valid) {
                 addToast(messages.register.success, {appearance: 'success'})
-                if (!emailSent) {
-                    const mailing = await sendEmail(values.email, values.pseudo)
-                    if (mailing.data !== 'OK') {
-                        console.log('Erreur lors de l\'envoi du mail')
-                    }
-                    setEmailSent(true)
-                }
+                const response = await loginCheck(user.email, user.password)
+                console.log(user)
+                console.log(response)
+                login(response.datas.token)
+                dispatch({type: TOKEN_REGENERATE})
             } else {
-                console.log(response.datas)
-                addToast(response.datas, {appearance: 'error'})
+                addToast(messages.card.error, {appearance: 'error'})
                 setshowSpinner(false)
                 setshowButton(true)
             }
         }
-        if (values.licenceDoc){
-            fileReader.readAsDataURL(values.licenceDoc)
-        }
     }
 
     const sendRequest = async (licenceBase64) => {
-        return await registerCheck({
-            pseudo: values.pseudo,
-            email: values.email.toLowerCase(),
-            password: values.password,
-            job: '/api/jobs/' + values.job,
-            roles: [
-                "ROLE_USER"
-            ],
-            createdAt: new Date().toISOString(),
-            isEnabled: true,
-            image64: licenceBase64,
-            acceptCgu: true
-        })
+        return await saveCardandJob(getUserId(), licenceBase64, values.job)
     }
 
     const handleChangeFile = () => event => {
@@ -124,17 +104,10 @@ const Status = () => {
         setValues({...values, [prop]: event.target.value})
     }
 
-    const goBack = () => {
-        dispatch({type: BACK_LOGIN_FORM})
-    }
-
     return (
         <>
             <Grid container component='main'>
                 <Grid item xs={1} md={3}>
-                    <IconButton className={classes.arrowBack} href={"#"} onClick={goBack}>
-                        <ArrowBackIcon color='primary'/>
-                    </IconButton>
                 </Grid>
                 <Grid item xs={10} md={6}>
                     <Typography component='h1' variant='h4' className='title'>
@@ -167,16 +140,27 @@ const Status = () => {
                         <Typography component='h3' variant='subtitle2'>
                             Justificatif de votre statut de professionnel de santé <StatusJustif/>
                         </Typography>
+                        <FormControl >
+                                <Button
+                                        variant="contained"
+                                        color="default"
+                                        startIcon={<CloudUploadIcon />}
+                                    >
+                                    <InputLabel htmlFor="cps" className={classes.labelInputFile} >
+                                        Uploader mon justificatif
+                                    </InputLabel>
+                                 </Button>
                         <Input
                             type='file'
+                            style={{display: 'none'}}
                             fullWidth
                             onKeyDown={(e) => e.keyCode !== 13 ? null : catchSubmit}
                             onChange={handleChangeFile()}
                             name='cps'
                             id='cps'
                             required
-                            //value={values.licenceDoc ? values.licenceDoc : '' }
                         />
+                        </FormControl>
                         <FormHelperText id='my-helper-text'>{errCard.message || ''}</FormHelperText>
                         <br/><br/>
 

@@ -64,6 +64,10 @@ export const oStyle = (theme, imgDesktop, imgMobile) => {
         position: 'inherit',
         marginTop: '25%'
       }
+    },
+    labelInputFile: {
+      color: 'rgba(0,0,0) !important',
+      cursor: 'pointer'
     }
   }
 }

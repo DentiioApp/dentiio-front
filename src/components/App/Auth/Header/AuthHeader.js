@@ -5,7 +5,7 @@ import Toolbar from '@material-ui/core/Toolbar'
 import ConnexionTitleHeader from "../../../UI/titleHeader/ConnexionTitleHeader";
 import Typography from "@material-ui/core/Typography";
 import Button from "@material-ui/core/Button";
-import {LOGIN_FORM, SUBSCRIBE_FORM} from "../../../../store/actions";
+import {BACK_LOGIN_FORM, LOGIN_FORM, SUBSCRIBE_FORM} from "../../../../store/actions";
 import {useDispatch} from "react-redux";
 
 const useStyles = makeStyles((theme) => ({
@@ -33,6 +33,7 @@ export const AuthHeader = () => {
 
   const switchToSubscribe = (e) => {
     e.preventDefault()
+    dispatch({type: BACK_LOGIN_FORM})
     dispatch({ type: SUBSCRIBE_FORM })
   }
 

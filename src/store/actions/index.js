@@ -34,6 +34,9 @@ export const SET_CAT_PATHOLOGIES = 'SET_CAT_PATHOLOGIES'
 export const START_LOADER = 'START_LOADER'
 export const STOP_LOADER = 'STOP_LOADER'
 export const BACK_LOGIN_FORM = 'BACK_LOGIN_FORM'
+export const UPLOAD_LICENCE = 'UPLOAD_LICENCE'
+export const TOKEN_REGENERATE = 'TOKEN_REGENERATE'
+export const UNSET_PASSWORD = 'UNSET_PASSWORD'
 
 export {
   openSideBar,

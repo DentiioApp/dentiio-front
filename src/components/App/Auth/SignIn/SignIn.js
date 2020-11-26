@@ -17,13 +17,14 @@ import TextField from '@material-ui/core/TextField'
 import Visibility from '@material-ui/icons/Visibility'
 import VisibilityOff from '@material-ui/icons/VisibilityOff'
 import GradientBtn from '../../../UI/buttons/GradientBtn'
-import { SUBSCRIBE_FORM, LOG_USER, START_LOADER, STOP_LOADER } from '../../../../store/actions'
+import {LOG_USER, SET_PASSWORD, START_LOADER, STOP_LOADER} from '../../../../store/actions'
 import { loginCheck } from '../../../../services/Users'
 import { setup } from '../../../../services/Auth'
 import config from '../../../../config'
 import { errorApi } from '../../../../utils'
 import FormControl from "@material-ui/core/FormControl";
 import {InputLabel} from "@material-ui/core";
+import Spinner from "../../../UI/Dawers/Spinner";
 
 const SignIn = () => {
   const dispatch = useDispatch()
@@ -40,6 +41,8 @@ const SignIn = () => {
   const [values, setValues] = useState(initValues)
   const [errEmail, setErrEmail] = useState(false)
   const [errPassword, setErrPassword] = useState(false)
+  const [showButton, setshowButton] = useState(true)
+  const [showSpinner, setshowSpinner] = useState(false)
 
   const onKeyUp = (event) => {
     if (event.keyCode === 13) {
@@ -49,22 +52,22 @@ const SignIn = () => {
 
   const catchSubmit = async (e) => {
     e.preventDefault()
-
+    setshowButton(false)
+    setshowSpinner(true)
     if (values.password !== '' && values.email !== '') {
-      dispatch({ type: START_LOADER })
       const response = await loginCheck(values.email, values.password)
-      dispatch({ type: STOP_LOADER })
-
       if (errorApi().test(response)) {
         addToast(messages.signin.error, { appearance: 'error' })
       } else {
         addToast(messages.signin.success, { appearance: 'success' })
-        dispatch({ type: LOG_USER, datas: response.datas })
+        dispatch({ type: LOG_USER, datas: response.datas.data, password: values.password })
       }
     } else {
       setErrEmail(true)
       setErrPassword(true)
     }
+    setshowButton(true)
+    setshowSpinner(false)
   }
 
   const handleChange = prop => event => {
@@ -152,6 +155,7 @@ const SignIn = () => {
 
               <br/><br/>
 
+              <div onClick={(e) => (catchSubmit(e))} hidden={!showButton}>
               <GradientBtn
                 variant='contained'
                 type='submit'
@@ -159,8 +163,11 @@ const SignIn = () => {
                 className='GradientBtn'
                 onClick={catchSubmit}
               />
+              </div>
+              <div hidden={!showSpinner} style={{marginTop: '-50px'}}>
+                <Spinner/>
+              </div>
             </form>
-          {subscribeMsg}
         </Grid>
       </Grid>
     </>

@@ -11,7 +11,7 @@ const CLINICAL_CASES_BY_USER =
     process.env.REACT_APP_BACK_API_URL + process.env.REACT_APP_USERS
 
 export const fetchCases = (page = 1) => {
-  const responses = axios
+  return axios
     .get(CLINICAL_CASES + '?page=' + page)
     .then((res) => ({
       message: 'OK',
@@ -19,7 +19,6 @@ export const fetchCases = (page = 1) => {
       items: res.data['hydra:totalItems']
     }))
     .catch((e) => JSON.stringify(e))
-  return responses
 }
 
 export const addFavCase = async (data, userId) => {
@@ -34,7 +33,7 @@ export const addFavCase = async (data, userId) => {
       datas: res.status
     }))
     .catch((e) => JSON.stringify(e))
-  return responses = responses.datas !== 201 ? 'Error' : 'Created'
+  return responses.datas !== 201 ? 'Error' : 'Created'
 }
 
 export const removeFavCase = async (data, userId) => {
@@ -58,39 +57,36 @@ export const removeFavCase = async (data, userId) => {
 }
 
 export const getCaseById = (id) => {
-  const responses = axios
+  return axios
     .get(CLINICAL_CASES + '/' + id)
     .then((res) => ({
       message: 'OK',
       datas: res.data
     }))
     .catch((e) => JSON.stringify(e))
-  return responses
 }
 
 export const getCaseByUserId = (id) => {
-  const responses = axios
+  return axios
     .get(CLINICAL_CASES_BY_USER + '/' + id + '/' + process.env.REACT_APP_CLINICAL_CASES)
     .then((res) => ({
       message: 'OK',
       datas: res.data
     }))
     .catch((e) => JSON.stringify(e))
-  return responses
 }
 
 export const fetchUserFav = (userId) => {
   const USERFAVORITES =
     process.env.REACT_APP_BACK_API_URL + process.env.REACT_APP_USERS + '/' + userId + '/' + process.env.REACT_APP_FAVORITES
 
-  const responses = axios
+  return axios
     .get(USERFAVORITES)
     .then((res) => ({
       message: 'OK',
       datas: res.data['hydra:member']
     }))
     .catch((e) => JSON.stringify(e))
-  return responses
 }
 
 export const postCase = (values, patient) => {
@@ -121,12 +117,11 @@ export const postCase = (values, patient) => {
     keyword: values.keywords
   }
 
-  const responses = axios
+  return axios
     .post(CLINICAL_CASES, item)
     .then((res) => ({
       message: 'OK',
       datas: res.data['hydra:member']
     }))
     .catch((e) => JSON.stringify(e))
-  return responses
 }
