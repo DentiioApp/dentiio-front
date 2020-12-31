@@ -20,7 +20,7 @@ const Cases = () => {
       const response = await getUserById(getUserId())
       if (Object.entries(response).length !== 0) {
         setFetchUser(true)
-        dispatch({ type: SET_USER, datas: response.datas })
+        //dispatch({ type: SET_USER, datas: response.datas })
       }
     }
 

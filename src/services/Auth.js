@@ -40,12 +40,11 @@ export const setup = (tk) => {
     } else {
       logout()
     }
-  console.log(jwtData)
-    if (jwtData.licenceDoc === null){
+    /*if (jwtData.licenceDoc === null){
       connect = false
       addToast(messages.signin.licenceDoc, {appearance: 'info'})
       dispatch({type: UPLOAD_LICENCE})
-    }
+    }*/
   } else {
     logout()
   }

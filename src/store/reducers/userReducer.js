@@ -34,7 +34,6 @@ export const User = (state = INIT_STATE, action) => {
   switch (action.type) {
     case LOG_USER :
       login(action.datas.token)
-        console.log(action.password)
       return { ...state, email: details.username, connected: true, id: details.userId, password: action.password }
 
     case REGISTER_USER :

@@ -46,7 +46,7 @@ const SignIn = () => {
 
   const onKeyUp = (event) => {
     if (event.keyCode === 13) {
-      catchSubmit(event)
+      catchSubmit(event).then()
     }
   }
 
@@ -90,9 +90,9 @@ const SignIn = () => {
   return (
     <>
       <Grid container component='main' >
-        <Grid item xs={1} md={3}>
+        <Grid item xs={1} md={4}>
         </Grid>
-        <Grid item xs={10} md={6}>
+        <Grid item xs={10} md={4}>
             <Typography component='h1' variant='h4' className='title'>
               <center>Je me connecte</center>
             </Typography>

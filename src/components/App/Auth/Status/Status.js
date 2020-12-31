@@ -31,7 +31,7 @@ import InputLabel from "@material-ui/core/InputLabel/InputLabel";
 import {Select} from "@material-ui/core";
 import MenuItem from "@material-ui/core/MenuItem";
 import { useHistory } from 'react-router-dom'
-import {login} from "../../../../services/Auth";
+import {login, logout} from "../../../../services/Auth";
 
 
 const useStyles = makeStyles((theme) => (oStyle(theme, imgDesktop, imgMobile)))
@@ -73,10 +73,10 @@ const Status = () => {
             if (response && response.valid) {
                 addToast(messages.register.success, {appearance: 'success'})
                 const response = await loginCheck(user.email, user.password)
-                console.log(user)
-                console.log(response)
-                login(response.datas.token)
+                logout()
+                login(response.datas.data.token)
                 dispatch({type: TOKEN_REGENERATE})
+
             } else {
                 addToast(messages.card.error, {appearance: 'error'})
                 setshowSpinner(false)
@@ -138,7 +138,7 @@ const Status = () => {
                         </FormControl>
                         <br/><br/>
                         <Typography component='h3' variant='subtitle2'>
-                            Justificatif de votre statut de professionnel de santé <StatusJustif/>
+                            Justificatif de votre statut de professionnel de santé (format png, jpeg)<StatusJustif/>
                         </Typography>
                         <FormControl >
                                 <Button
