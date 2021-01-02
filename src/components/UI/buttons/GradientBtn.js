@@ -12,7 +12,6 @@ const GradientBtn = (props) => {
       height: 52,
       width: 210,
       padding: '0 30px',
-      boxShadow: '0 3px 5px 2px rgba(255, 105, 135, .3)',
       display: 'flex',
       margin: 'auto',
       fontSize: '17px'

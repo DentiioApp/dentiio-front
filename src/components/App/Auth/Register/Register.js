@@ -1,301 +1,242 @@
 import './register.scss'
-
-import React, { useState } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
-import { Redirect } from 'react-router-dom'
+import React, {useEffect, useState} from 'react'
+import {useDispatch, useSelector} from 'react-redux'
+import {Redirect} from 'react-router-dom'
 
 import {
-  Switch,
-  Paper,
-  Typography,
-  Link
-  , FormControlLabel, FormControl
+    Typography,
+    FormControl,
+    Checkbox,
+    Link
 } from '@material-ui/core/'
-
 import Grid from '@material-ui/core/Grid'
 import IconButton from '@material-ui/core/IconButton'
 import InputAdornment from '@material-ui/core/InputAdornment'
 import InputLabel from '@material-ui/core/InputLabel'
-import MenuItem from '@material-ui/core/MenuItem'
 import OutlinedInput from '@material-ui/core/OutlinedInput'
-import { makeStyles } from '@material-ui/core/styles'
+import {makeStyles} from '@material-ui/core/styles'
 import TextField from '@material-ui/core/TextField'
-import imgDesktop from '../../../../images/illus.png'
-import imgMobile from '../../../../images/mobile-bg.svg'
-import logo from '../../../../images/logo.svg'
 import Visibility from '@material-ui/icons/Visibility'
 import VisibilityOff from '@material-ui/icons/VisibilityOff'
-import { useToasts } from 'react-toast-notifications'
-import { setup } from '../../../../services/Auth'
+import {useToasts} from 'react-toast-notifications'
+import {setup} from '../../../../services/Auth'
 import oStyle from '../../../UI/ResponsiveDesign/AuthStyle'
-import { registerCheck } from '../../../../services/Users'
-import { sendEmail } from '../../../../services/Email'
-
-import { LOGIN_FORM, REGISTER_USER } from '../../../../store/actions'
+import {sendEmail} from '../../../../services/Email'
+import { REGISTER_USER } from '../../../../store/actions'
 import GradientBtn from '../../../UI/buttons/GradientBtn'
-import { checkEmail, checkPassword } from '../../../../utils'
+import {checkEmail, checkPassword, checkPseudo} from '../../../../utils/fields/fieldsCheckRegister'
+import Spinner from "../../../UI/Dawers/Spinner";
+import {createUser, loginCheck} from "../../../../services/Users";
 
-const useStyles = makeStyles((theme) => oStyle(theme, imgDesktop, imgMobile))
+const useStyles = makeStyles((theme) => oStyle(theme))
 
 const Register = () => {
-  const classes = useStyles()
-
-  const dispatch = useDispatch()
-
-  const { addToast } = useToasts()
-
-  const { jobs, config } = useSelector((state) => state.home)
-  const user = useSelector((state) => state.user)
-
-  const messages = config.conf.messages.auth
-  const initValues = {
-    email: '',
-    password: '',
-    job: '',
-    showPassword: false
-  }
-  const [emailSent, setEmailSent] = useState(false)
-  const [values, setValues] = useState(initValues)
-  const [errEmail, setErrEmail] = useState(false)
-  const [errPassword, setErrPassword] = useState(false)
-  const [errCgu, setErrCgu] = useState(false)
-
-  const onKeyUp = (event) => {
-    if (event.keyCode === 13) {
-      catchSubmit(event)
-    }
-  }
-
-  const catchSubmit = (e) => {
-    e.preventDefault()
-
-    if (checkEmail(values.email) === false) { setErrEmail(true) }
-    if (checkPassword(values.password) === false) { setErrPassword(true) }
-
-    if ((errEmail || errPassword) === true) {
-      addToast(messages.register.error, { appearance: 'error' }); return false
-    } else {
-      if (!errCgu) {
-        addToast('Vous devez accepter les conditions generales d\'utilisation', { appearance: 'error' }); return false
-      } else {
-        const respo = sendRequest()
-        respo.then((res) => {
-          addToast(res.message, { appearance: res.appearance })
-        })
-      }
-    }
-  }
-
-  const sendRequest = async () => {
-    const response = await registerCheck({
-      nom: 'none',
-      prenom: 'none',
-      email: values.email.toLowerCase(),
-      password: values.password,
-      job: '/api/jobs/' + values.job,
-      createdAt: new Date().toISOString(),
-      isEnabled: true
+    const classes = useStyles()
+    const dispatch = useDispatch()
+    const {addToast} = useToasts()
+    const {config} = useSelector((state) => state.home)
+    const user = useSelector((state) => state.user)
+    const messages = config.conf.messages.auth
+    const [values, setValues] = useState({
+        pseudo: user.pseudo,
+        email: user.email,
+        password: user.password,
+        acceptCgu: user.acceptCgu,
+        showPassword: false,
+    })
+    const [showButton, setshowButton] = useState(false)
+    const [showSpinner, setshowSpinner] = useState(false)
+    const [emailSent, setEmailSent] = useState(false)
+    const [error, setError] = useState({
+        email: null,
+        password: null,
+        pseudo: null,
     })
 
-    if (response === {}) {
-      return { message: messages.register.error, appearance: 'error' }
-    } else {
-      if (!emailSent) {
-        const mailing = await sendEmail(values.email, values.pseudo)
-        if (mailing.data !== 'OK') { console.log('Problem lors de lenvoie du mail') }
-        setEmailSent(true)
-      }
-
-      dispatch({ type: REGISTER_USER, email: values.email, passwd: values.password })
-      return { message: messages.register.success, appearance: 'success' }
+    const catchSubmit = async (e) => {
+        e.preventDefault()
+        setshowButton(false)
+        setshowSpinner(true)
+        const response = await createUser({
+            pseudo: values.pseudo,
+            email: values.email.toLowerCase(),
+            password: values.password,
+            roles: [
+                "ROLE_USER"
+            ],
+            createdAt: new Date().toISOString(),
+            isEnabled: true,
+            acceptCgu: true
+        })
+        if (response && response.valid) {
+            const token = await loginCheck(values.email, values.password)
+            if (token.datas && token.datas.data) {
+                dispatch({type: REGISTER_USER, datas: token.datas.data, password: values.password})
+            } else {
+                addToast(messages.signin.autoLogError, {appearance: 'warning'})
+            }
+            if (!emailSent) {
+                sendEmail(values.email, values.pseudo)
+                setEmailSent(true)
+            }
+        } else {
+            addToast(response.datas, {appearance: 'error'})
+        }
+      setshowSpinner(false)
+      setshowButton(true)
     }
-  }
 
-  const handleChange = prop => event => {
-    if (prop === 'email') {
-      if (checkEmail(event.target.value) === false) {
-        setErrEmail(true)
-      } else {
-        setErrEmail(false)
-      }
+    const handleChange = prop => event => {
+        if (prop === 'email') {
+            (checkEmail(event.target.value) === false) ?
+                setError({...error, 'email': true}) : setError({...error, 'email': false})
+        }
+        if (prop === 'password') {
+            (checkPassword(event.target.value) === false) ?
+                setError({...error, 'password': true}) : setError({...error, 'password': false})
+        }
+        if (prop === 'pseudo') {
+            (checkPseudo(event.target.value) === false) ?
+                setError({...error, 'pseudo': true}) : setError({...error, 'pseudo': false})
+        }
+        setValues({...values, [prop]: event.target.value})
+        if (prop === 'acceptCgu') {
+            setValues({...values, [prop]: event.target.checked})
+        }
     }
 
-    if (prop === 'password') {
-      if (checkPassword(event.target.value) === false) {
-        setErrPassword(true)
-      } else {
-        setErrPassword(false)
-      }
+
+    useEffect(() => {
+        if (checkPseudo(values.pseudo) && checkEmail(values.email) && checkPassword(values.password) && values.acceptCgu) {
+            setshowButton(true)
+        } else setshowButton(false)
+    }, [values]);
+
+    const handleClickShowPassword = () => {
+        setValues({...values, showPassword: !values.showPassword})
     }
 
-    setValues({ ...values, [prop]: event.target.value })
-  }
+    const handleMouseDownPassword = event => {
+        event.preventDefault()
+    }
 
-  const switchToLogin = (e) => {
-    e.preventDefault()
-    dispatch({ type: LOGIN_FORM })
-  }
+    if (setup()) {
+        return <Redirect to='/cases'/>
+    }
 
-  const handleClickShowPassword = () => {
-    setValues({ ...values, showPassword: !values.showPassword })
-  }
+    return (
+        <Grid container component='main'>
+            <Grid item xs={1} md={3} lg={4}>
+            </Grid>
+            <Grid item xs={10} md={6} lg={4}>
+                <Typography component='h1' variant='h4' className='title'>
+                    <center>Je créer mon compte</center>
+                </Typography>
+                <br/>
+                <form className={classes.form} noValidate onSubmit={sendEmail}>
+                    <TextField
+                        variant='outlined'
+                        className='labelGrey'
+                        margin='normal'
+                        required
+                        fullWidth
+                        value={values.pseudo}
+                        id='pseudo'
+                        label='Mon pseudo'
+                        name='{{ customer_name }}'
+                        autoComplete='pseudo'
+                        onChange={handleChange('pseudo')}
+                        error={error.pseudo}
+                        helperText={values.pseudo !== '' ? (checkPseudo(values.pseudo) === false ? '3 caractère minimum' : ' ') : ''}
+                    />
+                    <br/>
+                    <TextField
+                        variant='outlined'
+                        className='labelGrey'
+                        margin='normal'
+                        required
+                        fullWidth
+                        value={values.email}
+                        id='email'
+                        label='Mon adresse email'
+                        name='{{ customer_name }}'
+                        autoComplete='email'
+                        onChange={handleChange('email')}
+                        error={error.email}
+                        helperText={values.email !== '' ? (checkEmail(values.email) === false ? 'Email invalide!' : ' ') : ''}
+                    />
+                    <br/><br/>
 
-  const handleMouseDownPassword = event => {
-    event.preventDefault()
-  }
+                    <FormControl fullWidth variant='outlined'>
+                        <InputLabel htmlFor='outlined-adornment-password'>Mon mot de passe *</InputLabel>
+                        <OutlinedInput
+                            variant='outlined'
+                            required
+                            fullWidth
+                            value={values.password}
+                            name='password'
+                            label='Mon mot de passe *'
+                            type={values.showPassword ? 'text' : 'password'}
+                            className='labelGreyPassword'
+                            id='outlined-adornment-password'
+                            autoComplete='on'
+                            error={error.password}
+                            onChange={handleChange('password')}
+                            endAdornment={
+                                <InputAdornment position='start'>
+                                    <IconButton
+                                        aria-label='toggle password visibility'
+                                        onClick={handleClickShowPassword}
+                                        onMouseDown={handleMouseDownPassword}
+                                        edge='end'
+                                    >
+                                        {values.showPassword ? <Visibility/> : <VisibilityOff/>}
+                                    </IconButton>
+                                </InputAdornment>
+                            }
+                        />
+                    </FormControl>
+                    <Typography component='p' color='textPrimary'>
+                        6 caractères minimum
+                        {/*8 caractères minimum, un caractère spécial, une majuscule*/}
+                    </Typography>
 
-  if (setup()) {
-    return <Redirect to='/cases' />
-  }
+                    <br/><br/>
 
-  return (
-    <Grid container component='main' className={classes.root}>
-      <img className={classes.logo} alt='' src={logo} />
-      <Grid
-        item
-        xs={11}
-        sm={7}
-        md={7}
-        component={Paper}
-        elevation={6}
-        square
-        className={classes.login}
-      >
-        <div className={classes.paper}>
-          <Typography component='h1' variant='h5'>
-            Nouveau sur Dentiio ?
-          </Typography>
-          <br />
-          <Typography component='h3' variant='subtitle2'>
-            Saisissez vos informations pour continuer.
-          </Typography>
-          <br /><br />
-          <form className={classes.form} noValidate onSubmit={sendEmail}>
-            <InputLabel className='inputLabel'>
-              Vous êtes* :
-            </InputLabel>
-            <TextField
-              fullWidth
-              id='job'
-              select
-              value={values.job === '' ? 'none' : values.job}
-              onChange={handleChange('job')}
-              variant='outlined'
-            >
-              <MenuItem key='none' value='none' disabled>
-                {'Indiquez votre profession'}
-              </MenuItem>
+                    <Grid container spacing={3}>
+                        <Grid item xs={2} sm={1}>
+                            <Checkbox
+                                checked={values.acceptCgu}
+                                onChange={handleChange('acceptCgu')}
+                                name="acceptCgu"
+                                color="primary"
+                            />
+                        </Grid>
+                        <Grid item xs={10}>
+                            <Typography style={{paddingTop: '10px'}}>
+                                J'accepte les <Link href='/cgu'>Conditions générales de d'utilisation</Link>
+                            </Typography>
+                        </Grid>
+                    </Grid>
 
-              {jobs && jobs.map(option => (
-                <MenuItem key={option.ident} value={option.id}>
-                  {option.name}
-                </MenuItem>
-              ))}
-            </TextField>
-            <br /><br />
+                    <br/><br/><br/>
 
-            <TextField
-              variant='outlined'
-              className='labelGrey'
-              margin='normal'
-              required
-              fullWidth
-              id='email'
-              label='Votre adresse email'
-              name='{{ customer_name }}'
-              autoComplete='email'
-              onKeyDown={(e) => e.keyCode !== 13 ? null : catchSubmit(e)}
-              onChange={handleChange('email')}
-              error={errEmail}
-              helperText={values.email !== '' ? (checkEmail(values.email) === false ? 'Email invalide!' : ' ') : ''}
-            />
-            <br /><br />
+                    <div onClick={(e) => (catchSubmit(e))} hidden={!showButton}>
+                        <GradientBtn
+                            variant='contained'
+                            type='submit'
+                            description={'CONTINUER'}
+                            className='GradientBtn'
+                        />
+                    </div>
+                    <div hidden={!showSpinner} style={{marginTop: '-50px'}}>
+                        <Spinner/>
+                    </div>
+                </form>
+            </Grid>
+        </Grid>
 
-            <FormControl fullWidth variant='outlined'>
-              <InputLabel htmlFor='outlined-adornment-password'>Votre mot de passe *</InputLabel>
-              <OutlinedInput
-                variant='outlined'
-                required
-                fullWidth
-                name='password'
-                label='Votre mot de passe *'
-                type={values.showPassword ? 'text' : 'password'}
-                value={values.password}
-                className='labelGreyPassword'
-                id='outlined-adornment-password'
-                autoComplete='on'
-                error={errPassword}
-                onKeyDown={(e) => e.keyCode !== 13 ? null : catchSubmit(e)}
-                onChange={handleChange('password')}
-                endAdornment={
-                  <InputAdornment position='start'>
-                    <IconButton
-                      aria-label='toggle password visibility'
-                      onClick={handleClickShowPassword}
-                      onMouseDown={handleMouseDownPassword}
-                      edge='end'
-                    >
-                      {values.showPassword ? <Visibility /> : <VisibilityOff />}
-                    </IconButton>
-                  </InputAdornment>
-                }
-                onKeyUp={onKeyUp}
-              />
-            </FormControl>
-
-            <br />
-            <Typography component='p' color='textPrimary'>
-                8 caractères minimum, un caractère spécial, une majuscule
-            </Typography>
-
-            <br /><br />
-
-            <FormControlLabel
-              className='labelGreyAccept'
-
-              control={
-                <Switch
-                  checked={errCgu}
-                  onChange={(e) => { setErrCgu(e.target.checked) }}
-                  color='primary'
-                  name='is_medical_background'
-                  inputProps={{ 'aria-label': 'primary checkbox' }}
-                  className='label'
-                />
-              }
-              label="J'accepte les Conditions générales de d'utilisation"
-            />
-
-            <br /><br /><br />
-
-            <div onClick={(e) => (catchSubmit(e))}>
-              <GradientBtn
-                variant='contained'
-                type='submit'
-                description={'S\'INSCRIRE'}
-                className='GradientBtn'
-              />
-            </div>
-            <br /><br /><br />
-            <Typography>
-              <span>
-                {' '}
-                  Déjà un compte ?{' '}
-                <Link href='#' onClick={(e) => switchToLogin(e)} color='primary'>
-                  {' '}
-                    Connectez-vous.{' '}
-                </Link>{' '}
-              </span>
-            </Typography>
-
-          </form>
-          <span>{user.message}</span>
-        </div>
-
-      </Grid>
-    </Grid>
-
-  )
+    )
 }
 
 export default Register

@@ -28,13 +28,10 @@ export const Home = (state = INIT_STATE, action) => {
     case 'STOP_LOADER': return { ...state, loader: false }
     case 'LOGIN_FORM': return { ...state, login: false }
     case 'SUBSCRIBE_FORM': return { ...state, login: true }
-
     case 'JOB_LIST': return { ...state, jobs: action.data, jobsLoaded: true }
     case 'KEYWORDS_LIST': return { ...state, keywords: action.keywords }
-
     case 'HOME_RESET': return { ...state, usersLoaded: false, casesLoaded: false, jobsLoaded: false }
     case 'LOAD_INTERNET': return { ...state, internet: navigator.onLine }
-
     case 'UPDATE_LEVEL': return { ...state, level: action.level }
     case 'UPDATE_STEPPER_POSTCASE': return { ...state, levelStepperPostCase: action.levelStepperPostCase }
     case 'SPECS_LIST': return { ...state, specialities: action.data }

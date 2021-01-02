@@ -1,12 +1,9 @@
 import './signIn.scss'
-
 import React, { useState } from 'react'
 import { useDispatch } from 'react-redux'
 import { Redirect } from 'react-router-dom'
 import { useToasts } from 'react-toast-notifications'
-
 import {
-  Paper,
   Typography,
   Link
 } from '@material-ui/core/'
@@ -14,27 +11,21 @@ import Grid from '@material-ui/core/Grid'
 import IconButton from '@material-ui/core/IconButton'
 import InputAdornment from '@material-ui/core/InputAdornment'
 import OutlinedInput from '@material-ui/core/OutlinedInput'
-import { makeStyles } from '@material-ui/core/styles'
 import TextField from '@material-ui/core/TextField'
-import imgDesktop from '../../../../images/illus.png'
-import imgMobile from '../../../../images/mobile-bg.svg'
 import Visibility from '@material-ui/icons/Visibility'
 import VisibilityOff from '@material-ui/icons/VisibilityOff'
 import GradientBtn from '../../../UI/buttons/GradientBtn'
-import oStyle from '../../../UI/ResponsiveDesign/AuthStyle'
-import { SUBSCRIBE_FORM, LOG_USER, START_LOADER, STOP_LOADER } from '../../../../store/actions'
+import {LOG_USER} from '../../../../store/actions'
 import { loginCheck } from '../../../../services/Users'
 import { setup } from '../../../../services/Auth'
 import config from '../../../../config'
-import logo from '../../../../images/logo.svg'
 import { errorApi } from '../../../../utils'
-
-const useStyles = makeStyles((theme) => (oStyle(theme, imgDesktop, imgMobile)))
+import FormControl from "@material-ui/core/FormControl";
+import {InputLabel} from "@material-ui/core";
+import Spinner from "../../../UI/Dawers/Spinner";
 
 const SignIn = () => {
-  const classes = useStyles()
   const dispatch = useDispatch()
-  const subscribeMsg = localStorage.getItem('authSubscribeMsg')
   const { addToast } = useToasts()
   const messages = config.messages.auth
 
@@ -47,31 +38,33 @@ const SignIn = () => {
   const [values, setValues] = useState(initValues)
   const [errEmail, setErrEmail] = useState(false)
   const [errPassword, setErrPassword] = useState(false)
+  const [showButton, setshowButton] = useState(true)
+  const [showSpinner, setshowSpinner] = useState(false)
 
   const onKeyUp = (event) => {
     if (event.keyCode === 13) {
-      catchSubmit(event)
+      catchSubmit(event).then()
     }
   }
 
   const catchSubmit = async (e) => {
     e.preventDefault()
-
+    setshowButton(false)
+    setshowSpinner(true)
     if (values.password !== '' && values.email !== '') {
-      dispatch({ type: START_LOADER })
       const response = await loginCheck(values.email, values.password)
-      dispatch({ type: STOP_LOADER })
-
       if (errorApi().test(response)) {
         addToast(messages.signin.error, { appearance: 'error' })
       } else {
         addToast(messages.signin.success, { appearance: 'success' })
-        dispatch({ type: LOG_USER, datas: response.datas })
+        dispatch({ type: LOG_USER, datas: response.datas.data, password: values.password })
       }
     } else {
       setErrEmail(true)
       setErrPassword(true)
     }
+    setshowButton(true)
+    setshowSpinner(false)
   }
 
   const handleChange = prop => event => {
@@ -86,35 +79,22 @@ const SignIn = () => {
     event.preventDefault()
   }
 
-  const switchToSubscribe = (e) => {
-    e.preventDefault()
-    dispatch({ type: SUBSCRIBE_FORM })
-  }
 
   if (setup()) {
     return <Redirect to='/cases' />
-  };
+  }
 
   return (
     <>
-      <Grid container component='main' className={classes.root}>
-        <img className={classes.logo} alt='' src={logo} />
-        <Grid
-          item
-          xs={11}
-          sm={7}
-          md={7}
-          component={Paper}
-          elevation={6}
-          square
-          className={classes.login}
-        >
-          <div className={classes.paper}>
-            <Typography component='h1' variant='h5'>
-              J'ai déjà un compte Dentiio
+      <Grid container component='main' >
+        <Grid item xs={1} md={3} lg={4}>
+        </Grid>
+        <Grid item xs={10} md={6} lg={4}>
+            <Typography component='h1' variant='h4' className='title'>
+              <center>Je me connecte</center>
             </Typography>
-            <br /><br />
-            <form className={classes.form} noValidate>
+            <br />
+            <form noValidate>
               <TextField
                 variant='outlined'
                 margin='normal'
@@ -131,37 +111,48 @@ const SignIn = () => {
               />
 
               <br /><br />
+              <FormControl fullWidth variant="outlined">
+                <InputLabel htmlFor="outlined-adornment-password">Mot de passe*</InputLabel>
+                <OutlinedInput
+                    variant='outlined'
+                    required
+                    fullWidth
+                    name='password'
+                    label='Mot de passe*'
+                    type={values.showPassword ? 'text' : 'password'}
+                    value={values.password}
+                    id='outlined-adornment-password'
+                    autoComplete='on'
+                    error={errPassword}
+                    onChange={handleChange('password')}
+                    endAdornment={
+                      <InputAdornment position='start'>
+                        <IconButton
+                            aria-label='toggle password visibility'
+                            onClick={handleClickShowPassword}
+                            onMouseDown={handleMouseDownPassword}
+                            edge='end'
+                        >
+                          {values.showPassword ? <Visibility /> : <VisibilityOff />}
+                        </IconButton>
+                      </InputAdornment>
+                    }
+                    onKeyUp={onKeyUp}
+                />
+              </FormControl>
 
-              <OutlinedInput
-                variant='outlined'
-                required
-                fullWidth
-                name='password'
-                label='Mot de passe*'
-                type={values.showPassword ? 'text' : 'password'}
-                value={values.password}
-                id='outlined-adornment-password'
-                autoComplete='on'
-                placeholder='Mot de passe*'
-                error={errPassword}
-                onChange={handleChange('password')}
-                endAdornment={
-                  <InputAdornment position='start'>
-                    <IconButton
-                      aria-label='toggle password visibility'
-                      onClick={handleClickShowPassword}
-                      onMouseDown={handleMouseDownPassword}
-                      edge='end'
-                    >
-                      {values.showPassword ? <Visibility /> : <VisibilityOff />}
-                    </IconButton>
-                  </InputAdornment>
-                }
-                onKeyUp={onKeyUp}
-              />
+              <br/><br/>
+              <Typography align='left' component='h1' variant='body1'>
+                <span>
+                  <Link href='#' color='primary'>
+                    Mot de passe oublié ?
+                  </Link>
+                </span>
+              </Typography>
 
-              <br /><br /><br /><br />
+              <br/><br/>
 
+              <div onClick={(e) => (catchSubmit(e))} hidden={!showButton}>
               <GradientBtn
                 variant='contained'
                 type='submit'
@@ -169,28 +160,11 @@ const SignIn = () => {
                 className='GradientBtn'
                 onClick={catchSubmit}
               />
-
-              <br /><br /><br />
-              <Typography align='center'>
-                <span>
-                  <Link href='#' color='primary'>
-                    Mot de passe oublié ?
-                  </Link>
-                </span>
-              </Typography>
-              <br />
-              <br />
-              <Typography align='center'>
-                <span>
-                Nouveau sur Dentiio ?{' '}
-                  <Link href='#' onClick={(e) => switchToSubscribe(e)} color='primary'>
-                  Inscrivez-vous.
-                  </Link>
-                </span>
-              </Typography>
+              </div>
+              <div hidden={!showSpinner} style={{marginTop: '-50px'}}>
+                <Spinner/>
+              </div>
             </form>
-          </div>
-          {subscribeMsg}
         </Grid>
       </Grid>
     </>

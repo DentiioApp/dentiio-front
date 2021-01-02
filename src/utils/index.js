@@ -1,7 +1,5 @@
-import { checkText } from './fields/checkText'
-import { checkEmail } from './fields/checkEmail'
+import { checkText, checkPassword, checkEmail } from './fields/fieldsCheckRegister'
 import { checkFiles } from './fields/checkFiles'
-import { checkPassword } from './fields/checkPassword'
 import { avgNotes } from './cases/notes'
 import { errorApi } from './api/api'
 import { favOrCase } from './cases/filters'

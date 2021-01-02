@@ -1,7 +1,12 @@
 import axios from 'axios'
 import jwtDecode from 'jwt-decode'
+import {useDispatch} from "react-redux";
+import {UPLOAD_LICENCE} from "../store/actions";
+import {useToasts} from "react-toast-notifications";
+import config from "../config";
 
 const BEARER = 'Bearer '
+
 
 export const login = (token) => {
   axios.defaults.headers.Authorization = BEARER + token
@@ -18,18 +23,27 @@ export const logout = () => {
 export const setup = (tk) => {
   const token = window.localStorage.getItem('authToken') || tk
   var connect = false
+  // eslint-disable-next-line react-hooks/rules-of-hooks
+  const dispatch = useDispatch()
+  // eslint-disable-next-line react-hooks/rules-of-hooks
+  const {addToast} = useToasts()
+  const messages = config.messages.auth
+
 
   if (token) {
     axios.defaults.headers.Authorization = BEARER + token
-
     window.localStorage.removeItem('authSubscribeMsg')
-
     const jwtData = jwtDecode(token)
 
-    if (jwtData.exp * 1000 > new Date().getTime()) {
+    if (jwtData.exp * 1000 > new Date().getTime() ) {
       connect = true
     } else {
       logout()
+    }
+    if (jwtData.licenceDoc === null){
+      connect = false
+      addToast(messages.signin.licenceDoc, {appearance: 'info'})
+      dispatch({type: UPLOAD_LICENCE})
     }
   } else {
     logout()
@@ -37,3 +51,4 @@ export const setup = (tk) => {
 
   return connect
 }
+

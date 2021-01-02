@@ -1,28 +1,25 @@
 import './Home.scss'
-
-import React, { useEffect } from 'react'
+import React, {useEffect} from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { JOB_LIST } from '../../store/actions'
+import {JOB_LIST} from '../../store/actions'
 import Register from '../../components/App/Auth/Register/Register'
 import SignIn from '../../components/App/Auth/SignIn/SignIn'
 import Status from '../../components/App/Auth/Status/Status'
 import { fetchJobs } from '../../services/Jobs'
-import Spinner from '../../components/UI/Dawers/Spinner'
+import AuthHeader from "../../components/App/Auth/Header/AuthHeader";
 
 const Home = () => {
   const dispatch = useDispatch()
   const home = useSelector((state) => state.home)
-  const loader = home.loader
   const user = useSelector((state) => state.user)
   const isLoaded = home.jobsLoaded
-  var form = home.login ? <Register /> : <SignIn />
 
-  if (user.subscribe === true) {
-    form = <Status />
-  }
-
-  if (loader === true) {
-    form = <Spinner />
+  const Form = () => {
+    if (user.subscribe === true) {
+      return <Status />
+    } else {
+      return home.login ? <Register /> : <SignIn />
+    }
   }
 
   const loadJobs = async () => {
@@ -31,14 +28,15 @@ const Home = () => {
   }
 
   useEffect(() => {
-    if (!isLoaded && home.login) {
-      loadJobs()
+    if (!isLoaded) {
+      loadJobs().then()
     }
   })
 
   return (
     <div className='App'>
-      {form}
+      <AuthHeader/>
+      <Form/>
     </div>
   )
 }

@@ -78,7 +78,7 @@ const config = {
   ],
 
   messages: {
-    timeOut: '2000',
+    timeOut: '7000',
     cases: {
       error: "Une erreur s'est produite",
       success: 'Le cas a été ajouté avec succès',
@@ -101,16 +101,17 @@ const config = {
     },
     auth: {
       register: {
-        error: "L'adresse email existe déja veuillez en saisir une autre",
+        error: "Une erreur est survenue",
         success: 'Inscription réussie, Bonjour ! '
       },
       signin: {
         error: 'Connexion échoué, vérifier votre saisie',
         success: 'Connexion approuvé,  Bonjour ! ',
-        autoLogError: 'Une erreur est survenu lors d\'une authentification'
+        autoLogError: 'Une erreur est survenu lors d\'une authentification',
+        licenceDoc: 'Veuillez uploader votre certificat'
       },
       card: {
-        error: 'Une erreur est survenue lors du chargement de votre carte',
+        error: 'Une erreur est survenue lors du chargement de votre carte, veuillez réessayer',
         success: 'Carte envoyé, vous serez notifié par mail une fois votre status validé ! ',
         pending: 'Telechargement de votre carte en progression ...'
       }

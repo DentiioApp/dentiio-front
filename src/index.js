@@ -6,10 +6,7 @@ import Cases from './containers/Cases/Cases'
 import Favorites from './containers/Favorites/Favorites'
 import Profile from './containers/Profile/Profile'
 import * as serviceWorker from './serviceWorker'
-import { applyMiddleware, compose, createStore } from 'redux'
-import { adminReducer } from './store/reducers'
 import { Provider } from 'react-redux'
-import ReduxThunk from 'redux-thunk'
 import dotenv from 'dotenv'
 import { ToastProvider } from 'react-toast-notifications'
 import { ThemeProvider } from '@material-ui/core/styles'
@@ -25,24 +22,15 @@ import CasePost from './containers/CasePost/CasePost'
 import QuestionPost from './containers/QuestionPost/QuestionPost'
 import UserAvatar from "./containers/UserAvatar/UserAvatar";
 import EditProfile from "./containers/Profile/EditProfile";
+import { PersistGate } from 'redux-persist/integration/react'
+import ConfigureStore from './store/configureStore'
+import CGU from "./containers/CGU/CGU";
 dotenv.config()
-
-// MIDDLEWARE
-const middleWare = store => next => action => {
-  return next(action)
-}
-
-export const store = createStore(
-  adminReducer,
-  compose(
-    applyMiddleware(ReduxThunk, middleWare)
-    //window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
-  )
-)
 
 ReactDOM.render(
   <ThemeProvider theme={colorTheme}>
-    <Provider store={store}>
+    <Provider store={ConfigureStore().store}>
+      <PersistGate loading={null} persistor={ConfigureStore().persistor}>
       <ToastProvider autoDismiss autoDismissTimeout={config.messages.timeOut}>
         <Router>
           <div>
@@ -56,10 +44,12 @@ ReactDOM.render(
               <Route exact path='/post-question' component={QuestionPost} />
               <Route exact path='/post-case' component={CasePost} />
               <Route exact path='/avatar' component={UserAvatar} />
+              <Route exact path='/cgu' component={CGU} />
             </Switch>
           </div>
         </Router>
       </ToastProvider>
+      </PersistGate>
     </Provider>
   </ThemeProvider>
   , document.getElementById('root')
