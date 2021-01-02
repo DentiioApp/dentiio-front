@@ -7,6 +7,7 @@ import Search from '../../components/UI/Search/CasesSearch/CasesSearch'
 import { setup } from '../../services/Auth'
 import { getUserById, getUserId } from '../../services/Users'
 import { SET_USER } from '../../store/actions'
+import Box from "@material-ui/core/Box";
 
 const Cases = () => {
   const dispatch = useDispatch()
@@ -29,11 +30,13 @@ const Cases = () => {
 
   if (setup()) {
     return (
-      <>
-        <Header target='home' />
-        <Search />
-        <CasesList />
-      </>
+        <>
+          <Box bgcolor="background.paper">
+            <Header target='home' />
+            <Search />
+            <CasesList />
+          </Box>
+        </>
     )
   } else {
     return (<Redirect to='/' />)

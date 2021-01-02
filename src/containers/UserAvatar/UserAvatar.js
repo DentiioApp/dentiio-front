@@ -3,6 +3,7 @@ import { Redirect } from 'react-router-dom'
 import Header from '../../components/App/Header/Header'
 import { setup } from '../../services/Auth'
 import TabAvatar from './Tab'
+import Box from "@material-ui/core/Box";
 
 const UserAvatar = () => {
   if (setup() === false) {
@@ -11,8 +12,10 @@ const UserAvatar = () => {
 
   return (
     <>
-      <Header target='profile' />
-      <TabAvatar />
+        <Box bgcolor="background.paper">
+          <Header target='profile' />
+          <TabAvatar />
+        </Box>
     </>
   )
 }

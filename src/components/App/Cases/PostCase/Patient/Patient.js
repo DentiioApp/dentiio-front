@@ -17,6 +17,7 @@ import oStyle from '../../../../UI/ResponsiveDesign/AuthStyle'
 import { UPDATE_LEVEL, UPDATE_STEPPER_POSTCASE } from '../../../../../store/actions'
 import MenuItem from '@material-ui/core/MenuItem'
 import InputLabel from '@material-ui/core/InputLabel'
+import Box from "@material-ui/core/Box";
 
 
 const useStyles = makeStyles((theme) => (oStyle(theme)))
@@ -56,7 +57,8 @@ const Patient = (props) => {
     }
 
     return (
-        <>
+        <div>
+            <Box bgcolor="background.paper">
             <form className={classes.form} noValidate>
                 <Typography component='h1' variant='h5'>
                     <center>Information patient</center>
@@ -230,7 +232,8 @@ const Patient = (props) => {
                 </center>
                 <br/><br/><br/><br/>
             </form>
-        </>
+            </Box>
+        </div>
     )
 }
 

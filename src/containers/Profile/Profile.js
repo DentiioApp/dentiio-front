@@ -15,6 +15,7 @@ import { setup } from '../../services/Auth'
 import Spinner from '../../components/UI/Dawers/Spinner'
 import ParametersProfileButton from "../../components/UI/buttons/ParametersProfileButton";
 import {useSelector} from "react-redux";
+import Box from "@material-ui/core/Box";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -79,11 +80,9 @@ const Profile = () => {
     })
 
     if (setup()) {
-        if (cases.length === undefined) {
-            return (<><Header target='profile'/><Spinner/></>)
-        } else {
             return (
                 <>
+                    <Box bgcolor="background.paper" style={{height: "50em"}}>
                     <Header target='profile'/>
                     <div className={classes.root}>
                         <Paper className={classes.paper}>
@@ -128,11 +127,10 @@ const Profile = () => {
                           </div>
                       </Container> : null
                     }
+                    </Box>
                 </>
             )
         }
-    }
-
      else {
     window.location.href = '/'
   }

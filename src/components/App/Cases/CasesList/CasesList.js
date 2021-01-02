@@ -10,6 +10,8 @@ import titleSvg from '../../../../images/maquette/c-case-title.svg'
 import { getUserId } from '../../../../services/Users'
 import { errorApi } from '../../../../utils'
 import Spinner from '../../../../components/UI/Dawers/Spinner'
+import Header from "../../Header/Header";
+import Box from "@material-ui/core/Box";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -73,7 +75,7 @@ const CasesList = () => {
   }
 
   if (cases.length < 1) {
-    return (<Spinner />)
+    return (<Box bgcolor="background.paper" style={{height: "40em"}}><Spinner /></Box>)
   } else {
     return (
       <>
