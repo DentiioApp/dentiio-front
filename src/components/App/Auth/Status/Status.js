@@ -1,5 +1,4 @@
 import './status.scss'
-
 import React, {useState, useEffect} from 'react'
 import {useDispatch, useSelector} from 'react-redux'
 import {useToasts} from 'react-toast-notifications'
@@ -21,16 +20,11 @@ import {getUserId, loginCheck, saveCardandJob} from '../../../../services/Users'
 import Spinner from "../../../UI/Dawers/Spinner";
 import Button from '@material-ui/core/Button';
 import CloudUploadIcon from '@material-ui/icons/CloudUpload';
-import {
-    REGISTER_USER,
-    TOKEN_REGENERATE,
-    VALID_STATUS
-} from '../../../../store/actions'
+import { TOKEN_REGENERATE } from '../../../../store/actions'
 import config from '../../../../config'
 import InputLabel from "@material-ui/core/InputLabel/InputLabel";
 import {Select} from "@material-ui/core";
 import MenuItem from "@material-ui/core/MenuItem";
-import { useHistory } from 'react-router-dom'
 import {login, logout} from "../../../../services/Auth";
 
 
@@ -43,7 +37,6 @@ const Status = () => {
     const messages = config.messages.auth
     const user = useSelector((state) => state.user)
     const fileReader = new FileReader()
-    const history = useHistory()
     const [values, setValues] = useState({
         licenceDoc: user.licenceDoc,
         job: user.job
@@ -51,14 +44,14 @@ const Status = () => {
     const {jobs} = useSelector((state) => state.home)
     const [showButton, setshowButton] = useState(false)
     const [showSpinner, setshowSpinner] = useState(false)
+    const [errCard, setErrCard] = useState({error: true, message: false})
 
     useEffect(() => {
         if ((values.job !== '' && values.licenceDoc && (errCard.error === false))) {
             setshowButton(true)
         } else setshowButton(false)
-    }, [values]);
+    }, [values, errCard]);
 
-    const [errCard, setErrCard] = useState({error: true, message: false})
 
     const catchSubmit = (e) => {
         e.preventDefault()
@@ -107,9 +100,9 @@ const Status = () => {
     return (
         <>
             <Grid container component='main'>
-                <Grid item xs={1} md={3}>
+                <Grid item xs={1} md={3} lg={4}>
                 </Grid>
-                <Grid item xs={10} md={6}>
+                <Grid item xs={10} md={6} lg={4}>
                     <Typography component='h1' variant='h4' className='title'>
                         <center>C'est l'heure des présentations</center>
                     </Typography>

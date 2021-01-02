@@ -5,12 +5,9 @@ import {
   FREE_CREDENTIALS,
   SET_USER,
   UPLOAD_LICENCE,
-  TOKEN_REGENERATE,
-  SET_PASSWORD, UNSET_PASSWORD
-} from '../actions'
+  TOKEN_REGENERATE} from '../actions'
 import jwtDecode from 'jwt-decode'
 import { login } from '../../services/Auth'
-import {loginCheck} from "../../services/Users";
 
 const INIT_STATE = {
   id: 0,
@@ -18,7 +15,6 @@ const INIT_STATE = {
   connected: false,
   message: '',
   subscribe: false,
-
   pseudo: '',
   email: '',
   password: '',
@@ -30,8 +26,9 @@ const INIT_STATE = {
 }
 
 export const User = (state = INIT_STATE, action) => {
-  const details = action.datas && jwtDecode(action.datas.token)
+  const details = action.datas && action.datas.token && jwtDecode(action.datas.token)
   switch (action.type) {
+
     case LOG_USER :
       login(action.datas.token)
       return { ...state, email: details.username, connected: true, id: details.userId, password: action.password }

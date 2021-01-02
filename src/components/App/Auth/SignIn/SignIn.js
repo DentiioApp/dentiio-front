@@ -1,10 +1,8 @@
 import './signIn.scss'
-
 import React, { useState } from 'react'
 import { useDispatch } from 'react-redux'
 import { Redirect } from 'react-router-dom'
 import { useToasts } from 'react-toast-notifications'
-
 import {
   Typography,
   Link
@@ -17,7 +15,7 @@ import TextField from '@material-ui/core/TextField'
 import Visibility from '@material-ui/icons/Visibility'
 import VisibilityOff from '@material-ui/icons/VisibilityOff'
 import GradientBtn from '../../../UI/buttons/GradientBtn'
-import {LOG_USER, SET_PASSWORD, START_LOADER, STOP_LOADER} from '../../../../store/actions'
+import {LOG_USER} from '../../../../store/actions'
 import { loginCheck } from '../../../../services/Users'
 import { setup } from '../../../../services/Auth'
 import config from '../../../../config'
@@ -28,7 +26,6 @@ import Spinner from "../../../UI/Dawers/Spinner";
 
 const SignIn = () => {
   const dispatch = useDispatch()
-  const subscribeMsg = localStorage.getItem('authSubscribeMsg')
   const { addToast } = useToasts()
   const messages = config.messages.auth
 
@@ -90,9 +87,9 @@ const SignIn = () => {
   return (
     <>
       <Grid container component='main' >
-        <Grid item xs={1} md={4}>
+        <Grid item xs={1} md={3} lg={4}>
         </Grid>
-        <Grid item xs={10} md={4}>
+        <Grid item xs={10} md={6} lg={4}>
             <Typography component='h1' variant='h4' className='title'>
               <center>Je me connecte</center>
             </Typography>

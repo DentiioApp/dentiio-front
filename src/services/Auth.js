@@ -1,6 +1,6 @@
 import axios from 'axios'
 import jwtDecode from 'jwt-decode'
-import {useDispatch, useSelector} from "react-redux";
+import {useDispatch} from "react-redux";
 import {UPLOAD_LICENCE} from "../store/actions";
 import {useToasts} from "react-toast-notifications";
 import config from "../config";
@@ -40,11 +40,11 @@ export const setup = (tk) => {
     } else {
       logout()
     }
-    /*if (jwtData.licenceDoc === null){
+    if (jwtData.licenceDoc === null){
       connect = false
       addToast(messages.signin.licenceDoc, {appearance: 'info'})
       dispatch({type: UPLOAD_LICENCE})
-    }*/
+    }
   } else {
     logout()
   }

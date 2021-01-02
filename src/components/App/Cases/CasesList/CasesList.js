@@ -49,14 +49,14 @@ const CasesList = () => {
     const getCases = async () => {
       const fetch = await fetchCases(values.paginator)
       if (fetch.message !== undefined && !errorApi().test(fetch.message)) {
-       // dispatch({ type: CASES_LIST, datas: fetch.datas, nbrItems: fetch.items })
+        dispatch({ type: CASES_LIST, datas: fetch.datas, nbrItems: fetch.items })
       }
     }
 
     const initUserFav = async () => {
       const response = await fetchUserFav(userId)
       if (!errorApi().test(response)) {
-      //  dispatch({ type: INIT_FAV_CASE, datas: response.datas })
+        dispatch({ type: INIT_FAV_CASE, datas: response.datas })
       }
     }
 

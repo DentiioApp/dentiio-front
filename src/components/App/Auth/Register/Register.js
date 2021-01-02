@@ -1,5 +1,4 @@
 import './register.scss'
-
 import React, {useEffect, useState} from 'react'
 import {useDispatch, useSelector} from 'react-redux'
 import {Redirect} from 'react-router-dom'
@@ -127,9 +126,9 @@ const Register = () => {
 
     return (
         <Grid container component='main'>
-            <Grid item xs={1} md={3}>
+            <Grid item xs={1} md={3} lg={4}>
             </Grid>
-            <Grid item xs={10} md={6}>
+            <Grid item xs={10} md={6} lg={4}>
                 <Typography component='h1' variant='h4' className='title'>
                     <center>Je créer mon compte</center>
                 </Typography>

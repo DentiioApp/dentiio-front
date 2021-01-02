@@ -1,5 +1,4 @@
 import './Home.scss'
-
 import React, {useEffect} from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import {JOB_LIST} from '../../store/actions'
@@ -15,16 +14,13 @@ const Home = () => {
   const user = useSelector((state) => state.user)
   const isLoaded = home.jobsLoaded
 
-
   const Form = () => {
     if (user.subscribe === true) {
       return <Status />
     } else {
-      return home.login ? <SignIn /> : <Register />
+      return home.login ? <Register /> : <SignIn />
     }
   }
-
-
 
   const loadJobs = async () => {
     const jobs = await fetchJobs()
