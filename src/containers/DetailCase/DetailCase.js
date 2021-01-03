@@ -19,6 +19,7 @@ import {getCaseById} from '../../services/Cases'
 import {setup} from '../../services/Auth'
 import RatingCase from "../../components/App/Cases/DetailCase/Rating";
 import Spinner from "../../components/UI/Dawers/Spinner";
+import Box from "@material-ui/core/Box";
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -215,6 +216,7 @@ const DetailCase = (props) => {
         } else {
             return (
                 <>
+                    <Box bgcolor="background.paper">
                     <Header target=''/>
                     <NavbarDetail/>
                     <div className={classes.root} id='presentation'>
@@ -356,6 +358,7 @@ const DetailCase = (props) => {
                             </Grid>
                         </Grid>
                     </div>
+                    </Box>
                 </>
             )
         }

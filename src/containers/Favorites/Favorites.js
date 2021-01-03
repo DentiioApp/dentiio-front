@@ -1,6 +1,5 @@
 import React, { useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
-
 import Header from '../../components/App/Header/Header'
 import Container from '@material-ui/core/Container'
 import { makeStyles } from '@material-ui/core/styles'
@@ -11,6 +10,7 @@ import { getUserId } from '../../services/Users'
 import Spinner from '../../components/UI/Dawers/Spinner'
 import { errorApi } from '../../utils'
 import { setup } from '../../services/Auth'
+import Box from "@material-ui/core/Box";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -64,21 +64,23 @@ const Favorites = () => {
 
   if (setup()) {
     if (casesList.length < 1) {
-      return (<><Header target='favorites' /><Spinner /></>)
+      return (<><Box bgcolor="background.paper" style={{height: "50em"}}><Header target='favorites' /><Spinner /></Box></>)
     } else {
       return (
         <>
-          <Header target='favorites' />
-          <Container maxWidth='lg'>
-            <center><span>Publications favorites</span></center>
-            <div className={classes.root}>
-              {
-                favoriteCases.length > 0 ? favoriteCases.map((oCase, index) => {
-                  return <CasesItem key={index} item={oCase} favorite />
-                }) : 'Vous n\'avez pas de publication favorite'
-              }
-            </div>
-          </Container>
+          <Box bgcolor="background.paper">
+            <Header target='favorites' />
+            <Container maxWidth='lg'>
+              <center><span>Publications favorites</span></center>
+              <div className={classes.root}>
+                {
+                  favoriteCases.length > 0 ? favoriteCases.map((oCase, index) => {
+                    return <CasesItem key={index} item={oCase} favorite />
+                  }) : 'Vous n\'avez pas de publication favorite'
+                }
+              </div>
+            </Container>
+          </Box>
         </>
       )
     }

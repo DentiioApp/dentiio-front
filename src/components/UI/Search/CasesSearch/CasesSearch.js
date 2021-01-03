@@ -14,14 +14,9 @@ const useStyles = makeStyles((theme) => ({
   },
 
   categoryButton: {
-    backgroundColor: '#82ccdd',
     margin: '41px 10px 7px 10px',
     height: '54px',
-    fontWeight: 'bold',
-    color: 'white',
-    '&:hover': {
-      backgroundColor: '#03B6F0'
-    }
+    fontWeight: 'bold'
   }
 }))
 

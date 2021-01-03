@@ -1,7 +1,13 @@
 import { createMuiTheme } from '@material-ui/core/styles'
 
+function User (){
+  return 'light'
+}
+
 const ColorTheme = createMuiTheme({
   palette: {
+    // FOR DARK MODE
+    type: User(),
     primary: {
       main: '#03B6F0',
       light: '#fff'

@@ -17,6 +17,7 @@ import IconButton from "@material-ui/core/IconButton";
 import ArrowBackIcon from '@material-ui/icons/ArrowBack'
 import {SET_USER} from "../../store/actions";
 import {useDispatch} from "react-redux";
+import Box from "@material-ui/core/Box";
 
 
 const useStyles = makeStyles((theme) => ({
@@ -91,6 +92,7 @@ const EditProfile = () => {
         } else {
             return (
                 <>
+                    <Box bgcolor="background.paper">
                     <Header target='profile'/>
                     <IconButton  className={classes.arrowBack} href={"#"} onClick={() => history.goBack()}>
                         <ArrowBackIcon color='primary'/>
@@ -138,6 +140,7 @@ const EditProfile = () => {
                             </Grid>
                         </Paper>
                     </div>
+                    </Box>
                 </>
             )
         }
