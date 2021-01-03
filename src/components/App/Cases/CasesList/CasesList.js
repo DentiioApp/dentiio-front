@@ -9,12 +9,6 @@ import Paginator from '../../../UI/Paginator/Paginator'
 import titleSvg from '../../../../images/maquette/c-case-title.svg'
 import {getUserId} from '../../../../services/Users'
 import {errorApi} from '../../../../utils'
-import Spinner from '../../../../components/UI/Dawers/Spinner'
-import Skeleton from "@material-ui/lab/Skeleton";
-import Typography from "@material-ui/core/Typography";
-import Card from '@material-ui/core/Card'
-import CardContent from "@material-ui/core/CardContent";
-import CardActions from "@material-ui/core/CardActions/CardActions";
 import LoadingCasesList from "../../../UI/Loading/LoadingCasesList";
 
 
