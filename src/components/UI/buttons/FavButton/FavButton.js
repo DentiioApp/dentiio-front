@@ -22,6 +22,8 @@ const FavButton = (props) => {
   useEffect(() => {
     if (props.isFavorite) {
       setToggle(<StarIcon fontSize='default' color='primary' />)
+    } else {
+      setToggle(<StarBorderIcon color='primary' />)
     }
   }, [props])
 
@@ -38,7 +40,7 @@ const FavButton = (props) => {
       }
     } else {
       if (response === 204) {
-        addToast(messages.delete.success, { appearance: 'success' })
+        addToast(messages.delete.success, { appearance: 'warning' })
         dispatch({ type: REMOVE_FAVORITE, datas: item })
       } else {
         addToast(messages.delete.error, { appearance: 'error' })

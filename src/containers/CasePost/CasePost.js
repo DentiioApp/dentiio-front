@@ -165,7 +165,10 @@ const CasePost = () => {
       }
       addFields()
       setValues({ ...values, [prop]: event.target.value })
-    } else { setValues({ ...values, [prop]: event.target.value }) }
+    } else { 
+      console.log('TEST :', event.target)
+      setValues({ ...values, [prop]: event.target.value }) 
+    }
   }
 
   let form
