@@ -100,8 +100,7 @@ const Exam = (props) => {
                                 useChipsForPreview
                                 previewGridProps={{container: {spacing: 1, direction: 'row'}}}
                                 previewText="Selected files"
-                                onChange={props.onChange('pictures_clinic_exam')}
-                                //value={props.pictures_clinic_exam}
+                                //onChange={props.onChange('pictures_clinic_exam')}
                             />
                         </div>
                     </Grid>

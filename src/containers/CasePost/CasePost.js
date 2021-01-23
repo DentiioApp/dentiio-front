@@ -165,8 +165,7 @@ const CasePost = () => {
       }
       addFields()
       setValues({ ...values, [prop]: event.target.value })
-    } else { 
-      console.log('TEST :', event.target)
+    } else {
       setValues({ ...values, [prop]: event.target.value }) 
     }
   }
