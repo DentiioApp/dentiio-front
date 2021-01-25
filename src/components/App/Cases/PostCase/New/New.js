@@ -486,6 +486,7 @@ export default function HorizontalLinearStepper() {
                                                     getUploadParams={getUploadParams}
                                                     onChangeStatus={handleChangeStatus}
                                                     onChange={handleChange('exam_pics')}
+                                                    acceptedFiles={['image/jpeg', 'image/png' , '/image/bmp']}
                                                 //initialFiles={[Object(exam_pics)]}
                                                 />
                                                 {/* <DropzoneDialog

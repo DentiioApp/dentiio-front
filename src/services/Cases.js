@@ -133,19 +133,16 @@ export const postCase = (values, patient) => {
 
 
 export const insertImage = async (img_datas) => {
-
+  let ClinicalCasesID = 30 //TODO
   const updateClinicCase = {
-    "imageClinicalCases": [
-      {
-        "type": img_datas.type,
-        "path": img_datas.path,
-        "clinicalCase": img_datas._img
-      }
-    ],
-  };
+    "type": 'base64', //img_datas.type.toUpperCase()
+    "path": img_datas.path,
+    "clinicalCase": '/api/imageClinicalCases/' + ClinicalCasesID,
+    "base64" : img_datas._img
+  }
 
   axios.defaults.headers.Authorization = 'Bearer ' + localStorage.getItem('authToken')
-  
+
   return await axios
     .post(IMAGE_CLINICAL_CASES, updateClinicCase)
     .then((res) => {
