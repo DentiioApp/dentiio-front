@@ -305,15 +305,15 @@ export default function HorizontalLinearStepper() {
             <div>
                 {activeStep === steps.length ? (
                     <div>
-                        <Typography className={classes.instructions}>
+                        {/* <Typography className={classes.instructions}> */}
                             {/*  */}
                             {/* REPONSE DE VALIDATION */}
                             {/*  */}
                             <Box bgcolor="background.paper" display={showResponseValid}>
-                                LE CAS A ÉTÉ ENREGISTRTÉ! 😀
+                                LE CAS A ÉTÉ ENREGISTRTÉ! <span role="img" aria-labelledby={'toto'}>😀</span>
                             </Box>
 
-                        </Typography>
+                        {/* </Typography> */}
                         {/* <Button onClick={handleReset} className={classes.button}>
                             Reset
                         </Button> */}
@@ -550,7 +550,7 @@ export default function HorizontalLinearStepper() {
                                                 /> */}
                                                 </div>
                                                 <br />
-                                                <TextField
+                                                {/* <TextField
                                                     className='textField'
                                                     id='pathologies'
                                                     select
@@ -568,8 +568,8 @@ export default function HorizontalLinearStepper() {
                                                     <MenuItem key={value['@id']} value={value['@id']}>
                                                         {value.name}
                                                     </MenuItem>
-                                                ))} */}
-                                                </TextField>
+                                                ))} 
+                                                </TextField> */}
 
                                             </div>
                                         </Grid>

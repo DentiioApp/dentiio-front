@@ -7,7 +7,6 @@ import { setup } from '../../services/Auth'
 
 import { fetchSpecialities, fetchPathologies, fetchKeywords, fetchTreatments, fetchSymptomes } from '../../services/Home'
 import { SPECS_LIST, KEYWORDS_LIST, PATHO_LIST, TREATMENTS_LIST, SYMPTOMES_LIST } from '../../store/actions'
-import PostCaseStepper from "../../components/UI/Steppers/PostCaseStepper";
 import Header from "../../components/App/Header/Header";
 import New from '../../components/App/Cases/PostCase/New/New'
 
