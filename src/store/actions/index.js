@@ -1,14 +1,16 @@
-import { openSideBar, closeSideBar } from './CasesAction'
+import { openSideBar, closeSideBar, format_file } from './CasesAction'
 import { fetchSpecialities } from './SpecialitiesAction'
 import { fetchTreatments } from './TreatmentsAction'
 import { fetchPathologies } from './PathologiesAction'
 import { fetchCatPathologies } from './CatPathologiesAction'
+
 
 export const ADD_FAVORITE = 'ADD_FAVORITE'
 export const REMOVE_FAVORITE = 'REMOVE_FAVORITE'
 export const INIT_FAV_CASE = 'INIT_FAV_CASE'
 export const CASES_LIST = 'CASES_LIST'
 export const CASE_FILTERED = 'CASE_FILTERED'
+export const SET_EXAM_PICS = 'SET_EXAM_PICS'
 export const FREE_CREDENTIALS = 'FREE_CREDENTIALS'
 export const JOB_LIST = 'JOB_LIST'
 export const LOG_USER = 'LOG_USER'
@@ -45,4 +47,5 @@ export {
   fetchTreatments,
   fetchPathologies,
   fetchCatPathologies,
+  format_file,
 }

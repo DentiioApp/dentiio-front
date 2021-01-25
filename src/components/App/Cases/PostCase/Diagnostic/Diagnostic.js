@@ -40,32 +40,32 @@ const Diagnostic = (props) => {
     if (props.values.global_desc === '') { setErrors({ ...errors, errGlobal_desc: true }); isValid = false }
 
     if (isValid) {
-      dispatch({ type: UPDATE_LEVEL, level: 'treatplan' })
-      dispatch({type: UPDATE_STEPPER_POSTCASE, levelStepperPostCase: 3})
+      dispatch({ type: UPDATE_LEVEL, level: 'finalisation' })
+      dispatch({ type: UPDATE_STEPPER_POSTCASE, levelStepperPostCase: 3 })
     }
   }
 
   const catchOnmit = async (event) => {
     event.preventDefault()
     dispatch({ type: UPDATE_LEVEL, level: 'exam' })
-    dispatch({type: UPDATE_STEPPER_POSTCASE, levelStepperPostCase: 1})
+    dispatch({ type: UPDATE_STEPPER_POSTCASE, levelStepperPostCase: 1 })
 
   }
 
-  let newPath1 = pathologies.map(({'@id': value, ...rest}) => ({value, ...rest}));
-  const newPathologie = newPath1.map(({'name': label, ...rest}) => ({label, ...rest}));
+  let newPath1 = pathologies.map(({ '@id': value, ...rest }) => ({ value, ...rest }));
+  const newPathologie = newPath1.map(({ 'name': label, ...rest }) => ({ label, ...rest }));
 
   return (
     <>
-    <form className={classes.form} noValidate>
-      <Typography component='h1' variant='h5'>
-        <center>Diagnostic</center>
-      </Typography>
+      <form className={classes.form} noValidate>
+        <Typography component='h1' variant='h5'>
+          <center>Diagnostic</center>
+        </Typography>
 
-      <Grid container item spacing={2} component='main'>
-        <Grid item xs={12}>
-          <div className={classes.paper}>
-            <TextField
+        <Grid container item spacing={2} component='main'>
+          <Grid item xs={12}>
+            <div className={classes.paper}>
+              <TextField
                 aria-label='minimum height'
                 placeholder='diagnostic'
                 variant='outlined'
@@ -83,21 +83,21 @@ const Diagnostic = (props) => {
                 autoComplete='current-diagnostic'
                 onChange={props.onChange('diagnostic')}
                 error={errors.errDiagnostic}
-            />
-          </div>
-        </Grid>
+              />
+            </div>
+          </Grid>
           <Grid item xs={12} sm={6}>
-          <div className={classes.paper}>
-            <div style={{width: '100%'}}>
-              <CreatableSelect
+            <div className={classes.paper}>
+              <div style={{ width: '100%' }}>
+                <CreatableSelect
                   //POSSIBILITE de trier par catégorie check doc react-select.com
                   placeholder={'Pathologie, pas encore fonctionnel'}
                   isMulti
                   //onChange={props.onChange('symptomes')}
                   options={newPathologie}
-              />
-            </div>
-            <br/>
+                />
+              </div>
+              <br />
               <TextField
                 className='textField'
                 id='pathologies'
@@ -119,11 +119,11 @@ const Diagnostic = (props) => {
                 ))}
               </TextField>
 
-          </div>
-        </Grid>
-            <Grid item xs={12} sm={6}>
-              <div className={classes.paper}>
-            <TextField
+            </div>
+          </Grid>
+          <Grid item xs={12} sm={6}>
+            <div className={classes.paper}>
+              <TextField
                 variant='outlined'
                 margin='normal'
                 required
@@ -140,27 +140,27 @@ const Diagnostic = (props) => {
               />
 
               <br /> <br />
-          </div>
+            </div>
+          </Grid>
         </Grid>
-        </Grid>
-      <center>
-        <Button type='submit'
-                onClick={catchOnmit}
-                className={classes.button}>
-          Précédent
+        <center>
+          <Button type='submit'
+            onClick={catchOnmit}
+            className={classes.button}>
+            Précédent
         </Button>
-        <Button
+          <Button
             variant="contained"
             color="primary"
             className={classes.button}
             type='submit'
             onClick={catchSubmit}
-        >
-          Suivant
+          >
+            Suivant
         </Button>
-      </center>
-      <br/><br/><br/><br/>
-    </form>
+        </center>
+        <br /><br /><br /><br />
+      </form>
     </>
   )
 }

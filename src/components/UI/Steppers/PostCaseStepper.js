@@ -21,7 +21,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 function getSteps() {
-    return ['Information patient', 'Examens', 'Diagnostic', 'Plan de traitement', 'Evolution', 'Finalisation'];
+    return ['Information patient', 'Diagnostic', 'Finalisation'];
 }
 
 export default function PostCaseStepper() {

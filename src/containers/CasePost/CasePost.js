@@ -2,12 +2,6 @@ import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { Redirect } from 'react-router-dom'
 import ModalGuidelinesPostCase from '../../components/Helper/Modal/ModalGuidelines-PostCase/ModalGuidelinesPostCase'
-import Patient from '../../components/App/Cases/PostCase/Patient/Patient'
-import Exam from '../../components/App/Cases/PostCase/Exam/Exam'
-import Diagnostic from '../../components/App/Cases/PostCase/Diagnostic/Diagnostic'
-import Evolution from '../../components/App/Cases/PostCase/Evolution/Evolution'
-import ClinicCase from '../../components/App/Cases/PostCase/ClinicCase/ClinicCase'
-import TreatPlan from '../../components/App/Cases/PostCase/TreatPlan/TreatPlan'
 import TextField from '@material-ui/core/TextField'
 import { setup } from '../../services/Auth'
 
@@ -15,6 +9,7 @@ import { fetchSpecialities, fetchPathologies, fetchKeywords, fetchTreatments, fe
 import { SPECS_LIST, KEYWORDS_LIST, PATHO_LIST, TREATMENTS_LIST, SYMPTOMES_LIST } from '../../store/actions'
 import PostCaseStepper from "../../components/UI/Steppers/PostCaseStepper";
 import Header from "../../components/App/Header/Header";
+import New from '../../components/App/Cases/PostCase/New/New'
 
 const CasePost = () => {
   const home = useSelector((state) => state.home)
@@ -77,7 +72,7 @@ const CasePost = () => {
     reason_consultation: '',
 
     // Examen clinique
-    exam_pics: [],
+    exam_pics: [{}],
     pictures_clinic_exam: [],
     intra_extra_oral_desc: '',
     symptomes: [],
@@ -128,9 +123,31 @@ const CasePost = () => {
   const [values, setValues] = useState(initValues)
   const [inCrement, setInCrement] = useState(1)
 
+  
+  var aFiles = [];
+
+
+
+  const setFiles = async (file) => {
+    if (file) {
+      const fileReader1 = new FileReader()
+
+      fileReader1.readAsDataURL(file)
+
+      fileReader1.onload = async (FileLoadEvent) => {
+        console.log('FileLoadEvent.target.result :', FileLoadEvent.target.result)
+        const licenceBase64 = FileLoadEvent.target.result
+        aFiles.push(licenceBase64)
+      }
+      console.log('aFiles1 :', aFiles)
+
+      return aFiles;
+    }
+  }
+
   const handleChange = prop => event => {
     if (prop === 'isASmoker' || prop === 'isDrinker') { setValues({ ...values, [prop]: event.target.checked }) } else if (prop === 'old_injury') {
-      function addFields () {
+      function addFields() {
         var container = document.getElementById('fieldset_old_injury')
         // Clear previous contents of the container
         /* while (container.hasChildNodes()) {
@@ -152,12 +169,12 @@ const CasePost = () => {
         container.appendChild(newDiv)
         // Create an <input> element, set its type and name attributes
         /*
-
+  
             var input = document.createElement("input");
             input.type = "text";
             input.name = "member" + i;
             container.appendChild(input);
-
+  
             */
         // Append a line break
         container.appendChild(document.createElement('br'))
@@ -165,40 +182,36 @@ const CasePost = () => {
       }
       addFields()
       setValues({ ...values, [prop]: event.target.value })
+    } else if (prop === 'exam_pics') {
+      setFiles(event)
     } else {
-      setValues({ ...values, [prop]: event.target.value }) 
+      setValues({ ...values, [prop]: event.target.value })
     }
+    console.log('foina :', values.exam_pics)
   }
 
   let form
 
-  switch (level) {
-    case 'exam':
-      form = <Exam onChange={handleChange} values={values} />
-      break
-    case 'diagnostic':
-      form = <Diagnostic onChange={handleChange} values={values} />
-      break
-    case 'treatplan':
-      form = <TreatPlan onChange={handleChange} values={values} />
-      break
-    case 'evolution':
-      form = <Evolution onChange={handleChange} values={values} />
-      break
-    case 'cliniccase':
-      form = <ClinicCase onChange={handleChange} values={values} />
-      break
-    default:
-      form = <Patient onChange={handleChange} values={values} />
-  }
+  // switch (level) {
+
+  //   case 'diagnostic':
+  //     form = <Diagnostic onChange={handleChange} values={values} />
+  //     break
+  //   case 'finalisation':
+  //     form = <Finalisation onChange={handleChange} values={values} />
+  //     break
+  //   default:
+  //     form = <Patient onChange={handleChange} values={values} />
+  // }
 
   if (setup()) {
     return (
       <>
-        <Header/>
+        <Header />
         <ModalGuidelinesPostCase />
-        <PostCaseStepper/>
-        {form}
+        {/* <PostCaseStepper />  */}
+        {/* {form} */}
+        <New values={values}/>
       </>
     )
   } else {
