@@ -31,11 +31,11 @@ const CasesItem = (props) => {
       <Link to={`/case/${props.item.id}`} style={{ textDecoration: 'none' }}>
         <CardMedia
           className='media'
-          image={'https://api.dentiio.fr/images/' + img()[0]}
+          image={'https://api.dentiio.fr/images/' + (img() !== undefined ? img()[0] : '')}
           title={props.item.title}
         />
         <div style={{ marginTop: '-35px', marginLeft: '15px' }}>
-          {props.item.keyword.map((keyword, index) => (
+          {props.item.keyword && props.item.keyword.map((keyword, index) => (
             <Keyword key={index} keyword={keyword.name} />
           ))}
         </div>
@@ -49,11 +49,11 @@ const CasesItem = (props) => {
         </CardContent>
         <br />
         <CardActions disableSpacing>
-          <UserAvatar avatar={props.item.user.avatar} width='50px' />
+          <UserAvatar avatar={props.item.user && props.item.user.avatar} width='50px' />
           <Typography variant='body2' style={{ color: 'black', textTransform: 'capitalize' }} component='p'>
-            {props.item.user.pseudo}
+            {props.item.user && props.item.user.pseudo}
             <br />
-            {props.item.user.job.name}
+            { props.item.user && props.item.user.job.name}
           </Typography>
           <div className='grow' style={{ align: 'right' }} />
           <Typography variant='body2' color='textSecondary' component='p'>
@@ -61,7 +61,7 @@ const CasesItem = (props) => {
           </Typography>
           <ChatIcon color='primary' fontSize='default' className='pr-15' />
           <Typography variant='body2' color='textSecondary' component='p'>
-            {(isNaN(props.item.notations) ? avgNotes(props.item.notations) : 'Aucune note')}
+            { props.item.notations ? (isNaN(props.item.notations) ? avgNotes(props.item.notations) : 'Aucune note') : null }
           </Typography>
           {(isNaN(props.item.notations) ?
                   <StarIcon color='primary' fontSize='default' /> :

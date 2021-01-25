@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import {useHistory} from 'react-router-dom'
 import { makeStyles } from '@material-ui/core/styles';
 import Stepper from '@material-ui/core/Stepper';
 import Step from '@material-ui/core/Step';
@@ -20,14 +21,17 @@ import SmokingRoomsIcon from '@material-ui/icons/SmokingRooms'
 import { DropzoneArea, DropzoneDialog } from 'material-ui-dropzone';
 import LocalBarIcon from '@material-ui/icons/LocalBar'
 import { format_file, insert_image } from "../../../../../store/actions";
-
-// import config from '../../../../../config'
+import {useToasts} from 'react-toast-notifications'
 
 // import oStyle from '../../../../UI/ResponsiveDesign/AuthStyle'
-// import { UPDATE_LEVEL, UPDATE_STEPPER_POSTCASE } from '../../../../../store/actions'
+import { UPDATE_LEVEL, UPDATE_STEPPER_POSTCASE, START_LOADER, STOP_LOADER } from '../../../../../store/actions'
+import {postCase} from '../../../../../services/Cases'
+import {postPatient} from '../../../../../services/Patient'
 import MenuItem from '@material-ui/core/MenuItem'
 import InputLabel from '@material-ui/core/InputLabel'
 import Box from "@material-ui/core/Box";
+import {errorApi} from '../../../../../utils'
+
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -51,10 +55,16 @@ export default function HorizontalLinearStepper() {
     const [activeStep, setActiveStep] = React.useState(0);
     const [skipped, setSkipped] = React.useState(new Set());
     const steps = getSteps();
+    const messages = config.messages.cases
+    const history = useHistory()
 
     const [inCrement, setInCrement] = useState(1)
     const { ages, sexes } = config
     const dispatch = useDispatch()
+    const {addToast} = useToasts()
+
+    const keywords = useSelector((state) => state.home.keywords)
+
     const getUploadParams = () => {
         return { url: 'https://httpbin.org/post' }
     }
@@ -90,7 +100,32 @@ export default function HorizontalLinearStepper() {
         //   dispatch({ type: UPDATE_LEVEL, level: 'diagnostic' })
         //   dispatch({ type: UPDATE_STEPPER_POSTCASE, levelStepperPostCase: 1 })
         // }
+        
     }
+
+    const SubmitCC = async () => {
+        if (true) {
+            dispatch({type: START_LOADER})
+
+            const patient = await postPatient(values)
+
+            if (!errorApi().test(patient)) {
+                const datas = await postCase(values, patient.datas['@id'])
+
+                if (errorApi().test(datas)) {
+                    addToast(messages.error, {appearance: 'error'})
+                } else {
+                    addToast(messages.success, {appearance: 'success'})
+                    history.push('/')
+                }
+            } else {
+                addToast(messages.patientError, {appearance: 'error'})
+            }
+            dispatch({type: STOP_LOADER})
+            dispatch({type: UPDATE_LEVEL, level: ''})
+            dispatch({type: UPDATE_STEPPER_POSTCASE, levelStepperPostCase: 0})
+        }
+    }   
 
     const initValues = {
         // Require for create patient but non in figma maquette
@@ -114,32 +149,13 @@ export default function HorizontalLinearStepper() {
         intra_extra_oral_desc: '',
         symptomes: [],
 
-        // Examen complementaire
-        extra_exam_name: '',
-        extra_exam_pictures: '',
-        extra_exam_desc: '',
-        scanner_desc: '',
-        scanner_pics: [],
-        biopsy_desc: '',
-        biopsy_pics: [],
-        moulage_desc: '',
-        moulage_pics: [],
-        teleradio_desc: '',
-        teleradio_pics: [],
-
 
         // Dagnostic
         diagnostic: '',
         pathologies: [],
         medication_administered: [],
 
-        // Plan de traitement
-        step1: "",
-        step1Pics: [],
-        step2: "",
-        step2Pics: [],
-        step3: "",
-        step3Pics: [],
+       
 
         // Evolution
         evolution_pics: [],
@@ -268,6 +284,9 @@ export default function HorizontalLinearStepper() {
                 setShowDiagnostic('none');
 
                 setShowFinalisation('block');
+                break;
+            case 3:
+                SubmitCC()
                 break;
             default:
                 setShowFinalisation('none');

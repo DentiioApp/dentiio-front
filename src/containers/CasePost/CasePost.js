@@ -8,7 +8,7 @@ import { setup } from '../../services/Auth'
 import { fetchSpecialities, fetchPathologies, fetchKeywords, fetchTreatments, fetchSymptomes } from '../../services/Home'
 import { SPECS_LIST, KEYWORDS_LIST, PATHO_LIST, TREATMENTS_LIST, SYMPTOMES_LIST } from '../../store/actions'
 import Header from "../../components/App/Header/Header";
-import New from '../../components/App/Cases/PostCase/New/New'
+import New from '../../components/App/Cases/PostCase/Omnipratic/Omnipratic'
 
 const CasePost = () => {
   const home = useSelector((state) => state.home)
