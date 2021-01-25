@@ -1,4 +1,4 @@
-import { openSideBar, closeSideBar, format_file } from './CasesAction'
+import { openSideBar, closeSideBar, format_file, insert_image } from './CasesAction'
 import { fetchSpecialities } from './SpecialitiesAction'
 import { fetchTreatments } from './TreatmentsAction'
 import { fetchPathologies } from './PathologiesAction'
@@ -48,4 +48,5 @@ export {
   fetchPathologies,
   fetchCatPathologies,
   format_file,
+  insert_image,
 }

@@ -17,9 +17,9 @@ import Grid from '@material-ui/core/Grid'
 // import { makeStyles } from '@material-ui/core/styles'
 import TextField from '@material-ui/core/TextField'
 import SmokingRoomsIcon from '@material-ui/icons/SmokingRooms'
-import { DropzoneArea , DropzoneDialog} from 'material-ui-dropzone';
+import { DropzoneArea, DropzoneDialog } from 'material-ui-dropzone';
 import LocalBarIcon from '@material-ui/icons/LocalBar'
-import { format_file } from "../../../../../store/actions";
+import { format_file, insert_image } from "../../../../../store/actions";
 
 // import config from '../../../../../config'
 
@@ -43,7 +43,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 function getSteps() {
-    return ['Select campaign settings', 'Create an ad group', 'Create an ad'];
+    return ['PATIENT', 'DIAGNOSTIC', 'FINALISATION'];
 }
 
 export default function HorizontalLinearStepper() {
@@ -59,7 +59,7 @@ export default function HorizontalLinearStepper() {
         return { url: 'https://httpbin.org/post' }
     }
 
-    const {exam_pics} = useSelector((state) => state.cases) 
+    const { exam_pics } = useSelector((state) => state.cases)
 
     const handleChangeStatus = ({ meta }, status) => {
         console.log('status', status, 'meta', meta)
@@ -161,6 +161,7 @@ export default function HorizontalLinearStepper() {
     const [showPatient, setShowPatient] = useState('block')
     const [showDiagnostic, setShowDiagnostic] = useState('none')
     const [showFinalisation, setShowFinalisation] = useState('none')
+    const [showResponseValid, setShowResponseValid] = useState('none')
 
     const handleChange = prop => event => {
         if (prop === 'isASmoker' || prop === 'isDrinker') { setValues({ ...values, [prop]: event.target.checked }) } else if (prop === 'old_injury') {
@@ -207,7 +208,7 @@ export default function HorizontalLinearStepper() {
     }
 
     const isStepOptional = (step) => {
-        return step === 1;
+        return /*step === 1*/ null;
     };
 
     const isStepSkipped = (step) => {
@@ -244,9 +245,9 @@ export default function HorizontalLinearStepper() {
         });
     };
 
-    const handleReset = () => {
-        setActiveStep(0);
-    };
+    // const handleReset = () => {
+    //     setActiveStep(0);
+    // };
 
     useEffect(() => {
         switch (activeStep) {
@@ -255,8 +256,6 @@ export default function HorizontalLinearStepper() {
                 setShowDiagnostic('none');
 
                 setShowPatient('block');
-                // console.log('TEST :', document.getElementById('from_1') )
-                // document.getElementById('from_1').display = "block";
                 break;
             case 1:
                 setShowFinalisation('none');
@@ -271,9 +270,17 @@ export default function HorizontalLinearStepper() {
                 setShowFinalisation('block');
                 break;
             default:
-                return 'Unknown step';
+                setShowFinalisation('none');
+                setShowDiagnostic('none');
+                setShowPatient('none');
+
+                setShowResponseValid('block')
+
+                insert_image(exam_pics)
+
+                break;
         }
-    }, [activeStep, exam_pics])
+    }, [activeStep, exam_pics,])
 
 
     return (
@@ -299,11 +306,17 @@ export default function HorizontalLinearStepper() {
                 {activeStep === steps.length ? (
                     <div>
                         <Typography className={classes.instructions}>
-                            All steps completed - you&apos;re finished
+                            {/*  */}
+                            {/* REPONSE DE VALIDATION */}
+                            {/*  */}
+                            <Box bgcolor="background.paper" display={showResponseValid}>
+                                LE CAS A ÉTÉ ENREGISTRTÉ! 😀
+                            </Box>
+
                         </Typography>
-                        <Button onClick={handleReset} className={classes.button}>
+                        {/* <Button onClick={handleReset} className={classes.button}>
                             Reset
-                        </Button>
+                        </Button> */}
                     </div>
                 ) : (
                         <div>

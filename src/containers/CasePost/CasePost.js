@@ -123,10 +123,8 @@ const CasePost = () => {
   const [values, setValues] = useState(initValues)
   const [inCrement, setInCrement] = useState(1)
 
-  
+
   var aFiles = [];
-
-
 
   const setFiles = async (file) => {
     if (file) {
@@ -135,11 +133,9 @@ const CasePost = () => {
       fileReader1.readAsDataURL(file)
 
       fileReader1.onload = async (FileLoadEvent) => {
-        console.log('FileLoadEvent.target.result :', FileLoadEvent.target.result)
         const licenceBase64 = FileLoadEvent.target.result
         aFiles.push(licenceBase64)
       }
-      console.log('aFiles1 :', aFiles)
 
       return aFiles;
     }
@@ -180,38 +176,26 @@ const CasePost = () => {
         container.appendChild(document.createElement('br'))
         setInCrement(inCrement + 1)
       }
+      
       addFields()
+
       setValues({ ...values, [prop]: event.target.value })
     } else if (prop === 'exam_pics') {
+
       setFiles(event)
     } else {
       setValues({ ...values, [prop]: event.target.value })
     }
-    console.log('foina :', values.exam_pics)
   }
 
-  let form
-
-  // switch (level) {
-
-  //   case 'diagnostic':
-  //     form = <Diagnostic onChange={handleChange} values={values} />
-  //     break
-  //   case 'finalisation':
-  //     form = <Finalisation onChange={handleChange} values={values} />
-  //     break
-  //   default:
-  //     form = <Patient onChange={handleChange} values={values} />
-  // }
 
   if (setup()) {
     return (
       <>
         <Header />
         <ModalGuidelinesPostCase />
-        {/* <PostCaseStepper />  */}
-        {/* {form} */}
-        <New values={values}/>
+
+        <New/>
       </>
     )
   } else {

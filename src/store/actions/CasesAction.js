@@ -5,6 +5,8 @@ import {
   CLOSE_SIDE_BAR,
 } from '.'
 
+import {insertImage} from '../../services/Cases'
+
 export const caseItem = (oCase) => { return { type: CASES_LIST, iCase: oCase.id } }
 export const openSideBar = () => {
   return { type: OPEN_SIDE_BAR }
@@ -27,10 +29,16 @@ export const format_file = async (aFile, dispatch) => {
   }
 
   aFile.forEach((file, index) => {
-    Main(file).then((res_64) => {
-      dispatch({type: SET_EXAM_PICS, data: {name : file.name,  _img : res_64  }})
+    Main(file).then((resp_64) => {
+      dispatch({type: SET_EXAM_PICS, data: {name : file.name,  _img : resp_64, path: file.path, type: file.name.split('.').pop() }})
     })
   });
 
+}
+
+export const  insert_image = async(files) => {
+  files.forEach((image, step)=>{
+    insertImage(image)
+  })
 }
 

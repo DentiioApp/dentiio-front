@@ -8,7 +8,12 @@ const FAVORITES =
   process.env.REACT_APP_BACK_API_URL + process.env.REACT_APP_FAVORITES
 
 const CLINICAL_CASES_BY_USER =
-    process.env.REACT_APP_BACK_API_URL + process.env.REACT_APP_USERS
+  process.env.REACT_APP_BACK_API_URL + process.env.REACT_APP_USERS
+
+const IMAGE_CLINICAL_CASES =
+  process.env.REACT_APP_BACK_API_URL + process.env.REACT_APP_IMAGE_CLINICAL_CASES
+
+
 
 export const fetchCases = (page = 1) => {
   return axios
@@ -125,3 +130,31 @@ export const postCase = (values, patient) => {
     }))
     .catch((e) => JSON.stringify(e))
 }
+
+
+export const insertImage = async (img_datas) => {
+
+  const updateClinicCase = {
+    "imageClinicalCases": [
+      {
+        "type": img_datas.type,
+        "path": img_datas.path,
+        "clinicalCase": img_datas._img
+      }
+    ],
+  };
+
+  axios.defaults.headers.Authorization = 'Bearer ' + localStorage.getItem('authToken')
+  
+  return await axios
+    .post(IMAGE_CLINICAL_CASES, updateClinicCase)
+    .then((res) => {
+      return { valid: true, datas: res.statusText }
+    })
+    .catch(error => {
+      return ({ valid: false, datas: error.response && error.response.data["hydra:description"] })
+    })
+}
+
+
+
