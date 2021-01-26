@@ -1,5 +1,6 @@
-import axios from 'axios'
-import { favOrCase } from '../utils'
+import axios from 'axios';
+import { favOrCase } from '../utils';
+import {getUserId} from '../services/Users';
 
 const CLINICAL_CASES =
   process.env.REACT_APP_BACK_API_URL + process.env.REACT_APP_CLINICAL_CASES
@@ -131,8 +132,22 @@ export const postCase = (values, patient) => {
     .catch((e) => JSON.stringify(e))
 }
 
+export const getLastCreatedByUserId = async () => {
+  let userId = getUserId()
+  axios.defaults.headers.Authorization = 'Bearer ' + localStorage.getItem('authToken')
+ 
+  return await axios
+    .get(CLINICAL_CASES_BY_USER + '/' + userId ) //LAST IDONT KNOW HOW GET THE LAST
+    .then((res) => {
+      return { valid: true, datas: res.statusText }
+    })
+    .catch(error => {
+      return ({ valid: false, datas: error.response && error.response.data["hydra:description"] })
+    })
+}
 
 export const insertImage = async (img_datas) => {
+  let lastUserCaseId = getLastCreatedByUserId()
   //let ClinicalCasesID = 4 //TODO
   const updateClinicCase = {
     "type": 'base64', //img_datas.type.toUpperCase()
@@ -143,7 +158,7 @@ export const insertImage = async (img_datas) => {
   axios.defaults.headers.Authorization = 'Bearer ' + localStorage.getItem('authToken')
  
   return await axios
-    .post(IMAGE_CLINICAL_CASES, updateClinicCase)
+    .post(IMAGE_CLINICAL_CASES + '/' + lastUserCaseId, updateClinicCase)
     .then((res) => {
       return { valid: true, datas: res.statusText }
     })

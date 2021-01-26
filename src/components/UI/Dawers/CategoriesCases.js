@@ -55,9 +55,9 @@ export default function TemporaryDrawer () {
 
   const list = (anchor) => (
     <div
-      className={clsx(classes.list, {
-        [classes.fullList]: anchor === 'top' || anchor === 'bottom'
-      })}
+      // className={clsx(classes.list, {
+      //   [classes.fullList]: anchor === 'top' || anchor === 'bottom'
+      // })}
       role='presentation'
     >
       <div className='flex'>

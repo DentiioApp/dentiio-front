@@ -8,9 +8,11 @@ export const postPatient = (values) => {
     age: values.age,
     gender: values.gender,
     isASmoker: values.isASmoker,
-    isMedicalBackground: values.is_medical_background,
+    isDrinker: values.isDrinker,
+    allergie: values.allergies,
     problemHealth: values.problem_health,
-    inTreatment: values.in_treatment
+    inTreatment: values.treatments,
+    reasonConsult: values.reason_consultation
   }
 
   const reponses = axios
