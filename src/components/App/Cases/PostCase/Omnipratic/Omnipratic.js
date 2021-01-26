@@ -5,6 +5,7 @@ import Stepper from '@material-ui/core/Stepper';
 import Step from '@material-ui/core/Step';
 import StepLabel from '@material-ui/core/StepLabel';
 import config from '../../../../../config'
+import axios from 'axios';
 // import Button from '@material-ui/core/Button';
 // import Typography from '@material-ui/core/Typography';
 // import React, { useState } from 'react'
@@ -20,7 +21,7 @@ import TextField from '@material-ui/core/TextField'
 import SmokingRoomsIcon from '@material-ui/icons/SmokingRooms'
 import { DropzoneArea, DropzoneDialog } from 'material-ui-dropzone';
 import LocalBarIcon from '@material-ui/icons/LocalBar'
-import { format_file, post_images } from "../../../../../store/actions";
+import { format_file/*, post_images*/ } from "../../../../../store/actions";
 import { useToasts } from 'react-toast-notifications'
 
 // import oStyle from '../../../../UI/ResponsiveDesign/AuthStyle'
@@ -100,22 +101,53 @@ export default function HorizontalLinearStepper() {
 
     }
 
+    const IMAGE_CLINICAL_CASES =
+        process.env.REACT_APP_BACK_API_URL + process.env.REACT_APP_IMAGE_CLINICAL_CASES
+
+
+
     const SubmitCC = async () => {
         if (true) {
             dispatch({ type: START_LOADER })
 
             const patient = await postPatient(values)
-            
+
             if (!errorApi().test(patient)) {
                 const createdCaseOmni = await postCase(values, patient.datas['@id'])
+                let incre_index_img = 0;
                 if (createdCaseOmni.datas['@id'] !== undefined) {
-                    const createdImgCaseOmni = await post_images(exam_pics, createdCaseOmni.datas['@id'])
 
-                    if(createdImgCaseOmni.datas['@id']!== undefined) {
-                        addToast('error ajout images clinical', { appearance: 'error' })
-                    } 
+                    setInterval(() => {
+
+                        if (incre_index_img < exam_pics.length) {
+
+                            const updateClinicCase = {
+                                "type": 'base64', //img_datas.type.toUpperCase()
+                                "ClinicalCaseOmnipratique": createdCaseOmni.datas['@id'],
+                                "path": exam_pics[incre_index_img].path,
+                                "image64": exam_pics[incre_index_img]._img
+                            }
+
+                            axios
+                                .post(IMAGE_CLINICAL_CASES, updateClinicCase)
+                                .then((res) => {
+                                    console.log('RESPONSE API  :', res)
+                                    return { message: 'OK', datas: res.res.data }
+                                })
+                                .catch(error => {
+                                    console.log('error.response  :', error.response)
+                                    return ({ valid: false, datas: error.response && error.response.data["hydra:description"] })
+                                });
+
+                                incre_index_img += 1;
+                        }
+
+                    }, 2000)
+                    // if(createdImgCaseOmni.datas['@id']!== undefined) {
+                    //     addToast('error ajout images clinical', { appearance: 'error' })
+                    // } 
                 }
-                
+
                 if (errorApi().test(createdCaseOmni)) {
                     addToast(messages.error, { appearance: 'error' })
                 } else {

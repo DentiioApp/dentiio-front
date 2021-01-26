@@ -36,10 +36,9 @@ export const format_file = async (aFile, dispatch) => {
 
 }
 
-export const post_images = async(files, id_clinical_omni) => {
-  console.log('post_images :', files,'id_clinical_omni' ,  id_clinical_omni)
-  files.forEach((image, step)=>{
-    insertImage(image, id_clinical_omni)
-  })
-}
+// export const post_images = async(files, id_clinical_omni) => {
+//   files.forEach((image, step)=>{
+    
+//   })
+// }
 

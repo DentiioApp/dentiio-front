@@ -143,7 +143,6 @@ export const insertImage = async (img_datas, id_clinical_omni) => {
   }
   
   axios.defaults.headers.Authorization = 'Bearer ' + localStorage.getItem('authToken')
-  console.log('IMAGE_CLINICAL_CASES :', IMAGE_CLINICAL_CASES)
   return await axios
     .post(IMAGE_CLINICAL_CASES , updateClinicCase)
     .then((res) => {
