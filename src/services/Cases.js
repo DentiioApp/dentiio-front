@@ -137,7 +137,7 @@ export const getLastCreatedByUserId = async () => {
   axios.defaults.headers.Authorization = 'Bearer ' + localStorage.getItem('authToken')
  
   return await axios
-    .get(CLINICAL_CASES_BY_USER + '/' + userId ) //LAST IDONT KNOW HOW GET THE LAST
+    .get(CLINICAL_CASES_BY_USER + '/' + userId +'/offers?order[name]=desc' ) //LAST IDONT KNOW HOW GET THE LAST
     .then((res) => {
       return { valid: true, datas: res.statusText }
     })

@@ -36,7 +36,7 @@ export const format_file = async (aFile, dispatch) => {
 
 }
 
-export const  insert_image = async(files) => {
+export const  post_images = async(files) => {
   files.forEach((image, step)=>{
     insertImage(image)
   })

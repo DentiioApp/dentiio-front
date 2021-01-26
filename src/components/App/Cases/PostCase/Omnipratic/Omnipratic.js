@@ -20,7 +20,7 @@ import TextField from '@material-ui/core/TextField'
 import SmokingRoomsIcon from '@material-ui/icons/SmokingRooms'
 import { DropzoneArea, DropzoneDialog } from 'material-ui-dropzone';
 import LocalBarIcon from '@material-ui/icons/LocalBar'
-import { format_file, insert_image } from "../../../../../store/actions";
+import { format_file, post_images } from "../../../../../store/actions";
 import { useToasts } from 'react-toast-notifications'
 
 // import oStyle from '../../../../UI/ResponsiveDesign/AuthStyle'
@@ -31,7 +31,6 @@ import MenuItem from '@material-ui/core/MenuItem'
 import InputLabel from '@material-ui/core/InputLabel'
 import Box from "@material-ui/core/Box";
 import { errorApi } from '../../../../../utils'
-import ImageEditor from '@toast-ui/react-image-editor'
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -106,7 +105,7 @@ export default function HorizontalLinearStepper() {
             dispatch({ type: START_LOADER })
 
             const patient = await postPatient(values)
-
+            console.log('patient :', patient)
             if (!errorApi().test(patient)) {
                 const datas = await postCase(values, patient.datas['@id'])
 
@@ -119,6 +118,10 @@ export default function HorizontalLinearStepper() {
             } else {
                 addToast(messages.patientError, { appearance: 'error' })
             }
+
+            //ENVOIE LES IMAGES AU BACK
+            //post_images(exam_pics)
+
             dispatch({ type: STOP_LOADER })
             dispatch({ type: UPDATE_LEVEL, level: '' })
             dispatch({ type: UPDATE_STEPPER_POSTCASE, levelStepperPostCase: 0 })
@@ -136,6 +139,7 @@ export default function HorizontalLinearStepper() {
         is_medical_background: true,
         treatments: '',
         problemHealth: true,
+        old_injury: '',
         //--
 
         //Omnipratic
@@ -152,21 +156,6 @@ export default function HorizontalLinearStepper() {
 
         //Omnipratic IMG
         exam_pics: [{}],
-
-
-
-        medical_background: [],
-        current_treatments: [],
-        allergies: '',
-        reason_consultation: '',
-
-        pictures_clinic_exam: [],
-        intra_extra_oral_desc: '',
-        diagnostic: '',
-        pathologies: [],
-        medication_administered: [],
-
-        evolution_pics: [],
     }
 
     const [values, setValues] = useState(initValues)
@@ -346,7 +335,6 @@ export default function HorizontalLinearStepper() {
 
                             LE CAS A ÉTÉ ENREGISTRTÉ! <span role="img" aria-labelledby={'toto'}>😀</span>
                         </Box>
-                        <ImageEditor />
                         {/* </Typography> */}
                         {/* <Button onClick={handleReset} className={classes.button}>
                             Reset
@@ -461,13 +449,13 @@ export default function HorizontalLinearStepper() {
                                                     autoFocus
                                                     required
                                                     fullWidth
-                                                    name='old_injury'
+                                                    name='problem_health'
                                                     type='textarea'
-                                                    id='old_injury'
-                                                    value={values.old_injury}
+                                                    id='problem_health'
+                                                    value={values.problem_health}
                                                     autoComplete='current-old_injury'
                                                     onChange={handleChange('problem_health')}
-                                                    error={errors.errProblem_health}
+                                                    // error={/*errors.old_injury*/}
                                                 />
 
                                                 <TextField
