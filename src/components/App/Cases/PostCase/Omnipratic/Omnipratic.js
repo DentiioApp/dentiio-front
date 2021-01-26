@@ -64,7 +64,7 @@ export default function HorizontalLinearStepper() {
     const { addToast } = useToasts()
 
     const getUploadParams = () => {
-        return { url: 'https://httpbin.org/post' }
+        return { url: process.env.REACT_APP_UPLOADS_PATH } // REACT_APP_UPLOADS_PATH  TO CREATE
     }
 
     const { exam_pics } = useSelector((state) => state.cases)
@@ -108,11 +108,13 @@ export default function HorizontalLinearStepper() {
 
             if (!errorApi().test(patient)) {
                 const createdCaseOmni = await postCase(values, patient.datas['@id'])
+
                 if (createdCaseOmni.datas['@id'] !== undefined) {
                     let createdImgCaseOmni = post_images(exam_pics, createdCaseOmni.datas['@id'])
-                    // if(createdImgCaseOmni) {
-                    //     addToast('error ajout images clinical', { appearance: 'error' })
-                    // } 
+                    
+                    if(createdImgCaseOmni) {
+                        addToast('error ajout images clinical', { appearance: 'error' })
+                    } 
                 }
 
                 if (errorApi().test(createdCaseOmni)) {
@@ -296,17 +298,18 @@ export default function HorizontalLinearStepper() {
                 break;
             case 3:
                 SubmitCC()
-                break;
-            default:
                 setShowFinalisation('none');
                 setShowDiagnostic('none');
                 setShowPatient('none');
 
                 setShowResponseValid('block')
                 break;
+            default:
+                
+                break;
         }
     }, [activeStep, exam_pics])
-
+    console.log('exam_pics :', exam_pics)
 
     return (
         <div className={classes.root}>

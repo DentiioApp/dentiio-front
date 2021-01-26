@@ -39,10 +39,13 @@ export const format_file = async (aFile, dispatch) => {
 export const post_images = async (files, id_clinical_omni) => {
   let incre_index_img = 0;
   let stop = false;
+  let IS_PRINCIPAL = false;
 
   let intervalID = setInterval(() => {
     if (incre_index_img < files.length) {
-      insertImage(files[incre_index_img], id_clinical_omni)
+      IS_PRINCIPAL = incre_index_img === 0 ? true : false;
+
+      insertImage(files[incre_index_img], id_clinical_omni, IS_PRINCIPAL)
       incre_index_img += 1;
     } else {
       stop = true;
