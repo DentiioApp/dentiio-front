@@ -5,7 +5,7 @@ import Stepper from '@material-ui/core/Stepper';
 import Step from '@material-ui/core/Step';
 import StepLabel from '@material-ui/core/StepLabel';
 import config from '../../../../../config'
-import axios from 'axios';
+
 // import Button from '@material-ui/core/Button';
 // import Typography from '@material-ui/core/Typography';
 // import React, { useState } from 'react'
@@ -19,7 +19,7 @@ import Grid from '@material-ui/core/Grid'
 // import { makeStyles } from '@material-ui/core/styles'
 import TextField from '@material-ui/core/TextField'
 import SmokingRoomsIcon from '@material-ui/icons/SmokingRooms'
-import { DropzoneArea, DropzoneDialog } from 'material-ui-dropzone';
+import { DropzoneArea/*, DropzoneDialog */} from 'material-ui-dropzone';
 import LocalBarIcon from '@material-ui/icons/LocalBar'
 import { format_file, post_images } from "../../../../../store/actions";
 import { useToasts } from 'react-toast-notifications'
@@ -79,42 +79,35 @@ export default function HorizontalLinearStepper() {
     }
     const [errors, setErrors] = useState(initVals)
 
-    const catchSubmit = async (event) => {
-        event.preventDefault()
-        // let isValid = true
-        // if (values.age === '') {
-        //   setErrors({ ...errors, errAge: true });
-        //   isValid = false
-        // }
-        // if (values.gender === '') {
-        //   setErrors({ ...errors, errGender: true });
-        //   isValid = false
-        // }
-        // if (values.reason_consultation === '') {
-        //   setErrors({ ...errors, errReason_consultation: true });
-        //   isValid = false
-        // }
-        // if (isValid) {
-        //   dispatch({ type: UPDATE_LEVEL, level: 'diagnostic' })
-        //   dispatch({ type: UPDATE_STEPPER_POSTCASE, levelStepperPostCase: 1 })
-        // }
+    const catchErrors = async (event) => {
+        if(event) event.preventDefault()
 
+        let isValid = true
+        if (values.age === '') {
+          setErrors({ ...errors, errAge: true });
+          isValid = false
+        }
+        if (values.gender === '') {
+          setErrors({ ...errors, errGender: true });
+          isValid = false
+        }
+        if (values.reason_consultation === '') {
+          setErrors({ ...errors, errReason_consultation: true });
+          isValid = false
+        }
+        
+        return isValid
     }
 
-    const IMAGE_CLINICAL_CASES =
-        process.env.REACT_APP_BACK_API_URL + process.env.REACT_APP_IMAGE_CLINICAL_CASES
-
-
-
     const SubmitCC = async () => {
-        if (true) {
+        
+        // if (catchErrors()) {
             dispatch({ type: START_LOADER })
 
             const patient = await postPatient(values)
 
             if (!errorApi().test(patient)) {
                 const createdCaseOmni = await postCase(values, patient.datas['@id'])
-                let incre_index_img = 0;
                 if (createdCaseOmni.datas['@id'] !== undefined) {
                     let createdImgCaseOmni = post_images(exam_pics, createdCaseOmni.datas['@id'])
                     // if(createdImgCaseOmni) {
@@ -126,8 +119,7 @@ export default function HorizontalLinearStepper() {
                     addToast(messages.error, { appearance: 'error' })
                 } else {
                     addToast(messages.success, { appearance: 'success' })
-
-                    //history.push('/')
+                    history.push('/')
                 }
             } else {
                 addToast(messages.patientError, { appearance: 'error' })
@@ -139,7 +131,7 @@ export default function HorizontalLinearStepper() {
             dispatch({ type: STOP_LOADER })
             dispatch({ type: UPDATE_LEVEL, level: '' })
             dispatch({ type: UPDATE_STEPPER_POSTCASE, levelStepperPostCase: 0 })
-        }
+        // }
     }
 
     const initValues = {
@@ -282,7 +274,7 @@ export default function HorizontalLinearStepper() {
     //     setActiveStep(0);
     // };
 
-    useEffect(() => {
+    useEffect(( ) => {
         switch (activeStep) {
             case 0:
                 setShowFinalisation('none');
@@ -311,12 +303,9 @@ export default function HorizontalLinearStepper() {
                 setShowPatient('none');
 
                 setShowResponseValid('block')
-
-
-
                 break;
         }
-    }, [activeStep, exam_pics,])
+    }, [activeStep, exam_pics])
 
 
     return (
@@ -380,7 +369,7 @@ export default function HorizontalLinearStepper() {
                                                     id='reason_consultation'
                                                     value={values.reason_consultation}
                                                     autoComplete='current-reason_consultation'
-                                                    onKeyDown={(e) => e.keyCode !== 13 ? null : catchSubmit(e)}
+                                                    onKeyDown={(e) => e.keyCode !== 13 ? null : catchErrors(e)}
                                                     onChange={handleChange('reason_consultation')}
                                                     error={errors.errReason_consultation}
                                                 />

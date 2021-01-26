@@ -1,6 +1,5 @@
 import axios from 'axios';
 import { favOrCase } from '../utils';
-import {getUserId} from '../services/Users';
 
 const CLINICAL_CASES =
   process.env.REACT_APP_BACK_API_URL + process.env.REACT_APP_CLINICAL_CASES
@@ -142,7 +141,8 @@ export const insertImage = async (img_datas, id_clinical_omni) => {
     "image64" : img_datas._img
   }
   
-  axios.defaults.headers.Authorization = 'Bearer ' + localStorage.getItem('authToken')
+  //axios.defaults.headers.Authorization = 'Bearer ' + localStorage.getItem('authToken')
+
   return await axios
     .post(IMAGE_CLINICAL_CASES , updateClinicCase)
     .then((res) => {

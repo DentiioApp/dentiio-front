@@ -41,7 +41,6 @@ export const post_images = async (files, id_clinical_omni) => {
   let stop = false;
 
   let intervalID = setInterval(() => {
-    console.log('TEST :', )
     if (incre_index_img < files.length) {
       insertImage(files[incre_index_img], id_clinical_omni)
       incre_index_img += 1;
@@ -52,8 +51,5 @@ export const post_images = async (files, id_clinical_omni) => {
     if (stop) clearInterval(intervalID);
 
   }, 2000)
-
-
-
 }
 

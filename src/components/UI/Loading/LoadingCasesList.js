@@ -9,9 +9,9 @@ const LoadingCasesList = () => {
 
   return (
     <>
-      {Array.from(Array(6)).map(() => {
+      {Array.from(Array(6)).map((i, index) => {
         return (
-            <Card>
+            <Card key={index}>
               <Skeleton  animation="wave" variant="rect" width={345} height={190} />
               <CardContent>
                 <Typography component="div" variant={"h3"}>

@@ -19,7 +19,6 @@ import {
   Route
 } from 'react-router-dom'
 import CasePost from './containers/CasePost/CasePost'
-import Omnipratic from './components/App/Cases/PostCase/Omnipratic/Omnipratic'
 import QuestionPost from './containers/QuestionPost/QuestionPost'
 import UserAvatar from "./containers/UserAvatar/UserAvatar";
 import EditProfile from "./containers/Profile/EditProfile";
