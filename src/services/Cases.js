@@ -132,13 +132,14 @@ export const postCase = (values, patient) => {
 }
 
 
-export const insertImage = async (img_datas, id_clinical_omni) => {
+export const insertImage = async (img_datas, id_clinical_omni, is_principal) => {
 
   const updateClinicCase = {
     "type": 'base64', //img_datas.type.toUpperCase()
-    "ClinicalCaseOmnipratique": id_clinical_omni,
+    "clinicalsCaseOmnipratique": id_clinical_omni,
     "path": img_datas.path,
-    "image64" : img_datas._img
+    "image64" : img_datas._img,
+    "isPrincipal": is_principal
   }
   
   //axios.defaults.headers.Authorization = 'Bearer ' + localStorage.getItem('authToken')
