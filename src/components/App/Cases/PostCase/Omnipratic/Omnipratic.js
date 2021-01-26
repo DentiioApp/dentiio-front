@@ -105,15 +105,23 @@ export default function HorizontalLinearStepper() {
             dispatch({ type: START_LOADER })
 
             const patient = await postPatient(values)
-            console.log('patient :', patient)
+            
             if (!errorApi().test(patient)) {
-                const datas = await postCase(values, patient.datas['@id'])
+                const createdCaseOmni = await postCase(values, patient.datas['@id'])
+                if (createdCaseOmni.datas['@id'] !== undefined) {
+                    const createdImgCaseOmni = await post_images(exam_pics, createdCaseOmni.datas['@id'])
 
-                if (errorApi().test(datas)) {
+                    if(createdImgCaseOmni.datas['@id']!== undefined) {
+                        addToast('error ajout images clinical', { appearance: 'error' })
+                    } 
+                }
+                
+                if (errorApi().test(createdCaseOmni)) {
                     addToast(messages.error, { appearance: 'error' })
                 } else {
                     addToast(messages.success, { appearance: 'success' })
-                    history.push('/')
+
+                    //history.push('/')
                 }
             } else {
                 addToast(messages.patientError, { appearance: 'error' })
@@ -298,7 +306,7 @@ export default function HorizontalLinearStepper() {
 
                 setShowResponseValid('block')
 
-                
+
 
                 break;
         }
@@ -455,7 +463,7 @@ export default function HorizontalLinearStepper() {
                                                     value={values.problem_health}
                                                     autoComplete='current-old_injury'
                                                     onChange={handleChange('problem_health')}
-                                                    // error={/*errors.old_injury*/}
+                                                // error={/*errors.old_injury*/}
                                                 />
 
                                                 <TextField
@@ -629,7 +637,7 @@ export default function HorizontalLinearStepper() {
                                 <Typography component='h1' variant='h5'>
                                     <center>Ajouter votre cas clinique</center>
                                 </Typography>
-                                
+
                                 <form className={classes.form} noValidate>
                                     <Grid container component='main'>
                                         <Grid item xs={12}>
