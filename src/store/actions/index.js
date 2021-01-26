@@ -48,5 +48,5 @@ export {
   fetchPathologies,
   fetchCatPathologies,
   format_file,
-  // post_images,
+  post_images,
 }

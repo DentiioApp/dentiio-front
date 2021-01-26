@@ -21,7 +21,7 @@ import TextField from '@material-ui/core/TextField'
 import SmokingRoomsIcon from '@material-ui/icons/SmokingRooms'
 import { DropzoneArea, DropzoneDialog } from 'material-ui-dropzone';
 import LocalBarIcon from '@material-ui/icons/LocalBar'
-import { format_file/*, post_images*/ } from "../../../../../store/actions";
+import { format_file, post_images } from "../../../../../store/actions";
 import { useToasts } from 'react-toast-notifications'
 
 // import oStyle from '../../../../UI/ResponsiveDesign/AuthStyle'
@@ -116,34 +116,8 @@ export default function HorizontalLinearStepper() {
                 const createdCaseOmni = await postCase(values, patient.datas['@id'])
                 let incre_index_img = 0;
                 if (createdCaseOmni.datas['@id'] !== undefined) {
-
-                    setInterval(() => {
-
-                        if (incre_index_img < exam_pics.length) {
-
-                            const updateClinicCase = {
-                                "type": 'base64', //img_datas.type.toUpperCase()
-                                "ClinicalCaseOmnipratique": createdCaseOmni.datas['@id'],
-                                "path": exam_pics[incre_index_img].path,
-                                "image64": exam_pics[incre_index_img]._img
-                            }
-
-                            axios
-                                .post(IMAGE_CLINICAL_CASES, updateClinicCase)
-                                .then((res) => {
-                                    console.log('RESPONSE API  :', res)
-                                    return { message: 'OK', datas: res.res.data }
-                                })
-                                .catch(error => {
-                                    console.log('error.response  :', error.response)
-                                    return ({ valid: false, datas: error.response && error.response.data["hydra:description"] })
-                                });
-
-                                incre_index_img += 1;
-                        }
-
-                    }, 2000)
-                    // if(createdImgCaseOmni.datas['@id']!== undefined) {
+                    let createdImgCaseOmni = post_images(exam_pics, createdCaseOmni.datas['@id'])
+                    // if(createdImgCaseOmni) {
                     //     addToast('error ajout images clinical', { appearance: 'error' })
                     // } 
                 }
