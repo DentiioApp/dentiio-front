@@ -294,6 +294,13 @@ export default function HorizontalLinearStepper() {
         setShowDiagnostic('none');
 
         setShowFinalisation('block');
+       
+
+        document.onclick = function(e){
+  
+          console.log('cursorX :', e.pageX, 'cursorY,', e.pageY)
+        }
+
         break;
       case 3:
         SubmitCC()
@@ -662,12 +669,12 @@ export default function HorizontalLinearStepper() {
                 </form>
                 {
                   /** PERMET DE COLLER DES IMAGES LES UNE SUR LES AUTRES A DES COORDONNÉE ET GÉNÉREER LE B64  */
-                  mergeImages([
-                    { src: 'http://localhost:3000/logo64.png', x: 0, y: 0 },
-                    { src: 'http://localhost:3000/logo192.png', x: 32, y: 0 },
-                    { src: 'http://localhost:3000/logo512.png', x: 16, y: 0 }
-                  ])
-                    .then(b64 => console.log('TESTb64 :', b64))
+                  // mergeImages([
+                  //   { src: 'http://localhost:3000/logo64.png', x: 0, y: 0 },
+                  //   { src: 'http://localhost:3000/logo192.png', x: 32, y: 0 },
+                  //   { src: 'http://localhost:3000/logo512.png', x: 16, y: 0 }
+                  // ])
+                  //   .then(b64 => console.log('TESTb64 :', b64))
                 }
 
               </Box>
