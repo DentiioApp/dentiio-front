@@ -49,11 +49,11 @@ const CasesItem = (props) => {
         </CardContent>
         <br />
         <CardActions disableSpacing>
-          <UserAvatar avatar={props.item.User && props.item.User.avatar} width='50px' />
+          <UserAvatar avatar={props?.item?.User?.avatar} width='50px' />
           <Typography variant='body2' style={{ color: 'black', textTransform: 'capitalize' }} component='p'>
-            {props.item.User && props.item.User.pseudo}
+            { props?.item?.User?.pseudo }
             <br />
-            { props.item.User && props.item.User.job.name}
+            {  props?.item?.User?.job?.name}
           </Typography>
           <div className='grow' style={{ align: 'right' }} />
           <Typography variant='body2' color='textSecondary' component='p'>
