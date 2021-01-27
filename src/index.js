@@ -19,7 +19,6 @@ import {
   Route
 } from 'react-router-dom'
 import CasePost from './containers/CasePost/CasePost'
-import Omnipratic from './components/App/Cases/PostCase/Omnipratic/Omnipratic'
 import QuestionPost from './containers/QuestionPost/QuestionPost'
 import UserAvatar from "./containers/UserAvatar/UserAvatar";
 import EditProfile from "./containers/Profile/EditProfile";
@@ -43,7 +42,7 @@ ReactDOM.render(
               <Route exact path='/profile' component={Profile} />
               <Route exact path='/profile/edit' component={EditProfile} />
               <Route exact path='/post-question' component={QuestionPost} />
-              <Route exact path='/post-case' component={Omnipratic} />
+              <Route exact path='/post-case' component={CasePost} />
               <Route exact path='/avatar' component={UserAvatar} />
               <Route exact path='/cgu' component={CGU} />
             </Switch>

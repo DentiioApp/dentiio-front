@@ -1,6 +1,5 @@
 import axios from 'axios';
 import { favOrCase } from '../utils';
-import {getUserId} from '../services/Users';
 
 const CLINICAL_CASES =
   process.env.REACT_APP_BACK_API_URL + process.env.REACT_APP_CLINICAL_CASES
@@ -109,7 +108,7 @@ export const postCase = (values, patient) => {
 
     isEnabled: true,
 
-    patient: { patient },
+    patient: patient.patient,
     symptome: values.symptomes,
     treatment: values.treatment,
     pathologie: values.pathologie,
@@ -127,40 +126,28 @@ export const postCase = (values, patient) => {
     .post(CLINICAL_CASES, item)
     .then((res) => ({
       message: 'OK',
-      datas: res.data['hydra:member']
+      datas: res.data
     }))
     .catch((e) => JSON.stringify(e))
 }
 
-export const getLastCreatedByUserId = async () => {
-  let userId = getUserId()
-  axios.defaults.headers.Authorization = 'Bearer ' + localStorage.getItem('authToken')
- 
-  return await axios
-    .get(CLINICAL_CASES_BY_USER + '/' + userId ) //LAST IDONT KNOW HOW GET THE LAST
-    .then((res) => {
-      return { valid: true, datas: res.statusText }
-    })
-    .catch(error => {
-      return ({ valid: false, datas: error.response && error.response.data["hydra:description"] })
-    })
-}
 
-export const insertImage = async (img_datas) => {
-  let lastUserCaseId = getLastCreatedByUserId()
-  //let ClinicalCasesID = 4 //TODO
+export const insertImage = async (img_datas, id_clinical_omni, is_principal) => {
+
   const updateClinicCase = {
     "type": 'base64', //img_datas.type.toUpperCase()
+    "clinicalsCaseOmnipratique": id_clinical_omni,
     "path": img_datas.path,
-    "image64" : img_datas._img
+    "image64" : img_datas._img,
+    "isPrincipal": is_principal
   }
   
-  axios.defaults.headers.Authorization = 'Bearer ' + localStorage.getItem('authToken')
- 
+  //axios.defaults.headers.Authorization = 'Bearer ' + localStorage.getItem('authToken')
+
   return await axios
-    .post(IMAGE_CLINICAL_CASES + '/' + lastUserCaseId, updateClinicCase)
+    .post(IMAGE_CLINICAL_CASES , updateClinicCase)
     .then((res) => {
-      return { valid: true, datas: res.statusText }
+      return { message: 'OK', datas: res.res.data }
     })
     .catch(error => {
       return ({ valid: false, datas: error.response && error.response.data["hydra:description"] })

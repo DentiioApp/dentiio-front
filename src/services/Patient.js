@@ -12,7 +12,7 @@ export const postPatient = (values) => {
     allergie: values.allergies,
     problemHealth: values.problem_health,
     inTreatment: values.treatments,
-    reasonConsult: values.reason_consultation
+    reasonConsult: values.reason_consultation,
   }
 
   const reponses = axios

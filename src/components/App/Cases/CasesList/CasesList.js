@@ -66,7 +66,7 @@ const CasesList = () => {
             getCases()
         }
         if (favorites && favorites.length < 1) {
-            initUserFav()
+            //initUserFav()
         }
     }, [userId, dispatch, cases, values, favorites])
 
@@ -83,7 +83,7 @@ const CasesList = () => {
                 <Paginator pages={pages} onChange={handleChange}
                            current={values.paginator}/> {cases.length > 0 ? '[page ' + values.paginator + ']' : ''}
                 <div className={classes.root}>
-                    {(cases.length < 1) ? (<LoadingCasesList/>) : ""}
+                    {(cases.length < 1) ? (<LoadingCasesList key={Date.now}/>) : ""}
                     {areLoaded && cases.map((oCase, index) => {
                         var isFavorite = false
                         if (favorites.length > 0) {

@@ -5,7 +5,7 @@ import {
   CLOSE_SIDE_BAR,
 } from '.'
 
-import {insertImage} from '../../services/Cases'
+import { insertImage } from '../../services/Cases'
 
 export const caseItem = (oCase) => { return { type: CASES_LIST, iCase: oCase.id } }
 export const openSideBar = () => {
@@ -30,15 +30,29 @@ export const format_file = async (aFile, dispatch) => {
 
   aFile.forEach((file, index) => {
     Main(file).then((resp_64) => {
-      dispatch({type: SET_EXAM_PICS, data: {name : file.name,  _img : resp_64, path: file.path, type: file.name.split('.').pop() }})
+      dispatch({ type: SET_EXAM_PICS, data: { name: file.name, _img: resp_64, path: file.path, type: file.name.split('.').pop() } })
     })
   });
 
 }
 
-export const  insert_image = async(files) => {
-  files.forEach((image, step)=>{
-    insertImage(image)
-  })
+export const post_images = async (files, id_clinical_omni) => {
+  let incre_index_img = 0;
+  let stop = false;
+  let IS_PRINCIPAL = false;
+
+  let intervalID = setInterval(() => {
+    if (incre_index_img < files.length) {
+      IS_PRINCIPAL = incre_index_img === 0 ? true : false;
+
+      insertImage(files[incre_index_img], id_clinical_omni, IS_PRINCIPAL)
+      incre_index_img += 1;
+    } else {
+      stop = true;
+    }
+
+    if (stop) clearInterval(intervalID);
+
+  }, 2000)
 }
 
