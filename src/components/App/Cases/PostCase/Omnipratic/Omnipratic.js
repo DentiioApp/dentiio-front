@@ -4,12 +4,14 @@ import { makeStyles } from '@material-ui/core/styles';
 import Stepper from '@material-ui/core/Stepper';
 import Step from '@material-ui/core/Step';
 import StepLabel from '@material-ui/core/StepLabel';
-import config from '../../../../../config'
-
+import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
+import ChevronRightIcon from '@material-ui/icons/ChevronRight';
+import config from '../../../../../config';
+import { createCanvas, loadImage } from 'canvas';
 // import Button from '@material-ui/core/Button';
 // import Typography from '@material-ui/core/Typography';
 // import React, { useState } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux';
 import {
   Switch,
   Typography,
@@ -63,6 +65,9 @@ export default function HorizontalLinearStepper() {
   const { ages, sexes } = config
   const dispatch = useDispatch()
   const { addToast } = useToasts()
+
+  const canvas = createCanvas(200, 200)
+  const ctx = canvas.getContext('2d')
 
   const getUploadParams = () => {
     return { url: 'https://httpbin.org/post' }
@@ -135,6 +140,49 @@ export default function HorizontalLinearStepper() {
     // }
   }
 
+  const [canvasState, setCanvasState] = useState('')
+  const [step_slide, setStep_slide] = useState(0)
+
+
+  // document.onclick = function (e) {
+
+  //   console.log('cursorX :', e.pageX, 'cursorY,', e.pageY)
+  // }
+
+  useEffect(() => {
+    // Write "Awesome!"
+    // ctx.font = '30px Impact'
+    // ctx.rotate(0.1)
+    // ctx.fillText('Awesome!', 50, 100)
+
+    // // Draw line under text
+    // var text = ctx.measureText('Awesome!')
+    // ctx.strokeStyle = 'rgba(0,0,0,0.5)'
+    // ctx.beginPath()
+    // ctx.lineTo(50, 102)
+    // ctx.lineTo(50 + text.width, 102)
+    // ctx.stroke()
+
+    var img = new Image();
+
+    img.src = exam_pics[step_slide]._img;
+    console.log('TEimgST :', img)
+    img.onload = function () {
+      ctx.drawImage(img, 50, 0, 70, 70);
+    };
+
+    //img.crossOrigin = 'localhost';
+    // setCanvasState(canvas)
+
+    // {/* // Draw cat with lime helmet */ }
+    // loadImage('http://localhost:3000/logo64.png').then((image) => {
+    //   ctx.drawImage(image, 50, 0, 70, 70)
+    //   setCanvasState(canvas)
+    // })
+
+  }, [canvasState, step_slide, canvas]);
+
+
   const initValues = {
     // Require for create patient but non in figma maquette 
 
@@ -170,6 +218,7 @@ export default function HorizontalLinearStepper() {
   const [showDiagnostic, setShowDiagnostic] = useState('none')
   const [showFinalisation, setShowFinalisation] = useState('none')
   const [showResponseValid, setShowResponseValid] = useState('none')
+
 
   const handleChange = prop => event => {
     switch (prop) {
@@ -294,6 +343,14 @@ export default function HorizontalLinearStepper() {
         setShowDiagnostic('none');
 
         setShowFinalisation('block');
+
+        const HandleEditImg = prop => (evt) => {
+          evt === 'click'
+          document.onclick = function (e) {
+          console.log('cursorX :', e.pageX, 'cursorY,', e.pageY)
+          }
+        } 
+
         break;
       case 3:
         SubmitCC()
@@ -630,6 +687,13 @@ export default function HorizontalLinearStepper() {
               {/*  */}
 
               <Box display={showFinalisation}>
+                <Box>
+                 <ChevronLeftIcon /> 
+                  {<img src={`${canvas && canvas.toDataURL()}`} />}
+                 <ChevronRightIcon /> 
+                  
+                </Box>
+
                 <Typography component='h1' variant='h5'>
                   <center>Ajouter votre cas clinique</center>
                 </Typography>
@@ -640,7 +704,7 @@ export default function HorizontalLinearStepper() {
                       <div className={classes.paper}>
                         <Typography component='h1' variant='h5'>
                           Titre du cas
-                                                </Typography>
+                        </Typography>
                         <TextField
                           variant='outlined'
                           margin='normal'
@@ -660,14 +724,15 @@ export default function HorizontalLinearStepper() {
                     </Grid>
                   </Grid>
                 </form>
+
                 {
                   /** PERMET DE COLLER DES IMAGES LES UNE SUR LES AUTRES A DES COORDONNÉE ET GÉNÉREER LE B64  */
-                  mergeImages([
-                    { src: 'http://localhost:3000/logo64.png', x: 0, y: 0 },
-                    { src: 'http://localhost:3000/logo192.png', x: 32, y: 0 },
-                    { src: 'http://localhost:3000/logo512.png', x: 16, y: 0 }
-                  ])
-                    .then(b64 => console.log('TESTb64 :', b64))
+                  // mergeImages([
+                  //   { src: 'http://localhost:3000/logo64.png', x: 0, y: 0 },
+                  //   { src: 'http://localhost:3000/logo192.png', x: 32, y: 0 },
+                  //   { src: 'http://localhost:3000/logo512.png', x: 16, y: 0 }
+                  // ])
+                  //   .then(b64 => console.log('TESTb64 :', b64))
                 }
 
               </Box>
