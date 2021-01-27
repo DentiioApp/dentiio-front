@@ -62,7 +62,7 @@ export const Header = (props) => {
       >
         <Toolbar>
           <TitleHeader style={{ align: 'center' }} />
-          <RightMenuIcon target={props.target} avatar={currents_user.avatar} />
+          <RightMenuIcon target={props.target} avatar={currents_user?.avatar} />
         </Toolbar>
       </AppBar>
 
@@ -93,7 +93,7 @@ export const Header = (props) => {
           </Link>
           <div className={classes.grow} style={{ align: 'right' }} />
           <Link to='/profile'>
-            <UserAvatar width={'40px'} avatar={currents_user.avatar} />
+            <UserAvatar width={'40px'} avatar={currents_user?.avatar} />
           </Link>
         </Toolbar>
       </AppBar>

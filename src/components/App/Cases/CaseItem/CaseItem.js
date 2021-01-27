@@ -24,9 +24,9 @@ const CasesItem = (props) => {
       })
     }
   }
-
-  return (
-    <Card className='root' key={props.item.id}>
+  console.log(props.item.User)
+  return(
+    <Card key={props.item.id}>
       <FavButton alt='favorite' value={props.item} isFavorite={props.favorite} />
       <Link to={`/case/${props.item.id}`} style={{ textDecoration: 'none' }}>
         <CardMedia
@@ -49,11 +49,11 @@ const CasesItem = (props) => {
         </CardContent>
         <br />
         <CardActions disableSpacing>
-          <UserAvatar avatar={props.item.user && props.item.user.avatar} width='50px' />
+          <UserAvatar avatar={props?.item?.User?.avatar} width='50px' />
           <Typography variant='body2' style={{ color: 'black', textTransform: 'capitalize' }} component='p'>
-            {props.item.user && props.item.user.pseudo}
+            { props?.item?.User?.pseudo }
             <br />
-            { props.item.user && props.item.user.job.name}
+            {  props?.item?.User?.job?.name}
           </Typography>
           <div className='grow' style={{ align: 'right' }} />
           <Typography variant='body2' color='textSecondary' component='p'>
