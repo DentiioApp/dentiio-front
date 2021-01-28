@@ -219,7 +219,7 @@ export default function HorizontalLinearStepper() {
                 break;
 
             case 'exam_pics':
-                format_file(event, dispatch)
+                format_file(event, dispatch, exam_pics)
                 break;
             case 'problemHealth':
             case 'keywords':
@@ -309,7 +309,6 @@ export default function HorizontalLinearStepper() {
                 break;
         }
     }, [activeStep, exam_pics])
-    console.log('exam_pics :', exam_pics)
 
     return (
         <div className={classes.root}>

@@ -7,6 +7,8 @@ import {
   CASE_FILTERED,
   REMOVE_FAVORITE,
   SET_EXAM_PICS,
+  DEL_EXAM_PICS,
+  DROP_EXAM_PICS
 } from '../actions'
 
 import { favOrCase } from '../../utils'
@@ -101,6 +103,11 @@ export const Cases = (state = INIT_STATE, action) => {
   
       return { ...state, exam_pics: state.exam_pics.concat(action.data) }
 
+      case DEL_EXAM_PICS:
+        return { ...state, exam_pics: state.exam_pics.splice(-1,1) }
+  
+      case DROP_EXAM_PICS:
+        return { ...state, exam_pics: [] }
     default:
       return state
   }
