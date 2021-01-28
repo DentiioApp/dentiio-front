@@ -348,7 +348,7 @@ export default function HorizontalLinearStepper() {
             <Box bgcolor="background.paper" display={showResponseValid}>
 
               LE CAS A ÉTÉ ENREGISTRTÉ! <span role="img" aria-labelledby={'toto'}>😀</span>
-            </Box>
+            </Box> 
             {/* </Typography> */}
             {/* <Button onClick={handleReset} className={classes.button}>
                             Reset
