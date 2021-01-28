@@ -34,7 +34,7 @@ import MenuItem from '@material-ui/core/MenuItem'
 import InputLabel from '@material-ui/core/InputLabel'
 import Box from "@material-ui/core/Box";
 import { createCanvas, loadImage } from 'canvas';
-import { errorApi } from '../../../../../utils'
+import { errorApi , imageEditor} from '../../../../../utils'
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -346,7 +346,7 @@ export default function HorizontalLinearStepper() {
 
         break;
     }
-  }, [activeStep, exam_pics, treat_pics])
+  }, [activeStep])
 
   return (
     <div className={classes.root}>
