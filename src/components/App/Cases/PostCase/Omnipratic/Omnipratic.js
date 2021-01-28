@@ -14,10 +14,12 @@ import {
   Switch,
   Typography,
   Button
-} from '@material-ui/core/'
-import Grid from '@material-ui/core/Grid'
+} from '@material-ui/core/';
+import Grid from '@material-ui/core/Grid';
+import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
+import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 // import { makeStyles } from '@material-ui/core/styles'
-import TextField from '@material-ui/core/TextField'
+import TextField from '@material-ui/core/TextField';
 import SmokingRoomsIcon from '@material-ui/icons/SmokingRooms'
 import { DropzoneArea/*, DropzoneDialog */ } from 'material-ui-dropzone';
 import LocalBarIcon from '@material-ui/icons/LocalBar'
@@ -31,6 +33,7 @@ import { postPatient } from '../../../../../services/Patient'
 import MenuItem from '@material-ui/core/MenuItem'
 import InputLabel from '@material-ui/core/InputLabel'
 import Box from "@material-ui/core/Box";
+import { createCanvas, loadImage } from 'canvas';
 import { errorApi } from '../../../../../utils'
 
 const useStyles = makeStyles((theme) => ({
@@ -285,6 +288,32 @@ export default function HorizontalLinearStepper() {
   //     setActiveStep(0);
   // };
 
+  const canvas = createCanvas(500, 500)
+  const ctx = canvas.getContext('2d')
+  const [step_slide, setStep_slide] = useState(0)
+  const [canvaState, setCanvasState] = useState(false)
+
+  const handleImgBack = () => {
+    console.log('Back :', step_slide)
+    setStep_slide((step_slide - 1))
+  }
+  const handleImgNext = () => {
+    console.log('Next :', step_slide)
+    setStep_slide((step_slide + 1))
+  }
+
+  useEffect(() => {
+    var img = new Image();
+
+    if (exam_pics[step_slide]) {
+      img.src = exam_pics[step_slide]._img;
+      ctx.drawImage(img, 0, 0, 500, 500);
+    }
+
+    setCanvasState(canvas)
+
+  }, [step_slide]);
+
   useEffect(() => {
     switch (activeStep) {
       case 0:
@@ -348,7 +377,7 @@ export default function HorizontalLinearStepper() {
             <Box bgcolor="background.paper" display={showResponseValid}>
 
               LE CAS A ÉTÉ ENREGISTRTÉ! <span role="img" aria-labelledby={'toto'}>😀</span>
-            </Box> 
+            </Box>
             {/* </Typography> */}
             {/* <Button onClick={handleReset} className={classes.button}>
                             Reset
@@ -576,7 +605,7 @@ export default function HorizontalLinearStepper() {
                     </Grid>
                     <Grid item xs={12} sm={6}>
                       <div className={classes.paper}>
-                      <DropzoneArea
+                        <DropzoneArea
                           showPreviews={true}
                           showPreviewsInDropzone={false}
                           //useChipsForPreview
@@ -586,7 +615,7 @@ export default function HorizontalLinearStepper() {
                           onChange={handleChange('treat_pics')}
                           acceptedFiles={['image/jpeg', 'image/png', '/image/bmp']}
                         />
-                        
+
                       </div>
                     </Grid>
                     <Grid item xs={12} sm={6}>
@@ -648,6 +677,19 @@ export default function HorizontalLinearStepper() {
                         <br /> <br />
                       </div>
                     </Grid>
+                    <Box>
+                      <Typography component='h1' variant='h5'>
+                        <center>Retouche photos</center>
+                      </Typography>
+
+                      <Button>
+                        <ChevronLeftIcon onClick={handleImgBack} />
+                      </Button>
+                      {<img src={`${canvaState && canvaState.toDataURL()}`} />}
+                      <Button>
+                        <ChevronRightIcon onClick={handleImgNext} />
+                      </Button>
+                    </Box>
                   </Grid>
                 </form>
               </Box>
