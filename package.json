@@ -19,6 +19,7 @@
     "dotenv": "^8.2.0",
     "jwt-decode": "^3.0.0-beta.2",
     "material-ui-dropzone": "^3.5.0",
+    "merge-images": "^2.0.0",
     "node-forge": "0.10",
     "node-sass": "^4.0.0",
     "randomstring": "^1.1.5",
