@@ -3,6 +3,9 @@ import {
   SET_EXAM_PICS,
   DROP_EXAM_PICS,
   DEL_EXAM_PICS,
+  SET_TREAT_PICS,
+  DROP_TREAT_PICS,
+  DEL_TREAT_PICS,
   OPEN_SIDE_BAR,
   CLOSE_SIDE_BAR,
 } from '.'
@@ -17,13 +20,17 @@ export const closeSideBar = () => {
   return { type: CLOSE_SIDE_BAR }
 }
 
-export const format_file = async (aFile, dispatch, exam_pics) => {
+export const format_file = async (aFile, dispatch, pics, type) => {
+  let action = {
+   'EXAM' : {'drop': DROP_EXAM_PICS, 'del': DEL_EXAM_PICS, 'set': SET_EXAM_PICS},
+   'TREAT': {'drop': DROP_TREAT_PICS, 'del': DEL_TREAT_PICS , 'set': SET_TREAT_PICS}
+  }
 
-  if(aFile.length < exam_pics.length) {
+  if(aFile.length < pics.length) {
     if(aFile.length < 1) {
-      dispatch({ type: DROP_EXAM_PICS})
+      dispatch({ type: action[type].drop})
     } else {
-      dispatch({ type: DEL_EXAM_PICS})
+      dispatch({ type: action[type].del})
     }
   }
 
@@ -42,14 +49,14 @@ export const format_file = async (aFile, dispatch, exam_pics) => {
 
   let img_names = []
 
-  exam_pics.forEach((oImage)=>{
+  pics.forEach((oImage)=>{
     img_names.push(oImage.name)
   })
 
   aFile.forEach((file, index) => {
     Main(file).then((resp_64) => {
       if(!img_names.includes(file.name)) {
-        dispatch({ type: SET_EXAM_PICS, data: { name: file.name, _img: resp_64, path: file.path, type: file.name.split('.').pop() } })
+        dispatch({ type: action[type].set, data: { name: file.name, _img: resp_64, path: file.path, type: file.name.split('.').pop() } })
       }
     })
   });
