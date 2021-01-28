@@ -13,6 +13,9 @@ export const CASE_FILTERED = 'CASE_FILTERED'
 export const SET_EXAM_PICS = 'SET_EXAM_PICS'
 export const DROP_EXAM_PICS = 'DROP_EXAM_PICS'
 export const DEL_EXAM_PICS = 'DEL_EXAM_PICS'
+export const SET_TREAT_PICS = 'SET_TREAT_PICS'
+export const DROP_TREAT_PICS = 'DROP_TREAT_PICS'
+export const DEL_TREAT_PICS = 'DEL_TREAT_PICS'
 export const FREE_CREDENTIALS = 'FREE_CREDENTIALS'
 export const JOB_LIST = 'JOB_LIST'
 export const LOG_USER = 'LOG_USER'
@@ -41,6 +44,10 @@ export const BACK_LOGIN_FORM = 'BACK_LOGIN_FORM'
 export const UPLOAD_LICENCE = 'UPLOAD_LICENCE'
 export const TOKEN_REGENERATE = 'TOKEN_REGENERATE'
 export const UNSET_PASSWORD = 'UNSET_PASSWORD'
+export const EXAM_TYPE = 'EXAM'
+export const TREAT_TYPE = 'TREAT'
+
+
 
 export {
   openSideBar,
