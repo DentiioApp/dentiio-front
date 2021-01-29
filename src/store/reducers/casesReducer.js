@@ -12,7 +12,12 @@ import {
   SET_TREAT_PICS,
   DROP_TREAT_PICS,
   DEL_TREAT_PICS,
+  IMAGE_EXAM_EDITION,
+  IMAGE_TREAT_EDITION,
+  ADD_CENSOR_POINT,
+  DROP_CENSOR_POINTS,
 } from '../actions'
+import censoring_img from '../../images/patch-crop.svg'
 
 import { favOrCase } from '../../utils'
 
@@ -30,6 +35,8 @@ const INIT_STATE = {
   favorites: [],
   exam_pics: [],
   treat_pics: [],
+  images_edited: [],
+  censor_points: []
 }
 
 // const person = {
@@ -103,6 +110,19 @@ export const Cases = (state = INIT_STATE, action) => {
 
     case DEL_TREAT_PICS:
       return { ...state, treat_pics: [] }
+
+    case ADD_CENSOR_POINT:
+      console.log('TEST :', action.datas)
+      return { ...state, censor_points: state.censor_points.concat(action.datas) }
+
+    case DROP_CENSOR_POINTS:
+      return { ...state, censor_points: [] }
+
+    case IMAGE_EXAM_EDITION:
+      return { ...state, exam_pics: state.exam_pics.concat(action.currentImgIndex) }
+
+    case IMAGE_TREAT_EDITION:
+      return { ...state, exam_pics: state.exam_pics.concat(action.currentImgIndex) }
 
     default:
       return state

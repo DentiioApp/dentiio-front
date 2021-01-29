@@ -5,6 +5,7 @@ import Stepper from '@material-ui/core/Stepper';
 import Step from '@material-ui/core/Step';
 import StepLabel from '@material-ui/core/StepLabel';
 import config from '../../../../../config'
+import patchCrop from '../../../../../images/patch-crop.svg'
 
 // import Button from '@material-ui/core/Button';
 // import Typography from '@material-ui/core/Typography';
@@ -27,14 +28,14 @@ import { format_file, post_images } from "../../../../../store/actions";
 import { useToasts } from 'react-toast-notifications'
 
 // import oStyle from '../../../../UI/ResponsiveDesign/AuthStyle'
-import { UPDATE_LEVEL, UPDATE_STEPPER_POSTCASE, START_LOADER, STOP_LOADER, EXAM_TYPE, TREAT_TYPE } from '../../../../../store/actions'
+import { UPDATE_LEVEL, UPDATE_STEPPER_POSTCASE, START_LOADER, STOP_LOADER, EXAM_TYPE, TREAT_TYPE, ADD_CENSOR_POINT,DROP_CENSOR_POINTS } from '../../../../../store/actions'
 import { postCase } from '../../../../../services/Cases'
 import { postPatient } from '../../../../../services/Patient'
 import MenuItem from '@material-ui/core/MenuItem'
 import InputLabel from '@material-ui/core/InputLabel'
 import Box from "@material-ui/core/Box";
 import { createCanvas, loadImage } from 'canvas';
-import { errorApi , imageEditor} from '../../../../../utils'
+import { errorApi, ModifyImage } from '../../../../../utils'
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -70,7 +71,8 @@ export default function HorizontalLinearStepper() {
     return { url: process.env.REACT_APP_UPLOADS_PATH } // REACT_APP_UPLOADS_PATH  TO CREATE
   }
 
-  const { exam_pics, treat_pics } = useSelector((state) => state.cases)
+  const { exam_pics, treat_pics , censor_points} = useSelector((state) => state.cases)
+  
   const handleChangeStatus = ({ meta }, status) => {
     console.log('status', status, 'meta', meta)
   }
@@ -290,9 +292,9 @@ export default function HorizontalLinearStepper() {
 
   const canvas = createCanvas(500, 500)
   const ctx = canvas.getContext('2d')
-  const [step_slide, setStep_slide] = useState(0)
+  const [step_slide, setStep_slide] = useState(1)
   const [canvaState, setCanvasState] = useState(false)
-
+  const [currentImgIndex, setCurrentImgIndex] = useState(1)
   const handleImgBack = () => {
     console.log('Back :', step_slide)
     setStep_slide((step_slide - 1))
@@ -308,6 +310,7 @@ export default function HorizontalLinearStepper() {
     if (exam_pics[step_slide]) {
       img.src = exam_pics[step_slide]._img;
       ctx.drawImage(img, 0, 0, 500, 500);
+      setCurrentImgIndex(step_slide)
     }
 
     setCanvasState(canvas)
@@ -348,6 +351,32 @@ export default function HorizontalLinearStepper() {
     }
   }, [activeStep])
 
+  console.log('censor_points :', censor_points)
+
+  const handleStartEditor = () => {
+    setStep_slide((step_slide - 1))
+  }
+
+  const handleEditing = () => {
+    ModifyImage(censor_points, canvaState.toDataURL() ,currentImgIndex, dispatch, EXAM_TYPE).then((res) => {
+      dispatch({ type : DROP_CENSOR_POINTS});
+    })
+  }
+  
+  const getCursorPosition = (event) => {
+    const rect = canvaState.getBoundingClientRect()
+    const pointed_x = event.clientX - rect.left;
+    const pointed_y = event.clientY - rect.top;
+    
+   return pointed_x, pointed_y;
+  }
+
+  const handlePointed = (evt) => {
+    const {pointed_x, pointed_y} = getCursorPosition();
+    console.log('TEST :', evt,'vdvdv',pointed_x, pointed_y)
+    dispatch({ type : ADD_CENSOR_POINT, datas: { 'src': patchCrop, 'x': pointed_x, 'y': pointed_y }})
+  }
+  
   return (
     <div className={classes.root}>
       <Stepper activeStep={activeStep}>
@@ -682,10 +711,27 @@ export default function HorizontalLinearStepper() {
                         <center>Retouche photos</center>
                       </Typography>
 
+                      <Button
+                        variant="contained"
+                        color="rose"
+                        onClick={handleEditing}
+                        className={classes.button}
+                      >
+                        APPLIQUER LES MODIFICATIONS
+                      </Button>
+                      <Button
+                        variant="contained"
+                        color="primary"
+                        onClick={handleStartEditor}
+                        className={classes.button}
+                      >
+                        DÉMARRER
+                      </Button>
+
                       <Button>
                         <ChevronLeftIcon onClick={handleImgBack} />
                       </Button>
-                      {<img src={`${canvaState && canvaState.toDataURL()}`} />}
+                      {<img onClick={handlePointed} src={`${canvaState && canvaState.toDataURL()}`} />}
                       <Button>
                         <ChevronRightIcon onClick={handleImgNext} />
                       </Button>

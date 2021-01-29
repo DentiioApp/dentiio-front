@@ -1,19 +1,25 @@
 import mergeImages from 'merge-images';
-import censoring_img from '.svg'
+import {IMAGE_EXAM_EDITION, IMAGE_TREAT_EDITION} from '../../store/actions'
 
-var CENSORED_IMG = [{ src: censoring_img, x: 0, y: 0 }];
-let array_to_merge = [];
-export const imageEditor = async (images, aCoordonne = CENSORED_IMG) => {
+
+var array_to_merge = [];
+
+export const ModifyImage = async (censor_points , imageTodo , currentImgIndex, dispatch , type) => {
+  let action = {
+    'EXAM' : IMAGE_TREAT_EDITION,
+    'TREAT': IMAGE_EXAM_EDITION
+   }
+
+   console.log('censor_points on VALIDATION :', censor_points)
+   
+   array_to_merge = censor_points.concat(
+     [
+       { 'src' : imageTodo , x :0 , y: 0}
+      ]
+    )
   /** PERMET DE COLLER DES IMAGES LES UNE SUR LES AUTRES A DES COORDONNÉE ET GÉNÉREER LE B64  */
-  aCoordonne.forEach(element => {
-    array_to_merge.push()
-  },(arr)=>{
-    console.log('arr :',arr )
-  }).mergeImages([
-    { src: censoring_img, x: 0, y: 0 },
-    { src: 'http://localhost:3000/logo192.png', x: 32, y: 0 },
-    { src: 'http://localhost:3000/logo512.png', x: 16, y: 0 }
-  ])
-    .then((b64) => b64)
-
+  return await mergeImages(array_to_merge)
+    .then((b64) => dispatch( {type: action[type],  _img : b64, currentImgIndex : currentImgIndex} ))
+  
 }
+

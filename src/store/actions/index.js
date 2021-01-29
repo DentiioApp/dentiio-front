@@ -4,7 +4,6 @@ import { fetchTreatments } from './TreatmentsAction'
 import { fetchPathologies } from './PathologiesAction'
 import { fetchCatPathologies } from './CatPathologiesAction'
 
-
 export const ADD_FAVORITE = 'ADD_FAVORITE'
 export const REMOVE_FAVORITE = 'REMOVE_FAVORITE'
 export const INIT_FAV_CASE = 'INIT_FAV_CASE'
@@ -46,8 +45,11 @@ export const TOKEN_REGENERATE = 'TOKEN_REGENERATE'
 export const UNSET_PASSWORD = 'UNSET_PASSWORD'
 export const EXAM_TYPE = 'EXAM'
 export const TREAT_TYPE = 'TREAT'
-
-
+export const IMAGE_EDITION = 'IMAGE_EDITION'
+export const ADD_CENSOR_POINT = 'ADD_CENSOR_POINT'
+export const IMAGE_TREAT_EDITION = 'IMAGE_TREAT_EDITION'
+export const IMAGE_EXAM_EDITION = 'IMAGE_EXAM_EDITION'
+export const DROP_CENSOR_POINTS = 'DROP_CENSOR_POINTS'
 
 export {
   openSideBar,
