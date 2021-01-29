@@ -6,8 +6,8 @@ var array_to_merge = [];
 
 export const ModifyImage = async (censor_points , imageTodo , currentImgIndex, dispatch , type) => {
   let action = {
-    'EXAM' : IMAGE_TREAT_EDITION,
-    'TREAT': IMAGE_EXAM_EDITION
+    'EXAM' : IMAGE_EXAM_EDITION,
+    'TREAT': IMAGE_TREAT_EDITION,
    }
 
    console.log('censor_points on VALIDATION :', censor_points)
@@ -17,6 +17,7 @@ export const ModifyImage = async (censor_points , imageTodo , currentImgIndex, d
        { 'src' : imageTodo , x :0 , y: 0}
       ]
     )
+    console.log('array_to_merge :', array_to_merge)
   /** PERMET DE COLLER DES IMAGES LES UNE SUR LES AUTRES A DES COORDONNÉE ET GÉNÉREER LE B64  */
   return await mergeImages(array_to_merge)
     .then((b64) => dispatch( {type: action[type],  _img : b64, currentImgIndex : currentImgIndex} ))

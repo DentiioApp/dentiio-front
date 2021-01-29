@@ -28,7 +28,7 @@ import { format_file, post_images } from "../../../../../store/actions";
 import { useToasts } from 'react-toast-notifications'
 
 // import oStyle from '../../../../UI/ResponsiveDesign/AuthStyle'
-import { UPDATE_LEVEL, UPDATE_STEPPER_POSTCASE, START_LOADER, STOP_LOADER, EXAM_TYPE, TREAT_TYPE, ADD_CENSOR_POINT,DROP_CENSOR_POINTS } from '../../../../../store/actions'
+import { UPDATE_LEVEL, UPDATE_STEPPER_POSTCASE, START_LOADER, STOP_LOADER, EXAM_TYPE, TREAT_TYPE, ADD_CENSOR_POINT, DROP_CENSOR_POINTS } from '../../../../../store/actions'
 import { postCase } from '../../../../../services/Cases'
 import { postPatient } from '../../../../../services/Patient'
 import MenuItem from '@material-ui/core/MenuItem'
@@ -71,8 +71,8 @@ export default function HorizontalLinearStepper() {
     return { url: process.env.REACT_APP_UPLOADS_PATH } // REACT_APP_UPLOADS_PATH  TO CREATE
   }
 
-  const { exam_pics, treat_pics , censor_points} = useSelector((state) => state.cases)
-  
+  const { exam_pics, treat_pics, censor_points } = useSelector((state) => state.cases)
+
   const handleChangeStatus = ({ meta }, status) => {
     console.log('status', status, 'meta', meta)
   }
@@ -356,32 +356,16 @@ export default function HorizontalLinearStepper() {
   }
 
   const handleEditing = () => {
-    ModifyImage(censor_points, canvaState.toDataURL() ,currentImgIndex, dispatch, EXAM_TYPE).then((res) => {
-      dispatch({ type : DROP_CENSOR_POINTS});
+    ModifyImage(censor_points, canvaState.toDataURL(), currentImgIndex, dispatch, EXAM_TYPE).then((res) => {
+      dispatch({ type: DROP_CENSOR_POINTS });
     })
   }
-  
-  // const getCursorPosition = (event) => {
-  //   const rect = canvaState.getBoundingClientRect()
-  //   const pointed_x = event.clientX - rect.left;
-  //   const pointed_y = event.clientY - rect.top;
-    
-  //  return pointed_x, pointed_y;
-  // }
-  
-  document.addEventListener('onmousedown', logKey);
-  
 
-  const [clientCoord, setClient]= useState({})
-
-  const logKey = (e) => {
-      setClient({'x': e.clientX, 'y': e.client_Y });
+  const handlePointed = (e) => {
+    dispatch({ type: ADD_CENSOR_POINT, datas: { 'src': patchCrop, 'x': e.clientX, 'y': e.clientY } })
   }
 
-  const handlePointed = () => {
-    dispatch({ type : ADD_CENSOR_POINT, datas: { 'src': patchCrop, 'x': clientCoord.x, 'y': clientCoord.y }})
-  }
-  
+
   return (
     <div className={classes.root}>
       <Stepper activeStep={activeStep}>
@@ -669,6 +653,7 @@ export default function HorizontalLinearStepper() {
                           onChange={handleChange('medication_administered')}
                           error={errors.errMedication_administered}
                         />
+                        
                         {'Séparer les éléments par des espaces'}
 
                         <br /> <br />

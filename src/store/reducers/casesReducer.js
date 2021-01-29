@@ -112,13 +112,14 @@ export const Cases = (state = INIT_STATE, action) => {
       return { ...state, treat_pics: [] }
 
     case ADD_CENSOR_POINT:
-      console.log('TEST :', action.datas)
+      console.log('ADD_CENSOR_POINT :', action.datas)
       return { ...state, censor_points: state.censor_points.concat(action.datas) }
 
     case DROP_CENSOR_POINTS:
       return { ...state, censor_points: [] }
 
     case IMAGE_EXAM_EDITION:
+      console.log('image generated :', action._img)
       state.exam_pics[action.currentImgIndex]._img = action._img
       return { ...state, exam_pics: state.exam_pics }
 

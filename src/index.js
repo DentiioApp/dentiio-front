@@ -25,7 +25,7 @@ import EditProfile from "./containers/Profile/EditProfile";
 import { PersistGate } from 'redux-persist/integration/react'
 import ConfigureStore from './store/configureStore'
 import CGU from "./containers/CGU/CGU";
-dotenv.config()
+dotenv.config() 
 
 ReactDOM.render(
   <ThemeProvider theme={colorTheme}>
