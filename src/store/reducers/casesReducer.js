@@ -119,10 +119,12 @@ export const Cases = (state = INIT_STATE, action) => {
       return { ...state, censor_points: [] }
 
     case IMAGE_EXAM_EDITION:
-      return { ...state, exam_pics: state.exam_pics.concat(action.currentImgIndex) }
+      state.exam_pics[action.currentImgIndex]._img = action._img
+      return { ...state, exam_pics: state.exam_pics }
 
     case IMAGE_TREAT_EDITION:
-      return { ...state, exam_pics: state.exam_pics.concat(action.currentImgIndex) }
+      state.treat_pics[action.currentImgIndex]._img = action._img
+      return { ...state, treat_pics: state.treat_pics }
 
     default:
       return state

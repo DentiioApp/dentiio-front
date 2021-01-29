@@ -351,8 +351,6 @@ export default function HorizontalLinearStepper() {
     }
   }, [activeStep])
 
-  console.log('censor_points :', censor_points)
-
   const handleStartEditor = () => {
     setStep_slide((step_slide - 1))
   }
@@ -363,18 +361,25 @@ export default function HorizontalLinearStepper() {
     })
   }
   
-  const getCursorPosition = (event) => {
-    const rect = canvaState.getBoundingClientRect()
-    const pointed_x = event.clientX - rect.left;
-    const pointed_y = event.clientY - rect.top;
+  // const getCursorPosition = (event) => {
+  //   const rect = canvaState.getBoundingClientRect()
+  //   const pointed_x = event.clientX - rect.left;
+  //   const pointed_y = event.clientY - rect.top;
     
-   return pointed_x, pointed_y;
+  //  return pointed_x, pointed_y;
+  // }
+  
+  document.addEventListener('onmousedown', logKey);
+  
+
+  const [clientCoord, setClient]= useState({})
+
+  const logKey = (e) => {
+      setClient({'x': e.clientX, 'y': e.client_Y });
   }
 
-  const handlePointed = (evt) => {
-    const {pointed_x, pointed_y} = getCursorPosition();
-    console.log('TEST :', evt,'vdvdv',pointed_x, pointed_y)
-    dispatch({ type : ADD_CENSOR_POINT, datas: { 'src': patchCrop, 'x': pointed_x, 'y': pointed_y }})
+  const handlePointed = () => {
+    dispatch({ type : ADD_CENSOR_POINT, datas: { 'src': patchCrop, 'x': clientCoord.x, 'y': clientCoord.y }})
   }
   
   return (
@@ -713,7 +718,7 @@ export default function HorizontalLinearStepper() {
 
                       <Button
                         variant="contained"
-                        color="rose"
+                        color="primary"
                         onClick={handleEditing}
                         className={classes.button}
                       >
@@ -731,7 +736,7 @@ export default function HorizontalLinearStepper() {
                       <Button>
                         <ChevronLeftIcon onClick={handleImgBack} />
                       </Button>
-                      {<img onClick={handlePointed} src={`${canvaState && canvaState.toDataURL()}`} />}
+                      {<img onClick={handlePointed} id="canva_slider" src={`${canvaState && canvaState.toDataURL()}`} />}
                       <Button>
                         <ChevronRightIcon onClick={handleImgNext} />
                       </Button>
