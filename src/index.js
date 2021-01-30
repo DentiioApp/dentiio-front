@@ -27,6 +27,19 @@ import ConfigureStore from './store/configureStore'
 import CGU from "./containers/CGU/CGU";
 dotenv.config() 
 
+var _route = '/'
+
+if(window.location.pathname !== _route ) {
+ 
+  var routes = {
+    'post-case' : Home,
+  }
+
+  _route = routes ;
+}
+
+
+
 ReactDOM.render(
   <ThemeProvider theme={colorTheme}>
     <Provider store={ConfigureStore().store}>
@@ -36,14 +49,14 @@ ReactDOM.render(
           <div>
             <Switch>
               <Route exact path='/' component={Home} />
-              <Route exact path='/cases' component={Cases} />
-              <Route path='/case/:id' component={DetailCase} />
-              <Route exact path='/favorites' component={Favorites} />
-              <Route exact path='/profile' component={Profile} />
-              <Route exact path='/profile/edit' component={EditProfile} />
-              <Route exact path='/post-question' component={QuestionPost} />
-              <Route exact path='/post-case' component={CasePost} />
-              <Route exact path='/avatar' component={UserAvatar} />
+              <Route exact path='/cases' component={Cases } />
+              <Route path='/case/:id' component={DetailCase } />
+              <Route exact path='/favorites' component={Favorites } />
+              <Route exact path='/profile' component={Profile } />
+              <Route exact path='/profile/edit' component={EditProfile } />
+              <Route exact path='/post-question' component={QuestionPost } />
+              <Route exact path='/post-case' component={ _route !== '/' ? _route : CasePost } />
+              <Route exact path='/avatar' component={UserAvatar } />
               <Route exact path='/cgu' component={CGU} />
             </Switch>
           </div>
