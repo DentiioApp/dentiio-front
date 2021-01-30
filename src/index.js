@@ -32,10 +32,10 @@ var _route = '/'
 if(window.location.pathname !== _route ) {
  
   var routes = {
-    'post-case' : Home,
+    'post-case' : CasePost,
   }
 
-  _route = routes ;
+  _route = routes[window.location.pathname.replace('/','')] ;
 }
 
 
