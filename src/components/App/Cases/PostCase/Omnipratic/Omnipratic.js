@@ -72,6 +72,7 @@ export default function HorizontalLinearStepper() {
   }
 
   const { exam_pics, treat_pics, censor_points } = useSelector((state) => state.cases)
+  console.table([{ 'treat_pics :': treat_pics, 'exam_pics: ': exam_pics }, { 'censor_points: ': censor_points }])
 
   const handleChangeStatus = ({ meta }, status) => {
     console.log('status', status, 'meta', meta)
@@ -295,6 +296,8 @@ export default function HorizontalLinearStepper() {
   const [step_slide, setStep_slide] = useState(1)
   const [canvaState, setCanvasState] = useState(false)
   const [currentImgIndex, setCurrentImgIndex] = useState(1)
+  const [imgTypeSlider, setImgTypeSlider] = useState(EXAM_TYPE)
+
   const handleImgBack = () => {
     console.log('Back :', step_slide)
     setStep_slide((step_slide - 1))
@@ -306,16 +309,23 @@ export default function HorizontalLinearStepper() {
 
   useEffect(() => {
     var img = new Image();
-
-    if (exam_pics[step_slide]) {
-      img.src = exam_pics[step_slide]._img;
-      ctx.drawImage(img, 0, 0, 500, 500);
-      setCurrentImgIndex(step_slide)
+    if (imgTypeSlider === EXAM_TYPE) {
+      if (exam_pics[step_slide]) {
+        img.src = exam_pics[step_slide]._img;
+        ctx.drawImage(img, 0, 0, 500, 500);
+        setCurrentImgIndex(step_slide)
+      }
+    } else {
+      if (treat_pics[step_slide]) {
+        img.src = treat_pics[step_slide]._img;
+        ctx.drawImage(img, 0, 0, 500, 500);
+        setCurrentImgIndex(step_slide)
+      }
     }
 
     setCanvasState(canvas)
 
-  }, [step_slide]);
+  }, [step_slide, imgTypeSlider]);
 
   useEffect(() => {
     switch (activeStep) {
@@ -362,7 +372,25 @@ export default function HorizontalLinearStepper() {
   }
 
   const handlePointed = (e) => {
-    dispatch({ type: ADD_CENSOR_POINT, datas: { 'src': patchCrop, 'x': e.clientX, 'y': e.clientY } })
+    if (canvaState) {
+      const rect = canvaState.getBoundingClientRect();
+      const elementRelativeX = e.clientX - 500;
+      const elementRelativeY = e.clientY - 500;
+      const canvasRelativeX = elementRelativeX * canvas.width / 500;
+      const canvasRelativeY = elementRelativeY * canvas.height / 500;
+
+      console.table([{ 'canvasRelativeX :': canvasRelativeX, 'canvasRelativeY: ': canvasRelativeY }, { 'elementRelativeX :': elementRelativeX, 'elementRelativeY: ': elementRelativeY }, 'rect.left', rect.left])
+
+      dispatch({ type: ADD_CENSOR_POINT, datas: { 'src': patchCrop, 'x': e.clientX, 'y': e.clientY } })
+    }
+  }
+
+  const handleChangeImgTypeSlider = () => {
+    if (imgTypeSlider === EXAM_TYPE) {
+      setImgTypeSlider(TREAT_TYPE)
+    } else {
+      setImgTypeSlider(EXAM_TYPE)
+    }
   }
 
 
@@ -653,7 +681,6 @@ export default function HorizontalLinearStepper() {
                           onChange={handleChange('medication_administered')}
                           error={errors.errMedication_administered}
                         />
-                        
                         {'Séparer les éléments par des espaces'}
 
                         <br /> <br />
@@ -700,6 +727,15 @@ export default function HorizontalLinearStepper() {
                       <Typography component='h1' variant='h5'>
                         <center>Retouche photos</center>
                       </Typography>
+
+                      <Button
+                        variant="contained"
+                        color="primary"
+                        onClick={handleChangeImgTypeSlider}
+                        className={classes.button}
+                      >
+                        { `PHOTOS  ${(imgTypeSlider === EXAM_TYPE ? TREAT_TYPE : EXAM_TYPE)} `}
+                      </Button>
 
                       <Button
                         variant="contained"
