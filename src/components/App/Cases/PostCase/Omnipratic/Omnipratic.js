@@ -375,15 +375,20 @@ export default function HorizontalLinearStepper() {
     if (canvaState) {
       let canva_slider = document.getElementById("canva_slider");
       const pointed_X = e.clientX - canva_slider.offsetLeft;
-      const pointed_Y = e.clientY - canva_slider.offsetTop;
+      console.table([
+        { 'canva_slider.offsetTop ': canva_slider.offsetTop},//offsetParent
+        { 'offsetParent ': canva_slider.offsetParent},//offsetParent
+        { 'e.clientY: ': e.clientY },
+      ]);
+      const pointed_Y = e.clientY - 500 + canva_slider.offsetTop;
       
 
-      console.table([
-        { 'e.clientX :': e.clientX, 'e.clientY: ': e.clientY },
-        { 'From Top ': canva_slider.offsetTop},
-        { 'From  left': canva_slider.offsetLeft},
-        { 'pointed_X :': pointed_X, 'pointed_Y: ': pointed_Y },
-      ]);
+      // console.table([
+      //   { 'e.clientX :': e.clientX, 'e.clientY: ': e.clientY },
+      //   { 'From Top ': canva_slider.offsetTop},
+      //   { 'From  left': canva_slider.offsetLeft},
+      //   { 'pointed_X :': pointed_X, 'pointed_Y: ': pointed_Y },
+      // ]);
 
       dispatch({ type: ADD_CENSOR_POINT, datas: { 'src': patchCrop, 'x': pointed_X, 'y': pointed_Y } })
     }
@@ -603,14 +608,6 @@ export default function HorizontalLinearStepper() {
                           acceptedFiles={['image/jpeg', 'image/png', '/image/bmp']}
                         //initialFiles={[Object(exam_pics)]}
                         />
-                        {/* <DropzoneDialog
-                                                    open={true}
-                                                    onSave={handleChange('exam_pics')}
-                                                    acceptedFiles={['image/jpeg', 'image/png' , '/image/bmp']}
-                                                    showPreviews={true}
-                                                    maxFileSize={3000000}
-                                                    onClose={false}
-                                                /> */}
                       </div>
                     </Grid>
                   </Grid>

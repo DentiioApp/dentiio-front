@@ -32,7 +32,12 @@ var _route = '/'
 if(window.location.pathname !== _route ) {
  
   var routes = {
+    'cases' : Cases,
     'post-case' : CasePost,
+    'cgu' : CGU,
+    'favorites' : Favorites,
+    'profile' : Profile,
+    'avatar' : UserAvatar,
   }
 
   _route = routes[window.location.pathname.replace('/','')] ;
@@ -49,14 +54,14 @@ ReactDOM.render(
           <div>
             <Switch>
               <Route exact path='/' component={Home} />
-              <Route exact path='/cases' component={Cases } />
-              <Route path='/case/:id' component={DetailCase } />
-              <Route exact path='/favorites' component={Favorites } />
-              <Route exact path='/profile' component={Profile } />
-              <Route exact path='/profile/edit' component={EditProfile } />
-              <Route exact path='/post-question' component={QuestionPost } />
-              <Route exact path='/post-case' component={ _route !== '/' ? _route : CasePost } />
-              <Route exact path='/avatar' component={UserAvatar } />
+              <Route exact path='/cases' component={Cases}/>
+              <Route path='/case/:id' component={DetailCase}/>
+              <Route exact path='/favorites' component={Favorites}/>
+              <Route exact path='/profile' component={Profile}/>
+              <Route exact path='/profile/edit' component={EditProfile}/>
+              <Route exact path='/post-question' component={QuestionPost}/>
+              <Route exact path='/post-case' component={ _route !== '/' ? _route : CasePost}/>
+              <Route exact path='/avatar' component={UserAvatar}/>
               <Route exact path='/cgu' component={CGU} />
             </Switch>
           </div>
