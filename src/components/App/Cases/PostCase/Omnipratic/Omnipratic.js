@@ -373,15 +373,19 @@ export default function HorizontalLinearStepper() {
 
   const handlePointed = (e) => {
     if (canvaState) {
-      const rect = canvaState.getBoundingClientRect();
-      const elementRelativeX = e.clientX - 500;
-      const elementRelativeY = e.clientY - 500;
-      const canvasRelativeX = elementRelativeX * canvas.width / 500;
-      const canvasRelativeY = elementRelativeY * canvas.height / 500;
+      let canva_slider = document.getElementById("canva_slider");
+      const pointed_X = e.clientX - canva_slider.offsetLeft;
+      const pointed_Y = e.clientY - canva_slider.offsetTop;
+      
 
-      console.table([{ 'canvasRelativeX :': canvasRelativeX, 'canvasRelativeY: ': canvasRelativeY }, { 'elementRelativeX :': elementRelativeX, 'elementRelativeY: ': elementRelativeY }, 'rect.left', rect.left])
+      console.table([
+        { 'e.clientX :': e.clientX, 'e.clientY: ': e.clientY },
+        { 'From Top ': canva_slider.offsetTop},
+        { 'From  left': canva_slider.offsetLeft},
+        { 'pointed_X :': pointed_X, 'pointed_Y: ': pointed_Y },
+      ]);
 
-      dispatch({ type: ADD_CENSOR_POINT, datas: { 'src': patchCrop, 'x': e.clientX, 'y': e.clientY } })
+      dispatch({ type: ADD_CENSOR_POINT, datas: { 'src': patchCrop, 'x': pointed_X, 'y': pointed_Y } })
     }
   }
 
@@ -392,7 +396,6 @@ export default function HorizontalLinearStepper() {
       setImgTypeSlider(EXAM_TYPE)
     }
   }
-
 
   return (
     <div className={classes.root}>
@@ -734,7 +737,7 @@ export default function HorizontalLinearStepper() {
                         onClick={handleChangeImgTypeSlider}
                         className={classes.button}
                       >
-                        { `PHOTOS  ${(imgTypeSlider === EXAM_TYPE ? TREAT_TYPE : EXAM_TYPE)} `}
+                        {`PHOTOS  ${(imgTypeSlider === EXAM_TYPE ? TREAT_TYPE : EXAM_TYPE)} `}
                       </Button>
 
                       <Button
