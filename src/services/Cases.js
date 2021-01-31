@@ -1,5 +1,6 @@
 import axios from 'axios';
 import { favOrCase } from '../utils';
+import {EXAM_TYPE} from '../store/actions'
 
 const CLINICAL_CASES =
   process.env.REACT_APP_BACK_API_URL + process.env.REACT_APP_CLINICAL_CASES
@@ -132,17 +133,18 @@ export const postCase = (values, patient) => {
 }
 
 
-export const insertImage = async (img_datas, id_clinical_omni, is_principal) => {
+export const insertImage = async (img_datas, id_clinical_omni, is_principal, type) => {
+  let typeImgCaseOmni = EXAM_TYPE === type ? 'ImageClinicalCaseType/16' : 'ImageClinicalCaseType/17';
 
   const updateClinicCase = {
-    "type": 'base64', //img_datas.type.toUpperCase()
+    "type": typeImgCaseOmni, //img_datas.type.toUpperCase()
     "clinicalsCaseOmnipratique": id_clinical_omni,
     "path": img_datas.path,
     "image64" : img_datas._img,
     "isPrincipal": is_principal
   }
   
-  //axios.defaults.headers.Authorization = 'Bearer ' + localStorage.getItem('authToken')
+  axios.defaults.headers.Authorization = 'Bearer ' + localStorage.getItem('authToken')
 
   return await axios
     .post(IMAGE_CLINICAL_CASES , updateClinicCase)

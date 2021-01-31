@@ -7,7 +7,17 @@ import {
   CASE_FILTERED,
   REMOVE_FAVORITE,
   SET_EXAM_PICS,
+  DEL_EXAM_PICS,
+  DROP_EXAM_PICS,
+  SET_TREAT_PICS,
+  DROP_TREAT_PICS,
+  DEL_TREAT_PICS,
+  IMAGE_EXAM_EDITION,
+  IMAGE_TREAT_EDITION,
+  ADD_CENSOR_POINT,
+  DROP_CENSOR_POINTS,
 } from '../actions'
+import censoring_img from '../../images/patch-crop.svg'
 
 import { favOrCase } from '../../utils'
 
@@ -24,6 +34,9 @@ const INIT_STATE = {
   openSideBar: false,
   favorites: [],
   exam_pics: [],
+  treat_pics: [],
+  images_edited: [],
+  censor_points: []
 }
 
 // const person = {
@@ -81,25 +94,38 @@ export const Cases = (state = INIT_STATE, action) => {
       return { ...state, openSideBar: false }
 
     case SET_EXAM_PICS:
-      //var uniqueNames = [];
-      //let exist = false;
-
-      // if (!state.exam_pics.includes(action.data)) {
-      //   uniqueNames.push(action.data)
-      // }
-
-      // let final = state.exam_pics.splice((state.exam_pics.length), 1, uniqueNames);
-
-      // let arr = state.exam_pics.reduce((unique, item) => {
-      // console.log('action.data.name', action.data.name, "item", item, 'unique', unique)
-      // }, state.exam_pics) ;
-
-
-      // final.filter((item, index) => state.exam_pics.indexOf(item) !== index)
-
-      //state.exam_pics.splice((state.exam_pics.length), 1, Object(action.data))
-  
       return { ...state, exam_pics: state.exam_pics.concat(action.data) }
+
+    case DEL_EXAM_PICS:
+      return { ...state, exam_pics: state.exam_pics.splice(-1, 1) }
+
+    case DROP_EXAM_PICS:
+      return { ...state, exam_pics: [] }
+
+    case SET_TREAT_PICS:
+      return { ...state, treat_pics: state.treat_pics.concat(action.data) }
+
+    case DROP_TREAT_PICS:
+      return { ...state, treat_pics: state.treat_pics.splice(-1, 1) }
+
+    case DEL_TREAT_PICS:
+      return { ...state, treat_pics: [] }
+
+    case ADD_CENSOR_POINT:
+      console.log('ADD_CENSOR_POINT :', action.datas)
+      return { ...state, censor_points: state.censor_points.concat(action.datas) }
+
+    case DROP_CENSOR_POINTS:
+      return { ...state, censor_points: [] }
+
+    case IMAGE_EXAM_EDITION:
+      console.log('image generated :', action._img)
+      state.exam_pics[action.currentImgIndex]._img = action._img
+      return { ...state, exam_pics: state.exam_pics }
+
+    case IMAGE_TREAT_EDITION:
+      state.treat_pics[action.currentImgIndex]._img = action._img
+      return { ...state, treat_pics: state.treat_pics }
 
     default:
       return state

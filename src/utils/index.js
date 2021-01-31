@@ -1,6 +1,7 @@
 import { checkText, checkPassword, checkEmail } from './fields/fieldsCheckRegister'
 import { checkFiles } from './fields/checkFiles'
 import { avgNotes } from './cases/notes'
+import { ModifyImage } from './cases/imageEditor'
 import { errorApi } from './api/api'
 import { favOrCase } from './cases/filters'
 
@@ -11,6 +12,8 @@ export { checkFiles }
 export { checkPassword }
 export { errorApi }
 export { favOrCase }
+export { ModifyImage }
+
 
 export const SUCCESS = 'Vos fichiers on bien étés sauvergardés'
 export const OVERCOUNT = 'Uniquement 2 images à la fois'

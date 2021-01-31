@@ -1,6 +1,11 @@
 import {
   CASES_LIST,
   SET_EXAM_PICS,
+  DROP_EXAM_PICS,
+  DEL_EXAM_PICS,
+  SET_TREAT_PICS,
+  DROP_TREAT_PICS,
+  DEL_TREAT_PICS,
   OPEN_SIDE_BAR,
   CLOSE_SIDE_BAR,
 } from '.'
@@ -15,7 +20,20 @@ export const closeSideBar = () => {
   return { type: CLOSE_SIDE_BAR }
 }
 
-export const format_file = async (aFile, dispatch) => {
+export const format_file = async (aFiles = [], dispatch, pics = [], type) => {
+  let action = {
+   'EXAM' : {'drop': DROP_EXAM_PICS, 'del': DEL_EXAM_PICS, 'set': SET_EXAM_PICS},
+   'TREAT': {'drop': DROP_TREAT_PICS, 'del': DEL_TREAT_PICS , 'set': SET_TREAT_PICS}
+  }
+  
+  if(aFiles.length < pics.length) {
+    if(aFiles.length < 1) {
+      dispatch({ type: action[type].drop})
+    } else {
+      dispatch({ type: action[type].del})
+    }
+  }
+
   const toBase64 = file => new Promise((resolve, reject) => {
     const reader = new FileReader();
     reader.readAsDataURL(file);
@@ -28,15 +46,23 @@ export const format_file = async (aFile, dispatch) => {
     return b64
   }
 
-  aFile.forEach((file, index) => {
+  let img_names = []
+
+  pics.forEach((oImage)=>{
+    img_names.push(oImage.name)
+  })
+
+  aFiles.forEach((file, index) => {
     Main(file).then((resp_64) => {
-      dispatch({ type: SET_EXAM_PICS, data: { name: file.name, _img: resp_64, path: file.path, type: file.name.split('.').pop() } })
+      if(!img_names.includes(file.name)) {
+        dispatch({ type: action[type].set, data: { name: file.name, _img: resp_64, path: file.path, type: file.name.split('.').pop() } })
+      }
     })
   });
 
 }
 
-export const post_images = async (files, id_clinical_omni) => {
+export const post_images = async (files, id_clinical_omni, type) => {
   let incre_index_img = 0;
   let stop = false;
   let IS_PRINCIPAL = false;
@@ -45,7 +71,7 @@ export const post_images = async (files, id_clinical_omni) => {
     if (incre_index_img < files.length) {
       IS_PRINCIPAL = incre_index_img === 0 ? true : false;
 
-      insertImage(files[incre_index_img], id_clinical_omni, IS_PRINCIPAL)
+      insertImage(files[incre_index_img], id_clinical_omni, IS_PRINCIPAL, type)
       incre_index_img += 1;
     } else {
       stop = true;

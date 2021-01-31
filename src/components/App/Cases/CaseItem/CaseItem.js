@@ -23,6 +23,7 @@ const CasesItem = (props) => {
       })
     }
   }
+
   return(
     <Card key={props.item.id}>
       <FavButton alt='favorite' value={props.item} isFavorite={props.favorite} />
