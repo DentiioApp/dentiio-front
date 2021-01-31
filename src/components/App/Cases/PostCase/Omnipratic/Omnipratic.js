@@ -397,8 +397,10 @@ export default function HorizontalLinearStepper() {
   const handleChangeImgTypeSlider = () => {
     if (imgTypeSlider === EXAM_TYPE) {
       setImgTypeSlider(TREAT_TYPE)
+      setStep_slide(0)
     } else {
       setImgTypeSlider(EXAM_TYPE)
+      setStep_slide(0)
     }
   }
 
