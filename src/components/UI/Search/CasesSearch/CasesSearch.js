@@ -34,14 +34,14 @@ const Search = () => {
   const loadKeywords = async () => {
     const keywordsLoad = await fetchKeywords()
 
-    if (keywordsLoad.datas.length > 1) {
+    if (keywordsLoad?.datas?.length > 1) {
       setValues({ ...values, keywords: keywordsLoad.datas })
       dispatch({ type: KEYWORDS_LIST, keywords: values.keywords })
     }
   }
 
   // if no keywords in cache load keyword from api
-  if (values.keywords.length < 1) {
+  if (values.keywords?.length < 1) {
     loadKeywords()
   }
 

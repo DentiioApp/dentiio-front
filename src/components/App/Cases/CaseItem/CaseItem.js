@@ -9,42 +9,37 @@ import Typography from '@material-ui/core/Typography'
 import FavButton from '../../../UI/buttons/FavButton/FavButton'
 import UserAvatar from '../../../UI/Avatars/UserAvatar'
 import { avgNotes } from '../../../../utils'
-import Keyword from '../../../UI/buttons/Keywords/keywords'
 import ChatIcon from '@material-ui/icons/Chat'
 import StarBorderIcon from '@material-ui/icons/StarBorder';
 import StarIcon from '@material-ui/icons/Star';
 
 const CasesItem = (props) => {
   const img = () => {
-    if (props.item.imageClinicalCases) {
-      return props.item.imageClinicalCases.filter(function (i) {
-        return i.type.name === 'principal'
+    if (props.item.imgClinicalCaseOmnipratiques) {
+      return props.item.imgClinicalCaseOmnipratiques.filter(function (i) {
+        return i.isPrincipal === true
       }).map(function (img) {
         return img.path
       })
     }
   }
-  console.log(props.item.User)
   return(
     <Card key={props.item.id}>
       <FavButton alt='favorite' value={props.item} isFavorite={props.favorite} />
       <Link to={`/case/${props.item.id}`} style={{ textDecoration: 'none' }}>
         <CardMedia
           className='media'
-          image={'https://api.dentiio.fr/images/' + (img() !== undefined ? img()[0] : '')}
+          image={process.env.REACT_APP_BACK_URL + "images/" + (img() !== undefined ? img()[0] : '')}
           title={props.item.title}
         />
-        <div style={{ marginTop: '-35px', marginLeft: '15px' }}>
+{/*        <div style={{ marginTop: '-35px', marginLeft: '15px' }}>
           {props.item.keyword && props.item.keyword.map((keyword, index) => (
             <Keyword key={index} keyword={keyword.name} />
           ))}
-        </div>
+        </div>*/}
         <CardContent>
           <Typography variant='h6' style={{ color: 'black' }} component='p' className='title'>
             {props.item.title}
-          </Typography>
-          <Typography variant='body2' color='textSecondary' component='p' className='presentation'>
-            {props.item.presentation}
           </Typography>
         </CardContent>
         <br />

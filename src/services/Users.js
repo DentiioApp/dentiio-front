@@ -6,6 +6,7 @@ const USERS = process.env.REACT_APP_BACK_API_URL + process.env.REACT_APP_USERS
 const AVATAR = process.env.REACT_APP_BACK_API_URL + process.env.REACT_APP_AVATAR
 
 export const loginCheck = (email, passwd) => {
+    axios.defaults.headers.Authorization = 'Bearer ' + localStorage.getItem('authToken')
     return axios.post(
         LOGIN_CHECK, { username: email, password: passwd }
     ).then((res) =>{ return  {message: 'OK', datas: res}})
