@@ -134,7 +134,7 @@ export const postCase = (values, patient) => {
 
 
 export const insertImage = async (img_datas, id_clinical_omni, is_principal, type) => {
-  let typeImgCaseOmni = EXAM_TYPE === type ? 'ImageClinicalCaseType/16' : 'ImageClinicalCaseType/17';
+  let typeImgCaseOmni = EXAM_TYPE === type ? 'ImageClinicalCaseType/4' : 'ImageClinicalCaseType/5';
 
   const updateClinicCase = {
     "type": typeImgCaseOmni, //img_datas.type.toUpperCase()
