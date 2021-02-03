@@ -98,32 +98,6 @@ const NavbarDetail = () => {
               </Button>
             </Link>
             <Link
-              to='evolution'
-              className={classes.detailnav}
-              activeClass='active'
-              spy
-              smooth
-              offset={-70}
-              duration={500}
-            >
-              <Button>
-                <span>Evolution</span>
-              </Button>
-            </Link>
-            <Link
-              to='conclusion'
-              className={classes.detailnav}
-              activeClass='active'
-              spy
-              smooth
-              offset={-70}
-              duration={500}
-            >
-              <Button>
-                <span>Conclusion</span>
-              </Button>
-            </Link>
-            <Link
               to='discussion'
               className={classes.detailnav}
               activeClass='active'

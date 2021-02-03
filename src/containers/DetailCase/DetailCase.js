@@ -12,13 +12,14 @@ import IconProfile from '../../components/UI/Icon/Profile/iconProfile'
 import palette from '../../components/UI/ColorTheme/Palette'
 import Keyword from '../../components/UI/buttons/Keywords/keywords'
 import Gallery from '../../components/UI/Gallery/Gallery'
-import LightboxButton from '../../components/UI/Gallery/LightboxButton'
 import CardPlanTreatment from '../../components/App/Cases/DetailCase/CardPlanTreatment'
 import {getCaseById} from '../../services/Cases'
 import {setup} from '../../services/Auth'
 import RatingCase from "../../components/App/Cases/DetailCase/Rating";
 import Spinner from "../../components/UI/Dawers/Spinner";
 import Box from "@material-ui/core/Box";
+import UserAvatar from "../../components/UI/Avatars/UserAvatar";
+import CardActions from "@material-ui/core/CardActions/CardActions";
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -103,14 +104,14 @@ const DetailCase = (props) => {
 
     const imagesExam = (type) => {
         console.log(item)
-        if (item.imageClinicalCases) {
+        if (item.imgClinicalCaseOmnipratiques) {
             const array = []
-            item.imageClinicalCases.filter(function (i) {
-                return i.type.name === type
+            item.imgClinicalCaseOmnipratiques.filter(function (i) {
+                return i.type === type
             }).map(function (img) {
                     return array.push({
-                            original: 'https://api.dentiio.fr/images/' + img.path,
-                            thumbnail: 'https://api.dentiio.fr/images/' + img.path
+                            original: process.env.REACT_APP_BACK_URL + "images/" + img.path,
+                            thumbnail: process.env.REACT_APP_BACK_URL + "images/" + img.path
                         }
                     )
                 }
@@ -119,20 +120,7 @@ const DetailCase = (props) => {
         }
     }
 
-    const imagesTreatment = (type) => {
-        if (item.imageClinicalCases) {
-            const array = []
-            item.imageClinicalCases.filter(function (i) {
-                return i.type.name === type
-            }).map(function (img) {
-                    return array.push('https://api.dentiio.fr/images/' + img.path
-                    )
-                }
-            )
-            return array
-        }
-    }
-
+    console.log(item)
     if (setup()) {
         if (Object.entries(item).length === 0) {
             return (<><Header target=''/>
@@ -148,87 +136,61 @@ const DetailCase = (props) => {
                             <Grid container spacing={1}>
                                 <Grid container item md={3} spacing={1}>
                                     <div className={classes.patientDesktop}>
-                                        <PatientDetail data={item.Patient && item.Patient}/>
+                                        <PatientDetail data={item?.Patient}/>
                                     </div>
                                 </Grid>
                                 <Grid container item md={7} spacing={1}>
                                     <div className={classes.paddigTopTitle}>
                                         <Typography component='h1' variant='h4'>
-                                            {item.title && item.title}
+                                            {item?.title}
                                         </Typography>
                                         <Typography component='p' variant='body2' className={classes.subtitle}>
-                  <span style={{paddingRight: 20}}>
-                    {item.speciality?.map((spe) => (
-                        spe.name + ', '
-                    ))}
-                  </span>
+                                          <span style={{paddingRight: 20}}>
+                                            {item.speciality?.map((spe) => (
+                                                spe.name + ', '
+                                            ))}
+                                          </span>
                                             {Img}
-                                            {item.averageNote && item.averageNote} ({item.notations && item.notations.length} notes)
+                                            {item?.averageNote} {item.notations?.length ? "(" + item.notations.length + "notes )" : 'Aucune note'}
                                         </Typography>
                                         <Typography component='p' variant='body2' className={classes.subtitle}>
                                             Publié
                                             le {item.createdAt && new Date(item.createdAt).toLocaleDateString('fr-FR', optionsDate)}
+                                            &nbsp;par&nbsp;
+                                            <span className={classes.profileName} style={{textTransform: 'capitalize'}} >
+                                                {item.User?.pseudo}
+                                            </span>
+                                            <UserAvatar avatar={item?.User?.avatar} width='30px' />
                                         </Typography>
-
-                                        <Grid container spacing={1} className={classes.resume}>
-                                            <Grid container item md={3} spacing={1} justify='center'>
-                                                <div className={classes.textCenter}>
-                                                    <IconProfile color={palette.primary} profile={props.profileId}
-                                                                 img={props.profileImg}/>
-                                                    <p className={classes.profileName}
-                                                       style={{textTransform: 'capitalize'}}>
-                                                        {item.user?.pseudo}
-                                                        <br/>
-                                                        <span className={classes.subtitle}>
-                          {item.user?.job?.name}
-                        </span>
-                                                    </p>
-                                                </div>
-                                            </Grid>
-                                            <Grid container item md={9} spacing={1}>
-                                                <p>
-                                                    {item?.presentation}
-                                                </p>
-                                                {item.keyword?.map((keyword, index) => (
-                                                    <div key={index} className={classes.keywords}>
-                                                        <Keyword key={index} keyword={keyword.name}/>
-                                                    </div>
-                                                ))}
-                                            </Grid>
-                                        </Grid>
                                         <Typography component='h3' variant='h5' className={classes.h3}>
                                             Motif de consultation
                                         </Typography>
                                         <p>
-                                            {item?.reason_consult}
-                                            Les dents infero-anterieur ont une légère mobilité et sont douloureuses
-                                            depuis
-                                            quelques jours.
+                                            {item.Patient?.reasonConsult}
                                         </p>
-                                        <Typography component='h3' variant='body1'>
+                                        {/*<Typography component='h3' variant='body1'>
                                             Les symptômes sont :
                                             {item.symptome?.map((keyword, index) => (
                                                 <div key={index} className={classes.keywords}>
                                                     <Keyword key={index} keyword={keyword.name}/>
                                                 </div>
                                             ))}
-                                        </Typography>
+                                        </Typography>*/}
                                         <div className={classes.patientMobile}>
                                             <PatientDetail/>
                                         </div>
                                         <Typography component='h3' variant='h5' className={classes.h3} id='examen'>
                                             Examen clinique
                                         </Typography>
-                                        {item.imageClinicalCases && <Gallery images={imagesExam('examen')}/>}
                                         <p>
-                                            {item?.observation}
+                                            {item?.ExamDescription}
                                         </p>
-
+                                        {item.imgClinicalCaseOmnipratiques && imagesExam('examen').length != 0 && <Gallery images={imagesExam('examen')}/>}
                                         <Typography component='h3' variant='h5' className={classes.h3} id='diagnostic'>
                                             Diagnostic
                                         </Typography>
                                         <p>
-                                            {item?.diagnostic}
+                                            {item?.pathologie}
                                         </p>
                                         <Grid container item md={12} spacing={1}>
                                             {/*{item.pathologie?.map((keyword, index) => (
@@ -241,18 +203,14 @@ const DetailCase = (props) => {
                                             Plan de traitement
                                         </Typography>
                                         <p>
-                                            {item?.treatmentPlan}
+                                            {item?.TreatmentDescription}
                                         </p>
                                         <Grid container spacing={1} className={classes.resume}>
-                                            {item?.imageClinicalCases && imagesExam('treatment').map((img, index) => (
-                                                <Grid container item md={6} key={index} justify='center'>
-                                                    <CardPlanTreatment title={index + 1} key={index} description=''
-                                                                       image={img.original}/>
-                                                </Grid>
-                                            ))}
+                                            {item.imgClinicalCaseOmnipratiques && imagesExam('treatment').length != 0 &&  <Gallery images={imagesExam('treatment')}/>}
 
                                         </Grid>
                                     </div>
+                                    <br/>
                                     <RatingCase/>
 
                                 </Grid>
