@@ -1,6 +1,5 @@
 import React, {useEffect, useState} from 'react'
 import {Redirect} from 'react-router-dom'
-
 import './gallery.css'
 import Header from '../../components/App/Header/Header'
 import NavbarDetail from '../../components/App/Cases/DetailCase/NavbarDetail'

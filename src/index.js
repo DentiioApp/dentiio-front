@@ -27,21 +27,21 @@ import ConfigureStore from './store/configureStore'
 import CGU from "./containers/CGU/CGU";
 dotenv.config() 
 
-var _route = '/'
+// var _route = '/'
 
-if(window.location.pathname !== _route ) {
+// if(window.location.pathname !== _route ) {
  
-  var routes = {
-    'cases' : Cases,
-    'post-case' : CasePost,
-    'cgu' : CGU,
-    'favorites' : Favorites,
-    'profile' : Profile,
-    'avatar' : UserAvatar,
-  }
+//   var routes = {
+//     'cases' : Cases,
+//     'post-case' : CasePost,
+//     'cgu' : CGU,
+//     'favorites' : Favorites,
+//     'profile' : Profile,
+//     'avatar' : UserAvatar,
+//   }
 
-  _route = routes[window.location.pathname.replace('/','')] ;
-}
+//   _route = routes[window.location.pathname.replace('/','')] ;
+// }
 
 ReactDOM.render(
   <ThemeProvider theme={colorTheme}>
@@ -52,6 +52,16 @@ ReactDOM.render(
           <div>
             <Switch>
               <Route exact path='/' component={Home} />
+              <Route exact path='/cases' component={Cases}/>
+              <Route path='/case/:id' component={DetailCase}/>
+              <Route exact path='/favorites' component={Favorites}/>
+              <Route exact path='/profile' component={Profile }/>
+              <Route exact path='/profile/edit' component={EditProfile}/>
+              <Route exact path='/post-question' component={QuestionPost}/>
+              <Route exact path='/post-case' component={CasePost}/>
+              <Route exact path='/avatar' component={UserAvatar}/>
+              <Route exact path='/cgu' component={CGU} />
+              {/* <Route exact path='/' component={Home} />
               <Route exact path='/cases' component={ _route !== '/' ? _route : Cases}/>
               <Route path='/case/:id' component={ _route !== '/' ? _route : DetailCase}/>
               <Route exact path='/favorites' component={ _route !== '/' ? _route : Favorites}/>
@@ -60,7 +70,7 @@ ReactDOM.render(
               <Route exact path='/post-question' component={ _route !== '/' ? _route : QuestionPost}/>
               <Route exact path='/post-case' component={ _route !== '/' ? _route : CasePost}/>
               <Route exact path='/avatar' component={ _route !== '/' ? _route :  UserAvatar}/>
-              <Route exact path='/cgu' component={ _route !== '/' ? _route : CGU} />
+              <Route exact path='/cgu' component={ _route !== '/' ? _route : CGU} /> */}
             </Switch>
           </div>
         </Router>
