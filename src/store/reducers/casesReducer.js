@@ -17,7 +17,6 @@ import {
   ADD_CENSOR_POINT,
   DROP_CENSOR_POINTS,
 } from '../actions'
-import censoring_img from '../../images/patch-crop.svg'
 
 import { favOrCase } from '../../utils'
 

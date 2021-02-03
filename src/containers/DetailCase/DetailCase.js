@@ -207,7 +207,6 @@ const DetailCase = (props) => {
         }
     }
 
-
     if (setup()) {
         if (Object.entries(item).length === 0) {
             return (<><Header target=''/>
@@ -312,6 +311,7 @@ const DetailCase = (props) => {
                                     <p>
                                         {item.diagnostic && item.diagnostic}
                                     </p>
+                                    
                                     <Grid container item md={12} spacing={1}>
                                         {item.pathologie && item.pathologie.map((keyword, index) => (
                                             <div key={index} className={classes.keywords}>
