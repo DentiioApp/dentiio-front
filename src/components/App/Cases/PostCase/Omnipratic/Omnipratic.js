@@ -5,7 +5,7 @@ import Stepper from '@material-ui/core/Stepper';
 import Step from '@material-ui/core/Step';
 import StepLabel from '@material-ui/core/StepLabel';
 import config from '../../../../../config'
-import patchCrop from '../../../../../images/hide.png'
+import img_for_hide from '../../../../../images/hide.png'
 
 // import Button from '@material-ui/core/Button';
 // import Typography from '@material-ui/core/Typography';
@@ -391,7 +391,7 @@ export default function HorizontalLinearStepper() {
       //   { 'pointed_X :': pointed_X, 'pointed_Y: ': pointed_Y },
       // ]);
 
-      dispatch({ type: ADD_CENSOR_POINT, datas: { 'src': patchCrop, 'x': pointed_X, 'y': pointed_Y } })
+      dispatch({ type: ADD_CENSOR_POINT, datas: { 'src': img_for_hide, 'x': pointed_X, 'y': pointed_Y } })
     }
   }
 
