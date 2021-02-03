@@ -24,11 +24,10 @@ help:
 .PHONY: run ## Build & run the project
 run:
 	$(D) build -t $(T) .
-	$(D) run -p 3000:3000 -d --name $(N) $(T)
 
 .PHONY: start ## Start the project
 start:
-	$(D) start $(N)
+	$(D) run --rm -ti -p 3000:3000/tcp --name $(N) $(T)
 
 .PHONY: restart ## Restart the project
 restart:
