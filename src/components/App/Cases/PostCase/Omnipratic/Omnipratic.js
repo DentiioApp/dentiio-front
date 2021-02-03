@@ -6,10 +6,6 @@ import Step from '@material-ui/core/Step';
 import StepLabel from '@material-ui/core/StepLabel';
 import config from '../../../../../config'
 import patchCrop from '../../../../../images/hide.png'
-
-// import Button from '@material-ui/core/Button';
-// import Typography from '@material-ui/core/Typography';
-// import React, { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import {
   Switch,
@@ -19,22 +15,19 @@ import {
 import Grid from '@material-ui/core/Grid';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import ChevronRightIcon from '@material-ui/icons/ChevronRight';
-// import { makeStyles } from '@material-ui/core/styles'
 import TextField from '@material-ui/core/TextField';
 import SmokingRoomsIcon from '@material-ui/icons/SmokingRooms'
 import { DropzoneArea/*, DropzoneDialog */ } from 'material-ui-dropzone';
 import LocalBarIcon from '@material-ui/icons/LocalBar'
 import { format_file, post_images } from "../../../../../store/actions";
 import { useToasts } from 'react-toast-notifications'
-
-// import oStyle from '../../../../UI/ResponsiveDesign/AuthStyle'
 import { UPDATE_LEVEL, UPDATE_STEPPER_POSTCASE, START_LOADER, STOP_LOADER, EXAM_TYPE, TREAT_TYPE, ADD_CENSOR_POINT, DROP_CENSOR_POINTS } from '../../../../../store/actions'
 import { postCase } from '../../../../../services/Cases'
 import { postPatient } from '../../../../../services/Patient'
 import MenuItem from '@material-ui/core/MenuItem'
 import InputLabel from '@material-ui/core/InputLabel'
 import Box from "@material-ui/core/Box";
-import { createCanvas, loadImage } from 'canvas';
+import { createCanvas } from 'canvas';
 import { errorApi, ModifyImage } from '../../../../../utils'
 
 const useStyles = makeStyles((theme) => ({
@@ -194,21 +187,11 @@ export default function HorizontalLinearStepper() {
       case 'old_injury':
         function addFields() {
           var container = document.getElementById('fieldset_old_injury')
-          // Clear previous contents of the container
-          /* while (container.hasChildNodes()) {
-                  container.removeChild(container.lastChild);
-              } */
 
           // Append a node with a random text
           var newDiv = document.createElement('div')
           newDiv.setAttribute('id', 'node_old_injury' + inCrement)
 
-          //   texField.setAttribute("label","minimum height")
-          //   texField.setAttribute("placeholder","Antecedent medicaux")
-          //   texField.setAttribute("variant","outlined")
-          //   texField.setAttribute("label","Antecedent medicaux")
-          //   texField.setAttribute("multilined",true)
-          //   texField.setAttribute("fullWidth",true)
           newDiv.append(React.createFactory('TexField', <TextField label='Combo box' variant='outlined'>jj</TextField>))
 
           container.appendChild(newDiv)
@@ -427,59 +410,31 @@ export default function HorizontalLinearStepper() {
       <div>
         {activeStep === steps.length ? (
           <div>
-            {/* <Typography className={classes.instructions}> */}
-            {/*  */}
-            {/* REPONSE DE VALIDATION */}
-            {/*  */}
             <Box bgcolor="background.paper" display={showResponseValid}>
 
               LE CAS A ÉTÉ ENREGISTRTÉ! <span role="img" aria-labelledby={'toto'}>😀</span>
             </Box>
-            {/* </Typography> */}
-            {/* <Button onClick={handleReset} className={classes.button}>
-                            Reset
-                        </Button> */}
           </div>
         ) : (
             <div>
               <Box bgcolor="background.paper" display={showPatient}>
                 <form className={classes.form} noValidate>
-                  <Typography component='h1' variant='h5'>
+                  <Typography component='h1' variant='h5' style={{padding: 20}}>
                     <center>Information patient</center>
                   </Typography>
                   <Grid container item spacing={3} component='main'>
-                    <Grid item xs={12} sm={6}>
+                    <Grid item xs={1} md={3}></Grid>
+                    <Grid item xs={10} md={6}>
                       <div className={classes.paper}>
-                        <TextField
-                          aria-label='minimum height'
-                          multiline
-                          rows={4}
-                          placeholder='Motif de la consultation'
-                          variant='outlined'
-                          margin='normal'
-                          label='Motif de la consultation'
-                          autoFocus
-                          required
-                          fullWidth
-                          name='reason_consultation'
-                          type='textarea'
-                          id='reason_consultation'
-                          value={values.reason_consultation}
-                          autoComplete='current-reason_consultation'
-                          onKeyDown={(e) => e.keyCode !== 13 ? null : catchErrors(e)}
-                          onChange={handleChange('reason_consultation')}
-                          error={errors.errReason_consultation}
-                        />
                         <br />
                         <TextField
                           className='textField'
                           id='age'
                           label='Age'
-                          select
+                          type="number"
                           fullWidth
                           onChange={handleChange('age')}
                           variant='outlined'
-                          value={values.age === undefined ? 18 : values.age}
                           error={errors.errAge}
                         >
                           {ages && ages.map((index, value) => (
@@ -508,37 +463,8 @@ export default function HorizontalLinearStepper() {
                             </MenuItem>
                           ))}
                         </TextField>
-
-                        <br /> <br />
-
-                        <Grid container spacing={3}>
-                          <Grid item xs={6}>
-                            <InputLabel className='inputLabel'>
-                              Fumeur <SmokingRoomsIcon />
-                            </InputLabel>
-                            <Switch
-                              checked={values.isASmoker}
-                              onChange={handleChange('isASmoker')}
-                              color='primary'
-                              name='isASmoker'
-                              inputProps={{ 'aria-label': 'primary checkbox' }}
-                            /> </Grid>
-                          <Grid item xs={6}>
-                            <InputLabel className='inputLabel'>
-                              Alcool <LocalBarIcon />
-                            </InputLabel>
-                            <Switch
-                              checked={values.isDrinker}
-                              onChange={handleChange('isDrinker')}
-                              color='primary'
-                              name='isDrinker'
-                              inputProps={{ 'aria-label': 'primary checkbox' }}
-                            />
-                          </Grid>
-                        </Grid>
                       </div>
                       <div className={classes.paper}>
-
                         <TextField
                           aria-label='minimum height'
                           placeholder='Antécédents médicaux'
@@ -595,6 +521,53 @@ export default function HorizontalLinearStepper() {
                         />
 
                         <br /> <br />
+                        <Grid container spacing={3}>
+                          <Grid item xs={6}>
+                            <InputLabel className='inputLabel'>
+                              Fumeur <SmokingRoomsIcon />
+                            </InputLabel>
+                            <Switch
+                                checked={values.isASmoker}
+                                onChange={handleChange('isASmoker')}
+                                color='primary'
+                                name='isASmoker'
+                                inputProps={{ 'aria-label': 'primary checkbox' }}
+                            /> </Grid>
+                          <Grid item xs={6}>
+                            <InputLabel className='inputLabel'>
+                              Alcool <LocalBarIcon />
+                            </InputLabel>
+                            <Switch
+                                checked={values.isDrinker}
+                                onChange={handleChange('isDrinker')}
+                                color='primary'
+                                name='isDrinker'
+                                inputProps={{ 'aria-label': 'primary checkbox' }}
+                            />
+                          </Grid>
+                        </Grid>
+
+                        <br /> <br />
+                        <TextField
+                            aria-label='minimum height'
+                            multiline
+                            rows={4}
+                            placeholder='Motif de la consultation'
+                            variant='outlined'
+                            margin='normal'
+                            label='Motif de la consultation'
+                            autoFocus
+                            required
+                            fullWidth
+                            name='reason_consultation'
+                            type='textarea'
+                            id='reason_consultation'
+                            value={values.reason_consultation}
+                            autoComplete='current-reason_consultation'
+                            onKeyDown={(e) => e.keyCode !== 13 ? null : catchErrors(e)}
+                            onChange={handleChange('reason_consultation')}
+                            error={errors.errReason_consultation}
+                        />
                       </div>
                       <div className={classes.paper}>
 
