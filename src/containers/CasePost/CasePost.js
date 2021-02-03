@@ -1,16 +1,13 @@
 import React, { useEffect } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
+import { useSelector } from 'react-redux'
 import { Redirect } from 'react-router-dom'
 import ModalGuidelinesPostCase from '../../components/Helper/Modal/ModalGuidelines-PostCase/ModalGuidelinesPostCase'
 import { setup } from '../../services/Auth'
 
-import { fetchSpecialities, fetchPathologies, fetchKeywords, fetchTreatments, fetchSymptomes } from '../../services/Home'
-import { SPECS_LIST, KEYWORDS_LIST, PATHO_LIST, TREATMENTS_LIST, SYMPTOMES_LIST } from '../../store/actions'
 import Header from "../../components/App/Header/Header";
 import New from '../../components/App/Cases/PostCase/Omnipratic/Omnipratic'
 
 const CasePost = () => {
-  const home = useSelector((state) => state.home)
   // const specialities = home.specialities
   // const keywords = home.keywords
   // const pathologies = home.pathologies

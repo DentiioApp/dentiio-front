@@ -52,7 +52,7 @@ const Search = () => {
       const regex = new RegExp(`^${value}`, 'i')
       casesList.map((item) => {
         if (
-          item.keyword.filter((keyword) =>
+          item.keyword?.filter((keyword) =>
             regex.test(keyword.name.toLowerCase())
           ).length > 0
         ) {

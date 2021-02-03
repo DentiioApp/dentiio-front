@@ -69,7 +69,7 @@ const Profile = () => {
 
     const ResponseCases = async () => {
         const CaseById = await getCaseByUserId(getUserId())
-        setCases(CaseById.datas['hydra:member'])
+        CaseById.datas && setCases(CaseById.datas['hydra:member'])
     }
 
     useEffect(() => {

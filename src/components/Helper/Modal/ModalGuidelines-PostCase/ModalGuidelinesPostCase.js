@@ -40,7 +40,7 @@ export default function AlertDialog () {
                                 Dentiio n'est pas destinée à partager vos propres conditions médicales, ni celles de votre famille ou de vos amis.
             </li>
           </ul>
-                        Tous les cas sont examinés avant d'être ajoutés à notre base de données. Les cas qui ne répondent pas à ces critères ne seront pas acceptés. Veuillez noter que toutes vos activités sur la Dentiio sont soumises à nos directives communautaires complètes et à nos conditions d'utilisation.
+                        Tous les cas sont examinés avant d'être ajoutés à notre base de données. Les cas qui ne répondent pas à ces critères ne seront pas acceptés. Veuillez noter que toutes vos activités sur Dentiio sont soumises à nos directives communautaires complètes et à nos conditions d'utilisation.
 
         </DialogContent>
         <DialogActions>

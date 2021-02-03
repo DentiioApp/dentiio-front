@@ -43,7 +43,6 @@ const CasesItem = (props) => {
             {props.item.title}
           </Typography>
         </CardContent>
-        <br />
         <CardActions disableSpacing>
           <UserAvatar avatar={props?.item?.User?.avatar} width='50px' />
           <Typography variant='body2' style={{ color: 'black', textTransform: 'capitalize' }} component='p'>
