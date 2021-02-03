@@ -78,7 +78,7 @@ const CasesList = () => {
 
     return (
         <>
-            <Container maxWidth='lg'>
+            <Container>
                 <center><img src={titleSvg} alt='Cas Cliniques'/></center>
                 <Paginator pages={pages} onChange={handleChange}
                            current={values.paginator}/> {cases.length > 0 ? '[page ' + values.paginator + ']' : ''}

@@ -25,7 +25,7 @@ const CasesItem = (props) => {
   }
 
   return(
-    <Card key={props.item.id}>
+    <Card key={props.item.id} className='card'>
       <FavButton alt='favorite' value={props.item} isFavorite={props.favorite} />
       <Link to={`/case/${props.item.id}`} style={{ textDecoration: 'none' }}>
         <CardMedia
@@ -39,8 +39,11 @@ const CasesItem = (props) => {
           ))}
         </div>*/}
         <CardContent>
-          <Typography variant='h6' style={{ color: 'black' }} component='p' className='title'>
+          <Typography variant='h6' component='p' className='title'>
             {props.item.title}
+          </Typography>
+          <Typography variant='subtitle2' component='p' className='desc'>
+            {props.item.Patient?.reasonConsult}
           </Typography>
         </CardContent>
         <CardActions disableSpacing>

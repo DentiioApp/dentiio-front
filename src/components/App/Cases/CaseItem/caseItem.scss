@@ -1,9 +1,16 @@
 .root{
-  max-width: 345px;
+  min-width: 400px;
 }
 .media{
   height: 0;
+  width: 100%;
   padding-top: 56.25%;
+}
+.card{
+  width: 100%;
+  min-width: 300px;
+  max-width: 450px;
+
 }
 .expand{
   transform: rotate(0deg);
@@ -30,4 +37,9 @@
   height: 40px;
   text-overflow: ellipsis;
   line-height: 1!important;
+  color: black;
+}
+
+.desc{
+  color: dimgray;
 }
