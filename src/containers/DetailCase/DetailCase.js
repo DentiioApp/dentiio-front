@@ -20,6 +20,7 @@ import Spinner from "../../components/UI/Dawers/Spinner";
 import Box from "@material-ui/core/Box";
 import UserAvatar from "../../components/UI/Avatars/UserAvatar";
 import CardActions from "@material-ui/core/CardActions/CardActions";
+import Comments from "../../components/App/Cases/Comments/Comments"
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -95,6 +96,7 @@ const DetailCase = (props) => {
 
     useEffect(() => {
         if (Object.entries(item).length === 0) {
+            console.log(Object.entries(item));
             ResponseCase()
         }
     })
@@ -213,13 +215,63 @@ const DetailCase = (props) => {
                                     <br/>
                                     <RatingCase/>
 
-                                </Grid>
-                                <Grid container className={classes.alignRight} item md={2} spacing={1}>
+                                    <Typography component='h3' variant='h5' className={classes.h3} id='diagnostic'>
+                                        Diagnostic
+                                    </Typography>
+                                    <p>
+                                        {item.diagnostic && item.diagnostic}
+                                    </p>
+                                    
+                                    <Grid container item md={12} spacing={1}>
+                                
+                                        <div key={'ok'} className={classes.keywords}>
+                                            <Keyword key={'ind'} keyword={item.pathologie}/>
+                                        </div>
+                             
+                                    </Grid>
+                                    <Typography component='h3' variant='h5' className={classes.h3} id='plan'>
+                                        Plan de traitement
+                                    </Typography>
+                                    <p>
+                                        {item.treatmentPlan && item.treatmentPlan}
+                                    </p>
+                                    <Grid container spacing={1} className={classes.resume}>
+                                        {item.imageClinicalCases && imagesExam('plan-de-traitement').map((img, index) => (
+                                            <Grid container item md={6} key={index} justify='center'>
+                                                <CardPlanTreatment title={index + 1} key={index} description=''
+                                                                   image={img.original}/>
+                                            </Grid>
+                                        ))}
+
+                                    </Grid>
+
+                                    <Typography component='h3' variant='h5' className={classes.h3} id='evolution'>
+                                        Evolution
+                                    </Typography>
+                                    <p>
+                                        {item.evolution && item.evolution}
+                                    </p>
+                                    {/* {Evolution()} */}
+                                    <Typography component='h3' variant='h5' className={classes.h3} id='conclusion'>
+                                        Conclusion
+                                    </Typography>
+                                    <p>
+                                        {item.conclusion && item.conclusion}
+                                    </p>
+                                <RatingCase/>
+                        
+                                {/* <Grid container className={classes.alignRight} item md={2} spacing={1}>
                                     <div>
                                     </div>
-                                </Grid>
+                                </Grid> */}
                             </Grid>
-                        </div>
+                            <Grid container className={classes.alignRight} item md={2} spacing={1}>
+                                <div>
+                                </div>
+                                </Grid>
+                                <Comments key={'commentsData'} datas={item} item={item.commentaires} />
+                        </Grid>
+                    </div>
                     </Box>
                 </>
             )
