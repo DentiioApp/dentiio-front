@@ -359,20 +359,7 @@ export default function HorizontalLinearStepper() {
       let canva_slider = document.getElementById("canva_slider");
       const pointed_X = e.clientX - canva_slider.offsetLeft;
 
-      console.table([
-        { 'canva_slider.offsetTop ': canva_slider.offsetTop},//offsetParent
-        { 'offsetParent ': canva_slider.offsetParent},//offsetParent
-        { 'e.clientY: ': e.clientY },
-      ]);
-
-      const pointed_Y = 10 //e.clientY - canva_slider.offsetTop;
-
-      // console.table([
-      //   { 'e.clientX :': e.clientX, 'e.clientY: ': e.clientY },
-      //   { 'From Top ': canva_slider.offsetTop},
-      //   { 'From  left': canva_slider.offsetLeft},
-      //   { 'pointed_X :': pointed_X, 'pointed_Y: ': pointed_Y },
-      // ]);
+      const pointed_Y = e.clientY - canva_slider.offsetTop + window.scrollY;
 
       dispatch({ type: ADD_CENSOR_POINT, datas: { 'src': img_for_hide, 'x': pointed_X, 'y': pointed_Y } })
     }

@@ -269,7 +269,7 @@ const DetailCase = (props) => {
                                 <div>
                                 </div>
                                 </Grid>
-                                <Comments key={'commentsData'} datas={item} />
+                                <Comments  datas={item} />
                         </Grid>
                     </div>
                     </Box>
