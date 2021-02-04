@@ -555,7 +555,6 @@ export default function HorizontalLinearStepper() {
                         <DropzoneArea
                           showPreviews={true}
                           showPreviewsInDropzone={false}
-                          //useChipsForPreview
                           previewGridProps={{ container: { spacing: 1, direction: 'row' } }}
                           previewText={`${exam_pics.length} Fichier(s) Chargé(s)`}
                           getUploadParams={getUploadParams}
