@@ -4,7 +4,6 @@ import { IMAGE_EXAM_EDITION, IMAGE_TREAT_EDITION } from '../../store/actions'
 var array_to_merge = [];
 
 export const ModifyImage = async (censor_points, imageTodo, currentImgIndex, dispatch, type) => {
-  console.table([{ 'imageTodo :': imageTodo, 'currentImgIndex: ': currentImgIndex }, { 'type :': type }, censor_points])
   let action = {
     'EXAM': IMAGE_EXAM_EDITION,
     'TREAT': IMAGE_TREAT_EDITION,

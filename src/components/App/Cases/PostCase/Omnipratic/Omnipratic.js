@@ -55,6 +55,8 @@ export default function HorizontalLinearStepper() {
   const messages = config.messages.cases
   const history = useHistory()
 
+  const [step_slide, setStep_slide] = useState(-1)
+
   const [inCrement, setInCrement] = useState(1)
   const { ages, sexes } = config
   const dispatch = useDispatch()
@@ -65,7 +67,7 @@ export default function HorizontalLinearStepper() {
   }
 
   const { exam_pics, treat_pics, censor_points } = useSelector((state) => state.cases)
-  console.table([{ 'treat_pics :': treat_pics, 'exam_pics: ': exam_pics }, { 'censor_points: ': censor_points }])
+  console.table([{ 'treat_pics :': treat_pics, 'exam_pics: ': exam_pics }, { 'stepslide: ': step_slide }])
 
   const handleChangeStatus = ({ meta }, status) => {
     console.log('status', status, 'meta', meta)
@@ -186,15 +188,15 @@ export default function HorizontalLinearStepper() {
 
       case 'old_injury':
         function addFields() {
-          var container = document.getElementById('fieldset_old_injury')
+          var container = document.getElementById('fieldset_old_injury');
 
           // Append a node with a random text
-          var newDiv = document.createElement('div')
-          newDiv.setAttribute('id', 'node_old_injury' + inCrement)
+          var newDiv = document.createElement('div');
+          newDiv.setAttribute('id', 'node_old_injury' + inCrement);
 
-          newDiv.append(React.createFactory('TexField', <TextField label='Combo box' variant='outlined'>jj</TextField>))
+          newDiv.append(React.createFactory('TexField', <TextField label='Combo box' variant='outlined'>jj</TextField>));
 
-          container.appendChild(newDiv)
+          container.appendChild(newDiv);
           // Create an <input> element, set its type and name attributes
           /*
     
@@ -205,29 +207,29 @@ export default function HorizontalLinearStepper() {
      
               */
           // Append a line break
-          container.appendChild(document.createElement('br'))
-          setInCrement(inCrement + 1)
+          container.appendChild(document.createElement('br'));
+          setInCrement(inCrement + 1);
         }
-        addFields()
-        setValues({ ...values, [prop]: event.target.value })
+        addFields();
+        setValues({ ...values, [prop]: event.target.value });
 
         break;
 
       case 'exam_pics':
-        format_file(event, dispatch, exam_pics, EXAM_TYPE)
+        format_file(event, dispatch, exam_pics, EXAM_TYPE);
         break;
       case 'treat_pics':
-        format_file(event, dispatch, treat_pics, TREAT_TYPE)
+        format_file(event, dispatch, treat_pics, TREAT_TYPE);
         break;
       case 'problemHealth':
       case 'keywords':
       case 'treatments':
       case 'symptomes':
       case 'specialities':
-        setValues({ ...values, [prop]: event.target.value })
+        setValues({ ...values, [prop]: event.target.value });
         break;
       default:
-        setValues({ ...values, [prop]: event.target.value })
+        setValues({ ...values, [prop]: event.target.value });
 
     }
   }
@@ -274,20 +276,20 @@ export default function HorizontalLinearStepper() {
   //     setActiveStep(0);
   // };
 
-  const canvas = createCanvas(500, 500)
-  const ctx = canvas.getContext('2d')
-  const [step_slide, setStep_slide] = useState(1)
-  const [canvaState, setCanvasState] = useState(false)
-  const [currentImgIndex, setCurrentImgIndex] = useState(1)
-  const [imgTypeSlider, setImgTypeSlider] = useState(EXAM_TYPE)
+  const canvas = createCanvas(500, 500);
+  const ctx = canvas.getContext('2d');
+  const [canvaState, setCanvasState] = useState(false);
+  const [currentImgIndex, setCurrentImgIndex] = useState(1);
+  const [imgTypeSlider, setImgTypeSlider] = useState(EXAM_TYPE);
 
   const handleImgBack = () => {
-    console.log('Back :', step_slide)
-    setStep_slide((step_slide - 1))
+    setStep_slide((step_slide - 1));
+    console.log('Back :', step_slide);
   }
+
   const handleImgNext = () => {
-    console.log('Next :', step_slide)
-    setStep_slide((step_slide + 1))
+    setStep_slide((step_slide + 1));
+    console.log('Next :', step_slide);
   }
 
   useEffect(() => {
@@ -302,13 +304,13 @@ export default function HorizontalLinearStepper() {
       if (treat_pics[step_slide]) {
         img.src = treat_pics[step_slide]._img;
         ctx.drawImage(img, 0, 0, 500, 500);
-        setCurrentImgIndex(step_slide)
+        setCurrentImgIndex(step_slide);
       }
     }
 
-    setCanvasState(canvas)
+    setCanvasState(canvas);
 
-  }, [step_slide, imgTypeSlider]);
+  }, [step_slide, imgTypeSlider, censor_points]);
 
   useEffect(() => {
     switch (activeStep) {
@@ -325,9 +327,9 @@ export default function HorizontalLinearStepper() {
         setShowDiagnostic('block');
         break
       case 2:
+        setStep_slide(0);
         setShowPatient('none');
         setShowDiagnostic('none');
-
         setShowFinalisation('block');
         break;
       case 3:
@@ -344,47 +346,25 @@ export default function HorizontalLinearStepper() {
     }
   }, [activeStep])
 
-  const handleStartEditor = () => {
-    setStep_slide((step_slide - 1))
-  }
-
-  const handleEditing = () => {
-    ModifyImage(censor_points, canvaState.toDataURL(), currentImgIndex, dispatch, EXAM_TYPE).then((res) => {
-      dispatch({ type: DROP_CENSOR_POINTS });
-    })
-  }
-
   const handlePointed = (e) => {
     if (canvaState) {
       let canva_slider = document.getElementById("canva_slider");
-      const pointed_X = e.clientX - canva_slider.offsetLeft;
+      const pointed_X = (e.clientX - canva_slider.offsetLeft) - 7; //-7 marge custom pr préciser le click
+      const pointed_Y = e.clientY - canva_slider.offsetTop + window.scrollY - 5; //-5 marge custom pr préciser le click
 
-      console.table([
-        { 'canva_slider.offsetTop ': canva_slider.offsetTop},//offsetParent
-        { 'offsetParent ': canva_slider.offsetParent},//offsetParent
-        { 'e.clientY: ': e.clientY },
-      ]);
-
-      const pointed_Y = 10 //e.clientY - canva_slider.offsetTop;
-
-      // console.table([
-      //   { 'e.clientX :': e.clientX, 'e.clientY: ': e.clientY },
-      //   { 'From Top ': canva_slider.offsetTop},
-      //   { 'From  left': canva_slider.offsetLeft},
-      //   { 'pointed_X :': pointed_X, 'pointed_Y: ': pointed_Y },
-      // ]);
-
-      dispatch({ type: ADD_CENSOR_POINT, datas: { 'src': img_for_hide, 'x': pointed_X, 'y': pointed_Y } })
+      ModifyImage({ 'src': img_for_hide, 'x': pointed_X, 'y': pointed_Y }, canvaState.toDataURL(), currentImgIndex, dispatch, EXAM_TYPE).then((res) => {
+        dispatch({ type: DROP_CENSOR_POINTS });
+      });
     }
   }
 
   const handleChangeImgTypeSlider = () => {
     if (imgTypeSlider === EXAM_TYPE) {
-      setImgTypeSlider(TREAT_TYPE)
-      setStep_slide(0)
+      setImgTypeSlider(TREAT_TYPE);
+      setStep_slide(0);
     } else {
-      setImgTypeSlider(EXAM_TYPE)
-      setStep_slide(0)
+      setImgTypeSlider(EXAM_TYPE);
+      setStep_slide(0);
     }
   }
 
@@ -419,7 +399,7 @@ export default function HorizontalLinearStepper() {
             <div>
               <Box bgcolor="background.paper" display={showPatient}>
                 <form className={classes.form} noValidate>
-                  <Typography component='h1' variant='h5' style={{padding: 20}}>
+                  <Typography component='h1' variant='h5' style={{ padding: 20 }}>
                     <center>Information patient</center>
                   </Typography>
                   <Grid container item spacing={3} component='main'>
@@ -527,48 +507,48 @@ export default function HorizontalLinearStepper() {
                               Fumeur <SmokingRoomsIcon />
                             </InputLabel>
                             <Switch
-                                checked={values.isASmoker}
-                                onChange={handleChange('isASmoker')}
-                                color='primary'
-                                name='isASmoker'
-                                inputProps={{ 'aria-label': 'primary checkbox' }}
+                              checked={values.isASmoker}
+                              onChange={handleChange('isASmoker')}
+                              color='primary'
+                              name='isASmoker'
+                              inputProps={{ 'aria-label': 'primary checkbox' }}
                             /> </Grid>
                           <Grid item xs={6}>
                             <InputLabel className='inputLabel'>
                               Alcool <LocalBarIcon />
                             </InputLabel>
                             <Switch
-                                checked={values.isDrinker}
-                                onChange={handleChange('isDrinker')}
-                                color='primary'
-                                name='isDrinker'
-                                inputProps={{ 'aria-label': 'primary checkbox' }}
+                              checked={values.isDrinker}
+                              onChange={handleChange('isDrinker')}
+                              color='primary'
+                              name='isDrinker'
+                              inputProps={{ 'aria-label': 'primary checkbox' }}
                             />
                           </Grid>
                         </Grid>
 
                         <br /> <br />
                         <TextField
-                            aria-label='minimum height'
-                            multiline
-                            rows={4}
-                            placeholder='Motif de la consultation'
-                            variant='outlined'
-                            margin='normal'
-                            label='Motif de la consultation'
-                            autoFocus
-                            required
-                            fullWidth
-                            name='reason_consultation'
-                            type='textarea'
-                            id='reason_consultation'
-                            value={values.reason_consultation}
-                            autoComplete='current-reason_consultation'
-                            onKeyDown={(e) => e.keyCode !== 13 ? null : catchErrors(e)}
-                            onChange={handleChange('reason_consultation')}
-                            error={errors.errReason_consultation}
+                          aria-label='minimum height'
+                          multiline
+                          rows={4}
+                          placeholder='Motif de la consultation'
+                          variant='outlined'
+                          margin='normal'
+                          label='Motif de la consultation'
+                          autoFocus
+                          required
+                          fullWidth
+                          name='reason_consultation'
+                          type='textarea'
+                          id='reason_consultation'
+                          value={values.reason_consultation}
+                          autoComplete='current-reason_consultation'
+                          onKeyDown={(e) => e.keyCode !== 13 ? null : catchErrors(e)}
+                          onChange={handleChange('reason_consultation')}
+                          error={errors.errReason_consultation}
                         />
-                        <br/>
+                        <br />
                       </div>
                       <div className={classes.paper}>
                         <br />
@@ -594,180 +574,171 @@ export default function HorizontalLinearStepper() {
               {/*  */}
               {/* DIAGNOSTIC */}
               {/*  */}
-
-              <Box display={showDiagnostic}>
-                <form className={classes.form} noValidate >
-                  <Typography component='h1' variant='h5'>
-                    <center>Diagnostic</center>
-                  </Typography>
-
-                  <Grid container item spacing={2} component='main'>
-                    <Grid item xs={12}>
-                      <div className={classes.paper}>
-                        <TextField
-                          aria-label='minimum height'
-                          placeholder='diagnostic'
-                          variant='outlined'
-                          label='Diagnostic'
-                          multiline
-                          rows={4}
-                          autoFocus
-                          fullWidth
-                          margin='dense'
-                          required
-                          name='diagnostic'
-                          type='textarea'
-                          id='diagnostic'
-                          value={values.diagnostic}
-                          autoComplete='current-diagnostic'
-                          onChange={handleChange('diagnostic')}
-                          error={errors.errDiagnostic}
-                        />
-                      </div>
-                    </Grid>
-                    <Grid item xs={12} sm={6}>
-                      <div className={classes.paper}>
-                        <DropzoneArea
-                          showPreviews={true}
-                          showPreviewsInDropzone={false}
-                          //useChipsForPreview
-                          previewGridProps={{ container: { spacing: 1, direction: 'row' } }}
-                          getUploadParams={getUploadParams}
-                          onChangeStatus={handleChangeStatus}
-                          onChange={handleChange('treat_pics')}
-                          acceptedFiles={['image/jpeg', 'image/png', '/image/bmp']}
-                        />
-
-                      </div>
-                    </Grid>
-                    <Grid item xs={12} sm={6}>
-                      <div className={classes.paper}>
-                        <TextField
-                          variant='outlined'
-                          margin='normal'
-                          required
-                          name='medication_administered'
-                          label='Médicaments administrés, utile ?'
-                          multiline
-                          fullWidth
-                          type='text'
-                          id='medication_administered'
-                          value={values.medication_administered}
-                          autoComplete='current-medication_administered'
-                          onChange={handleChange('medication_administered')}
-                          error={errors.errMedication_administered}
-                        />
-                        {'Séparer les éléments par des espaces'}
-
-                        <br /> <br />
-                      </div>
-                    </Grid>
-                  </Grid>
-                </form>
-              </Box>
-
-              {/*  */}
-              {/* FINALISATION */}
-              {/*  */}
-
-              <Box display={showFinalisation}>
-                <Typography component='h1' variant='h5'>
-                  <center>Ajouter votre cas clinique</center>
-                </Typography>
-
-                <form className={classes.form} noValidate>
-                  <Grid container component='main'>
-                    <Grid item xs={12}>
-                      <div className={classes.paper}>
-                        <Typography component='h1' variant='h5'>
-                          Titre du cas
-                                                </Typography>
-                        <TextField
-                          variant='outlined'
-                          margin='normal'
-                          required
-                          fullWidth
-                          autoFocus
-                          name='title'
-                          label='Titre du cas'
-                          type='text'
-                          id='title'
-                          autoComplete='current-title'
-                          onChange={handleChange('title')}
-                          error={errors.errTitle}
-                        />
-                        <br /> <br />
-                      </div>
-                    </Grid>
-                    <Box>
+              <Grid container item spacing={2} component='main'>
+                <Grid item xs={1} md={3}></Grid>
+                <Grid item xs={10} md={6}>
+                  <Box display={showDiagnostic}>
+                    <form className={classes.form} noValidate >
                       <Typography component='h1' variant='h5'>
-                        <center>Retouche photos</center>
+                        <center>Diagnostic</center>
                       </Typography>
 
+                      <Grid container item spacing={2} component='main'>
+                        <Grid item xs={12}>
+                          <div className={classes.paper}>
+                            <TextField
+                              aria-label='minimum height'
+                              placeholder='diagnostic'
+                              variant='outlined'
+                              label='Diagnostic'
+                              multiline
+                              rows={4}
+                              autoFocus
+                              fullWidth
+                              margin='dense'
+                              required
+                              name='diagnostic'
+                              type='textarea'
+                              id='diagnostic'
+                              value={values.diagnostic}
+                              autoComplete='current-diagnostic'
+                              onChange={handleChange('diagnostic')}
+                              error={errors.errDiagnostic}
+                            />
+                          </div>
+                        </Grid>
+                        <Grid item xs={12} >
+                          <div className={classes.paper}>
+                            <TextField
+                              variant='outlined'
+                              margin='normal'
+                              required
+                              name='medication_administered'
+                              label='Médicaments administrés, utile ?'
+                              multiline
+                              fullWidth
+                              type='text'
+                              id='medication_administered'
+                              value={values.medication_administered}
+                              autoComplete='current-medication_administered'
+                              onChange={handleChange('medication_administered')}
+                              error={errors.errMedication_administered}
+                            />
+                            {'Séparer les éléments par des espaces'}
+
+                            <br /> <br />
+                          </div>
+                        </Grid>
+                        <Grid item xs={12}>
+                          <div className={classes.paper}>
+                            <DropzoneArea
+                              showPreviews={true}
+                              showPreviewsInDropzone={false}
+                              //useChipsForPreview
+                              previewGridProps={{ container: { spacing: 1, direction: 'row' } }}
+                              getUploadParams={getUploadParams}
+                              onChangeStatus={handleChangeStatus}
+                              onChange={handleChange('treat_pics')}
+                              acceptedFiles={['image/jpeg', 'image/png', '/image/bmp']}
+                            />
+
+                          </div>
+                        </Grid>
+                      </Grid>
+                    </form>
+                  </Box>
+                </Grid>
+              </Grid>
+              {/*  */}
+        {/* FINALISATION */}
+        {/*  */}
+        <Grid container item spacing={2} component='main'>
+          <Grid item xs={1} md={3}></Grid>
+          <Grid item xs={10} md={6}>
+            <Box display={showFinalisation}>
+              <Typography component='h1' variant='h5'>
+                <center>Ajouter votre cas clinique</center>
+              </Typography>
+              <form className={classes.form} noValidate>
+                <Grid container component='main'>
+                  <Grid item xs={12}>
+                    <div className={classes.paper}>
+                      <Typography component='h1' variant='h5'>
+                        Titre du cas
+                                                </Typography>
+                      <TextField
+                        variant='outlined'
+                        margin='normal'
+                        required
+                        fullWidth
+                        autoFocus
+                        name='title'
+                        label='Titre du cas'
+                        type='text'
+                        id='title'
+                        autoComplete='current-title'
+                        onChange={handleChange('title')}
+                        error={errors.errTitle}
+                      />
+                      <br /> <br />
+                    </div>
+                  </Grid>
+                  <Box>
+                    <Typography component='h1' variant='h5'>
+                      <center>Retouche photos  <Grid container component='main'>
+                        <Grid item xs={12}>
+                          {exam_pics && exam_pics[(step_slide - 1)] ? <ChevronLeftIcon color="secondary" onClick={handleImgBack} /> : ''}
+                          <ChevronRightIcon onClick={handleImgNext} />
+                        </Grid>
+                      </Grid></center>
+                    </Typography>
+                    <center>
                       <Button
                         variant="contained"
-                        color="primary"
+                        color={imgTypeSlider === EXAM_TYPE ? "secondary" : "primary"}
                         onClick={handleChangeImgTypeSlider}
                         className={classes.button}
                       >
-                        {`PHOTOS  ${(imgTypeSlider === EXAM_TYPE ? TREAT_TYPE : EXAM_TYPE)} `}
+                        {`AFFICHER LES PHOTOS  ${(imgTypeSlider === EXAM_TYPE ? 'DE ' + TREAT_TYPE + 'TEMENT ' : 'D ' + EXAM_TYPE + 'ENS')} `}
                       </Button>
+                    </center>
+                    {<img onClick={handlePointed} id="canva_slider" src={`${canvaState && canvaState.toDataURL()}`} />}
+                  </Box>
+                </Grid>
+              </form>
+            </Box>
+          </Grid>
+        </Grid>
+        <Grid container item spacing={2} component='main'>
+          <Grid item xs={1} md={3}></Grid>
+          <Grid item xs={10} md={6}>
+            <Button disabled={activeStep === 0} onClick={handleBack} className={classes.button}>
+              {`${'Étape précédente'}`}
+            </Button>
+            {isStepOptional(activeStep) && (
+              <Button
+                variant="contained"
+                color="primary"
+                onClick={handleSkip}
+                className={classes.button}
+              >
+                Skip
+              </Button>
+            )}
 
-                      <Button
-                        variant="contained"
-                        color="primary"
-                        onClick={handleEditing}
-                        className={classes.button}
-                      >
-                        APPLIQUER LES MODIFICATIONS
-                      </Button>
-                      <Button
-                        variant="contained"
-                        color="primary"
-                        onClick={handleStartEditor}
-                        className={classes.button}
-                      >
-                        DÉMARRER
-                      </Button>
-
-                      <Button>
-                        <ChevronLeftIcon onClick={handleImgBack} />
-                      </Button>
-                      {<img onClick={handlePointed} id="canva_slider" src={`${canvaState && canvaState.toDataURL()}`} />}
-                      <Button>
-                        <ChevronRightIcon onClick={handleImgNext} />
-                      </Button>
-                    </Box>
-                  </Grid>
-                </form>
-              </Box>
-              <div>
-                <Button disabled={activeStep === 0} onClick={handleBack} className={classes.button}>
-                  {`${'Étape précédente'}`}
-                </Button>
-                {isStepOptional(activeStep) && (
-                  <Button
-                    variant="contained"
-                    color="primary"
-                    onClick={handleSkip}
-                    className={classes.button}
-                  >
-                    Skip
-                  </Button>
-                )}
-
-                <Button
-                  variant="contained"
-                  color="primary"
-                  onClick={handleNext}
-                  className={classes.button}
-                >
-                  {activeStep === steps.length - 1 ? 'Valider' : 'Étape suivante'}
-                </Button>
-              </div>
-            </div>
-          )}
+            <Button
+              variant="contained"
+              color="primary"
+              onClick={handleNext}
+              className={classes.button}
+            >
+              {activeStep === steps.length - 1 ? 'Valider' : 'Étape suivante'}
+            </Button>
+          </Grid>
+        </Grid>
       </div>
+          )}
+    </div>
     </div >
   );
 }
