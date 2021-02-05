@@ -291,7 +291,12 @@ export default function HorizontalLinearStepper() {
 // Opera AndroidFull support 41
 // iOS SafariFull support 9.3
 // Samsung InternetFull support6.0
-  if( "is version to device") {
+  function isNoSupportDeviceOrBrowser() {
+    isSupport = false;
+    return isSupport = navigator.userAgent.toLowerCase().indexOf('firefox') > -1 && navigator.platform.toLowerCase().indexOf("android") > -1 ? false : true;
+  }
+
+  if(isNoSupportDeviceOrBrowser) {
       ctx.imageSmoothingQuality = 'high';
       ctx.imageSmoothingEnabled = true;
   }
