@@ -265,11 +265,12 @@ const DetailCase = (props) => {
                                     </div>
                                 </Grid> */}
                             </Grid>
-                            <Grid container className={classes.alignRight} item md={2} spacing={1}>
+                            {/* <Grid container className={classes.alignRight} item md={2} spacing={1}>
                                 <div>
                                 </div>
-                                </Grid>
-                                <Comments  datas={item} />
+                                </Grid> */}
+                                <Comments key={'commentsData'} datas={item} />
+
                         </Grid>
                     </div>
                     </Box>
