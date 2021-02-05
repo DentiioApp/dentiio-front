@@ -8,7 +8,7 @@ import SendIcon from "@material-ui/icons/Send";
 const Comments = (props) => {
 
   return (
-    <div style={{ padding: 14, maxWidth: "50%", margin: "0 auto 0 23%" }}>
+    <div style={{ padding: 14, maxWidth: "100%", margin: "0 auto" }}>
       <h1>Commentaire</h1>
       {props.datas["commentaires"].map((value, index) => (
         <>
