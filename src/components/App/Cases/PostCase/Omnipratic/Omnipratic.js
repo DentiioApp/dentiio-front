@@ -278,6 +278,11 @@ export default function HorizontalLinearStepper() {
 
   const canvas = createCanvas(500, 500);
   const ctx = canvas.getContext('2d');
+  if( "is version to device") {
+      ctx.imageSmoothingQuality = 'high';
+      ctx.imageSmoothingEnabled = true;
+  }
+
   const [canvaState, setCanvasState] = useState(false);
   const [currentImgIndex, setCurrentImgIndex] = useState(1);
   const [imgTypeSlider, setImgTypeSlider] = useState(EXAM_TYPE);
