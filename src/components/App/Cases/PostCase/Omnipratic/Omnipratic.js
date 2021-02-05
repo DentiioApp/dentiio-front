@@ -281,8 +281,8 @@ export default function HorizontalLinearStepper() {
 
 
   /*  //TO DO KEEP ON LOOK VERSION SUPPORT HD IMAGE https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/imageSmoothingQuality#browser_compatibility */
-  function isSupportDeviceOrBrowser() {
-    isSupport = false;
+  const isSupportDeviceOrBrowser = () => {
+    let isSupport = false;
     return isSupport = navigator.userAgent.toLowerCase().indexOf('firefox') > -1 && navigator.platform.toLowerCase().indexOf("android") > -1 ? false : true;
   }
 
