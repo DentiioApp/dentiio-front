@@ -279,24 +279,23 @@ export default function HorizontalLinearStepper() {
   const canvas = createCanvas(500, 500);
   const ctx = canvas.getContext('2d');
 
-// ChromeFull support 54
-// EdgeFull support ≤ 79
-// [FirefoxNo support No] //* AVOID */ */
-// [Internet Explorer No supportNo] //* AVOID */ */
-// OperaFull support 41
-// SafariFull support 9.1
-// WebView AndroidFull support 54
-// Chrome AndroidFull support 54
-// [Firefox AndroidNo support No] //* AVOID */ */
-// Opera AndroidFull support 41
-// iOS SafariFull support 9.3
-// Samsung InternetFull support6.0
-  function isNoSupportDeviceOrBrowser() {
+
+  /*  //TO DO KEEP ON LOOK VERSION SUPPORT HD IMAGE https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/imageSmoothingQuality#browser_compatibility */
+  function isSupportDeviceOrBrowser() {
     isSupport = false;
     return isSupport = navigator.userAgent.toLowerCase().indexOf('firefox') > -1 && navigator.platform.toLowerCase().indexOf("android") > -1 ? false : true;
   }
 
-  if(isNoSupportDeviceOrBrowser) {
+  function isInternetExplorer () {
+    let isIE = false;
+    var ua = window.navigator.userAgent;
+    var msie = ua.indexOf("MSIE ");
+    if (msie > -1 || !!navigator.userAgent.match(/Trident.*rv\:11\./)); // Si c'est Internet Explorer, affiche le numéro de version
+      isIE = true;
+    return isIE;
+  }
+
+  if(isSupportDeviceOrBrowser && !isInternetExplorer) {
       ctx.imageSmoothingQuality = 'high';
       ctx.imageSmoothingEnabled = true;
   }
