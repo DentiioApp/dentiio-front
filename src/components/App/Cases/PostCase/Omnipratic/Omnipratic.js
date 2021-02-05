@@ -278,6 +278,19 @@ export default function HorizontalLinearStepper() {
 
   const canvas = createCanvas(500, 500);
   const ctx = canvas.getContext('2d');
+
+// ChromeFull support 54
+// EdgeFull support ≤ 79
+// [FirefoxNo support No] //* AVOID */ */
+// [Internet Explorer No supportNo] //* AVOID */ */
+// OperaFull support 41
+// SafariFull support 9.1
+// WebView AndroidFull support 54
+// Chrome AndroidFull support 54
+// [Firefox AndroidNo support No] //* AVOID */ */
+// Opera AndroidFull support 41
+// iOS SafariFull support 9.3
+// Samsung InternetFull support6.0
   if( "is version to device") {
       ctx.imageSmoothingQuality = 'high';
       ctx.imageSmoothingEnabled = true;
