@@ -296,8 +296,8 @@ export default function HorizontalLinearStepper() {
   }
 
   if(isSupportDeviceOrBrowser && !isInternetExplorer) {
-      ctx.imageSmoothingQuality = 'high';
       ctx.imageSmoothingEnabled = true;
+      ctx.imageSmoothingQuality = 'high';
   }
 
   const [canvaState, setCanvasState] = useState(false);
