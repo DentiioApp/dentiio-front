@@ -433,6 +433,7 @@ export default function HorizontalLinearStepper() {
                           className='textField'
                           id='age'
                           label='Age'
+                          autoFocus
                           type="number"
                           fullWidth
                           onChange={handleChange('age')}
@@ -474,7 +475,6 @@ export default function HorizontalLinearStepper() {
                           margin='normal'
                           label='Antécédents médicaux'
                           multiline
-                          autoFocus
                           required
                           fullWidth
                           name='problem_health'
@@ -558,7 +558,6 @@ export default function HorizontalLinearStepper() {
                           variant='outlined'
                           margin='normal'
                           label='Motif de la consultation'
-                          autoFocus
                           required
                           fullWidth
                           name='reason_consultation'
