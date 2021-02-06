@@ -1,9 +1,11 @@
 import {
   CASES_LIST,
   SET_EXAM_PICS,
+  UPDATE_EXAM_PICS,
   DROP_EXAM_PICS,
   DEL_EXAM_PICS,
   SET_TREAT_PICS,
+  UPDATE_TREAT_PICS,
   DROP_TREAT_PICS,
   DEL_TREAT_PICS,
   OPEN_SIDE_BAR,
@@ -22,15 +24,20 @@ export const closeSideBar = () => {
 
 export const format_file = async (aFiles = [], dispatch, pics = [], type) => {
   let action = {
-   'EXAM' : {'drop': DROP_EXAM_PICS, 'del': DEL_EXAM_PICS, 'set': SET_EXAM_PICS},
-   'TREAT': {'drop': DROP_TREAT_PICS, 'del': DEL_TREAT_PICS , 'set': SET_TREAT_PICS}
+   'EXAM' : {'drop': DROP_EXAM_PICS, 'del': DEL_EXAM_PICS, 'set': SET_EXAM_PICS, 'update': UPDATE_EXAM_PICS},
+   'TREAT': {'drop': DROP_TREAT_PICS, 'del': DEL_TREAT_PICS , 'set': SET_TREAT_PICS, 'update': UPDATE_TREAT_PICS}
   }
   
   if(aFiles.length < pics.length) {
     if(aFiles.length < 1) {
       dispatch({ type: action[type].drop})
     } else {
-      dispatch({ type: action[type].del})
+      let new_paths = [];
+      aFiles.forEach((item)=> {new_paths.push(item.path)})
+      let newPics = pics.filter((f)=>(
+        new_paths.includes(f.path)
+      ));
+      dispatch({ type: action[type].update, 'datas': newPics})
     }
   }
 

@@ -7,9 +7,11 @@ import {
   CASE_FILTERED,
   REMOVE_FAVORITE,
   SET_EXAM_PICS,
+  UPDATE_EXAM_PICS,
   DEL_EXAM_PICS,
   DROP_EXAM_PICS,
   SET_TREAT_PICS,
+  UPDATE_TREAT_PICS,
   DROP_TREAT_PICS,
   DEL_TREAT_PICS,
   IMAGE_EXAM_EDITION,
@@ -95,6 +97,9 @@ export const Cases = (state = INIT_STATE, action) => {
     case SET_EXAM_PICS:
       return { ...state, exam_pics: state.exam_pics.concat(action.data) }
 
+    case UPDATE_EXAM_PICS:
+      return { ...state, exam_pics: action.datas }
+
     case DEL_EXAM_PICS:
       return { ...state, exam_pics: state.exam_pics.splice(-1, 1) }
 
@@ -103,6 +108,9 @@ export const Cases = (state = INIT_STATE, action) => {
 
     case SET_TREAT_PICS:
       return { ...state, treat_pics: state.treat_pics.concat(action.data) }
+
+    case UPDATE_TREAT_PICS:
+      return { ...state, treat_pics: action.datas }
 
     case DROP_TREAT_PICS:
       return { ...state, treat_pics: state.treat_pics.splice(-1, 1) }
@@ -118,7 +126,6 @@ export const Cases = (state = INIT_STATE, action) => {
       return { ...state, censor_points: [] }
 
     case IMAGE_EXAM_EDITION:
-      console.log('image generated :', action._img)
       state.exam_pics[action.currentImgIndex]._img = action._img
       return { ...state, exam_pics: state.exam_pics }
 
