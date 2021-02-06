@@ -1,20 +1,19 @@
 import axios from 'axios';
 import { favOrCase } from '../utils';
-import {EXAM_TYPE} from '../store/actions'
+import {EXAM_TYPE} from '../store/actions';
+import jwtDecode from 'jwt-decode';
 
 const CLINICAL_CASES =
-  process.env.REACT_APP_BACK_API_URL + process.env.REACT_APP_CLINICAL_CASES
+  process.env.REACT_APP_BACK_API_URL + process.env.REACT_APP_CLINICAL_CASES;
 
 const FAVORITES =
-  process.env.REACT_APP_BACK_API_URL + process.env.REACT_APP_FAVORITES
+  process.env.REACT_APP_BACK_API_URL + process.env.REACT_APP_FAVORITES;
 
 const CLINICAL_CASES_BY_USER =
-  process.env.REACT_APP_BACK_API_URL + process.env.REACT_APP_USERS
+  process.env.REACT_APP_BACK_API_URL + process.env.REACT_APP_USERS;
 
 const IMAGE_CLINICAL_CASES =
-  process.env.REACT_APP_BACK_API_URL + process.env.REACT_APP_IMAGE_CLINICAL_CASES
-
-
+  process.env.REACT_APP_BACK_API_URL + process.env.REACT_APP_IMAGE_CLINICAL_CASES;
 
 export const fetchCases = (page = 1) => {
   return axios
@@ -96,25 +95,29 @@ export const fetchUserFav = (userId) => {
 }
 
 export const postCase = (values, patient) => {
+  console.table([{'patient.patient :' :jwtDecode(localStorage.getItem('authToken'))}])
+  const details = jwtDecode(localStorage.getItem('authToken'))
   const item = {
-    age: values.ages,
-    smoking: values.isASmoker,
+    title: values.title,
+    patient: patient,
+    createdAt: new Date().toISOString(),
+    user: `/api/users/${details.userId}`,
+    ExamDescription: values.diagnostic,
+    // age: values.ages,
+    // smoking: values.isASmoker,
     /* drinking: values.isDrinker, */
     presentation: values.summary,
     treatmentPlan: 'Plan de traitement',
     observation: values.global_desc,
     evolution: values.evolution,
     conclusion: values.conclusion,
-    createdAt: new Date().toISOString(),
 
     isEnabled: true,
 
-    patient: patient.patient,
     symptome: values.symptomes,
     treatment: values.treatment,
     pathologie: values.pathologie,
     speciality: values.specialities,
-    title: values.title,
     slug: '/',
     /*
     "imageClinicalCases": [
@@ -139,7 +142,7 @@ export const insertImage = async (img_datas, id_clinical_omni, is_principal, typ
   const updateClinicCase = {
     "type": typeImgCaseOmni, //img_datas.type.toUpperCase()
     "clinicalsCaseOmnipratique": id_clinical_omni,
-    "path": id_clinical_omni + img_datas.path,
+    "path": 'images/'+id_clinical_omni + img_datas.path,
     "image64" : img_datas._img,
     "isPrincipal": is_principal
   }
