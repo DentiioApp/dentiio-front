@@ -112,10 +112,10 @@ export const Cases = (state = INIT_STATE, action) => {
     case UPDATE_TREAT_PICS:
       return { ...state, treat_pics: action.datas }
 
-    case DROP_TREAT_PICS:
+    case DEL_TREAT_PICS:
       return { ...state, treat_pics: state.treat_pics.splice(-1, 1) }
 
-    case DEL_TREAT_PICS:
+    case DROP_TREAT_PICS:
       return { ...state, treat_pics: [] }
 
     case ADD_CENSOR_POINT:

@@ -23,18 +23,19 @@ export const closeSideBar = () => {
 }
 
 export const format_file = async (aFiles = [], dispatch, pics = [], type) => {
+  let newPics = [];
   let action = {
    'EXAM' : {'drop': DROP_EXAM_PICS, 'del': DEL_EXAM_PICS, 'set': SET_EXAM_PICS, 'update': UPDATE_EXAM_PICS},
    'TREAT': {'drop': DROP_TREAT_PICS, 'del': DEL_TREAT_PICS , 'set': SET_TREAT_PICS, 'update': UPDATE_TREAT_PICS}
   }
-  
+  console.log("pics", pics.length, "aFiles", aFiles.length)
   if(aFiles.length < pics.length) {
     if(aFiles.length < 1) {
       dispatch({ type: action[type].drop})
     } else {
       let new_paths = [];
       aFiles.forEach((item)=> {new_paths.push(item.path)})
-      let newPics = pics.filter((f)=>(
+      newPics = pics.filter((f)=>(
         new_paths.includes(f.path)
       ));
       dispatch({ type: action[type].update, 'datas': newPics})
@@ -61,7 +62,7 @@ export const format_file = async (aFiles = [], dispatch, pics = [], type) => {
 
   aFiles.forEach((file, index) => {
     Main(file).then((resp_64) => {
-      if(!img_names.includes(file.name)) {
+      if(!img_names.includes(file.name) && newPics.length === 0) {
         dispatch({ type: action[type].set, data: { name: file.name, _img: resp_64, path: file.path, type: file.name.split('.').pop() } })
       }
     })
