@@ -67,7 +67,7 @@ export default function HorizontalLinearStepper() {
   }
 
   const { exam_pics, treat_pics, censor_points } = useSelector((state) => state.cases)
-  console.table([{ 'treat_pics :': treat_pics, 'exam_pics: ': exam_pics }, { 'stepslide: ': step_slide }])
+  console.table([{ 'censor_points :': censor_points }])
 
   const handleChangeStatus = ({ meta }, status) => {
     console.log('status', status, 'meta', meta)
@@ -286,18 +286,18 @@ export default function HorizontalLinearStepper() {
     return isSupport = navigator.userAgent.toLowerCase().indexOf('firefox') > -1 && navigator.platform.toLowerCase().indexOf("android") > -1 ? false : true;
   }
 
-  function isInternetExplorer () {
+  function isInternetExplorer() {
     let isIE = false;
     var ua = window.navigator.userAgent;
     var msie = ua.indexOf("MSIE ");
     if (msie > -1 || !!navigator.userAgent.match(/Trident.*rv\:11\./)); // Si c'est Internet Explorer, dire que c'est Internet explorer
-      isIE = true;
+    isIE = true;
     return isIE;
   }
 
-  if(isSupportDeviceOrBrowser && !isInternetExplorer) {
-      ctx.imageSmoothingEnabled = true;
-      ctx.imageSmoothingQuality = 'high';
+  if (isSupportDeviceOrBrowser && !isInternetExplorer) {
+    ctx.imageSmoothingEnabled = true;
+    ctx.imageSmoothingQuality = 'high';
   }
 
   const [canvaState, setCanvasState] = useState(false);
@@ -374,7 +374,7 @@ export default function HorizontalLinearStepper() {
       const pointed_X = (e.clientX - canva_slider.offsetLeft) - 7; //-7 marge custom pr préciser le click
       const pointed_Y = e.clientY - canva_slider.offsetTop + window.scrollY - 5; //-5 marge custom pr préciser le click
 
-      ModifyImage({ 'src': img_for_hide, 'x': pointed_X, 'y': pointed_Y }, canvaState.toDataURL(), currentImgIndex, dispatch, EXAM_TYPE).then((res) => {
+      ModifyImage({ 'src': img_for_hide, 'x': pointed_X, 'y': pointed_Y }, canvaState.toDataURL(), currentImgIndex, dispatch, imgTypeSlider).then((res) => {
         dispatch({ type: DROP_CENSOR_POINTS });
       });
     }
@@ -674,95 +674,113 @@ export default function HorizontalLinearStepper() {
                 </Grid>
               </Grid>
               {/*  */}
-        {/* FINALISATION */}
-        {/*  */}
-        <Grid container item spacing={2} component='main'>
-          <Grid item xs={1} md={3}></Grid>
-          <Grid item xs={10} md={6}>
-            <Box display={showFinalisation}>
-              <Typography component='h1' variant='h5'>
-                <center>Ajouter votre cas clinique</center>
-              </Typography>
-              <form className={classes.form} noValidate>
-                <Grid container component='main'>
-                  <Grid item xs={12}>
-                    <div className={classes.paper}>
-                      <Typography component='h1' variant='h5'>
-                        Titre du cas
-                                                </Typography>
-                      <TextField
-                        variant='outlined'
-                        margin='normal'
-                        required
-                        fullWidth
-                        autoFocus
-                        name='title'
-                        label='Titre du cas'
-                        type='text'
-                        id='title'
-                        autoComplete='current-title'
-                        onChange={handleChange('title')}
-                        error={errors.errTitle}
-                      />
-                      <br /> <br />
-                    </div>
-                  </Grid>
-                  <Box>
+              {/* FINALISATION */}
+              {/*  */}
+              <Grid container item spacing={2} component='main'>
+                <Grid item xs={1} md={3}></Grid>
+                <Grid item xs={10} md={6}>
+                  <Box display={showFinalisation}>
                     <Typography component='h1' variant='h5'>
-                      <center>Retouche photos  <Grid container component='main'>
-                        <Grid item xs={12}>
-                          {exam_pics && exam_pics[(step_slide - 1)] ? <ChevronLeftIcon color="secondary" onClick={handleImgBack} /> : ''}
-                          <ChevronRightIcon onClick={handleImgNext} />
-                        </Grid>
-                      </Grid></center>
+                      <center>Ajouter votre cas clinique</center>
                     </Typography>
-                    <center>
-                      <Button
-                        variant="contained"
-                        color={imgTypeSlider === EXAM_TYPE ? "secondary" : "primary"}
-                        onClick={handleChangeImgTypeSlider}
-                        className={classes.button}
-                      >
-                        {`AFFICHER LES PHOTOS  ${(imgTypeSlider === EXAM_TYPE ? 'DE ' + TREAT_TYPE + 'TEMENT ' : 'D ' + EXAM_TYPE + 'ENS')} `}
-                      </Button>
-                    </center>
-                    {<img onClick={handlePointed} id="canva_slider" src={`${canvaState && canvaState.toDataURL()}`} />}
+                    <form className={classes.form} noValidate>
+                      <Grid container component='main'>
+                        <Grid item xs={12}>
+                          <div className={classes.paper}>
+                            <Typography component='h1' variant='h5'>
+                              Titre du cas
+                                                </Typography>
+                            <TextField
+                              variant='outlined'
+                              margin='normal'
+                              required
+                              fullWidth
+                              autoFocus
+                              name='title'
+                              label='Titre du cas'
+                              type='text'
+                              id='title'
+                              autoComplete='current-title'
+                              onChange={handleChange('title')}
+                              error={errors.errTitle}
+                            />
+                            <br /> <br />
+                          </div>
+                        </Grid>
+                        <Box>
+                          <Typography component='h1' variant='h5'>
+                            <center>Retouche photos  <Grid container component='main'>
+                              <Grid item xs={12}>
+                                {imgTypeSlider === EXAM_TYPE ?
+                                  (exam_pics && exam_pics[(step_slide - 1)] ? <ChevronLeftIcon color="primary" onClick={handleImgBack} /> : '')
+                                  : null
+                                }
+                                {imgTypeSlider === EXAM_TYPE ?
+                                  (exam_pics && exam_pics[(step_slide + 1)] ? <ChevronRightIcon color="secondary" onClick={handleImgNext} /> : '')
+                                  : null
+                                }
+
+                                {imgTypeSlider === TREAT_TYPE ?
+                                  (treat_pics && treat_pics[(step_slide - 1)] ? <ChevronLeftIcon color="primary" onClick={handleImgBack} /> : '')
+                                  :
+                                  null
+                                }
+                                {imgTypeSlider === TREAT_TYPE ?
+                                   (treat_pics && treat_pics[(step_slide + 1)] ? <ChevronRightIcon color="primary" onClick={handleImgNext} /> : '')
+                                  :
+                                  null
+                                }
+
+                              </Grid>
+                            </Grid></center>
+                          </Typography>
+                          <center>
+                            <Button
+                              variant="contained"
+                              color={imgTypeSlider === EXAM_TYPE ? "secondary" : "primary"}
+                              onClick={handleChangeImgTypeSlider}
+                              className={classes.button}
+                            >
+                              {`AFFICHER LES PHOTOS  ${(imgTypeSlider === EXAM_TYPE ? 'DE ' + TREAT_TYPE + 'TEMENT ' : 'D ' + EXAM_TYPE + 'ENS')} `}
+                            </Button>
+                          </center>
+                          {<img onClick={handlePointed} id="canva_slider" src={`${canvaState && canvaState.toDataURL()}`} />}
+                        </Box>
+                      </Grid>
+                    </form>
                   </Box>
                 </Grid>
-              </form>
-            </Box>
-          </Grid>
-        </Grid>
-        <Grid container item spacing={2} component='main'>
-          <Grid item xs={1} md={3}></Grid>
-          <Grid item xs={10} md={6}>
-            <Button disabled={activeStep === 0} onClick={handleBack} className={classes.button}>
-              {`${'Étape précédente'}`}
-            </Button>
-            {isStepOptional(activeStep) && (
-              <Button
-                variant="contained"
-                color="primary"
-                onClick={handleSkip}
-                className={classes.button}
-              >
-                Skip
-              </Button>
-            )}
+              </Grid>
+              <Grid container item spacing={2} component='main'>
+                <Grid item xs={1} md={3}></Grid>
+                <Grid item xs={10} md={6}>
+                  <Button disabled={activeStep === 0} onClick={handleBack} className={classes.button}>
+                    {`${'Étape précédente'}`}
+                  </Button>
+                  {isStepOptional(activeStep) && (
+                    <Button
+                      variant="contained"
+                      color="primary"
+                      onClick={handleSkip}
+                      className={classes.button}
+                    >
+                      Skip
+                    </Button>
+                  )}
 
-            <Button
-              variant="contained"
-              color="primary"
-              onClick={handleNext}
-              className={classes.button}
-            >
-              {activeStep === steps.length - 1 ? 'Valider' : 'Étape suivante'}
-            </Button>
-          </Grid>
-        </Grid>
-      </div>
+                  <Button
+                    variant="contained"
+                    color="primary"
+                    onClick={handleNext}
+                    className={classes.button}
+                  >
+                    {activeStep === steps.length - 1 ? 'Valider' : 'Étape suivante'}
+                  </Button>
+                </Grid>
+              </Grid>
+            </div>
           )}
-    </div>
+      </div>
     </div >
   );
 }
