@@ -577,6 +577,7 @@ export default function HorizontalLinearStepper() {
                         <DropzoneArea
                           showPreviews={true}
                           filesLimit={config.app.uploadFilesLimit}
+                          maxFileSize={10000000}
                           showPreviewsInDropzone={false}
                           previewGridProps={{ container: { spacing: 1, direction: 'row' } }}
                           previewText={`${exam_pics.length} Fichier(s) Chargé(s)`}
@@ -655,6 +656,7 @@ export default function HorizontalLinearStepper() {
                           <div className={classes.paper}>
                             <DropzoneArea
                               showPreviews={true}
+                              maxFileSize={10000000}
                               filesLimit={config.app.uploadFilesLimit}
                               showPreviewsInDropzone={false}
                               previewGridProps={{ container: { spacing: 1, direction: 'row' } }}
