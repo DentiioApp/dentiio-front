@@ -139,7 +139,7 @@ export const insertImage = async (img_datas, id_clinical_omni, is_principal, typ
   const updateClinicCase = {
     "type": typeImgCaseOmni, //img_datas.type.toUpperCase()
     "clinicalsCaseOmnipratique": id_clinical_omni,
-    "path": img_datas.path,
+    "path": id_clinical_omni + img_datas.path,
     "image64" : img_datas._img,
     "isPrincipal": is_principal
   }

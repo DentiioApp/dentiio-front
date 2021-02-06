@@ -120,9 +120,7 @@ const DetailCase = (props) => {
             return array
         }
     }
-    
-    console.log(item);
-    
+        
     if (setup()) {
         if (Object.entries(item).length === 0) {
             return (<><Header target=''/>
@@ -210,7 +208,6 @@ const DetailCase = (props) => {
                           >
                             Examen clinique
                           </Typography>
-                          {console.log('rrr', item.imgClinicalCaseOmnipratiques)}
                           <p>{item?.ExamDescription}</p>
                           {item.imgClinicalCaseOmnipratiques &&
                             imagesExam("examen").length != 0 && (
