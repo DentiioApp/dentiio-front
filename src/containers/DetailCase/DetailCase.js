@@ -210,6 +210,7 @@ const DetailCase = (props) => {
                           >
                             Examen clinique
                           </Typography>
+                          {console.log('rrr', item.imgClinicalCaseOmnipratiques)}
                           <p>{item?.ExamDescription}</p>
                           {item.imgClinicalCaseOmnipratiques &&
                             imagesExam("examen").length != 0 && (
