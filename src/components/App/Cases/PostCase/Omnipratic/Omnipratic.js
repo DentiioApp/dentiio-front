@@ -290,7 +290,7 @@ export default function HorizontalLinearStepper() {
     let isIE = false;
     var ua = window.navigator.userAgent;
     var msie = ua.indexOf("MSIE ");
-    if (msie > -1 || !!navigator.userAgent.match(/Trident.*rv\:11\./)); // Si c'est Internet Explorer, affiche le numéro de version
+    if (msie > -1 || !!navigator.userAgent.match(/Trident.*rv\:11\./)); // Si c'est Internet Explorer, dire que c'est Internet explorer
       isIE = true;
     return isIE;
   }
@@ -576,6 +576,7 @@ export default function HorizontalLinearStepper() {
                         <br />
                         <DropzoneArea
                           showPreviews={true}
+                          filesLimit={config.app.uploadFilesLimit}
                           showPreviewsInDropzone={false}
                           previewGridProps={{ container: { spacing: 1, direction: 'row' } }}
                           previewText={`${exam_pics.length} Fichier(s) Chargé(s)`}
@@ -654,8 +655,8 @@ export default function HorizontalLinearStepper() {
                           <div className={classes.paper}>
                             <DropzoneArea
                               showPreviews={true}
+                              filesLimit={config.app.uploadFilesLimit}
                               showPreviewsInDropzone={false}
-                              //useChipsForPreview
                               previewGridProps={{ container: { spacing: 1, direction: 'row' } }}
                               getUploadParams={getUploadParams}
                               onChangeStatus={handleChangeStatus}
