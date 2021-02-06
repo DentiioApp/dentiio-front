@@ -5,7 +5,7 @@ const PATIENTS =
 
 export const postPatient = (values) => {
   const item = {
-    age: parseInt(values.age, 10),
+    age: Number(values.age),
     gender: values.gender,
     isASmoker: values.isASmoker,
     isDrinker: values.isDrinker,
