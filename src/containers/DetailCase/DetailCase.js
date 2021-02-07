@@ -104,7 +104,7 @@ const DetailCase = (props) => {
     const Img = item?.averageNote ? <img alt='' src={iconTeethFull} width='12px' className={classes.icon}/> : ''
 
     const imagesExam = (type) => {
-        // console.log(item)
+        console.log(item)
         if (item.imgClinicalCaseOmnipratiques) {
             const array = []
             item.imgClinicalCaseOmnipratiques.filter(function (i) {

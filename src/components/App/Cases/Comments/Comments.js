@@ -4,6 +4,7 @@ import { Divider, Avatar, Grid, Paper } from "@material-ui/core";
 import TextField from "@material-ui/core/TextField";
 import Fab from "@material-ui/core/Fab";
 import SendIcon from "@material-ui/icons/Send";
+import UserAvatar from "../../../UI/Avatars/UserAvatar";
 
 const Comments = (props) => {
 
@@ -15,10 +16,7 @@ const Comments = (props) => {
           <Paper style={{ padding: "40px 20px" }}>
             <Grid container wrap="nowrap" spacing={2}>
               <Grid item>
-                <Avatar
-                  alt="Remy Sharp"
-                  src="https://material-ui.com/static/images/avatar/1.jpg"
-                />
+                <UserAvatar avatar={value["user"]["avatar"]} width="30px" />
               </Grid>
               <Grid justifyContent="left" item xs zeroMinWidth>
                 <h4 style={{ margin: 0, textAlign: "left" }}>
@@ -26,7 +24,7 @@ const Comments = (props) => {
                 </h4>
                 <p style={{ textAlign: "left" }}>{value["comment"]}</p>
                 <p style={{ textAlign: "left", color: "gray" }}>
-                  posté il y 1 minute
+                  {value["createdAt"]}
                 </p>
               </Grid>
             </Grid>
@@ -35,10 +33,7 @@ const Comments = (props) => {
       ))}
       <Grid container style={{ padding: "20px" }}>
         <Grid item xs={1}>
-          <Avatar
-            alt="Remy Sharp"
-            src="https://material-ui.com/static/images/avatar/1.jpg"
-          />
+          {/* <UserAvatar avatar={value["user"]["avatar"]} width="30px" /> */}
         </Grid>
         <Grid item xs={10}>
           <TextField
