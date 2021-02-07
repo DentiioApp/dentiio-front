@@ -318,7 +318,11 @@ const DetailCase = (props) => {
                         </Typography>
                         <p>{item.conclusion && item.conclusion}</p>
                         <RatingCase />
-                        <Comments key={"commentsData"} datas={item} />
+                        <Comments
+                          key={"commentsData"}
+                          datas={item}
+                          useravatar={item?.User?.avatar}
+                        />
 
                         {/* <Grid container className={classes.alignRight} item md={2} spacing={1}>
                                     <div>
