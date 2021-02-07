@@ -3,6 +3,7 @@ import { fetchSpecialities } from './SpecialitiesAction'
 import { fetchTreatments } from './TreatmentsAction'
 import { fetchPathologies } from './PathologiesAction'
 import { fetchCatPathologies } from './CatPathologiesAction'
+import { sendComments } from './commentsAction'
 
 export const ADD_FAVORITE = 'ADD_FAVORITE'
 export const REMOVE_FAVORITE = 'REMOVE_FAVORITE'
@@ -62,4 +63,5 @@ export {
   fetchCatPathologies,
   format_file,
   post_images,
+  sendComments,
 }
