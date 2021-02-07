@@ -70,5 +70,10 @@ const Comments = (props) => {
     </div>
   );
 };
+<<<<<<< HEAD
+=======
+//test
+
+>>>>>>> test2
 
 export default Comments;
