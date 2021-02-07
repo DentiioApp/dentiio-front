@@ -23,7 +23,7 @@ const Comments = (props) => {
     });
   }
   return (
-    <div style={{ padding: 14, maxWidth: "100%", margin: "0 auto" }}>
+    <div style={{ padding: 14, maxWidth: "100%", margin: "0 auto", minWidth:"100%" }}>
       <h1>Commentaire</h1>
       {props.datas["commentaires"].map((value, index) => (
         <>
