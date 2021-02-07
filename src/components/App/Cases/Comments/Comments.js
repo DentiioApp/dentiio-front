@@ -59,6 +59,5 @@ const Comments = (props) => {
   );
 };
 
-//test
 
 export default Comments;
