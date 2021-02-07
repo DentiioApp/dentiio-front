@@ -21,14 +21,15 @@ import { DropzoneArea/*, DropzoneDialog */ } from 'material-ui-dropzone';
 import LocalBarIcon from '@material-ui/icons/LocalBar'
 import { format_file, post_images } from "../../../../../store/actions";
 import { useToasts } from 'react-toast-notifications'
-import { UPDATE_LEVEL, UPDATE_STEPPER_POSTCASE, START_LOADER, STOP_LOADER, EXAM_TYPE, TREAT_TYPE, ADD_CENSOR_POINT, DROP_CENSOR_POINTS } from '../../../../../store/actions'
+import { UPDATE_LEVEL, UPDATE_STEPPER_POSTCASE, START_LOADER, STOP_LOADER, EXAM_TYPE, TREAT_TYPE, IMAGE_EXAM_EDITION, IMAGE_TREAT_EDITION } from '../../../../../store/actions'
 import { postCase } from '../../../../../services/Cases'
 import { postPatient } from '../../../../../services/Patient'
 import MenuItem from '@material-ui/core/MenuItem'
 import InputLabel from '@material-ui/core/InputLabel'
 import Box from "@material-ui/core/Box";
-import { createCanvas } from 'canvas';
+import { createCanvas, loadImage } from 'canvas';
 import { errorApi, ModifyImage } from '../../../../../utils'
+import mergeImages from 'merge-images';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -67,7 +68,6 @@ export default function HorizontalLinearStepper() {
   }
 
   const { exam_pics, treat_pics, censor_points } = useSelector((state) => state.cases)
-  console.table([{ 'censor_points :': censor_points }])
 
   const handleChangeStatus = ({ meta }, status) => {
     console.log('status', status, 'meta', meta)
@@ -303,6 +303,7 @@ export default function HorizontalLinearStepper() {
   const [canvaState, setCanvasState] = useState(false);
   const [currentImgIndex, setCurrentImgIndex] = useState(1);
   const [imgTypeSlider, setImgTypeSlider] = useState(EXAM_TYPE);
+  const [ismodif, setIsmodif] = useState(0);
 
   const handleImgBack = () => {
     setStep_slide((step_slide - 1));
@@ -318,21 +319,29 @@ export default function HorizontalLinearStepper() {
     var img = new Image();
     if (imgTypeSlider === EXAM_TYPE) {
       if (exam_pics[step_slide]) {
+        console.log('exam_pics[step_slide]._img', exam_pics[step_slide]._img)
+        console.log('step_slide', step_slide)
+        console.log('imgTypeSlider', imgTypeSlider)
         img.src = exam_pics[step_slide]._img;
+        console.log("canvas", typeof canvas)
         ctx.drawImage(img, 0, 0, 500, 500);
+
         setCurrentImgIndex(step_slide)
+        
       }
     } else {
       if (treat_pics[step_slide]) {
         img.src = treat_pics[step_slide]._img;
         ctx.drawImage(img, 0, 0, 500, 500);
+       
+
         setCurrentImgIndex(step_slide);
       }
     }
 
     setCanvasState(canvas);
 
-  }, [step_slide, imgTypeSlider, censor_points]);
+  }, [step_slide, imgTypeSlider, ismodif]);
 
   useEffect(() => {
     switch (activeStep) {
@@ -374,9 +383,24 @@ export default function HorizontalLinearStepper() {
       const pointed_X = (e.clientX - canva_slider.offsetLeft) - 7; //-7 marge custom pr préciser le click
       const pointed_Y = e.clientY - canva_slider.offsetTop + window.scrollY - 5; //-5 marge custom pr préciser le click
 
-      ModifyImage({ 'src': img_for_hide, 'x': pointed_X, 'y': pointed_Y }, canvaState.toDataURL(), currentImgIndex, dispatch, imgTypeSlider).then((res) => {
-        dispatch({ type: DROP_CENSOR_POINTS });
-      });
+     
+        let array_to_merge = [
+          { 'src': canvaState.toDataURL(), 'x': 0, 'y': 0 },
+          { 'src': img_for_hide, 'x': pointed_X, 'y': pointed_Y },
+        ];
+        
+        let action = {
+          'EXAM': IMAGE_EXAM_EDITION,
+          'TREAT': IMAGE_TREAT_EDITION,
+        }
+
+        mergeImages(array_to_merge)
+          .then((b64) => { 
+            console.log('Ismodif', ismodif); 
+            dispatch({ type: action[imgTypeSlider], _img: b64, currentImgIndex: currentImgIndex });
+            setIsmodif((ismodif+1))
+          });
+      
     }
   }
 
@@ -579,7 +603,7 @@ export default function HorizontalLinearStepper() {
                           maxFileSize={10000000}
                           showPreviewsInDropzone={false}
                           previewGridProps={{ container: { spacing: 1, direction: 'row' } }}
-                          previewText={`${exam_pics.length} Fichier(s) Chargé(s)`}
+                          previewText={`${exam_pics.length} Image(s) d'examen`}
                           getUploadParams={getUploadParams}
                           onChangeStatus={handleChangeStatus}
                           onChange={handleChange('exam_pics')}
@@ -658,6 +682,7 @@ export default function HorizontalLinearStepper() {
                               maxFileSize={10000000}
                               filesLimit={config.app.uploadFilesLimit}
                               showPreviewsInDropzone={false}
+                              previewText={`${treat_pics.length} Image(s) de traitement`}
                               previewGridProps={{ container: { spacing: 1, direction: 'row' } }}
                               getUploadParams={getUploadParams}
                               onChangeStatus={handleChangeStatus}
@@ -715,17 +740,17 @@ export default function HorizontalLinearStepper() {
                                   : null
                                 }
                                 {imgTypeSlider === EXAM_TYPE ?
-                                  (exam_pics && exam_pics[(step_slide + 1)] ? <ChevronRightIcon color="secondary" onClick={handleImgNext} /> : '')
+                                  (exam_pics && exam_pics[(step_slide + 1)] ? <ChevronRightIcon color="primary" onClick={handleImgNext} /> : '')
                                   : null
                                 }
 
                                 {imgTypeSlider === TREAT_TYPE ?
-                                  (treat_pics && treat_pics[(step_slide - 1)] ? <ChevronLeftIcon color="primary" onClick={handleImgBack} /> : '')
+                                  (treat_pics && treat_pics[(step_slide - 1)] ? <ChevronLeftIcon color="secondary" onClick={handleImgBack} /> : '')
                                   :
                                   null
                                 }
                                 {imgTypeSlider === TREAT_TYPE ?
-                                   (treat_pics && treat_pics[(step_slide + 1)] ? <ChevronRightIcon color="primary" onClick={handleImgNext} /> : '')
+                                  (treat_pics && treat_pics[(step_slide + 1)] ? <ChevronRightIcon color="secondary" onClick={handleImgNext} /> : '')
                                   :
                                   null
                                 }
@@ -743,7 +768,8 @@ export default function HorizontalLinearStepper() {
                               {`AFFICHER LES PHOTOS  ${(imgTypeSlider === EXAM_TYPE ? 'DE ' + TREAT_TYPE + 'TEMENT ' : 'D ' + EXAM_TYPE + 'ENS')} `}
                             </Button>
                           </center>
-                          {<img onClick={handlePointed} id="canva_slider" src={`${canvaState && canvaState.toDataURL()}`} />}
+                          {/* {<img onClick={handlePointed} id="canva_slider" src={`${canvaState && canvaState.toDataURL()}`} />} */}
+                          {<img id="canva_slider" src={`${canvaState && canvaState.toDataURL()}`} />}
                         </Box>
                       </Grid>
                     </form>
