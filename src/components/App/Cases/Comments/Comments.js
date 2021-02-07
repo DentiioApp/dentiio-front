@@ -19,7 +19,7 @@ const Comments = (props) => {
 
   const handleSubmit = () => {
     sendComments(values.comment, props.datas["@id"]).then((res) => {
-      window.location.reload();
+      window.location.reload(); 
     });
   }
   return (
@@ -34,7 +34,7 @@ const Comments = (props) => {
               </Grid>
               <Grid justifyContent="left" item xs zeroMinWidth>
                 <h4 style={{ margin: 0, textAlign: "left" }}>
-                  {value["user"].nom}
+                  {value["user"].pseudo}
                 </h4>
                 <p style={{ textAlign: "left" }}>{value["comment"]}</p>
                 <p style={{ textAlign: "left", color: "gray" }}>
