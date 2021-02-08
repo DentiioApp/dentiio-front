@@ -80,18 +80,18 @@ const CasesList = () => {
         <>
             <Container maxWidth={false}>
                 <center><img src={titleSvg} alt='Cas Cliniques'/></center>
-                <Paginator 
+                {/* <Paginator 
                     pages={pages} 
                     onChange={handleChange} 
                     current={values.paginator}
-                />
+                /> */}
 
-                <ButtonMUI
+                {/* <ButtonMUI
                     variant="contained"
                     color="primary"
                 > 
                     {cases.length > 0 ? 'Page ' + values.paginator : ''}
-                </ButtonMUI >
+                </ButtonMUI > */}
 
                 <div className={classes.root}>
                     {(cases.length < 1) ? (<LoadingCasesList key={Date.now}/>) : ""}
