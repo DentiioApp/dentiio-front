@@ -4,6 +4,7 @@ import './index.css'
 import Home from './containers/Home/Home'
 import Cases from './containers/Cases/Cases'
 import Favorites from './containers/Favorites/Favorites'
+import { useHistory, useLocation} from "react-router-dom";
 import Profile from './containers/Profile/Profile'
 import * as serviceWorker from './serviceWorker'
 import { Provider } from 'react-redux'
@@ -27,21 +28,6 @@ import ConfigureStore from './store/configureStore'
 import CGU from "./containers/CGU/CGU";
 dotenv.config() 
 
-// var _route = '/'
-
-// if(window.location.pathname !== _route ) {
- 
-//   var routes = {
-//     'cases' : Cases,
-//     'post-case' : CasePost,
-//     'cgu' : CGU,
-//     'favorites' : Favorites,
-//     'profile' : Profile,
-//     'avatar' : UserAvatar,
-//   }
-
-//   _route = routes[window.location.pathname.replace('/','')] ;
-// }
 
 ReactDOM.render(
   <ThemeProvider theme={colorTheme}>
@@ -61,16 +47,9 @@ ReactDOM.render(
               <Route exact path='/post-case' component={CasePost}/>
               <Route exact path='/avatar' component={UserAvatar}/>
               <Route exact path='/cgu' component={CGU} />
-              {/* <Route exact path='/' component={Home} />
-              <Route exact path='/cases' component={ _route !== '/' ? _route : Cases}/>
-              <Route path='/case/:id' component={ _route !== '/' ? _route : DetailCase}/>
-              <Route exact path='/favorites' component={ _route !== '/' ? _route : Favorites}/>
-              <Route exact path='/profile' component={ _route !== '/' ? _route : Profile }/>
-              <Route exact path='/profile/edit' component={ _route !== '/' ? _route : EditProfile}/>
-              <Route exact path='/post-question' component={ _route !== '/' ? _route : QuestionPost}/>
-              <Route exact path='/post-case' component={ _route !== '/' ? _route : CasePost}/>
-              <Route exact path='/avatar' component={ _route !== '/' ? _route :  UserAvatar}/>
-              <Route exact path='/cgu' component={ _route !== '/' ? _route : CGU} /> */}
+              <Route path="*">
+                <NoMatch />
+              </Route>
             </Switch>
           </div>
         </Router>
@@ -81,4 +60,15 @@ ReactDOM.render(
   , document.getElementById('root')
 )
 
+function NoMatch() {
+  let location = useLocation();
+
+  return (
+    <div>
+      <h3>
+        No match for <code>{location.pathname}</code>
+      </h3>
+    </div>
+  );
+}
 serviceWorker.register()
