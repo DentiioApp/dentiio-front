@@ -102,7 +102,7 @@ export const postCase = (values, patient) => {
     patient: patient,
     createdAt: new Date().toISOString(),
     user: `/api/users/${details.userId}`,
-    ExamDescription: values.diagnostic,
+    ExamDescription: values.reason_consultation,
     // age: values.ages,
     // smoking: values.isASmoker,
     /* drinking: values.isDrinker, */
@@ -112,8 +112,8 @@ export const postCase = (values, patient) => {
     evolution: values.evolution,
     conclusion: values.conclusion,
 
-    isEnabled: true,
-
+    isEnable: true,
+    TreatmentDescription: values.treatment_desc,
     symptome: values.symptomes,
     treatment: values.treatment,
     pathologie: values.pathologie,

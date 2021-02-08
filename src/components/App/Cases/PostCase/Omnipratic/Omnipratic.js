@@ -162,6 +162,8 @@ export default function HorizontalLinearStepper() {
         keywords: [],
         summary: '',
         title: '',
+        pathologie: '',
+        treatment_desc: '',
         symptomes: [],
         specialities: [],
         //isASmoker: false,
@@ -620,7 +622,7 @@ export default function HorizontalLinearStepper() {
                                 <Box display={showDiagnostic}>
                                     <form className={classes.form} noValidate >
                                         <Typography component='h1' variant='h5'>
-                                            <center>Diagnostic</center>
+                                            <center>Pathologie diagnostiquée</center>
                                         </Typography>
 
                                         <Grid container item spacing={2} component='main'>
@@ -628,21 +630,21 @@ export default function HorizontalLinearStepper() {
                                                 <div className={classes.paper}>
                                                     <TextField
                                                         aria-label='minimum height'
-                                                        placeholder='diagnostic'
+                                                        placeholder='...pathologie diagnostiquée'
                                                         variant='outlined'
-                                                        label='Diagnostic'
+                                                        label='Pathologie diagnostiquée'
                                                         multiline
                                                         rows={4}
                                                         autoFocus
                                                         fullWidth
                                                         margin='dense'
                                                         required
-                                                        name='diagnostic'
+                                                        name='pathologie'
                                                         type='textarea'
-                                                        id='diagnostic'
-                                                        value={values.diagnostic}
-                                                        autoComplete='current-diagnostic'
-                                                        onChange={handleChange('diagnostic')}
+                                                        id='pathologie'
+                                                        value={values.pathologie}
+                                                        autoComplete='current-pathologie'
+                                                        onChange={handleChange('pathologie')}
                                                         error={errors.errDiagnostic}
                                                     />
                                                 </div>
@@ -653,19 +655,18 @@ export default function HorizontalLinearStepper() {
                                                         variant='outlined'
                                                         margin='normal'
                                                         required
-                                                        name='medication_administered'
-                                                        label='Médicaments administrés, utile ?'
+                                                        name='treatment_desc'
+                                                        label='Plan de traitement'
                                                         multiline
+                                                        rows={4}
                                                         fullWidth
                                                         type='text'
-                                                        id='medication_administered'
-                                                        value={values.medication_administered}
-                                                        autoComplete='current-medication_administered'
-                                                        onChange={handleChange('medication_administered')}
+                                                        id='treatment_desc'
+                                                        value={values.treatment_desc}
+                                                        autoComplete='current-treatment_desc'
+                                                        onChange={handleChange('treatment_desc')}
                                                         error={errors.errMedication_administered}
                                                     />
-                                                    {'Séparer les éléments par des espaces'}
-
                                                     <br /> <br />
                                                 </div>
                                             </Grid>
