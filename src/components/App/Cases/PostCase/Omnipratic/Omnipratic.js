@@ -112,15 +112,15 @@ export default function HorizontalLinearStepper() {
       if (createdCaseOmni.datas['@id'] !== undefined) {
         let createdImgCaseOmniExam = await post_images(exam_pics, createdCaseOmni.datas['@id'], EXAM_TYPE)
 
-        if (createdImgCaseOmniExam.datas['@id'] === undefined) {
-          addToast('error ajout images exam clinical', { appearance: 'error' })
-        }
+        // if (createdImgCaseOmniExam.datas['@id'] === undefined) {
+        //   addToast('error ajout images exam clinical', { appearance: 'error' })
+        // }
 
         let createdImgCaseOmniTreat = await post_images(treat_pics, createdCaseOmni.datas['@id'], TREAT_TYPE)
 
-        if (createdImgCaseOmniTreat.datas['@id'] === undefined) {
-          addToast('error ajout images treatment clinical', { appearance: 'error' })
-        }
+        // if (createdImgCaseOmniTreat.datas['@id'] === undefined) {
+        //   addToast('error ajout images treatment clinical', { appearance: 'error' })
+        // }
       }
 
       if (errorApi().test(createdCaseOmni)) {
