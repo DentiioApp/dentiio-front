@@ -38,8 +38,19 @@
   text-overflow: ellipsis;
   line-height: 1!important;
   color: black;
+  text-transform: uppercase;
 }
 
 .desc{
   color: dimgray;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+.cardContent{
+  display: flex;
+  justify-content: space-between;
+  flex-direction: column;
+  height: 51%;
 }

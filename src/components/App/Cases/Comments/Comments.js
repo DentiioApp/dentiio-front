@@ -5,14 +5,16 @@ import SendIcon from "@material-ui/icons/Send";
 import React, { useState } from "react";
 import UserAvatar from "../../../UI/Avatars/UserAvatar";
 import { sendComments } from "../../../../services/Comment"
+import {useSelector} from "react-redux";
 
 const Comments = (props) => {
-   const initVals = {
+  const currents_user = useSelector((state) => (state.user.current_user))
+  const initVals = {
      comment: '',
    };
   const [values, setValues] = useState(initVals); 
   const handleChange = prop => event => {
-    if (prop = 'comment') {
+    if (prop === 'comment') {
       setValues({ ...values, [prop]: event.target.value });
     }
   }
@@ -49,13 +51,13 @@ const Comments = (props) => {
     const YEAR = String(commentPostedDate.getUTCFullYear());
     
     if (diff.min < 1 && diff.hour < 1) {
-      finalDate = `posté à l'instant`;
+      finalDate = `à l'instant`;
     } else if (diff.min >= 1 && diff.min < 60) {
-      finalDate = `posté il y a ${diff.min} minute${diff.min > 1 ? "s" : ""}`;
+      finalDate = `il y a ${diff.min} minute${diff.min > 1 ? "s" : ""}`;
     } else if (diff.hour > 1 && diff.hour < 3) {
-      finalDate = `posté il y a ${diff.hour} heure${diff.hour > 1 ? "s" : ""}`;
+      finalDate = `il y a ${diff.hour} heure${diff.hour > 1 ? "s" : ""}`;
     } else {
-      finalDate = `posté le ${DAY}/${MONTH}/${YEAR}`;
+      finalDate = `${DAY}/${MONTH}/${YEAR}`;
     }    
     
     return finalDate;   
@@ -70,15 +72,15 @@ const Comments = (props) => {
         minWidth: "100%",
       }}
     >
-      <h1>Commentaire</h1>
+      <h2 id={"discussion"}>Discussion</h2>
       {props.datas["commentaires"].map((value, index) => (
-        <>
-          <Paper style={{ padding: "40px 20px" }}>
+        <div key={index }>
+          <Paper style={{ padding: "40px 20px" }} key={index }>
             <Grid container wrap="nowrap" spacing={2}>
               <Grid item>
                 <UserAvatar avatar={value["user"]["avatar"]} width="30px" />
               </Grid>
-              <Grid justifyContent="left" item xs zeroMinWidth>
+              <Grid justifycontent="left" item xs zeroMinWidth>
                 <h4 style={{ margin: 0, textAlign: "left" }}>
                   {value["user"].pseudo}
                 </h4>
@@ -89,12 +91,12 @@ const Comments = (props) => {
               </Grid>
             </Grid>
           </Paper>
-        </>
+        </div>
       ))}
       <form>
         <Grid container style={{ padding: "20px" }}>
           <Grid item xs={1}>
-            <UserAvatar avatar={props.useravatar} width="50px" />
+            <UserAvatar width={'50px'} avatar={currents_user?.avatar} />
           </Grid>
           <Grid item xs={10}>
             <TextField
@@ -106,7 +108,7 @@ const Comments = (props) => {
               onChange={handleChange('comment')}
             />
           </Grid>
-          <Grid xs={1} align="right">
+          <Grid item xs={1} align="right">
             <Fab color="primary" aria-label="add">
               <SendIcon onClick={handleSubmit} />
             </Fab>

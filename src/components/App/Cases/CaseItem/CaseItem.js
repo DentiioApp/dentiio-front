@@ -28,16 +28,26 @@ const CasesItem = (props) => {
     <Card key={props.item.id} className='card'>
       <FavButton alt='favorite' value={props.item} isFavorite={props.favorite} />
       <Link to={`/case/${props.item.id}`} style={{ textDecoration: 'none' }}>
-        <CardMedia
-          className='media'
-          image={process.env.REACT_APP_BACK_URL + "images/" + (img() !== undefined ? img()[0] : '')}
-          title={props.item.title}
-        />
+        {img()[0] !== undefined ?
+            <CardMedia
+                className='media'
+                image={process.env.REACT_APP_BACK_URL + "images/" +  img()[0] }
+                title={props.item.title}
+            />
+            :
+            <CardMedia
+                className='media'
+                image={window.location.origin + '/logoteethBleu.png'}
+                title={props.item.title}
+            />
+          }
+
 {/*        <div style={{ marginTop: '-35px', marginLeft: '15px' }}>
           {props.item.keyword && props.item.keyword.map((keyword, index) => (
             <Keyword key={index} keyword={keyword.name} />
           ))}
         </div>*/}
+        <div className={"cardContent"}>
         <CardContent>
           <Typography variant='h6' component='p' className='title'>
             {props.item.title}
@@ -46,7 +56,7 @@ const CasesItem = (props) => {
             {props.item.Patient?.reasonConsult}
           </Typography>
         </CardContent>
-        <CardActions disableSpacing>
+        <CardActions>
           <UserAvatar avatar={props?.item?.User?.avatar} width='50px' />
           <Typography variant='body2' style={{ color: 'black', textTransform: 'capitalize' }} component='p'>
             { props?.item?.User?.pseudo }
@@ -67,6 +77,7 @@ const CasesItem = (props) => {
           )}
 
         </CardActions>
+        </div>
       </Link>
     </Card>
   )

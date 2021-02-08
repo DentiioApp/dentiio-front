@@ -10,7 +10,6 @@ import titleSvg from '../../../../images/maquette/c-case-title.svg'
 import {getUserId} from '../../../../services/Users'
 import {errorApi} from '../../../../utils'
 import LoadingCasesList from "../../../UI/Loading/LoadingCasesList";
-import { Button } from 'react-scroll'
 import {Button as ButtonMUI } from '@material-ui/core/'  ;
 
 const useStyles = makeStyles((theme) => ({

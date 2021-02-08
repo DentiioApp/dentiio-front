@@ -7,19 +7,13 @@ import PatientDetail from '../../components/App/Cases/DetailCase/PatientDetail'
 import Grid from '@material-ui/core/Grid'
 import Typography from '@material-ui/core/Typography'
 import {makeStyles} from '@material-ui/core/styles'
-import iconTeethFull from '../../images/icon/iconTeethFull.svg'
-import IconProfile from '../../components/UI/Icon/Profile/iconProfile'
 import palette from '../../components/UI/ColorTheme/Palette'
-import Keyword from '../../components/UI/buttons/Keywords/keywords'
 import Gallery from '../../components/UI/Gallery/Gallery'
-import CardPlanTreatment from '../../components/App/Cases/DetailCase/CardPlanTreatment'
 import {getCaseById} from '../../services/Cases'
 import {setup} from '../../services/Auth'
-import RatingCase from "../../components/App/Cases/DetailCase/Rating";
 import Spinner from "../../components/UI/Dawers/Spinner";
 import Box from "@material-ui/core/Box";
 import UserAvatar from "../../components/UI/Avatars/UserAvatar";
-import CardActions from "@material-ui/core/CardActions/CardActions";
 import Comments from "../../components/App/Cases/Comments/Comments"
 
 const useStyles = makeStyles((theme) => ({
@@ -101,16 +95,15 @@ const DetailCase = (props) => {
     })
 
     const optionsDate = {weekday: 'long', year: 'numeric', month: 'long', day: 'numeric'}
-    const Img = item?.averageNote ? <img alt='' src={iconTeethFull} width='12px' className={classes.icon}/> : ''
+    //const Img = item?.averageNote ? <img alt='' src={iconTeethFull} width='12px' className={classes.icon}/> : ''
 
     const imagesExam = (type) => {
-        
         if (item.imgClinicalCaseOmnipratiques) {
             const array = []
             item.imgClinicalCaseOmnipratiques.filter(function (i) {
                 return i.type === type
             }).map(function (img) {
-                    return array.push({
+                return array.push({
                             original: process.env.REACT_APP_BACK_URL + "images/" + img.path,
                             thumbnail: process.env.REACT_APP_BACK_URL + "images/" + img.path
                         }
@@ -120,7 +113,7 @@ const DetailCase = (props) => {
             return array
         }
     }
-        
+
     if (setup()) {
         if (Object.entries(item).length === 0) {
             return (<><Header target=''/>
@@ -152,11 +145,13 @@ const DetailCase = (props) => {
                             <span style={{ paddingRight: 20 }}>
                               {item.speciality?.map((spe) => spe.name + ", ")}
                             </span>
+                            {/*
+                            Notation
                             {Img}
                             {item?.averageNote}{" "}
                             {item.notations?.length
                               ? "(" + item.notations.length + "notes )"
-                              : "Aucune note"}
+                              : "Aucune note"}*/}
                           </Typography>
                           <Typography
                             component="p"
@@ -210,7 +205,7 @@ const DetailCase = (props) => {
                           </Typography>
                           <p>{item?.ExamDescription}</p>
                           {item.imgClinicalCaseOmnipratiques &&
-                            imagesExam("examen").length != 0 && (
+                            imagesExam("examen").length !== 0 && (
                               <Gallery images={imagesExam("examen")} />
                             )}
                           <Typography
@@ -228,45 +223,22 @@ const DetailCase = (props) => {
                                                     <Keyword key={index} keyword={keyword.name}/>
                                                 </div>
                                             ))}*/}
-                          </Grid>
-                          <Typography
-                            component="h3"
-                            variant="h5"
-                            className={classes.h3}
-                            id="plan"
-                          >
-                            Plan de traitement
-                          </Typography>
-                          <p>{item?.TreatmentDescription}</p>
-                          <Grid
-                            container
-                            spacing={1}
-                            className={classes.resume}
-                          >
-                            {item.imgClinicalCaseOmnipratiques &&
-                              imagesExam("treatment").length != 0 && (
-                                <Gallery images={imagesExam("treatment")} />
-                              )}
-                          </Grid>
-                        </div>
-                        <br />
-                        <RatingCase />
+                                        </Grid>
+                                        <Typography component='h3' variant='h5' className={classes.h3} id='plan'>
+                                            Plan de traitement
+                                        </Typography>
+                                        <p>
+                                            {item?.TreatmentDescription}
+                                        </p>
+                                        <Grid container spacing={1} className={classes.resume}>
+                                            {item.imgClinicalCaseOmnipratiques && imagesExam('treatment').length !== 0 &&
+                                            <Gallery images={imagesExam('treatment')}/>}
+                                        </Grid>
+                                    </div>
+                                    <br/>
+                          {/*<RatingCase/>*/}
 
-                        <Typography
-                          component="h3"
-                          variant="h5"
-                          className={classes.h3}
-                          id="diagnostic"
-                        >
-                          Diagnostic
-                        </Typography>
-                        <p>{item.diagnostic && item.diagnostic}</p>
-
-                        <Grid container item md={12} spacing={1}>
-                          <div key={"ok"} className={classes.keywords}>
-                            <Keyword key={"ind"} keyword={item.pathologie} />
-                          </div>
-                        </Grid>
+                          {/*
                         <Typography
                           component="h3"
                           variant="h5"
@@ -296,30 +268,9 @@ const DetailCase = (props) => {
                                 </Grid>
                               )
                             )}
-                        </Grid>
+                        </Grid>*/}
 
-                        <Typography
-                          component="h3"
-                          variant="h5"
-                          className={classes.h3}
-                          id="evolution"
-                        >
-                          Evolution
-                        </Typography>
-                        <p>{item.evolution && item.evolution}</p>
-                        {/* {Evolution()} */}
-                        <Typography
-                          component="h3"
-                          variant="h5"
-                          className={classes.h3}
-                          id="conclusion"
-                        >
-                          Conclusion
-                        </Typography>
-                        <p>{item.conclusion && item.conclusion}</p>
-                        <RatingCase />
                         <Comments
-                          key={"commentsData"}
                           datas={item}
                           useravatar={item?.User?.avatar}
                         />
