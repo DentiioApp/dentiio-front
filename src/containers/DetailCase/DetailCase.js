@@ -101,16 +101,14 @@ const DetailCase = (props) => {
     })
 
     const optionsDate = {weekday: 'long', year: 'numeric', month: 'long', day: 'numeric'}
-    const Img = item?.averageNote ? <img alt='' src={iconTeethFull} width='12px' className={classes.icon}/> : ''
+    //const Img = item?.averageNote ? <img alt='' src={iconTeethFull} width='12px' className={classes.icon}/> : ''
 
-    console.log(item)
     const imagesExam = (type) => {
         if (item.imgClinicalCaseOmnipratiques) {
             const array = []
             item.imgClinicalCaseOmnipratiques.filter(function (i) {
                 return i.type === type
             }).map(function (img) {
-                console.log(process.env.REACT_APP_BACK_URL + "images/" + img.path)
                 return array.push({
                             original: process.env.REACT_APP_BACK_URL + "images/" + img.path,
                             thumbnail: process.env.REACT_APP_BACK_URL + "images/" + img.path
@@ -129,47 +127,70 @@ const DetailCase = (props) => {
                 <Spinner/></>)
         } else {
             return (
-                <>
-                    <Box bgcolor="background.paper">
-                        <Header target=''/>
-                        <NavbarDetail/>
-                        <div className={classes.root} id='presentation'>
-                            <Grid container spacing={1}>
-                                <Grid container item md={3} spacing={1}>
-                                    <div className={classes.patientDesktop}>
-                                        <PatientDetail data={item?.Patient}/>
-                                    </div>
-                                </Grid>
-                                <Grid container item md={7} spacing={1}>
-                                    <div className={classes.paddigTopTitle}>
-                                        <Typography component='h1' variant='h4'>
-                                            {item?.title}
-                                        </Typography>
-                                        <Typography component='p' variant='body2' className={classes.subtitle}>
-                                          <span style={{paddingRight: 20}}>
-                                            {item.speciality?.map((spe) => (
-                                                spe.name + ', '
-                                            ))}
-                                          </span>
-                                            {Img}
-                                            {item?.averageNote} {item.notations?.length ? "(" + item.notations.length + "notes )" : 'Aucune note'}
-                                        </Typography>
-                                        <Typography component='p' variant='body2' className={classes.subtitle}>
-                                            Publié
-                                            le {item.createdAt && new Date(item.createdAt).toLocaleDateString('fr-FR', optionsDate)}
-                                            &nbsp;par&nbsp;
-                                            <span className={classes.profileName} style={{textTransform: 'capitalize'}} >
-                                                {item.User?.pseudo}
-                                            </span>
-                                            <UserAvatar avatar={item?.User?.avatar} width='30px' />
-                                        </Typography>
-                                        <Typography component='h3' variant='h5' className={classes.h3}>
-                                            Motif de consultation
-                                        </Typography>
-                                        <p>
-                                            {item.Patient?.reasonConsult}
-                                        </p>
-                                        {/*<Typography component='h3' variant='body1'>
+              <>
+                <Box bgcolor="background.paper">
+                  <Header target="" />
+                  <NavbarDetail />
+                  <div className={classes.root} id="presentation">
+                    <Grid container spacing={1}>
+                      <Grid container item md={3} spacing={1}>
+                        <div className={classes.patientDesktop}>
+                          <PatientDetail data={item?.Patient} />
+                        </div>
+                      </Grid>
+                      <Grid container item md={7} spacing={1}>
+                        <div className={classes.paddigTopTitle}>
+                          <Typography component="h1" variant="h4">
+                            {item?.title}
+                          </Typography>
+                          <Typography
+                            component="p"
+                            variant="body2"
+                            className={classes.subtitle}
+                          >
+                            <span style={{ paddingRight: 20 }}>
+                              {item.speciality?.map((spe) => spe.name + ", ")}
+                            </span>
+                            {/*
+                            Notation
+                            {Img}
+                            {item?.averageNote}{" "}
+                            {item.notations?.length
+                              ? "(" + item.notations.length + "notes )"
+                              : "Aucune note"}*/}
+                          </Typography>
+                          <Typography
+                            component="p"
+                            variant="body2"
+                            className={classes.subtitle}
+                          >
+                            Publié le{" "}
+                            {item.createdAt &&
+                              new Date(item.createdAt).toLocaleDateString(
+                                "fr-FR",
+                                optionsDate
+                              )}
+                            &nbsp;par&nbsp;
+                            <span
+                              className={classes.profileName}
+                              style={{ textTransform: "capitalize" }}
+                            >
+                              {item.User?.pseudo}
+                            </span>
+                            <UserAvatar
+                              avatar={item?.User?.avatar}
+                              width="30px"
+                            />
+                          </Typography>
+                          <Typography
+                            component="h3"
+                            variant="h5"
+                            className={classes.h3}
+                          >
+                            Motif de consultation
+                          </Typography>
+                          <p>{item.Patient?.reasonConsult}</p>
+                          {/*<Typography component='h3' variant='body1'>
                                             Les symptômes sont :
                                             {item.symptome?.map((keyword, index) => (
                                                 <div key={index} className={classes.keywords}>
@@ -177,24 +198,33 @@ const DetailCase = (props) => {
                                                 </div>
                                             ))}
                                         </Typography>*/}
-                                        <div className={classes.patientMobile}>
-                                            <PatientDetail/>
-                                        </div>
-                                        <Typography component='h3' variant='h5' className={classes.h3} id='examen'>
-                                            Examen clinique
-                                        </Typography>
-                                        <p>
-                                            {item?.ExamDescription}
-                                        </p>
-                                        {item.imgClinicalCaseOmnipratiques && imagesExam('examen').length != 0 && <Gallery images={imagesExam('examen')}/>}
-                                        <Typography component='h3' variant='h5' className={classes.h3} id='diagnostic'>
-                                            Diagnostic
-                                        </Typography>
-                                        <p>
-                                            {item?.pathologie}
-                                        </p>
-                                        <Grid container item md={12} spacing={1}>
-                                            {/*{item.pathologie?.map((keyword, index) => (
+                          <div className={classes.patientMobile}>
+                            <PatientDetail />
+                          </div>
+                          <Typography
+                            component="h3"
+                            variant="h5"
+                            className={classes.h3}
+                            id="examen"
+                          >
+                            Examen clinique
+                          </Typography>
+                          <p>{item?.ExamDescription}</p>
+                          {item.imgClinicalCaseOmnipratiques &&
+                            imagesExam("examen").length != 0 && (
+                              <Gallery images={imagesExam("examen")} />
+                            )}
+                          <Typography
+                            component="h3"
+                            variant="h5"
+                            className={classes.h3}
+                            id="diagnostic"
+                          >
+                            Diagnostic
+                          </Typography>
+                          <p>{item?.pathologie}</p>
+                          <Grid container item md={12} spacing={1}>
+                            {/*{item.pathologie?.map((keyword, index) => (
                                                 <div key={index} className={classes.keywords}>
                                                     <Keyword key={index} keyword={keyword.name}/>
                                                 </div>
@@ -211,68 +241,55 @@ const DetailCase = (props) => {
                                         </Grid>
                                     </div>
                                     <br/>
-                                    <RatingCase/>
+                          {/*<RatingCase/>*/}
 
-                                    <Typography component='h3' variant='h5' className={classes.h3} id='diagnostic'>
-                                        Diagnostic
-                                    </Typography>
-                                    <p>
-                                        {item.diagnostic && item.diagnostic}
-                                    </p>
-                                    
-                                    <Grid container item md={12} spacing={1}>
-                                
-                                        <div key={'ok'} className={classes.keywords}>
-                                            <Keyword key={'ind'} keyword={item.pathologie}/>
-                                        </div>
-                             
-                                    </Grid>
-                                    <Typography component='h3' variant='h5' className={classes.h3} id='plan'>
-                                        Plan de traitement
-                                    </Typography>
-                                    <p>
-                                        {item.treatmentPlan && item.treatmentPlan}
-                                    </p>
-                                    <Grid container spacing={1} className={classes.resume}>
-                                        {item.imageClinicalCases && imagesExam('plan-de-traitement').map((img, index) => (
-                                            <Grid container item md={6} key={index} justify='center'>
-                                                <CardPlanTreatment title={index + 1} key={index} description=''
-                                                                   image={img.original}/>
-                                            </Grid>
-                                        ))}
+                          {/*
+                        <Typography
+                          component="h3"
+                          variant="h5"
+                          className={classes.h3}
+                          id="plan"
+                        >
+                          Plan de traitement
+                        </Typography>
+                        <p>{item.treatmentPlan && item.treatmentPlan}</p>
+                        <Grid container spacing={1} className={classes.resume}>
+                          {item.imageClinicalCases &&
+                            imagesExam("plan-de-traitement").map(
+                              (img, index) => (
+                                <Grid
+                                  container
+                                  item
+                                  md={6}
+                                  key={index}
+                                  justify="center"
+                                >
+                                  <CardPlanTreatment
+                                    title={index + 1}
+                                    key={index}
+                                    description=""
+                                    image={img.original}
+                                  />
+                                </Grid>
+                              )
+                            )}
+                        </Grid>*/}
 
-                                    </Grid>
+                        <Comments
+                          datas={item}
+                          useravatar={item?.User?.avatar}
+                        />
 
-                                    <Typography component='h3' variant='h5' className={classes.h3} id='evolution'>
-                                        Evolution
-                                    </Typography>
-                                    <p>
-                                        {item.evolution && item.evolution}
-                                    </p>
-                                    {/* {Evolution()} */}
-                                    <Typography component='h3' variant='h5' className={classes.h3} id='conclusion'>
-                                        Conclusion
-                                    </Typography>
-                                    <p>
-                                        {item.conclusion && item.conclusion}
-                                    </p>
-                                <RatingCase/>
-                        
-                                {/* <Grid container className={classes.alignRight} item md={2} spacing={1}>
+                        {/* <Grid container className={classes.alignRight} item md={2} spacing={1}>
                                     <div>
                                     </div>
                                 </Grid> */}
-                            </Grid>
-                            <Grid container className={classes.alignRight} item md={2} spacing={1}>
-                                <div>
-                                </div>
-                                </Grid>
-                                <Comments  datas={item} />
-                        </Grid>
-                    </div>
-                    </Box>
-                </>
-            )
+                      </Grid>
+                    </Grid>
+                  </div>
+                </Box>
+              </>
+            );
         }
     } else {
         return (<Redirect to='/'/>)

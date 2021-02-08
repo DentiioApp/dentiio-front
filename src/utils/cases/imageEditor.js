@@ -13,7 +13,6 @@ export const ModifyImage = async (censor_points, imageTodo, currentImgIndex, dis
     { 'src': imageTodo, x: 0, y: 0 }
   ].concat(censor_points)
   
-  console.log('ARRAY MERGE IMAGES :', array_to_merge)
   /** PERMET DE COLLER DES IMAGES LES UNE SUR LES AUTRES A DES COORDONNÉE ET GÉNÉREER LE B64  */
   return await mergeImages(array_to_merge)
     .then((b64) => dispatch({ type: action[type], _img: b64, currentImgIndex: currentImgIndex }))

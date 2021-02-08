@@ -3,6 +3,7 @@ import { fetchSpecialities } from './SpecialitiesAction'
 import { fetchTreatments } from './TreatmentsAction'
 import { fetchPathologies } from './PathologiesAction'
 import { fetchCatPathologies } from './CatPathologiesAction'
+import { sendComments } from './commentsAction'
 
 export const ADD_FAVORITE = 'ADD_FAVORITE'
 export const REMOVE_FAVORITE = 'REMOVE_FAVORITE'
@@ -10,9 +11,11 @@ export const INIT_FAV_CASE = 'INIT_FAV_CASE'
 export const CASES_LIST = 'CASES_LIST'
 export const CASE_FILTERED = 'CASE_FILTERED'
 export const SET_EXAM_PICS = 'SET_EXAM_PICS'
+export const UPDATE_EXAM_PICS = 'UPDATE_EXAM_PICS'
 export const DROP_EXAM_PICS = 'DROP_EXAM_PICS'
 export const DEL_EXAM_PICS = 'DEL_EXAM_PICS'
 export const SET_TREAT_PICS = 'SET_TREAT_PICS'
+export const UPDATE_TREAT_PICS = 'UPDATE_TREAT_PICS'
 export const DROP_TREAT_PICS = 'DROP_TREAT_PICS'
 export const DEL_TREAT_PICS = 'DEL_TREAT_PICS'
 export const FREE_CREDENTIALS = 'FREE_CREDENTIALS'
@@ -60,4 +63,5 @@ export {
   fetchCatPathologies,
   format_file,
   post_images,
+  sendComments,
 }

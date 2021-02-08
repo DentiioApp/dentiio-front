@@ -10,7 +10,8 @@ import titleSvg from '../../../../images/maquette/c-case-title.svg'
 import {getUserId} from '../../../../services/Users'
 import {errorApi} from '../../../../utils'
 import LoadingCasesList from "../../../UI/Loading/LoadingCasesList";
-
+import { Button } from 'react-scroll'
+import {Button as ButtonMUI } from '@material-ui/core/'  ;
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -80,8 +81,19 @@ const CasesList = () => {
         <>
             <Container maxWidth={false}>
                 <center><img src={titleSvg} alt='Cas Cliniques'/></center>
-                <Paginator pages={pages} onChange={handleChange}
-                           current={values.paginator}/> {cases.length > 0 ? '[page ' + values.paginator + ']' : ''}
+                <Paginator 
+                    pages={pages} 
+                    onChange={handleChange} 
+                    current={values.paginator}
+                />
+
+                <ButtonMUI
+                    variant="contained"
+                    color="primary"
+                > 
+                    {cases.length > 0 ? 'Page ' + values.paginator : ''}
+                </ButtonMUI >
+
                 <div className={classes.root}>
                     {(cases.length < 1) ? (<LoadingCasesList key={Date.now}/>) : ""}
                     {areLoaded && cases.map((oCase, index) => {
