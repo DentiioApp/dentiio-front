@@ -724,7 +724,7 @@ export default function HorizontalLinearStepper() {
                                                     <br /> <br />
                                                 </div>
                                             </Grid>
-                                            <Box>
+                                            {/* <Box>
                                                 <Typography component='h1' variant='h5'>
                                                     <center>Retouche photos  <Grid container component='main'>
                                                         <Grid item xs={12}>
@@ -762,8 +762,8 @@ export default function HorizontalLinearStepper() {
                                                     </Button>
                                                 </center>
                                                 {/* {<img onClick={handlePointed} id="canva_slider" src={`${canvaState && canvaState.toDataURL()}`} />} */}
-                                                {<img id="canva_slider" src={`${canvaState && canvaState.toDataURL()}`} />}
-                                            </Box>
+                                                { /*<img id="canva_slider" src={`${canvaState && canvaState.toDataURL()}`} />}
+                                            </Box> */}
                                         </Grid>
                                     </form>
                                 </Box>
