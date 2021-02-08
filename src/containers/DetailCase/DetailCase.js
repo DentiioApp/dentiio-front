@@ -7,19 +7,13 @@ import PatientDetail from '../../components/App/Cases/DetailCase/PatientDetail'
 import Grid from '@material-ui/core/Grid'
 import Typography from '@material-ui/core/Typography'
 import {makeStyles} from '@material-ui/core/styles'
-import iconTeethFull from '../../images/icon/iconTeethFull.svg'
-import IconProfile from '../../components/UI/Icon/Profile/iconProfile'
 import palette from '../../components/UI/ColorTheme/Palette'
-import Keyword from '../../components/UI/buttons/Keywords/keywords'
 import Gallery from '../../components/UI/Gallery/Gallery'
-import CardPlanTreatment from '../../components/App/Cases/DetailCase/CardPlanTreatment'
 import {getCaseById} from '../../services/Cases'
 import {setup} from '../../services/Auth'
-import RatingCase from "../../components/App/Cases/DetailCase/Rating";
 import Spinner from "../../components/UI/Dawers/Spinner";
 import Box from "@material-ui/core/Box";
 import UserAvatar from "../../components/UI/Avatars/UserAvatar";
-import CardActions from "@material-ui/core/CardActions/CardActions";
 import Comments from "../../components/App/Cases/Comments/Comments"
 
 const useStyles = makeStyles((theme) => ({
@@ -211,7 +205,7 @@ const DetailCase = (props) => {
                           </Typography>
                           <p>{item?.ExamDescription}</p>
                           {item.imgClinicalCaseOmnipratiques &&
-                            imagesExam("examen").length != 0 && (
+                            imagesExam("examen").length !== 0 && (
                               <Gallery images={imagesExam("examen")} />
                             )}
                           <Typography
@@ -237,7 +231,8 @@ const DetailCase = (props) => {
                                             {item?.TreatmentDescription}
                                         </p>
                                         <Grid container spacing={1} className={classes.resume}>
-                                            {item.imgClinicalCaseOmnipratiques && imagesExam('treatment').length != 0 &&  <Gallery images={imagesExam('treatment')}/>}
+                                            {item.imgClinicalCaseOmnipratiques && imagesExam('treatment').length !== 0 &&
+                                            <Gallery images={imagesExam('treatment')}/>}
                                         </Grid>
                                     </div>
                                     <br/>

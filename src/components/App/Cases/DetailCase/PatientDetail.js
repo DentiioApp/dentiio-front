@@ -1,5 +1,4 @@
 import React from 'react'
-import { useSelector } from 'react-redux'
 import Card from '@material-ui/core/Card'
 import CardActions from '@material-ui/core/CardActions'
 import CardContent from '@material-ui/core/CardContent'
@@ -43,7 +42,6 @@ const useStyles = makeStyles((theme) => ({
 
 export default function PatientDetail (props) {
   const classes = useStyles()
-  const currentCase = useSelector((state) => state.cases.currentCase)
   const inTreatment = props.data ? props.data.inTreatment.empty ? 'Aucun traitement en cours' : 'Traitement en cours: ' : 'Non renseigné'
   const treatment = props.data ? props.data.inTreatment.empty ? '' : props.data.inTreatment : ''
   const problemHealth = props.data ? props.data.problemHealth.empty ? 'Aucun' : props.data.problemHealth : ''

@@ -6,7 +6,6 @@ import React, { useState } from "react";
 import UserAvatar from "../../../UI/Avatars/UserAvatar";
 import { sendComments } from "../../../../services/Comment"
 import {useSelector} from "react-redux";
-import {Link} from "react-router-dom";
 
 const Comments = (props) => {
   const currents_user = useSelector((state) => (state.user.current_user))
@@ -15,7 +14,7 @@ const Comments = (props) => {
    };
   const [values, setValues] = useState(initVals); 
   const handleChange = prop => event => {
-    if (prop = 'comment') {
+    if (prop === 'comment') {
       setValues({ ...values, [prop]: event.target.value });
     }
   }
