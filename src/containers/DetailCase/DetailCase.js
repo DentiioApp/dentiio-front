@@ -103,14 +103,15 @@ const DetailCase = (props) => {
     const optionsDate = {weekday: 'long', year: 'numeric', month: 'long', day: 'numeric'}
     const Img = item?.averageNote ? <img alt='' src={iconTeethFull} width='12px' className={classes.icon}/> : ''
 
+    console.log(item)
     const imagesExam = (type) => {
-        // console.log(item)
         if (item.imgClinicalCaseOmnipratiques) {
             const array = []
             item.imgClinicalCaseOmnipratiques.filter(function (i) {
                 return i.type === type
             }).map(function (img) {
-                    return array.push({
+                console.log(process.env.REACT_APP_BACK_URL + "images/" + img.path)
+                return array.push({
                             original: process.env.REACT_APP_BACK_URL + "images/" + img.path,
                             thumbnail: process.env.REACT_APP_BACK_URL + "images/" + img.path
                         }
@@ -120,9 +121,7 @@ const DetailCase = (props) => {
             return array
         }
     }
-    
-    console.log(item);
-    
+
     if (setup()) {
         if (Object.entries(item).length === 0) {
             return (<><Header target=''/>
@@ -209,7 +208,6 @@ const DetailCase = (props) => {
                                         </p>
                                         <Grid container spacing={1} className={classes.resume}>
                                             {item.imgClinicalCaseOmnipratiques && imagesExam('treatment').length != 0 &&  <Gallery images={imagesExam('treatment')}/>}
-
                                         </Grid>
                                     </div>
                                     <br/>
