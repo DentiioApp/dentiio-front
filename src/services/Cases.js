@@ -107,7 +107,6 @@ export const postCase = (values, patient) => {
     // smoking: values.isASmoker,
     /* drinking: values.isDrinker, */
     presentation: values.summary,
-    treatmentPlan: 'Plan de traitement',
     observation: values.global_desc,
     evolution: values.evolution,
     conclusion: values.conclusion,
