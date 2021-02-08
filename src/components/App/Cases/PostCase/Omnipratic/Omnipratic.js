@@ -110,15 +110,15 @@ export default function HorizontalLinearStepper() {
       const createdCaseOmni = await postCase(values, patient.datas['@id'])
 
       if (createdCaseOmni.datas['@id'] !== undefined) {
-        let createdImgCaseOmniExam = post_images(exam_pics, createdCaseOmni.datas['@id'], EXAM_TYPE)
+        let createdImgCaseOmniExam = await post_images(exam_pics, createdCaseOmni.datas['@id'], EXAM_TYPE)
 
-        if (createdImgCaseOmniExam) {
+        if (createdImgCaseOmniExam.datas['@id'] === undefined) {
           addToast('error ajout images exam clinical', { appearance: 'error' })
         }
 
-        let createdImgCaseOmniTreat = post_images(treat_pics, createdCaseOmni.datas['@id'], TREAT_TYPE)
+        let createdImgCaseOmniTreat = await post_images(treat_pics, createdCaseOmni.datas['@id'], TREAT_TYPE)
 
-        if (createdImgCaseOmniTreat) {
+        if (createdImgCaseOmniTreat.datas['@id'] === undefined) {
           addToast('error ajout images treatment clinical', { appearance: 'error' })
         }
       }
