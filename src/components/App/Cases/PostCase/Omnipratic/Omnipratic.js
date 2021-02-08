@@ -452,6 +452,7 @@ export default function HorizontalLinearStepper() {
                                                 label='Age'
                                                 autoFocus
                                                 type="number"
+                                                InputProps={{ inputProps: { min: 0, max: 150 } }}
                                                 fullWidth
                                                 onChange={handleChange('age')}
                                                 variant='outlined'
