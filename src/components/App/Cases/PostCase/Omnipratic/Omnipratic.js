@@ -30,6 +30,7 @@ import Box from "@material-ui/core/Box";
 import { createCanvas, loadImage } from 'canvas';
 import { errorApi, ModifyImage } from '../../../../../utils'
 import mergeImages from 'merge-images';
+import Spinner from "../../../../UI/Dawers/Spinner";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -67,7 +68,7 @@ export default function HorizontalLinearStepper() {
     return { url: process.env.REACT_APP_UPLOADS_PATH } // REACT_APP_UPLOADS_PATH  TO CREATE
   }
 
-  const { exam_pics, treat_pics, censor_points } = useSelector((state) => state.cases)
+  const { exam_pics, treat_pics } = useSelector((state) => state.cases)
 
   const handleChangeStatus = ({ meta }, status) => {
     console.log('status', status, 'meta', meta)
@@ -95,27 +96,32 @@ export default function HorizontalLinearStepper() {
         if (values.age === '') {
           setErrors({ ...errors, errAge: true });
           isValid = false;
-        }
+        }else {setErrors({ ...errors, errAge: false });}
+
         if (values.gender === '') {
           setErrors({ ...errors, errGender: true });
           isValid = false;
-        }
+        } else {setErrors({ ...errors, errGender: false });}
+
         if (values.problem_health === '') {
           setErrors({ ...errors, errProblem_health: true });
           isValid = false;
-        }
+        } else {setErrors({ ...errors, errProblem_health: true });}
+        
         if (values.treatments === '') {
           setErrors({ ...errors, errCurrent_treatment: true });
           isValid = false;
-        }
+        } else {setErrors({ ...errors, errCurrent_treatment: true });}
+
         if (values.allergies === '') {
           setErrors({ ...errors, errAllergies: true });
           isValid = false;
-        }
+        } else { setErrors({ ...errors, errAllergies: true }); }
+
         if (values.reason_consultation === '') {
           setErrors({ ...errors, errReason_consultation: true });
           isValid = false;
-        }
+        } else { setErrors({ ...errors, errReason_consultation: true }); }
         break;
 
       case 'diagnostic':
@@ -136,10 +142,11 @@ export default function HorizontalLinearStepper() {
         }
         break;
     }
- 
+
     return isValid
   }
 
+  const [clinicalOmniID, setClinicalOmniID] = useState()
   const SubmitCC = async () => {
 
     // if (catchErrors()) {x
@@ -151,6 +158,7 @@ export default function HorizontalLinearStepper() {
       const createdCaseOmni = await postCase(values, patient.datas['@id'])
 
       if (createdCaseOmni.datas['@id'] !== undefined) {
+        setClinicalOmniID(createdCaseOmni.datas['id'])
         let createdImgCaseOmniExam = await post_images(exam_pics, createdCaseOmni.datas['@id'], EXAM_TYPE)
 
         // if (createdImgCaseOmniExam.datas['@id'] === undefined) {
@@ -167,8 +175,8 @@ export default function HorizontalLinearStepper() {
       if (errorApi().test(createdCaseOmni)) {
         addToast(messages.error, { appearance: 'error' })
       } else {
+        setshowSpinner(false)
         addToast(messages.success, { appearance: 'success' })
-        history.push('/')
       }
     } else {
       addToast(messages.patientError, { appearance: 'error' })
@@ -193,8 +201,9 @@ export default function HorizontalLinearStepper() {
     isDrinker: false,
     is_medical_background: true,
     treatments: '',
-    problemHealth: true,
+    problem_health: '',
     old_injury: '',
+    allergies:'',
     //--
 
     //Omnipratic
@@ -221,6 +230,7 @@ export default function HorizontalLinearStepper() {
   const [showDiagnostic, setShowDiagnostic] = useState('none')
   const [showFinalisation, setShowFinalisation] = useState('none')
   const [showResponseValid, setShowResponseValid] = useState('none')
+  const [showSpinner, setshowSpinner] = useState(false)
 
   const handleChange = prop => event => {
     switch (prop) {
@@ -298,7 +308,7 @@ export default function HorizontalLinearStepper() {
         newSkipped = new Set(newSkipped.values());
         newSkipped.delete(activeStep);
       }
-  
+
       setActiveStep((prevActiveStep) => prevActiveStep + 1);
       setSkipped(newSkipped);
     }
@@ -409,6 +419,7 @@ export default function HorizontalLinearStepper() {
         setShowFinalisation('block');
         break;
       case 3:
+        setshowSpinner(true)
         SubmitCC()
         setShowFinalisation('none');
         setShowDiagnostic('none');
@@ -481,8 +492,31 @@ export default function HorizontalLinearStepper() {
         {activeStep === steps.length ? (
           <div>
             <Box bgcolor="background.paper" display={showResponseValid}>
+              <Grid container item spacing={3} component='main'>
+                <Grid item xs={1} md={3}></Grid>
+                <Grid item xs={10} md={6}>
+                  LE CAS A ÉTÉ ENREGISTRTÉ! <span role="img" aria-labelledby={'toto'}>😀</span>
+                  <br></br>
+                  <a target="_blank" href={`/case/${clinicalOmniID}`}>
+                    <Button
+                      variant="contained"
+                      color={"secondary"}
+                    >
+                      Consulter mon cas
+                    </Button>
+                  </a>
+                  <br></br>
+                  <a target="_blank" href="https://docs.google.com/forms/d/e/1FAIpQLSfgi6WlyYhqpOgG46G4iEUeTobpS_52J4mKvCZbSZr-FM0FnA/viewform">
+                    <Button
+                      variant="contained"
+                      color={"primary"}
+                    >
+                      Votre avis nous interresses !
+                    </Button>
+                  </a>
+                </Grid>
+              </Grid>
 
-              LE CAS A ÉTÉ ENREGISTRTÉ! <span role="img" aria-labelledby={'toto'}>😀</span>
             </Box>
           </div>
         ) : (
@@ -758,7 +792,7 @@ export default function HorizontalLinearStepper() {
                           <div className={classes.paper}>
                             <Typography component='h1' variant='h5'>
                               Titre du cas
-                                                    </Typography>
+                            </Typography>
                             <TextField
                               variant='outlined'
                               margin='normal'
@@ -778,45 +812,45 @@ export default function HorizontalLinearStepper() {
                           </div>
                         </Grid>
                         {/* <Box>
-                                                <Typography component='h1' variant='h5'>
-                                                    <center>Retouche photos  <Grid container component='main'>
-                                                        <Grid item xs={12}>
-                                                            {imgTypeSlider === EXAM_TYPE ?
-                                                                (exam_pics && exam_pics[(step_slide - 1)] ? <ChevronLeftIcon color="primary" onClick={handleImgBack} /> : '')
-                                                                : null
-                                                            }
-                                                            {imgTypeSlider === EXAM_TYPE ?
-                                                                (exam_pics && exam_pics[(step_slide + 1)] ? <ChevronRightIcon color="primary" onClick={handleImgNext} /> : '')
-                                                                : null
-                                                            }
+                            <Typography component='h1' variant='h5'>
+                                <center>Retouche photos  <Grid container component='main'>
+                                    <Grid item xs={12}>
+                                        {imgTypeSlider === EXAM_TYPE ?
+                                            (exam_pics && exam_pics[(step_slide - 1)] ? <ChevronLeftIcon color="primary" onClick={handleImgBack} /> : '')
+                                            : null
+                                        }
+                                        {imgTypeSlider === EXAM_TYPE ?
+                                            (exam_pics && exam_pics[(step_slide + 1)] ? <ChevronRightIcon color="primary" onClick={handleImgNext} /> : '')
+                                            : null
+                                        }
 
-                                                            {imgTypeSlider === TREAT_TYPE ?
-                                                                (treat_pics && treat_pics[(step_slide - 1)] ? <ChevronLeftIcon color="secondary" onClick={handleImgBack} /> : '')
-                                                                :
-                                                                null
-                                                            }
-                                                            {imgTypeSlider === TREAT_TYPE ?
-                                                                (treat_pics && treat_pics[(step_slide + 1)] ? <ChevronRightIcon color="secondary" onClick={handleImgNext} /> : '')
-                                                                :
-                                                                null
-                                                            }
+                                        {imgTypeSlider === TREAT_TYPE ?
+                                            (treat_pics && treat_pics[(step_slide - 1)] ? <ChevronLeftIcon color="secondary" onClick={handleImgBack} /> : '')
+                                            :
+                                            null
+                                        }
+                                        {imgTypeSlider === TREAT_TYPE ?
+                                            (treat_pics && treat_pics[(step_slide + 1)] ? <ChevronRightIcon color="secondary" onClick={handleImgNext} /> : '')
+                                            :
+                                            null
+                                        }
 
-                                                        </Grid>
-                                                    </Grid></center>
-                                                </Typography>
-                                                <center>
-                                                    <Button
-                                                        variant="contained"
-                                                        color={imgTypeSlider === EXAM_TYPE ? "secondary" : "primary"}
-                                                        onClick={handleChangeImgTypeSlider}
-                                                        className={classes.button}
-                                                    >
-                                                        {`AFFICHER LES PHOTOS  ${(imgTypeSlider === EXAM_TYPE ? 'DE ' + TREAT_TYPE + 'TEMENT ' : 'D ' + EXAM_TYPE + 'ENS')} `}
-                                                    </Button>
-                                                </center>
-                                                {/* {<img onClick={handlePointed} id="canva_slider" src={`${canvaState && canvaState.toDataURL()}`} />} */}
+                                    </Grid>
+                                </Grid></center>
+                            </Typography>
+                            <center>
+                                <Button
+                                    variant="contained"
+                                    color={imgTypeSlider === EXAM_TYPE ? "secondary" : "primary"}
+                                    onClick={handleChangeImgTypeSlider}
+                                    className={classes.button}
+                                >
+                                    {`AFFICHER LES PHOTOS  ${(imgTypeSlider === EXAM_TYPE ? 'DE ' + TREAT_TYPE + 'TEMENT ' : 'D ' + EXAM_TYPE + 'ENS')} `}
+                                </Button>
+                            </center>
+                            {/* {<img onClick={handlePointed} id="canva_slider" src={`${canvaState && canvaState.toDataURL()}`} />} */}
                         { /*<img id="canva_slider" src={`${canvaState && canvaState.toDataURL()}`} />}
-                                            </Box> */}
+                        </Box> */}
                       </Grid>
                     </form>
                   </Box>
@@ -838,15 +872,20 @@ export default function HorizontalLinearStepper() {
                       Skip
                     </Button>
                   )}
-
-                  <Button
-                    variant="contained"
-                    color="primary"
-                    onClick={handleNext}
-                    className={classes.button}
-                  >
-                    {activeStep === steps.length - 1 ? 'Valider' : 'Étape suivante'}
-                  </Button>
+                  {showSpinner ?
+                    <div hidden={!showSpinner} style={{ marginTop: '-50px' }}>
+                      <Spinner />
+                    </div>
+                    :
+                    <Button
+                      variant="contained"
+                      color="primary"
+                      onClick={handleNext}
+                      className={classes.button}
+                    >
+                      {activeStep === steps.length - 1 ? 'Valider' : 'Étape suivante'}
+                    </Button>
+                  }
                 </Grid>
               </Grid>
             </div>
