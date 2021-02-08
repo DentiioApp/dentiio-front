@@ -307,23 +307,17 @@ export default function HorizontalLinearStepper() {
 
   const handleImgBack = () => {
     setStep_slide((step_slide - 1));
-    console.log('Back :', step_slide);
   }
 
   const handleImgNext = () => {
     setStep_slide((step_slide + 1));
-    console.log('Next :', step_slide);
   }
 
   useEffect(() => {
     var img = new Image();
     if (imgTypeSlider === EXAM_TYPE) {
       if (exam_pics[step_slide]) {
-        console.log('exam_pics[step_slide]._img', exam_pics[step_slide]._img)
-        console.log('step_slide', step_slide)
-        console.log('imgTypeSlider', imgTypeSlider)
         img.src = exam_pics[step_slide]._img;
-        console.log("canvas", typeof canvas)
         ctx.drawImage(img, 0, 0, 500, 500);
 
         setCurrentImgIndex(step_slide)
@@ -396,7 +390,6 @@ export default function HorizontalLinearStepper() {
 
         mergeImages(array_to_merge)
           .then((b64) => { 
-            console.log('Ismodif', ismodif); 
             dispatch({ type: action[imgTypeSlider], _img: b64, currentImgIndex: currentImgIndex });
             setIsmodif((ismodif+1))
           });

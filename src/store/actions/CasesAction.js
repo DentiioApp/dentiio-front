@@ -28,7 +28,6 @@ export const format_file = async (aFiles = [], dispatch, pics = [], type) => {
    'EXAM' : {'drop': DROP_EXAM_PICS, 'del': DEL_EXAM_PICS, 'set': SET_EXAM_PICS, 'update': UPDATE_EXAM_PICS},
    'TREAT': {'drop': DROP_TREAT_PICS, 'del': DEL_TREAT_PICS , 'set': SET_TREAT_PICS, 'update': UPDATE_TREAT_PICS}
   }
-  console.log("pics", pics.length, "aFiles", aFiles.length)
   if(aFiles.length < pics.length) {
     if(aFiles.length < 1) {
       dispatch({ type: action[type].drop})

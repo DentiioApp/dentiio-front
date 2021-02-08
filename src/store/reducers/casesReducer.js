@@ -119,7 +119,6 @@ export const Cases = (state = INIT_STATE, action) => {
       return { ...state, treat_pics: [] }
 
     case ADD_CENSOR_POINT:
-      console.log('ADD_CENSOR_POINT :', action.datas)
       return { ...state, censor_points: state.censor_points.concat(action.datas) }
 
     case DROP_CENSOR_POINTS:
