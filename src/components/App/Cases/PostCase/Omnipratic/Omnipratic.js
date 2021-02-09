@@ -73,6 +73,7 @@ export default function HorizontalLinearStepper() {
   const handleChangeStatus = ({ meta }, status) => {
     console.log('status', status, 'meta', meta)
   }
+  
   const initVals = {
     errAge: false,
     errGender: false,
@@ -86,6 +87,7 @@ export default function HorizontalLinearStepper() {
     errTitle: false,
     errSummary: false,
   }
+
   const [errors, setErrors] = useState(initVals)
 
   const catchErrors = (page) => {

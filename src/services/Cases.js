@@ -29,8 +29,8 @@ export const fetchCases = (page = 1) => {
 export const addFavCase = async (data, userId) => {
   const item = {
     userId: '/api/users/' + userId,
-    clinicalCaseId: data['@id'],
-    createdAt: new Date().toISOString()
+    createdAt: new Date().toISOString(),
+    clinicalCaseOmnipratique: data['@id']
   }
   let responses = await axios
     .post(FAVORITES, item)
