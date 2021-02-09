@@ -60,7 +60,7 @@ const CasesItem = (props) => {
           <Typography variant='body2' style={{ color: 'black', textTransform: 'capitalize' }} component='p'>
             { props?.item?.User?.pseudo }
             <br />
-            {  props?.item?.User?.job?.name}
+            <span style={{color: 'dimgray', fontSize: '0.9em'}}>{  props?.item?.User?.job?.name}</span>
           </Typography>
           <div className='grow' style={{ align: 'right' }} />
           <Typography variant='body2' color='textSecondary' component='p'>
