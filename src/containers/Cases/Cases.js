@@ -8,12 +8,26 @@ import { setup } from '../../services/Auth'
 import { getUserById, getUserId } from '../../services/Users'
 import { SET_USER } from '../../store/actions'
 import Box from "@material-ui/core/Box";
+import Collapse from '@material-ui/core/Collapse';
+import CloseIcon from '@material-ui/icons/Close';
+import Alert from '@material-ui/lab/Alert';
+import IconButton from '@material-ui/core/IconButton';
+
+
 
 const Cases = () => {
   const dispatch = useDispatch()
   const current_user = useSelector((state) => (state.user.current_user))
   const [fetchUser, setFetchUser] = useState(false)
+  const [open, setOpen] = React.useState(
+      localStorage.getItem('bienvenueMessage') !== "false"
+  )
 
+  console.log(localStorage.getItem('bienvenueMessage'))
+  const handleMessage = () => {
+    setOpen(false)
+    localStorage.setItem('bienvenueMessage', "false")
+    }
 
   useEffect(() => {
 
@@ -33,7 +47,28 @@ const Cases = () => {
         <>
           <Box bgcolor="background.paper">
             <Header target='home' />
-            <Search />
+            <Collapse in={open} style={{padding: "30px 20px"}}>
+              <Alert
+                  icon={false}
+                  severity="info"
+                  action={
+                    <IconButton
+                        aria-label="close"
+                        color="inherit"
+                        size="small"
+                        onClick={() => {
+                          handleMessage();
+                        }}
+                    >
+                      <CloseIcon fontSize="inherit" />
+                    </IconButton>
+                  }
+              >
+                <h2>Bienvenue sur Dentiio</h2>
+                <p>Message</p>
+              </Alert>
+            </Collapse>
+            {/*<Search />*/}
             <CasesList />
           </Box>
         </>

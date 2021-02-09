@@ -24,36 +24,29 @@ const CasesItem = (props) => {
       })
     }
   }
-
-  return (
-    <Card key={props.item.id} className="card">
-      <FavButton
-        alt="favorite"
-        value={props.item}
-        isFavorite={props.favorite}
-      />
-      <Link to={`/case/${props.item.id}`} style={{ textDecoration: "none" }}>
-      {img()[0] !== undefined ? (
-        <CardMedia
-          className="media"
-          image={process.env.REACT_APP_BACK_URL + "images/" + img()[0]}
-          title={props.item.title}
-        />
-      ) : (
-        <CardMedia
-          className="media"
-          image={window.location.origin + "/logoteethBleu.png"}
-          title={props.item.title}
-        />
-      )}
-        </Link>
+  return(
+    <Card key={props.item.id} className='card'>
+      {/*<FavButton alt='favorite' value={props.item} isFavorite={props.favorite} />*/}
+      <Link to={`/case/${props.item.id}`} style={{ textDecoration: 'none' , height: '100%'}}>
+        {img()[0] !== undefined ?
+            <CardMedia
+                className='media'
+                image={process.env.REACT_APP_BACK_URL + "images/" +  img()[0] }
+                title={props.item.title}
+            />
+            :
+            <CardMedia
+                className='media'
+                image={window.location.origin + '/logoteethBleu.png'}
+                title={props.item.title}
+            />
+          }
 
       {/*        <div style={{ marginTop: '-35px', marginLeft: '15px' }}>
           {props.item.keyword && props.item.keyword.map((keyword, index) => (
             <Keyword key={index} keyword={keyword.name} />
           ))}
         </div>*/}
-      <div className={"cardContent"}>
         <CardContent>
           <Typography variant="h6" component="p" className="title">
             {props.item.title}
@@ -62,16 +55,12 @@ const CasesItem = (props) => {
             {props.item.Patient?.reasonConsult}
           </Typography>
         </CardContent>
-        <CardActions>
-          <UserAvatar avatar={props?.item?.User?.avatar} width="50px" />
-          <Typography
-            variant="body2"
-            style={{ color: "black", textTransform: "capitalize" }}
-            component="p"
-          >
-            {props?.item?.User?.pseudo}
+        <CardActions className={"card_action"} >
+          <UserAvatar avatar={props?.item?.User?.avatar} width='50px' />
+          <Typography variant='body2' style={{ color: 'black', textTransform: 'capitalize' }} component='p'>
+            { props?.item?.User?.pseudo }
             <br />
-            {props?.item?.User?.job?.name}
+            <span style={{color: 'dimgray', fontSize: '0.9em'}}>{  props?.item?.User?.job?.name}</span>
           </Typography>
           <div className="grow" style={{ align: "right" }} />
           <HashLink to={`/case/${props.item.id}#discussion`}>
@@ -93,7 +82,7 @@ const CasesItem = (props) => {
             <StarBorderIcon color="primary" fontSize="default" />
           )}
         </CardActions>
-      </div>
+      </Link>
     </Card>
   );
 }

@@ -68,8 +68,8 @@ export default function PatientDetail (props) {
               <TableCell component="th" scope="row">
                 Sexe
               </TableCell>
-              <TableCell align="left">
-                {props.data?.gender}
+              <TableCell align='left'>
+                {props.data?.gender.charAt(0) === "F" ? "Féminin" : "Masculin"}
               </TableCell>
             </TableRow>
             <TableRow>

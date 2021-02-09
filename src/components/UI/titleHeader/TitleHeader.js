@@ -7,7 +7,7 @@ function titleHeader () {
   return (
 
     <Link to='/cases'>
-      <img className='titleHeader' alt='' src={Icon} />
+      <img alt='' width={"140px"} src={Icon} />
     </Link>
 
   )

@@ -155,23 +155,22 @@ export default function TabAvatar() {
     }
   };
 
-  const catchSubmit = async (e) => {
-    e.preventDefault();
-
-    const response = await saveAvatar({
-      topType: hair,
-      accessoriesType: accessories,
-      hairColor: hairColor,
-      facialHairType: hair,
-      facialHairColor: beardColor,
-      clotheType: clothe,
-      clotheColor: clotheColor,
-      eyebrowType: eyebrow,
-      mouthType: mouth,
-      skinColor: skinColor,
-      eyeType: eye,
-      avatarId: currents_user.avatar.id,
-    });
+    const catchSubmit = async (e) => {
+        e.preventDefault()
+        const response = await saveAvatar({
+            topType: hair,
+            accessoriesType: accessories,
+            hairColor: hairColor,
+            facialHairType: beard,
+            facialHairColor: beardColor,
+            clotheType: clothe,
+            clotheColor: clotheColor,
+            eyebrowType: eyebrow,
+            mouthType: mouth,
+            skinColor: skinColor,
+            eyeType: eye,
+            avatarId: currents_user.avatar.id
+        })
 
     if (response === "OK") {
       addToast(messages.success, { appearance: "success" });

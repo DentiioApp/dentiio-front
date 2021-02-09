@@ -6,11 +6,10 @@ import {fetchCases, fetchUserFav} from '../../../../services/Cases'
 import {CASES_LIST, INIT_FAV_CASE} from '../../../../store/actions'
 import CasesItem from '../CaseItem/CaseItem'
 import Paginator from '../../../UI/Paginator/Paginator'
-import titleSvg from '../../../../images/maquette/c-case-title.svg'
 import {getUserId} from '../../../../services/Users'
 import {errorApi} from '../../../../utils'
 import LoadingCasesList from "../../../UI/Loading/LoadingCasesList";
-import {Button as ButtonMUI } from '@material-ui/core/'  ;
+import Palette from "../../../UI/ColorTheme/Palette";
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -78,8 +77,10 @@ const CasesList = () => {
 
     return (
         <>
-            <Container maxWidth={false}>
-                <center><img src={titleSvg} alt='Cas Cliniques'/></center>
+            <Container maxWidth={false} style={{paddingTop: "50px"}}>
+
+                <center><h1 style={{color: Palette.primary}}>Cas cliniques</h1></center>
+                <br/>
                 {/* <Paginator 
                     pages={pages} 
                     onChange={handleChange} 
@@ -111,8 +112,11 @@ const CasesList = () => {
                         return <CasesItem key={index} item={oCase} favorite={isFavorite}/>
                     })}
                 </div>
+{/*
                 <Paginator pages={pages} onChange={handleChange} current={values.paginator}/>
+*/}
             </Container>
+            <br/><br/>
         </>
     )
 }

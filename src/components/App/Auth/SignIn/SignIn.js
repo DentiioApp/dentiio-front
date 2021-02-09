@@ -142,7 +142,7 @@ const SignIn = () => {
               </FormControl>
 
               <br/><br/>
-              <Typography align='left' component='h1' variant='body1'>
+              {/*<Typography align='left' component='h1' variant='body1'>
                 <span>
                   <Link href='#' color='primary'>
                     Mot de passe oublié ?
@@ -150,7 +150,7 @@ const SignIn = () => {
                 </span>
               </Typography>
 
-              <br/><br/>
+              <br/><br/>*/}
 
               <div onClick={(e) => (catchSubmit(e))} hidden={!showButton}>
               <GradientBtn
