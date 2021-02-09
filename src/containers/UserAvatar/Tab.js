@@ -136,12 +136,11 @@ export default function TabAvatar() {
 
     const catchSubmit = async (e) => {
         e.preventDefault()
-
         const response = await saveAvatar({
             topType: hair,
             accessoriesType: accessories,
             hairColor: hairColor,
-            facialHairType: hair,
+            facialHairType: beard,
             facialHairColor: beardColor,
             clotheType: clothe,
             clotheColor: clotheColor,

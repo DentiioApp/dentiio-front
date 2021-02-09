@@ -13,6 +13,7 @@ import FavoritesIcon from '../../UI/Icon/Header/favorites'
 import NotificationIcon from '../../UI/Icon/Header/notification'
 import RightMenuIcon from '../../UI/RightMenuIcon/rightMenuIcon'
 import UserAvatar from '../../UI/Avatars/UserAvatar'
+import Button from "@material-ui/core/Button";
 
 const useStyles = makeStyles((theme) => ({
   grow: {
@@ -75,22 +76,35 @@ export const Header = (props) => {
         <Toolbar>
           <TitleHeaderMobile style={{ align: 'center' }} />
           <div className={classes.grow} style={{ align: 'right' }} />
-          <div>
+          {/*<div>
             <NotificationIcon color={palette.primary} />
+          </div>*/}
+          <div>
+            <a href={"https://docs.google.com/forms/d/e/1FAIpQLSfgi6WlyYhqpOgG46G4iEUeTobpS_52J4mKvCZbSZr-FM0FnA/viewform"} target={"_blank"}
+            style={{textDecoration: "none"}}>
+            <Button
+                variant="contained"
+                color="primary"
+                size="small"
+                className={classes.button}
+            >
+              Donnez votre avis
+            </Button>
+            </a>
           </div>
         </Toolbar>
       </AppBar>
       <AppBar className={classes.sectionMobileBottom} color='inherit'>
         <Toolbar>
-          <AddIcon color={palette.primary} />
-          <div className={classes.grow} style={{ align: 'right' }} />
           <Link to='/cases'>
             <HomeIcon target={props.target} color={palette.primary} />
           </Link>
           <div className={classes.grow} style={{ align: 'right' }} />
+          <AddIcon color={palette.primary} />
+          {/*<div className={classes.grow} style={{ align: 'right' }} />
           <Link to='/favorites'>
             <FavoritesIcon target={props.target} color={palette.primary} />
-          </Link>
+          </Link>*/}
           <div className={classes.grow} style={{ align: 'right' }} />
           <Link to='/profile'>
             <UserAvatar width={'40px'} avatar={currents_user?.avatar} />

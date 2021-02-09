@@ -31,6 +31,11 @@ import { createCanvas, loadImage } from 'canvas';
 import { errorApi, ModifyImage } from '../../../../../utils'
 import mergeImages from 'merge-images';
 import Spinner from "../../../../UI/Dawers/Spinner";
+import AddAPhotoIcon from '@material-ui/icons/AddAPhoto';
+import AssignmentLateIcon from '@material-ui/icons/AssignmentLate';
+import VisibilityIcon from '@material-ui/icons/Visibility';
+import Palette from "../../../../UI/ColorTheme/Palette";
+
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -77,9 +82,6 @@ export default function HorizontalLinearStepper() {
     errAge: false,
     errGender: false,
     errReason_consultation: false,
-    errProblem_health: false,
-    errCurrent_treatment: false,
-    errAllergies: false,
 
     errDiagnostic: false,
     errMedication_administered: false,
@@ -97,47 +99,45 @@ export default function HorizontalLinearStepper() {
         if (values.age === '') {
           setErrors({ ...errors, errAge: true });
           isValid = false;
+        } else {
+          setErrors({ ...errors, errAge: false });
         }
 
         if (values.gender === '') {
           setErrors({ ...errors, errGender: true });
           isValid = false;
-        } 
-
-        if (values.problem_health === '') {
-          setErrors({ ...errors, errProblem_health: true });
-          isValid = false;
-        } 
-        
-        if (values.treatments === '') {
-          setErrors({ ...errors, errCurrent_treatment: true });
-          isValid = false;
+        } else {
+          setErrors({ ...errors, errGender: false });
         }
 
-        if (values.allergies === '') {
-          setErrors({ ...errors, errAllergies: true });
-          isValid = false;
-        }
 
         if (values.reason_consultation === '') {
           setErrors({ ...errors, errReason_consultation: true });
           isValid = false;
-        } 
+        }  else {
+          setErrors({ ...errors, errReason_consultation: false });
+        }
       
         if (values.summary === '') {
           setErrors({ ...errors, errSummary: true });
           isValid = false;
-        } 
+        } else {
+          setErrors({ ...errors, errSummary: false });
+        }
         break;
 
       case 'diagnostic':
         if (values.pathologie === '') {
           setErrors({ ...errors, errDiagnostic: true });
           isValid = false
+        } else {
+          setErrors({ ...errors, errDiagnostic: false });
         }
         if (values.treatment_desc === '') {
           setErrors({ ...errors, errMedication_administered: true });
           isValid = false
+        } else {
+          setErrors({ ...errors, errMedication_administered: false });
         }
         break;
 
@@ -477,7 +477,7 @@ export default function HorizontalLinearStepper() {
 
   return (
     <div className={classes.root}>
-      <Stepper activeStep={activeStep}>
+      <Stepper activeStep={activeStep} alternativeLabel>
         {steps.map((label, index) => {
           const stepProps = {};
           const labelProps = {};
@@ -501,25 +501,32 @@ export default function HorizontalLinearStepper() {
               <Grid container item spacing={3} component='main'>
                 <Grid item xs={1} md={3}></Grid>
                 <Grid item xs={10} md={6}>
-                  LE CAS A ÉTÉ ENREGISTRTÉ! <span role="img" aria-labelledby={'toto'}>😀</span>
-                  <br></br>
-                  <a target="_blank" href={`/case/${clinicalOmniID}`}>
-                    <Button
-                      variant="contained"
-                      color={"secondary"}
-                    >
-                      Consulter mon cas
-                    </Button>
-                  </a>
-                  <br></br>
-                  <a target="_blank" href="https://docs.google.com/forms/d/e/1FAIpQLSfgi6WlyYhqpOgG46G4iEUeTobpS_52J4mKvCZbSZr-FM0FnA/viewform">
-                    <Button
-                      variant="contained"
-                      color={"primary"}
-                    >
-                      Votre avis nous interresses !
-                    </Button>
-                  </a>
+                  <center>
+                    <h1 color={Palette.primary}>VOTRE CAS A ÉTÉ ENREGISTRÉ !</h1>
+                    <br></br>
+                    <a target="_blank" href="https://docs.google.com/forms/d/e/1FAIpQLSfgi6WlyYhqpOgG46G4iEUeTobpS_52J4mKvCZbSZr-FM0FnA/viewform" style={{textDecoration: 'none'}}>
+                      <Button
+                          variant="contained"
+                          color={"primary"}
+                          size={"large"}
+                          startIcon={<AssignmentLateIcon />}
+                      >
+                        Répondez à notre formulaire
+                      </Button>
+                    </a>
+                    <br/>
+                    <br/>
+                    <a target="_blank" href={`/case/${clinicalOmniID}`} style={{textDecoration: 'none'}}>
+                      <Button
+                          variant="outlined"
+                          color={"primary"}
+                          startIcon={<VisibilityIcon />}
+                      >
+                        Consulter mon cas
+                      </Button>
+                    </a>
+                  </center>
+
                 </Grid>
               </Grid>
 
@@ -542,6 +549,7 @@ export default function HorizontalLinearStepper() {
                           id='age'
                           label='Age'
                           autoFocus
+                          required
                           type="number"
                           InputProps={{ inputProps: { min: 0, max: 150 } }}
                           fullWidth
@@ -563,6 +571,7 @@ export default function HorizontalLinearStepper() {
                           id='gender'
                           label='Sexe'
                           select
+                          required
                           fullWidth
                           value={values.gender === undefined ? 'M' : values.gender}
                           onChange={handleChange('gender')}
@@ -584,7 +593,6 @@ export default function HorizontalLinearStepper() {
                           margin='normal'
                           label='Antécédents médicaux'
                           multiline
-                          required
                           fullWidth
                           name='problem_health'
                           type='textarea'
@@ -592,7 +600,6 @@ export default function HorizontalLinearStepper() {
                           value={values.problem_health}
                           autoComplete='current-old_injury'
                           onChange={handleChange('problem_health')}
-                          error={errors.errProblem_health}
                         />
 
                         <TextField
@@ -603,14 +610,13 @@ export default function HorizontalLinearStepper() {
                           multiline
                           fullWidth
                           margin='normal'
-                          required
                           name='current_treatment'
                           type='textarea'
                           id='current_treatment'
                           value={values.treatments}
                           autoComplete='current-current_treatment'
                           onChange={handleChange('treatments')}
-                          error={errors.errCurrent_treatment}
+
                         />
                         <br />
 
@@ -621,7 +627,6 @@ export default function HorizontalLinearStepper() {
                           label='Allergie(s)'
                           multiline
                           fullWidth
-                          required
                           margin='normal'
                           name='allergies'
                           type='textarea'
@@ -629,7 +634,6 @@ export default function HorizontalLinearStepper() {
                           value={values.allergies}
                           autoComplete='current-allergies'
                           onChange={handleChange('allergies')}
-                          error={errors.errAllergies}
                         />
 
                         <br /> <br />
@@ -710,6 +714,8 @@ export default function HorizontalLinearStepper() {
                           showPreviewsInDropzone={false}
                           previewGridProps={{ container: { spacing: 1, direction: 'row' } }}
                           previewText={`${exam_pics.length} Image(s) d'examen`}
+                          Icon={AddAPhotoIcon}
+                          dropzoneText={"Ajoutez les images de vos examens cliniques"}
                           getUploadParams={getUploadParams}
                           onChangeStatus={handleChangeStatus}
                           onChange={handleChange('exam_pics')}
@@ -731,8 +737,8 @@ export default function HorizontalLinearStepper() {
                 <Grid item xs={10} md={6}>
                   <Box display={showDiagnostic}>
                     <form className={classes.form} noValidate >
-                      <Typography component='h1' variant='h5'>
-                        <center>Pathologie diagnostiquée</center>
+                      <Typography component='h1' variant='h5' style={{ padding: 20 }}>
+                        <center>Diagnostic & Traitement</center>
                       </Typography>
 
                       <Grid container item spacing={2} component='main'>
@@ -744,7 +750,7 @@ export default function HorizontalLinearStepper() {
                               variant='outlined'
                               label='Pathologie diagnostiquée'
                               multiline
-                              rows={4}
+                              rows={2}
                               autoFocus
                               fullWidth
                               margin='dense'
@@ -766,7 +772,7 @@ export default function HorizontalLinearStepper() {
                               margin='normal'
                               required
                               name='treatment_desc'
-                              label='Plan de traitement'
+                              label='Description du plan de traitement'
                               multiline
                               rows={4}
                               fullWidth
@@ -788,6 +794,8 @@ export default function HorizontalLinearStepper() {
                               filesLimit={config.app.uploadFilesLimit}
                               showPreviewsInDropzone={false}
                               previewText={`${treat_pics.length} Image(s) de traitement`}
+                              Icon={AddAPhotoIcon}
+                              dropzoneText={"Ajoutez les images du traitement"}
                               previewGridProps={{ container: { spacing: 1, direction: 'row' } }}
                               getUploadParams={getUploadParams}
                               onChangeStatus={handleChangeStatus}
@@ -809,16 +817,13 @@ export default function HorizontalLinearStepper() {
                 <Grid item xs={1} md={3}></Grid>
                 <Grid item xs={10} md={6}>
                   <Box display={showFinalisation}>
-                    <Typography component='h1' variant='h5'>
+                    <Typography component='h1' variant='h5' style={{ padding: 20 }}>
                       <center>Ajouter votre cas clinique</center>
                     </Typography>
                     <form className={classes.form} noValidate>
                       <Grid container component='main'>
                         <Grid item xs={12}>
                           <div className={classes.paper}>
-                            <Typography component='h1' variant='h5'>
-                              Titre du cas
-                            </Typography>
                             <TextField
                               variant='outlined'
                               margin='normal'
@@ -886,7 +891,7 @@ export default function HorizontalLinearStepper() {
                 <Grid item xs={1} md={3}></Grid>
                 <Grid item xs={10} md={6}>
                   <Button disabled={activeStep === 0} onClick={handleBack} className={classes.button}>
-                    {`${'Étape précédente'}`}
+                    {`${'précédent'}`}
                   </Button>
                   {isStepOptional(activeStep) && (
                     <Button
@@ -903,14 +908,18 @@ export default function HorizontalLinearStepper() {
                       <Spinner />
                     </div>
                     :
+                      <>
                     <Button
                       variant="contained"
                       color="primary"
                       onClick={handleNext}
                       className={classes.button}
                     >
-                      {activeStep === steps.length - 1 ? 'Valider' : 'Étape suivante'}
+                      {activeStep === steps.length - 1 ? 'Valider' : 'suivant'}
                     </Button>
+                        <br/><br/><br/><br/><br/><br/>
+
+                      </>
                   }
                 </Grid>
               </Grid>

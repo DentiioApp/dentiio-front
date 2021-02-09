@@ -49,7 +49,7 @@ export const AuthHeader = () => {
           <ConnexionTitleHeader className={classes.title} />
           <Typography variant="h6" className={classes.title}>
           </Typography>
-          <Button onClick={(e) => switchToSubscribe(e)} className={classes.menuButton} color='primary' size='large' >Inscription</Button>
+          {/*<Button onClick={(e) => switchToSubscribe(e)} className={classes.menuButton} color='primary' size='large' >Inscription</Button>*/}
           <Button onClick={(e) => switchToLogin(e)} className={classes.menuButton} color='primary' size='large' >Connexion</Button>
         </Toolbar>
       </AppBar>
