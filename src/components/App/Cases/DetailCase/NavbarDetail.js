@@ -8,6 +8,7 @@ import IconButton from '@material-ui/core/IconButton'
 import ArrowBackIcon from '@material-ui/icons/ArrowBack'
 import Button from '@material-ui/core/Button'
 import { Link } from 'react-scroll'
+import { HashLink } from "react-router-hash-link";
 
 const useStyles = makeStyles((theme) => ({
   grow: {
@@ -39,16 +40,21 @@ const NavbarDetail = () => {
 
   return (
     <>
-      <AppBar position='static' wrap='nowrap' color='inherit' className={classes.sectionDesktop}>
+      <AppBar
+        position="static"
+        wrap="nowrap"
+        color="inherit"
+        className={classes.sectionDesktop}
+      >
         <Toolbar>
           <IconButton onClick={() => history.goBack()}>
-            <ArrowBackIcon color='primary' />
+            <ArrowBackIcon color="primary" />
           </IconButton>
-          <div style={{ align: 'left' }}>
-            <Link
-              to='presentation'
+          <div style={{ align: "left" }}>
+            <HashLink
+              to="#presentation"
               className={classes.detailnav}
-              activeClass='active'
+              activeClass="active"
               spy
               smooth
               offset={-70}
@@ -57,11 +63,11 @@ const NavbarDetail = () => {
               <Button>
                 <span>Presentation</span>
               </Button>
-            </Link>
-            <Link
-              to='examen'
+            </HashLink>
+            <HashLink
+              to="#examen"
               className={classes.detailnav}
-              activeClass='active'
+              activeClass="active"
               spy
               smooth
               offset={-70}
@@ -70,11 +76,11 @@ const NavbarDetail = () => {
               <Button>
                 <span>Examen</span>
               </Button>
-            </Link>
-            <Link
-              to='diagnostic'
+            </HashLink>
+            <HashLink
+              to="#diagnostic"
               className={classes.detailnav}
-              activeClass='active'
+              activeClass="active"
               spy
               smooth
               offset={-70}
@@ -83,11 +89,11 @@ const NavbarDetail = () => {
               <Button>
                 <span>Diagnostic</span>
               </Button>
-            </Link>
-            <Link
-              to='plan'
+            </HashLink>
+            <HashLink
+              to="#plan"
               className={classes.detailnav}
-              activeClass='active'
+              activeClass="active"
               spy
               smooth
               offset={-70}
@@ -96,11 +102,11 @@ const NavbarDetail = () => {
               <Button>
                 <span>Plan de traitement</span>
               </Button>
-            </Link>
-            <Link
-              to='discussion'
+            </HashLink>
+            <HashLink
+              to="#discussion"
               className={classes.detailnav}
-              activeClass='active'
+              activeClass="active"
               spy
               smooth
               offset={-70}
@@ -109,23 +115,23 @@ const NavbarDetail = () => {
               <Button>
                 <span>Discussion</span>
               </Button>
-            </Link>
+            </HashLink>
           </div>
         </Toolbar>
       </AppBar>
 
-      <div className={classes.sectionMobile} id='sectionMobile'>
-        <div className='scrolling-wrapper'>
-          <div className='card'>
+      <div className={classes.sectionMobile} id="sectionMobile">
+        <div className="scrolling-wrapper">
+          <div className="card">
             <IconButton onClick={() => history.goBack()}>
-              <ArrowBackIcon color='primary' />
+              <ArrowBackIcon color="primary" />
             </IconButton>
           </div>
-          <div className='card'>
+          <div className="card">
             <Link
-              to='presentation'
+              to="presentation"
               className={classes.detailnav}
-              activeClass='active'
+              activeClass="active"
               spy
               smooth
               offset={-70}
@@ -136,9 +142,9 @@ const NavbarDetail = () => {
               </Button>
             </Link>
             <Link
-              to='examen'
+              to="examen"
               className={classes.detailnav}
-              activeClass='active'
+              activeClass="active"
               spy
               smooth
               offset={-100}
@@ -149,11 +155,11 @@ const NavbarDetail = () => {
               </Button>
             </Link>
           </div>
-          <div className='card'>
+          <div className="card">
             <Link
-              to='diagnostic'
+              to="diagnostic"
               className={classes.detailnav}
-              activeClass='active'
+              activeClass="active"
               spy
               smooth
               offset={-100}
@@ -164,11 +170,11 @@ const NavbarDetail = () => {
               </Button>
             </Link>
           </div>
-          <div className='card'>
+          <div className="card">
             <Link
-              to='plan'
+              to="plan"
               className={classes.detailnav}
-              activeClass='active'
+              activeClass="active"
               spy
               smooth
               offset={-100}
@@ -179,11 +185,11 @@ const NavbarDetail = () => {
               </Button>
             </Link>
           </div>
-          <div className='card'>
+          <div className="card">
             <Link
-              to='evolution'
+              to="evolution"
               className={classes.detailnav}
-              activeClass='active'
+              activeClass="active"
               spy
               smooth
               offset={-100}
@@ -194,11 +200,11 @@ const NavbarDetail = () => {
               </Button>
             </Link>
           </div>
-          <div className='card'>
+          <div className="card">
             <Link
-              to='conclusion'
+              to="conclusion"
               className={classes.detailnav}
-              activeClass='active'
+              activeClass="active"
               spy
               smooth
               offset={-100}
@@ -209,11 +215,11 @@ const NavbarDetail = () => {
               </Button>
             </Link>
           </div>
-          <div className='card'>
+          <div className="card">
             <Link
-              to='discussion'
+              to="discussion"
               className={classes.detailnav}
-              activeClass='active'
+              activeClass="active"
               spy
               smooth
               offset={-100}
@@ -227,7 +233,7 @@ const NavbarDetail = () => {
         </div>
       </div>
     </>
-  )
+  );
 }
 
 export default NavbarDetail
