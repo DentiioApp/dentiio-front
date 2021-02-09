@@ -235,7 +235,7 @@ export default function TabAvatar() {
             <Tab label="Bouche" {...a11yProps(2)} />
             <Tab label="Cheveux" {...a11yProps(3)} />
             <Tab label="Peau" {...a11yProps(4)} />
-            {/* <Tab label="Barbe"  {...a11yProps(5)} /> */}
+            <Tab label="Barbe"  {...a11yProps(5)} />
             <Tab label="Vêtement" {...a11yProps(6)} />
             <Tab label="Accessoires" {...a11yProps(7)} />
           </Tabs>
@@ -291,21 +291,29 @@ export default function TabAvatar() {
             </Button>
           ))}
         </TabPanel>
-        {/* <TabPanel value={value} index={5}>
-                    {HairColor.map((type) => (
-                        <Button key={type} className={classes.btn} variant={"outlined"}
-                                onClick={() => setBeardColor(type)}>
-                            {type}
-                        </Button>
-                    ))}
-                    <br/>
-                    {Beard.map((type) => (
-                        <Button key={type} onClick={() => setBeard(type)}>
-                            <Piece pieceType="facialHair" pieceSize="100" facialHairType={type}
-                                   facialHairColor={beardColor}/>
-                        </Button>
-                    ))}
-                </TabPanel> */}
+        <TabPanel value={value} index={5}>
+          {HairColor.map((type) => (
+            <Button
+              key={type}
+              className={classes.btn}
+              variant={"outlined"}
+              onClick={() => setBeardColor(type)}
+            >
+              {type}
+            </Button>
+          ))}
+          <br />
+          {Beard.map((type) => (
+            <Button key={type} onClick={() => setBeard(type)}>
+              <Piece
+                pieceType="facialHair"
+                pieceSize="100"
+                facialHairType={type}
+                facialHairColor={beardColor}
+              />
+            </Button>
+          ))}
+        </TabPanel>
         <TabPanel value={value} index={6}>
           {ClothesColor.map((type) => (
             <Button
