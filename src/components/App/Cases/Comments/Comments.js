@@ -3,38 +3,39 @@ import Fab from "@material-ui/core/Fab";
 import TextField from "@material-ui/core/TextField";
 import SendIcon from "@material-ui/icons/Send";
 import React, { useState } from "react";
+import { useSelector } from "react-redux";
+import { sendComments } from "../../../../services/Comment";
 import UserAvatar from "../../../UI/Avatars/UserAvatar";
-import { sendComments } from "../../../../services/Comment"
-import {useSelector} from "react-redux";
 
 const Comments = (props) => {
-  const currents_user = useSelector((state) => (state.user.current_user))
+  const currents_user = useSelector((state) => state.user.current_user);
   const initVals = {
-     comment: '',
-   };
-  const [values, setValues] = useState(initVals); 
-  const handleChange = prop => event => {
-    if (prop === 'comment') {
+    comment: "",
+  };
+  const [values, setValues] = useState(initVals);
+  const handleChange = (prop) => (event) => {
+    if (prop === "comment") {
       setValues({ ...values, [prop]: event.target.value });
     }
-  }
+  };
 
   const handleSubmit = () => {
     sendComments(values.comment, props.datas["@id"]).then((res) => {
-      window.location.reload(); 
+      window.location.reload();
     });
-  }
-  
+  };
+
+  // Reformate la date pour afficher le temps écoulé après post du commentaire
   const formatDate = (date) => {
     var diff = {};
     let commentPostedDate = new Date(Date.parse(date));
     let currentDate = new Date();
     let tmp = currentDate - commentPostedDate;
-    let finalDate = '';
-    
+    let finalDate = "";
+
     tmp = Math.floor(tmp / 1000); // Nombre de secondes entre les 2 dates
     diff.sec = tmp % 60; // Extraction du nombre de secondes
-
+    
     tmp = Math.floor((tmp - diff.sec) / 60); // Nombre de minutes (partie entière)
     diff.min = tmp % 60; // Extraction du nombre de minutes
 
@@ -43,25 +44,31 @@ const Comments = (props) => {
 
     tmp = Math.floor((tmp - diff.hour) / 24); // Nombre de jours restants
     diff.day = tmp;
-        
+
     var montRaw = String(commentPostedDate.getUTCMonth() + 1);
     const MONTH = montRaw.length < 2 ? "0" + montRaw : montRaw;
     var dayRaw = String(commentPostedDate.getUTCDate()); //+ 1
     const DAY = dayRaw.length < 2 ? "0" + dayRaw : dayRaw;
     const YEAR = String(commentPostedDate.getUTCFullYear());
+    const HOUR = commentPostedDate.getHours();
+    const MINUTE = commentPostedDate.getMinutes();
     
-    if (diff.min < 1 && diff.hour < 1) {
-      finalDate = `à l'instant`;
-    } else if (diff.min >= 1 && diff.min < 60) {
+
+    if (diff.sec < 60) {
+      finalDate = `posté à l'instant`;
+    }
+    if (diff.min > 1 && diff.min <= 59) {
       finalDate = `il y a ${diff.min} minute${diff.min > 1 ? "s" : ""}`;
-    } else if (diff.hour > 1 && diff.hour < 3) {
-      finalDate = `il y a ${diff.hour} heure${diff.hour > 1 ? "s" : ""}`;
-    } else {
-      finalDate = `${DAY}/${MONTH}/${YEAR}`;
-    }    
-    
-    return finalDate;   
-  }
+    }
+    if (diff.hour >= 1 && diff.hour <= 3) {
+      finalDate = `posté il y a ${diff.hour} heure${diff.hour > 1 ? "s" : ""}`;
+    }
+    if (diff.hour > 3) {
+      finalDate = `posté le ${DAY}/${MONTH}/${YEAR} à ${HOUR}:${MINUTE}`;
+    }
+
+    return finalDate;
+  };
 
   return (
     <div
@@ -74,8 +81,8 @@ const Comments = (props) => {
     >
       <h2 id={"discussion"}>Discussion</h2>
       {props.datas["commentaires"].map((value, index) => (
-        <div key={index }>
-          <Paper style={{ padding: "40px 20px" }} key={index }>
+        <div key={index}>
+          <Paper style={{ padding: "40px 20px" }} key={index}>
             <Grid container wrap="nowrap" spacing={2}>
               <Grid item>
                 <UserAvatar avatar={value["user"]["avatar"]} width="30px" />
@@ -96,7 +103,7 @@ const Comments = (props) => {
       <form>
         <Grid container style={{ padding: "20px" }}>
           <Grid item xs={1}>
-            <UserAvatar width={'50px'} avatar={currents_user?.avatar} />
+            <UserAvatar width={"50px"} avatar={currents_user?.avatar} />
           </Grid>
           <Grid item xs={10}>
             <TextField
@@ -105,7 +112,7 @@ const Comments = (props) => {
               multiline
               variant="filled"
               fullWidth
-              onChange={handleChange('comment')}
+              onChange={handleChange("comment")}
             />
           </Grid>
           <Grid item xs={1} align="right">

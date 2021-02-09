@@ -12,6 +12,7 @@ import { avgNotes } from '../../../../utils'
 import ChatIcon from '@material-ui/icons/Chat'
 import StarBorderIcon from '@material-ui/icons/StarBorder';
 import StarIcon from '@material-ui/icons/Star';
+import { HashLink } from "react-router-hash-link";
 
 const CasesItem = (props) => {
   const img = () => {
@@ -23,11 +24,12 @@ const CasesItem = (props) => {
       })
     }
   }
-
   return(
     <Card key={props.item.id} className='card'>
+{/*
       <FavButton alt='favorite' value={props.item} isFavorite={props.favorite} />
-      <Link to={`/case/${props.item.id}`} style={{ textDecoration: 'none' }}>
+*/}
+      <Link to={`/case/${props.item.id}`} style={{ textDecoration: 'none' , height: '100%'}}>
         {img()[0] !== undefined ?
             <CardMedia
                 className='media'
@@ -42,45 +44,49 @@ const CasesItem = (props) => {
             />
           }
 
-{/*        <div style={{ marginTop: '-35px', marginLeft: '15px' }}>
+      {/*        <div style={{ marginTop: '-35px', marginLeft: '15px' }}>
           {props.item.keyword && props.item.keyword.map((keyword, index) => (
             <Keyword key={index} keyword={keyword.name} />
           ))}
         </div>*/}
-        <div className={"cardContent"}>
         <CardContent>
-          <Typography variant='h6' component='p' className='title'>
+          <Typography variant="h6" component="p" className="title">
             {props.item.title}
           </Typography>
-          <Typography variant='subtitle2' component='p' className='desc'>
+          <Typography variant="subtitle2" component="p" className="desc">
             {props.item.Patient?.reasonConsult}
           </Typography>
         </CardContent>
-        <CardActions>
+        <CardActions className={"card_action"} >
           <UserAvatar avatar={props?.item?.User?.avatar} width='50px' />
           <Typography variant='body2' style={{ color: 'black', textTransform: 'capitalize' }} component='p'>
             { props?.item?.User?.pseudo }
             <br />
-            {  props?.item?.User?.job?.name}
+            <span style={{color: 'dimgray', fontSize: '0.9em'}}>{  props?.item?.User?.job?.name}</span>
           </Typography>
-          <div className='grow' style={{ align: 'right' }} />
-          <Typography variant='body2' color='textSecondary' component='p'>
-            {props.item.commentaires.length}
+          <div className="grow" style={{ align: "right" }} />
+          <HashLink to={`/case/${props.item.id}#discussion`} style={{textDecoration: "none", display: "flex", paddingTop: "5px"}}>
+            <Typography variant="body2" color="textSecondary" component="p">
+              {props.item.commentaires.length}
+            </Typography>
+            <ChatIcon color="primary" fontSize="default" className="pr-15" />
+          </HashLink>
+          <Typography variant="body2" color="textSecondary" component="p">
+            {props.item.notations
+              ? isNaN(props.item.notations)
+                ? avgNotes(props.item.notations)
+                : "Aucune note"
+              : null}
           </Typography>
-          <ChatIcon color='primary' fontSize='default' className='pr-15' />
-          <Typography variant='body2' color='textSecondary' component='p'>
-            { props.item.notations ? (isNaN(props.item.notations) ? avgNotes(props.item.notations) : 'Aucune note') : null }
-          </Typography>
-          {(isNaN(props.item.notations) ?
-                  <StarIcon color='primary' fontSize='default' /> :
-                  <StarBorderIcon color='primary' fontSize='default' />
+          {isNaN(props.item.notations) ? (
+            <StarIcon color="primary" fontSize="default" />
+          ) : (
+            <StarBorderIcon color="primary" fontSize="default" />
           )}
-
         </CardActions>
-        </div>
       </Link>
     </Card>
-  )
+  );
 }
 
 export default CasesItem

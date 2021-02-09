@@ -42,66 +42,70 @@ const useStyles = makeStyles((theme) => ({
 
 export default function PatientDetail (props) {
   const classes = useStyles()
-  const inTreatment = props.data ? props.data.inTreatment.empty ? 'Aucun traitement en cours' : 'Traitement en cours: ' : 'Non renseigné'
-  const treatment = props.data ? props.data.inTreatment.empty ? '' : props.data.inTreatment : ''
-  const problemHealth = props.data ? props.data.problemHealth.empty ? 'Aucun' : props.data.problemHealth : ''
+  const treatment = props.data ? props.data.inTreatment.empty ? 'Aucun' : props.data.inTreatment : 'Aucun'
+  const problemHealth = props.data ? props.data.problemHealth.empty ? 'Aucun' : props.data.problemHealth : 'Aucun'
 
   return (
     <Card className={classes.root}>
       <CardContent>
-        <Typography className={classes.title} color='textSecondary' gutterBottom>
-                    Anamnèse
+        <Typography
+          className={classes.title}
+          color="textSecondary"
+          gutterBottom
+        >
+          Anamnèse
         </Typography>
         <Table className={classes.pos}>
           <TableBody>
             <TableRow>
-              <TableCell component='th' scope='row'>
-                                Age
+              <TableCell component="th" scope="row">
+                Age
+              </TableCell>
+              <TableCell align="left">{props.data?.age} ans</TableCell>
+            </TableRow>
+            <TableRow>
+              <TableCell component="th" scope="row">
+                Sexe
               </TableCell>
               <TableCell align='left'>
-                {props.data?.age} ans
+                {props.data?.gender.charAt(0) === "F" ? "Féminin" : "Masculin"}
               </TableCell>
             </TableRow>
             <TableRow>
-              <TableCell component='th' scope='row'>
-                                Sexe
-              </TableCell>
-              <TableCell align='left'>
-                {props.data?.gender}
-              </TableCell>
-            </TableRow>
-            <TableRow>
-              <TableCell component='th' scope='row'>
+              <TableCell component="th" scope="row">
                 Addiction
               </TableCell>
-              <TableCell align='left'>
-                {props.data?.isAlcool ? <LocalBarIcon /> : '' }
-                {props.data?.isASmoker ? <SmokingRoomsIcon /> : <SmokeFreeIcon /> }
+              <TableCell align="left">
+                {props.data?.isAlcool ? <LocalBarIcon /> : ""}
+                {props.data?.isASmoker ? (
+                  <SmokingRoomsIcon />
+                ) : (
+                  <SmokeFreeIcon />
+                )}
               </TableCell>
             </TableRow>
-            <TableRow>
-            </TableRow>
+            <TableRow></TableRow>
           </TableBody>
         </Table>
         <Typography variant='body2' component='span'>
-          {inTreatment}
+          Traitement en cours :
           <br />
           {treatment}
         </Typography>
 
         <Divider className={classes.pos} />
         <Typography variant='body2' component='span'>
-                    Antécédents médicaux :<br />
-          {problemHealth}
+                    Antécédents médicaux :<br/>
+          {problemHealth ? problemHealth : 'Aucun'}
         </Typography>
 
         <Divider className={classes.pos} />
         <Typography variant='body2' component='span'>
-                    Alergies :<br />
-          {props.data?.allergie}
+                    Alergies :<br/>
+          {props.data?.allergie ? props.data?.allergie : 'Aucune'}
         </Typography>
       </CardContent>
       <CardActions />
     </Card>
-  )
+  );
 }

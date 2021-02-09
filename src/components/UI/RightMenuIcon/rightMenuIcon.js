@@ -8,6 +8,7 @@ import FavoritesIcon from '../Icon/Header/favorites'
 import HomeIcon from '../Icon/Header/home'
 import NotificationIcon from '../Icon/Header/notification'
 import UserAvatar from '../Avatars/UserAvatar'
+import AssignmentLateIcon from '@material-ui/icons/AssignmentLate';
 
 const useStyles = makeStyles((theme) => ({
   grow: {
@@ -54,6 +55,11 @@ const useStyles = makeStyles((theme) => ({
   },
   avatar: {
     paddingTop: '50px!important'
+  },
+  desktop: {
+    [theme.breakpoints.down('xs')]: {
+      display: 'none'
+    }
   }
 }))
 
@@ -63,19 +69,35 @@ export const RightMenuIcon = (props) => {
     <div className={classes.right}>
       <div className={classes.grow} style={{ align: 'right' }} />
       <div style={{ align: 'right' }}>
-        <Link to='/cases'>
+        <a href={"https://docs.google.com/forms/d/e/1FAIpQLSfgi6WlyYhqpOgG46G4iEUeTobpS_52J4mKvCZbSZr-FM0FnA/viewform"} target={"_blank"}
+           style={{textDecoration: "none", paddingRight: "20px"}}>
+          <Button
+              variant="contained"
+              color="secondary"
+              size="medium"
+              className={classes.desktop}
+              startIcon={<AssignmentLateIcon />}
+          >
+            Donnez votre avis
+          </Button>
+        </a>
+        <Link to='/cases'
+              className={classes.desktop}
+        >
           <HomeIcon target={props.target} color={palette.white} />
         </Link>
-        <Link to='/favorites'>
+        {/*<Link to='/favorites'>
           <FavoritesIcon target={props.target} color={palette.white} />
         </Link>
-        <NotificationIcon color={palette.white} />
+        <NotificationIcon color={palette.white} />*/}
+        <AddIcon color={palette.white}
+                 className={classes.desktop}
+        />
         <Link to='/profile'>
           <Button>
-            <UserAvatar width={'40px'} avatar={props.avatar} />
+            <UserAvatar className={classes.desktop} width={'45px'} avatar={props.avatar} />
           </Button>
         </Link>
-        <AddIcon color={palette.white} />
       </div>
     </div>
   )

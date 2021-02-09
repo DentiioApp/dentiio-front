@@ -7,10 +7,10 @@
   padding-top: 56.25%;
 }
 .card{
-  width: 25%;
+  width: 29%;
   min-width: 250px;
   max-width: 450px;
-
+  position: relative;
 }
 .expand{
   transform: rotate(0deg);
@@ -48,9 +48,19 @@
   -webkit-box-orient: vertical;
   overflow: hidden;
 }
-.cardContent{
+
+
+.MuiCard-root{
   display: flex;
-  justify-content: space-between;
   flex-direction: column;
-  height: 51%;
+  justify-content: space-between;
+
+}
+.MuiCardContent-root{
+  padding-bottom: 90px!important;
+}
+.MuiCardActions-root{
+  width: 95%;
+  position: absolute;
+  bottom: 0;
 }
