@@ -26,9 +26,9 @@ const CasesItem = (props) => {
   }
   return(
     <Card key={props.item.id} className='card'>
-{/*
-      <FavButton alt='favorite' value={props.item} isFavorite={props.favorite} />
-*/}
+
+      {/*<FavButton alt='favorite' value={props.item} isFavorite={props.favorite} />*/}
+
       <Link to={`/case/${props.item.id}`} style={{ textDecoration: 'none' , height: '100%'}}>
         {img()[0] !== undefined ?
             <CardMedia
@@ -57,7 +57,8 @@ const CasesItem = (props) => {
             {props.item.Patient?.reasonConsult}
           </Typography>
         </CardContent>
-        <CardActions className={"card_action"} >
+      </Link>
+      <CardActions className={"card_action"} >
           <UserAvatar avatar={props?.item?.User?.avatar} width='50px' />
           <Typography variant='body2' style={{ color: 'black', textTransform: 'capitalize' }} component='p'>
             { props?.item?.User?.pseudo }
@@ -84,7 +85,6 @@ const CasesItem = (props) => {
             <StarBorderIcon color="primary" fontSize="default" />
           )}
         </CardActions>
-      </Link>
     </Card>
   );
 }

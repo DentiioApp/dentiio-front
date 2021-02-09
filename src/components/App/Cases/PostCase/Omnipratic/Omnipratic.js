@@ -75,9 +75,6 @@ export default function HorizontalLinearStepper() {
 
   const { exam_pics, treat_pics } = useSelector((state) => state.cases)
 
-  const handleChangeStatus = ({ meta }, status) => {
-    console.log('status', status, 'meta', meta)
-  }
   const initVals = {
     errAge: false,
     errGender: false,

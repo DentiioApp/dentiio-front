@@ -23,7 +23,6 @@ const Cases = () => {
       localStorage.getItem('bienvenueMessage') !== "false"
   )
 
-  console.log(localStorage.getItem('bienvenueMessage'))
   const handleMessage = () => {
     setOpen(false)
     localStorage.setItem('bienvenueMessage', "false")

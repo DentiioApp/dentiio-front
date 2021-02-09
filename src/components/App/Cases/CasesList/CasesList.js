@@ -54,8 +54,6 @@ const CasesList = () => {
 
         if (cases.length === 0) {
             ResponseCases()
-            console.log(cases,"useEffet")
-            console.log(!cases,"useEffet")
         }
 
         const initUserFav = async () => {
