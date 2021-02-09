@@ -26,7 +26,7 @@ const CasesItem = (props) => {
 
   return(
     <Card key={props.item.id} className='card'>
-      {/*<FavButton alt='favorite' value={props.item} isFavorite={props.favorite} />*/}
+      <FavButton alt='favorite' value={props.item} isFavorite={props.favorite} />
       <Link to={`/case/${props.item.id}`} style={{ textDecoration: 'none' , height: '100%'}}>
         {img()[0] !== undefined ?
             <CardMedia
