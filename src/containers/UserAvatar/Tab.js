@@ -24,6 +24,7 @@ import {
   HairColor,
   Mouth,
   SkinColor,
+  Beard
 } from "../../components/UI/Avatars/Library";
 import config from "../../config";
 import { getUserById, getUserId, saveAvatar } from "../../services/Users";
