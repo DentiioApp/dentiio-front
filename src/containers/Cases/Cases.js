@@ -19,8 +19,15 @@ const Cases = () => {
   const dispatch = useDispatch()
   const current_user = useSelector((state) => (state.user.current_user))
   const [fetchUser, setFetchUser] = useState(false)
-  const [open, setOpen] = React.useState(true);
+  const [open, setOpen] = React.useState(
+      localStorage.getItem('bienvenueMessage') !== "false"
+  )
 
+  console.log(localStorage.getItem('bienvenueMessage'))
+  const handleMessage = () => {
+    setOpen(false)
+    localStorage.setItem('bienvenueMessage', "false")
+    }
 
   useEffect(() => {
 
@@ -50,7 +57,7 @@ const Cases = () => {
                         color="inherit"
                         size="small"
                         onClick={() => {
-                          setOpen(false);
+                          handleMessage();
                         }}
                     >
                       <CloseIcon fontSize="inherit" />
