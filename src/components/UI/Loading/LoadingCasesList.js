@@ -26,9 +26,6 @@ const LoadingCasesList = () => {
               </CardContent>
               <br/>
               <br/>
-              <CardActions>
-                <Skeleton animation="wave" variant="circle" width={50} height={50}/>
-              </CardActions>
             </Card>
         )
       }

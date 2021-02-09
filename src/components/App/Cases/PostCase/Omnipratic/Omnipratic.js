@@ -516,7 +516,7 @@ export default function HorizontalLinearStepper() {
                     </a>
                     <br/>
                     <br/>
-                    <a target="_blank" href={`/case/${clinicalOmniID}`} style={{textDecoration: 'none'}}>
+                    <a href={`/case/${clinicalOmniID}`} style={{textDecoration: 'none'}}>
                       <Button
                           variant="outlined"
                           color={"primary"}

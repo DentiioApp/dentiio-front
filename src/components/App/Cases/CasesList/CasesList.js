@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react'
 import {useSelector, useDispatch} from 'react-redux'
 import Container from '@material-ui/core/Container'
 import {makeStyles} from '@material-ui/core/styles'
-import {fetchCases, fetchUserFav} from '../../../../services/Cases'
+import {fetchCases, fetchUserFav, getCaseByUserId} from '../../../../services/Cases'
 import {CASES_LIST, INIT_FAV_CASE} from '../../../../store/actions'
 import CasesItem from '../CaseItem/CaseItem'
 import Paginator from '../../../UI/Paginator/Paginator'
@@ -28,15 +28,15 @@ const CasesList = () => {
     const userId = getUserId()
 
     const caseSelector = useSelector((state) => state.cases)
-
-    const casesList = caseSelector.casesList
-    const casesFiltred = caseSelector.casesFiltred
-    const cases = casesFiltred.length > 0 ? casesFiltred : casesList
-
-    const nbrCases = caseSelector.nbrCases
-    const areLoaded = caseSelector.casesLoaded
     const favorites = caseSelector.favorites
-    const pages = Math.round(nbrCases / 30)
+
+    const [cases, setCases] = useState([])
+
+
+    const ResponseCases = async () => {
+        const CaseById = await fetchCases()
+        CaseById.datas && setCases(CaseById.datas)
+    }
 
     const initValues = {
         paginator: 1
@@ -45,12 +45,17 @@ const CasesList = () => {
     const [values, setValues] = useState(initValues)
 
     useEffect(() => {
-
         const getCases = async () => {
             const fetch = await fetchCases(values.paginator)
             if (fetch.message !== undefined && !errorApi().test(fetch.message)) {
                 dispatch({type: CASES_LIST, datas: fetch.datas, nbrItems: fetch.items})
             }
+        }
+
+        if (cases.length === 0) {
+            ResponseCases()
+            console.log(cases,"useEffet")
+            console.log(!cases,"useEffet")
         }
 
         const initUserFav = async () => {
@@ -69,10 +74,6 @@ const CasesList = () => {
         }
     }, [userId, dispatch, cases, values, favorites])
 
-
-    const handleChange = prop => event => {
-        setValues({...values, paginator: event.target.value})
-    }
 
 
     return (
@@ -96,7 +97,7 @@ const CasesList = () => {
 
                 <div className={classes.root}>
                     {(cases.length < 1) ? (<LoadingCasesList key={Date.now}/>) : ""}
-                    {areLoaded && cases.map((oCase, index) => {
+                    {cases && cases.map((oCase, index) => {
                         var isFavorite = false
                         if (favorites.length > 0) {
                             favorites.map((item) => {
