@@ -5,7 +5,7 @@ import Icon from '../../../images/titleHeaderMobile.svg'
 function titleHeaderMobile () {
   return (
     <>
-      <img className='titleHeaderMobile' alt='' src={Icon} />
+      <a href="/cases"><img className='titleHeaderMobile' alt='' src={Icon} /></a>
     </>
   )
 }
