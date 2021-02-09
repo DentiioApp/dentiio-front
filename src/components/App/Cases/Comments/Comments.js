@@ -1,3 +1,4 @@
+import './comments.scss';
 import { Grid, Paper } from "@material-ui/core";
 import Fab from "@material-ui/core/Fab";
 import TextField from "@material-ui/core/TextField";
@@ -6,6 +7,7 @@ import React, { useState } from "react";
 import { useSelector } from "react-redux";
 import { sendComments } from "../../../../services/Comment";
 import UserAvatar from "../../../UI/Avatars/UserAvatar";
+
 
 const Comments = (props) => {
   const currents_user = useSelector((state) => state.user.current_user);
@@ -74,9 +76,8 @@ const Comments = (props) => {
     <div
       style={{
         padding: 14,
-        maxWidth: "100%",
         margin: "0 auto",
-        minWidth: "100%",
+        width: "100%",
       }}
     >
       <h2 id={"discussion"}>Discussion</h2>
@@ -101,8 +102,8 @@ const Comments = (props) => {
         </div>
       ))}
       <form>
-        <Grid container style={{ padding: "20px" }}>
-          <Grid item xs={1}>
+        <Grid container spacing={1} style={{ padding: "20px" }}>
+          <Grid item xs={1} className={'avatarMobileHide'}>
             <UserAvatar width={"50px"} avatar={currents_user?.avatar} />
           </Grid>
           <Grid item xs={10}>
@@ -115,7 +116,7 @@ const Comments = (props) => {
               onChange={handleChange("comment")}
             />
           </Grid>
-          <Grid item xs={1} align="right">
+          <Grid item xs={1} align="right" width={'50%'}>
             <Fab color="primary" aria-label="add">
               <SendIcon onClick={handleSubmit} />
             </Fab>
