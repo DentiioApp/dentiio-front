@@ -86,7 +86,7 @@ export const RightMenuIcon = (props) => {
         >
           <HomeIcon target={props.target} color={palette.white} />
         </Link>
-{/*        <Link to='/favorites'>
+        {/*<Link to='/favorites'>
           <FavoritesIcon target={props.target} color={palette.white} />
         </Link>
         <NotificationIcon color={palette.white} />*/}

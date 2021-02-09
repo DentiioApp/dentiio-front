@@ -26,7 +26,9 @@ const CasesItem = (props) => {
   }
   return(
     <Card key={props.item.id} className='card'>
-      {/*<FavButton alt='favorite' value={props.item} isFavorite={props.favorite} />*/}
+{/*
+      <FavButton alt='favorite' value={props.item} isFavorite={props.favorite} />
+*/}
       <Link to={`/case/${props.item.id}`} style={{ textDecoration: 'none' , height: '100%'}}>
         {img()[0] !== undefined ?
             <CardMedia
@@ -63,7 +65,7 @@ const CasesItem = (props) => {
             <span style={{color: 'dimgray', fontSize: '0.9em'}}>{  props?.item?.User?.job?.name}</span>
           </Typography>
           <div className="grow" style={{ align: "right" }} />
-          <HashLink to={`/case/${props.item.id}#discussion`}>
+          <HashLink to={`/case/${props.item.id}#discussion`} style={{textDecoration: "none", display: "flex", paddingTop: "5px"}}>
             <Typography variant="body2" color="textSecondary" component="p">
               {props.item.commentaires.length}
             </Typography>
