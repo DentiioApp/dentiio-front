@@ -84,6 +84,7 @@ export default function HorizontalLinearStepper() {
     errDiagnostic: false,
     errMedication_administered: false,
     errTitle: false,
+    errSummary: false,
   }
   const [errors, setErrors] = useState(initVals)
 
@@ -96,32 +97,37 @@ export default function HorizontalLinearStepper() {
         if (values.age === '') {
           setErrors({ ...errors, errAge: true });
           isValid = false;
-        }else {setErrors({ ...errors, errAge: false });}
+        }
 
         if (values.gender === '') {
           setErrors({ ...errors, errGender: true });
           isValid = false;
-        } else {setErrors({ ...errors, errGender: false });}
+        } 
 
         if (values.problem_health === '') {
           setErrors({ ...errors, errProblem_health: true });
           isValid = false;
-        } else {setErrors({ ...errors, errProblem_health: true });}
+        } 
         
         if (values.treatments === '') {
           setErrors({ ...errors, errCurrent_treatment: true });
           isValid = false;
-        } else {setErrors({ ...errors, errCurrent_treatment: true });}
+        }
 
         if (values.allergies === '') {
           setErrors({ ...errors, errAllergies: true });
           isValid = false;
-        } else { setErrors({ ...errors, errAllergies: true }); }
+        }
 
         if (values.reason_consultation === '') {
           setErrors({ ...errors, errReason_consultation: true });
           isValid = false;
-        } else { setErrors({ ...errors, errReason_consultation: true }); }
+        } 
+      
+        if (values.summary === '') {
+          setErrors({ ...errors, errSummary: true });
+          isValid = false;
+        } 
         break;
 
       case 'diagnostic':
@@ -672,6 +678,26 @@ export default function HorizontalLinearStepper() {
                           onKeyDown={(e) => e.keyCode !== 13 ? null : catchErrors(e)}
                           onChange={handleChange('reason_consultation')}
                           error={errors.errReason_consultation}
+                        />
+                        <br />
+                        <TextField
+                          aria-label='minimum height'
+                          multiline
+                          rows={4}
+                          placeholder='Description des examens'
+                          variant='outlined'
+                          margin='normal'
+                          label='Description des examens'
+                          required
+                          fullWidth
+                          name='description_des_examens'
+                          type='textarea'
+                          id='description_des_examens'
+                          value={values.summary}
+                          autoComplete='current-summary'
+                          onKeyDown={(e) => e.keyCode !== 13 ? null : catchErrors(e)}
+                          onChange={handleChange('summary')}
+                          error={errors.errSummary}
                         />
                         <br />
                       </div>
