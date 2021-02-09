@@ -78,7 +78,7 @@ export default function HorizontalLinearStepper() {
   const handleChangeStatus = ({ meta }, status) => {
     console.log('status', status, 'meta', meta)
   }
-  
+
   const initVals = {
     errAge: false,
     errGender: false,
@@ -90,11 +90,11 @@ export default function HorizontalLinearStepper() {
     errSummary: false,
   }
 
-  const [errors, setErrors] = useState(initVals)
+  const [errors, setErrors] = useState(initVals);
 
   const catchErrors = (page) => {
     //if (event) event.preventDefault()
-    let isValid = true
+    let isValid = true;
 
     switch (page) {
       case 'patient':
@@ -116,10 +116,10 @@ export default function HorizontalLinearStepper() {
         if (values.reason_consultation === '') {
           setErrors({ ...errors, errReason_consultation: true });
           isValid = false;
-        }  else {
+        } else {
           setErrors({ ...errors, errReason_consultation: false });
         }
-      
+
         if (values.summary === '') {
           setErrors({ ...errors, errSummary: true });
           isValid = false;
@@ -131,13 +131,13 @@ export default function HorizontalLinearStepper() {
       case 'diagnostic':
         if (values.pathologie === '') {
           setErrors({ ...errors, errDiagnostic: true });
-          isValid = false
+          isValid = false;
         } else {
           setErrors({ ...errors, errDiagnostic: false });
         }
         if (values.treatment_desc === '') {
           setErrors({ ...errors, errMedication_administered: true });
-          isValid = false
+          isValid = false;
         } else {
           setErrors({ ...errors, errMedication_administered: false });
         }
@@ -146,41 +146,41 @@ export default function HorizontalLinearStepper() {
       case 'finalisation':
         if (values.title === '') {
           setErrors({ ...errors, errTitle: true });
-          isValid = false
+          isValid = false;
         }
         break;
     }
 
-    return isValid
+    return isValid;
   }
 
-  const [clinicalOmniID, setClinicalOmniID] = useState()
+  const [clinicalOmniID, setClinicalOmniID] = useState();
+  const [isLoadEXAM, setIsLoadEXAM] = useState({ init: exam_pics.length, current: 0 })
+  const [isLoadTREAT, setIsLoadTREAT] = useState({ init: treat_pics.length, current: 0 })
+
+  if(isLoadEXAM.current === isLoadEXAM.init) {
+    
+  }
 
   const SubmitCC = async () => {
-
-    await postPatient(values).then((patient)=> {
+    await postPatient(values).then((patient) => {
       if (!errorApi().test(patient)) {
-        postCase(values, patient.datas['@id']).then((createdCaseOmni)=> {
-
-          if (createdCaseOmni.datas['@id'] !== undefined) {
-            setClinicalOmniID(createdCaseOmni.datas['id'])
-
-            post_images(exam_pics, createdCaseOmni.datas['@id'], EXAM_TYPE).then(()=> {
-              post_images(treat_pics, createdCaseOmni.datas['@id'], TREAT_TYPE).then(()=>{
-                // if (errorApi().test(createdCaseOmni)) {
-                //   addToast(messages.error, { appearance: 'error' })
-                // } else { 
-                //   addToast(messages.success, { appearance: 'success' })
-                // }
-                setshowSpinner(false);
+        postCase(values, patient.datas['@id'])
+          .then((createdCaseOmni) => {
+            setClinicalOmniID(createdCaseOmni.datas['id']);
+            post_images(exam_pics, createdCaseOmni.datas['@id'], EXAM_TYPE)
+              .then((exams) => {
+                setIsLoadEXAM( { ...isLoadEXAM, current: isLoadEXAM.current + 1 } )
+                post_images(treat_pics, createdCaseOmni.datas['@id'], TREAT_TYPE)
+                  .then((treats) => {
+                    setIsLoadTREAT( { ...isLoadTREAT, current: isLoadTREAT.current + 1 } )
+                  })
               })
-            })
-          } else {
-            addToast('Une erreur est survenue lors de la création du cas clinique' , { appearance: 'error' })
-          }
-        })
+          })
       }
     });
+
+
   }
 
   const initValues = {
@@ -195,7 +195,7 @@ export default function HorizontalLinearStepper() {
     treatments: '',
     problem_health: '',
     old_injury: '',
-    allergies:'',
+    allergies: '',
     //--
 
     //Omnipratic
@@ -411,29 +411,30 @@ export default function HorizontalLinearStepper() {
         setShowFinalisation('block');
         break;
       case 3:
-        setshowSpinner(true)
-        SubmitCC().then((res) => {
+          SubmitCC();
+          setshowSpinner(true)
           let stop = false;
           let intervalID = setInterval(() => {
-           
-            if (localStorage.getItem('finishloadimg') === 'true') {
+            
+            if (localStorage.getItem('finishloadimgTREAT') === TREAT_TYPE && localStorage.getItem('finishloadimgEXAM') === EXAM_TYPE) {
+              localStorage.removeItem('finishloadimgEXAM');
+              localStorage.removeItem('finishloadimgTREAT');
+
               setshowSpinner(false)
               stop = true;
-              localStorage.removeItem('finishloadimg');
-              setShowFinalisation('none');
-              setShowDiagnostic('none');
-              setShowPatient('none');
-              setShowResponseValid('block')
-              addToast(messages.success, { appearance: 'success' });
+              setTimeout(()=> {
+                setShowFinalisation('none');
+                setShowDiagnostic('none');
+                setShowPatient('none');
+                setShowResponseValid('block')
+                addToast(messages.success, { appearance: 'success' });
+              }, 3000);
+              
             }
             if (stop) clearInterval(intervalID);
-        
-          }, 2000);
 
-          
-        })
-        
-        break;
+          }, 1000);
+          break;
       default:
 
         break;
@@ -500,7 +501,7 @@ export default function HorizontalLinearStepper() {
           <div hidden={!showSpinner} style={{ marginTop: '-50px' }}>
             <Spinner />
           </div>
-        :''}
+          : ''}
         {activeStep === steps.length ? (
           <div>
             <Box bgcolor="background.paper" display={showResponseValid}>
@@ -510,23 +511,23 @@ export default function HorizontalLinearStepper() {
                   <center>
                     <h1 color={Palette.primary}>VOTRE CAS A ÉTÉ ENREGISTRÉ !</h1>
                     <br></br>
-                    <a target="_blank" href="https://docs.google.com/forms/d/e/1FAIpQLSfgi6WlyYhqpOgG46G4iEUeTobpS_52J4mKvCZbSZr-FM0FnA/viewform" style={{textDecoration: 'none'}}>
+                    <a target="_blank" href="https://docs.google.com/forms/d/e/1FAIpQLSfgi6WlyYhqpOgG46G4iEUeTobpS_52J4mKvCZbSZr-FM0FnA/viewform" style={{ textDecoration: 'none' }}>
                       <Button
-                          variant="contained"
-                          color={"primary"}
-                          size={"large"}
-                          startIcon={<AssignmentLateIcon />}
+                        variant="contained"
+                        color={"primary"}
+                        size={"large"}
+                        startIcon={<AssignmentLateIcon />}
                       >
                         Répondez à notre formulaire
                       </Button>
                     </a>
-                    <br/>
-                    <br/>
-                    <a href={`/case/${clinicalOmniID}`} style={{textDecoration: 'none'}}>
+                    <br />
+                    <br />
+                    <a href={`/case/${clinicalOmniID}`} style={{ textDecoration: 'none' }}>
                       <Button
-                          variant="outlined"
-                          color={"primary"}
-                          startIcon={<VisibilityIcon />}
+                        variant="outlined"
+                        color={"primary"}
+                        startIcon={<VisibilityIcon />}
                       >
                         Consulter mon cas
                       </Button>
@@ -909,15 +910,15 @@ export default function HorizontalLinearStepper() {
                       Skip
                     </Button>
                   )}
-                    <Button
-                      variant="contained"
-                      color="primary"
-                      onClick={handleNext}
-                      className={classes.button}
-                    >
-                      {activeStep === steps.length - 1 ? 'Valider' : 'suivant'}
-                    </Button>
-                    <br/><br/><br/><br/><br/><br/>
+                  <Button
+                    variant="contained"
+                    color="primary"
+                    onClick={handleNext}
+                    className={classes.button}
+                  >
+                    {activeStep === steps.length - 1 ? 'Valider' : 'suivant'}
+                  </Button>
+                  <br /><br /><br /><br /><br /><br />
                 </Grid>
               </Grid>
             </div>
