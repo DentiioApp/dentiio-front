@@ -42,9 +42,8 @@ const useStyles = makeStyles((theme) => ({
 
 export default function PatientDetail (props) {
   const classes = useStyles()
-  const inTreatment = props.data ? props.data.inTreatment.empty ? 'Aucun traitement en cours' : 'Traitement en cours: ' : 'Non renseigné'
-  const treatment = props.data ? props.data.inTreatment.empty ? '' : props.data.inTreatment : ''
-  const problemHealth = props.data ? props.data.problemHealth.empty ? 'Aucun' : props.data.problemHealth : ''
+  const treatment = props.data ? props.data.inTreatment.empty ? 'Aucun' : props.data.inTreatment : 'Aucun'
+  const problemHealth = props.data ? props.data.problemHealth.empty ? 'Aucun' : props.data.problemHealth : 'Aucun'
 
   return (
     <Card className={classes.root}>
@@ -84,21 +83,21 @@ export default function PatientDetail (props) {
           </TableBody>
         </Table>
         <Typography variant='body2' component='span'>
-          {inTreatment}
+          Traitement en cours :
           <br />
           {treatment}
         </Typography>
 
         <Divider className={classes.pos} />
         <Typography variant='body2' component='span'>
-                    Antécédents médicaux :<br />
-          {problemHealth}
+                    Antécédents médicaux :<br/>
+          {problemHealth ? problemHealth : 'Aucun'}
         </Typography>
 
         <Divider className={classes.pos} />
         <Typography variant='body2' component='span'>
-                    Alergies :<br />
-          {props.data?.allergie}
+                    Alergies :<br/>
+          {props.data?.allergie ? props.data?.allergie : 'Aucune'}
         </Typography>
       </CardContent>
       <CardActions />
