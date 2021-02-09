@@ -112,7 +112,9 @@ const CasesList = () => {
                         return <CasesItem key={index} item={oCase} favorite={isFavorite}/>
                     })}
                 </div>
+{/*
                 <Paginator pages={pages} onChange={handleChange} current={values.paginator}/>
+*/}
             </Container>
             <br/><br/>
         </>
