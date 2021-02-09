@@ -155,48 +155,32 @@ export default function HorizontalLinearStepper() {
   }
 
   const [clinicalOmniID, setClinicalOmniID] = useState()
+
   const SubmitCC = async () => {
 
-    // if (catchErrors()) {x
-    dispatch({ type: START_LOADER })
+    await postPatient(values).then((patient)=> {
+      if (!errorApi().test(patient)) {
+        postCase(values, patient.datas['@id']).then((createdCaseOmni)=> {
 
-    const patient = await postPatient(values)
+          if (createdCaseOmni.datas['@id'] !== undefined) {
+            setClinicalOmniID(createdCaseOmni.datas['id'])
 
-    if (!errorApi().test(patient)) {
-      const createdCaseOmni = await postCase(values, patient.datas['@id'])
-
-      if (createdCaseOmni.datas['@id'] !== undefined) {
-        setClinicalOmniID(createdCaseOmni.datas['id'])
-        let createdImgCaseOmniExam = await post_images(exam_pics, createdCaseOmni.datas['@id'], EXAM_TYPE)
-
-        // if (createdImgCaseOmniExam.datas['@id'] === undefined) {
-        //   addToast('error ajout images exam clinical', { appearance: 'error' })
-        // }
-
-        let createdImgCaseOmniTreat = await post_images(treat_pics, createdCaseOmni.datas['@id'], TREAT_TYPE)
-
-        // if (createdImgCaseOmniTreat.datas['@id'] === undefined) {
-        //   addToast('error ajout images treatment clinical', { appearance: 'error' })
-        // }
+            post_images(exam_pics, createdCaseOmni.datas['@id'], EXAM_TYPE).then(()=> {
+              post_images(treat_pics, createdCaseOmni.datas['@id'], TREAT_TYPE).then(()=>{
+                // if (errorApi().test(createdCaseOmni)) {
+                //   addToast(messages.error, { appearance: 'error' })
+                // } else { 
+                //   addToast(messages.success, { appearance: 'success' })
+                // }
+                setshowSpinner(false);
+              })
+            })
+          } else {
+            addToast('Une erreur est survenue lors de la création du cas clinique' , { appearance: 'error' })
+          }
+        })
       }
-
-      if (errorApi().test(createdCaseOmni)) {
-        addToast(messages.error, { appearance: 'error' })
-      } else {
-        setshowSpinner(false)
-        addToast(messages.success, { appearance: 'success' })
-      }
-    } else {
-      addToast(messages.patientError, { appearance: 'error' })
-    }
-
-    //ENVOIE LES IMAGES AU BACK
-    //post_images(exam_pics)
-
-    dispatch({ type: STOP_LOADER })
-    dispatch({ type: UPDATE_LEVEL, level: '' })
-    dispatch({ type: UPDATE_STEPPER_POSTCASE, levelStepperPostCase: 0 })
-    // }
+    });
   }
 
   const initValues = {
@@ -428,12 +412,27 @@ export default function HorizontalLinearStepper() {
         break;
       case 3:
         setshowSpinner(true)
-        SubmitCC()
-        setShowFinalisation('none');
-        setShowDiagnostic('none');
-        setShowPatient('none');
+        SubmitCC().then((res) => {
+          let stop = false;
+          let intervalID = setInterval(() => {
+           
+            if (localStorage.getItem('finishloadimg') === 'true') {
+              setshowSpinner(false)
+              stop = true;
+              localStorage.removeItem('finishloadimg');
+              setShowFinalisation('none');
+              setShowDiagnostic('none');
+              setShowPatient('none');
+              setShowResponseValid('block')
+              addToast(messages.success, { appearance: 'success' });
+            }
+            if (stop) clearInterval(intervalID);
+        
+          }, 2000);
 
-        setShowResponseValid('block')
+          
+        })
+        
         break;
       default:
 
@@ -497,6 +496,11 @@ export default function HorizontalLinearStepper() {
         })}
       </Stepper>
       <div>
+        {showSpinner ?
+          <div hidden={!showSpinner} style={{ marginTop: '-50px' }}>
+            <Spinner />
+          </div>
+        :''}
         {activeStep === steps.length ? (
           <div>
             <Box bgcolor="background.paper" display={showResponseValid}>
@@ -905,12 +909,6 @@ export default function HorizontalLinearStepper() {
                       Skip
                     </Button>
                   )}
-                  {showSpinner ?
-                    <div hidden={!showSpinner} style={{ marginTop: '-50px' }}>
-                      <Spinner />
-                    </div>
-                    :
-                      <>
                     <Button
                       variant="contained"
                       color="primary"
@@ -919,10 +917,7 @@ export default function HorizontalLinearStepper() {
                     >
                       {activeStep === steps.length - 1 ? 'Valider' : 'suivant'}
                     </Button>
-                        <br/><br/><br/><br/><br/><br/>
-
-                      </>
-                  }
+                    <br/><br/><br/><br/><br/><br/>
                 </Grid>
               </Grid>
             </div>

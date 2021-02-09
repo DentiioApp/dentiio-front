@@ -151,7 +151,7 @@ export const insertImage = async (img_datas, id_clinical_omni, is_principal, typ
   return await axios
     .post(IMAGE_CLINICAL_CASES , updateClinicCase)
     .then((res) => {
-      return { message: 'OK', datas: res.res.data }
+      return { message: 'OK', datas: res.data }
     })
     .catch(error => {
       return ({ valid: false, datas: error.response && error.response.data["hydra:description"] })
