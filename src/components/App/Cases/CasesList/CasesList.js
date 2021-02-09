@@ -99,10 +99,8 @@ const CasesList = () => {
                     {(cases.length < 1) ? (<LoadingCasesList key={Date.now}/>) : ""}
                     {cases && cases.map((oCase, index) => {
                         var isFavorite = false
-                        console.log(favorites)
                         if (favorites.length > 0) {
                             favorites.map((item) => {
-                                console.log(item)
                                 var slashIndex = item.clinicalCaseOmnipratiqueId !== undefined ? item.clinicalCaseOmnipratiqueId?.lastIndexOf('/') : false
                                 var caseId = slashIndex ? Number(item.clinicalCaseOmnipratiqueId.substr(slashIndex).substr(1, slashIndex.length)) : item.User?.id
                                 if (caseId === oCase.id) {

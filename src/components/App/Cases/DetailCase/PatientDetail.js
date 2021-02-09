@@ -48,38 +48,43 @@ export default function PatientDetail (props) {
   return (
     <Card className={classes.root}>
       <CardContent>
-        <Typography className={classes.title} color='textSecondary' gutterBottom>
-                    Anamnèse
+        <Typography
+          className={classes.title}
+          color="textSecondary"
+          gutterBottom
+        >
+          Anamnèse
         </Typography>
         <Table className={classes.pos}>
           <TableBody>
             <TableRow>
-              <TableCell component='th' scope='row'>
-                                Age
+              <TableCell component="th" scope="row">
+                Age
               </TableCell>
-              <TableCell align='left'>
-                {props.data?.age} ans
-              </TableCell>
+              <TableCell align="left">{props.data?.age} ans</TableCell>
             </TableRow>
             <TableRow>
-              <TableCell component='th' scope='row'>
-                                Sexe
+              <TableCell component="th" scope="row">
+                Sexe
               </TableCell>
               <TableCell align='left'>
                 {props.data?.gender.charAt(0) === "F" ? "Féminin" : "Masculin"}
               </TableCell>
             </TableRow>
             <TableRow>
-              <TableCell component='th' scope='row'>
+              <TableCell component="th" scope="row">
                 Addiction
               </TableCell>
-              <TableCell align='left'>
-                {props.data?.isAlcool ? <LocalBarIcon /> : '' }
-                {props.data?.isASmoker ? <SmokingRoomsIcon /> : <SmokeFreeIcon /> }
+              <TableCell align="left">
+                {props.data?.isAlcool ? <LocalBarIcon /> : ""}
+                {props.data?.isASmoker ? (
+                  <SmokingRoomsIcon />
+                ) : (
+                  <SmokeFreeIcon />
+                )}
               </TableCell>
             </TableRow>
-            <TableRow>
-            </TableRow>
+            <TableRow></TableRow>
           </TableBody>
         </Table>
         <Typography variant='body2' component='span'>
@@ -102,5 +107,5 @@ export default function PatientDetail (props) {
       </CardContent>
       <CardActions />
     </Card>
-  )
+  );
 }
