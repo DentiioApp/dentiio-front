@@ -436,7 +436,6 @@ export default function HorizontalLinearStepper() {
           }, 1000);
           break;
       default:
-
         break;
     }
   }, [activeStep])
