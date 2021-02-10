@@ -37,7 +37,7 @@ const Comments = (props) => {
 
     tmp = Math.floor(tmp / 1000); // Nombre de secondes entre les 2 dates
     diff.sec = tmp % 60; // Extraction du nombre de secondes
-    
+
     tmp = Math.floor((tmp - diff.sec) / 60); // Nombre de minutes (partie entière)
     diff.min = tmp % 60; // Extraction du nombre de minutes
 
@@ -52,10 +52,11 @@ const Comments = (props) => {
     var dayRaw = String(commentPostedDate.getUTCDate()); //+ 1
     const DAY = dayRaw.length < 2 ? "0" + dayRaw : dayRaw;
     const YEAR = String(commentPostedDate.getUTCFullYear());
-    const HOUR = commentPostedDate.getHours();
-    const MINUTE = commentPostedDate.getMinutes();
-    
-
+    var commentPostedDateH = commentPostedDate.getHours();
+    const HOUR = ("0" + commentPostedDateH).slice(-2);
+    var commentPostedDateM = commentPostedDate.getMinutes();
+    const MINUTE = ("0" + commentPostedDateM).slice(-2);
+  
     if (diff.sec < 60) {
       finalDate = `posté à l'instant`;
     }
@@ -68,7 +69,6 @@ const Comments = (props) => {
     if (diff.hour > 3) {
       finalDate = `posté le ${DAY}/${MONTH}/${YEAR} à ${HOUR}:${MINUTE}`;
     }
-
     return finalDate;
   };
 
@@ -103,7 +103,7 @@ const Comments = (props) => {
       ))}
       <form>
         <Grid container spacing={1} style={{ padding: "20px" }}>
-          <Grid item xs={1} className={'avatarMobileHide'}>
+          <Grid item xs={1} className={"avatarMobileHide"}>
             <UserAvatar width={"50px"} avatar={currents_user?.avatar} />
           </Grid>
           <Grid item xs={10}>
@@ -116,9 +116,9 @@ const Comments = (props) => {
               onChange={handleChange("comment")}
             />
           </Grid>
-          <Grid item xs={1} align="right" width={'50%'}>
-            <Fab color="primary" aria-label="add">
-              <SendIcon onClick={handleSubmit} />
+          <Grid item xs={1} align="right">
+            <Fab color="primary" aria-label="add" onClick={handleSubmit}>
+              <SendIcon />
             </Fab>
           </Grid>
         </Grid>
