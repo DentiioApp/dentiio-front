@@ -1,0 +1,9 @@
+.avatarMobileHide {
+  display: block;
+}
+
+@media only screen and (max-width: 599px) {
+  .avatarMobileHide {
+    display: none;
+  }
+}
