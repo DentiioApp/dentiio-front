@@ -75,6 +75,8 @@ export default function HorizontalLinearStepper() {
 
   const { exam_pics, treat_pics } = useSelector((state) => state.cases)
 
+  const handleChangeStatus = ({ meta }, status) => {
+  }
   const initVals = {
     errAge: false,
     errGender: false,
@@ -88,7 +90,6 @@ export default function HorizontalLinearStepper() {
   const [errors, setErrors] = useState(initVals)
 
   const catchErrors = (page) => {
-    //if (event) event.preventDefault()
     let isValid = true
 
     switch (page) {
