@@ -1,4 +1,4 @@
-name: deploy
+name: deploy-preprod
 on:
   push:
     branches:
@@ -8,12 +8,12 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
     steps:
-      - name: Deploy
+      - name: Deploy Preprod
         uses: appleboy/ssh-action@master
         with:
-          host: ${{ secrets.SSH_SERVER }}
-          username: ${{ secrets.SSH_USER }}
-          password: ${{ secrets.SSH_PASSWORD}}
+          host: ${{ secrets.SSH_SERVER_PP }}
+          username: ${{ secrets.SSH_USER_PP }}
+          password: ${{ secrets.SSH_PASSWORD_PP }}
           script: |
             cd /var/www/html/dentiio-app
             sudo git pull origin main
