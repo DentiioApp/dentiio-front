@@ -14,8 +14,7 @@ const CLINICAL_CASES_BY_USER =
 
 const IMAGE_CLINICAL_CASES =
   process.env.REACT_APP_BACK_API_URL + process.env.REACT_APP_IMAGE_CLINICAL_CASES;
-  
-const USER = process.env.REACT_APP_USERS;
+
 export const fetchCases = (page = 1) => {
   return axios
     .get(CLINICAL_CASES + '?page=' + page)
@@ -29,7 +28,7 @@ export const fetchCases = (page = 1) => {
 
 export const addFavCase = async (data, userId) => {
   const item = {
-    userId: USER +'/'+ userId,
+    userId: '/api/users/' + userId,
     createdAt: new Date().toISOString(),
     clinicalCaseOmnipratique: data['@id']
   }
@@ -102,7 +101,7 @@ export const postCase = (values, patient) => {
     title: values.title,
     patient: patient,
     createdAt: new Date().toISOString(),
-    user: `${USER}/${details.userId}`,
+    user: `/api/users/${details.userId}`,
     ExamDescription: values.summary,
     // age: values.ages,
     // smoking: values.isASmoker,
