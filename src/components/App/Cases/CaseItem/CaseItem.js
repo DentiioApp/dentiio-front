@@ -24,6 +24,7 @@ const CasesItem = (props) => {
       })
     }
   }
+
   return (
     <Card key={props.item.id} className="card">
       {/*
@@ -60,6 +61,7 @@ const CasesItem = (props) => {
             {props.item.Patient?.reasonConsult}
           </Typography>
         </CardContent>
+      </Link>
         <div className={"cardContent"}>
           <CardActions className={"card_action"}>
             <UserAvatar avatar={props?.item?.User?.avatar} width="50px" />
@@ -102,7 +104,6 @@ const CasesItem = (props) => {
             )}
           </CardActions>
         </div>
-      </Link>
     </Card>
   );
 }

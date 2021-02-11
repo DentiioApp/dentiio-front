@@ -13,22 +13,20 @@ import {
   Button
 } from '@material-ui/core/';
 import Grid from '@material-ui/core/Grid';
-import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
-import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 import TextField from '@material-ui/core/TextField';
 import SmokingRoomsIcon from '@material-ui/icons/SmokingRooms'
 import { DropzoneArea/*, DropzoneDialog */ } from 'material-ui-dropzone';
 import LocalBarIcon from '@material-ui/icons/LocalBar'
 import { format_file, post_images } from "../../../../../store/actions";
 import { useToasts } from 'react-toast-notifications'
-import { UPDATE_LEVEL, UPDATE_STEPPER_POSTCASE, START_LOADER, STOP_LOADER, EXAM_TYPE, TREAT_TYPE, IMAGE_EXAM_EDITION, IMAGE_TREAT_EDITION } from '../../../../../store/actions'
+import { EXAM_TYPE, TREAT_TYPE, IMAGE_EXAM_EDITION, IMAGE_TREAT_EDITION } from '../../../../../store/actions'
 import { postCase } from '../../../../../services/Cases'
 import { postPatient } from '../../../../../services/Patient'
 import MenuItem from '@material-ui/core/MenuItem'
 import InputLabel from '@material-ui/core/InputLabel'
 import Box from "@material-ui/core/Box";
-import { createCanvas, loadImage } from 'canvas';
-import { errorApi, ModifyImage } from '../../../../../utils'
+import { createCanvas } from 'canvas';
+import { errorApi } from '../../../../../utils'
 import mergeImages from 'merge-images';
 import Spinner from "../../../../UI/Dawers/Spinner";
 import AddAPhotoIcon from '@material-ui/icons/AddAPhoto';
@@ -77,7 +75,6 @@ export default function HorizontalLinearStepper() {
   const { exam_pics, treat_pics } = useSelector((state) => state.cases)
 
   const handleChangeStatus = ({ meta }, status) => {
-    console.log('status', status, 'meta', meta)
   }
 
   const initVals = {
@@ -94,8 +91,7 @@ export default function HorizontalLinearStepper() {
   const [errors, setErrors] = useState(initVals);
 
   const catchErrors = (page) => {
-    //if (event) event.preventDefault()
-    let isValid = true;
+    let isValid = true
 
     switch (page) {
       case 'patient':
@@ -164,29 +160,25 @@ export default function HorizontalLinearStepper() {
   }
 
   const SubmitCC = async () => {
-    await postPatient(values).then((patient) => {
-      if (!errorApi().test(patient)) {
-        postCase(values, patient.datas['@id'])
-          .then((createdCaseOmni) => {
-            setClinicalOmniID(createdCaseOmni.datas['id']);
-            post_images(exam_pics, createdCaseOmni.datas['@id'], EXAM_TYPE)
-              .then((exams) => {
-                setIsLoadEXAM( { ...isLoadEXAM, current: isLoadEXAM.current + 1 } )
-                post_images(treat_pics, createdCaseOmni.datas['@id'], TREAT_TYPE)
-                  .then((treats) => {
-                    setIsLoadTREAT( { ...isLoadTREAT, current: isLoadTREAT.current + 1 } )
-                  })
-              })
-          })
-      }
-    });
+    const patientPost = await postPatient(values)
+
+    const casePost = await postCase(values, patientPost.datas['@id'])
+
+    const examPost = await post_images(exam_pics, casePost.datas['@id'], EXAM_TYPE)
+    setIsLoadEXAM({...isLoadEXAM, current: isLoadEXAM.current + 1})
+
+    const treatPost = await post_images(treat_pics, casePost.datas['@id'], TREAT_TYPE)
+    setIsLoadTREAT( { ...isLoadTREAT, current: isLoadTREAT.current + 1 } )
 
 
+    setClinicalOmniID(casePost.datas['id']);
+    if(patientPost && casePost && examPost && treatPost){
+      setshowSpinner(false)
+    }
   }
 
-  const initValues = {
-    // Require for create patient but non in figma maquette
 
+  const initValues = {
     // Information du patient
     age: '',
     gender: '',

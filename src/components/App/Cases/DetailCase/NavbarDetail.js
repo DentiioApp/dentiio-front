@@ -54,8 +54,6 @@ const NavbarDetail = () => {
             <HashLink
               to="#presentation"
               className={classes.detailnav}
-              activeClass="active"
-              spy
               smooth
               offset={-70}
               duration={500}
@@ -67,8 +65,6 @@ const NavbarDetail = () => {
             <HashLink
               to="#examen"
               className={classes.detailnav}
-              activeClass="active"
-              spy
               smooth
               offset={-70}
               duration={500}
@@ -80,8 +76,6 @@ const NavbarDetail = () => {
             <HashLink
               to="#diagnostic"
               className={classes.detailnav}
-              activeClass="active"
-              spy
               smooth
               offset={-70}
               duration={500}
@@ -93,8 +87,6 @@ const NavbarDetail = () => {
             <HashLink
               to="#plan"
               className={classes.detailnav}
-              activeClass="active"
-              spy
               smooth
               offset={-70}
               duration={500}
@@ -106,8 +98,6 @@ const NavbarDetail = () => {
             <HashLink
               to="#discussion"
               className={classes.detailnav}
-              activeClass="active"
-              spy
               smooth
               offset={-70}
               duration={500}
@@ -129,8 +119,6 @@ const NavbarDetail = () => {
             <Link
               to="presentation"
               className={classes.detailnav}
-              activeClass="active"
-              spy
               smooth
               offset={-70}
               duration={500}
@@ -142,8 +130,6 @@ const NavbarDetail = () => {
             <Link
               to="examen"
               className={classes.detailnav}
-              activeClass="active"
-              spy
               smooth
               offset={-100}
               duration={500}
@@ -156,8 +142,6 @@ const NavbarDetail = () => {
             <Link
               to="diagnostic"
               className={classes.detailnav}
-              activeClass="active"
-              spy
               smooth
               offset={-100}
               duration={500}
@@ -169,8 +153,6 @@ const NavbarDetail = () => {
             <Link
               to="plan"
               className={classes.detailnav}
-              activeClass="active"
-              spy
               smooth
               offset={-100}
               duration={500}
@@ -182,8 +164,6 @@ const NavbarDetail = () => {
             <Link
               to="evolution"
               className={classes.detailnav}
-              activeClass="active"
-              spy
               smooth
               offset={-100}
               duration={500}
@@ -195,8 +175,6 @@ const NavbarDetail = () => {
             <Link
               to="conclusion"
               className={classes.detailnav}
-              activeClass="active"
-              spy
               smooth
               offset={-100}
               duration={500}
@@ -208,8 +186,6 @@ const NavbarDetail = () => {
             <Link
               to="discussion"
               className={classes.detailnav}
-              activeClass="active"
-              spy
               smooth
               offset={-100}
               duration={500}
