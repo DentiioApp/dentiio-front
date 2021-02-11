@@ -76,7 +76,7 @@ export default function PatientDetail (props) {
                 Addiction
               </TableCell>
               <TableCell align="left">
-                {props.data?.isAlcool ? <LocalBarIcon /> : ""}
+                {props.data?.isDrinker ? <LocalBarIcon /> : ""}
                 {props.data?.isASmoker ? (
                   <SmokingRoomsIcon />
                 ) : (

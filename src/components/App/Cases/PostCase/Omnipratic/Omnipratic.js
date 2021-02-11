@@ -159,29 +159,25 @@ export default function HorizontalLinearStepper() {
   }
 
   const SubmitCC = async () => {
-    await postPatient(values).then((patient) => {
-      if (!errorApi().test(patient)) {
-        postCase(values, patient.datas['@id'])
-          .then((createdCaseOmni) => {
-            setClinicalOmniID(createdCaseOmni.datas['id']);
-            post_images(exam_pics, createdCaseOmni.datas['@id'], EXAM_TYPE)
-              .then((exams) => {
-                setIsLoadEXAM( { ...isLoadEXAM, current: isLoadEXAM.current + 1 } )
-                post_images(treat_pics, createdCaseOmni.datas['@id'], TREAT_TYPE)
-                  .then((treats) => {
-                    setIsLoadTREAT( { ...isLoadTREAT, current: isLoadTREAT.current + 1 } )
-                  })
-              })
-          })
-      }
-    });
+    const patientPost = await postPatient(values)
+
+    const casePost = await postCase(values, patientPost.datas['@id'])
+
+    const examPost = await post_images(exam_pics, casePost.datas['@id'], EXAM_TYPE)
+    setIsLoadEXAM({...isLoadEXAM, current: isLoadEXAM.current + 1})
+
+    const treatPost = await post_images(treat_pics, casePost.datas['@id'], TREAT_TYPE)
+    setIsLoadTREAT( { ...isLoadTREAT, current: isLoadTREAT.current + 1 } )
 
 
+    setClinicalOmniID(casePost.datas['id']);
+    if(patientPost && casePost && examPost && treatPost){
+      setshowSpinner(false)
+    }
   }
 
-  const initValues = {
-    // Require for create patient but non in figma maquette
 
+  const initValues = {
     // Information du patient
     age: '',
     gender: '',
@@ -416,7 +412,6 @@ export default function HorizontalLinearStepper() {
               localStorage.removeItem('finishloadimgEXAM');
               localStorage.removeItem('finishloadimgTREAT');
 
-              setshowSpinner(false)
               stop = true;
               setTimeout(()=> {
                 setShowFinalisation('none');
