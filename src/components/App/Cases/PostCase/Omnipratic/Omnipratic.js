@@ -35,6 +35,7 @@ import AddAPhotoIcon from '@material-ui/icons/AddAPhoto';
 import AssignmentLateIcon from '@material-ui/icons/AssignmentLate';
 import VisibilityIcon from '@material-ui/icons/Visibility';
 import Palette from "../../../../UI/ColorTheme/Palette";
+import axios from 'axios';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -414,22 +415,37 @@ export default function HorizontalLinearStepper() {
           SubmitCC();
           setshowSpinner(true)
           let stop = false;
+          let fileExistInApi = false;
+          var myHeaders = new Headers();
+
           let intervalID = setInterval(() => {
+
+            if (localStorage.getItem('finishloadimgTREAT') !== null && localStorage.getItem('finishloadimgEXAM') !== null  ) {
+              fetch(`${process.env.REACT_APP_BACK_URL}images/${localStorage.getItem('directory')}`,
+                { method: 'GET',
+                headers: myHeaders,
+                guard: 'request-no-cors',
+                mode: 'no-cors',
+                cache: 'default' })
+                .then((res)=>{
+                  console.log('res', res)
+                  if(res['status'] === 0) {
+                    fileExistInApi = true;
+                  }
+              });
+            }
             
-            if (localStorage.getItem('finishloadimgTREAT') === TREAT_TYPE && localStorage.getItem('finishloadimgEXAM') === EXAM_TYPE) {
+            if(fileExistInApi){
               localStorage.removeItem('finishloadimgEXAM');
               localStorage.removeItem('finishloadimgTREAT');
-
-              setshowSpinner(false)
+              localStorage.removeItem('directory');
               stop = true;
-              setTimeout(()=> {
-                setShowFinalisation('none');
-                setShowDiagnostic('none');
-                setShowPatient('none');
-                setShowResponseValid('block')
-                addToast(messages.success, { appearance: 'success' });
-              }, 3000);
-              
+              setShowFinalisation('none');
+              setShowDiagnostic('none');
+              setShowPatient('none');
+              setShowResponseValid('block')
+              setshowSpinner(false)
+              addToast(messages.success, { appearance: 'success' });
             }
             if (stop) clearInterval(intervalID);
 
