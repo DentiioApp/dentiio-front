@@ -422,14 +422,16 @@ export default function HorizontalLinearStepper() {
             if(fileExistInApi){
               localStorage.removeItem('finishloadimgEXAM');
               localStorage.removeItem('finishloadimgTREAT');
-              localStorage.removeItem('directory');
-              stop = true;
-              setShowFinalisation('none');
-              setShowDiagnostic('none');
-              setShowPatient('none');
-              setShowResponseValid('block')
-              setshowSpinner(false)
-              addToast(messages.success, { appearance: 'success' });
+              setTimeout(()=>{
+                localStorage.removeItem('directory');
+                stop = true;
+                setShowFinalisation('none');
+                setShowDiagnostic('none');
+                setShowPatient('none');
+                setShowResponseValid('block')
+                setshowSpinner(false)
+                addToast(messages.success, { appearance: 'success' });
+              },2000)
             }
             if (stop) clearInterval(intervalID);
 
