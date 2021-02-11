@@ -126,8 +126,6 @@ const NavbarDetail = () => {
             <IconButton onClick={() => history.goBack()}>
               <ArrowBackIcon color="primary" />
             </IconButton>
-          </div>
-          <div className="card">
             <Link
               to="presentation"
               className={classes.detailnav}
@@ -155,7 +153,6 @@ const NavbarDetail = () => {
               </Button>
             </Link>
           </div>
-          <div className="card">
             <Link
               to="diagnostic"
               className={classes.detailnav}
@@ -169,8 +166,6 @@ const NavbarDetail = () => {
                 <span>Diagnostic</span>
               </Button>
             </Link>
-          </div>
-          <div className="card">
             <Link
               to="plan"
               className={classes.detailnav}
@@ -184,8 +179,6 @@ const NavbarDetail = () => {
                 <span>Plan de traitement</span>
               </Button>
             </Link>
-          </div>
-          <div className="card">
             <Link
               to="evolution"
               className={classes.detailnav}
@@ -199,8 +192,6 @@ const NavbarDetail = () => {
                 <span>Evolution</span>
               </Button>
             </Link>
-          </div>
-          <div className="card">
             <Link
               to="conclusion"
               className={classes.detailnav}
@@ -214,8 +205,6 @@ const NavbarDetail = () => {
                 <span>Conclusion</span>
               </Button>
             </Link>
-          </div>
-          <div className="card">
             <Link
               to="discussion"
               className={classes.detailnav}
@@ -229,7 +218,6 @@ const NavbarDetail = () => {
                 <span>Discussion</span>
               </Button>
             </Link>
-          </div>
         </div>
       </div>
     </>

@@ -29,8 +29,8 @@ export const fetchCases = (page = 1) => {
 export const addFavCase = async (data, userId) => {
   const item = {
     userId: '/api/users/' + userId,
-    clinicalCaseId: data['@id'],
-    createdAt: new Date().toISOString()
+    createdAt: new Date().toISOString(),
+    clinicalCaseOmnipratique: data['@id']
   }
   let responses = await axios
     .post(FAVORITES, item)
@@ -151,7 +151,7 @@ export const insertImage = async (img_datas, id_clinical_omni, is_principal, typ
   return await axios
     .post(IMAGE_CLINICAL_CASES , updateClinicCase)
     .then((res) => {
-      return { message: 'OK', datas: res.res.data }
+      return { message: 'OK', datas: res.data }
     })
     .catch(error => {
       return ({ valid: false, datas: error.response && error.response.data["hydra:description"] })

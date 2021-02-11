@@ -10,6 +10,9 @@ import {
   DEL_TREAT_PICS,
   OPEN_SIDE_BAR,
   CLOSE_SIDE_BAR,
+
+  TREAT_TYPE,
+  EXAM_TYPE,
 } from '.'
 
 import { insertImage } from '../../services/Cases'
@@ -73,19 +76,28 @@ export const post_images = async (files, id_clinical_omni, type) => {
   let incre_index_img = 0;
   let stop = false;
   let IS_PRINCIPAL = false;
+  let errorSend = false
 
   let intervalID = setInterval(() => {
     if (incre_index_img < files.length) {
       IS_PRINCIPAL = incre_index_img === 0 ? true : false;
-
-      insertImage(files[incre_index_img], id_clinical_omni, IS_PRINCIPAL, type)
+      
+      insertImage(files[incre_index_img], id_clinical_omni, IS_PRINCIPAL, type).then((res)=>{
+        if(res.datas.id == undefined) {
+          errorSend = true;
+        }
+      })
       incre_index_img += 1;
+        console.log('type ,', type, 'incre_index_img', incre_index_img , 'files.length', files.length)      
+        if(type === TREAT_TYPE && incre_index_img === files.length){localStorage.setItem('finishloadimgTREAT', type)}
+        if(type === EXAM_TYPE && incre_index_img === files.length){localStorage.setItem('finishloadimgEXAM', type)}
     } else {
       stop = true;
+      
     }
 
     if (stop) clearInterval(intervalID);
 
-  }, 2000)
+  }, 10)
 }
 

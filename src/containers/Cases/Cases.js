@@ -64,7 +64,20 @@ const Cases = () => {
                   }
               >
                 <h2>Bienvenue sur Dentiio</h2>
-                <p>Message</p>
+                <p>
+                    L'équipe Dentiio est heureuse de vous acceuillir sur cette Beta.<br/>
+                    Nous avons pour but de vous fournir un espace d'échange sécurisé 🔒 et adapté à votre pratique 🦷 <br/>
+                    Vous faites partis de nos premier utilisateurs, félicitations 🎉 <br/><br/>
+                </p>
+                  <h4>Ici vous pouvez</h4>
+                  <ul>
+                      <li>Publier vos cas cliniques afin de les partager à vos confrères</li>
+                      <li>Discutez autour des cas</li>
+                      <li>Modifier votre avatar (page profil -> cliquez sur l'avatar ou dans les paramètre)</li>
+                  </ul>
+                  <p>De nouvelles fonctionnalitées arrive prochainement !</p>
+                  <br/>
+                  <p>PS: N'oubliez pas de nous donnez votre avis, il est précieux.</p>
               </Alert>
             </Collapse>
             {/*<Search />*/}
