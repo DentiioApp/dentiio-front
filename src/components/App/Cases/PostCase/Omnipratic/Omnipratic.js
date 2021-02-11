@@ -155,10 +155,6 @@ export default function HorizontalLinearStepper() {
   const [isLoadEXAM, setIsLoadEXAM] = useState({ init: exam_pics.length, current: 0 })
   const [isLoadTREAT, setIsLoadTREAT] = useState({ init: treat_pics.length, current: 0 })
 
-  if(isLoadEXAM.current === isLoadEXAM.init) {
-    
-  }
-
   const SubmitCC = async () => {
     const patientPost = await postPatient(values)
 
@@ -170,11 +166,7 @@ export default function HorizontalLinearStepper() {
     const treatPost = await post_images(treat_pics, casePost.datas['@id'], TREAT_TYPE)
     setIsLoadTREAT( { ...isLoadTREAT, current: isLoadTREAT.current + 1 } )
 
-
     setClinicalOmniID(casePost.datas['id']);
-    if(patientPost && casePost && examPost && treatPost){
-      setshowSpinner(false)
-    }
   }
 
 
@@ -412,7 +404,7 @@ export default function HorizontalLinearStepper() {
 
           let intervalID = setInterval(() => {
 
-            if (localStorage.getItem('finishloadimgTREAT') !== null && localStorage.getItem('finishloadimgEXAM') !== null  ) {
+            if (localStorage.getItem('finishloadimgTREAT') !== null && localStorage.getItem('finishloadimgEXAM') !== null) {
               fetch(`${process.env.REACT_APP_BACK_URL}images/${localStorage.getItem('directory')}`,
                 { method: 'GET',
                 headers: myHeaders,
@@ -724,7 +716,7 @@ export default function HorizontalLinearStepper() {
                         <DropzoneArea
                           showPreviews={true}
                           filesLimit={config.app.uploadFilesLimit}
-                          maxFileSize={10000000}
+                          maxFileSize={config.app.uploadFilesSizeLimit}
                           showPreviewsInDropzone={false}
                           previewGridProps={{ container: { spacing: 1, direction: 'row' } }}
                           previewText={`${exam_pics.length} Image(s) d'examen`}
@@ -804,7 +796,7 @@ export default function HorizontalLinearStepper() {
                           <div className={classes.paper}>
                             <DropzoneArea
                               showPreviews={true}
-                              maxFileSize={10000000}
+                              maxFileSize={config.app.uploadFilesSizeLimit}
                               filesLimit={config.app.uploadFilesLimit}
                               showPreviewsInDropzone={false}
                               previewText={`${treat_pics.length} Image(s) de traitement`}
