@@ -66,9 +66,6 @@ const Patient = (props) => {
     return { url: 'https://httpbin.org/post' }
   }
 
-  const handleChangeStatus = ({ meta }, status) => {
-    console.log('status', status, 'meta', meta)
-  }
 
   return (
     <div>

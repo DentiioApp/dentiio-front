@@ -23,7 +23,6 @@ const Cases = () => {
       localStorage.getItem('bienvenueMessage') !== "false"
   )
 
-  console.log(localStorage.getItem('bienvenueMessage'))
   const handleMessage = () => {
     setOpen(false)
     localStorage.setItem('bienvenueMessage', "false")
@@ -65,7 +64,18 @@ const Cases = () => {
                   }
               >
                 <h2>Bienvenue sur Dentiio</h2>
-                <p>Message</p>
+                <p>
+                    Vous faites partie de nos premiers utilisateurs, félicitations 🎉
+                </p>
+                  <h4>Nous avons besoin de vous pour tester notre application. Voici votre mission :</h4>
+                  <ol>
+                      <li>Naviguez sur la plateforme et prenez vos repères</li>
+                      <li>Publiez un où plusieurs cas cliniques</li>
+                      <li>Découvrez et commentez les cas cliniques déjà publiés</li>
+                  </ol>
+                  <p>Une fois la mission terminée nous attendons votre rapport: répondez au petit questionnaire et faites nous vos remarques!</p>
+                  <br/>
+                  <p>L'équipe Dentiio vous remercie d'avance pour votre aide et votre soutien dans cette aventure! 🚀</p>
               </Alert>
             </Collapse>
             {/*<Search />*/}

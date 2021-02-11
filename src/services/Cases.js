@@ -95,7 +95,7 @@ export const fetchUserFav = (userId) => {
 }
 
 export const postCase = (values, patient) => {
-  console.table([{'patient.patient :' :jwtDecode(localStorage.getItem('authToken'))}])
+//  console.table([{'patient.patient :' :jwtDecode(localStorage.getItem('authToken'))}])
   const details = jwtDecode(localStorage.getItem('authToken'))
   const item = {
     title: values.title,
@@ -125,13 +125,16 @@ export const postCase = (values, patient) => {
     keyword: values.keywords
   }
 
-  return axios
+  const reponses = axios
     .post(CLINICAL_CASES, item)
     .then((res) => ({
       message: 'OK',
       datas: res.data
     }))
     .catch((e) => JSON.stringify(e))
+
+  return reponses
+
 }
 
 
