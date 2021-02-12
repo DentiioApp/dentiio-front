@@ -412,7 +412,6 @@ export default function HorizontalLinearStepper() {
                 mode: 'no-cors',
                 cache: 'default' })
                 .then((res)=>{
-                  console.log('res', res)
                   if(res['status'] === 0) {
                     fileExistInApi = true;
                   }
@@ -430,10 +429,10 @@ export default function HorizontalLinearStepper() {
                 setShowPatient('none');
                 setShowResponseValid('block')
                 setshowSpinner(false)
-                addToast(messages.success, { appearance: 'success' });
+                
               },2000)
             }
-            if (stop) clearInterval(intervalID);
+            if (stop) clearInterval(intervalID), addToast(messages.success, { appearance: 'success' });
 
           }, 1000);
           break;
