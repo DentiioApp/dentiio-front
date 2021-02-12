@@ -342,7 +342,9 @@ export default function HorizontalLinearStepper() {
   const [currentImgIndex, setCurrentImgIndex] = useState(1);
   const [imgTypeSlider, setImgTypeSlider] = useState(EXAM_TYPE);
   const [ismodif, setIsmodif] = useState(0);
-
+  const finish = () => {
+    addToast(messages.success, { appearance: 'success' });
+  }
   const handleImgBack = () => {
     setStep_slide((step_slide - 1));
   }
@@ -410,7 +412,7 @@ export default function HorizontalLinearStepper() {
                 headers: myHeaders,
                 guard: 'request-no-cors',
                 mode: 'no-cors',
-                cache: 'default' })
+                cache: 'no-store' })
                 .then((res)=>{
                   if(res['status'] === 0) {
                     fileExistInApi = true;
@@ -430,9 +432,9 @@ export default function HorizontalLinearStepper() {
                 setShowResponseValid('block')
                 setshowSpinner(false)
                 
-              },2000)
+              },2000, ('finish').apply())
             }
-            if (stop) {clearInterval(intervalID); addToast(messages.success, { appearance: 'success' })};
+            if (stop) {clearInterval(intervalID);};
 
           }, 1000);
           break;
