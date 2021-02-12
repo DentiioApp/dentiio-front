@@ -432,7 +432,7 @@ export default function HorizontalLinearStepper() {
                 
               },2000)
             }
-            if (stop) clearInterval(intervalID), addToast(messages.success, { appearance: 'success' });
+            if (stop) {clearInterval(intervalID); addToast(messages.success, { appearance: 'success' })};
 
           }, 1000);
           break;
