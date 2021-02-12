@@ -12,7 +12,7 @@ const useStyles = makeStyles((theme) => ({
   root: {
     top: 0,
     position: 'relative',
-    marginBottom: '30px',
+    marginBottom: '90px',
     zIndex: 1
   },
   menuButton: {

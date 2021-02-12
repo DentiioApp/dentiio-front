@@ -2,6 +2,7 @@ import axios from 'axios'
 import jwtDecode from 'jwt-decode'
 
 const LOGIN_CHECK = process.env.REACT_APP_BACK_API_URL + process.env.REACT_APP_LOGIN_CHECK
+const LOG_SIGNIN = process.env.REACT_APP_BACK_API_URL + process.env.REACT_APP_LOG_CONNEXION
 const USERS = process.env.REACT_APP_BACK_API_URL + process.env.REACT_APP_USERS
 const AVATAR = process.env.REACT_APP_BACK_API_URL + process.env.REACT_APP_AVATAR
 
@@ -9,6 +10,13 @@ export const loginCheck = (email, passwd) => {
     axios.defaults.headers.Authorization = 'Bearer ' + localStorage.getItem('authToken')
     return axios.post(
         LOGIN_CHECK, { username: email, password: passwd }
+    ).then((res) =>{ return  {message: 'OK', datas: res}})
+        .catch((e) => JSON.stringify(e))
+}
+
+export const addLogRegister = (token) => {
+    return axios.post(
+        LOG_SIGNIN, { user: "/api/users/" + jwtDecode(token).userId }
     ).then((res) =>{ return  {message: 'OK', datas: res}})
         .catch((e) => JSON.stringify(e))
 }
