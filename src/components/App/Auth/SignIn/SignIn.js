@@ -16,7 +16,7 @@ import Visibility from '@material-ui/icons/Visibility'
 import VisibilityOff from '@material-ui/icons/VisibilityOff'
 import GradientBtn from '../../../UI/buttons/GradientBtn'
 import {LOG_USER} from '../../../../store/actions'
-import { loginCheck } from '../../../../services/Users'
+import { loginCheck, addLogRegister } from '../../../../services/Users'
 import { setup } from '../../../../services/Auth'
 import config from '../../../../config'
 import { errorApi } from '../../../../utils'
@@ -56,6 +56,7 @@ const SignIn = () => {
       if (errorApi().test(response)) {
         addToast(messages.signin.error, { appearance: 'error' })
       } else {
+        await addLogRegister(response.datas.data.token)
         addToast(messages.signin.success, { appearance: 'success' })
         dispatch({ type: LOG_USER, datas: response.datas.data, password: values.password })
       }
@@ -90,7 +91,7 @@ const SignIn = () => {
         <Grid item xs={1} md={3} lg={4}>
         </Grid>
         <Grid item xs={10} md={6} lg={4}>
-            <Typography component='h1' variant='h4' className='title'>
+            <Typography component='h1' variant='h4' style={{fontSize: '1.8em'}} className='title'>
               <center>Je me connecte</center>
             </Typography>
             <br />
@@ -161,7 +162,7 @@ const SignIn = () => {
                 onClick={catchSubmit}
               />
               </div>
-              <div hidden={!showSpinner} style={{marginTop: '-50px'}}>
+              <div hidden={!showSpinner} style={{marginTop: '-30px'}}>
                 <Spinner/>
               </div>
             </form>

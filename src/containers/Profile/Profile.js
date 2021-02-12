@@ -15,6 +15,7 @@ import {setup} from '../../services/Auth'
 import ParametersProfileButton from "../../components/UI/buttons/ParametersProfileButton";
 import {useSelector} from "react-redux";
 import Box from "@material-ui/core/Box";
+import MailIcon from '@material-ui/icons/Mail';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -108,6 +109,12 @@ const Profile = () => {
                                         </Grid>
                                         <Grid item>
                                             <ParametersProfileButton/>
+                                            <br/>
+                                            <a href="mailto:contact@dentiio.com" target="_top" style={{ textDecoration: "none" }}>
+                                            <Button variant="outlined" color="primary" startIcon={<MailIcon />}>
+                                                Nous contacter
+                                            </Button>
+                                            </a>
                                         </Grid>
                                     </Grid>
                                 </Grid>

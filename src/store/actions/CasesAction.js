@@ -78,19 +78,24 @@ export const post_images = async (files, id_clinical_omni, type) => {
   let IS_PRINCIPAL = false;
   let errorSend = false
 
-  let intervalID = setInterval(() => {
+  const intervalID = setInterval( () => {
     if (incre_index_img < files.length) {
-      IS_PRINCIPAL = incre_index_img === 0 ? true : false;
+      IS_PRINCIPAL = incre_index_img ? true : false;
       
       insertImage(files[incre_index_img], id_clinical_omni, IS_PRINCIPAL, type).then((res)=>{
-        if(res.datas.id == undefined) {
+        if(res.datas?.id) {
           errorSend = true;
         }
+        return res
+      }).then(resp => {
+        localStorage.setItem('directory', resp.datas.path)
       })
       incre_index_img += 1;
-        console.log('type ,', type, 'incre_index_img', incre_index_img , 'files.length', files.length)      
-        if(type === TREAT_TYPE && incre_index_img === files.length){localStorage.setItem('finishloadimgTREAT', type)}
-        if(type === EXAM_TYPE && incre_index_img === files.length){localStorage.setItem('finishloadimgEXAM', type)}
+      if(files[incre_index_img-1] !== undefined) {
+        if(type === TREAT_TYPE && incre_index_img === files.length){localStorage.setItem('finishloadimgTREAT', files[incre_index_img-1].name)}
+        if(type === EXAM_TYPE && incre_index_img === files.length){localStorage.setItem('finishloadimgEXAM', files[incre_index_img-1].name)}
+      }
+      
     } else {
       stop = true;
       
@@ -99,5 +104,6 @@ export const post_images = async (files, id_clinical_omni, type) => {
     if (stop) clearInterval(intervalID);
 
   }, 10)
+  return true
 }
 

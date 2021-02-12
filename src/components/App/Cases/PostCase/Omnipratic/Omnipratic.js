@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useHistory } from 'react-router-dom'
+import {Link, useHistory} from 'react-router-dom'
 import { makeStyles } from '@material-ui/core/styles';
 import Stepper from '@material-ui/core/Stepper';
 import Step from '@material-ui/core/Step';
@@ -13,28 +13,27 @@ import {
   Button
 } from '@material-ui/core/';
 import Grid from '@material-ui/core/Grid';
-import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
-import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 import TextField from '@material-ui/core/TextField';
 import SmokingRoomsIcon from '@material-ui/icons/SmokingRooms'
 import { DropzoneArea/*, DropzoneDialog */ } from 'material-ui-dropzone';
 import LocalBarIcon from '@material-ui/icons/LocalBar'
 import { format_file, post_images } from "../../../../../store/actions";
 import { useToasts } from 'react-toast-notifications'
-import { UPDATE_LEVEL, UPDATE_STEPPER_POSTCASE, START_LOADER, STOP_LOADER, EXAM_TYPE, TREAT_TYPE, IMAGE_EXAM_EDITION, IMAGE_TREAT_EDITION } from '../../../../../store/actions'
+import { EXAM_TYPE, TREAT_TYPE, IMAGE_EXAM_EDITION, IMAGE_TREAT_EDITION } from '../../../../../store/actions'
 import { postCase } from '../../../../../services/Cases'
 import { postPatient } from '../../../../../services/Patient'
 import MenuItem from '@material-ui/core/MenuItem'
 import InputLabel from '@material-ui/core/InputLabel'
 import Box from "@material-ui/core/Box";
-import { createCanvas, loadImage } from 'canvas';
-import { errorApi, ModifyImage } from '../../../../../utils'
+import { createCanvas } from 'canvas';
+import { errorApi } from '../../../../../utils'
 import mergeImages from 'merge-images';
 import Spinner from "../../../../UI/Dawers/Spinner";
 import AddAPhotoIcon from '@material-ui/icons/AddAPhoto';
 import AssignmentLateIcon from '@material-ui/icons/AssignmentLate';
 import VisibilityIcon from '@material-ui/icons/Visibility';
 import Palette from "../../../../UI/ColorTheme/Palette";
+import axios from 'axios';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -76,7 +75,6 @@ export default function HorizontalLinearStepper() {
   const { exam_pics, treat_pics } = useSelector((state) => state.cases)
 
   const handleChangeStatus = ({ meta }, status) => {
-    console.log('status', status, 'meta', meta)
   }
 
   const initVals = {
@@ -93,8 +91,7 @@ export default function HorizontalLinearStepper() {
   const [errors, setErrors] = useState(initVals);
 
   const catchErrors = (page) => {
-    //if (event) event.preventDefault()
-    let isValid = true;
+    let isValid = true
 
     switch (page) {
       case 'patient':
@@ -158,34 +155,22 @@ export default function HorizontalLinearStepper() {
   const [isLoadEXAM, setIsLoadEXAM] = useState({ init: exam_pics.length, current: 0 })
   const [isLoadTREAT, setIsLoadTREAT] = useState({ init: treat_pics.length, current: 0 })
 
-  if(isLoadEXAM.current === isLoadEXAM.init) {
-    
-  }
-
   const SubmitCC = async () => {
-    await postPatient(values).then((patient) => {
-      if (!errorApi().test(patient)) {
-        postCase(values, patient.datas['@id'])
-          .then((createdCaseOmni) => {
-            setClinicalOmniID(createdCaseOmni.datas['id']);
-            post_images(exam_pics, createdCaseOmni.datas['@id'], EXAM_TYPE)
-              .then((exams) => {
-                setIsLoadEXAM( { ...isLoadEXAM, current: isLoadEXAM.current + 1 } )
-                post_images(treat_pics, createdCaseOmni.datas['@id'], TREAT_TYPE)
-                  .then((treats) => {
-                    setIsLoadTREAT( { ...isLoadTREAT, current: isLoadTREAT.current + 1 } )
-                  })
-              })
-          })
-      }
-    });
+    const patientPost = await postPatient(values)
 
+    const casePost = await postCase(values, patientPost.datas['@id'])
 
+    const examPost = await post_images(exam_pics, casePost.datas['@id'], EXAM_TYPE)
+    setIsLoadEXAM({...isLoadEXAM, current: isLoadEXAM.current + 1})
+
+    const treatPost = await post_images(treat_pics, casePost.datas['@id'], TREAT_TYPE)
+    setIsLoadTREAT( { ...isLoadTREAT, current: isLoadTREAT.current + 1 } )
+
+    setClinicalOmniID(casePost.datas['id']);
   }
+
 
   const initValues = {
-    // Require for create patient but non in figma maquette
-
     // Information du patient
     age: '',
     gender: '',
@@ -414,24 +399,42 @@ export default function HorizontalLinearStepper() {
           SubmitCC();
           setshowSpinner(true)
           let stop = false;
-          let intervalID = setInterval(() => {
-            
-            if (localStorage.getItem('finishloadimgTREAT') === TREAT_TYPE && localStorage.getItem('finishloadimgEXAM') === EXAM_TYPE) {
-              localStorage.removeItem('finishloadimgEXAM');
-              localStorage.removeItem('finishloadimgTREAT');
+          let fileExistInApi = false;
+          var myHeaders = new Headers();
 
-              setshowSpinner(false)
-              stop = true;
-              setTimeout(()=> {
-                setShowFinalisation('none');
-                setShowDiagnostic('none');
-                setShowPatient('none');
-                setShowResponseValid('block')
-                addToast(messages.success, { appearance: 'success' });
-              }, 3000);
-              
+          let intervalID = setInterval(() => {
+
+            if (localStorage.getItem('finishloadimgTREAT') !== null && localStorage.getItem('finishloadimgEXAM') !== null) {
+              fetch(`${process.env.REACT_APP_BACK_URL}images/${localStorage.getItem('directory')}`,
+                { method: 'GET',
+                headers: myHeaders,
+                guard: 'request-no-cors',
+                mode: 'no-cors',
+                cache: 'default' })
+                .then((res)=>{
+                  if(res['status'] === 0) {
+                    fileExistInApi = true;
+                  }
+              });
             }
-            if (stop) clearInterval(intervalID);
+            
+            if(!stop) {
+              if(fileExistInApi){
+                localStorage.removeItem('finishloadimgEXAM');
+                localStorage.removeItem('finishloadimgTREAT');
+                setTimeout(()=>{
+                  localStorage.removeItem('directory');
+                  stop = true;
+                  setShowFinalisation('none');
+                  setShowDiagnostic('none');
+                  setShowPatient('none');
+                  setShowResponseValid('block')
+                  setshowSpinner(false)
+                  addToast(messages.success, { appearance: 'success' });
+                },2000)
+              }
+            }
+            if (stop) {clearInterval(intervalID);};
 
           }, 1000);
           break;
@@ -522,7 +525,7 @@ export default function HorizontalLinearStepper() {
                     </a>
                     <br />
                     <br />
-                    <a href={`/case/${clinicalOmniID}`} style={{ textDecoration: 'none' }}>
+                    <Link to={`/case/${clinicalOmniID}`} style={{ textDecoration: 'none' }}>
                       <Button
                         variant="outlined"
                         color={"primary"}
@@ -530,7 +533,7 @@ export default function HorizontalLinearStepper() {
                       >
                         Consulter mon cas
                       </Button>
-                    </a>
+                    </Link>
                   </center>
 
                 </Grid>
@@ -716,7 +719,7 @@ export default function HorizontalLinearStepper() {
                         <DropzoneArea
                           showPreviews={true}
                           filesLimit={config.app.uploadFilesLimit}
-                          maxFileSize={10000000}
+                          maxFileSize={config.app.uploadFilesSizeLimit}
                           showPreviewsInDropzone={false}
                           previewGridProps={{ container: { spacing: 1, direction: 'row' } }}
                           previewText={`${exam_pics.length} Image(s) d'examen`}
@@ -796,7 +799,7 @@ export default function HorizontalLinearStepper() {
                           <div className={classes.paper}>
                             <DropzoneArea
                               showPreviews={true}
-                              maxFileSize={10000000}
+                              maxFileSize={config.app.uploadFilesSizeLimit}
                               filesLimit={config.app.uploadFilesLimit}
                               showPreviewsInDropzone={false}
                               previewText={`${treat_pics.length} Image(s) de traitement`}
