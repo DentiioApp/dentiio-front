@@ -128,7 +128,7 @@ const Profile = () => {
                             </Typography>
                             <div className={classes.card}>
                                 {cases.map((oCase, index) => {
-                                    return <CasesItem key={index} item={oCase}/>
+                                    return <CasesItem key={index} item={oCase} btnEdit={true}/>
                                 })}
                             </div>
                         </Container> : null
