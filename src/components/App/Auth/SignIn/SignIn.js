@@ -57,7 +57,7 @@ const SignIn = () => {
         addToast(messages.signin.error, { appearance: 'error' })
       } else {
         await addLogRegister(response.datas.data.token)
-        addToast(messages.signin.success, { appearance: 'success' })
+        //addToast(messages.signin.success, { appearance: 'success' })
         dispatch({ type: LOG_USER, datas: response.datas.data, password: values.password })
       }
     } else {
