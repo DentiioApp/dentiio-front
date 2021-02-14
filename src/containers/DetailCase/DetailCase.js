@@ -193,7 +193,7 @@ const DetailCase = (props) => {
                                             ))}
                                         </Typography>*/}
                           <div className={classes.patientMobile}>
-                            <PatientDetail />
+                            <PatientDetail data={item?.Patient} />
                           </div>
                           <Typography
                             component="h3"
