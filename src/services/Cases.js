@@ -26,6 +26,15 @@ export const fetchCases = (page = 1) => {
     .catch((e) => JSON.stringify(e))
 }
 
+export const setNotenabled = async (caseId) => {
+  return await axios
+      .put(CLINICAL_CASES + '/' + caseId, {isEnable: false})
+      .then((res) => ({
+        datas: res.status
+      }))
+      .catch((e) => JSON.stringify(e))
+}
+
 export const addFavCase = async (data, userId) => {
   const item = {
     userId: '/api/users/' + userId,
