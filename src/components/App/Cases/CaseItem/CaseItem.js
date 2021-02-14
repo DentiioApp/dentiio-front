@@ -13,6 +13,10 @@ import ChatIcon from '@material-ui/icons/Chat'
 import StarBorderIcon from '@material-ui/icons/StarBorder';
 import StarIcon from '@material-ui/icons/Star';
 import { HashLink } from "react-router-hash-link";
+import OptionCaseButton from "../../../UI/buttons/OptionCaseButton/OptionCaseButton";
+import Box from "@material-ui/core/Box";
+
+
 
 const CasesItem = (props) => {
   const img = () => {
@@ -26,10 +30,17 @@ const CasesItem = (props) => {
   }
 
   return (
-    <Card key={props.item.id} className="card">
+        <Card key={props.item.id} id={props.item.id} className="card" hidden={props.item.isEnable} style={{display: !props.item.isEnable ? "none" : "block"}}>
       {/*
       <FavButton alt='favorite' value={props.item} isFavorite={props.favorite} />
 */}
+      {props.btnEdit ?
+          <>
+          <div className={"topCard"} >
+            <OptionCaseButton  className={"settingBtn"} caseId={props.item.id}/>
+          </div>
+            </>
+          : ""}
       <Link
         to={`/case/${props.item.id}`}
         style={{ textDecoration: "none", height: "100%" }}
@@ -105,6 +116,7 @@ const CasesItem = (props) => {
           </CardActions>
         </div>
     </Card>
+
   );
 }
 
