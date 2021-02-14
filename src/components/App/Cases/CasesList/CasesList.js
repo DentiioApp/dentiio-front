@@ -76,7 +76,7 @@ const CasesList = () => {
 
     return (
         <>
-            <Container maxWidth={false} style={{paddingTop: "50px"}}>
+            <Container maxWidth={true} style={{paddingTop: "50px", paddingLeft: "0", paddingRight: "0"}}>
 
                 <center><h1 style={{color: Palette.primary}}>Cas cliniques</h1></center>
                 <br/>
