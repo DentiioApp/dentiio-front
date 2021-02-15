@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useHistory } from 'react-router-dom'
+import {Link, useHistory} from 'react-router-dom'
 import { makeStyles } from '@material-ui/core/styles';
 import Stepper from '@material-ui/core/Stepper';
 import Step from '@material-ui/core/Step';
@@ -432,7 +432,7 @@ export default function HorizontalLinearStepper() {
                 setShowResponseValid('block')
                 setshowSpinner(false)
                 
-              },2000, ('finish').apply())
+              },2000, finish)
             }
             if (stop) {clearInterval(intervalID);};
 
@@ -525,7 +525,7 @@ export default function HorizontalLinearStepper() {
                     </a>
                     <br />
                     <br />
-                    <a href={`/case/${clinicalOmniID}`} style={{ textDecoration: 'none' }}>
+                    <Link to={`/case/${clinicalOmniID}`} style={{ textDecoration: 'none' }}>
                       <Button
                         variant="outlined"
                         color={"primary"}
@@ -533,7 +533,7 @@ export default function HorizontalLinearStepper() {
                       >
                         Consulter mon cas
                       </Button>
-                    </a>
+                    </Link>
                   </center>
 
                 </Grid>

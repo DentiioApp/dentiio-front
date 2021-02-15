@@ -51,8 +51,8 @@ const NavbarDetail = () => {
             <ArrowBackIcon color="primary" />
           </IconButton>
           <div style={{ align: "left" }}>
-            <HashLink
-              to="#presentation"
+            <Link
+              to="presentation"
               className={classes.detailnav}
               smooth
               offset={-70}
@@ -61,9 +61,9 @@ const NavbarDetail = () => {
               <Button>
                 <span>Presentation</span>
               </Button>
-            </HashLink>
-            <HashLink
-              to="#examen"
+            </Link>
+            <Link
+              to="examen"
               className={classes.detailnav}
               smooth
               offset={-70}
@@ -72,9 +72,9 @@ const NavbarDetail = () => {
               <Button>
                 <span>Examen</span>
               </Button>
-            </HashLink>
-            <HashLink
-              to="#diagnostic"
+            </Link>
+            <Link
+              to="diagnostic"
               className={classes.detailnav}
               smooth
               offset={-70}
@@ -83,9 +83,9 @@ const NavbarDetail = () => {
               <Button>
                 <span>Diagnostic</span>
               </Button>
-            </HashLink>
-            <HashLink
-              to="#plan"
+            </Link>
+            <Link
+              to="plan"
               className={classes.detailnav}
               smooth
               offset={-70}
@@ -94,9 +94,9 @@ const NavbarDetail = () => {
               <Button>
                 <span>Plan de traitement</span>
               </Button>
-            </HashLink>
-            <HashLink
-              to="#discussion"
+            </Link>
+            <Link
+              to="discussion"
               className={classes.detailnav}
               smooth
               offset={-70}
@@ -105,7 +105,7 @@ const NavbarDetail = () => {
               <Button>
                 <span>Discussion</span>
               </Button>
-            </HashLink>
+            </Link>
           </div>
         </Toolbar>
       </AppBar>
@@ -138,7 +138,6 @@ const NavbarDetail = () => {
                 <span>Examen</span>
               </Button>
             </Link>
-          </div>
             <Link
               to="diagnostic"
               className={classes.detailnav}
@@ -162,28 +161,6 @@ const NavbarDetail = () => {
               </Button>
             </Link>
             <Link
-              to="evolution"
-              className={classes.detailnav}
-              smooth
-              offset={-100}
-              duration={500}
-            >
-              <Button>
-                <span>Evolution</span>
-              </Button>
-            </Link>
-            <Link
-              to="conclusion"
-              className={classes.detailnav}
-              smooth
-              offset={-100}
-              duration={500}
-            >
-              <Button>
-                <span>Conclusion</span>
-              </Button>
-            </Link>
-            <Link
               to="discussion"
               className={classes.detailnav}
               smooth
@@ -194,6 +171,7 @@ const NavbarDetail = () => {
                 <span>Discussion</span>
               </Button>
             </Link>
+          </div>
         </div>
       </div>
     </>

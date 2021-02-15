@@ -73,7 +73,7 @@ const Cases = () => {
                       <li>Publiez un où plusieurs cas cliniques</li>
                       <li>Découvrez et commentez les cas cliniques déjà publiés</li>
                   </ol>
-                  <p>Une fois la mission terminée nous attendons votre rapport: répondez au petit questionnaire et faites nous vos remarques!</p>
+                  <p>Une fois la mission terminée nous attendons votre rapport: répondez au petit questionnaire et faites nous part de vos remarques!</p>
                   <br/>
                   <p>L'équipe Dentiio vous remercie d'avance pour votre aide et votre soutien dans cette aventure! 🚀</p>
               </Alert>

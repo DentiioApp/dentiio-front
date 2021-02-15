@@ -42,7 +42,6 @@ const useStyles = makeStyles((theme) => ({
 
 export default function PatientDetail (props) {
   const classes = useStyles()
-  const treatment = props.data ? props.data.inTreatment.empty ? 'Aucun' : props.data.inTreatment : 'Aucun'
   const problemHealth = props.data ? props.data.problemHealth.empty ? 'Aucun' : props.data.problemHealth : 'Aucun'
 
   return (
@@ -61,7 +60,9 @@ export default function PatientDetail (props) {
               <TableCell component="th" scope="row">
                 Age
               </TableCell>
-              <TableCell align="left">{props.data?.age} ans</TableCell>
+              <TableCell align='left'>
+                {props.data?.age} ans
+              </TableCell>
             </TableRow>
             <TableRow>
               <TableCell component="th" scope="row">
@@ -90,7 +91,7 @@ export default function PatientDetail (props) {
         <Typography variant='body2' component='span'>
           Traitement en cours :
           <br />
-          {treatment}
+          {props.data?.inTreatment ? props.data?.inTreatment : 'Aucun'}
         </Typography>
 
         <Divider className={classes.pos} />
