@@ -157,14 +157,17 @@ export default function HorizontalLinearStepper() {
 
   const SubmitCC = async () => {
     const patientPost = await postPatient(values)
-
     const casePost = await postCase(values, patientPost.datas['@id'])
 
-    const examPost = await post_images(exam_pics, casePost.datas['@id'], EXAM_TYPE)
-    setIsLoadEXAM({...isLoadEXAM, current: isLoadEXAM.current + 1})
+    if(Object.entries(exam_pics).length > 0) {
+      const examPost = await post_images(exam_pics, casePost.datas['@id'], EXAM_TYPE)
+      setIsLoadEXAM({...isLoadEXAM, current: isLoadEXAM.current + 1})
+    }
 
-    const treatPost = await post_images(treat_pics, casePost.datas['@id'], TREAT_TYPE)
-    setIsLoadTREAT( { ...isLoadTREAT, current: isLoadTREAT.current + 1 } )
+    if(Object.entries(treat_pics).length > 0) {
+      const treatPost = await post_images(treat_pics, casePost.datas['@id'], TREAT_TYPE)
+      setIsLoadTREAT( { ...isLoadTREAT, current: isLoadTREAT.current + 1 } )
+    }
 
     setClinicalOmniID(casePost.datas['id']);
   }
