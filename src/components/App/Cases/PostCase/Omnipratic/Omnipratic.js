@@ -413,8 +413,9 @@ export default function HorizontalLinearStepper() {
         let intervalID = setInterval(() => {
 
           if (localStorage.getItem('finishloadimgTREAT') !== null && localStorage.getItem('finishloadimgEXAM') !== null) {
-
-            if (/^.*[0-9].*/.test(localStorage.getItem('finishloadimgEXAM')) || /^.*[0-9].*/.test(localStorage.getItem('finishloadimgTREAT'))) {
+            
+            if (!/.*[0-9].*/.test(localStorage.getItem('finishloadimgEXAM')) || !/.*[0-9].*/.test(localStorage.getItem('finishloadimgTREAT'))) {
+             
               localStorage.removeItem('finishloadimgEXAM');
               localStorage.removeItem('finishloadimgTREAT');
               stop = true;
