@@ -1,7 +1,7 @@
 const config = {
   app: {
     uploadFilesLimit : 15,
-    uploadFilesSizeLimit : 3000000,
+    uploadFilesSizeLimit : 30000000,
   },
 
   season: {

@@ -159,7 +159,7 @@ const SignIn = () => {
                 type='submit'
                 description='SE CONNECTER'
                 className='GradientBtn'
-                onClick={catchSubmit}
+                // onClick={catchSubmit}
               />
               </div>
               <div hidden={!showSpinner} style={{marginTop: '-30px'}}>
