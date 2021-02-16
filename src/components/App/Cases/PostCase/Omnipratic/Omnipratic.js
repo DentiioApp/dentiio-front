@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import {Link, useHistory} from 'react-router-dom'
+import { Link, useHistory } from 'react-router-dom'
 import { makeStyles } from '@material-ui/core/styles';
 import Stepper from '@material-ui/core/Stepper';
 import Step from '@material-ui/core/Step';
@@ -152,26 +152,29 @@ export default function HorizontalLinearStepper() {
   }
 
   const [clinicalOmniID, setClinicalOmniID] = useState();
-  const [isLoadEXAM, setIsLoadEXAM] = useState({ init: exam_pics.length, current: 0 })
-  const [isLoadTREAT, setIsLoadTREAT] = useState({ init: treat_pics.length, current: 0 })
+  const [isLoadEXAM, setIsLoadEXAM] = useState({ init: exam_pics.length, current: 0 });
+  const [isLoadTREAT, setIsLoadTREAT] = useState({ init: treat_pics.length, current: 0 });
 
   const SubmitCC = async () => {
-    const patientPost = await postPatient(values)
-    const casePost = await postCase(values, patientPost.datas['@id'])
+    const patientPost = await postPatient(values);
+    const casePost = await postCase(values, patientPost.datas['@id']);
 
     if(Object.entries(exam_pics).length > 0) {
-      const examPost = await post_images(exam_pics, casePost.datas['@id'], EXAM_TYPE)
-      setIsLoadEXAM({...isLoadEXAM, current: isLoadEXAM.current + 1})
+      const examPost = await post_images(exam_pics, casePost.datas['@id'], EXAM_TYPE);
+      setIsLoadEXAM({ ...isLoadEXAM, current: isLoadEXAM.current + 1 })
+    } else {
+      localStorage.setItem('finishloadimgEXAM', 'no_data');
     }
 
     if(Object.entries(treat_pics).length > 0) {
-      const treatPost = await post_images(treat_pics, casePost.datas['@id'], TREAT_TYPE)
-      setIsLoadTREAT( { ...isLoadTREAT, current: isLoadTREAT.current + 1 } )
+      const treatPost = await post_images(treat_pics, casePost.datas['@id'], TREAT_TYPE);
+      setIsLoadTREAT({ ...isLoadTREAT, current: isLoadTREAT.current + 1 });
+    } else {
+      localStorage.setItem('finishloadimgTREAT','no_data');
     }
 
     setClinicalOmniID(casePost.datas['id']);
   }
-
 
   const initValues = {
     // Information du patient
@@ -401,32 +404,45 @@ export default function HorizontalLinearStepper() {
         setShowFinalisation('block');
         break;
       case 3:
-          SubmitCC();
-          setshowSpinner(true)
-          let stop = false;
-          let fileExistInApi = false;
-          var myHeaders = new Headers();
+        SubmitCC();
+        setshowSpinner(true)
+        let stop = false;
+        let fileExistInApi = false;
+        var myHeaders = new Headers();
 
-          let intervalID = setInterval(() => {
+        let intervalID = setInterval(() => {
 
-            if (localStorage.getItem('finishloadimgTREAT') !== null && localStorage.getItem('finishloadimgEXAM') !== null) {
-              fetch(`${process.env.REACT_APP_BACK_URL}images/${localStorage.getItem('directory')}`,
-                { method: 'GET',
-                headers: myHeaders,
-                guard: 'request-no-cors',
-                mode: 'no-cors',
-                cache: 'no-store' })
-                .then((res)=>{
-                  if(res['status'] === 0) {
-                    fileExistInApi = true;
-                  }
-              });
-            }
-            
-            if(fileExistInApi){
+          if (localStorage.getItem('finishloadimgTREAT') !== null && localStorage.getItem('finishloadimgEXAM') !== null) {
+
+            if (/^.*[0-9].*/.test(localStorage.setItem('finishloadimgTREAT'))) {
               localStorage.removeItem('finishloadimgEXAM');
               localStorage.removeItem('finishloadimgTREAT');
-              setTimeout(()=>{
+              stop = true;
+              setShowFinalisation('none');
+              setShowDiagnostic('none');
+              setShowPatient('none');
+              setShowResponseValid('block')
+              setshowSpinner(false)
+            } else {
+              fetch(`${process.env.REACT_APP_BACK_URL}images/${localStorage.getItem('directory')}`,
+                {
+                  method: 'GET',
+                  headers: myHeaders,
+                  guard: 'request-no-cors',
+                  mode: 'no-cors',
+                  cache: 'no-store'
+                })
+                .then((res) => {
+                  if (res['status'] === 0) {
+                    fileExistInApi = true;
+                  }
+                });
+            }
+
+            if (fileExistInApi) {
+              localStorage.removeItem('finishloadimgEXAM');
+              localStorage.removeItem('finishloadimgTREAT');
+              setTimeout(() => {
                 localStorage.removeItem('directory');
                 stop = true;
                 setShowFinalisation('none');
@@ -434,13 +450,14 @@ export default function HorizontalLinearStepper() {
                 setShowPatient('none');
                 setShowResponseValid('block')
                 setshowSpinner(false)
-                
-              },2000, finish)
-            }
-            if (stop) {clearInterval(intervalID);};
 
-          }, 1000);
-          break;
+              }, 2000, finish)
+            }
+            if (stop) { clearInterval(intervalID); };
+          }
+
+        }, 1000);
+        break;
       default:
         break;
     }
