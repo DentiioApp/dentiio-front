@@ -21,7 +21,7 @@ import Spinner from "../../../UI/Dawers/Spinner";
 import Button from '@material-ui/core/Button';
 import CloudUploadIcon from '@material-ui/icons/CloudUpload';
 import { TOKEN_REGENERATE } from '../../../../store/actions'
-import config from '../../../../config'
+import {_config} from '../../../../config'
 import InputLabel from "@material-ui/core/InputLabel/InputLabel";
 import {Select} from "@material-ui/core";
 import MenuItem from "@material-ui/core/MenuItem";
@@ -34,7 +34,7 @@ const Status = () => {
     const classes = useStyles()
     const dispatch = useDispatch()
     const {addToast} = useToasts()
-    const messages = config.messages.auth
+    const messages = _config.messages.auth
     const user = useSelector((state) => state.user)
     const fileReader = new FileReader()
     const [values, setValues] = useState({

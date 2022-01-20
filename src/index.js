@@ -13,7 +13,7 @@ import { ToastProvider } from 'react-toast-notifications'
 import { ThemeProvider } from '@material-ui/core/styles'
 import colorTheme from './components/UI/ColorTheme/ColorTheme'
 import DetailCase from './containers/DetailCase/DetailCase'
-import config from './config'
+import {_config} from './config/index'
 import {
   BrowserRouter as Router,
   Switch,
@@ -33,7 +33,7 @@ ReactDOM.render(
   <ThemeProvider theme={colorTheme}>
     <Provider store={ConfigureStore().store}>
       <PersistGate loading={null} persistor={ConfigureStore().persistor}>
-      <ToastProvider autoDismiss autoDismissTimeout={config.messages.timeOut}>
+      <ToastProvider autoDismiss autoDismissTimeout={_config.messages.timeOut}>
         <Router>
           <div>
             <Switch>

@@ -1,5 +1,5 @@
 import './treatPlan.scss'
-import {MuiThemeProvider, createMuiTheme} from "@material-ui/core/styles";
+import {MuiThemeProvider, createTheme} from "@material-ui/core/styles";
 import React, {useState} from 'react'
 import {useDispatch, useSelector} from 'react-redux'
 import AddAPhotoIcon from '@material-ui/icons/AddAPhoto';
@@ -19,7 +19,7 @@ import CreatableSelect from "react-select/creatable/dist/react-select.esm";
 
 const useStyles = makeStyles((theme) => (oStyle(theme)))
 
-const theme = createMuiTheme({
+const theme = createTheme({
     overrides: {
         MuiDropzoneArea: {
             root: {

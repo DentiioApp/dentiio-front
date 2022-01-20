@@ -18,7 +18,7 @@ import GradientBtn from '../../../UI/buttons/GradientBtn'
 import {LOG_USER} from '../../../../store/actions'
 import { loginCheck, addLogRegister } from '../../../../services/Users'
 import { setup } from '../../../../services/Auth'
-import config from '../../../../config'
+import {_config} from '../../../../config/index'
 import { errorApi } from '../../../../utils'
 import FormControl from "@material-ui/core/FormControl";
 import {InputLabel} from "@material-ui/core";
@@ -27,7 +27,7 @@ import Spinner from "../../../UI/Dawers/Spinner";
 const SignIn = () => {
   const dispatch = useDispatch()
   const { addToast } = useToasts()
-  const messages = config.messages.auth
+  const messages = _config.messages.auth
 
   const initValues = {
     email: '',
