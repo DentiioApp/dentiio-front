@@ -27,7 +27,7 @@ jobs:
       - node/install-packages:
           pkg-manager: yarn
       - run:
-          command: yarn build
+          command: yarn add typescript && yarn build
           name: YARN Build
 
 orbs:
