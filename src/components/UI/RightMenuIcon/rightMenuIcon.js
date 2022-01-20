@@ -1,12 +1,11 @@
 import { makeStyles } from '@material-ui/core/styles'
 import Button from '@material-ui/core/Button'
-import React from 'react'
 import { Link } from 'react-router-dom'
 import palette from '../ColorTheme/Palette'
 import AddIcon from '../Icon/Header/Add'
-import FavoritesIcon from '../Icon/Header/favorites'
+// import FavoritesIcon from '../Icon/Header/favorites'
 import HomeIcon from '../Icon/Header/home'
-import NotificationIcon from '../Icon/Header/notification'
+// import NotificationIcon from '../Icon/Header/notification'
 import UserAvatar from '../Avatars/UserAvatar'
 import AssignmentLateIcon from '@material-ui/icons/AssignmentLate';
 
@@ -70,7 +69,7 @@ export const RightMenuIcon = (props) => {
       <div className={classes.grow} style={{ align: 'right' }} />
       <div style={{ align: 'right' }}>
         <a href={"https://docs.google.com/forms/d/e/1FAIpQLSfgi6WlyYhqpOgG46G4iEUeTobpS_52J4mKvCZbSZr-FM0FnA/viewform"} target={"_blank"}
-           style={{textDecoration: "none", paddingRight: "20px"}}>
+           style={{textDecoration: "none", paddingRight: "20px"}} rel="noreferrer">
           <Button
               variant="contained"
               color="secondary"

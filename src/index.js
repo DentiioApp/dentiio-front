@@ -1,10 +1,9 @@
-import React from 'react'
 import ReactDOM from 'react-dom'
 import './index.css'
 import Home from './containers/Home/Home'
 import Cases from './containers/Cases/Cases'
 import Favorites from './containers/Favorites/Favorites'
-import { useHistory, useLocation} from "react-router-dom";
+import {useLocation} from "react-router-dom";
 import Profile from './containers/Profile/Profile'
 import * as serviceWorker from './serviceWorker'
 import { Provider } from 'react-redux'

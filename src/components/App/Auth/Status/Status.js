@@ -1,5 +1,5 @@
 import './status.scss'
-import React, {useState, useEffect} from 'react'
+import {useState, useEffect} from 'react'
 import {useDispatch, useSelector} from 'react-redux'
 import {useToasts} from 'react-toast-notifications'
 import {
@@ -21,7 +21,7 @@ import Spinner from "../../../UI/Dawers/Spinner";
 import Button from '@material-ui/core/Button';
 import CloudUploadIcon from '@material-ui/icons/CloudUpload';
 import { TOKEN_REGENERATE } from '../../../../store/actions'
-import {_config} from '../../../../config'
+import {_config} from '../../../../config/index'
 import InputLabel from "@material-ui/core/InputLabel/InputLabel";
 import {Select} from "@material-ui/core";
 import MenuItem from "@material-ui/core/MenuItem";

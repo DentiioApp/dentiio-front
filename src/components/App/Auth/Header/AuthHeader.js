@@ -1,11 +1,10 @@
-import React from 'react'
 import { makeStyles } from '@material-ui/core/styles'
 import AppBar from '@material-ui/core/AppBar'
 import Toolbar from '@material-ui/core/Toolbar'
 import ConnexionTitleHeader from "../../../UI/titleHeader/ConnexionTitleHeader";
 import Typography from "@material-ui/core/Typography";
 import Button from "@material-ui/core/Button";
-import {BACK_LOGIN_FORM, LOGIN_FORM, SUBSCRIBE_FORM} from "../../../../store/actions";
+import { LOGIN_FORM, /*BACK_LOGIN_FORM, SUBSCRIBE_FORM*/} from "../../../../store/actions";
 import {useDispatch} from "react-redux";
 
 const useStyles = makeStyles((theme) => ({
@@ -31,11 +30,11 @@ export const AuthHeader = () => {
   const classes = useStyles()
   const dispatch = useDispatch()
 
-  const switchToSubscribe = (e) => {
-    e.preventDefault()
-    dispatch({type: BACK_LOGIN_FORM})
-    dispatch({ type: SUBSCRIBE_FORM })
-  }
+  // const switchToSubscribe = (e) => {
+  //   e.preventDefault()
+  //   dispatch({type: BACK_LOGIN_FORM})
+  //   dispatch({ type: SUBSCRIBE_FORM })
+  // }
 
   const switchToLogin = (e) => {
     e.preventDefault()

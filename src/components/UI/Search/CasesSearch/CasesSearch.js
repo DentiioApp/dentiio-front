@@ -1,6 +1,6 @@
 import { TextField, makeStyles } from '@material-ui/core'
 import Autocomplete from '@material-ui/lab/Autocomplete'
-import React, { useState } from 'react'
+import { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { fetchKeywords } from '../../../../services/Home'
 import { CASE_FILTERED, KEYWORDS_LIST } from '../../../../store/actions'

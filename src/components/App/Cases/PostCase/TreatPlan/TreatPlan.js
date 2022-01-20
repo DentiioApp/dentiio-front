@@ -1,6 +1,6 @@
 import './treatPlan.scss'
 import {MuiThemeProvider, createTheme} from "@material-ui/core/styles";
-import React, {useState} from 'react'
+import {useState} from 'react'
 import {useDispatch, useSelector} from 'react-redux'
 import AddAPhotoIcon from '@material-ui/icons/AddAPhoto';
 import {

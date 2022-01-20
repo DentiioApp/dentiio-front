@@ -1,12 +1,11 @@
 import './caseItem.scss'
-import React from 'react'
 import { Link } from 'react-router-dom'
 import Card from '@material-ui/core/Card'
 import CardMedia from '@material-ui/core/CardMedia'
 import CardContent from '@material-ui/core/CardContent'
 import CardActions from '@material-ui/core/CardActions'
 import Typography from '@material-ui/core/Typography'
-import FavButton from '../../../UI/buttons/FavButton/FavButton'
+// import FavButton from '../../../UI/buttons/FavButton/FavButton'
 import UserAvatar from '../../../UI/Avatars/UserAvatar'
 import { avgNotes } from '../../../../utils'
 import ChatIcon from '@material-ui/icons/Chat'
@@ -14,7 +13,7 @@ import StarBorderIcon from '@material-ui/icons/StarBorder';
 import StarIcon from '@material-ui/icons/Star';
 import { HashLink } from "react-router-hash-link";
 import OptionCaseButton from "../../../UI/buttons/OptionCaseButton/OptionCaseButton";
-import Box from "@material-ui/core/Box";
+// import Box from "@material-ui/core/Box";
 
 
 
@@ -99,7 +98,7 @@ const CasesItem = (props) => {
               <Typography variant="body2" color="textSecondary" component="p">
                 {props.item.commentaires.length}
               </Typography>
-              <ChatIcon color="primary" fontSize="default" className="pr-15" />
+              <ChatIcon color="primary" fontSize="medium" className="pr-15" />
             </HashLink>
             <Typography variant="body2" color="textSecondary" component="p">
               {props.item.notations
@@ -109,9 +108,9 @@ const CasesItem = (props) => {
                 : null}
             </Typography>
             {isNaN(props.item.notations) ? (
-              <StarIcon color="primary" fontSize="default" />
+              <StarIcon color="primary" fontSize="medium" />
             ) : (
-              <StarBorderIcon color="primary" fontSize="default" />
+              <StarBorderIcon color="primary" fontSize="medium" />
             )}
           </CardActions>
         </div>

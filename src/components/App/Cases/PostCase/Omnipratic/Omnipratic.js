@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react';
-import { Link, useHistory } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import { makeStyles } from '@material-ui/core/styles';
 import Stepper from '@material-ui/core/Stepper';
 import Step from '@material-ui/core/Step';
 import StepLabel from '@material-ui/core/StepLabel';
-import config from '../../../../../config'
+import {_config} from '../../../../../config/index'
 import img_for_hide from '../../../../../images/hide.png'
 import { useDispatch, useSelector } from 'react-redux'
 import {
@@ -17,7 +17,7 @@ import TextField from '@material-ui/core/TextField';
 import SmokingRoomsIcon from '@material-ui/icons/SmokingRooms'
 import { DropzoneArea/*, DropzoneDialog */ } from 'material-ui-dropzone';
 import LocalBarIcon from '@material-ui/icons/LocalBar'
-import { format_file, post_images } from "../../../../../store/actions";
+import { format_file/*, post_images */} from "../../../../../store/actions";
 import { useToasts } from 'react-toast-notifications'
 import { EXAM_TYPE, TREAT_TYPE, IMAGE_EXAM_EDITION, IMAGE_TREAT_EDITION } from '../../../../../store/actions'
 import { postCase } from '../../../../../services/Cases'
@@ -26,14 +26,14 @@ import MenuItem from '@material-ui/core/MenuItem'
 import InputLabel from '@material-ui/core/InputLabel'
 import Box from "@material-ui/core/Box";
 import { createCanvas } from 'canvas';
-import { errorApi } from '../../../../../utils'
+// import { errorApi } from '../../../../../utils'
 import mergeImages from 'merge-images';
 import Spinner from "../../../../UI/Dawers/Spinner";
 import AddAPhotoIcon from '@material-ui/icons/AddAPhoto';
 import AssignmentLateIcon from '@material-ui/icons/AssignmentLate';
 import VisibilityIcon from '@material-ui/icons/Visibility';
 import Palette from "../../../../UI/ColorTheme/Palette";
-import axios from 'axios';
+// import axios from 'axios';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -58,13 +58,12 @@ export default function HorizontalLinearStepper() {
   const [activeStep, setActiveStep] = React.useState(0);
   const [skipped, setSkipped] = React.useState(new Set());
   const steps = getSteps();
-  const messages = config.messages.cases
-  const history = useHistory()
+  const messages = _config.messages.cases
 
   const [step_slide, setStep_slide] = useState(-1)
 
   const [inCrement, setInCrement] = useState(1)
-  const { ages, sexes } = config
+  const { ages, sexes } = _config
   const dispatch = useDispatch()
   const { addToast } = useToasts()
 
@@ -146,6 +145,9 @@ export default function HorizontalLinearStepper() {
           isValid = false;
         }
         break;
+      default :
+        console.log("no stepper choosed");
+        break;
     }
 
     return isValid;
@@ -160,14 +162,14 @@ export default function HorizontalLinearStepper() {
     const casePost = await postCase(values, patientPost.datas['@id']);
 
     if(Object.entries(exam_pics).length > 0) {
-      const examPost = await post_images(exam_pics, casePost.datas['@id'], EXAM_TYPE);
+      // const examPost = await post_images(exam_pics, casePost.datas['@id'], EXAM_TYPE);
       setIsLoadEXAM({ ...isLoadEXAM, current: isLoadEXAM.current + 1 })
     } else {
       localStorage.setItem('finishloadimgEXAM', 'no_data');
     }
 
     if(Object.entries(treat_pics).length > 0) {
-      const treatPost = await post_images(treat_pics, casePost.datas['@id'], TREAT_TYPE);
+      // const treatPost = await post_images(treat_pics, casePost.datas['@id'], TREAT_TYPE);
       setIsLoadTREAT({ ...isLoadTREAT, current: isLoadTREAT.current + 1 });
     } else {
       localStorage.setItem('finishloadimgTREAT','no_data');
@@ -323,18 +325,17 @@ export default function HorizontalLinearStepper() {
   const canvas = createCanvas(500, 500);
   const ctx = canvas.getContext('2d');
 
-
   /*  //TO DO KEEP ON LOOK VERSION SUPPORT HD IMAGE https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/imageSmoothingQuality#browser_compatibility */
   const isSupportDeviceOrBrowser = () => {
     let isSupport = false;
-    return isSupport = navigator.userAgent.toLowerCase().indexOf('firefox') > -1 && navigator.platform.toLowerCase().indexOf("android") > -1 ? false : true;
+    return isSupport = navigator.userAgent.toLowerCase().indexOf('firefox') > -1 && navigator.userAgentData.platform.toLowerCase().indexOf("android") > -1 ? false : true;
   }
 
   function isInternetExplorer() {
     let isIE = false;
     var ua = window.navigator.userAgent;
     var msie = ua.indexOf("MSIE ");
-    if (msie > -1 || !!navigator.userAgent.match(/Trident.*rv\:11\./)); // Si c'est Internet Explorer, dire que c'est Internet explorer
+    if (msie > -1 || !!navigator.userAgent.match(/Trident.*rv:11\./)); // Si c'est Internet Explorer, dire que c'est Internet explorer
     isIE = true;
     return isIE;
   }
@@ -351,13 +352,14 @@ export default function HorizontalLinearStepper() {
   const finish = () => {
     addToast(messages.success, { appearance: 'success' });
   }
-  const handleImgBack = () => {
-    setStep_slide((step_slide - 1));
-  }
+  
+  // const handleImgBack = () => {
+  //   setStep_slide((step_slide - 1));
+  // }
 
-  const handleImgNext = () => {
-    setStep_slide((step_slide + 1));
-  }
+  // const handleImgNext = () => {
+  //   setStep_slide((step_slide + 1));
+  // }
 
   useEffect(() => {
     var img = new Image();
@@ -534,7 +536,7 @@ export default function HorizontalLinearStepper() {
                   <center>
                     <h1 color={Palette.primary}>VOTRE CAS A ÉTÉ ENREGISTRÉ !</h1>
                     <br></br>
-                    <a target="_blank" href="https://docs.google.com/forms/d/e/1FAIpQLSfgi6WlyYhqpOgG46G4iEUeTobpS_52J4mKvCZbSZr-FM0FnA/viewform" style={{ textDecoration: 'none' }}>
+                    <a target="_blank" href="https://docs.google.com/forms/d/e/1FAIpQLSfgi6WlyYhqpOgG46G4iEUeTobpS_52J4mKvCZbSZr-FM0FnA/viewform" style={{ textDecoration: 'none' }} rel="noreferrer">
                       <Button
                         variant="contained"
                         color={"primary"}
@@ -739,8 +741,8 @@ export default function HorizontalLinearStepper() {
                         <br />
                         <DropzoneArea
                           showPreviews={true}
-                          filesLimit={config.app.uploadFilesLimit}
-                          maxFileSize={config.app.uploadFilesSizeLimit}
+                          filesLimit={_config.app.uploadFilesLimit}
+                          maxFileSize={_config.app.uploadFilesSizeLimit}
                           showPreviewsInDropzone={false}
                           previewGridProps={{ container: { spacing: 1, direction: 'row' } }}
                           previewText={`${exam_pics.length} Image(s) d'examen`}
@@ -820,8 +822,8 @@ export default function HorizontalLinearStepper() {
                           <div className={classes.paper}>
                             <DropzoneArea
                               showPreviews={true}
-                              maxFileSize={config.app.uploadFilesSizeLimit}
-                              filesLimit={config.app.uploadFilesLimit}
+                              maxFileSize={_config.app.uploadFilesSizeLimit}
+                              filesLimit={_config.app.uploadFilesLimit}
                               showPreviewsInDropzone={false}
                               previewText={`${treat_pics.length} Image(s) de traitement`}
                               Icon={AddAPhotoIcon}

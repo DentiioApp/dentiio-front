@@ -76,7 +76,7 @@ export const post_images = async (files, id_clinical_omni, type) => {
   let incre_index_img = 0;
   let stop = false;
   let IS_PRINCIPAL = false;
-  let errorSend = false
+  let errorSend = false;
 
   const intervalID = setInterval( () => {
     if (incre_index_img < files.length) {

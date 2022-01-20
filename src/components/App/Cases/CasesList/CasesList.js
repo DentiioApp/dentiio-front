@@ -1,11 +1,11 @@
-import React, {useEffect, useState} from 'react'
+import {useEffect, useState} from 'react'
 import {useSelector, useDispatch} from 'react-redux'
 import Container from '@material-ui/core/Container'
 import {makeStyles} from '@material-ui/core/styles'
-import {fetchCases, fetchUserFav, getCaseByUserId} from '../../../../services/Cases'
+import {fetchCases, fetchUserFav, /*getCaseByUserId*/} from '../../../../services/Cases'
 import {CASES_LIST, INIT_FAV_CASE} from '../../../../store/actions'
 import CasesItem from '../CaseItem/CaseItem'
-import Paginator from '../../../UI/Paginator/Paginator'
+// import Paginator from '../../../UI/Paginator/Paginator'
 import {getUserId} from '../../../../services/Users'
 import {errorApi} from '../../../../utils'
 import LoadingCasesList from "../../../UI/Loading/LoadingCasesList";
@@ -42,7 +42,7 @@ const CasesList = () => {
         paginator: 1
     }
 
-    const [values, setValues] = useState(initValues)
+    const [values, /*setValues*/] = useState(initValues)
 
     useEffect(() => {
         const getCases = async () => {

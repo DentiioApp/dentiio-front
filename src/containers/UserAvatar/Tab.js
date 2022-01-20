@@ -26,7 +26,7 @@ import {
   SkinColor,
   Beard
 } from "../../components/UI/Avatars/Library";
-import config from "../../config";
+import {_config} from "../../config/index";
 import { getUserById, getUserId, saveAvatar } from "../../services/Users";
 import { SET_USER, UPDATE_AVATAR } from "../../store/actions";
 
@@ -87,7 +87,7 @@ export default function TabAvatar() {
   const dispatch = useDispatch();
   const history = useHistory();
   const { addToast } = useToasts();
-  const messages = config.messages.editUser;
+  const messages = _config.messages.editUser;
   const currents_user = useSelector((state) => state.user.current_user);
 
   const [mouth, setMouth] = React.useState(

@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react'
+import {useEffect, useState} from 'react'
 import {Redirect} from 'react-router-dom'
 import './gallery.css'
 import Header from '../../components/App/Header/Header'

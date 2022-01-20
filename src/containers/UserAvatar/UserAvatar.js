@@ -1,4 +1,3 @@
-import React from 'react'
 import { Redirect } from 'react-router-dom'
 import Header from '../../components/App/Header/Header'
 import { setup } from '../../services/Auth'

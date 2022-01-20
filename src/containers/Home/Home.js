@@ -1,5 +1,5 @@
 import './Home.scss'
-import React, {useEffect} from 'react'
+import {useEffect} from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import {JOB_LIST} from '../../store/actions'
 import Register from '../../components/App/Auth/Register/Register'

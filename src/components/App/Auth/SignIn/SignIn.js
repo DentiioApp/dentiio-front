@@ -1,11 +1,11 @@
 import './signIn.scss'
-import React, { useState } from 'react'
+import { useState } from 'react'
 import { useDispatch } from 'react-redux'
 import { Redirect } from 'react-router-dom'
 import { useToasts } from 'react-toast-notifications'
 import {
   Typography,
-  Link
+  // Link
 } from '@material-ui/core/'
 import Grid from '@material-ui/core/Grid'
 import IconButton from '@material-ui/core/IconButton'
