@@ -36,7 +36,7 @@ jobs:
           name: YARN Build
 
 orbs:
-  node: circleci/node@16.13.2
+  node-setup: later/node-setup@0.0.6
   
 workflows:
   test_dentiio_front:
