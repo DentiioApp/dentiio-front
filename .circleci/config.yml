@@ -4,7 +4,7 @@ jobs:
   test:
     executor:
       name: node/default
-      tag: '16'
+      tag: '17.4.0'
     steps:
       - checkout
       - node/install-packages:
@@ -15,7 +15,7 @@ jobs:
   eslint:
     executor:
       name: node/default
-      tag: '16'
+      tag: '17.4.0'
     steps:
       - checkout
       - node/install-packages:
@@ -26,7 +26,7 @@ jobs:
   build:
     executor:
       name: node/default
-      tag: '16'
+      tag: '17.4.0'
     steps:
       - checkout
       - node/install-packages:
