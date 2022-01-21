@@ -1,7 +1,10 @@
+version: 2.1
+
 jobs:
   test:
     executor:
       name: node/default
+      tag: '16'
     steps:
       - checkout
       - node/install-packages:
@@ -12,6 +15,7 @@ jobs:
   eslint:
     executor:
       name: node/default
+      tag: '16'
     steps:
       - checkout
       - node/install-packages:
@@ -22,6 +26,7 @@ jobs:
   build:
     executor:
       name: node/default
+      tag: '16'
     steps:
       - checkout
       - node/install-packages:
