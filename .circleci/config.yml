@@ -32,6 +32,7 @@ jobs:
       - node/install-packages:
           pkg-manager: yarn
       - run:
+          CI: false yarn build 
           command: yarn add typescript@4.1.6 && yarn build
           name: YARN Build
 
