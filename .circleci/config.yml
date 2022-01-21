@@ -24,9 +24,8 @@ jobs:
           command: yarn add typescript@4.1.6 && yarn lint
           name: ESLINT Run
   build:
-    executor:
-      name: node/default
-      tag: '16.13.2'
+    docker:
+      - image: cimg/node:17.4.0
     steps:
       - checkout
       - node/install-packages:
@@ -36,7 +35,7 @@ jobs:
           name: YARN Build
 
 orbs:
-  node-setup: later/node-setup@0.0.6
+  browser-tools: circleci/browser-tools@1.1.0
   
 workflows:
   test_dentiio_front:
