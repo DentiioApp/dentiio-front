@@ -1,3 +1,4 @@
+import React from 'react'
 import ReactDOM from 'react-dom'
 import './index.css'
 import Home from './containers/Home/Home'
@@ -23,15 +24,38 @@ import QuestionPost from './containers/QuestionPost/QuestionPost'
 import UserAvatar from "./containers/UserAvatar/UserAvatar";
 import EditProfile from "./containers/Profile/EditProfile";
 import { PersistGate } from 'redux-persist/integration/react'
-import ConfigureStore from './store/configureStore'
 import CGU from "./containers/CGU/CGU";
+import {applyMiddleware, compose, createStore} from 'redux'
+import {persistStore, persistReducer} from 'redux-persist'
+import storage from 'redux-persist/lib/storage' // defaults to localStorage for web
+
+import {adminReducer} from './store/reducers'
+import ReduxThunk from "redux-thunk";
 dotenv.config() 
 
+const persistConfig = {
+    key: 'root',
+    storage,
+}
+
+const persistedReducer = persistReducer(persistConfig, adminReducer)
+
+// MIDDLEWARE
+const middleWare = store => next => action => {
+    return next(action)
+}
+let store = createStore(
+  persistedReducer,
+  compose(
+      applyMiddleware(ReduxThunk, middleWare),
+      //window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
+  ))
+let persistor = persistStore(store)
 
 ReactDOM.render(
   <ThemeProvider theme={colorTheme}>
-    <Provider store={ConfigureStore().store}>
-      <PersistGate loading={null} persistor={ConfigureStore().persistor}>
+    <Provider store={store}>
+      <PersistGate loading={null} persistor={persistor}>
       <ToastProvider autoDismiss autoDismissTimeout={_config.messages.timeOut}>
         <Router>
           <div>

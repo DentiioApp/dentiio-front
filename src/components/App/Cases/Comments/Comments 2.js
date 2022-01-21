@@ -1,4 +1,3 @@
-import { useEffect, useState } from "react";
 import Container from "@material-ui/core/Container";
 
 const Comments = (props) => {

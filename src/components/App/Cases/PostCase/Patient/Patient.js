@@ -57,9 +57,9 @@ const Patient = (props) => {
     }
   }
 
-  const sendRequest = async (licenceBase64) => {
-    // return await saveCardandJob(getUserId(), licenceBase64, values.job)
-  }
+  // const sendRequest = async (licenceBase64) => {
+  //   return await saveCardandJob(getUserId(), licenceBase64, values.job)
+  // }
 
 
   const getUploadParams = () => {
@@ -233,7 +233,7 @@ const Patient = (props) => {
                   previewGridProps={{ container: { spacing: 1, direction: 'row' } }}
                   previewText="Selected files"
                   getUploadParams={getUploadParams}
-                  onChangeStatus={handleChangeStatus}
+                  // onChangeStatus={handleChangeStatus}
                   onChange={props.onChange('exam_pics')}
                   //initialFiles={[Object(props.exam_pics)]}
                 />

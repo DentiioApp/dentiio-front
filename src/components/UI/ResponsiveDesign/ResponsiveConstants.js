@@ -1,1 +1,1 @@
-export default { mobileBreakpoint: 'sm' }
+export const ResponsiveConstants = { mobileBreakpoint: 'sm' }
