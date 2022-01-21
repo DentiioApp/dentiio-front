@@ -31,7 +31,7 @@ jobs:
           name: YARN Build
 
 orbs:
-  node: circleci/node@3.0.0
+  node: circleci/node@5.0.0
 version: 2.1
 workflows:
   test_dentiio_front:
