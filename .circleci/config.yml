@@ -34,9 +34,11 @@ jobs:
       - run:
           command: - unset CI && yarn add typescript@4.1.6 && yarn build
           name: YARN Build
+          env:
+            CI: false
 
 orbs:
-  node: circleci/node@4.0.0
+  node: circleci/node@5.0.0
   
 workflows:
   test_dentiio_front:
