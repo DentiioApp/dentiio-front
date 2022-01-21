@@ -10,7 +10,7 @@ jobs:
       - node/install-packages:
           pkg-manager: yarn
       - run:
-          command: yarn add typescript && yarn run test
+          command: yarn run test
           name: YARN Tests
   eslint:
     executor:
@@ -21,7 +21,7 @@ jobs:
       - node/install-packages:
           pkg-manager: yarn
       - run:
-          command: yarn add typescript && yarn lint
+          command: yarn lint
           name: ESLINT Run
   build:
     executor:
@@ -32,7 +32,10 @@ jobs:
       - node/install-packages:
           pkg-manager: yarn
       - run:
-          command: yarn add typescript && yarn build
+          command: yarn add typescript
+          name: YARN install typeScript
+      - run:
+          command: yarn build
           name: YARN Build
 
 orbs:
