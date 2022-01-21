@@ -35,9 +35,6 @@ jobs:
           command: yarn add typescript@4.1.6
           name: YARN install typeScript
       - run:
-          command: node –openssl-legacy-provider ./node_modules/.bin/gatsby build
-          name: Fix OpenSSL 3.0 issue due to node@17
-      - run:
           command: yarn build
           name: YARN Build
 
