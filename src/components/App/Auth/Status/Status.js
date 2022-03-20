@@ -1,7 +1,7 @@
 import './status.scss'
 import {useState, useEffect} from 'react'
-import {useDispatch, useSelector} from 'react-redux'
-import {useToasts} from 'react-toast-notifications'
+import {/*useDispatch,*/ useSelector} from 'react-redux'
+// import {useToasts} from 'react-toast-notifications'
 import {
     Typography,
     Input,
@@ -16,27 +16,27 @@ import StatusJustif from '../../../UI/Modal/StatusJustif'
 import GradientBtn from '../../../UI/buttons/GradientBtn'
 import oStyle from '../../../UI/ResponsiveDesign/AuthStyle'
 import {checkFiles} from '../../../../utils'
-import {getUserId, loginCheck, saveCardandJob} from '../../../../services/Users'
+// import {getUserId, loginCheck, saveCardandJob} from '../../../../services/Users'
 import Spinner from "../../../UI/Dawers/Spinner";
 import Button from '@material-ui/core/Button';
 import CloudUploadIcon from '@material-ui/icons/CloudUpload';
-import { TOKEN_REGENERATE } from '../../../../store/actions'
-import {_config} from '../../../../config/index'
+// import { TOKEN_REGENERATE } from '../../../../store/actions'
+// import {_config} from '../../../../config/index'
 import InputLabel from "@material-ui/core/InputLabel/InputLabel";
 import {Select} from "@material-ui/core";
 import MenuItem from "@material-ui/core/MenuItem";
-import {login, logout} from "../../../../services/Auth";
+// import {login, logout} from "../../../../services/Auth";
 
 
 const useStyles = makeStyles((theme) => (oStyle(theme, imgDesktop, imgMobile)))
 
 const Status = () => {
     const classes = useStyles()
-    const dispatch = useDispatch()
-    const {addToast} = useToasts()
-    const messages = _config.messages.auth
+    // const dispatch = useDispatch()
+    // const {addToast} = useToasts()
+    // const messages = _config.messages.auth
     const user = useSelector((state) => state.user)
-    const fileReader = new FileReader()
+    // const fileReader = new FileReader()
     const [values, setValues] = useState({
         licenceDoc: user.licenceDoc,
         job: user.job
@@ -57,30 +57,30 @@ const Status = () => {
         e.preventDefault()
         setshowSpinner(true)
         setshowButton(false)
-        if (values.licenceDoc){
-            fileReader.readAsDataURL(values.licenceDoc)
-        }
-        fileReader.onload = async (FileLoadEvent) => {
-            const licenceBase64 = FileLoadEvent.target.result
-            const response = await sendRequest(licenceBase64)
-            if (response && response.valid) {
-                addToast(messages.register.success, {appearance: 'success'})
-                const response = await loginCheck(user.email, user.password)
-                logout()
-                login(response.datas.data.token)
-                dispatch({type: TOKEN_REGENERATE})
+        // if (values.licenceDoc){
+        //     fileReader.readAsDataURL(values.licenceDoc)
+        // }
+        // fileReader.onload = async (FileLoadEvent) => {
+        //     const licenceBase64 = FileLoadEvent.target.result
+        //     const response = await sendRequest(licenceBase64)
+        //     if (response && response.valid) {
+        //         addToast(messages.register.success, {appearance: 'success'})
+        //         const response = await loginCheck(user.email, user.password)
+        //         logout()
+        //         login(response.datas.data.token)
+        //         dispatch({type: TOKEN_REGENERATE})
 
-            } else {
-                addToast(messages.card.error, {appearance: 'error'})
-                setshowSpinner(false)
-                setshowButton(true)
-            }
-        }
+        //     } else {
+        //         addToast(messages.card.error, {appearance: 'error'})
+        //         setshowSpinner(false)
+        //         setshowButton(true)
+        //     }
+        // }
     }
 
-    const sendRequest = async (licenceBase64) => {
-        return await saveCardandJob(getUserId(), licenceBase64, values.job)
-    }
+    // const sendRequest = async (licenceBase64) => {
+    //     return await saveCardandJob(getUserId(), licenceBase64, values.job)
+    // }
 
     const handleChangeFile = () => event => {
         const checkedFile = checkFiles(event)

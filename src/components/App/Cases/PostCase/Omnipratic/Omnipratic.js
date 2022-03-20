@@ -5,7 +5,7 @@ import Stepper from "@material-ui/core/Stepper";
 import Step from "@material-ui/core/Step";
 import StepLabel from "@material-ui/core/StepLabel";
 import { _config } from "../../../../../config/index";
-import img_for_hide from "../../../../../images/hide.png";
+import img_for_hide_1 from "../../../../../images/img_for_hide_1.png";
 import { useDispatch, useSelector } from "react-redux";
 import { Switch, Typography, Button } from "@material-ui/core/";
 import Grid from "@material-ui/core/Grid";
@@ -167,18 +167,14 @@ export default function HorizontalLinearStepper() {
     const casePost = await postCase(values, patientPost.datas["@id"]);
 
     if (Object.entries(exam_pics).length > 0) {
-      let examPost = await post_images(exam_pics, casePost.datas["@id"], EXAM_TYPE);
+      await post_images(exam_pics, casePost.datas["@id"], EXAM_TYPE);
       setIsLoadEXAM({ ...isLoadEXAM, current: isLoadEXAM.current + 1 });
     } else {
       localStorage.setItem("finishloadimgEXAM", "no_data");
     }
 
     if (Object.entries(treat_pics).length > 0) {
-      let treatPost = await post_images(
-        treat_pics,
-        casePost.datas["@id"],
-        TREAT_TYPE
-      );
+      await post_images(treat_pics, casePost.datas["@id"], TREAT_TYPE);
       setIsLoadTREAT({ ...isLoadTREAT, current: isLoadTREAT.current + 1 });
     } else {
       localStorage.setItem("finishloadimgTREAT", "no_data");
@@ -336,29 +332,28 @@ export default function HorizontalLinearStepper() {
     });
   };
 
-  const handleReset = () => {
-    setActiveStep(0);
-  };
+  // const handleReset = () => {
+  //   setActiveStep(0);
+  // };
 
   const canvas = createCanvas(500, 500);
   const ctx = canvas.getContext("2d");
 
   /*  //TO DO KEEP ON LOOK VERSION SUPPORT HD IMAGE https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/imageSmoothingQuality#browser_compatibility */
   const isSupportDeviceOrBrowser = () => {
-    let isSupport = false;
-    return (isSupport =
-      navigator.userAgent.toLowerCase().indexOf("firefox") > -1 &&
+    return navigator.userAgent.toLowerCase().indexOf("firefox") > -1 &&
       navigator.userAgentData.platform.toLowerCase().indexOf("android") > -1
-        ? false
-        : true);
+      ? false
+      : true;
   };
 
   function isInternetExplorer() {
     let isIE = false;
     var ua = window.navigator.userAgent;
     var msie = ua.indexOf("MSIE ");
-    if (msie > -1 || !!navigator.userAgent.match(/Trident.*rv:11\./)); // Si c'est Internet Explorer, dire que c'est Internet explorer
-    isIE = true;
+    if (msie > -1 || !!navigator.userAgent.match(/Trident.*rv:11\./))
+      // Si c'est Internet Explorer, dire que c'est Internet explorer
+      isIE = true;
     return isIE;
   }
 
@@ -383,27 +378,31 @@ export default function HorizontalLinearStepper() {
     setStep_slide(step_slide + 1);
   };
 
-  useEffect(async () => {
+  useEffect(() => {
     var img = new Image();
-    let image_with_new_point;
+    // let image_with_new_point;
     if (imgTypeSlider === EXAM_TYPE) {
       if (exam_pics[step_slide]) {
-        img.src = exam_pics[step_slide]._img;
-        image_with_new_point = await ctx.drawImage(img, 0, 0, 500, 500);
-        setCanvasState(ctx.drawImage(img, 0, 0, 500, 500))
-        setCurrentImgIndex(step_slide);
+        (async () => {
+          img.src = exam_pics[step_slide]._img;
+          await ctx.drawImage(img, 0, 0, 500, 500);
+          setCanvasState(ctx.drawImage(img, 0, 0, 500, 500));
+          setCurrentImgIndex(step_slide);
+        })();
       }
     } else {
-      if (treat_pics[step_slide]) {
-        img.src = treat_pics[step_slide]._img;
-        image_with_new_point = await ctx.drawImage(img, 0, 0, 500, 500);
-        setCanvasState(ctx.drawImage(img, 0, 0, 500, 500))
-        setCurrentImgIndex(step_slide);
-      }
+      (async () => {
+        if (treat_pics[step_slide]) {
+          img.src = treat_pics[step_slide]._img;
+          await ctx.drawImage(img, 0, 0, 500, 500);
+          setCanvasState(ctx.drawImage(img, 0, 0, 500, 500));
+          setCurrentImgIndex(step_slide);
+        }
+      })();
     }
 
     setCanvasState(canvas);
-  }, [step_slide, imgTypeSlider, ismodif]);
+  }, [step_slide, imgTypeSlider, ismodif, exam_pics, treat_pics]);
 
   useEffect(() => {
     switch (activeStep) {
@@ -430,7 +429,7 @@ export default function HorizontalLinearStepper() {
         setshowSpinner(true);
         let stop = false;
         let fileExistInApi = false;
-        var myHeaders = new Headers();
+        // var myHeaders = new Headers();
 
         let intervalID = setInterval(() => {
           if (
@@ -495,16 +494,17 @@ export default function HorizontalLinearStepper() {
         break;
     }
   }, [activeStep]);
-
-  function  handlePointed (e){
+  
+  function handlePointed(e) {
     if (canvaState) {
       let canva_slider = document.getElementById("canva_slider");
-      const pointed_X = e.clientX - canva_slider.offsetLeft - 7; //-7 marge custom pr préciser le click
-      const pointed_Y = e.clientY - canva_slider.offsetTop + window.scrollY - 5; //-5 marge custom pr préciser le click
+      const pointed_X = e.clientX - canva_slider.offsetLeft - 21; //-7 marge custom pr préciser le click
+      const pointed_Y =
+        e.clientY - canva_slider.offsetTop + window.scrollY - 20; //-5 marge custom pr préciser le click
 
       let array_to_merge = [
         { src: canvaState.toDataURL(), x: 0, y: 0 },
-        { src: img_for_hide, x: pointed_X, y: pointed_Y },
+        { src: img_for_hide_1, x: pointed_X, y: pointed_Y },
       ];
 
       let action = {
@@ -521,7 +521,7 @@ export default function HorizontalLinearStepper() {
         setIsmodif(ismodif + 1);
       });
     }
-  };
+  }
 
   const handleChangeImgTypeSlider = () => {
     if (imgTypeSlider === EXAM_TYPE) {
@@ -1011,6 +1011,7 @@ export default function HorizontalLinearStepper() {
                           </center>
                           <Box onClick={handlePointed}>
                             <img
+                              alt="Edit here"
                               id="canva_slider"
                               src={`${canvaState && canvaState.toDataURL()}`}
                             />
