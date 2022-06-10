@@ -378,27 +378,23 @@ export default function HorizontalLinearStepper() {
     setStep_slide(step_slide + 1);
   };
 
-  useEffect(() => {
+  useEffect(async () => {
     var img = new Image();
-    // let image_with_new_point;
+    let image_with_new_point;
     if (imgTypeSlider === EXAM_TYPE) {
       if (exam_pics[step_slide]) {
-        (async () => {
-          img.src = exam_pics[step_slide]._img;
-          await ctx.drawImage(img, 0, 0, 500, 500);
-          setCanvasState(ctx.drawImage(img, 0, 0, 500, 500));
-          setCurrentImgIndex(step_slide);
-        })();
+        img.src = exam_pics[step_slide]._img;
+        image_with_new_point = await ctx.drawImage(img, 0, 0, 500, 500);
+        setCanvasState(ctx.drawImage(img, 0, 0, 500, 500));
+        setCurrentImgIndex(step_slide);
       }
     } else {
-      (async () => {
-        if (treat_pics[step_slide]) {
-          img.src = treat_pics[step_slide]._img;
-          await ctx.drawImage(img, 0, 0, 500, 500);
-          setCanvasState(ctx.drawImage(img, 0, 0, 500, 500));
-          setCurrentImgIndex(step_slide);
-        }
-      })();
+      if (treat_pics[step_slide]) {
+        img.src = treat_pics[step_slide]._img;
+        image_with_new_point = await ctx.drawImage(img, 0, 0, 500, 500);
+        setCanvasState(ctx.drawImage(img, 0, 0, 500, 500));
+        setCurrentImgIndex(step_slide);
+      }
     }
 
     setCanvasState(canvas);
@@ -494,7 +490,7 @@ export default function HorizontalLinearStepper() {
         break;
     }
   }, [activeStep]);
-  
+
   function handlePointed(e) {
     if (canvaState) {
       let canva_slider = document.getElementById("canva_slider");

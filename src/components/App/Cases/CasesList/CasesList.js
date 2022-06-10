@@ -104,7 +104,7 @@ const CasesList = () => {
                 </ButtonMUI > */}
 
         <div className={classes.root}>
-          {cases.length < 1 ? (
+          {/* {cases.length < 1 ? (
             <LoadingCasesList key={Date.now} />
           ) : (
             <Link to="/post-case" style={{textDecoration : 'none'}}>
@@ -117,7 +117,7 @@ const CasesList = () => {
                 Publiez le premier cas
               </Button>
             </Link>
-          )}
+          )} */}
           {cases &&
             cases.map((oCase, index) => {
               var isFavorite = false;

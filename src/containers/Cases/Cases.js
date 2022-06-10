@@ -13,8 +13,6 @@ import CloseIcon from '@material-ui/icons/Close';
 import Alert from '@material-ui/lab/Alert';
 import IconButton from '@material-ui/core/IconButton';
 
-
-
 const Cases = () => {
   const dispatch = useDispatch()
   const current_user = useSelector((state) => (state.user.current_user))
