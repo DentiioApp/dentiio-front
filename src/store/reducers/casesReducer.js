@@ -22,15 +22,13 @@ import {
 
 import { favOrCase } from '../../utils'
 
-import config from '../../config'
-
 const INIT_STATE = {
   cases: {},
   casesFiltred: [],
   casesList: [],
   nbrCases: 1,
   casesLoaded: false,
-  currentCase: config.cache.currentCase,
+  currentCase: {},
   patient: {},
   openSideBar: false,
   favorites: [],

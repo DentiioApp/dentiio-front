@@ -1,5 +1,5 @@
 import './clinicCase.scss'
-import React, {useState} from 'react'
+import {useState} from 'react'
 import {useSelector, useDispatch} from 'react-redux'
 import {useHistory} from 'react-router-dom'
 import {useToasts} from 'react-toast-notifications'
@@ -14,7 +14,7 @@ import TextField from '@material-ui/core/TextField'
 import MenuItem from '@material-ui/core/MenuItem'
 import oStyle from '../../../../UI/ResponsiveDesign/AuthStyle'
 import {UPDATE_LEVEL, START_LOADER, STOP_LOADER, UPDATE_STEPPER_POSTCASE} from '../../../../../store/actions'
-import config from '../../../../../config'
+import {_config} from '../../../../../config/index'
 import {postCase} from '../../../../../services/Cases'
 import {postPatient} from '../../../../../services/Patient'
 import {errorApi} from '../../../../../utils'
@@ -27,7 +27,7 @@ const ClinicCase = (props) => {
     const dispatch = useDispatch()
     const {addToast} = useToasts()
     const history = useHistory()
-    const messages = config.messages.cases
+    const messages = _config.messages.cases
 
     const keywords = useSelector((state) => state.home.keywords)
     const specialities = useSelector((state) => state.home.specialities)

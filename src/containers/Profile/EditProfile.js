@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react'
+import {useEffect, useState} from 'react'
 import { makeStyles} from '@material-ui/core'
 import Button from '@material-ui/core/Button'
 import Grid from '@material-ui/core/Grid'
@@ -12,7 +12,7 @@ import Spinner from "../../components/UI/Dawers/Spinner";
 import SaveIcon from '@material-ui/icons/Save';
 import { useHistory } from 'react-router-dom'
 import {useToasts} from "react-toast-notifications";
-import config from "../../config";
+import {_config} from "../../config/index";
 import IconButton from "@material-ui/core/IconButton";
 import ArrowBackIcon from '@material-ui/icons/ArrowBack'
 import {SET_USER} from "../../store/actions";
@@ -42,7 +42,7 @@ const EditProfile = () => {
     const classes = useStyles()
     const {addToast} = useToasts()
     let history = useHistory()
-    const messages = config.messages.editUser
+    const messages = _config.messages.editUser
     const [item, setItem] = useState({})
     const [pseudo, setPseudo] = useState()
     const [email, setEmail] = useState()

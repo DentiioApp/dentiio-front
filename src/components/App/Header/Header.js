@@ -1,4 +1,3 @@
-import React from 'react'
 import { Link } from 'react-router-dom'
 import { useSelector } from 'react-redux'
 import { makeStyles } from '@material-ui/core/styles'
@@ -9,8 +8,8 @@ import TitleHeader from '../../UI/titleHeader/TitleHeader'
 import TitleHeaderMobile from '../../UI/titleHeader/titleHeaderMobile'
 import AddIcon from '../../UI/Icon/Header/Add'
 import HomeIcon from '../../UI/Icon/Header/home'
-import FavoritesIcon from '../../UI/Icon/Header/favorites'
-import NotificationIcon from '../../UI/Icon/Header/notification'
+// import FavoritesIcon from '../../UI/Icon/Header/favorites'
+// import NotificationIcon from '../../UI/Icon/Header/notification'
 import RightMenuIcon from '../../UI/RightMenuIcon/rightMenuIcon'
 import UserAvatar from '../../UI/Avatars/UserAvatar'
 import Button from "@material-ui/core/Button";
@@ -81,7 +80,7 @@ export const Header = (props) => {
           </div>*/}
           <div>
             <a href={"https://docs.google.com/forms/d/e/1FAIpQLSfgi6WlyYhqpOgG46G4iEUeTobpS_52J4mKvCZbSZr-FM0FnA/viewform"} target={"_blank"}
-            style={{textDecoration: "none"}}>
+            style={{textDecoration: "none"}} rel="noreferrer">
             <Button
                 variant="contained"
                 color="primary"

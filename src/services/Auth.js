@@ -3,7 +3,7 @@ import jwtDecode from 'jwt-decode'
 import {useDispatch} from "react-redux";
 import {UPLOAD_LICENCE} from "../store/actions";
 import {useToasts} from "react-toast-notifications";
-import config from "../config";
+import {_config} from "../config/index";
 
 const BEARER = 'Bearer '
 
@@ -27,7 +27,7 @@ export const setup = (tk) => {
   const dispatch = useDispatch()
   // eslint-disable-next-line react-hooks/rules-of-hooks
   const {addToast} = useToasts()
-  const messages = config.messages.auth
+  const messages = _config.messages.auth
 
 
   if (token) {

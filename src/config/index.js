@@ -1,4 +1,4 @@
-const config = {
+export const _config = {
   app: {
     uploadFilesLimit : 15,
     uploadFilesSizeLimit : 30000000,
@@ -22,7 +22,7 @@ const config = {
       averageNote: 0,
       commentaires: [{}],
       conclusion: 'none',
-      createdAt: '2000-01)à1T00/00/00+02:00',
+      createdAt: '2000-01à1T00/00/00+02:00',
       evolution: 'none',
       // id:0,
       isEnabled: 'false',
@@ -129,5 +129,3 @@ const config = {
     }
   }
 }
-
-export default config

@@ -1,5 +1,5 @@
 import './patient.scss'
-import React, { useState } from 'react'
+import { useState } from 'react'
 import { useDispatch } from 'react-redux'
 import {
   Switch,
@@ -12,7 +12,7 @@ import TextField from '@material-ui/core/TextField'
 import SmokingRoomsIcon from '@material-ui/icons/SmokingRooms'
 import { DropzoneArea } from 'material-ui-dropzone';
 import LocalBarIcon from '@material-ui/icons/LocalBar'
-import config from '../../../../../config'
+import {_config} from '../../../../../config/index'
 
 import oStyle from '../../../../UI/ResponsiveDesign/AuthStyle'
 import { UPDATE_LEVEL, UPDATE_STEPPER_POSTCASE } from '../../../../../store/actions'
@@ -27,7 +27,7 @@ const Patient = (props) => {
   const classes = useStyles()
   const dispatch = useDispatch()
 
-  const { ages, sexes } = config
+  const { ages, sexes } = _config
 
   const initVals = {
     errAge: false,
@@ -57,9 +57,9 @@ const Patient = (props) => {
     }
   }
 
-  const sendRequest = async (licenceBase64) => {
-    // return await saveCardandJob(getUserId(), licenceBase64, values.job)
-  }
+  // const sendRequest = async (licenceBase64) => {
+  //   return await saveCardandJob(getUserId(), licenceBase64, values.job)
+  // }
 
 
   const getUploadParams = () => {
@@ -233,7 +233,7 @@ const Patient = (props) => {
                   previewGridProps={{ container: { spacing: 1, direction: 'row' } }}
                   previewText="Selected files"
                   getUploadParams={getUploadParams}
-                  onChangeStatus={handleChangeStatus}
+                  // onChangeStatus={handleChangeStatus}
                   onChange={props.onChange('exam_pics')}
                   //initialFiles={[Object(props.exam_pics)]}
                 />

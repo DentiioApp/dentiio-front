@@ -3,7 +3,7 @@ import { Grid, Paper } from "@material-ui/core";
 import Fab from "@material-ui/core/Fab";
 import TextField from "@material-ui/core/TextField";
 import SendIcon from "@material-ui/icons/Send";
-import React, { useState } from "react";
+import { useState } from "react";
 import { useSelector } from "react-redux";
 import { sendComments } from "../../../../services/Comment";
 import UserAvatar from "../../../UI/Avatars/UserAvatar";

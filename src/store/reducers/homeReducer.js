@@ -1,5 +1,5 @@
 
-import conf from '../../config'
+import {_config} from '../../config/index'
 
 const INIT_STATE = {
   loader: false,
@@ -10,7 +10,7 @@ const INIT_STATE = {
   users: [],
 
   login: false,
-  config: { conf },
+  config: { _config },
   internet: false,
 
   keywords: [],

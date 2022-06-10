@@ -76,13 +76,14 @@ export const post_images = async (files, id_clinical_omni, type) => {
   let incre_index_img = 0;
   let stop = false;
   let IS_PRINCIPAL = false;
-  let errorSend = false
+  let errorSend = false;
 
   const intervalID = setInterval( () => {
     if (incre_index_img < files.length) {
       IS_PRINCIPAL = incre_index_img ? true : false;
       
-      insertImage(files[incre_index_img], id_clinical_omni, IS_PRINCIPAL, type).then((res)=>{
+      insertImage(files[incre_index_img], id_clinical_omni, IS_PRINCIPAL, type)
+      .then((res)=>{
         if(res.datas?.id) {
           errorSend = true;
         }
@@ -90,7 +91,9 @@ export const post_images = async (files, id_clinical_omni, type) => {
       }).then(resp => {
         localStorage.setItem('directory', resp.datas.path)
       })
+
       incre_index_img += 1;
+
       if(files[incre_index_img-1] !== undefined) {
         if(type === TREAT_TYPE && incre_index_img === files.length){localStorage.setItem('finishloadimgTREAT', files[incre_index_img-1].name)}
         if(type === EXAM_TYPE && incre_index_img === files.length){localStorage.setItem('finishloadimgEXAM', files[incre_index_img-1].name)}
@@ -98,7 +101,6 @@ export const post_images = async (files, id_clinical_omni, type) => {
       
     } else {
       stop = true;
-      
     }
 
     if (stop) clearInterval(intervalID);

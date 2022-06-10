@@ -1,10 +1,10 @@
-import { createMuiTheme } from '@material-ui/core/styles'
+import { createTheme } from '@material-ui/core/styles'
 
 function User (){
   return 'light'
 }
 
-const ColorTheme = createMuiTheme({
+const ColorTheme = createTheme({
   palette: {
     // FOR DARK MODE
     type: User(),

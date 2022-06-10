@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import { useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import Header from '../../components/App/Header/Header'
 import Container from '@material-ui/core/Container'

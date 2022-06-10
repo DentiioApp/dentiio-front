@@ -3,7 +3,7 @@ import { Redirect } from 'react-router-dom'
 import CasesList from '../../components/App/Cases/CasesList/CasesList'
 import { useDispatch, useSelector } from 'react-redux'
 import Header from '../../components/App/Header/Header'
-import Search from '../../components/UI/Search/CasesSearch/CasesSearch'
+// import Search from '../../components/UI/Search/CasesSearch/CasesSearch'
 import { setup } from '../../services/Auth'
 import { getUserById, getUserId } from '../../services/Users'
 import { SET_USER } from '../../store/actions'
@@ -12,8 +12,6 @@ import Collapse from '@material-ui/core/Collapse';
 import CloseIcon from '@material-ui/icons/Close';
 import Alert from '@material-ui/lab/Alert';
 import IconButton from '@material-ui/core/IconButton';
-
-
 
 const Cases = () => {
   const dispatch = useDispatch()

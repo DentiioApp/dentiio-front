@@ -1,8 +1,7 @@
-import React from 'react'
 import Typography from '@material-ui/core/Typography'
 import Skeleton from "@material-ui/lab/Skeleton";
 import CardContent from "@material-ui/core/CardContent";
-import CardActions from "@material-ui/core/CardActions/CardActions";
+// import CardActions from "@material-ui/core/CardActions/CardActions";
 import Card from "@material-ui/core/Card/Card";
 
 const LoadingCasesList = () => {
