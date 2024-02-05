@@ -36,7 +36,7 @@
     "redux-persist": "^6.0.0",
     "redux-persist-filesystem-storage": "^3.0.0",
     "redux-thunk": "^2.3.0",
-    "yarn": "^1.22.10"
+    "yarn": "^1.22.13"
   },
   "scripts": {
     "start": "react-scripts start",
